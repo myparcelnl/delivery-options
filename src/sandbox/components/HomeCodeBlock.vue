@@ -152,7 +152,16 @@ export default {
           value = JSON.stringify(this.mutableCode, null, 2);
           break;
         case CODE_FORMAT_JAVASCRIPT_ES6:
-          value = `document.dispatchEvent(new CustomEvent('${EVENTS.UPDATE_DELIVERY_OPTIONS}', { detail: ${code}}));`;
+          value = `const config = ${code};
+
+// Initial creation of delivery options.
+const event = '${EVENTS.UPDATE_DELIVERY_OPTIONS}';
+
+// To change the config after it's already rendered.
+const event = '${EVENTS.UPDATE_CONFIG_IN}';
+
+document.dispatchEvent(new CustomEvent(event, {detail: config});
+`;
           break;
         case CODE_FORMAT_JAVASCRIPT:
           value = `window.MyParcelConfig = ${code};`;
