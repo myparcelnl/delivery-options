@@ -5,6 +5,7 @@
   "author": "Edie Lemoine (edie@myparcel.nl)",
   "scripts": {
     "serve": "vue-cli-service serve",
+    "serve-bare": "vue-cli-service serve src/delivery-options/main.js",
     "lint": "eslint --quiet .",
     "build:dev": "vue-cli-service build --mode development",
     "build": "vue-cli-service build --report",
