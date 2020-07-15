@@ -7,13 +7,13 @@ import mergeWith from 'lodash-es/mergeWith';
 /**
  * Get data from the window config object and convert some variables.
  *
+ * @param {?MyParcelDeliveryOptions.Configuration} configuration - Data to merge with the default configuration.
+ *
  * @returns {MyParcelDeliveryOptions.Configuration}
  */
-export const getConfig = () => {
-  const windowObject = getWindowObject();
-
+export const getConfig = (configuration = getWindowObject()) => {
   // Get the given platform or fall back to default
-  const platform = windowObject.config ? windowObject.config.platform : DEFAULT_PLATFORM;
+  const platform = configuration.config ? configuration.config.platform : DEFAULT_PLATFORM;
 
   /**
    * Customizer function for lodash mergeWith().
@@ -38,5 +38,5 @@ export const getConfig = () => {
    *
    * @see https://lodash.cobm/docs/4.17.15#mergeWith
    */
-  return mergeWith({}, defaultConfiguration(platform), windowObject, customizer);
+  return mergeWith({}, defaultConfiguration(platform), configuration, customizer);
 };

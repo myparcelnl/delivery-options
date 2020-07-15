@@ -213,7 +213,8 @@ export const createConfigBus = (eventCallee = null) => {
     created() {
       // Load the configuration.
       const initialize = (event) => {
-        const configuration = event ? event.detail : getConfig();
+        const configFromEvent = event && event.detail ? event.detail : undefined;
+        const configuration = getConfig(configFromEvent);
 
         /**
          * The configuration data.
