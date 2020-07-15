@@ -189,13 +189,12 @@ declare namespace MyParcelDeliveryOptions {
   interface CarrierData {
     id: number
     name: MyParcel.CarrierName
-    human: string
-    meta: {
-      logo_png: string
-      logo_svg: string
-    },
-    deliveryEnabled?: boolean,
+    label: string
+    image: string
+    deliveryEnabled?: boolean
     pickupEnabled?: boolean
+    pickupCountries?: String[]
+    deliverCountries?: String[]
   }
 
   interface Timestamp {

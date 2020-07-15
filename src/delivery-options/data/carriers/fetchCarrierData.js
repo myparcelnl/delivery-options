@@ -6,7 +6,7 @@ import { formatCarrierResponse } from '@/delivery-options/data/carriers/formatCa
  *
  * @param {MyParcel.CarrierNameOrId} carrier
  *
- * @returns {Promise<Object>}
+ * @returns {Promise<MyParcelDeliveryOptions.CarrierData[]>}
  */
 export async function fetchCarrierData(carrier = null) {
   const params = {};
