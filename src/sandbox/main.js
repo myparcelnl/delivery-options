@@ -26,4 +26,4 @@ export const app = new Vue({
   name: 'MyParcelDeliveryOptionsSandbox',
   i18n,
   render: (h) => h(Sandbox),
-}).$mount('#app');
+}).$mount(`#${process.env.VUE_APP_CLASS_BASE}`);
