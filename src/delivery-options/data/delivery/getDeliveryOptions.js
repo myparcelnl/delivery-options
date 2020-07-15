@@ -19,16 +19,22 @@ export function getDeliveryOptions() {
     label: STRINGS.DELIVERY_TITLE,
     type: 'radio',
     // If multi carrier, return another level of settings and their options based on carrier.
-    options: configBus.hasMultipleDeliveryCarriers
-      ? [{
-        name: CARRIER,
-        type: 'radio',
-        choices: configBus.carrierDataWithDeliveryOptions.map((carrier) => ({
+    options: [{
+      name: CARRIER,
+      type: configBus.hasMultipleDeliveryCarriers ? 'radio' : 'heading',
+      choices: configBus.carrierDataWithDeliveryOptions.map((carrier) => {
+        const choices = {
           ...carrier,
           class: `${Vue.prototype.$classBase}__spacing--md`,
           options: () => createDeliveryOptions(carrier.name),
-        })),
-      }]
-      : createDeliveryOptions,
+        };
+
+        if (!configBus.hasMultipleDeliveryCarriers) {
+          delete choices.image;
+        }
+
+        return choices;
+      }),
+    }],
   };
 }
