@@ -7,16 +7,16 @@ import { configBus } from '@/delivery-options/config/configBus';
  *
  * @param {Array} pickupLocations - Response array from /pickup_locations.
  *
- * @returns {Array}
+ * @returns {MyParcelDeliveryOptions.PickupLocation[]}
  */
 export function sortPickupLocations(pickupLocations) {
   const hasDistance = configBus.isEnabled(FEATURE_PICKUP_SHOW_DISTANCE);
-  const sortKey = hasDistance ? 'distance' : 'location_name';
 
   return pickupLocations.sort(({ location: locationA }, { location: locationB }) => {
-    const comparisonA = locationA[sortKey];
-    const comparisonB = locationB[sortKey];
+    if (hasDistance) {
+      return locationA.distance - locationB.distance;
+    }
 
-    return comparisonA < comparisonB ? -1 : 1;
+    return locationA.location_name < locationB.location_name ? -1 : 1;
   });
 }
