@@ -37,7 +37,7 @@ module.exports = {
     extract: false,
     loaderOptions: {
       sass: {
-        prependData: `$classBase: '${VUE_APP_CLASS_BASE}';`,
+        additionalData: `$classBase: '${VUE_APP_CLASS_BASE}';`,
       },
     },
   },
