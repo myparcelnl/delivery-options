@@ -1,10 +1,11 @@
 <template>
   <td>
-    <div>
-      <button
+    <div class="pb-2">
+      <CButton
         @click="selected = views.list"
         v-text="$configBus.strings.pickupLocationsListButton" />
-      <button
+      <CButton
+        class="ml-1"
         @click="selected = views.map"
         v-text="$configBus.strings.pickupLocationsMapButton" />
     </div>
@@ -29,6 +30,7 @@
 <script>
 import * as CONFIG from '@/data/keys/configKeys';
 import * as FORM from '@/config/formConfig';
+import CButton from '@/delivery-options/components/CButton';
 import Leaflet from '@/delivery-options/components/Pickup/Map/Leaflet';
 import PickupOption from '@/delivery-options/components/Pickup/PickupOption';
 
@@ -37,7 +39,7 @@ const LIST_VIEW = 'list';
 
 export default {
   name: 'Pickup',
-  components: { Leaflet },
+  components: { CButton, Leaflet },
   props: {
     data: {
       type: Object,
