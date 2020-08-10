@@ -1,11 +1,11 @@
-const { createConfig, deliveryOptions } = require('./config-variables');
+const { createConfig } = require('./config-variables');
 
 /**
  * The base delivery options build. Includes all Vue code and compiles everything into one file.
  *
  * @type {webpack.Configuration}
  */
-const deliveryOptionsConfig = createConfig(deliveryOptions, null, {
+const deliveryOptionsConfig = createConfig('Delivery Options', null, {
   entry: '@/delivery-options/main.js',
   output: {
     filename: 'myparcel.js',
