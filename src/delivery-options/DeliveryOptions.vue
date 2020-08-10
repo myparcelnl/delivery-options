@@ -33,11 +33,11 @@
 import * as CONFIG from '@/data/keys/configKeys';
 import * as EVENTS from '@/config/eventConfig';
 import * as FORM from '@/config/formConfig';
+import { NL, addressRequirements } from '@/config/localeConfig';
 import { ADDRESS_ERROR } from '@/config/errorConfig';
 import Errors from '@/delivery-options/components/Errors';
 import Loader from '@/delivery-options/components/Loader';
 import Modal from '@/delivery-options/components/Modal';
-import { addressRequirements } from '@/config/localeConfig';
 import { configBus } from '@/delivery-options/config/configBus';
 import debounce from 'lodash-es/debounce';
 import { fetchAllCarriers } from '@/delivery-options/data/carriers/fetchAllCarriers';
@@ -111,20 +111,25 @@ export default {
           }
 
           this.showDeliveryOptions = true;
-          this.listeners.update();
+          this.fakeShowDeliveryOptions = true;
           document.addEventListener(EVENTS.UPDATE_DELIVERY_OPTIONS, this.listeners.update);
+          this.listeners.update();
         },
         hide: () => {
           this.$configBus.exportValues = {};
           this.fakeShowDeliveryOptions = false;
 
-          const listenForLastUpdate = () => {
+          const onLastUpdate = () => {
             this.showDeliveryOptions = false;
             document.removeEventListener(EVENTS.UPDATE_DELIVERY_OPTIONS, this.listeners.update);
-            document.removeEventListener(EVENTS.UPDATED_DELIVERY_OPTIONS, listenForLastUpdate);
+            document.removeEventListener(EVENTS.UPDATED_DELIVERY_OPTIONS, onLastUpdate);
+
+            clearTimeout(lastUpdateTimeout);
           };
 
-          document.addEventListener(EVENTS.UPDATED_DELIVERY_OPTIONS, listenForLastUpdate);
+          const LAST_UPDATE_CUTOFF = 500;
+          const lastUpdateTimeout = setTimeout(onLastUpdate, LAST_UPDATE_CUTOFF);
+          document.addEventListener(EVENTS.UPDATED_DELIVERY_OPTIONS, onLastUpdate);
         },
         update: debounce(this.getDeliveryOptions, DEBOUNCE_DELAY),
         updateExternal: debounce(this.updateExternal, DEBOUNCE_DELAY),
@@ -148,7 +153,7 @@ export default {
       }
 
       const { cc } = this.$configBus.address;
-      const requirements = addressRequirements[addressRequirements.hasOwnProperty(cc) ? cc : 'nl'];
+      const requirements = addressRequirements[addressRequirements.hasOwnProperty(cc) ? cc : NL];
 
       const meetsRequirements = (item) => {
         return this.$configBus.address.hasOwnProperty(item) && this.$configBus.address[item];
@@ -344,8 +349,8 @@ export default {
      * Trigger an update on the checkout. Throttled to avoid overloading the external platform with updates.
      *
      * @param {Object|Boolean} data - If data is false, sends empty update.
-     * @property {String} data.name - Name of the changed option (if called through update).
-     * @property {*} data.value - New value of the changed option (if called through update).
+     * @param {String} data.name - Name of the changed option (if called through update).
+     * @param {*} data.value - New value of the changed option (if called through update).
      */
     updateExternal(data) {
       const isEmptied = data === false || (data.name === FORM.DELIVERY && data.value === null);
