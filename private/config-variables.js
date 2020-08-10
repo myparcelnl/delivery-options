@@ -1,8 +1,6 @@
 const webpack = require('webpack');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
-const deliveryOptions = 'Delivery Options';
-
 /**
  * @param {String} name - Name.
  * @param {String} slug - Slug to use for folders and such.
@@ -27,7 +25,8 @@ function createConfig(name, slug = null, config = {}) {
     },
 
     plugins: [
-      new webpack.BannerPlugin(`MyParcel ${name} ${process.env.VUE_APP_VERSION}`),
+      // eslint-disable-next-line vue/max-len,max-len
+      new webpack.BannerPlugin(`MyParcel ${name} ${process.env.npm_package_version} [${process.env.npm_package_gitHead}]`),
       new BundleAnalyzerPlugin({
         analyzerMode: 'static',
         defaultSizes: 'parsed',
@@ -41,4 +40,4 @@ function createConfig(name, slug = null, config = {}) {
   };
 }
 
-module.exports = { createConfig, deliveryOptions };
+module.exports = { createConfig };
