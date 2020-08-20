@@ -1,5 +1,5 @@
 import { getDependencies } from '@/delivery-options/components/RecursiveForm/getDependencies';
-import { mockConfigBus } from '../mockConfigBus';
+import { mockConfigBus } from '@Tests/unit/delivery-options/mockConfigBus';
 
 const getDependenciesCases = [
   {

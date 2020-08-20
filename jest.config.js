@@ -1,5 +1,6 @@
 module.exports = {
   moduleFileExtensions: ['js', 'jsx', 'json', 'vue'],
+  testTimeout: 10000,
   transform: {
     '^.+\\.vue$': 'vue-jest',
     '^.+\\.(css|styl|less|sass|scss|svg|png|jpg|ttf|woff|woff2)$': 'jest-transform-stub',
@@ -15,13 +16,18 @@ module.exports = {
   ],
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
+    '^@Tests/(.*)$': '<rootDir>/tests/$1',
+    '^@Mocks/(.*)$': '<rootDir>/tests/__mocks__/$1',
     '^!?raw-loader!(.*)': '<rootDir>/tests/__mocks__/rawLoader.js',
   },
   snapshotSerializers: ['jest-serializer-vue'],
   testMatch: [
     '<rootDir>/tests/unit/**/*.spec.(js|jsx|ts|tsx)',
   ],
-  setupFilesAfterEnv: ['<rootDir>/tests/jest-setup'],
+  setupFilesAfterEnv: [
+    '@testing-library/jest-dom',
+    '<rootDir>/tests/jest-setup',
+  ],
   testURL: 'http://localhost/',
   watchPlugins: [
     'jest-watch-typeahead/filename',

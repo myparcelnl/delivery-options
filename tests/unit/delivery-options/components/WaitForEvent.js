@@ -1,0 +1,23 @@
+import Vue from 'vue';
+
+/**
+ * @param {String} event - Event name.
+ * @param {Vue|Document} subject
+ *
+ * @returns {Promise}
+ */
+export function waitForEvent(event, subject = document) {
+  const isVue = subject instanceof Vue;
+
+  const add = isVue ? '$on' : 'addEventListener';
+  const remove = isVue ? '$off' : 'removeEventListener';
+
+  return new Promise((resolve) => {
+    const listener = () => {
+      subject[remove](event, listener);
+      resolve();
+    };
+
+    subject[add](event, listener);
+  });
+}

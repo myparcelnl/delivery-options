@@ -4,6 +4,7 @@
     class="d-flex flex-column">
     <div
       v-show="codeShown"
+      v-test="'code'"
       @click="hideCode">
       <CCodeDisplay
         class="mt-0 text-pre"
@@ -12,6 +13,7 @@
     </div>
     <pre
       v-show="!codeShown"
+      v-test="'text'"
       class="card code code--text overflow-visible text-pre">
       <CTextarea
         v-model="mutableValue"

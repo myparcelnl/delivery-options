@@ -2,9 +2,11 @@
   <td>
     <div class="pb-2">
       <CButton
+        v-test="'button--list'"
         @click="selected = views.list"
         v-text="$configBus.strings.pickupLocationsListButton" />
       <CButton
+        v-test="'button--map'"
         class="ml-1"
         @click="selected = views.map"
         v-text="$configBus.strings.pickupLocationsMapButton" />
@@ -14,6 +16,7 @@
       <div :class="$classBase + '__pickup-locations--list'">
         <recursive-form
           v-if="selected === views.list"
+          v-test="'view--list'"
           :option="listOption" />
       </div>
     </transition>
@@ -21,6 +24,7 @@
       <keep-alive>
         <Leaflet
           v-if="selected === views.map"
+          v-test="'view--map'"
           :data="data" />
       </keep-alive>
     </transition>
