@@ -1,7 +1,6 @@
 # MyParcel Delivery Options
-![Build Status](https://github.com/myparcelnl/delivery-options/workflows/Build/badge.svg?branch=master)
-[![Coverage Status](https://coveralls.io/repos/github/myparcelnl/delivery-options/badge.svg?branch=master)](https://coveralls.io/github/myparcelnl/delivery-options?branch=master)
-
+[![NPM](https://img.shields.io/npm/v/@myparcel/delivery-options)](https://www.npmjs.com/package/@myparcel/delivery-options/)
+[![Coverage Status](https://img.shields.io/codecov/c/github/myparcelnl/delivery-options?logo=codecov)](https://codecov.io/gh/myparcelnl/delivery-options)
 
 ## Introduction
 This is the MyParcel delivery options module for use in any e-commerce platform's checkout, by [MyParcel], [SendMyParcel] and [Flespakket] customers. It's used to show your customers the possible delivery and/or pickup options for their location, based on your settings. It only has the bare minimum css styling so it should integrate with the design of your webshop easily.
