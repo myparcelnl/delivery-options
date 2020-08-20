@@ -30,7 +30,7 @@
 import CTextarea from '@/sandbox/components/form/CTextarea';
 import ClickOutside from 'vue-click-outside';
 import { formTextarea } from '@/sandbox/services/mixins/formTextarea';
-import { formatCode } from '@/delivery-options/services/filters/formatCode';
+import { formatCode } from '@/sandbox/services/filters/formatCode';
 
 export default {
   name: 'CCodeEditor',
