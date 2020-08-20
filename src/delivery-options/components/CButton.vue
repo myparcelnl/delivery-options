@@ -1,7 +1,7 @@
 <template>
   <button
     :class="$classBase + '__button'"
-    @click="() => $emit('click', $event)" />
+    @click="(event) => $emit('click', event)" />
 </template>
 
 <script>
