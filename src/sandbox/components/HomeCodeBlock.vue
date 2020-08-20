@@ -25,7 +25,7 @@ import {
 import CRadioGroup from '@/sandbox/components/form/CRadioGroup';
 import debounce from 'lodash-es/debounce';
 import { flattenObject } from '@/helpers/flattenObject';
-import { formatCode } from '@/delivery-options/services/filters/formatCode';
+import { formatCode } from '@/sandbox/services/filters/formatCode';
 import intersection from 'lodash-es/intersection';
 import last from 'lodash-es/last';
 import pick from 'lodash-es/pick';
