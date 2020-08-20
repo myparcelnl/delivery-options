@@ -354,26 +354,6 @@ export const createConfigBus = (eventCallee = null) => {
       },
 
       /**
-       * Unset a property from the values object.
-       *
-       * @param {String} name - Name of the property to remove.
-       */
-      unsetExportValue(...name) {
-        name.forEach((name) => delete this.exportValues[name]);
-      },
-
-      /**
-       * Check if a value is present in the exportValues object.
-       *
-       * @param {String} name - Name of the item to check for.
-       *
-       * @returns {Boolean}
-       */
-      hasExportValue(name) {
-        return !!this.exportValues[name];
-      },
-
-      /**
        * @param {MyParcel.CarrierName} carrierName - Carrier name.
        *
        * @returns {Object}
