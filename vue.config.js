@@ -1,4 +1,5 @@
 const { deliveryOptionsConfig } = require('./private/delivery-options.config');
+const path = require('path');
 const { sandboxConfig } = require('./private/sandbox.config');
 const webpack = require('webpack');
 const { version, repository } = require('./package.json');
@@ -58,6 +59,11 @@ module.exports = {
   configureWebpack: {
     resolve: {
       symlinks: false,
+      alias: {
+        '@': path.join(__dirname, 'src/'),
+        '@Tests': path.join(__dirname, 'tests/'),
+        '@Mocks': path.join(__dirname, 'tests/__mocks__/'),
+      },
     },
     plugins: [
       new webpack.EnvironmentPlugin({

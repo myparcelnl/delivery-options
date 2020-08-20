@@ -1,7 +1,7 @@
 import RecursiveForm from '@/delivery-options/components/RecursiveForm/RecursiveForm';
 import { SENDMYPARCEL } from '@/data/keys/platformKeys';
 import { defaultConfiguration } from '@/config/defaultConfiguration';
-import { mockVue } from '../mockVue';
+import { mockVue } from '@Tests/unit/delivery-options/mockVue';
 import { mount } from '@vue/test-utils';
 
 describe('RecursiveForm.vue', () => {
