@@ -43,10 +43,13 @@ jobs:
         env:
           NODE_ICU_DATA: node_modules/full-icu
 
-      - name: Update coverage
+      - name: Coveralls
         uses: coverallsapp/github-action@master
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Codecov
+        uses: codecov/codecov-action@v1.0.13
 
   release:
     name: Publish
