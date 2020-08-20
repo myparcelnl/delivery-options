@@ -1,6 +1,6 @@
 import { SENDMYPARCEL } from '@/data/keys/platformKeys';
-import { fakePickupLocationsResponse } from '../../__mocks__/modules/@myparcel/js-sdk/fakePickupLocationsResponse';
-import { mockConfigBus } from './mockConfigBus';
+import { fakePickupLocationsResponse } from '@Mocks/modules/@myparcel/js-sdk/fakePickupLocationsResponse';
+import { mockConfigBus } from '@Tests/unit/delivery-options/mockConfigBus';
 import { sortPickupLocations } from '@/delivery-options/data/pickup/sortPickupLocations';
 
 describe('sorting pickup locations', () => {

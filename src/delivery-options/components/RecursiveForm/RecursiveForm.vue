@@ -15,8 +15,11 @@
     :class="`${$classBase}__table`">
     <tr
       v-for="choice in validChoices"
-      :key="mutableOption.name + '_' + choice.name"
-      v-test
+      :key="mutableOption.name + '--' + choice.name"
+      v-test="{
+        id: mutableOption.name,
+        choice: choice.name,
+      }"
       :class="{
         [`${$classBase}__choice`]: true,
         [`${$classBase}__choice--has-image`]: choice.hasOwnProperty('image'),
@@ -30,7 +33,10 @@
             v-if="mutableOption.type === 'checkbox'"
             :id="`${$classBase}__${mutableOption.name}--${choice.name}`"
             v-model="selected[choice.name]"
-            v-test
+            v-test="{
+              id: mutableOption.name + '__input',
+              choice: choice.name,
+            }"
             :class="choice.class"
             type="checkbox"
             :name="mutableOption.name"
@@ -41,7 +47,10 @@
             v-else
             :id="`${$classBase}__${mutableOption.name}--${choice.name}`"
             v-model="selected"
-            v-test
+            v-test="{
+              id: mutableOption.name + '__input',
+              choice: choice.name,
+            }"
             :class="choice.class"
             :type="mutableOption.type"
             :disabled="choice.disabled || validChoices.length === 1 ? 'disabled' : false"
@@ -52,7 +61,10 @@
       <component
         :is="mutableOption.component"
         v-if="mutableOption.hasOwnProperty('component')"
-        v-test="`${mutableOption.name}--${choice.name}__${mutableOption.component.name}`"
+        v-test="{
+          id: `${mutableOption.name}__${mutableOption.component.name}`,
+          choice: choice.name,
+        }"
         :colspan="validChoices.length <= 1 ? null : !!choice.price ? 1 : 2"
         :data="choice"
         :is-selected="isSelected(choice)" />
@@ -104,7 +116,7 @@
           appear>
           <recursive-form
             v-for="subOption in chosenOptions"
-            :key="choice.name + '_' + subOption.name"
+            :key="choice.name + '--' + subOption.name"
             :option="subOption"
             :loading="loading" />
         </transition-group>
@@ -112,9 +124,10 @@
     </tr>
     <tr v-if="hasPagination && mutablePagination < mutableChoices.length">
       <td colspan="2">
-        <div :class="[`${$classBase}__button`]">
+        <div :class="`${$classBase}__button`">
           <hr>
           <a
+            v-test="'button--load-more'"
             href="#"
             @click.prevent="mutablePagination = mutablePagination + mutableOption.pagination"
             v-text="$configBus.strings.loadMore" />
@@ -139,7 +152,7 @@
             :name="mutableOption.name">
             <option
               v-for="(selectChoice, index) of mutableChoices"
-              :key="index + '_' + selectChoice.name"
+              :key="index + '--' + selectChoice.name"
               :value="selectChoice.name"
               v-text="selectChoice.label" />
           </select>

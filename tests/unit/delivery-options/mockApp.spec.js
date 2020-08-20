@@ -2,13 +2,13 @@ import Vue from 'vue';
 import { Wrapper } from '@vue/test-utils';
 import { configBus } from '@/delivery-options/config/configBus';
 import { defaultConfiguration } from '@/config/defaultConfiguration';
-import { mockApp } from './mockApp';
+import { mockDeliveryOptions } from './mockDeliveryOptions';
 
 describe('app mocking', () => {
   let app;
 
-  test('sets up the default config correctly', async() => {
-    app = await mockApp();
+  it('sets up the default config correctly', async() => {
+    app = await mockDeliveryOptions();
 
     expect(app).toBeInstanceOf(Wrapper);
     expect(configBus).toBeInstanceOf(Vue);

@@ -3,7 +3,7 @@ import PickupOption from '@/delivery-options/components/Pickup/PickupOption';
 import { SENDMYPARCEL } from '@/data/keys/platformKeys';
 import { defaultAddress } from '@/data/defaultAddress';
 import { defaultConfiguration } from '@/config/defaultConfiguration';
-import { mockVue } from './mockVue';
+import { mockVue } from '@Tests/unit/delivery-options/mockVue';
 import { mount } from '@vue/test-utils';
 
 describe('PickupOption.vue', () => {

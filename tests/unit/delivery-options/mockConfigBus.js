@@ -16,15 +16,17 @@ import mergeWith from 'lodash-es/mergeWith';
  * @returns {import('@/delivery-options/config/configBus')}
  */
 export const mockConfigBus = (data = DEFAULT_PLATFORM) => {
-  const platformInConfig = data.hasOwnProperty(CONFIG.KEY) && data[CONFIG.KEY].hasOwnProperty(CONFIG.PLATFORM);
-
-  let platform = platformInConfig
-    ? data[CONFIG.KEY][CONFIG.PLATFORM]
-    : DEFAULT_PLATFORM;
+  let platform;
 
   if (typeof data === 'string') {
     platform = data;
     data = {};
+  } else {
+    const platformInConfig = data.hasOwnProperty(CONFIG.KEY) && data[CONFIG.KEY].hasOwnProperty(CONFIG.PLATFORM);
+
+    platform = platformInConfig
+      ? data[CONFIG.KEY][CONFIG.PLATFORM]
+      : DEFAULT_PLATFORM;
   }
 
   // Merge data into the default config.
