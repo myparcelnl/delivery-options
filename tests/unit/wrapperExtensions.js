@@ -16,7 +16,7 @@ export const addWrapperExtensions = (wrapper) => {
 
     /**
      * @param {String} id
-     * @returns {Wrapper}
+     * @returns {WrapperArray}
      */
     findAllByTestId(id) {
       return wrapper.findAll(dataTest(id));

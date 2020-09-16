@@ -1,21 +1,21 @@
 import { baseMockApp } from '../baseMockApp';
 
 /**
+ * @param {Object} configBusData
+ * @param {Object} wrapperData
  * @param {Object} component
- * @param {Object} options
- *
  * @returns {Wrapper}
  */
-export function mockDeliveryOptions(component = null, options = {}) {
-  return baseMockApp('delivery-options', component, options, false);
+export function mockDeliveryOptions(configBusData = null, wrapperData = null, component = null) {
+  return baseMockApp('delivery-options', component, configBusData, wrapperData, false);
 }
 
 /**
+ * @param {Object} configBusData
+ * @param {Object} wrapperData
  * @param {Object} component
- * @param {Object} options
- *
  * @returns {Wrapper}
  */
-export function shallowMockDeliveryOptions(component = null, options = {}) {
-  return baseMockApp('delivery-options', component, options, true);
+export function shallowMockDeliveryOptions(configBusData = null, wrapperData = null, component = null) {
+  return baseMockApp('delivery-options', component, configBusData, wrapperData, true);
 }

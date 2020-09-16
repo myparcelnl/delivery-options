@@ -1,4 +1,4 @@
-export const fakeCarriersResponse = [
+const allCarrierData = [
   {
     id: 1,
     name: 'postnl',
@@ -27,3 +27,13 @@ export const fakeCarriersResponse = [
     },
   },
 ];
+
+/**
+ * @param {Object} args
+ * @param {MyParcel.CarrierName} args.carrier
+ *
+ * @returns {Object[]}
+ */
+export const fakeCarriersResponse = (args) => {
+  return allCarrierData.filter(({ name }) => name === args.carrier);
+};

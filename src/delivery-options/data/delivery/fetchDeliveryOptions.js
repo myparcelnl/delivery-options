@@ -1,5 +1,5 @@
 import * as CONFIG from '@/data/keys/configKeys';
-import { fetchFromEndpoint, METHOD_SEARCH } from '@/delivery-options/data/request/fetchFromEndpoint';
+import { METHOD_SEARCH, fetchFromEndpoint } from '@/delivery-options/data/request/fetchFromEndpoint';
 import { allowedInCarrier } from '@/sandbox/settings/conditions/allowedInCarrier';
 import { configBus } from '@/delivery-options/config/configBus';
 import { getRequestParameters } from '@/delivery-options/data/request/getRequestParameters';

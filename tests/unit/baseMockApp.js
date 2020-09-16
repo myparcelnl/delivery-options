@@ -1,3 +1,4 @@
+/* eslint-disable max-params */
 import { mount, shallowMount } from '@vue/test-utils';
 import DeliveryOptions from '@/delivery-options/DeliveryOptions';
 import { MYPARCEL } from '@/data/keys/platformKeys';
@@ -10,16 +11,21 @@ import { mockVue as mockSandboxVue } from './sandbox/mockVue';
 /**
  * @param {String} app
  * @param {Object} component
- * @param {Object|MyParcel.CarrierName} data - Parameters to pass to mockConfigBus().
+ * @param {Object|MyParcel.CarrierName} configBusData - Parameters to pass to mockConfigBus().
+ * @param {Object} wrapperData
  * @param {Boolean} shallow - Whether or not to do a shallow mount.
  * @returns {Wrapper}
  */
 export function baseMockApp(
   app,
   component,
-  data = MYPARCEL,
+  configBusData = null,
+  wrapperData = null,
   shallow = false,
 ) {
+  configBusData = configBusData || MYPARCEL;
+  wrapperData = wrapperData || {};
+
   const isSandbox = app === 'sandbox';
   const fallbackComponent = isSandbox ? Sandbox : DeliveryOptions;
   const mockFunction = isSandbox ? mockSandboxVue : mockDeliveryOptionsVue;
@@ -28,9 +34,9 @@ export function baseMockApp(
   const wrapper = mountFunction(
     component || fallbackComponent,
     {
-      localVue: data.localVue || mockFunction(),
+      localVue: wrapperData.localVue || mockFunction(configBusData),
       i18n,
-      ...data,
+      ...wrapperData,
     },
   );
 
