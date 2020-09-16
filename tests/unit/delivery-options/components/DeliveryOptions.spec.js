@@ -9,7 +9,7 @@ import { createWaitableMock } from '@Tests/unit/createWaitableMock';
 import { defaultAddress } from '@/data/defaultAddress';
 import { defaultConfiguration } from '@/config/defaultConfiguration';
 import { mockDeliveryOptions } from '@Tests/unit/delivery-options/mockDeliveryOptions';
-import { waitForEvent } from '@Tests/unit/delivery-options/components/WaitForEvent';
+import { waitForEvent } from '@Tests/WaitForEvent';
 
 const configWithInvalidAddress = {
   ...defaultConfiguration(SENDMYPARCEL),
@@ -32,7 +32,7 @@ describe('DeliveryOptions.vue', () => {
     expect.assertions(6);
 
     // Load with a valid address.
-    app = mockDeliveryOptions(null, MYPARCEL);
+    app = mockDeliveryOptions(MYPARCEL);
     app.vm.showAddressErrors = createWaitableMock(app.vm.showAddressErrors);
 
     await waitForEvent(UPDATED_DELIVERY_OPTIONS);
@@ -81,7 +81,7 @@ describe('DeliveryOptions.vue', () => {
 
   it('can unselect delivery options', async() => {
     expect.assertions(4);
-    app = mockDeliveryOptions(null, MYPARCEL);
+    app = mockDeliveryOptions(MYPARCEL);
 
     await waitForEvent(UPDATED_DELIVERY_OPTIONS);
     expect(app.findChoice('delivery__input', 'deliver').element).toBeChecked();
@@ -95,7 +95,7 @@ describe('DeliveryOptions.vue', () => {
 
   it('hides and shows delivery options', async() => {
     expect.assertions(2);
-    app = mockDeliveryOptions(null, SENDMYPARCEL);
+    app = mockDeliveryOptions(SENDMYPARCEL);
 
     document.dispatchEvent(new Event(HIDE_DELIVERY_OPTIONS));
 
@@ -109,7 +109,7 @@ describe('DeliveryOptions.vue', () => {
   });
 
   it('clears all listeners on destroy', () => {
-    app = mockDeliveryOptions(null, SENDMYPARCEL);
+    app = mockDeliveryOptions(SENDMYPARCEL);
 
     app.vm.$destroy();
   });

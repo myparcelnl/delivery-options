@@ -1,4 +1,4 @@
-export const fakePickupLocationsResponse = [
+export const fakePickupLocationsResponse = () => [
   {
     address: {
       cc: 'BE',

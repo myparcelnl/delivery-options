@@ -17,7 +17,7 @@ describe('Sandbox form components', () => {
     expect.assertions(9);
 
     /** @type {Wrapper<CCodeEditor>} */
-    const wrapper = mockSandbox(CCodeEditor);
+    const wrapper = mockSandbox(null, null, CCodeEditor);
     const textarea = wrapper.find('textarea');
 
     const value = JSON.stringify({ data: { code: ['test code'] } });
@@ -56,7 +56,7 @@ describe('Sandbox form components', () => {
 
   test('CCountrySelect', async() => {
     expect.assertions(1);
-    const wrapper = shallowMockSandbox(CCountrySelect);
+    const wrapper = shallowMockSandbox(null, null, CCountrySelect);
 
     wrapper.vm.$i18n.locale = 'nl';
     wrapper.vm.$i18n.locale = 'en';
@@ -68,12 +68,16 @@ describe('Sandbox form components', () => {
   });
 
   test('CCurrency', () => {
-    const wrapper = mockSandbox(CCurrency, {
-      i18n,
-      propsData: {
-        value: '2.36',
+    const wrapper = mockSandbox(
+      null,
+      {
+        i18n,
+        propsData: {
+          value: '2.36',
+        },
       },
-    });
+      CCurrency,
+    );
 
     expect(wrapper.find('input').element).toHaveValue(2.36);
   });
@@ -82,7 +86,7 @@ describe('Sandbox form components', () => {
    * Simple test for components without complex logic.
    */
   test('Other components', () => {
-    const wrapper = mockSandbox({
+    const wrapper = mockSandbox(null, null, {
       template: `
         <div>
         <CCheckboxGroup />
@@ -174,7 +178,6 @@ describe('Sandbox form components', () => {
           class="custom-control custom-switch b-custom-control-lg"
         >
           <input
-            autocomplete="off"
             class="custom-control-input"
             type="checkbox"
             value="true"
