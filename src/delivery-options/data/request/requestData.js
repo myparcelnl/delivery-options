@@ -1,10 +1,10 @@
 import * as CONFIG from '@/data/keys/configKeys';
 import { MYPARCEL, SENDMYPARCEL } from '@/data/keys/platformKeys';
+import { getCutOffTime } from '@/delivery-options/data/request/getCutOffTime';
 import { configBus as realConfigBus } from '@/delivery-options/config/configBus';
-import { setCutOffTime } from '@/delivery-options/data/request/setCutoffTime';
 
 const getParametersForNL = (configBus) => ({
-  monday_delivery: configBus.get(CONFIG.ALLOW_MONDAY_DELIVERY),
+  monday_delivery: Number(configBus.get(CONFIG.ALLOW_MONDAY_DELIVERY)),
 });
 
 const getParametersForBE = (configBus) => ({
@@ -16,7 +16,7 @@ const getParametersForBE = (configBus) => ({
    *  When this is no longer relevant this override can be removed.
    */
   deliverydays_window: 1,
-  saturday_delivery: configBus.get(CONFIG.ALLOW_SATURDAY_DELIVERY),
+  saturday_delivery: Number(configBus.get(CONFIG.ALLOW_SATURDAY_DELIVERY)),
 });
 
 const parametersByPlatform = {
@@ -35,6 +35,6 @@ const parametersByPlatform = {
 export function getParametersByPlatform(platform = realConfigBus.get(CONFIG.PLATFORM), configBus = realConfigBus) {
   return {
     ...parametersByPlatform[platform](configBus),
-    cutoff_time: setCutOffTime(configBus),
+    cutoff_time: getCutOffTime(configBus),
   };
 }

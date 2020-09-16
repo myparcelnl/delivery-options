@@ -1,53 +1,37 @@
-const today = new Date()
-  .toISOString()
-  .replace(/T.*$/, '');
+/* eslint-disable no-continue */
+import { getNextDeliveryOption } from '@Mocks/modules/@myparcel/js-sdk/delivery-options/getNextDeliveryOption';
 
-export const fakeDeliveryOptionsResponse = [
-  {
-    date: {
-      date: `${today} 00:00:00.000000`,
-      timezone_type: 3,
-      timezone: 'Europe/Amsterdam',
-    },
-    possibilities: [
-      {
-        type: 'standard',
-        shipment_options: [
-          {
-            name: 'saturday_delivery',
-            schema: {
-              type: 'boolean',
-              enum: [true, false],
-            },
-          },
-          {
-            name: 'signature',
-            schema: {
-              type: 'boolean',
-              enum: [true, false],
-            },
-          },
-        ],
-        collect_date: null,
-        delivery_time_frames: [
-          {
-            type: 'start',
-            date_time: {
-              date: `${today} 08:00:00.000000`,
-              timezone_type: 1,
-              timezone: '+02:00',
-            },
-          },
-          {
-            type: 'end',
-            date_time: {
-              date: `${today} 17:00:00.000000`,
-              timezone_type: 1,
-              timezone: '+02:00',
-            },
-          },
-        ],
-      },
-    ],
-  },
-];
+/**
+ * Generate an array of delivery options much like the actual API response.
+ *
+ * @param {Object} args
+ * @param {String} args.package_type
+ * @param {String} args.include
+ * @param {MyParcel.Platform} args.platform
+ * @param {String} args.carrier
+ * @param {String} args.cc
+ * @param {Number} args.number
+ * @param {String} args.postal_code
+ * @param {String} args.cutoff_time
+ * @param {Number} args.deliverydays_window
+ * @param {Number} args.dropoff_delay
+ * @param {String} args.dropoff_days
+ * @param {?Boolean} args.monday_delivery
+ * @param {?Boolean} args.saturday_delivery
+ *
+ * @returns {Object[]}
+ */
+export function fakeDeliveryOptionsResponse(args) {
+  const deliveryDaysWindow = args.deliverydays_window || 1;
+  const dropOffDelay = args.dropoff_delay || 0;
+  let startIndex = dropOffDelay + 1;
+
+  return Array
+    .from({ length: dropOffDelay + deliveryDaysWindow })
+    .map(() => {
+      const { index, data } = getNextDeliveryOption(args, startIndex);
+      // Increment the startIndex for the next run, to start from the last delivery option.
+      startIndex += (index - startIndex) + 1;
+      return data;
+    });
+}

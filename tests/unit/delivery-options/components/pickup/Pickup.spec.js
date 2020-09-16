@@ -21,14 +21,14 @@ describe('Pickup.vue', () => {
     configBus.setAdvancedCarrierData();
 
     const choices = await createPickupChoices();
-    wrapper = mockDeliveryOptions(Pickup, {
+    wrapper = mockDeliveryOptions(null, {
       localVue,
       propsData: {
         data: {
           choices,
         },
       },
-    });
+    }, Pickup);
   });
 
   it('shows map view by default', () => {

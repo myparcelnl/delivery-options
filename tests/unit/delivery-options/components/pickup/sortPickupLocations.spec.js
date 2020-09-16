@@ -6,7 +6,7 @@ import { sortPickupLocations } from '@/delivery-options/data/pickup/sortPickupLo
 describe('sorting pickup locations', () => {
   it('sorts by distance when distances are shown', () => {
     mockConfigBus();
-    const sorted = sortPickupLocations(fakePickupLocationsResponse);
+    const sorted = sortPickupLocations(fakePickupLocationsResponse());
     const distances = sorted.map(({ location }) => location.distance);
 
     const sortedByDistance = [...distances].sort((distanceA, distanceB) => {
@@ -18,7 +18,7 @@ describe('sorting pickup locations', () => {
 
   it('sorts alphabetically by location name when distances are hidden', () => {
     mockConfigBus(SENDMYPARCEL);
-    const sorted = sortPickupLocations(fakePickupLocationsResponse);
+    const sorted = sortPickupLocations(fakePickupLocationsResponse());
     const names = sorted.map(({ location }) => location.location_name);
 
     const sortedByName = [...names].sort((nameA, nameB) => {

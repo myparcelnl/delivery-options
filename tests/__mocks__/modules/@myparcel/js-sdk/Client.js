@@ -10,17 +10,19 @@ const fakeResponses = {
   pickup_locations: fakePickupLocationsResponse,
 };
 
-const fakeRequest = (endpoint) => {
-  return new Promise((resolve) => resolve(fakeResponses[endpoint]));
-};
-
 /**
+ * Add a method returning a fake response wrapped in a promise.
+ *
  * @param {String} method - Method to use.
  * @param {String} endpoint - Endpoint to use.
  *
- * @returns {Object}
+ * @returns {Object<String, Function<Promise>>}
  */
-const mock = (method, endpoint) => ({ [method]: () => fakeRequest(endpoint) });
+const mock = (method, endpoint) => ({
+  [method]: (...args) => {
+    return Promise.resolve(fakeResponses[endpoint](...args));
+  },
+});
 
 export default class Client {
   config = {
