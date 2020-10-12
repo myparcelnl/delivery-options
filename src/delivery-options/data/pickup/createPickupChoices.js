@@ -18,7 +18,7 @@ export async function createPickupChoices(createRequestCallback = (carrier) => f
   let { responses } = await fetchMultiple(requests);
 
   if (!responses.length) {
-    return [];
+    throw new Error('No pickup locations found.');
   }
 
   responses = sortPickupLocations(responses);
