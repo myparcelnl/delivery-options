@@ -15,11 +15,8 @@ export async function fetchPickupLocations(carrierName, parameters = {}) {
     {
       method: METHOD_SEARCH,
       params: {
-        carrierName,
-        ...{
-          ...getRequestParameters(carrierName),
-          ...parameters,
-        },
+        ...getRequestParameters(carrierName),
+        ...parameters,
       },
     },
   );

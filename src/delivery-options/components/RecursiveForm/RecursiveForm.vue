@@ -352,8 +352,14 @@ export default {
       if (!!choice && choice.hasOwnProperty('options')) {
         if (typeof choice.options === 'function') {
           this.loading = this.selected;
+          let options;
 
-          const options = await choice.options();
+          try {
+            options = await choice.options();
+          } catch (error) {
+            this.$configBus.addErrors(error);
+            return [];
+          }
           this.loading = false;
 
           choice.options = options;
