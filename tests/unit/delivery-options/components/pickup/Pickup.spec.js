@@ -2,16 +2,16 @@ import * as CONFIG from '@/data/keys/configKeys';
 import Pickup from '@/delivery-options/components/Pickup/Pickup';
 import { configBus } from '@/delivery-options/config/configBus';
 import { createPickupChoices } from '@/delivery-options/data/pickup/createPickupChoices';
+import { fakePickupLocationsResponse } from '@Mocks/@myparcel/js-sdk/dist/data/fakePickupLocationsResponse';
 import { fetchAllCarriers } from '@/delivery-options/data/carriers/fetchAllCarriers';
 import { mockDeliveryOptions } from '@Tests/unit/delivery-options/mockDeliveryOptions';
 import { mockVue } from '../../mockVue';
 
 describe('Pickup.vue', () => {
-  let localVue;
   let wrapper;
 
   beforeAll(async() => {
-    localVue = mockVue({
+    const localVue = mockVue({
       [CONFIG.KEY]: {
         [CONFIG.FEATURE_MAX_PAGE_ITEMS]: 5,
       },
@@ -29,6 +29,12 @@ describe('Pickup.vue', () => {
         },
       },
     }, Pickup);
+  });
+
+  it('createPickupChoices with error', async() => {
+    expect.assertions(1);
+    fakePickupLocationsResponse.mockImplementationOnce(() => []);
+    await expect(createPickupChoices()).rejects.toThrow(Error);
   });
 
   it('shows map view by default', () => {
