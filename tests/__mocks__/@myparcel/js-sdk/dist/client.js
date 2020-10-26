@@ -1,10 +1,10 @@
 /* eslint-disable camelcase */
 import { METHOD_SEARCH } from '@/delivery-options/data/request/fetchFromEndpoint';
-import { fakeCarriersResponse } from './fakeCarriersResponse';
-import { fakeDeliveryOptionsResponse } from './fakeDeliveryOptionsResponse';
-import { fakePickupLocationsResponse } from './fakePickupLocationsResponse';
+import { fakeCarriersResponse } from './data/fakeCarriersResponse';
+import { fakeDeliveryOptionsResponse } from './data/fakeDeliveryOptionsResponse';
+import { fakePickupLocationsResponse } from './data/fakePickupLocationsResponse';
 
-const fakeResponses = {
+export const fakeResponses = {
   carriers: fakeCarriersResponse,
   delivery_options: fakeDeliveryOptionsResponse,
   pickup_locations: fakePickupLocationsResponse,
