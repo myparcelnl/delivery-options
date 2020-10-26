@@ -1,7 +1,7 @@
 import { MYPARCEL, SENDMYPARCEL } from '@/data/keys/platformKeys';
 import { dayjs } from '@Tests/dayjs';
 import { extraDeliveryConfig } from '@/config/extraDeliveryConfig';
-import { getDeliveryOptionsEntry } from '@Mocks/modules/@myparcel/js-sdk/delivery-options/getDeliveryOptionsEntry';
+import { getDeliveryOptionsEntry } from './getDeliveryOptionsEntry';
 
 const disallowedDays = {
   [MYPARCEL]: [0, 1],

@@ -1,5 +1,5 @@
 import { SENDMYPARCEL } from '@/data/keys/platformKeys';
-import { fakePickupLocationsResponse } from '@Mocks/modules/@myparcel/js-sdk/fakePickupLocationsResponse';
+import { fakePickupLocationsResponse } from '@Mocks/@myparcel/js-sdk/dist/data/fakePickupLocationsResponse';
 import { mockConfigBus } from '@Tests/unit/delivery-options/mockConfigBus';
 import { sortPickupLocations } from '@/delivery-options/data/pickup/sortPickupLocations';
 

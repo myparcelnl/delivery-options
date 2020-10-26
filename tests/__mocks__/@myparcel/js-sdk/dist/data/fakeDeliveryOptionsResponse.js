@@ -1,5 +1,5 @@
 /* eslint-disable no-continue */
-import { getNextDeliveryOption } from '@Mocks/modules/@myparcel/js-sdk/delivery-options/getNextDeliveryOption';
+import { getNextDeliveryOption } from './delivery-options/getNextDeliveryOption';
 
 /**
  * Generate an array of delivery options much like the actual API response.

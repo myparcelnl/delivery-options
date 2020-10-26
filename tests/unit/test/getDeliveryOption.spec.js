@@ -1,7 +1,7 @@
 /* eslint-disable max-len,vue/max-len */
 import { MYPARCEL, SENDMYPARCEL } from '@/data/keys/platformKeys';
 import MockDate from 'mockdate';
-import { getNextDeliveryOption } from '@Mocks/modules/@myparcel/js-sdk/delivery-options/getNextDeliveryOption';
+import { getNextDeliveryOption } from '@Mocks/@myparcel/js-sdk/dist/data/delivery-options/getNextDeliveryOption';
 
 const tuesday = '2020-03-10';
 const thursday = '2020-03-12';

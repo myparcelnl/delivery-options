@@ -18,8 +18,11 @@ module.exports = {
     '^@/(.*)$': '<rootDir>/src/$1',
     '^@Tests/(.*)$': '<rootDir>/tests/$1',
     '^@Mocks/(.*)$': '<rootDir>/tests/__mocks__/$1',
-    '^!?raw-loader!(.*)': '<rootDir>/tests/__mocks__/rawLoader.js',
+    '^!?raw-loader!(.*)': '<rootDir>/tests/__mocks__/raw-loader.js',
   },
+  roots: [
+    '<rootDir>/tests',
+  ],
   snapshotSerializers: ['jest-serializer-vue'],
   testMatch: [
     '<rootDir>/tests/unit/**/*.spec.(js|jsx|ts|tsx)',
