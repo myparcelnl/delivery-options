@@ -1,8 +1,8 @@
 /**
- * Mock lodash debounce with another debounce function that does NOT use `Date`. Normal debounce goes into infinite loop
- *  when using `MockDate.set()`.
+ * Mock lodash-es debounce with another debounce function that does NOT use `Date`. Normal debounce goes into infinite
+ *  loop when using `MockDate.set()`.
  */
-jest.mock('lodash-es/debounce', () => jest.fn((func, wait, immediate = false) => {
+export default jest.fn((func, wait, immediate = false) => {
   let timeout;
   return function debounce() {
     const args = arguments;
@@ -21,4 +21,4 @@ jest.mock('lodash-es/debounce', () => jest.fn((func, wait, immediate = false) =>
       func.apply(this, args);
     }
   };
-}));
+});
