@@ -9,7 +9,7 @@ import { createWaitableMock } from '@Tests/unit/createWaitableMock';
 import { defaultAddress } from '@/data/defaultAddress';
 import { defaultConfiguration } from '@/config/defaultConfiguration';
 import { mockDeliveryOptions } from '@Tests/unit/delivery-options/mockDeliveryOptions';
-import { waitForEvent } from '@Tests/WaitForEvent';
+import { waitForEvent } from '@Tests/waitForEvent';
 
 const configWithInvalidAddress = {
   ...defaultConfiguration(SENDMYPARCEL),

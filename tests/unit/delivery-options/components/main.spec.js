@@ -4,7 +4,7 @@ import { dataTest } from '@Tests/unit/selectors';
 import { defaultAddress } from '@/data/defaultAddress';
 import { defaultConfiguration } from '@/config/defaultConfiguration';
 import { showDeveloperInfo } from '@/delivery-options/showDeveloperInfo';
-import { waitForEvent } from '@Tests/WaitForEvent';
+import { waitForEvent } from '@Tests/waitForEvent';
 
 const classBase = process.env.VUE_APP_CLASS_BASE;
 const dispatchSpy = jest.spyOn(document, 'dispatchEvent');
