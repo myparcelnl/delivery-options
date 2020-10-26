@@ -3,7 +3,7 @@ import { MYPARCEL, SENDMYPARCEL } from '@/data/keys/platformKeys';
 import MockDate from 'mockdate';
 import { UPDATED_DELIVERY_OPTIONS } from '@/config/eventConfig';
 import { mockDeliveryOptions } from '@Tests/unit/delivery-options/mockDeliveryOptions';
-import { waitForEvent } from '@Tests/WaitForEvent';
+import { waitForEvent } from '@Tests/waitForEvent';
 
 // Timestamps are before all cutoff times
 const FRIDAY = '2020-03-13T10:00:00';
