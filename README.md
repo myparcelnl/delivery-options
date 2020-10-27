@@ -5,9 +5,12 @@
 ## Introduction
 This is the MyParcel delivery options module for use in any e-commerce platform's checkout, by [MyParcel], [SendMyParcel] and [Flespakket] customers. It's used to show your customers the possible delivery and/or pickup options for their location, based on your settings. It only has the bare minimum css styling so it should integrate with the design of your webshop easily.
 
+- [Sandbox](#sandbox)
 - [Installation](#installation)
-- [Example](#example)
 - [Usage](#usage)
+- [Examples](#examples)
+- [Contribute](#contribute)
+- [Support](#support)
 
 ![screenshot](screenshots/example1.png)
 ![screenshot](screenshots/example2.png)
@@ -15,7 +18,7 @@ This is the MyParcel delivery options module for use in any e-commerce platform'
 ### Browser support
 This app is written in [Vue.js], it supports IE9 and up.
 
-## Example
+## Sandbox
 An example of the delivery options functionality can be found in our [sandbox]. Here you can try out every combination of settings and copy the code for use in your project.
 
 ## Installation
@@ -31,8 +34,6 @@ An example of the delivery options functionality can be found in our [sandbox]. 
 6. The delivery options will be rendered inside the div created in step 4.
 
 ## Usage
-
-
 
 ### All options
 ```js
@@ -216,7 +217,20 @@ You'll often want to use the delivery options module in a checkout form in your 
 
 #### Integration examples
 
-##### Attach data to an order using a hidden input
+##### Our WooCommerce implementation
+Files that can help you get started:
+
+- Backend: [/includes/frontend/class-wcmp-checkout.php](https://github.com/myparcelnl/woocommerce/blob/master/includes/frontend/class-wcmp-checkout.php)
+- Frontend: [/assets/js/wcmp-frontend.js](https://github.com/myparcelnl/woocommerce/blob/master/assets/js/wcmp-frontend.js)
+
+##### Our Magento 2 implementation
+Files that can help you get started:
+
+Note: It's more complex in Magento 2 because of the way shipping methods work.
+- Backend: [/Model/Checkout/DeliveryOptionsToShippingMethods.php](https://github.com/myparcelnl/magento/blob/develop/Model/Checkout/DeliveryOptionsToShippingMethods.php)
+- Frontend: [/view/frontend/web/js/view/delivery-options.js](https://github.com/myparcelnl/magento/blob/develop/view/frontend/web/js/view/delivery-options.js)
+
+#### Attach data to an order using a hidden input
 In WooCommerce and Magento 2 we injected a hidden text input inside the checkout `<form>` elements to hold this data and automatically pass it to the `$_POST` variable.
 
 ```js
@@ -232,18 +246,33 @@ document.addEventListener('myparcel_updated_delivery_options', (event) => {
 });
 ```
 
-##### WooCommerce
-Files that can help you get started:
+#### Deselect options
+You might want to integrate the delivery options into a list of existing shipping methods, like we've done in [Magento 2](https://github.com/myparcelnl/magento/blob/504ea103f6b3042e1dfa7debc022251eeaba381e/view/frontend/web/js/view/delivery-options.js#L231). So when the user selects a different shipping method you'll want the delivery options to appear unselected.
 
-- Backend: [/includes/frontend/class-wcmp-checkout.php](https://github.com/myparcelnl/woocommerce/blob/master/includes/frontend/class-wcmp-checkout.php)
-- Frontend: [/assets/js/wcmp-frontend.js](https://github.com/myparcelnl/woocommerce/blob/master/assets/js/wcmp-frontend.js)
+![screenshot](screenshots/deselect-1.png)
 
-##### Magento 2
-Files that can help you get started:
+Note: If you only have one option, so either "delivery" or "pickup", the option will appear disabled. Until there's a built in solution, there's the following workaround.
 
-Note: It's more complex in Magento 2 because of the way shipping methods work.
-- Backend: [/Model/Checkout/DeliveryOptionsToShippingMethods.php](https://github.com/myparcelnl/magento/blob/develop/Model/Checkout/DeliveryOptionsToShippingMethods.php)
-- Frontend: [/view/frontend/web/js/view/delivery-options.js](https://github.com/myparcelnl/magento/blob/develop/view/frontend/web/js/view/delivery-options.js)
+If you only use delivery:
+```js
+document.getElementById('myparcel-delivery-options__delivery--deliver').disabled = false;
+```
+
+If you only use pickup:
+```js
+document.getElementById('myparcel-delivery-options__delivery--pickup').disabled = false;
+```
+
+![screenshot](screenshots/deselect-2.png)
+
+To deselect all options, dispatch the `myparcel_disable_delivery_options` event. You could do this as when your users select a different shipping method, for example. 
+```js
+document.dispatchEvent(new Event('myparcel_disable_delivery_options'));
+```
+
+The delivery options will look like this:
+
+![screenshot](screenshots/deselect-3.png)
 
 ## Contribute
 Please read our [contribution guidelines](CONTRIBUTING.md)
