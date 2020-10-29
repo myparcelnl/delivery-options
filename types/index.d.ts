@@ -239,6 +239,15 @@ declare namespace MyParcelDeliveryOptions {
     }
   }
 
+  interface FormConfig {
+    name: string
+    enabled?: string
+    label?: string
+    price?: string
+    selected?: boolean
+    options?: FormConfig[]
+  }
+
   interface FormEntry {
     name: string
     type?: 'radio' | 'select' | 'checkbox' | 'text' | string

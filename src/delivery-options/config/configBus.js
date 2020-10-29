@@ -60,7 +60,7 @@ export const createConfigBus = (eventCallee = null) => {
       /**
        * The current carrier.
        *
-       * @type {MyParcel.CarrierNameOrId}
+       * @type {MyParcel.CarrierName}
        */
       currentCarrier: null,
 
@@ -173,17 +173,6 @@ export const createConfigBus = (eventCallee = null) => {
       hasMultiplePickupCarriers() {
         return this.carrierDataWithPickupLocations.length > 1;
       },
-
-      /**
-       * The settings specific to the current carrier from the config, if any.
-       *
-       * @returns {Object}
-       */
-      currentCarrierSettings() {
-        return this.config[CONFIG.CARRIER_SETTINGS].hasOwnProperty(this.currentCarrier)
-          ? this.config[CONFIG.CARRIER_SETTINGS][this.currentCarrier]
-          : {};
-      },
     },
 
     watch: {
@@ -247,32 +236,25 @@ export const createConfigBus = (eventCallee = null) => {
        *
        * @param {Object|String} option - Option object or name.
        * @param {String} key - Key name to use. Defaults to "name".
-       * @param {String|Number} carrier - Carrier name or ID.
+       * @param {MyParcel.CarrierName} carrier - Carrier name.
        *
        * @returns {*}
        */
-      get(option, key = 'name', carrier = null) {
+      get(option, key = null, carrier = null) {
+        carrier = carrier ?? this.currentCarrier;
+        key = key ?? 'name';
         let setting;
-
-        if (typeof option === 'string') {
-          option = { [key]: option };
-        }
-
-        // Return carrier specific settings if carrier is defined.
-        if (!!carrier && key) {
-          if (!this.getSettingsByCarrier(carrier)) {
-            return;
-          }
-
-          return this.getSettingsByCarrier(carrier)[option[key]];
-        }
+        const optionKey = typeof option === 'string' ? option : option[key];
 
         // If the setting is in the settingsWithCarrierOverride array don't check the carrierSettings object.
-        if (CONFIG.settingsWithCarrierOverride.includes(option[key])
-          && this.currentCarrierSettings.hasOwnProperty(option[key])) {
-          setting = this.currentCarrierSettings[option[key]];
+        const settingsByCarrier = this.getSettingsByCarrier(carrier);
+        const hasOverride = CONFIG.settingsWithCarrierOverride.includes(optionKey);
+        const isInCarrier = settingsByCarrier && settingsByCarrier.hasOwnProperty(optionKey);
+
+        if (hasOverride && isInCarrier) {
+          setting = settingsByCarrier[optionKey];
         } else {
-          setting = this.config[option[key]];
+          setting = this.config[optionKey];
         }
 
         return setting;
@@ -286,7 +268,7 @@ export const createConfigBus = (eventCallee = null) => {
        * @param {Object} option - FormConfig options object.
        *
        * @param {String} key - String key to use with this.get().
-       * @param {String|Number} carrier - Carrier name or id.
+       * @param {MyParcel.CarrierName} carrier - Carrier name.
        *
        * @returns {Boolean}
        */
@@ -295,13 +277,11 @@ export const createConfigBus = (eventCallee = null) => {
           option = { enabled: option };
         }
 
-        if (!option.hasOwnProperty('enabled') || !this.config.hasOwnProperty(option.enabled)) {
+        if (!option.hasOwnProperty('enabled')) {
           return true;
         }
 
-        const enabledInConfig = !!this.get(option.enabled, key, carrier);
-
-        return option.hasOwnProperty('enabled') && enabledInConfig;
+        return Boolean(this.get(option, key ?? 'enabled', carrier));
       },
 
       /**
@@ -317,12 +297,12 @@ export const createConfigBus = (eventCallee = null) => {
       /**
        * Get the carrier specific settings for the given carrier.
        *
-       * @param {String} carrier - Carrier name.
+       * @param {MyParcel.CarrierName} carrier - Carrier name.
        *
        * @returns {Object|null}
        */
       getSettingsByCarrier(carrier = this.currentCarrier) {
-        const carrierSettings = this.get(CONFIG.CARRIER_SETTINGS);
+        const carrierSettings = this.config[CONFIG.CARRIER_SETTINGS];
 
         if (!carrierSettings.hasOwnProperty(carrier)) {
           return null;
@@ -332,14 +312,16 @@ export const createConfigBus = (eventCallee = null) => {
       },
 
       /**
-       * @param {String} setting - Setting name.
+       * @param {MyParcelDeliveryOptions.FormConfig} config
        *
        * @returns {Boolean}
        */
-      isEnabledInAnyCarrier(setting) {
+      isEnabledInAnyCarrier(config) {
         const carrierSettings = this.get(CONFIG.CARRIER_SETTINGS);
 
-        return Object.keys(carrierSettings).some((carrier) => carrierSettings[carrier][setting] === true);
+        return Object
+          .keys(carrierSettings)
+          .some((carrier) => this.isEnabled(config, null, carrier));
       },
 
       /**

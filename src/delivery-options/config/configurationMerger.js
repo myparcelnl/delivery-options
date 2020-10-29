@@ -1,4 +1,4 @@
-import { CARRIER_SETTINGS, DROP_OFF_DAYS } from '@/data/keys/configKeys';
+import { DROP_OFF_DAYS } from '@/data/keys/configKeys';
 
 /**
  * These items should never be merged and the new value must always overwrite the default value.
@@ -6,7 +6,6 @@ import { CARRIER_SETTINGS, DROP_OFF_DAYS } from '@/data/keys/configKeys';
  * @type {String[]}
  */
 const KEYS_NOT_ALLOWED_TO_MERGE = [
-  CARRIER_SETTINGS,
   DROP_OFF_DAYS,
 ];
 

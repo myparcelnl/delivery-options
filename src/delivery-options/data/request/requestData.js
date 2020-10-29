@@ -4,7 +4,7 @@ import { getCutOffTime } from '@/delivery-options/data/request/getCutOffTime';
 import { configBus as realConfigBus } from '@/delivery-options/config/configBus';
 
 const getParametersForNL = (configBus) => ({
-  monday_delivery: Number(configBus.get(CONFIG.ALLOW_MONDAY_DELIVERY)),
+  monday_delivery: Number(configBus.get(CONFIG.ALLOW_MONDAY_DELIVERY, null, configBus.currentCarrier)),
 });
 
 const getParametersForBE = (configBus) => ({
@@ -16,7 +16,7 @@ const getParametersForBE = (configBus) => ({
    *  When this is no longer relevant this override can be removed.
    */
   deliverydays_window: 1,
-  saturday_delivery: Number(configBus.get(CONFIG.ALLOW_SATURDAY_DELIVERY)),
+  saturday_delivery: Number(configBus.get(CONFIG.ALLOW_SATURDAY_DELIVERY, null, configBus.currentCarrier)),
 });
 
 const parametersByPlatform = {

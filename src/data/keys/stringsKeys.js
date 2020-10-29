@@ -8,6 +8,7 @@ export const NUMBER = 'number';
 export const ADDRESS_NOT_FOUND = 'addressNotFound';
 
 export const CLOSED = 'closed';
+export const DISCOUNT = 'discount';
 export const FREE = 'free';
 export const FROM = 'from';
 export const LOAD_MORE = 'loadMore';

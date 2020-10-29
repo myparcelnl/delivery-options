@@ -2,6 +2,7 @@
   <td>
     <label
       :for="`${$classBase}__pickupLocation--${data.name}`"
+      :class="`${$classBase}__d-block`"
       @click="isSelected ? showModal() : null">
       <span
         v-if="pickupData.carrier.image"

@@ -30,10 +30,10 @@
 </template>
 
 <script>
-import * as CONFIG from '@/data/keys/configKeys';
 import * as EVENTS from '@/config/eventConfig';
 import * as FORM from '@/config/formConfig';
 import { NL, addressRequirements } from '@/config/localeConfig';
+import { formConfig, formConfigDelivery, formConfigPickup } from '@/config/formConfig';
 import { ADDRESS_ERROR } from '@/config/errorConfig';
 import Errors from '@/delivery-options/components/Errors';
 import Loader from '@/delivery-options/components/Loader';
@@ -56,6 +56,8 @@ export default {
   },
   data() {
     return {
+      configBus,
+
       /**
        * Whether to show the delivery options module at all or not.
        *
@@ -193,8 +195,7 @@ export default {
     hasSomethingToShow() {
       const { isEnabledInAnyCarrier } = this.$configBus;
 
-      return isEnabledInAnyCarrier(CONFIG.ALLOW_PICKUP_LOCATIONS)
-        || isEnabledInAnyCarrier(CONFIG.ALLOW_DELIVERY_OPTIONS);
+      return isEnabledInAnyCarrier(formConfigPickup) || isEnabledInAnyCarrier(formConfigDelivery);
     },
 
     /**
@@ -247,12 +248,6 @@ export default {
         [FORM.PICKUP]: getPickupLocations,
       };
 
-      // Map form entries to setting names.
-      const settingsMap = {
-        [FORM.DELIVERY]: CONFIG.ALLOW_DELIVERY_OPTIONS,
-        [FORM.PICKUP]: CONFIG.ALLOW_PICKUP_LOCATIONS,
-      };
-
       // Filter the choices checking if any of the given carriers have any above setting enabled. Also checks if the
       //  Carrier is allowed to have the above options in the current country.
       const choices = Object.keys(map).reduce((acc, setting) => {
@@ -262,7 +257,9 @@ export default {
           return acc;
         }
 
-        return this.$configBus.isEnabledInAnyCarrier(settingsMap[setting]) ? [...acc, formData] : acc;
+        const configItem = formConfig.find((config) => config.name === setting);
+
+        return this.$configBus.isEnabledInAnyCarrier(configItem) ? [...acc, formData] : acc;
       }, []);
 
       // Hide the checkout if there are no choices.

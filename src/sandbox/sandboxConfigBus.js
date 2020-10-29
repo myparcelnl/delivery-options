@@ -3,7 +3,7 @@ import { platformCarrierMap, platforms } from '@/config/platformConfig';
 import Vue from 'vue';
 import { carrierPermissions } from '@/sandbox/settings/carrierPermissions';
 import { defaultAddress } from '@/data/defaultAddress';
-import { defaultConfiguration } from '@/config/defaultConfiguration';
+import { demoConfiguration } from '@/sandbox/config/demoConfiguration';
 import { fetchCarrierData } from '@/delivery-options/data/carriers/fetchCarrierData';
 import isEqual from 'lodash-es/isEqual';
 import isPlainObject from 'lodash-es/isPlainObject';
@@ -49,7 +49,7 @@ export const sandboxConfigBus = new Vue({
   created() {
     this.settings = platforms
       .reduce((acc, platform) => {
-        const config = defaultConfiguration(platform);
+        const config = demoConfiguration(platform);
 
         // Get all settings allowing carrier overrides.
         Object
@@ -133,8 +133,8 @@ export const sandboxConfigBus = new Vue({
      * Update a setting value in the user settings and emit events.
      *
      * @param {Object} obj - Data.
-     * @property {String} obj.name - Name.
-     * @property {String} obj.value - Value.
+     * @param {String} obj.name - Name.
+     * @param {String} obj.value - Value.
      * @param {Boolean} sort - Sorts object siblings when setting new value.
      */
     update({ name, value }, sort = false) {
