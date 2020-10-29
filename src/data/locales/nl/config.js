@@ -1,5 +1,6 @@
 import * as CARRIERS from '@/data/keys/carrierKeys';
 import * as CONFIG from '@/data/keys/configKeys';
+import { getDefaultCarrierConfig } from '@/delivery-options/data/carriers/getDefaultCarrierConfig';
 
 export const config = {
   [CONFIG.LOCALE]: 'nl-NL',
@@ -7,9 +8,6 @@ export const config = {
   [CONFIG.SATURDAY_CUTOFF_TIME]: '16:00',
 
   [CONFIG.CARRIER_SETTINGS]: {
-    [CARRIERS.POSTNL]: {
-      [CONFIG.ALLOW_DELIVERY_OPTIONS]: true,
-      [CONFIG.ALLOW_PICKUP_LOCATIONS]: true,
-    },
+    ...getDefaultCarrierConfig(CARRIERS.POSTNL),
   },
 };

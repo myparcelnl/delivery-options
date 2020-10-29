@@ -75,8 +75,8 @@ window.MyParcelConfig = {
     dropOffDelay: 1,
   },
   strings: {
-    wrongPostalCodeCity: 'Zaterdaglevering',
-    saturdayDeliveryTitle: 'Combinatie postcode/plaats onbekend',
+    saturdayDeliveryTitle: 'Zaterdaglevering',
+    wrongPostalCodeCity: 'Combinatie postcode/plaats onbekend',
 
     // Address strings
     city: 'Plaats',
@@ -102,7 +102,6 @@ window.MyParcelConfig = {
 
     // Other strings
     closed: 'Gesloten',
-    free: 'Gratis',
     from: 'Vanaf',
     loadMore: 'Laad meer',
     retry: 'Opnieuw',
@@ -120,7 +119,7 @@ When there is no title set for `deliveryMorningTitle`, `deliveryStandardTitle` o
 To get the object with the selected options from the delivery options do the following:
 ```js
 const data = document.querySelector('#mypa-input').value;
-const obj = CODE_FORMAT_JSON.parse(data);
+const obj = JSON.parse(data);
 
 // `obj` will be something like this:
 // {

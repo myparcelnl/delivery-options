@@ -1,4 +1,9 @@
-import { PICKUP, PICKUP_EXPRESS, PICKUP_MOMENT, PICKUP_STANDARD, formConfig } from '@/config/formConfig';
+import {
+  PICKUP_EXPRESS,
+  PICKUP_MOMENT,
+  PICKUP_STANDARD,
+  formConfigPickup,
+} from '@/config/formConfig';
 import { configBus } from '@/delivery-options/config/configBus';
 import { createLocaleString } from '@/delivery-options/data/dates/createLocaleString';
 
@@ -37,16 +42,15 @@ export function getPickupMoments(pickupLocation) {
       choices: pickupLocation.possibilities.map((possibility) => {
         const pickupTime = createLocaleString(possibility.moment.start.date);
         const pickupText = `${configBus.strings.pickUpFrom} ${pickupTime}`;
+        const deliveryType = deliveryTypeMap[possibility.delivery_type_name];
+        const pickupConfig = formConfigPickup.options.find(({ name }) => name === deliveryType);
 
-        if (!configBus.isEnabled(possibility.delivery_type_name)) {
+        if (!configBus.isEnabled(pickupConfig)) {
           return null;
         }
 
-        const deliveryType = deliveryTypeMap[possibility.delivery_type_name];
-        const pickup = formConfig.find(({ name }) => name === PICKUP);
-
         return {
-          ...pickup.options.find(({ name }) => name === deliveryType),
+          ...pickupConfig,
           plainLabel: pickupText,
         };
       }),

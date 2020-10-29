@@ -14,7 +14,7 @@ export const getDefaultStrings = () => ({
 
   // Other strings
   [STRINGS.CLOSED]: 'Gesloten',
-  [STRINGS.FREE]: 'Gratis',
+  [STRINGS.DISCOUNT]: 'Korting',
   [STRINGS.FROM]: 'Vanaf',
   [STRINGS.LOAD_MORE]: 'Laad meer',
   [STRINGS.RETRY]: 'Opnieuw',
