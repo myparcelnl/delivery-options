@@ -21,10 +21,10 @@ describe('RecursiveForm.vue', () => {
   });
 
   it('correctly formats prices', () => {
-    const { formatPrice } = component.vm;
+    const { formatCurrency } = component.vm;
     // The spaces in the expected strings are non-breaking spaces.
-    expect(formatPrice(0)).toBe('€ 0,00');
-    expect(formatPrice(100)).toBe('€ 100,00');
-    expect(formatPrice(24.50)).toBe('€ 24,50');
+    expect(formatCurrency(0)).toBe('€ 0,00');
+    expect(formatCurrency(100)).toBe('€ 100,00');
+    expect(formatCurrency(24.50)).toBe('€ 24,50');
   });
 });

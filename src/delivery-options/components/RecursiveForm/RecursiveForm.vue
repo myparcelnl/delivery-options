@@ -85,6 +85,10 @@
           <span
             v-else
             v-text="choice.plainLabel || $configBus.strings[choice.label]" />
+          <span
+            v-if="!!choice.priceTag && !isSelected(choice)"
+            :class="`${$classBase}__float--right`"
+            v-text="choice.priceTag" />
 
           <component
             :is="isSelected(choice) ? 'strong' : 'span'"
@@ -95,12 +99,9 @@
               ...choice.class,
             }">
 
-            <span
-              v-if="$configBus.get(choice, 'price') === 0"
-              v-text="$configBus.strings.free" />
-            <template v-else>
-              <span v-text="$configBus.get(choice, 'price') >= 0 ? '+ ' : '– '" />
-              {{ formatPrice(choice.price) }}
+            <template v-if="$configBus.get(choice, 'price') !== 0">
+              <span v-text="$configBus.get(choice, 'price') > 0 ? '+ ' : '– '" />
+              {{ formatCurrency(choice.price) }}
             </template>
           </component>
         </label>
@@ -175,12 +176,12 @@
 </template>
 
 <script>
-import * as CONFIG from '@/data/keys/configKeys';
 import * as EVENTS from '@/config/eventConfig';
 import Loader from '@/delivery-options/components/Loader';
 import PickupOption from '../Pickup/PickupOption';
 import debounce from 'lodash-es/debounce';
 import { formConfig } from '@/config/formConfig';
+import { formatCurrency } from '@/delivery-options/data/prices/formatCurrency';
 import { getChoiceOrFirst } from '@/delivery-options/components/RecursiveForm/getChoiceOrFirst';
 import { getDependencies } from './getDependencies';
 import { setCheckboxSelected } from './setCheckboxSelected';
@@ -598,26 +599,7 @@ export default {
       this.selected = selected;
     },
 
-    /**
-     * @param {String|Number} price - Price config item or value.
-     *
-     * @returns {String}
-     */
-    formatPrice(price) {
-      if (typeof price === 'string') {
-        price = this.$configBus.get(price, 'price');
-      }
-
-      const formatter = new Intl.NumberFormat(
-        this.$configBus.get(CONFIG.LOCALE),
-        {
-          style: 'currency',
-          currency: this.$configBus.get(CONFIG.CURRENCY),
-        },
-      );
-
-      return formatter.format(Math.abs(price));
-    },
+    formatCurrency,
   },
 };
 </script>

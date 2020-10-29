@@ -1,11 +1,15 @@
-import { SENDMYPARCEL } from '@/data/keys/platformKeys';
+import * as CONFIG from '@/data/keys/configKeys';
 import { fakePickupLocationsResponse } from '@Mocks/@myparcel/js-sdk/dist/data/fakePickupLocationsResponse';
 import { mockConfigBus } from '@Tests/unit/delivery-options/mockConfigBus';
 import { sortPickupLocations } from '@/delivery-options/data/pickup/sortPickupLocations';
 
 describe('sorting pickup locations', () => {
   it('sorts by distance when distances are shown', () => {
-    mockConfigBus();
+    mockConfigBus({
+      [CONFIG.KEY]: {
+        [CONFIG.FEATURE_PICKUP_SHOW_DISTANCE]: true,
+      },
+    });
     const sorted = sortPickupLocations(fakePickupLocationsResponse());
     const distances = sorted.map(({ location }) => location.distance);
 
@@ -17,7 +21,11 @@ describe('sorting pickup locations', () => {
   });
 
   it('sorts alphabetically by location name when distances are hidden', () => {
-    mockConfigBus(SENDMYPARCEL);
+    mockConfigBus({
+      [CONFIG.KEY]: {
+        [CONFIG.FEATURE_PICKUP_SHOW_DISTANCE]: false,
+      },
+    });
     const sorted = sortPickupLocations(fakePickupLocationsResponse());
     const names = sorted.map(({ location }) => location.location_name);
 

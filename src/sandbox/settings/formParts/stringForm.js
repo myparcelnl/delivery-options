@@ -55,10 +55,6 @@ export const stringsForm = [
       },
       {
         key: STRINGS.KEY,
-        name: STRINGS.FREE,
-      },
-      {
-        key: STRINGS.KEY,
         name: STRINGS.RETRY,
       },
       {

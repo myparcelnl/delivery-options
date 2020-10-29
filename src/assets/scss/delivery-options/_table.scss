@@ -10,16 +10,27 @@ table.#{$classBase}__table {
 
   td {
     padding: 0;
-    vertical-align: top;
     word-break: normal;
+    vertical-align: middle;
 
     label {
-      display: block;
+      /*
+       * Elements this applies to also have a helper class applying "float: right" so it will still look alright-ish on
+       * IE9, just not as nice as with flexbox.
+       */
+      display: flex;
+      justify-content: space-between;
       text-align: left;
+
+      & > * {
+        margin-top: auto;
+        margin-bottom: auto;
+      }
     }
 
     &.#{$classBase} {
       &__input {
+        vertical-align: top;
         width: 1px;
         padding-right: 6px;
       }

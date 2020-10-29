@@ -1,4 +1,4 @@
-import * as CONFIG from '@/data/keys/configKeys';
+import { formConfigDelivery, formConfigPickup } from '@/config/formConfig';
 import {
   getAllowedCountriesForCarrierDeliver,
   getAllowedCountriesForCarrierPickup,
@@ -15,8 +15,8 @@ import { configBus } from '@/delivery-options/config/configBus';
 export function createCarrierData(data) {
   return data.map((carrier) => ({
     ...carrier,
-    pickupEnabled: configBus.get(CONFIG.ALLOW_PICKUP_LOCATIONS, 'name', carrier.name) || false,
-    deliveryEnabled: configBus.get(CONFIG.ALLOW_DELIVERY_OPTIONS, 'name', carrier.name) || false,
+    pickupEnabled: configBus.isEnabled(formConfigPickup, null, carrier.name),
+    deliveryEnabled: configBus.isEnabled(formConfigDelivery, null, carrier.name),
     pickupCountries: getAllowedCountriesForCarrierPickup(carrier.name),
     deliverCountries: getAllowedCountriesForCarrierDeliver(carrier.name),
   }));
