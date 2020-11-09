@@ -28,5 +28,9 @@ export function getLowestPriceFromFormConfig(config, carrierName = null, configB
     })
     .flat();
 
+  if (!prices.length) {
+    throw new Error('"prices" array is empty.');
+  }
+
   return Math.min(...prices);
 }
