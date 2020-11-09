@@ -26,5 +26,6 @@ describe('RecursiveForm.vue', () => {
     expect(formatCurrency(0)).toBe('€ 0,00');
     expect(formatCurrency(100)).toBe('€ 100,00');
     expect(formatCurrency(24.50)).toBe('€ 24,50');
+    expect(formatCurrency(20000)).toBe('€ 20.000,00');
   });
 });
