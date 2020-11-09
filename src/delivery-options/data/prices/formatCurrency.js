@@ -8,8 +8,8 @@ import { configBus as realConfigBus } from '@/delivery-options/config/configBus'
  * @returns {String}
  */
 export function formatCurrency(price, configBus = realConfigBus) {
-  if (typeof price === 'string') {
-    price = configBus.get(price, 'price');
+  if (typeof price !== 'number') {
+    throw new Error('"price" must be a number.');
   }
 
   const formatter = new Intl.NumberFormat(

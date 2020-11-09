@@ -101,7 +101,7 @@
 
             <template v-if="$configBus.get(choice, 'price') !== 0">
               <span v-text="$configBus.get(choice, 'price') > 0 ? '+ ' : '– '" />
-              {{ formatCurrency(choice.price) }}
+              {{ formatCurrency($configBus.get(choice, 'price')) }}
             </template>
           </component>
         </label>
