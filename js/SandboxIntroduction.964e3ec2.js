@@ -1,2 +1,2 @@
-/*! MyParcel Delivery Options Sandbox 3.3.5 [42d680d3ab67f942ddb9809e9192279d8bfef69d] */
+/*! MyParcel Delivery Options Sandbox 3.3.5 [f5b83e9ae9ddf3d42c46d443ce68942f90228b1e] */
 (window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["SandboxIntroduction"],{d494:function(n,o,t){"use strict";t.r(o);var e=function(){var n=this,o=n.$createElement,t=n._self._c||o;return t("BJumbotron",[t("BContainer",[t("BRow",[t("BCol",[t("p",{domProps:{innerHTML:n._s(n.$t("main.description"))}}),t("p",{domProps:{innerHTML:n._s(n.$t("main.slack_help"))}})])],1)],1)],1)},r=[],i={name:"SandboxIntroduction"},a=i,s=t("2877"),c=Object(s["a"])(a,e,r,!1,null,null,null);o["default"]=c.exports}}]);
