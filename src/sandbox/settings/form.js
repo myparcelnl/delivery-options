@@ -20,6 +20,7 @@ import { inAnyCarrier } from '@/sandbox/settings/conditions/inAnyCarrier';
 import memoize from 'lodash-es/memoize';
 import { sandboxConfigBus } from '@/sandbox/sandboxConfigBus';
 import { stringsForm } from '@/sandbox/settings/formParts/stringForm';
+import CTextInput from "@/sandbox/components/form/CTextInput";
 
 const currencyProps = {
   symbol: sandboxConfigBus.getSetting(CONFIG.KEY, CONFIG.CURRENCY) || '€',
@@ -63,6 +64,11 @@ export const createSettings = memoize((platform) => {
       settings: [
         {
           key: CONFIG.KEY,
+          name: CONFIG.API_BASE_URL,
+          component: CTextInput,
+        },
+        {
+          key: CONFIG.KEY,
           name: CONFIG.CURRENCY,
         },
         {
@@ -92,7 +98,6 @@ export const createSettings = memoize((platform) => {
           name: CONFIG.CUTOFF_TIME,
           component: CTimepicker,
         },
-
       ],
     },
     {

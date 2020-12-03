@@ -49,6 +49,8 @@ export const englishTranslations = {
   [`field.${CONFIG.ALLOW_PICKUP_EXPRESS}`]: 'Allow pickup express',
   [`field.${CONFIG.ALLOW_PICKUP_LOCATIONS}`]: 'Allow pickup locations',
   [`field.${CONFIG.ALLOW_SIGNATURE}`]: 'Allow signature',
+  [`field.${CONFIG.API_BASE_URL}.description`]: 'API url to use with all requests. If you don\'t know what this is for you should leave it empty.',
+  [`field.${CONFIG.API_BASE_URL}`]: 'API base url',
   [`field.${CONFIG.CURRENCY}.description`]: 'The currency to display prices in. Default: <code>EUR</code>',
   [`field.${CONFIG.CURRENCY}`]: 'Currency',
   [`field.${CONFIG.CUTOFF_TIME}.description`]: 'The latest cutoff time before an order will still be picked, packed and dispatched on the same/first set dropoff day, taking the dropoff delay into account. (Industry standard) default time is <code>17:00</code>. For example, if cutoff time is <code>17:00</code>, Wednesday is a delivery day and there\'s no delivery delay; all orders placed Wednesday before <code>17:00</code> will be dropped of on that same Wednesday in time for the Wednesday collection and delivery on Thursday.',
