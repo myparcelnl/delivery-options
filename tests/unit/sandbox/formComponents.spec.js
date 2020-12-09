@@ -114,7 +114,7 @@ describe('Sandbox form components', () => {
     expect(wrapper.vm.$el).toMatchInlineSnapshot(`
       <div>
         <div
-          buttonvariant="secondary"
+          checked="checked"
           class="bv-no-focus-ring"
           disabledfield="disabled"
           htmlfield="html"
@@ -122,12 +122,16 @@ describe('Sandbox form components', () => {
           role="group"
           tabindex="-1"
           textfield="text"
+          value=""
           valuefield="value"
         />
          
         <input
           class="form-control"
           debounce="0"
+          formatter="default() {
+            return getComponentConfig(componentKey, prop, (0, _inspect.isFunction)(defaultValue) ? defaultValue() : defaultValue);
+          }"
           lazy="true"
           placeholder=<Default>
           step="1"
@@ -163,6 +167,9 @@ describe('Sandbox form components', () => {
         <textarea
           class="form-control"
           debounce="0"
+          formatter="function _default() {
+              return getComponentConfig(componentKey, prop, isFunction(defaultValue) ? defaultValue() : defaultValue);
+            }"
           rows="2"
           wrap="soft"
         />
