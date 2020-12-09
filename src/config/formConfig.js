@@ -39,9 +39,8 @@ export const PICKUP_LOCATION = 'pickupLocation';
 // Delivery > Pickup (> Pickup location) > Pickup moment
 export const PICKUP_MOMENT = 'pickupMoment';
 
-// Delivery > Pickup (> Pickup location) > Pickup moment = standard | express
+// Delivery > Pickup (> Pickup location) > Pickup moment = standard
 export const PICKUP_STANDARD = 'pickup';
-export const PICKUP_EXPRESS = 'pickup_express';
 
 export const MONDAY_DELIVERY = 'monday';
 export const SATURDAY_DELIVERY = 'saturday';
@@ -111,11 +110,6 @@ export const formConfigPickup = {
   name: PICKUP,
   enabled: CONFIG.ALLOW_PICKUP_LOCATIONS,
   options: [
-    {
-      name: PICKUP_EXPRESS,
-      enabled: CONFIG.ALLOW_PICKUP_EXPRESS,
-      price: CONFIG.PRICE_PICKUP_EXPRESS,
-    },
     {
       name: PICKUP_STANDARD,
       price: CONFIG.PRICE_PICKUP,

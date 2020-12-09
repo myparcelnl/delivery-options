@@ -16,21 +16,18 @@ describe('price logic', () => {
           [CONFIG.PRICE_STANDARD_DELIVERY]: 3.40,
           [CONFIG.PRICE_EVENING_DELIVERY]: 4.58,
           [CONFIG.PRICE_PICKUP]: -1,
-          [CONFIG.PRICE_PICKUP_EXPRESS]: -3,
         },
         [CARRIERS.DPD]: {
           [CONFIG.PRICE_MORNING_DELIVERY]: -1,
           [CONFIG.PRICE_STANDARD_DELIVERY]: 0,
           [CONFIG.PRICE_EVENING_DELIVERY]: 3.20,
           [CONFIG.PRICE_PICKUP]: -3,
-          [CONFIG.PRICE_PICKUP_EXPRESS]: 2.39,
         },
         [CARRIERS.POSTNL]: {
           [CONFIG.PRICE_MORNING_DELIVERY]: 5.40,
           [CONFIG.PRICE_STANDARD_DELIVERY]: 3.59,
           [CONFIG.PRICE_EVENING_DELIVERY]: 3.20,
           [CONFIG.PRICE_PICKUP]: 0,
-          [CONFIG.PRICE_PICKUP_EXPRESS]: 1.19,
         },
       },
     },
@@ -45,7 +42,6 @@ describe('price logic', () => {
           [CONFIG.PRICE_STANDARD_DELIVERY]: 3.59,
           [CONFIG.PRICE_EVENING_DELIVERY]: 3.20,
           [CONFIG.PRICE_PICKUP]: 0,
-          [CONFIG.PRICE_PICKUP_EXPRESS]: -1,
         },
       },
     },
@@ -72,13 +68,10 @@ describe('price logic', () => {
     const priceBePostNl = getLowestPriceFromFormConfig(formConfigPickup, CARRIERS.POSTNL, beConfigBus);
     const priceNlPostNl = getLowestPriceFromFormConfig(formConfigPickup, CARRIERS.POSTNL, nlConfigBus);
 
-    // Always returns the price of standard pickup for BE because pickup express is not allowed.
     expect(priceBeBpost).toEqual(-1);
     expect(priceBeDpd).toEqual(-3);
     expect(priceBePostNl).toEqual(0);
-
-    // Pickup express
-    expect(priceNlPostNl).toEqual(-1);
+    expect(priceNlPostNl).toEqual(0);
   });
 
   it('gets the correct lowest price for all carriers', () => {

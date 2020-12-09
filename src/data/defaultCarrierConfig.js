@@ -16,13 +16,11 @@ export const defaultCarrierConfig = {
     [CONFIG.ALLOW_MONDAY_DELIVERY]: false,
     [CONFIG.ALLOW_ONLY_RECIPIENT]: false,
     [CONFIG.ALLOW_SIGNATURE]: false,
-    [CONFIG.ALLOW_PICKUP_EXPRESS]: false,
   },
   [CARRIERS.DPD]: {
     [CONFIG.ALLOW_MORNING_DELIVERY]: false,
     [CONFIG.ALLOW_EVENING_DELIVERY]: false,
     [CONFIG.ALLOW_MONDAY_DELIVERY]: false,
     [CONFIG.ALLOW_ONLY_RECIPIENT]: false,
-    [CONFIG.ALLOW_PICKUP_EXPRESS]: false,
   },
 };
