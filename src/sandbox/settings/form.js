@@ -340,28 +340,6 @@ export const createSettings = memoize((platform) => {
             inAnyCarrier(CONFIG.ALLOW_PICKUP_LOCATIONS),
           ],
         },
-        ...ifAnyCarrierAllows(CONFIG.ALLOW_PICKUP_EXPRESS, {
-          title: FORM.PICKUP_EXPRESS,
-          settings: [
-            ...perCarrier({
-              name: CONFIG.ALLOW_PICKUP_EXPRESS,
-              component: CToggle,
-              conditions: [
-                CONFIG.ALLOW_PICKUP_LOCATIONS,
-              ],
-            }),
-            {
-              key: CONFIG.KEY,
-              name: CONFIG.PRICE_PICKUP_EXPRESS,
-              component: CCurrency,
-              props: currencyProps,
-              conditions: [
-                inAnyCarrier(CONFIG.ALLOW_PICKUP_LOCATIONS),
-                inAnyCarrier(CONFIG.ALLOW_PICKUP_EXPRESS),
-              ],
-            },
-          ],
-        }),
       ],
     },
     {

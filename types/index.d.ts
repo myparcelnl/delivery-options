@@ -16,7 +16,7 @@ declare namespace MyParcel {
   /**
    * @see https://myparcelnl.github.io/api/#6_A_2
    */
-  type DeliveryType = 'morning' | 'standard' | 'evening' | 'pickup' | 'pickup_express'
+  type DeliveryType = 'morning' | 'standard' | 'evening' | 'pickup'
 
   /**
    * @see https://myparcelnl.github.io/api/#6_A_3
@@ -167,7 +167,6 @@ declare namespace MyParcelDeliveryOptions {
       allowEveningDelivery?: boolean
       allowMorningDelivery?: boolean
       allowOnlyRecipient?: boolean
-      allowPickupExpress?: boolean
       allowSignature?: boolean
 
       // NL only
@@ -180,7 +179,6 @@ declare namespace MyParcelDeliveryOptions {
       priceMorningDelivery?: number
       priceOnlyRecipient?: number
       pricePickup?: number
-      pricePickupExpress?: number
       priceSignature?: number
       priceStandardDelivery?: number
     }

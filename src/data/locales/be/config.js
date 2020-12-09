@@ -34,7 +34,6 @@ export const config = {
       [CONFIG.ALLOW_SATURDAY_DELIVERY]: false,
       [CONFIG.ALLOW_MORNING_DELIVERY]: false,
       [CONFIG.ALLOW_EVENING_DELIVERY]: false,
-      [CONFIG.ALLOW_PICKUP_EXPRESS]: false,
     }),
   },
 };

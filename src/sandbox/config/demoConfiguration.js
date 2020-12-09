@@ -13,7 +13,6 @@ export const demoConfiguration = (platform) => {
         [CONFIG.PRICE_MORNING_DELIVERY]: 4.95,
         [CONFIG.PRICE_ONLY_RECIPIENT]: 0.24,
         [CONFIG.PRICE_PICKUP]: -1,
-        [CONFIG.PRICE_PICKUP_EXPRESS]: 2.39,
         [CONFIG.PRICE_SIGNATURE]: 0.79,
         [CONFIG.PRICE_STANDARD_DELIVERY]: 0,
       },
