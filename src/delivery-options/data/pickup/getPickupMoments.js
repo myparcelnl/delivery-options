@@ -1,5 +1,4 @@
 import {
-  PICKUP_EXPRESS,
   PICKUP_MOMENT,
   PICKUP_STANDARD,
   formConfigPickup,
@@ -9,7 +8,6 @@ import { createLocaleString } from '@/delivery-options/data/dates/createLocaleSt
 
 const deliveryTypeMap = {
   pickup: PICKUP_STANDARD,
-  pickup_express: PICKUP_EXPRESS,
 };
 
 /**
