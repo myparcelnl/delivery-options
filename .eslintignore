@@ -4,3 +4,4 @@ dist
 myparcel_js_sdk
 node_modules
 public
+**/*.snap
