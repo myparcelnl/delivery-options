@@ -1,16 +1,14 @@
 import { mockSandbox, shallowMockSandbox } from './mockSandbox';
-import CCheckboxGroup from '@/sandbox/components/form/CCheckboxGroup';
 import CCodeEditor from '@/sandbox/components/form/CCodeEditor';
 import CCountrySelect from '@/sandbox/components/form/CCountrySelect';
 import CCurrency from '@/sandbox/components/form/CCurrency';
-import CNumber from '@/sandbox/components/form/CNumber';
-import CRadioGroup from '@/sandbox/components/form/CRadioGroup';
-import CSelect from '@/sandbox/components/form/CSelect';
-import CTextInput from '@/sandbox/components/form/CTextInput';
-import CTextarea from '@/sandbox/components/form/CTextarea';
-import CTimepicker from '@/sandbox/components/form/CTimepicker';
-import CToggle from '@/sandbox/components/form/CToggle';
 import { i18n } from '@/sandbox/services/vue-i18n';
+
+// Test options.
+const options = [
+  { text: 'Option A', value: 'a' },
+  { text: 'Option B', value: 'b' },
+];
 
 describe('Sandbox form components', () => {
   test('CCodeEditor', async() => {
@@ -82,111 +80,20 @@ describe('Sandbox form components', () => {
     expect(wrapper.find('input').element).toHaveValue(2.36);
   });
 
-  /**
-   * Simple test for components without complex logic.
-   */
-  test('Other components', () => {
-    const wrapper = mockSandbox(null, null, {
-      template: `
-        <div>
-        <CCheckboxGroup />
-        <CNumber />
-        <CRadioGroup />
-        <CSelect />
-        <CTextInput />
-        <CTextarea />
-        <CTimepicker />
-        <CToggle />
-        </div>
-      `,
-      components: {
-        CCheckboxGroup,
-        CNumber,
-        CRadioGroup,
-        CSelect,
-        CTextInput,
-        CTextarea,
-        CTimepicker,
-        CToggle,
-      },
-    });
+  test.each([
+    ['@/sandbox/components/form/CCheckboxGroup', { options }],
+    ['@/sandbox/components/form/CNumber'],
+    ['@/sandbox/components/form/CRadioGroup', { options }],
+    ['@/sandbox/components/form/CSelect', { options }],
+    ['@/sandbox/components/form/CTextInput'],
+    ['@/sandbox/components/form/CTextarea'],
+    ['@/sandbox/components/form/CTimepicker'],
+    ['@/sandbox/components/form/CToggle'],
+  ])('%s', async(componentPath, propsData = {}) => {
+    expect.assertions(1);
+    const component = (await import(componentPath)).default;
+    const wrapper = mockSandbox(null, { propsData }, component);
 
-    expect(wrapper.vm.$el).toMatchInlineSnapshot(`
-      <div>
-        <div
-          buttonvariant="secondary"
-          class="bv-no-focus-ring"
-          disabledfield="disabled"
-          htmlfield="html"
-          options=""
-          role="group"
-          tabindex="-1"
-          textfield="text"
-          valuefield="value"
-        />
-         
-        <input
-          class="form-control"
-          debounce="0"
-          lazy="true"
-          placeholder=<Default>
-          step="1"
-          type="number"
-        />
-         
-        <div
-          class="bv-no-focus-ring"
-          options=""
-          role="radiogroup"
-          tabindex="-1"
-        />
-         
-        <select
-          class="custom-select"
-          disabledfield="disabled"
-          htmlfield="html"
-          labelfield="label"
-          options=""
-          optionsfield="options"
-          selectsize="0"
-          textfield="text"
-          valuefield="value"
-        />
-         
-        <input
-          class="form-control"
-          lazy="true"
-          placeholder=<Default>
-          type="text"
-        />
-         
-        <textarea
-          class="form-control"
-          debounce="0"
-          rows="2"
-          wrap="soft"
-        />
-         
-        <input
-          class="form-control"
-          lazy="true"
-          placeholder="HH:mm"
-          type="time"
-        />
-         
-        <div
-          class="custom-control custom-switch b-custom-control-lg"
-        >
-          <input
-            class="custom-control-input"
-            type="checkbox"
-            value="true"
-          />
-          <label
-            class="custom-control-label"
-          />
-        </div>
-      </div>
-    `);
+    expect(wrapper.vm.$el).toMatchSnapshot();
   });
 });

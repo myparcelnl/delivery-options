@@ -1,0 +1,175 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Sandbox form components @/sandbox/components/form/CCheckboxGroup 1`] = `
+<div
+  checked="checked"
+  class="bv-no-focus-ring"
+  disabledfield="disabled"
+  htmlfield="html"
+  options="[object Object],[object Object]"
+  role="group"
+  tabindex="-1"
+  textfield="text"
+  value=""
+  valuefield="value"
+>
+  <div
+    class="custom-control custom-control-inline custom-checkbox"
+  >
+    <input
+      class="custom-control-input"
+      type="checkbox"
+      value="a"
+    />
+    <label
+      class="custom-control-label"
+    >
+      <span>
+        Option A
+      </span>
+    </label>
+  </div>
+  <div
+    class="custom-control custom-control-inline custom-checkbox"
+  >
+    <input
+      class="custom-control-input"
+      type="checkbox"
+      value="b"
+    />
+    <label
+      class="custom-control-label"
+    >
+      <span>
+        Option B
+      </span>
+    </label>
+  </div>
+</div>
+`;
+
+exports[`Sandbox form components @/sandbox/components/form/CNumber 1`] = `
+<input
+  class="form-control"
+  debounce="0"
+  formatter="default() {
+      return getComponentConfig(componentKey, prop, (0, _inspect.isFunction)(defaultValue) ? defaultValue() : defaultValue);
+    }"
+  lazy="true"
+  placeholder=<Default>
+  step="1"
+  type="number"
+/>
+`;
+
+exports[`Sandbox form components @/sandbox/components/form/CRadioGroup 1`] = `
+<div
+  class="bv-no-focus-ring"
+  options="[object Object],[object Object]"
+  role="radiogroup"
+  tabindex="-1"
+>
+  <div
+    class="custom-control custom-control-inline custom-radio"
+  >
+    <input
+      class="custom-control-input"
+      type="radio"
+      value="a"
+    />
+    <label
+      class="custom-control-label"
+    >
+      <span>
+        Option A
+      </span>
+    </label>
+  </div>
+  <div
+    class="custom-control custom-control-inline custom-radio"
+  >
+    <input
+      class="custom-control-input"
+      type="radio"
+      value="b"
+    />
+    <label
+      class="custom-control-label"
+    >
+      <span>
+        Option B
+      </span>
+    </label>
+  </div>
+</div>
+`;
+
+exports[`Sandbox form components @/sandbox/components/form/CSelect 1`] = `
+<select
+  class="custom-select"
+  disabledfield="disabled"
+  htmlfield="html"
+  labelfield="label"
+  options="[object Object],[object Object]"
+  optionsfield="options"
+  selectsize="0"
+  textfield="text"
+  valuefield="value"
+>
+  <option
+    value="a"
+  >
+    Option A
+  </option>
+  <option
+    value="b"
+  >
+    Option B
+  </option>
+</select>
+`;
+
+exports[`Sandbox form components @/sandbox/components/form/CTextInput 1`] = `
+<input
+  class="form-control"
+  lazy="true"
+  placeholder=<Default>
+  type="text"
+/>
+`;
+
+exports[`Sandbox form components @/sandbox/components/form/CTextarea 1`] = `
+<textarea
+  class="form-control"
+  debounce="0"
+  formatter="function _default() {
+        return getComponentConfig(componentKey, prop, isFunction(defaultValue) ? defaultValue() : defaultValue);
+      }"
+  rows="2"
+  wrap="soft"
+/>
+`;
+
+exports[`Sandbox form components @/sandbox/components/form/CTimepicker 1`] = `
+<input
+  class="form-control"
+  lazy="true"
+  placeholder="HH:mm"
+  type="time"
+/>
+`;
+
+exports[`Sandbox form components @/sandbox/components/form/CToggle 1`] = `
+<div
+  class="custom-control custom-switch b-custom-control-lg"
+>
+  <input
+    class="custom-control-input"
+    type="checkbox"
+    value="true"
+  />
+  <label
+    class="custom-control-label"
+  />
+</div>
+`;
