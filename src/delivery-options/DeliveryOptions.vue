@@ -33,7 +33,6 @@
 import * as EVENTS from '@/config/eventConfig';
 import * as FORM from '@/config/formConfig';
 import { NL, addressRequirements } from '@/config/localeConfig';
-import { formConfig, formConfigDelivery, formConfigPickup } from '@/config/formConfig';
 import { ADDRESS_ERROR } from '@/config/errorConfig';
 import Errors from '@/delivery-options/components/Errors';
 import Loader from '@/delivery-options/components/Loader';
@@ -100,33 +99,26 @@ export default {
        * Event listeners object. Stored here so we can add and remove them easily.
        */
       listeners: {
-        /**
-         * Empty the export values and force sending an update with the empty data.
-         */
-        removeData: () => {
-          this.$configBus.exportValues = {};
-          this.updateExternal(false);
-        },
+        removeData: this.removeData,
         show: () => {
           if (this.showDeliveryOptions === true) {
             return;
           }
 
-          this.showDeliveryOptions = true;
-          this.fakeShowDeliveryOptions = true;
+          this.showSelf();
           document.addEventListener(EVENTS.UPDATE_DELIVERY_OPTIONS, this.listeners.update);
           this.listeners.update();
         },
         hide: () => {
-          this.$configBus.exportValues = {};
-          this.fakeShowDeliveryOptions = false;
+          this.fakeHideSelf();
 
           const onLastUpdate = () => {
-            this.showDeliveryOptions = false;
+            this.hideSelf();
             document.removeEventListener(EVENTS.UPDATE_DELIVERY_OPTIONS, this.listeners.update);
             document.removeEventListener(EVENTS.UPDATED_DELIVERY_OPTIONS, onLastUpdate);
 
             clearTimeout(lastUpdateTimeout);
+            this.removeData();
           };
 
           const LAST_UPDATE_CUTOFF = 500;
@@ -167,7 +159,6 @@ export default {
       // If invalid, tell the configBus which fields are missing.
       if (!valid) {
         this.$configBus.addErrors(
-
           // Add the invalid fields to errors
           requirements.reduce((acc, item) => {
             return meetsRequirements(item)
@@ -195,7 +186,7 @@ export default {
     hasSomethingToShow() {
       const { isEnabledInAnyCarrier } = this.$configBus;
 
-      return isEnabledInAnyCarrier(formConfigPickup) || isEnabledInAnyCarrier(formConfigDelivery);
+      return isEnabledInAnyCarrier(FORM.formConfigPickup) || isEnabledInAnyCarrier(FORM.formConfigDelivery);
     },
 
     /**
@@ -257,7 +248,7 @@ export default {
           return acc;
         }
 
-        const configItem = formConfig.find((config) => config.name === setting);
+        const configItem = FORM.formConfig.find((config) => config.name === setting);
 
         return this.$configBus.isEnabledInAnyCarrier(configItem) ? [...acc, formData] : acc;
       }, []);
@@ -308,13 +299,13 @@ export default {
 
       // Don't start loading if there's nothing to load, and hide if needed.
       if (!this.hasSomethingToShow) {
-        this.showDeliveryOptions = false;
+        this.hideSelf();
         return;
       }
 
       // Close any modal in case the update was triggered by the retry modal.
       this.$configBus.showModal = false;
-      this.showDeliveryOptions = true;
+      this.showSelf();
 
       if (!this.hasValidAddress) {
         this.showAddressErrors();
@@ -336,13 +327,6 @@ export default {
     },
 
     /**
-     * Hide the checkout completely.
-     */
-    hideSelf() {
-      this.showDeliveryOptions = false;
-    },
-
-    /**
      * Trigger an update on the checkout. Throttled to avoid overloading the external platform with updates.
      *
      * @param {Object|Boolean} data - If data is false, sends empty update.
@@ -350,9 +334,11 @@ export default {
      * @param {*} data.value - New value of the changed option (if called through update).
      */
     updateExternal(data) {
+      const { exportValues } = this.$configBus;
+      const hasExportValues = exportValues && exportValues.isComplete();
       const isEmptied = data === false || (data.name === FORM.DELIVERY && data.value === null);
 
-      if (!isEmptied && !this.$configBus.exportValues.isComplete()) {
+      if (!isEmptied && !hasExportValues) {
         return;
       }
 
@@ -362,7 +348,7 @@ export default {
       document.dispatchEvent(new CustomEvent(
         EVENTS.UPDATED_DELIVERY_OPTIONS,
         {
-          detail: isEmptied ? null : this.$configBus.exportValues.toObject(),
+          detail: isEmptied ? null : exportValues.toObject(),
         },
       ));
     },
@@ -389,6 +375,38 @@ export default {
       this.$configBus.modalData = {
         component: Errors,
       };
+    },
+
+    /**
+     * Empty the export values and force sending an update with the empty data.
+     */
+    removeData() {
+      this.$configBus.exportValues = null;
+      this.updateExternal(false);
+    },
+
+    /**
+     * Fake hide the delivery options. See comment at below property for more details.
+     *
+     * @see this.fakeShowDeliveryOptions
+     */
+    fakeHideSelf() {
+      this.fakeShowDeliveryOptions = false;
+    },
+
+    /**
+     * Hide the delivery options.
+     */
+    hideSelf() {
+      this.showDeliveryOptions = false;
+    },
+
+    /**
+     * Show the delivery options.
+     */
+    showSelf() {
+      this.showDeliveryOptions = true;
+      this.fakeShowDeliveryOptions = true;
     },
   },
 };
