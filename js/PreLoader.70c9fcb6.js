@@ -1,2 +1,2 @@
-/*! MyParcel Delivery Options Sandbox 3.3.5 [5fd1be25d011000813d5e5672d6aa4859790fbd8] */
+/*! MyParcel Delivery Options Sandbox 3.3.5 [f9501d6f9ecead046be4a3911c28cc7b1e0cf87d] */
 (window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["PreLoader"],{"6d21":function(e,r,a){"use strict";a.r(r);var t=function(){var e=this,r=e.$createElement,a=e._self._c||r;return a("div",{staticClass:"bg-primary d-flex h-100 preloader w-100"},[a("b-spinner",{staticClass:"m-auto preloader__spinner",attrs:{variant:"white"}})],1)},n=[],s={name:"PreLoader"},i=s,l=a("2877"),o=Object(l["a"])(i,t,n,!1,null,null,null);r["default"]=o.exports}}]);
