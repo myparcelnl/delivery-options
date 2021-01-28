@@ -31,10 +31,10 @@ describe('Pickup.vue', () => {
     }, Pickup);
   });
 
-  it('createPickupChoices with error', async() => {
+  it('handle finding no pickup locations', async() => {
     expect.assertions(1);
     fakePickupLocationsResponse.mockImplementationOnce(() => []);
-    await expect(createPickupChoices()).rejects.toThrow(Error);
+    await expect(createPickupChoices()).resolves.toStrictEqual([]);
   });
 
   it('shows map view by default', () => {
