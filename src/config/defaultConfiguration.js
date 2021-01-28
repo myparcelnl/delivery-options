@@ -61,8 +61,9 @@ export const defaultConfiguration = (platform = DEFAULT_PLATFORM) => {
       [CONFIG.PRICE_STANDARD_DELIVERY]: DEFAULT_PRICE,
 
       [CONFIG.FEATURE_ALLOW_RETRY]: true,
-      [CONFIG.FEATURE_PICKUP_LOCATIONS_DEFAULT_VIEW]: 'map',
       [CONFIG.FEATURE_MAX_PAGE_ITEMS]: 5,
+      [CONFIG.FEATURE_PICKUP_LOCATIONS_DEFAULT_VIEW]: 'map',
+      [CONFIG.FEATURE_PICKUP_SHOW_DISTANCE]: true,
 
       /**
        * Default leaflet tile layer data.

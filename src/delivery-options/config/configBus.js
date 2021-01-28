@@ -390,15 +390,16 @@ export const createConfigBus = (eventCallee = null) => {
        * @param {MyParcel.CarrierName|Number} obj.value - New carrier or pickup location id.
        */
       updateCurrentCarrier({ name, value }) {
-        switch (name) {
-          case FORM.CARRIER:
-            this.currentCarrier = value;
-            break;
-          case FORM.PICKUP_LOCATION:
-            if (this.pickupLocations.hasOwnProperty(value)) {
-              this.currentCarrier = this.pickupLocations[value].carrier;
-            }
-            break;
+        if (FORM.CARRIER === name) {
+          this.currentCarrier = value;
+        } else if (FORM.PICKUP_LOCATION === name) {
+          const foundPickupLocation = this.pickupLocations.find((pickupLocation) => {
+            return pickupLocation.location_code === value;
+          });
+
+          if (foundPickupLocation) {
+            this.currentCarrier = foundPickupLocation.carrier;
+          }
         }
 
         this.values[FORM.CARRIER] = this.currentCarrier;

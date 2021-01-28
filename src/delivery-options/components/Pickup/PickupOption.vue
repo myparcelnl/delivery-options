@@ -70,7 +70,7 @@ export default {
   },
   computed: {
     featurePickupShowDistance() {
-      return this.$configBus.get(CONFIG.FEATURE_PICKUP_SHOW_DISTANCE) !== false;
+      return this.$configBus.isEnabled(CONFIG.FEATURE_PICKUP_SHOW_DISTANCE);
     },
 
     pickupData() {

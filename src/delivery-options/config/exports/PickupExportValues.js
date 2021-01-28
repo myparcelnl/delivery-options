@@ -32,13 +32,17 @@ export class PickupExportValues extends ExportValues {
       return;
     }
 
+    const foundLocation = configBus.pickupLocations.find((data) => {
+      return data.location_code === pickupLocationName;
+    });
+
     /*
      * After changing address while pickup is selected, the current pickupLocation might not be updated yet. This
      *  causes an error because the old pickup location likely doesn't exist anymore in the pickupLocations array.
      *
      * Return, because the next time pickupLocation will be set this condition will pass.
      */
-    if (!configBus.pickupLocations.hasOwnProperty(pickupLocationName)) {
+    if (!foundLocation) {
       return;
     }
 
@@ -46,7 +50,7 @@ export class PickupExportValues extends ExportValues {
      * Take out the possibilities array to use it to get the deliveryDate, but don't add it to the exportValues.
      * Also remove carrier from the pickupLocation object because it's already set in exportValues.carrier.
      */
-    const { carrier, possibilities, ...pickupLocation } = configBus.pickupLocations[pickupLocationName];
+    const { carrier, possibilities, ...pickupLocation } = foundLocation;
 
     this.deliveryDate = getPickupDate(possibilities);
     this.pickupLocation = pickupLocation;
