@@ -37,7 +37,6 @@ import * as EVENTS from '@/config/eventConfig';
 import * as FORM from '@/config/formConfig';
 import Modal from '@/delivery-options/components/Modal';
 import PickupDetails from '@/delivery-options/components/Pickup/PickupDetails';
-import { SENDMYPARCEL } from '@/data/keys/platformKeys';
 import Vue from 'vue';
 import { createIcons } from '@/delivery-options/components/Pickup/Map/createIcons';
 import { createPickupChoices } from '@/delivery-options/data/pickup/createPickupChoices';
@@ -130,15 +129,14 @@ export default {
 
   computed: {
     /**
-     * TODO: Disallows dragging for BE.
-     *  When we can look up pickup points using coordinates for bpost and dpd this can be removed.
+     * TODO: Disallows dragging for non-NL countries.
+     *  When we can look up pickup points using coordinates everywhere this can be removed.
      *  Research: https://jira.dmp.zone/browse/MY-16566.
-     *
      *
      *  @returns {Boolean}
      */
     canUseDragFeature() {
-      return this.$configBus.get(CONFIG.PLATFORM) !== SENDMYPARCEL;
+      return this.$configBus.address.cc === 'nl';
     },
 
     mapClass() {
@@ -345,13 +343,6 @@ export default {
 
       this.map.fitBounds(bounds);
       this.map.setZoom(this.zoom);
-
-      const listener = () => {
-        this.onZoomEnd();
-        this.map.off('moveend', listener);
-      };
-
-      this.map.on('moveend', listener);
     },
 
     addMapEvents() {
