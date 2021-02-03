@@ -36,6 +36,7 @@ import * as CONFIG from '@/data/keys/configKeys';
 import * as EVENTS from '@/config/eventConfig';
 import * as FORM from '@/config/formConfig';
 import Modal from '@/delivery-options/components/Modal';
+import { NL } from '@/config/localeConfig.js';
 import PickupDetails from '@/delivery-options/components/Pickup/PickupDetails';
 import Vue from 'vue';
 import { createIcons } from '@/delivery-options/components/Pickup/Map/createIcons';
@@ -136,7 +137,7 @@ export default {
      *  @returns {Boolean}
      */
     canUseDragFeature() {
-      return this.$configBus.address.cc === 'nl';
+      return NL === this.$configBus.address.cc;
     },
 
     mapClass() {
