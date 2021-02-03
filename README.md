@@ -28,7 +28,9 @@ An example of the delivery options functionality can be found in our [sandbox]. 
    $ npm ci
    $ npm run build
 ```
-3. Include `dist/myparcel.js` in your project.
+3. Is [Vue.js](https://vuejs.org/) ^2.6.0 present on the page you want to use the Delivery Options on?
+   - Yes: Include `dist/myparcel.lib.js`.
+   - No: Include `dist/myparcel.js`.
 4. Place `<div id="myparcel-delivery-options"></div>` in your HTML.
 5. Follow the usage instructions.
 6. The delivery options will be rendered inside the div created in step 4.
@@ -205,9 +207,9 @@ document.dispatchEvent(new Event('myparcel_update_delivery_options'));
 1. Now, when an user changes the value in any of the fields set in `addressFields` the `window.MyParcelConfig` will be updated and the delivery options module will receive the event that tells it to update. The delivery options will reload and fetch the available options for the new address.
 
 ### Usage in forms
-You'll often want to use the delivery options module in a checkout form in your webshop software. Below are some things to keep in mind, but if you're interested in doing this you should checkout our Magento2 and WooCommerce plugins locally and read through these implementations. You can find the best files to get started with in [Integration examples]. We also recommend you join our [Slack] support channel to get (fast!) answers to any questions you might have.
+You'll often want to use the delivery options module in a checkout form in your webshop software. Below are some things to keep in mind, but if you're interested in doing this you should check out our Magento2 and WooCommerce plugins locally and read through these implementations. You can find the best files to get started with in [Integration examples]. We also recommend you join our [Slack] support channel to get (fast!) answers to any questions you might have.
 
-1. Follow the steps in [Installation] and copy `node_modules/@myparcel/delivery-options/dist/myparcel.js` to your js folder.
+1. Follow the steps in [Installation] and copy `myparcel.js` (Vue included) or `myparcel.lib.js` (Vue not included) from `node_modules/@myparcel/delivery-options/dist` to your js folder.
 2. The things you'll need to do :
     - Have either a `window.MyParcelConfig` or dispatch a `CustomEvent` with the settings you want in the page where you're loading the delivery options.
     - Send events to the delivery options telling it when to update or rerender.
