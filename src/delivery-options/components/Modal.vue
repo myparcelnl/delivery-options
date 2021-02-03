@@ -9,7 +9,7 @@
       v-if="hasCloseButton"
       :class="`${$classBase}__modal__close`"
       @click="inline ? $emit('close') : $configBus.showModal = false">
-      <font-awesome-icon icon="times" />
+      <Fa :icon="faTimes" />
     </div>
     <component
       :is="component"
@@ -22,8 +22,12 @@
 </template>
 
 <script>
+import Fa from 'vue-fa';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
+
 export default {
   name: 'Modal',
+  components: { Fa },
   props: {
     inline: {
       type: Boolean,
@@ -39,6 +43,12 @@ export default {
     hasCloseButton: {
       type: Boolean,
     },
+  },
+
+  data() {
+    return {
+      faTimes,
+    };
   },
 };
 </script>

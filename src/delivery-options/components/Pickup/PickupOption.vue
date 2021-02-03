@@ -21,9 +21,9 @@
 
       <span :class="`${$classBase}__d-block`">
         <span v-text="data.label" />
-        <font-awesome-icon
+        <Fa
           v-if="isSelected"
-          icon="ellipsis-h"
+          :icon="faEllipsisH"
           :class="`${$classBase}__float--right`" />
       </span>
 
@@ -55,10 +55,14 @@
 
 <script>
 import * as CONFIG from '@/data/keys/configKeys';
+import Fa from 'vue-fa';
 import PickupDetails from './PickupDetails';
+import { faEllipsisH } from '@fortawesome/free-solid-svg-icons/faEllipsisH';
 
 export default {
   name: 'PickupOption',
+  components: { Fa },
+
   props: {
     isSelected: {
       type: Boolean,
@@ -68,6 +72,13 @@ export default {
       default: null,
     },
   },
+
+  data() {
+    return {
+      faEllipsisH,
+    };
+  },
+
   computed: {
     featurePickupShowDistance() {
       return this.$configBus.isEnabled(CONFIG.FEATURE_PICKUP_SHOW_DISTANCE);

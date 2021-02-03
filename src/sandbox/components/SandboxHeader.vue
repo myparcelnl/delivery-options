@@ -1,10 +1,10 @@
 <template>
   <header>
-    <b-navbar
+    <BNavbar
       toggleable="lg"
       type="dark"
       variant="primary">
-      <b-navbar-brand href="#">
+      <BNavbarBrand href="#">
         <img
           src="https://assets.myparcel.nl/skin/images/logo-inverse.svg"
           alt="Logo">
@@ -12,33 +12,36 @@
         <span
           v-t="'title.main'"
           class="ml-3" />
-      </b-navbar-brand>
+      </BNavbarBrand>
 
-      <b-navbar-toggle target="nav-collapse" />
+      <BNavbarToggle target="nav-collapse" />
 
-      <b-collapse
+      <BCollapse
         id="nav-collapse"
         is-nav>
-        <b-navbar-nav class="ml-auto">
-          <b-nav-item
+        <BNavbarNav class="ml-auto">
+          <BNavItem
             v-for="link in externalLinks"
             :key="'link_' + link.text"
             :to="link.link">
             {{ $t(link.text) }}
-            <font-awesome-icon
-              icon="external-link-alt"
+            <Fa
+              :icon="faExternalLinkAlt"
               class="ml-1 small" />
-          </b-nav-item>
-        </b-navbar-nav>
-      </b-collapse>
-    </b-navbar>
+          </BNavItem>
+        </BNavbarNav>
+      </BCollapse>
+    </BNavbar>
   </header>
 </template>
 
 <script>
+import Fa from 'vue-fa';
+import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons/faExternalLinkAlt';
+
 export default {
   name: 'SandboxHeader',
-
+  components: { Fa },
   data() {
     return {
       /* eslint-disable vue/max-len,max-len */
@@ -53,6 +56,7 @@ export default {
         },
       ],
       /* eslint-enable vue/max-len,max-len */
+      faExternalLinkAlt,
     };
   },
 };
