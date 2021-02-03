@@ -1,4 +1,5 @@
 const webpack = require('webpack');
+const kebabCase = require('lodash/kebabCase');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 /**
@@ -9,7 +10,7 @@ const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
  * @returns {webpack.Configuration}
  */
 function createConfig(name, slug = null, config = {}) {
-  slug = slug || name.toLowerCase().replace(/[^\w\d]/, '-');
+  slug = slug || kebabCase(name);
 
   // Destructure things we are inserting manually.
   const {
@@ -25,8 +26,7 @@ function createConfig(name, slug = null, config = {}) {
     },
 
     plugins: [
-      // eslint-disable-next-line vue/max-len,max-len
-      new webpack.BannerPlugin(`MyParcel ${name} ${process.env.npm_package_version} [${process.env.npm_package_gitHead}]`),
+      new webpack.BannerPlugin(`MyParcel ${name}`),
       new BundleAnalyzerPlugin({
         analyzerMode: 'static',
         defaultSizes: 'parsed',
