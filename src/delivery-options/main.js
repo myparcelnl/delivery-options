@@ -1,6 +1,5 @@
 import '@/assets/scss/delivery-options/style.scss';
 import '@/delivery-options/services/polyfills';
-// import '@/delivery-options/services/fontAwesome';
 import '@/delivery-options/services/directives';
 import '@/delivery-options/services/filters';
 import { RENDER_DELIVERY_OPTIONS, UPDATE_DELIVERY_OPTIONS } from '@/config/eventConfig';
