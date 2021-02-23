@@ -1,3 +1,4 @@
+import * as CONFIG from "@/data/keys/configKeys";
 import * as STRINGS from '@/data/keys/stringsKeys';
 import { formatCurrency } from '@/delivery-options/data/prices/formatCurrency';
 import { getLowestPriceFromFormConfig } from '@/delivery-options/data/prices/getLowestPriceFromFormConfig';
@@ -17,6 +18,11 @@ export function getPriceLabelFromFormConfig(formSettings, carrier = null, config
   const minimumPrice = getLowestPriceFromFormConfig(formSettings, carrier, configBus);
   const formattedPrice = formatCurrency(minimumPrice, configBus);
   const isDiscount = minimumPrice < 0;
+  const showPriceSurcharge = configBus.get(CONFIG.SHOW_PRICE_SURCHARGE);
+
+  if (showPriceSurcharge && minimumPrice === 0) {
+    return null;
+  }
 
   if (isDiscount) {
     return `${formattedPrice} ${configBus.strings[STRINGS.DISCOUNT].toLowerCase()}`;

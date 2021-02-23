@@ -35,6 +35,7 @@ export const defaultConfiguration = (platform = DEFAULT_PLATFORM) => {
     [CONFIG.KEY]: {
       [CONFIG.PLATFORM]: DEFAULT_PLATFORM,
       [CONFIG.CURRENCY]: 'EUR',
+      [CONFIG.SHOW_PRICE_SURCHARGE]: false,
 
       [CONFIG.PACKAGE_TYPE]: DEFAULT_PACKAGE_TYPE,
 
