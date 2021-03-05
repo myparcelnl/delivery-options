@@ -1,5 +1,5 @@
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin/src');
-const { createConfig } = require('./config-variables');
+const { createConfig } = require('./createConfig.js');
 
 const slug = 'sandbox';
 

@@ -1,10 +1,10 @@
-const { deliveryOptionsConfig } = require('./private/delivery-options.config');
+const { deliveryOptionsConfig } = require('./private/deliveryOptionsConfig.js');
 const path = require('path');
-const { sandboxConfig } = require('./private/sandbox.config');
+const { sandboxConfig } = require('./private/sandboxConfig.js');
 const webpack = require('webpack');
-const { version, repository } = require('./package.json');
+const { deliveryOptionsLibConfig } = require('./private/deliveryOptionsLibConfig.js');
+const { repository } = require('./package.json');
 
-process.env.VUE_APP_VERSION = version;
 process.env.VUE_APP_REPOSITORY_URL = repository.url.replace('.git', '');
 process.env.VUE_APP_COMMIT_HASH = require('child_process')
   .execSync('git rev-parse HEAD')
@@ -14,7 +14,6 @@ process.env.VUE_APP_COMMIT_HASH = require('child_process')
 const {
   NODE_ENV,
   VUE_APP_CLASS_BASE,
-  VUE_APP_VERSION,
   VUE_APP_COMMIT_HASH,
   VUE_APP_REPOSITORY_URL,
 } = process.env;
@@ -70,7 +69,6 @@ module.exports = {
         VUE_APP_CLASS_BASE: JSON.stringify(VUE_APP_CLASS_BASE),
         VUE_APP_COMMIT_HASH: JSON.stringify(VUE_APP_COMMIT_HASH),
         VUE_APP_REPOSITORY_URL: JSON.stringify(VUE_APP_REPOSITORY_URL),
-        VUE_APP_VERSION: JSON.stringify(VUE_APP_VERSION),
       }),
     ],
   },
@@ -79,6 +77,7 @@ module.exports = {
     configureMultiCompilerWebpack: [
       sandboxConfig,
       deliveryOptionsConfig,
+      deliveryOptionsLibConfig,
     ],
   },
 };
