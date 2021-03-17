@@ -67,6 +67,11 @@ export const createSettings = memoize((platform) => {
         },
         {
           key: CONFIG.KEY,
+          name: CONFIG.SHOW_PRICE_SURCHARGE,
+          component: CToggle,
+        },
+        {
+          key: CONFIG.KEY,
           name: CONFIG.DROP_OFF_DAYS,
           component: CCheckboxGroup,
           props: {

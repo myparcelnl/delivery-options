@@ -107,4 +107,22 @@ describe('price logic', () => {
     const priceLabel = getPriceLabelFromFormConfig(formConfigDelivery, null, configBus);
     expect(priceLabel).toEqual('Vanaf € 0,00');
   });
+
+  it('handles show price surcharge setting properly', () => {
+    const configBus = mockConfigBus({
+      [CONFIG.KEY]: {
+        [CONFIG.PLATFORM]: PLATFORMS.SENDMYPARCEL,
+        [CONFIG.SHOW_PRICE_SURCHARGE]: true,
+        [CONFIG.CARRIER_SETTINGS]: {
+          [CARRIERS.BPOST]: {
+            [CONFIG.PRICE_MORNING_DELIVERY]: 5.10,
+            [CONFIG.PRICE_STANDARD_DELIVERY]: 0,
+          },
+        },
+      },
+    });
+
+    const priceLabel = getPriceLabelFromFormConfig(formConfigDelivery, null, configBus);
+    expect(priceLabel).toEqual(null);
+  });
 });
