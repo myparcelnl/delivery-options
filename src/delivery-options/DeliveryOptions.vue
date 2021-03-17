@@ -32,8 +32,8 @@
 <script>
 import * as EVENTS from '@/config/eventConfig';
 import * as FORM from '@/config/formConfig';
+import { ADDRESS_ERROR, FATAL_ERRORS } from '@/config/errorConfig';
 import { NL, addressRequirements } from '@/config/localeConfig';
-import { ADDRESS_ERROR } from '@/config/errorConfig';
 import Errors from '@/delivery-options/components/Errors';
 import Loader from '@/delivery-options/components/Loader';
 import Modal from '@/delivery-options/components/Modal';
@@ -158,7 +158,7 @@ export default {
 
       // If invalid, tell the configBus which fields are missing.
       if (!valid) {
-        this.$configBus.addErrors(
+        this.$configBus.addError(
           // Add the invalid fields to errors
           requirements.reduce((acc, item) => {
             return meetsRequirements(item)
@@ -359,7 +359,7 @@ export default {
      * @param {Object} e - Error object.
      */
     handleError(e) {
-      if (e.type === 'fatal') {
+      if (FATAL_ERRORS.includes(e.code) || e.type === 'fatal') {
         this.hideSelf();
       }
 

@@ -289,7 +289,7 @@ export const createConfigBus = (eventCallee = null) => {
        *
        * @param {Object} error - Error to add.
        */
-      addErrors(error) {
+      addError(error) {
         this.errors = [...this.errors, error];
         this.$emit(EVENTS.ERROR, error);
       },

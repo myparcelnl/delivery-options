@@ -38,12 +38,16 @@ export const fetchFromEndpoint = memoize(async function fetchFunc(endpoint, opti
   try {
     response = await client[endpoint][options.method](options.params) || [];
   } catch (e) {
-    if (configBus) {
-      if (e.errors && e.errors.length) {
-        configBus.addErrors({ type: 'api', endpoint, ...e.errors[0] });
-      } else {
-        configBus.addErrors({ type: 'fatal', endpoint, error: e });
-      }
+    if (!configBus) {
+      return;
+    }
+
+    configBus.errors = [];
+
+    if (e.errors && e.errors.length) {
+      e.errors.forEach((error) => configBus.addError({ type: 'api', endpoint, ...error }));
+    } else {
+      configBus.addError({ type: 'fatal', endpoint, error: e });
     }
   }
 
