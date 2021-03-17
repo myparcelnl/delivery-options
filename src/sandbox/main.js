@@ -2,7 +2,6 @@ import '../assets/scss/sandbox/style.scss';
 import '@/delivery-options/services/filters';
 import '@/delivery-options/services/directives';
 import '@/sandbox/services/filters';
-import '@/sandbox/services/fontAwesome';
 import Sandbox from '@/sandbox/Sandbox';
 import Vue from 'vue';
 import { appConfig } from '@/config/appConfig';

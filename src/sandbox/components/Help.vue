@@ -1,23 +1,27 @@
 <template>
   <span>
-    <font-awesome-icon
-      icon="info-circle"
+    <Fa
+      :icon="faInfoCircle"
       :class="{ [`text-${variant}`]: variant }" />
 
-    <b-popover
+    <BPopover
       :target="target"
       v-bind="filteredProps">
       <slot />
-    </b-popover>
+    </BPopover>
   </span>
 </template>
 
 <script>
+import Fa from 'vue-fa';
 import debounce from 'lodash-es/debounce';
+import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { hasVariantProp } from '@/sandbox/services/mixins/hasVariantProp';
 
 export default {
   name: 'Help',
+
+  components: { Fa },
 
   mixins: [
     hasVariantProp,
@@ -52,6 +56,7 @@ export default {
 
   data() {
     return {
+      faInfoCircle,
       mutablePlacement: null,
     };
   },
