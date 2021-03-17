@@ -24,10 +24,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^1.2.34",
-    "@fortawesome/free-regular-svg-icons": "^5.15.2",
     "@fortawesome/free-solid-svg-icons": "^5.15.2",
-    "@fortawesome/vue-fontawesome": "^2.0.2",
     "@myparcel/js-sdk": "^2.0.3",
     "core-js": "^3.9.1",
     "custom-event-polyfill": "^1.0.7",
@@ -36,7 +33,8 @@
     "raw-loader": "^4.0.2",
     "vue": "^2.6.12",
     "vue-async-computed": "^3.9.0",
-    "vue-click-outside": "^1.1.0"
+    "vue-click-outside": "^1.1.0",
+    "vue-fa": "^2.0.1"
   },
   "devDependencies": {
     "@commitlint/cli": "^12.0.1",

@@ -5,7 +5,7 @@
         {{ $t(`platform.${platform}`) }}
       </Heading>
 
-      <b-btn
+      <BBtn
         v-for="(link, index) in getPlatformData(platform).links"
         :key="'button_' + link.text"
         size="sm"
@@ -14,10 +14,10 @@
         }"
         :href="link.href">
         <span v-t="link.text" />
-        <font-awesome-icon
+        <Fa
           class="ml-1"
-          icon="external-link-alt" />
-      </b-btn>
+          :icon="faExternalLinkAlt" />
+      </BBtn>
     </div>
 
     <div class="card mb-2">
@@ -40,13 +40,15 @@
 
 <script>
 import { DEFAULT_PLATFORM } from '@/data/keys/settingsConsts';
+import Fa from 'vue-fa';
 import FormGroup from './FormGroup';
 import Heading from '@/sandbox/components/Heading';
+import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
 import { platformTabs } from '@/config/platformConfig';
 
 export default {
   name: 'SettingsForm',
-  components: { Heading, FormGroup },
+  components: { Heading, FormGroup, Fa },
 
   props: {
     platform: {
@@ -61,6 +63,7 @@ export default {
 
   data() {
     return {
+      faExternalLinkAlt,
       resolvedForm: null,
     };
   },
