@@ -1,6 +1,8 @@
 /* eslint-disable no-continue */
 import { getNextDeliveryOption } from './delivery-options/getNextDeliveryOption';
 
+export const fakeDeliveryOptionsResponse = jest.fn();
+
 /**
  * Generate an array of delivery options much like the actual API response.
  *
@@ -21,7 +23,7 @@ import { getNextDeliveryOption } from './delivery-options/getNextDeliveryOption'
  *
  * @returns {Object[]}
  */
-export function fakeDeliveryOptionsResponse(args) {
+fakeDeliveryOptionsResponse.mockImplementation((args) => {
   const deliveryDaysWindow = args.deliverydays_window || 1;
   const dropOffDelay = args.dropoff_delay || 0;
   let startIndex = dropOffDelay + 1;
@@ -34,4 +36,4 @@ export function fakeDeliveryOptionsResponse(args) {
       startIndex += (index - startIndex) + 1;
       return data;
     });
-}
+});
