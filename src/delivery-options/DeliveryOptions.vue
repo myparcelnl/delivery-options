@@ -32,7 +32,7 @@
 <script>
 import * as EVENTS from '@/config/eventConfig';
 import * as FORM from '@/config/formConfig';
-import { ADDRESS_ERROR, FATAL_ERRORS } from '@/config/errorConfig';
+import { ERROR_INVALID_POSTAL_CODE, FATAL_ERRORS } from '@/config/errorConfig';
 import { NL, addressRequirements } from '@/config/localeConfig';
 import Errors from '@/delivery-options/components/Errors';
 import Loader from '@/delivery-options/components/Loader';
@@ -166,7 +166,7 @@ export default {
               : [
                 ...acc,
                 {
-                  code: ADDRESS_ERROR,
+                  code: ERROR_INVALID_POSTAL_CODE,
                   type: 'address',
                   error: item,
                 },

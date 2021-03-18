@@ -1,5 +1,5 @@
 import { ERROR } from '@/config/eventConfig';
-import { ERROR_COUNTRY_NOT_SUPPORTED } from '@/config/errorConfig';
+import { ERROR_INVALID_COUNTRY_CODE } from '@/config/errorConfig';
 import { MYPARCEL } from '@/data/keys/platformKeys';
 import { configBus } from '@/delivery-options/config/configBus';
 import { fakeDeliveryOptionsResponse } from '@Mocks/@myparcel/js-sdk/dist/data/fakeDeliveryOptionsResponse';
@@ -14,7 +14,7 @@ describe('Error handling', () => {
       throw {
         errors: [
           {
-            code: ERROR_COUNTRY_NOT_SUPPORTED,
+            code: ERROR_INVALID_COUNTRY_CODE,
           },
         ],
       };
