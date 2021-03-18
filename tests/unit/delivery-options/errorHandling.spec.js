@@ -26,4 +26,16 @@ describe('Error handling', () => {
 
     expect(hideSelfSpy).toBeCalled();
   });
+
+  it('should hide itself when any other unexpected error occurs', async() => {
+    fakeDeliveryOptionsResponse.mockImplementation(() => {
+      throw new Error();
+    });
+
+    app = mockDeliveryOptions(MYPARCEL);
+    const hideSelfSpy = jest.spyOn(app.vm, 'hideSelf');
+    await waitForEvent(ERROR, configBus);
+
+    expect(hideSelfSpy).toBeCalled();
+  });
 });
