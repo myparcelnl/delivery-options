@@ -42,10 +42,11 @@ export const fetchFromEndpoint = memoize(async function fetchFunc(endpoint, opti
       return;
     }
 
+    const { errors } = e;
     configBus.errors = [];
 
-    if (e.errors && e.errors.length) {
-      e.errors.forEach((error) => configBus.addError({ type: 'api', endpoint, ...error }));
+    if (errors && errors.length) {
+      errors.forEach((error) => configBus.addError({ type: 'api', endpoint, ...error }));
     } else {
       configBus.addError({ type: 'fatal', endpoint, error: e });
     }
