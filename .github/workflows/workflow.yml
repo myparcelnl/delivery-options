@@ -30,6 +30,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 2
       - uses: bahmutov/npm-install@v1
       - name: Run jest
         run: ./node_modules/.bin/cross-env npm test
