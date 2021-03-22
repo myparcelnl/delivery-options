@@ -92,7 +92,7 @@
 
           <component
             :is="isSelected(choice) ? 'strong' : 'span'"
-            v-if="!!choice.price"
+            v-if="!!choice.price && showPrices"
             :class="{
               [`${$classBase}__float--right`]: true,
               [`${$classBase}__text--green`]: $configBus.get(choice, 'price') < 0,
@@ -179,6 +179,7 @@
 import * as EVENTS from '@/config/eventConfig';
 import Loader from '@/delivery-options/components/Loader';
 import PickupOption from '../Pickup/PickupOption';
+import { SHOW_PRICES } from '@/data/keys/configKeys';
 import debounce from 'lodash-es/debounce';
 import { formConfig } from '@/config/formConfig';
 import { formatCurrency } from '@/delivery-options/data/prices/formatCurrency';
@@ -328,6 +329,15 @@ export default {
      */
     selectedChoice() {
       return this.mutableChoices.find((choice) => this.isSelected(choice));
+    },
+
+    /**
+     * Whether to render price strings at all.
+     *
+     * @returns {Boolean}
+     */
+    showPrices() {
+      return this.$configBus.isEnabled(SHOW_PRICES);
     },
   },
 

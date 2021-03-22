@@ -90,6 +90,8 @@ export const englishTranslations = {
   [`field.${CONFIG.PRICE_STANDARD_DELIVERY}`]: 'Standard delivery price',
   [`field.${CONFIG.SATURDAY_CUTOFF_TIME}.description`]: `Like the regular "@:field.${CONFIG.CUTOFF_TIME}" setting: This option allows you to indicate the latest cutoff time before an order will still be picked, packed and dispatched on the same/first set dropoff day, taking the dropoff delay into account.`,
   [`field.${CONFIG.SATURDAY_CUTOFF_TIME}`]: 'Saturday cutoff time',
+  [`field.${CONFIG.SHOW_PRICES}.description`]: 'Disable to not show prices anywhere at all.',
+  [`field.${CONFIG.SHOW_PRICES}`]: 'Show prices',
   [`field.${CONFIG.SHOW_PRICE_SURCHARGE}.description`]: 'Enable to show price as surcharge rather than total price.',
   [`field.${CONFIG.SHOW_PRICE_SURCHARGE}`]: 'Show price as surcharge',
 

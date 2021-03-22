@@ -63,12 +63,23 @@ export const createSettings = memoize((platform) => {
       settings: [
         {
           key: CONFIG.KEY,
+          name: CONFIG.SHOW_PRICES,
+          component: CToggle,
+        },
+        {
+          key: CONFIG.KEY,
           name: CONFIG.CURRENCY,
+          conditions: [
+            CONFIG.SHOW_PRICES,
+          ],
         },
         {
           key: CONFIG.KEY,
           name: CONFIG.SHOW_PRICE_SURCHARGE,
           component: CToggle,
+          conditions: [
+            CONFIG.SHOW_PRICES,
+          ],
         },
         {
           key: CONFIG.KEY,
@@ -97,7 +108,6 @@ export const createSettings = memoize((platform) => {
           name: CONFIG.CUTOFF_TIME,
           component: CTimepicker,
         },
-
       ],
     },
     {
@@ -122,6 +132,7 @@ export const createSettings = memoize((platform) => {
               name: CONFIG.PRICE_STANDARD_DELIVERY,
               component: CCurrency,
               conditions: [
+                CONFIG.SHOW_PRICES,
                 inAnyCarrier(CONFIG.ALLOW_DELIVERY_OPTIONS),
               ],
               props: currencyProps,
@@ -151,6 +162,7 @@ export const createSettings = memoize((platform) => {
               name: CONFIG.PRICE_MORNING_DELIVERY,
               component: CCurrency,
               conditions: [
+                CONFIG.SHOW_PRICES,
                 inAnyCarrier(CONFIG.ALLOW_DELIVERY_OPTIONS),
                 inAnyCarrier(CONFIG.ALLOW_MORNING_DELIVERY),
               ],
@@ -181,6 +193,7 @@ export const createSettings = memoize((platform) => {
               name: CONFIG.PRICE_EVENING_DELIVERY,
               component: CCurrency,
               conditions: [
+                CONFIG.SHOW_PRICES,
                 inAnyCarrier(CONFIG.ALLOW_DELIVERY_OPTIONS),
                 inAnyCarrier(CONFIG.ALLOW_EVENING_DELIVERY),
               ],
@@ -257,6 +270,7 @@ export const createSettings = memoize((platform) => {
                   component: CCurrency,
                   props: currencyProps,
                   conditions: [
+                    CONFIG.SHOW_PRICES,
                     inAnyCarrier(CONFIG.ALLOW_ONLY_RECIPIENT),
                   ],
                 },
@@ -285,6 +299,7 @@ export const createSettings = memoize((platform) => {
                   component: CCurrency,
                   props: currencyProps,
                   conditions: [
+                    CONFIG.SHOW_PRICES,
                     inAnyCarrier(CONFIG.ALLOW_SIGNATURE),
                   ],
                 },
@@ -311,12 +326,18 @@ export const createSettings = memoize((platform) => {
               name: CONFIG.PRICE_PACKAGE_TYPE_DIGITAL_STAMP,
               component: CCurrency,
               props: currencyProps,
+              conditions: [
+                CONFIG.SHOW_PRICES,
+              ],
             }),
             ...ifAnyCarrierAllows(ALLOW_PACKAGE_TYPE_MAILBOX, {
               key: CONFIG.KEY,
               name: CONFIG.PRICE_PACKAGE_TYPE_MAILBOX,
               component: CCurrency,
               props: currencyProps,
+              conditions: [
+                CONFIG.SHOW_PRICES,
+              ],
             }),
           ],
         }),
@@ -342,6 +363,7 @@ export const createSettings = memoize((platform) => {
           component: CCurrency,
           props: currencyProps,
           conditions: [
+            CONFIG.SHOW_PRICES,
             inAnyCarrier(CONFIG.ALLOW_PICKUP_LOCATIONS),
           ],
         },
