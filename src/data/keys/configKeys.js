@@ -5,7 +5,7 @@ export const API_BASE_URL = 'apiBaseUrl';
 export const CURRENCY = 'currency';
 export const LOCALE = 'locale';
 export const PLATFORM = 'platform';
-export const SHOW_PRICES = 'showPrice';
+export const SHOW_PRICES = 'showPrices';
 export const SHOW_PRICE_SURCHARGE = 'showPriceSurcharge';
 
 export const PACKAGE_TYPE = 'packageType';
