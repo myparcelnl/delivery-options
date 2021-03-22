@@ -65,13 +65,13 @@
           id: `${mutableOption.name}__${mutableOption.component.name}`,
           choice: choice.name,
         }"
-        :colspan="validChoices.length <= 1 ? null : !!choice.price ? 1 : 2"
+        :colspan="validChoices.length <= 1 ? null : (hasPrice(choice) ? 1 : 2)"
         :data="choice"
         :is-selected="isSelected(choice)" />
 
       <td
         v-else
-        :colspan="validChoices.length <= 1 ? null : !!choice.price ? 1 : 2">
+        :colspan="validChoices.length <= 1 ? null : (hasPrice(choice) ? 1 : 2)">
         <label :for="`${$classBase}__${mutableOption.name}--${choice.name}`">
           <img
             v-if="choice.hasOwnProperty('image')"
@@ -87,12 +87,14 @@
             v-text="choice.plainLabel || $configBus.strings[choice.label]" />
           <span
             v-if="!!choice.priceTag && !isSelected(choice)"
+            v-test="'priceTag'"
             :class="`${$classBase}__float--right`"
             v-text="choice.priceTag" />
 
           <component
             :is="isSelected(choice) ? 'strong' : 'span'"
-            v-if="!!choice.price && showPrices"
+            v-if="hasPrice(choice)"
+            v-test="'price'"
             :class="{
               [`${$classBase}__float--right`]: true,
               [`${$classBase}__text--green`]: $configBus.get(choice, 'price') < 0,
@@ -607,6 +609,17 @@ export default {
       }
 
       this.selected = selected;
+    },
+
+    /**
+     * Whether the given choice has a price and should show it.
+     *
+     * @param {Object} choice
+     *
+     * @returns {Boolean}
+     */
+    hasPrice(choice) {
+      return this.$configBus.isEnabled(SHOW_PRICES) && Boolean(choice.price);
     },
 
     formatCurrency,
