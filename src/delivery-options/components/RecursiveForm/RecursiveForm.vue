@@ -358,7 +358,7 @@ export default {
           try {
             options = await choice.options();
           } catch (error) {
-            this.$configBus.addErrors(error);
+            this.$configBus.addError(error);
             return [];
           }
           this.loading = false;
