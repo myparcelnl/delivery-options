@@ -59,7 +59,7 @@ describe('price logic', () => {
     expect(priceBePostNl).toEqual(3.59);
 
     // Evening delivery
-    expect(priceNlPostNl).toEqual(3.20);
+    expect(priceNlPostNl).toEqual(3.2);
   });
 
   it('gets the correct lowest pickup price for a single carrier', () => {

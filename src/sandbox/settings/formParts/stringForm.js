@@ -52,6 +52,9 @@ export const stringsForm = [
       {
         key: STRINGS.KEY,
         name: STRINGS.FROM,
+        conditions: [
+          CONFIG.SHOW_PRICES,
+        ],
       },
       {
         key: STRINGS.KEY,
