@@ -2,6 +2,7 @@
 import * as CONFIG from '@/data/keys/configKeys';
 import * as EVENTS from '@/config/eventConfig';
 import * as FORM from '@/config/formConfig';
+import { CarrierConfigurationFactory } from '@/data/carriers/carrierConfigurationFactory';
 import { DeliveryExportValues } from '@/delivery-options/config/exports/DeliveryExportValues';
 import { PickupExportValues } from '@/delivery-options/config/exports/PickupExportValues';
 import Vue from 'vue';
@@ -411,11 +412,13 @@ export const createConfigBus = (eventCallee = null) => {
        */
       setAdvancedCarrierData() {
         this.carrierDataWithPickupLocations = this.carrierData.filter((carrier) => {
-          return carrier.pickupEnabled && carrier.pickupCountries.includes(this.address.cc);
+          const carrierConfiguration = CarrierConfigurationFactory.create(carrier.name);
+          return carrier.pickupEnabled && carrierConfiguration.allowsPickupIn(this.address.cc);
         });
 
         this.carrierDataWithDeliveryOptions = this.carrierData.filter((carrier) => {
-          return carrier.deliveryEnabled && carrier.deliverCountries.includes(this.address.cc);
+          const carrierConfiguration = CarrierConfigurationFactory.create(carrier.name);
+          return carrier.deliveryEnabled && carrierConfiguration.allowsDeliveryIn(this.address.cc);
         });
       },
     },

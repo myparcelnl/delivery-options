@@ -1,4 +1,4 @@
-import { defaultCarrierConfig } from '@/data/defaultCarrierConfig';
+import { CarrierConfigurationFactory } from '@/data/carriers/carrierConfigurationFactory';
 
 /**
  * Get the default configuration for a carrier. Allows overrides.
@@ -9,9 +9,11 @@ import { defaultCarrierConfig } from '@/data/defaultCarrierConfig';
  * @returns {Object<MyParcel.CarrierName, Object>}
  */
 export function getDefaultCarrierConfig(carrier, override = {}) {
+  const carrierConfiguration = CarrierConfigurationFactory.create(carrier);
+
   return {
     [carrier]: {
-      ...defaultCarrierConfig[carrier],
+      ...carrierConfiguration.getDefaultConfig(),
       ...override,
     },
   };

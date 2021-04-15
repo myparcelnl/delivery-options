@@ -1,7 +1,6 @@
 import * as CONFIG from '@/data/keys/configKeys';
-import { platformCarrierMap, platforms } from '@/config/platformConfig';
+import { CarrierConfigurationFactory } from '@/data/carriers/carrierConfigurationFactory';
 import Vue from 'vue';
-import { carrierPermissions } from '@/sandbox/settings/carrierPermissions';
 import { defaultAddress } from '@/data/defaultAddress';
 import { demoConfiguration } from '@/sandbox/config/demoConfiguration';
 import { fetchCarrierData } from '@/delivery-options/data/carriers/fetchCarrierData';
@@ -10,6 +9,8 @@ import isPlainObject from 'lodash-es/isPlainObject';
 import objectGet from 'lodash-es/get';
 import objectHas from 'lodash-es/has';
 import objectSet from 'lodash-es/set';
+import { platforms } from '@/config/platformConfig';
+import { sandboxPlatformCarrierMap } from '@/sandbox/config/sandboxPlatformCarrierMap';
 import { sortObject } from '@/helpers/sortObject';
 import { sortObjectSiblings } from '@/helpers/sortObjectSiblings';
 
@@ -60,8 +61,10 @@ export const sandboxConfigBus = new Vue({
             const value = objectGet(config, originalItemPath);
 
             // Copy the value to all carriers that allow this setting
-            platformCarrierMap[platform].forEach((carrier) => {
-              if (carrierPermissions[carrier].includes(item)) {
+            sandboxPlatformCarrierMap[platform].forEach((carrier) => {
+              const carrierConfig = CarrierConfigurationFactory.create(carrier);
+
+              if (carrierConfig.hasFeature(item)) {
                 objectSet(config, [CONFIG.KEY, CONFIG.CARRIER_SETTINGS, carrier, item], value);
               }
             });

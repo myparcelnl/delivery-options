@@ -1,4 +1,4 @@
-import { allowedInCarrier } from '@/sandbox/settings/conditions/allowedInCarrier';
+import { CarrierConfigurationFactory } from '@/data/carriers/carrierConfigurationFactory';
 import { platformCarrierMap } from '@/config/platformConfig';
 
 /**
@@ -12,11 +12,13 @@ import { platformCarrierMap } from '@/config/platformConfig';
  */
 export const allowedInAnyCarrier = (settings, data, platform) => {
   const allowed = platformCarrierMap[platform].some((carrier) => {
+    const carrierConfig = CarrierConfigurationFactory.create(carrier);
+
     if (Array.isArray(settings)) {
-      return settings.every((setting) => allowedInCarrier(carrier, setting));
+      return settings.every((setting) => carrierConfig.hasFeature(setting));
     }
 
-    return allowedInCarrier(carrier, settings);
+    return carrierConfig.hasFeature(settings);
   });
 
   return allowed ? [data] : [];

@@ -1,0 +1,38 @@
+import * as CONFIG from '@/data/keys/configKeys';
+import { AbstractCarrierConfiguration } from '@/data/carriers/abstractCarrierConfiguration';
+
+export class PostNlCarrierConfiguration extends AbstractCarrierConfiguration {
+  getDefaultConfig() {
+    return {
+      [CONFIG.ALLOW_DELIVERY_OPTIONS]: true,
+      [CONFIG.ALLOW_EVENING_DELIVERY]: true,
+      [CONFIG.ALLOW_MORNING_DELIVERY]: true,
+      [CONFIG.ALLOW_ONLY_RECIPIENT]: true,
+      [CONFIG.ALLOW_PICKUP_LOCATIONS]: true,
+      [CONFIG.ALLOW_SIGNATURE]: true,
+    };
+  }
+
+  getFeatures() {
+    return [
+      CONFIG.ALLOW_DELIVERY_OPTIONS,
+      CONFIG.ALLOW_EVENING_DELIVERY,
+      CONFIG.ALLOW_MONDAY_DELIVERY,
+      CONFIG.ALLOW_MORNING_DELIVERY,
+      CONFIG.ALLOW_ONLY_RECIPIENT,
+      CONFIG.ALLOW_PACKAGE_TYPE_DIGITAL_STAMP,
+      CONFIG.ALLOW_PACKAGE_TYPE_MAILBOX,
+      CONFIG.ALLOW_PICKUP_LOCATIONS,
+      CONFIG.ALLOW_SIGNATURE,
+      CONFIG.PRICE_EVENING_DELIVERY,
+      CONFIG.PRICE_MONDAY_DELIVERY,
+      CONFIG.PRICE_MORNING_DELIVERY,
+      CONFIG.PRICE_ONLY_RECIPIENT,
+      CONFIG.PRICE_PACKAGE_TYPE_DIGITAL_STAMP,
+      CONFIG.PRICE_PACKAGE_TYPE_MAILBOX,
+      CONFIG.PRICE_PICKUP,
+      CONFIG.PRICE_SIGNATURE,
+      CONFIG.PRICE_STANDARD_DELIVERY,
+    ];
+  }
+}

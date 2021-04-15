@@ -75,6 +75,7 @@
         <label :for="`${$classBase}__${mutableOption.name}--${choice.name}`">
           <img
             v-if="choice.hasOwnProperty('image')"
+            v-test="'image'"
             :src="choice.image"
             :alt="choice.name"
             :class="[

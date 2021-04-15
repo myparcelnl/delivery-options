@@ -9,5 +9,7 @@ export const config = {
 
   [CONFIG.CARRIER_SETTINGS]: {
     ...getDefaultCarrierConfig(CARRIERS.POSTNL),
+    ...getDefaultCarrierConfig(CARRIERS.RED_JE_PAKKETJE),
+    ...getDefaultCarrierConfig(CARRIERS.CHEAP_CARGO),
   },
 };

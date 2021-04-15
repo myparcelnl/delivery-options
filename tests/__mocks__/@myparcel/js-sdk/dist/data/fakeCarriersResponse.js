@@ -18,12 +18,39 @@ const allCarrierData = [
     },
   },
   {
+    id: 3,
+    name: 'cheapcargo',
+    human: 'Cheap Cargo',
+    meta: {
+      logo_svg: '/skin/general-images/carrier-logos/svg/cheapcargo.svg',
+      logo_png: '/skin/general-images/carrier-logos/cheapcargo.png',
+    },
+  },
+  {
     id: 4,
     name: 'dpd',
     human: 'DPD',
     meta: {
       logo_svg: '/skin/general-images/carrier-logos/svg/dpd.svg',
       logo_png: '/skin/general-images/carrier-logos/dpd.png',
+    },
+  },
+  {
+    id: 5,
+    name: 'redjepakketje',
+    human: 'Red je Pakketje',
+    meta: {
+      logo_svg: '/skin/general-images/carrier-logos/svg/redjepakketje.svg',
+      logo_png: '/skin/general-images/carrier-logos/redjepakketje.png',
+    },
+  },
+  {
+    id: 6,
+    name: 'dhl',
+    human: 'DHL',
+    meta: {
+      logo_svg: '/skin/general-images/carrier-logos/svg/dhl.svg',
+      logo_png: '/skin/general-images/carrier-logos/dhl.png',
     },
   },
 ];

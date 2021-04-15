@@ -1,5 +1,6 @@
 /* eslint-disable no-magic-numbers */
 import * as ADDRESS from '@/data/keys/addressKeys';
+import * as countryCodes from '@/data/keys/countryCodes';
 import { MYPARCEL, SENDMYPARCEL } from '@/data/keys/platformKeys';
 
 /**
@@ -7,12 +8,12 @@ import { MYPARCEL, SENDMYPARCEL } from '@/data/keys/platformKeys';
  */
 export const defaultAddress = {
   [MYPARCEL]: {
-    [ADDRESS.CC]: 'nl',
-    [ADDRESS.NUMBER]: 66,
-    [ADDRESS.POSTAL_CODE]: '2132WT',
+    [ADDRESS.CC]: countryCodes.CC_NL,
+    [ADDRESS.NUMBER]: 31,
+    [ADDRESS.POSTAL_CODE]: '2132JE',
   },
   [SENDMYPARCEL]: {
-    [ADDRESS.CC]: 'be',
+    [ADDRESS.CC]: countryCodes.CC_BE,
     [ADDRESS.CITY]: 'Antwerpen',
     [ADDRESS.NUMBER]: 16,
     [ADDRESS.POSTAL_CODE]: '2000',

@@ -1,8 +1,8 @@
 import * as CONFIG from '@/data/keys/configKeys';
 import { METHOD_SEARCH, fetchFromEndpoint } from '@/delivery-options/data/request/fetchFromEndpoint';
-import { allowedInCarrier } from '@/sandbox/settings/conditions/allowedInCarrier';
 import { configBus } from '@/delivery-options/config/configBus';
 import { getRequestParameters } from '@/delivery-options/data/request/getRequestParameters';
+import { CarrierConfigurationFactory } from '@/data/carriers/carrierConfigurationFactory';
 
 /**
  * Fetch delivery options.
@@ -12,10 +12,12 @@ import { getRequestParameters } from '@/delivery-options/data/request/getRequest
  * @returns {Promise}
  */
 export function fetchDeliveryOptions(carrier = configBus.currentCarrier) {
-  const carrierAllowsPackageType = allowedInCarrier(carrier, [
-    CONFIG.ALLOW_PACKAGE_TYPE_MAILBOX,
-    CONFIG.ALLOW_PACKAGE_TYPE_DIGITAL_STAMP,
-  ]);
+  const carrierAllowsPackageType = CarrierConfigurationFactory
+    .create(carrier)
+    .hasFeature([
+      CONFIG.ALLOW_PACKAGE_TYPE_MAILBOX,
+      CONFIG.ALLOW_PACKAGE_TYPE_DIGITAL_STAMP,
+    ]);
 
   const packageType = carrierAllowsPackageType
     ? {
