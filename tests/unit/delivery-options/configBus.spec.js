@@ -38,6 +38,9 @@ describe('configBus', () => {
           [CARRIERS.DPD]: {
             [CONFIG.ALLOW_PICKUP_LOCATIONS]: false,
           },
+          [CARRIERS.BPOST]: {
+            [CONFIG.ALLOW_PICKUP_LOCATIONS]: true,
+          },
         },
       },
     });
@@ -55,6 +58,10 @@ describe('configBus', () => {
         [CONFIG.CARRIER_SETTINGS]: {
           [CARRIERS.DPD]: {
             [CONFIG.ALLOW_DELIVERY_OPTIONS]: true,
+          },
+          [CARRIERS.BPOST]: {
+            [CONFIG.ALLOW_DELIVERY_OPTIONS]: true,
+            [CONFIG.ALLOW_SIGNATURE]: false,
           },
         },
       },
@@ -79,7 +86,7 @@ describe('configBus', () => {
 
   test('getSettingsByCarrier', () => {
     configBus = mockConfigBus();
-    const carrier = 'postnl';
+    const carrier = CARRIERS.POSTNL;
 
     expect(configBus.getSettingsByCarrier(carrier)).toEqual(configBus.config.carrierSettings[carrier]);
   });
