@@ -1,0 +1,101 @@
+import * as CONFIG from '@/data/keys/configKeys';
+
+/**
+ * Permissions to enable delivery.
+ *
+ * @type {String[]}
+ */
+export const FEATURES_DELIVERY = [
+  CONFIG.ALLOW_DELIVERY_OPTIONS,
+  CONFIG.PRICE_STANDARD_DELIVERY,
+];
+
+/**
+ * Permissions to enable evening delivery.
+ *
+ * @type {String[]}
+ */
+export const FEATURES_EVENING_DELIVERY = [
+  CONFIG.ALLOW_EVENING_DELIVERY,
+  CONFIG.PRICE_EVENING_DELIVERY,
+];
+
+/**
+ * Permissions to enable monday delivery.
+ *
+ * @type {String[]}
+ */
+export const FEATURES_MONDAY_DELIVERY = [
+  CONFIG.ALLOW_MONDAY_DELIVERY,
+  CONFIG.PRICE_MONDAY_DELIVERY,
+  CONFIG.SATURDAY_CUTOFF_TIME,
+];
+
+/**
+ * Permissions to enable morning delivery.
+ *
+ * @type {String[]}
+ */
+export const FEATURES_MORNING_DELIVERY = [
+  CONFIG.ALLOW_MORNING_DELIVERY,
+  CONFIG.PRICE_MORNING_DELIVERY,
+];
+
+/**
+ * Permissions to enable only recipient.
+ *
+ * @type {String[]}
+ */
+export const FEATURES_ONLY_RECIPIENT = [
+  CONFIG.PRICE_ONLY_RECIPIENT,
+  CONFIG.ALLOW_ONLY_RECIPIENT,
+];
+
+/**
+ * Permissions to enable package type digital stamp.
+ *
+ * @type {String[]}
+ */
+export const FEATURES_PACKAGE_TYPE_DIGITAL_STAMP = [
+  CONFIG.ALLOW_PACKAGE_TYPE_DIGITAL_STAMP,
+];
+
+/**
+ * Permissions to enable package type mailbox.
+ *
+ * @type {String[]}
+ */
+export const FEATURES_PACKAGE_TYPE_MAILBOX = [
+  CONFIG.ALLOW_PACKAGE_TYPE_MAILBOX,
+];
+
+/**
+ * Permissions to enable pickup.
+ *
+ * @type {String[]}
+ */
+export const FEATURES_PICKUP = [
+  CONFIG.ALLOW_PICKUP_LOCATIONS,
+  CONFIG.PRICE_PICKUP,
+];
+
+/**
+ * Permissions to enable saturday delivery.
+ *
+ * @type {String[]}
+ */
+export const FEATURES_SATURDAY_DELIVERY = [
+  CONFIG.ALLOW_SATURDAY_DELIVERY,
+  CONFIG.PRICE_SATURDAY_DELIVERY,
+  CONFIG.FRIDAY_CUTOFF_TIME,
+];
+
+/**
+ * Permissions to enable signature.
+ *
+ * @type {String[]}
+ */
+export const FEATURES_SIGNATURE = [
+  CONFIG.ALLOW_SIGNATURE,
+  CONFIG.PRICE_SIGNATURE,
+];

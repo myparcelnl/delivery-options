@@ -36,9 +36,9 @@ import * as CONFIG from '@/data/keys/configKeys';
 import * as EVENTS from '@/config/eventConfig';
 import * as FORM from '@/config/formConfig';
 import Modal from '@/delivery-options/components/Modal';
-import { NL } from '@/config/localeConfig.js';
 import PickupDetails from '@/delivery-options/components/Pickup/PickupDetails';
 import Vue from 'vue';
+import { countryCodes } from '@/data/keys/countryCodes';
 import { createIcons } from '@/delivery-options/components/Pickup/Map/createIcons';
 import { createPickupChoices } from '@/delivery-options/data/pickup/createPickupChoices';
 import { createScript } from '@/delivery-options/services/createScript';
@@ -137,7 +137,7 @@ export default {
      *  @returns {Boolean}
      */
     canUseDragFeature() {
-      return NL === this.$configBus.address.cc;
+      return countryCodes.NETHERLANDS === this.$configBus.address.cc;
     },
 
     mapClass() {

@@ -82,7 +82,8 @@ describe('RecursiveForm.vue', () => {
       null,
       wrapper.vm.$configBus,
     );
-    expect(priceLabel).toEqual('Vanaf € 0,00');
+    // Morning delivery is not allowed so above settings so standard delivery is the cheapest.
+    expect(priceLabel).toEqual('Vanaf € 4,56');
 
     await waitForEvent(UPDATED_DELIVERY_OPTIONS);
     expect(wrapper.findAll('[data-test-id="price"]')).toHaveLength(2);

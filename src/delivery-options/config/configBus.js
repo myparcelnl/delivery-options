@@ -266,7 +266,7 @@ export const createConfigBus = (eventCallee = null) => {
        *  config or if `option.enabled` is false. Only returns true if `option.enabled` is present, in the config and
        *  true.
        *
-       * @param {Object} option - FormConfig options object.
+       * @param {String|MyParcelDeliveryOptions.FormConfig|Object} option - FormConfig options object.
        *
        * @param {String} key - String key to use with this.get().
        * @param {MyParcel.CarrierName} carrier - Carrier name.
@@ -313,16 +313,16 @@ export const createConfigBus = (eventCallee = null) => {
       },
 
       /**
-       * @param {MyParcelDeliveryOptions.FormConfig} config
+       * @param {String|MyParcelDeliveryOptions.FormConfig|Object} option
        *
        * @returns {Boolean}
        */
-      isEnabledInAnyCarrier(config) {
+      isEnabledInAnyCarrier(option) {
         const carrierSettings = this.get(CONFIG.CARRIER_SETTINGS);
 
         return Object
           .keys(carrierSettings)
-          .some((carrier) => this.isEnabled(config, null, carrier));
+          .some((carrier) => this.isEnabled(option, null, carrier));
       },
 
       /**
@@ -412,12 +412,12 @@ export const createConfigBus = (eventCallee = null) => {
        */
       setAdvancedCarrierData() {
         this.carrierDataWithPickupLocations = this.carrierData.filter((carrier) => {
-          const carrierConfiguration = CarrierConfigurationFactory.create(carrier.name);
+          const carrierConfiguration = CarrierConfigurationFactory.create(carrier.name, this.get('platform'));
           return carrier.pickupEnabled && carrierConfiguration.allowsPickupIn(this.address.cc);
         });
 
         this.carrierDataWithDeliveryOptions = this.carrierData.filter((carrier) => {
-          const carrierConfiguration = CarrierConfigurationFactory.create(carrier.name);
+          const carrierConfiguration = CarrierConfigurationFactory.create(carrier.name, this.get('platform'));
           return carrier.deliveryEnabled && carrierConfiguration.allowsDeliveryIn(this.address.cc);
         });
       },

@@ -1,11 +1,12 @@
-import * as CONFIG from '@/data/keys/configKeys';
-import * as countryCodes from '@/data/keys/countryCodes';
+import * as FEATURES from '@/data/carrierFeatures';
 import { AbstractCarrierConfiguration } from '@/data/carriers/abstractCarrierConfiguration';
+import { MYPARCEL } from '@/data/keys/platformKeys';
+import { countryCodes } from '@/data/keys/countryCodes';
 
 export class RedJePakketjeCarrierConfiguration extends AbstractCarrierConfiguration {
   getCountriesForDelivery() {
     return [
-      countryCodes.CC_NL,
+      countryCodes.NETHERLANDS,
     ];
   }
 
@@ -14,13 +15,14 @@ export class RedJePakketjeCarrierConfiguration extends AbstractCarrierConfigurat
   }
 
   getFeatures() {
-    return [
-      CONFIG.ALLOW_DELIVERY_OPTIONS,
-      CONFIG.ALLOW_ONLY_RECIPIENT,
-      CONFIG.ALLOW_PICKUP_LOCATIONS,
-      CONFIG.PRICE_ONLY_RECIPIENT,
-      CONFIG.PRICE_PICKUP,
-      CONFIG.PRICE_STANDARD_DELIVERY,
-    ];
+    return {
+      [MYPARCEL]: [
+        FEATURES.FEATURES_ONLY_RECIPIENT,
+        FEATURES.FEATURES_DELIVERY,
+        FEATURES.FEATURES_PACKAGE_TYPE_MAILBOX,
+        FEATURES.FEATURES_PICKUP,
+        FEATURES.FEATURES_SIGNATURE,
+      ],
+    };
   }
 }

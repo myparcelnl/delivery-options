@@ -7,32 +7,33 @@ import { PostNlCarrierConfiguration } from '@/data/carriers/postNlCarrierConfigu
 import { RedJePakketjeCarrierConfiguration } from '@/data/carriers/redJePakketjeCarrierConfiguration';
 import memoize from 'lodash-es/memoize';
 
-const getMemoized = memoize((carrierName) => {
+const carrierConfiguration = memoize((carrierName, platform) => {
   switch (carrierName) {
     case CARRIERS.BPOST:
-      return new BpostCarrierConfiguration();
+      return new BpostCarrierConfiguration(platform);
     case CARRIERS.CHEAP_CARGO:
-      return new CheapCargoCarrierConfiguration();
+      return new CheapCargoCarrierConfiguration(platform);
     case CARRIERS.DHL:
-      return new DhlCarrierConfiguration();
+      return new DhlCarrierConfiguration(platform);
     case CARRIERS.DPD:
-      return new DpdCarrierConfiguration();
+      return new DpdCarrierConfiguration(platform);
     case CARRIERS.POSTNL:
-      return new PostNlCarrierConfiguration();
+      return new PostNlCarrierConfiguration(platform);
     case CARRIERS.RED_JE_PAKKETJE:
-      return new RedJePakketjeCarrierConfiguration();
+      return new RedJePakketjeCarrierConfiguration(platform);
     default:
       throw new Error(`No configuration found for carrier ${carrierName}`);
   }
-});
+}, (carrierName, platform) => `${carrierName}_${platform}`);
 
 export class CarrierConfigurationFactory {
   /**
    * @param {MyParcel.CarrierName} carrierName
+   * @param {MyParcel.Platform} platform
    *
-   * @returns {Object}
+   * @returns {AbstractCarrierConfiguration}
    */
-  static create(carrierName) {
-    return getMemoized(carrierName);
+  static create(carrierName, platform) {
+    return carrierConfiguration(carrierName, platform);
   }
 }

@@ -10,7 +10,7 @@ import {
 } from '@/data/keys/settingsConsts';
 import { getDefaultStrings } from '@/config/defaultStrings';
 import merge from 'lodash-es/merge';
-import { platformConfig } from '@/config/platformConfig';
+import { platformConfig } from '@/config/platform/platformConfig';
 
 /**
  * Get the default config for given platform. Gets the base config, sets platform and appends platform specific
@@ -78,6 +78,8 @@ export const defaultConfiguration = (platform = DEFAULT_PLATFORM) => {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Tiles style by <a href="https://www.hotosm.org/" target="_blank">Humanitarian OpenStreetMap Team</a> hosted by <a href="https://openstreetmap.fr/" target="_blank">OpenStreetMap France</a>',
         maxZoom: 19,
       }),
+
+      [CONFIG.CARRIER_SETTINGS]: {},
     },
 
     /**

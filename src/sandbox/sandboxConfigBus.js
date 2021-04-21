@@ -9,10 +9,10 @@ import isPlainObject from 'lodash-es/isPlainObject';
 import objectGet from 'lodash-es/get';
 import objectHas from 'lodash-es/has';
 import objectSet from 'lodash-es/set';
-import { platforms } from '@/config/platformConfig';
 import { sandboxPlatformCarrierMap } from '@/sandbox/config/sandboxPlatformCarrierMap';
 import { sortObject } from '@/helpers/sortObject';
 import { sortObjectSiblings } from '@/helpers/sortObjectSiblings';
+import { platforms } from '@/config/platform/platforms';
 
 export const sandboxConfigBus = new Vue({
   name: 'SandboxConfigBus',
@@ -62,7 +62,7 @@ export const sandboxConfigBus = new Vue({
 
             // Copy the value to all carriers that allow this setting
             sandboxPlatformCarrierMap[platform].forEach((carrier) => {
-              const carrierConfig = CarrierConfigurationFactory.create(carrier);
+              const carrierConfig = CarrierConfigurationFactory.create(carrier, platform);
 
               if (carrierConfig.hasFeature(item)) {
                 objectSet(config, [CONFIG.KEY, CONFIG.CARRIER_SETTINGS, carrier, item], value);

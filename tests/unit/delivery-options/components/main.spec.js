@@ -3,6 +3,8 @@ import { MYPARCEL } from '@/data/keys/platformKeys';
 import { dataTest } from '@Tests/unit/selectors';
 import { defaultAddress } from '@/data/defaultAddress';
 import { defaultConfiguration } from '@/config/defaultConfiguration';
+import { getDefaultCarrierSettings } from '@Tests/unit/delivery-options/defaultCarrierSettings';
+import { merge } from 'lodash-es';
 import { showDeveloperInfo } from '@/delivery-options/showDeveloperInfo';
 import { waitForEvent } from '@Tests/waitForEvent';
 
@@ -42,10 +44,12 @@ describe('main.js', () => {
 
     document.dispatchEvent(
       new CustomEvent(UPDATE_DELIVERY_OPTIONS, {
-        detail: {
-          address: defaultAddress[MYPARCEL],
-          config: defaultConfiguration(MYPARCEL),
-        },
+        detail: merge(
+          {},
+          defaultConfiguration(MYPARCEL),
+          getDefaultCarrierSettings(),
+          { address: defaultAddress[MYPARCEL] },
+        ),
       }),
     );
 

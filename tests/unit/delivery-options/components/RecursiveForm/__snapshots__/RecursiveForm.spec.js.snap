@@ -1,0 +1,297 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RecursiveForm.vue handles "showPrices: true" properly 1`] = `
+<form
+  class="myparcel-delivery-options"
+>
+  <!---->
+   
+  <div>
+    <!---->
+     
+    <table
+      class="myparcel-delivery-options__table"
+      data-test-id="delivery"
+    >
+      <tr
+        class="myparcel-delivery-options__choice"
+        data-test-choice="deliver"
+        data-test-id="delivery"
+      >
+        <td
+          class="myparcel-delivery-options__input"
+        >
+          <div>
+            <input
+              data-test-choice="deliver"
+              data-test-id="delivery__input"
+              id="myparcel-delivery-options__delivery--deliver"
+              type="radio"
+              value="deliver"
+            />
+          </div>
+        </td>
+         
+        <td
+          colspan="2"
+        >
+          <label
+            for="myparcel-delivery-options__delivery--deliver"
+          >
+            <span>
+              Thuis of op het werk bezorgen
+            </span>
+             
+            <!---->
+             
+            <!---->
+          </label>
+           
+          <transition-group-stub
+            appear="true"
+            name="fade"
+            tag="div"
+          >
+            <table
+              class="myparcel-delivery-options__table"
+            >
+              <tr
+                class="myparcel-delivery-options__choice"
+                data-test-choice="bpost"
+                data-test-id="carrier"
+              >
+                <!---->
+                 
+                <td>
+                  <label
+                    for="myparcel-delivery-options__carrier--bpost"
+                  >
+                    <span />
+                     
+                    <!---->
+                     
+                    <!---->
+                  </label>
+                   
+                  <transition-group-stub
+                    appear="true"
+                    name="fade"
+                    tag="div"
+                  >
+                    <table
+                      class="myparcel-delivery-options__table"
+                    >
+                      <tr>
+                        <td>
+                          <label>
+                            <strong
+                              data-test-choice="2021-04-21T00:00:00.000Z"
+                              data-test-id="deliveryDate__select__label"
+                            >
+                              Woensdag 21 april
+                            </strong>
+                          </label>
+                        </td>
+                      </tr>
+                    </table>
+                    <table
+                      class="myparcel-delivery-options__table"
+                    >
+                      <tr
+                        class="myparcel-delivery-options__choice"
+                        data-test-choice="standard"
+                        data-test-id="deliveryMoment"
+                      >
+                        <td
+                          class="myparcel-delivery-options__input"
+                        >
+                          <div>
+                            <input
+                              data-test-choice="standard"
+                              data-test-id="deliveryMoment__input"
+                              disabled="disabled"
+                              id="myparcel-delivery-options__deliveryMoment--standard"
+                              type="radio"
+                              value="standard"
+                            />
+                          </div>
+                        </td>
+                         
+                        <td>
+                          <label
+                            for="myparcel-delivery-options__deliveryMoment--standard"
+                          >
+                            <span>
+                              08:30 – 21:30
+                            </span>
+                             
+                            <!---->
+                             
+                            <strong
+                              class="myparcel-delivery-options__float--right"
+                              data-test-id="price"
+                            >
+                              <span>
+                                + 
+                              </span>
+                              
+            € 4,56
+          
+                            </strong>
+                          </label>
+                           
+                          <!---->
+                        </td>
+                      </tr>
+                       
+                      <!---->
+                    </table>
+                    <table
+                      class="myparcel-delivery-options__table"
+                    >
+                      <tr
+                        class="myparcel-delivery-options__choice"
+                        data-test-choice="only_recipient"
+                        data-test-id="shipmentOptions"
+                      >
+                        <td
+                          class="myparcel-delivery-options__input"
+                        >
+                          <div>
+                            <input
+                              data-test-choice="only_recipient"
+                              data-test-id="shipmentOptions__input"
+                              id="myparcel-delivery-options__shipmentOptions--only_recipient"
+                              name="shipmentOptions"
+                              type="checkbox"
+                              value="only_recipient"
+                            />
+                          </div>
+                        </td>
+                         
+                        <td
+                          colspan="1"
+                        >
+                          <label
+                            for="myparcel-delivery-options__shipmentOptions--only_recipient"
+                          >
+                            <span>
+                              Alleen ontvanger
+                            </span>
+                             
+                            <!---->
+                             
+                            <span
+                              class="myparcel-delivery-options__float--right"
+                              data-test-id="price"
+                            >
+                              <!---->
+                            </span>
+                          </label>
+                           
+                          <!---->
+                        </td>
+                      </tr>
+                      <tr
+                        class="myparcel-delivery-options__choice"
+                        data-test-choice="signature"
+                        data-test-id="shipmentOptions"
+                      >
+                        <td
+                          class="myparcel-delivery-options__input"
+                        >
+                          <div>
+                            <input
+                              data-test-choice="signature"
+                              data-test-id="shipmentOptions__input"
+                              id="myparcel-delivery-options__shipmentOptions--signature"
+                              name="shipmentOptions"
+                              type="checkbox"
+                              value="signature"
+                            />
+                          </div>
+                        </td>
+                         
+                        <td
+                          colspan="1"
+                        >
+                          <label
+                            for="myparcel-delivery-options__shipmentOptions--signature"
+                          >
+                            <span>
+                              Handtekening voor ontvangst
+                            </span>
+                             
+                            <!---->
+                             
+                            <span
+                              class="myparcel-delivery-options__float--right"
+                              data-test-id="price"
+                            >
+                              <!---->
+                            </span>
+                          </label>
+                           
+                          <!---->
+                        </td>
+                      </tr>
+                       
+                      <!---->
+                    </table>
+                  </transition-group-stub>
+                </td>
+              </tr>
+               
+              <!---->
+            </table>
+          </transition-group-stub>
+        </td>
+      </tr>
+      <tr
+        class="myparcel-delivery-options__choice"
+        data-test-choice="pickup"
+        data-test-id="delivery"
+      >
+        <td
+          class="myparcel-delivery-options__input"
+        >
+          <div>
+            <input
+              data-test-choice="pickup"
+              data-test-id="delivery__input"
+              id="myparcel-delivery-options__delivery--pickup"
+              type="radio"
+              value="pickup"
+            />
+          </div>
+        </td>
+         
+        <td
+          colspan="2"
+        >
+          <label
+            for="myparcel-delivery-options__delivery--pickup"
+          >
+            <span>
+              Afhalen op locatie
+            </span>
+             
+            <span
+              class="myparcel-delivery-options__float--right"
+              data-test-id="priceTag"
+            >
+              Vanaf € 0,00
+            </span>
+             
+            <!---->
+          </label>
+           
+          <!---->
+        </td>
+      </tr>
+       
+      <!---->
+    </table>
+  </div>
+</form>
+`;

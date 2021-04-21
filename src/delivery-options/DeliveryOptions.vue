@@ -33,11 +33,12 @@
 import * as EVENTS from '@/config/eventConfig';
 import * as FORM from '@/config/formConfig';
 import { ERROR_INVALID_POSTAL_CODE, FATAL_ERRORS } from '@/config/errorConfig';
-import { NL, addressRequirements } from '@/config/localeConfig';
 import Errors from '@/delivery-options/components/Errors';
 import Loader from '@/delivery-options/components/Loader';
 import Modal from '@/delivery-options/components/Modal';
+import { addressRequirements } from '@/config/localeConfig';
 import { configBus } from '@/delivery-options/config/configBus';
+import { countryCodes } from '@/data/keys/countryCodes';
 import debounce from 'lodash-es/debounce';
 import { fetchAllCarriers } from '@/delivery-options/data/carriers/fetchAllCarriers';
 import { getAddress } from '@/delivery-options/config/getAddress';
@@ -147,7 +148,8 @@ export default {
       }
 
       const { cc } = this.$configBus.address;
-      const requirements = addressRequirements[addressRequirements.hasOwnProperty(cc) ? cc : NL];
+      const countryCode = addressRequirements.hasOwnProperty(cc) ? cc : countryCodes.NETHERLANDS;
+      const requirements = addressRequirements[countryCode];
 
       const meetsRequirements = (item) => {
         return this.$configBus.address.hasOwnProperty(item) && this.$configBus.address[item];

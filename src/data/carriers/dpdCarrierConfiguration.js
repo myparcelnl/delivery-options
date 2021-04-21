@@ -1,67 +1,59 @@
-import * as CONFIG from '@/data/keys/configKeys';
-import * as countryCodes from '@/data/keys/countryCodes';
+import * as FEATURES from '@/data/carrierFeatures';
 import { AbstractCarrierConfiguration } from '@/data/carriers/abstractCarrierConfiguration';
+import { SENDMYPARCEL } from '@/data/keys/platformKeys';
+import { countryCodes } from '@/data/keys/countryCodes';
 
 export class DpdCarrierConfiguration extends AbstractCarrierConfiguration {
   getCountriesForDelivery() {
     return [
-      countryCodes.CC_AT,
-      countryCodes.CC_BE,
-      countryCodes.CC_BG,
-      countryCodes.CC_CZ,
-      countryCodes.CC_DE,
-      countryCodes.CC_DK,
-      countryCodes.CC_EE,
-      countryCodes.CC_ES,
-      countryCodes.CC_FI,
-      countryCodes.CC_FR,
-      countryCodes.CC_GR,
-      countryCodes.CC_HU,
-      countryCodes.CC_IE,
-      countryCodes.CC_IT,
-      countryCodes.CC_LI,
-      countryCodes.CC_LT,
-      countryCodes.CC_LU,
-      countryCodes.CC_LV,
-      countryCodes.CC_NL,
-      countryCodes.CC_PL,
-      countryCodes.CC_PT,
-      countryCodes.CC_RO,
-      countryCodes.CC_SE,
-      countryCodes.CC_SI,
-      countryCodes.CC_SK,
+      countryCodes.AUSTRIA,
+      countryCodes.BELGIUM,
+      countryCodes.BULGARIA,
+      countryCodes.CZECH_REPUBLIC,
+      countryCodes.DENMARK,
+      countryCodes.ESTONIA,
+      countryCodes.FINLAND,
+      countryCodes.FRANCE,
+      countryCodes.GERMANY,
+      countryCodes.GREECE,
+      countryCodes.HUNGARY,
+      countryCodes.IRELAND,
+      countryCodes.ITALY,
+      countryCodes.LATVIA,
+      countryCodes.LIECHTENSTEIN,
+      countryCodes.LITHUANIA,
+      countryCodes.LUXEMBOURG,
+      countryCodes.NETHERLANDS,
+      countryCodes.POLAND,
+      countryCodes.PORTUGAL,
+      countryCodes.ROMANIA,
+      countryCodes.SLOVAKIA,
+      countryCodes.SLOVENIA,
+      countryCodes.SPAIN,
+      countryCodes.SWEDEN,
     ];
   }
 
   getCountriesForPickup() {
     return [
-      countryCodes.CC_AT,
-      countryCodes.CC_BE,
-      countryCodes.CC_DE,
-      countryCodes.CC_DK,
-      countryCodes.CC_FI,
-      countryCodes.CC_FR,
-      countryCodes.CC_GB,
-      countryCodes.CC_NL,
-      countryCodes.CC_PT,
+      countryCodes.AUSTRIA,
+      countryCodes.BELGIUM,
+      countryCodes.DENMARK,
+      countryCodes.FINLAND,
+      countryCodes.FRANCE,
+      countryCodes.GERMANY,
+      countryCodes.NETHERLANDS,
+      countryCodes.PORTUGAL,
+      countryCodes.UNITED_KINGDOM,
     ];
-  }
-
-  getDefaultConfig() {
-    return {
-      [CONFIG.ALLOW_MORNING_DELIVERY]: false,
-      [CONFIG.ALLOW_EVENING_DELIVERY]: false,
-      [CONFIG.ALLOW_MONDAY_DELIVERY]: false,
-      [CONFIG.ALLOW_ONLY_RECIPIENT]: false,
-    };
   }
 
   getFeatures() {
-    return [
-      CONFIG.ALLOW_DELIVERY_OPTIONS,
-      CONFIG.ALLOW_PICKUP_LOCATIONS,
-      CONFIG.PRICE_PICKUP,
-      CONFIG.PRICE_STANDARD_DELIVERY,
-    ];
+    return {
+      [SENDMYPARCEL]: [
+        FEATURES.FEATURES_DELIVERY,
+        FEATURES.FEATURES_PICKUP,
+      ],
+    };
   }
 }

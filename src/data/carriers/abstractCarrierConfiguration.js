@@ -1,6 +1,20 @@
-import * as countryCodes from '@/data/keys/countryCodes';
+import { countryCodes } from '@/data/keys/countryCodes';
+import { flatten } from 'lodash-es';
+import { validatePlatform } from '@/delivery-options/config/validatePlatform';
 
 export class AbstractCarrierConfiguration {
+  /**
+   * @type {MyParcel.Platform}
+   */
+  platform;
+
+  /**
+   * @param {MyParcel.Platform} platform
+   */
+  constructor(platform) {
+    this.platform = validatePlatform(platform);
+  }
+
   /**
    * Check if the carrier allows delivery in a specific country.
    *
@@ -28,34 +42,8 @@ export class AbstractCarrierConfiguration {
    */
   getCountriesForDelivery() {
     return [
-      countryCodes.CC_AT,
-      countryCodes.CC_BE,
-      countryCodes.CC_BG,
-      countryCodes.CC_CY,
-      countryCodes.CC_CZ,
-      countryCodes.CC_DE,
-      countryCodes.CC_DK,
-      countryCodes.CC_EE,
-      countryCodes.CC_ES,
-      countryCodes.CC_FI,
-      countryCodes.CC_FR,
-      countryCodes.CC_GB,
-      countryCodes.CC_GR,
-      countryCodes.CC_HR,
-      countryCodes.CC_HU,
-      countryCodes.CC_IE,
-      countryCodes.CC_IT,
-      countryCodes.CC_LT,
-      countryCodes.CC_LU,
-      countryCodes.CC_LV,
-      countryCodes.CC_MT,
-      countryCodes.CC_NL,
-      countryCodes.CC_PL,
-      countryCodes.CC_PT,
-      countryCodes.CC_RO,
-      countryCodes.CC_SE,
-      countryCodes.CC_SI,
-      countryCodes.CC_SK,
+      countryCodes.BELGIUM,
+      countryCodes.NETHERLANDS,
     ];
   }
 
@@ -66,27 +54,33 @@ export class AbstractCarrierConfiguration {
    */
   getCountriesForPickup() {
     return [
-      countryCodes.CC_NL,
-      countryCodes.CC_BE,
+      countryCodes.BELGIUM,
+      countryCodes.NETHERLANDS,
     ];
-  }
-
-  /**
-   * Default configuration for the carrier.
-   *
-   * @returns {Object}
-   */
-  getDefaultConfig() {
-    return {};
   }
 
   /**
    * Features this carrier has.
    *
-   * @returns {String[]}
+   * @returns {Object<MyParcel.Platform, String[]>}
    */
   getFeatures() {
-    return [];
+    return {};
+  }
+
+  /**
+   * Get the features for the current platform.
+   *
+   * @returns {String[]|String[][]}
+   */
+  getPlatformFeatures() {
+    const features = this.getFeatures();
+
+    if (!features.hasOwnProperty(this.platform)) {
+      return [];
+    }
+
+    return features[this.platform];
   }
 
   /**
@@ -96,10 +90,11 @@ export class AbstractCarrierConfiguration {
    * @returns {Boolean}
    */
   hasFeature(features) {
-    const permissions = this.getFeatures();
+    const platformFeatures = this.getPlatformFeatures();
+    const permissions = flatten(platformFeatures);
 
     if (Array.isArray(features)) {
-      return features.some((feature) => permissions.includes(feature));
+      return flatten(features).every((feature) => permissions.includes(feature));
     }
 
     return permissions.includes(features);
