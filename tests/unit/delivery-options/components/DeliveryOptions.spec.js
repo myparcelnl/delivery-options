@@ -2,7 +2,11 @@ import * as ADDRESS from '@/data/keys/addressKeys';
 import * as CONFIG from '@/data/keys/configKeys';
 import {
   DISABLE_DELIVERY_OPTIONS,
-  HIDE_DELIVERY_OPTIONS, SHOW_DELIVERY_OPTIONS, UPDATED_DELIVERY_OPTIONS, UPDATE_CONFIG_IN, UPDATE_DELIVERY_OPTIONS,
+  HIDE_DELIVERY_OPTIONS,
+  SHOW_DELIVERY_OPTIONS,
+  UPDATED_DELIVERY_OPTIONS,
+  UPDATE_CONFIG_IN,
+  UPDATE_DELIVERY_OPTIONS,
 } from '@/config/eventConfig';
 import { MYPARCEL, SENDMYPARCEL } from '@/data/keys/platformKeys';
 import { createWaitableMock } from '@Tests/unit/createWaitableMock';

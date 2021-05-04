@@ -1,9 +1,10 @@
 import * as STRINGS from '@/data/keys/stringsKeys';
 import { CARRIER, DELIVER, formConfigDelivery } from '@/config/formConfig';
-import Vue from 'vue';
 import { configBus } from '@/delivery-options/config/configBus';
 import { createDeliveryOptions } from '@/delivery-options/data/delivery/createDeliveryOptions';
+import { cssClassBase } from '@/delivery-options/cssClassBase';
 import { getPriceLabelFromFormConfig } from '@/delivery-options/data/prices/getPriceLabelFromFormConfig';
+import { PLATFORM } from '@/data/keys/configKeys';
 
 /**
  * Get deliver options for carriers in the config.
@@ -27,7 +28,7 @@ export function getDeliveryOptions() {
       choices: configBus.carrierDataWithDeliveryOptions.map((carrier) => {
         const choices = {
           ...carrier,
-          class: `${Vue.prototype.$classBase}__spacing--md`,
+          class: `${cssClassBase}__spacing--md`,
           priceTag: getPriceLabelFromFormConfig(formConfigDelivery, carrier.name),
           options: () => createDeliveryOptions(carrier.name),
         };

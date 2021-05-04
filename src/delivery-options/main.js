@@ -9,6 +9,7 @@ import RecursiveForm from '@/delivery-options/components/RecursiveForm/Recursive
 import Vue from 'vue';
 import { checkSelector } from '@/delivery-options/checkSelector';
 import { createConfigBus } from '@/delivery-options/config/configBus';
+import { cssClassBase } from '@/delivery-options/cssClassBase';
 import { showDeveloperInfo } from '@/delivery-options/showDeveloperInfo';
 
 // This is not present in the compiled code.
@@ -71,7 +72,7 @@ function loadApp(event, selector = baseSelector) {
    *
    * @see https://stackoverflow.com/questions/50828904/using-environment-variables-with-vue-js
    */
-  Vue.prototype.$classBase = process.env.VUE_APP_CLASS_BASE;
+  Vue.prototype.$classBase = cssClassBase;
 
   renderApp(event, selector);
 }

@@ -38,6 +38,9 @@ describe('configBus', () => {
           [CARRIERS.DPD]: {
             [CONFIG.ALLOW_PICKUP_LOCATIONS]: false,
           },
+          [CARRIERS.BPOST]: {
+            [CONFIG.ALLOW_PICKUP_LOCATIONS]: true,
+          },
         },
       },
     });
@@ -56,15 +59,20 @@ describe('configBus', () => {
           [CARRIERS.DPD]: {
             [CONFIG.ALLOW_DELIVERY_OPTIONS]: true,
           },
+          [CARRIERS.BPOST]: {
+            [CONFIG.ALLOW_DELIVERY_OPTIONS]: true,
+            [CONFIG.ALLOW_SIGNATURE]: true,
+          },
         },
       },
     });
 
     configBus.$data.currentCarrier = CARRIERS.DPD;
-    expect(configBus.get(CONFIG.ALLOW_SIGNATURE)).toBe(true);
+    expect(configBus.isEnabled(CONFIG.ALLOW_SIGNATURE)).toBe(false);
+    expect(configBus.isEnabledInAnyCarrier(CONFIG.ALLOW_SIGNATURE)).toBe(true);
 
     configBus.$data.currentCarrier = CARRIERS.BPOST;
-    expect(configBus.get(CONFIG.ALLOW_SIGNATURE)).toBe(false);
+    expect(configBus.get(CONFIG.ALLOW_SIGNATURE)).toBe(true);
 
     configBus = mockConfigBus(DEFAULT_PLATFORM);
 
@@ -78,19 +86,32 @@ describe('configBus', () => {
   });
 
   test('getSettingsByCarrier', () => {
-    configBus = mockConfigBus();
-    const carrier = 'postnl';
+    configBus = mockConfigBus({
+      [CONFIG.KEY]: {
+        [CONFIG.CARRIER_SETTINGS]: {
+          [CARRIERS.POSTNL]: {
+            [CONFIG.ALLOW_DELIVERY_OPTIONS]: true,
+          },
+        },
+      },
+    });
 
-    expect(configBus.getSettingsByCarrier(carrier)).toEqual(configBus.config.carrierSettings[carrier]);
+    expect(configBus.getSettingsByCarrier(CARRIERS.POSTNL)).toEqual({
+      [CONFIG.ALLOW_DELIVERY_OPTIONS]: true,
+      // Disabled by ConfigurationMerger.
+      [CONFIG.ALLOW_SATURDAY_DELIVERY]: false,
+    });
+
+    expect(configBus.getSettingsByCarrier(CARRIERS.RED_JE_PAKKETJE)).toEqual(null);
   });
 
   test('isEnabledInAnyCarrier', () => {
     const mockData = {
-      config: {
-        platform: MYPARCEL,
-        carrierSettings: {
-          postnl: {
-            allowPickupLocations: true,
+      [CONFIG.KEY]: {
+        [CONFIG.PLATFORM]: MYPARCEL,
+        [CONFIG.CARRIER_SETTINGS]: {
+          [CARRIERS.POSTNL]: {
+            [CONFIG.ALLOW_PICKUP_LOCATIONS]: true,
           },
         },
       },
@@ -99,20 +120,25 @@ describe('configBus', () => {
     configBus = mockConfigBus(mockData);
     expect(configBus.isEnabledInAnyCarrier(formConfigPickup)).toEqual(true);
 
-    mockData.config.carrierSettings.postnl.allowPickupLocations = false;
+    mockData.config.carrierSettings[CARRIERS.POSTNL].allowPickupLocations = false;
     configBus = mockConfigBus(mockData);
     expect(configBus.isEnabledInAnyCarrier(formConfigPickup)).toEqual(false);
 
-    mockData.config.platform = CARRIERS.BPOST;
+    mockData.config.platform = SENDMYPARCEL;
     mockData.config.carrierSettings = {
-      bpost: { allowPickupLocations: true },
-      dpd: { allowPickupLocations: false },
+      [CARRIERS.BPOST]: {
+        [CONFIG.ALLOW_PICKUP_LOCATIONS]: true,
+      },
+      [CARRIERS.DPD]: {
+        [CONFIG.ALLOW_PICKUP_LOCATIONS]: false,
+      },
     };
     configBus = mockConfigBus(mockData);
+    expect(configBus.isEnabledInAnyCarrier(CONFIG.ALLOW_PICKUP_LOCATIONS)).toEqual(true);
     expect(configBus.isEnabledInAnyCarrier(formConfigPickup)).toEqual(true);
 
-    mockData.config.carrierSettings.bpost.allowPickupLocations = false;
-    mockData.config.carrierSettings.dpd.allowPickupLocations = false;
+    mockData.config.carrierSettings[CARRIERS.BPOST].allowPickupLocations = false;
+    mockData.config.carrierSettings[CARRIERS.DPD].allowPickupLocations = false;
     configBus = mockConfigBus(mockData);
     expect(configBus.isEnabledInAnyCarrier(formConfigPickup)).toEqual(false);
   });

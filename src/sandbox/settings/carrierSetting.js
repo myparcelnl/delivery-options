@@ -1,6 +1,5 @@
 import * as CONFIG from '@/data/keys/configKeys';
-import { carrierPermissions } from '@/sandbox/settings/carrierPermissions';
-import { platformCarrierMap } from '@/config/platformConfig';
+import { CarrierConfigurationFactory } from '@/data/carriers/carrierConfigurationFactory';
 import { sandboxConfigBus } from '@/sandbox/sandboxConfigBus';
 
 /**
@@ -9,17 +8,14 @@ import { sandboxConfigBus } from '@/sandbox/sandboxConfigBus';
  * @param {Object} setting - Setting to transform.
  * @param {MyParcel.Platform} platform
  *
- * @returns {Array<Object[]>}
+ * @returns {Object[][]}
  */
 export function carrierSetting(setting, platform) {
   return sandboxConfigBus.carrierData.reduce((acc, carrier) => {
-    const platformCarrierPermissions = platformCarrierMap[platform];
-    const currentCarrierPermission = carrierPermissions[carrier.name];
+    const currentCarrierConfig = CarrierConfigurationFactory.create(carrier.name, platform);
+    const allowedInCarrier = currentCarrierConfig.hasFeature(setting.name);
 
-    const allowedInPlatform = platformCarrierPermissions && platformCarrierPermissions.includes(carrier.name);
-    const allowedInCarrier = currentCarrierPermission && currentCarrierPermission.includes(setting.name);
-
-    if (allowedInPlatform && allowedInCarrier) {
+    if (allowedInCarrier) {
       return [
         ...acc,
         {

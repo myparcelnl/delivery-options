@@ -1,6 +1,6 @@
 import SettingsForm from '@/sandbox/components/SettingsForm';
 import { createSettings } from '@/sandbox/settings/form';
-import { platforms } from '@/config/platformConfig';
+import { platforms } from '@/config/platform/platforms';
 
 export default platforms
   .map((platform) => ({

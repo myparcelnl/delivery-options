@@ -14,7 +14,6 @@ export const ALLOW_DELIVERY_OPTIONS = 'allowDeliveryOptions';
 export const ALLOW_EVENING_DELIVERY = 'allowEveningDelivery';
 export const ALLOW_MORNING_DELIVERY = 'allowMorningDelivery';
 export const ALLOW_ONLY_RECIPIENT = 'allowOnlyRecipient';
-export const ALLOW_PICKUP_EXPRESS = 'allowPickupExpress';
 export const ALLOW_PICKUP_LOCATIONS = 'allowPickupLocations';
 export const ALLOW_SIGNATURE = 'allowSignature';
 
@@ -27,7 +26,6 @@ export const PRICE_EVENING_DELIVERY = 'priceEveningDelivery';
 export const PRICE_MORNING_DELIVERY = 'priceMorningDelivery';
 export const PRICE_ONLY_RECIPIENT = 'priceOnlyRecipient';
 export const PRICE_PICKUP = 'pricePickup';
-export const PRICE_PICKUP_EXPRESS = 'pricePickupExpress';
 export const PRICE_SIGNATURE = 'priceSignature';
 export const PRICE_STANDARD_DELIVERY = 'priceStandardDelivery';
 
@@ -96,7 +94,6 @@ export const settingsWithCarrierOverride = [
   ALLOW_MONDAY_DELIVERY,
   ALLOW_MORNING_DELIVERY,
   ALLOW_ONLY_RECIPIENT,
-  ALLOW_PICKUP_EXPRESS,
   ALLOW_PICKUP_LOCATIONS,
   ALLOW_SATURDAY_DELIVERY,
   ALLOW_SIGNATURE,
@@ -106,7 +103,22 @@ export const settingsWithCarrierOverride = [
   PRICE_MORNING_DELIVERY,
   PRICE_ONLY_RECIPIENT,
   PRICE_PICKUP,
-  PRICE_PICKUP_EXPRESS,
   PRICE_SIGNATURE,
   PRICE_STANDARD_DELIVERY,
+];
+
+/**
+ * @type {String[]}
+ */
+export const carrierFeatures = [
+  ALLOW_DELIVERY_OPTIONS,
+  ALLOW_EVENING_DELIVERY,
+  ALLOW_MONDAY_DELIVERY,
+  ALLOW_MORNING_DELIVERY,
+  ALLOW_ONLY_RECIPIENT,
+  ALLOW_PACKAGE_TYPE_DIGITAL_STAMP,
+  ALLOW_PACKAGE_TYPE_MAILBOX,
+  ALLOW_PICKUP_LOCATIONS,
+  ALLOW_SATURDAY_DELIVERY,
+  ALLOW_SIGNATURE,
 ];

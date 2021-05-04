@@ -44,7 +44,7 @@ import Fa from 'vue-fa';
 import FormGroup from './FormGroup';
 import Heading from '@/sandbox/components/Heading';
 import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
-import { platformTabs } from '@/config/platformConfig';
+import { platformTabs } from '@/sandbox/config/tabs/platformTabs';
 
 export default {
   name: 'SettingsForm',

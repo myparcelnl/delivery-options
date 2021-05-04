@@ -11,7 +11,7 @@ export const getAddress = (address) => {
   const newAddress = address || getWindowObject().address || {};
 
   if (newAddress.cc) {
-    newAddress.cc = newAddress.cc.toLowerCase();
+    newAddress.cc = newAddress.cc.toUpperCase();
   }
 
   return newAddress;

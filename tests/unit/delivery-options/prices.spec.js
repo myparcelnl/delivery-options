@@ -6,45 +6,50 @@ import { getLowestPriceFromFormConfig } from '@/delivery-options/data/prices/get
 import { getPriceLabelFromFormConfig } from '@/delivery-options/data/prices/getPriceLabelFromFormConfig';
 import { mockConfigBus } from '@Tests/unit/delivery-options/mockConfigBus';
 
-describe('price logic', () => {
-  const beConfigBus = mockConfigBus({
-    [CONFIG.KEY]: {
-      [CONFIG.PLATFORM]: PLATFORMS.SENDMYPARCEL,
-      [CONFIG.CARRIER_SETTINGS]: {
-        [CARRIERS.BPOST]: {
-          [CONFIG.PRICE_MORNING_DELIVERY]: 3.23,
-          [CONFIG.PRICE_STANDARD_DELIVERY]: 3.40,
-          [CONFIG.PRICE_EVENING_DELIVERY]: 4.58,
-          [CONFIG.PRICE_PICKUP]: -1,
-        },
-        [CARRIERS.DPD]: {
-          [CONFIG.PRICE_MORNING_DELIVERY]: -1,
-          [CONFIG.PRICE_STANDARD_DELIVERY]: 0,
-          [CONFIG.PRICE_EVENING_DELIVERY]: 3.20,
-          [CONFIG.PRICE_PICKUP]: -3,
-        },
-        [CARRIERS.POSTNL]: {
-          [CONFIG.PRICE_MORNING_DELIVERY]: 5.40,
-          [CONFIG.PRICE_STANDARD_DELIVERY]: 3.59,
-          [CONFIG.PRICE_EVENING_DELIVERY]: 3.20,
-          [CONFIG.PRICE_PICKUP]: 0,
-        },
-      },
-    },
-  });
+let beConfigBus;
+let nlConfigBus;
 
-  const nlConfigBus = mockConfigBus({
-    [CONFIG.KEY]: {
-      [CONFIG.PLATFORM]: PLATFORMS.MYPARCEL,
-      [CONFIG.CARRIER_SETTINGS]: {
-        [CARRIERS.POSTNL]: {
-          [CONFIG.PRICE_MORNING_DELIVERY]: 5.40,
-          [CONFIG.PRICE_STANDARD_DELIVERY]: 3.59,
-          [CONFIG.PRICE_EVENING_DELIVERY]: 3.20,
-          [CONFIG.PRICE_PICKUP]: 0,
+describe('price logic', () => {
+  beforeAll(() => {
+    beConfigBus = mockConfigBus({
+      [CONFIG.KEY]: {
+        [CONFIG.PLATFORM]: PLATFORMS.SENDMYPARCEL,
+        [CONFIG.CARRIER_SETTINGS]: {
+          [CARRIERS.BPOST]: {
+            [CONFIG.PRICE_MORNING_DELIVERY]: 3.23,
+            [CONFIG.PRICE_STANDARD_DELIVERY]: 3.40,
+            [CONFIG.PRICE_EVENING_DELIVERY]: 4.58,
+            [CONFIG.PRICE_PICKUP]: -1,
+          },
+          [CARRIERS.DPD]: {
+            [CONFIG.PRICE_MORNING_DELIVERY]: -1,
+            [CONFIG.PRICE_STANDARD_DELIVERY]: 0,
+            [CONFIG.PRICE_EVENING_DELIVERY]: 3.20,
+            [CONFIG.PRICE_PICKUP]: -3,
+          },
+          [CARRIERS.POSTNL]: {
+            [CONFIG.PRICE_MORNING_DELIVERY]: 5.40,
+            [CONFIG.PRICE_STANDARD_DELIVERY]: 3.59,
+            [CONFIG.PRICE_EVENING_DELIVERY]: 3.20,
+            [CONFIG.PRICE_PICKUP]: 0,
+          },
         },
       },
-    },
+    });
+
+    nlConfigBus = mockConfigBus({
+      [CONFIG.KEY]: {
+        [CONFIG.PLATFORM]: PLATFORMS.MYPARCEL,
+        [CONFIG.CARRIER_SETTINGS]: {
+          [CARRIERS.POSTNL]: {
+            [CONFIG.PRICE_MORNING_DELIVERY]: 5.40,
+            [CONFIG.PRICE_STANDARD_DELIVERY]: 3.59,
+            [CONFIG.PRICE_EVENING_DELIVERY]: 3.20,
+            [CONFIG.PRICE_PICKUP]: 0,
+          },
+        },
+      },
+    });
   });
 
   it('gets the correct lowest delivery price for a single carrier', () => {

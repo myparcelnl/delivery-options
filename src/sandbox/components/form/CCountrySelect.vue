@@ -36,7 +36,7 @@ export default {
 
         this.mutableOptions = Object.keys(countries).map((country) => {
           return {
-            value: country.toLowerCase(),
+            value: country,
             text: countries[country],
           };
         });

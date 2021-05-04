@@ -21,7 +21,7 @@ export const METHOD_SEARCH = 'search';
  *
  * @returns {Promise.<Array>}
  */
-export const fetchFromEndpoint = memoize(async function fetchFunc(endpoint, options = {}) {
+export const fetchFromEndpoint = memoize(async function fetchFunc(endpoint, options = {}, handleError = true) {
   const client = new Client();
 
   client.config.acceptLanguage = configBus ? configBus.get(LOCALE) : 'nl-NL';
@@ -38,17 +38,21 @@ export const fetchFromEndpoint = memoize(async function fetchFunc(endpoint, opti
   try {
     response = await client[endpoint][options.method](options.params) || [];
   } catch (e) {
-    if (!configBus) {
-      return;
-    }
+    if (handleError) {
+      if (!configBus) {
+        return;
+      }
 
-    const { errors } = e;
-    configBus.errors = [];
+      const { errors } = e;
+      configBus.errors = [];
 
-    if (errors && errors.length) {
-      errors.forEach((error) => configBus.addError({ type: 'api', endpoint, ...error }));
+      if (errors && errors.length) {
+        errors.forEach((error) => configBus.addError({ type: 'api', endpoint, ...error }));
+      } else {
+        configBus.addError({ type: 'fatal', endpoint, error: e });
+      }
     } else {
-      configBus.addError({ type: 'fatal', endpoint, error: e });
+      throw e;
     }
   }
 

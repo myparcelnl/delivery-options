@@ -61,7 +61,7 @@ describe('Sandbox form components', () => {
     await wrapper.vm.$nextTick();
     expect(wrapper.vm.mutableOptions).toContainObject({
       text: 'Sweden',
-      value: 'se',
+      value: 'SE',
     });
   });
 

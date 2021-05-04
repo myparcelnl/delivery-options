@@ -2,7 +2,6 @@ import * as CONFIG from '@/data/keys/configKeys';
 import * as CONSTS from '@/data/keys/settingsConsts';
 import * as FORM from '@/config/formConfig';
 import * as STRINGS from '@/data/keys/stringsKeys';
-import { ALLOW_PACKAGE_TYPE_DIGITAL_STAMP, ALLOW_PACKAGE_TYPE_MAILBOX } from '@/data/keys/packageTypeConfig';
 import CCheckboxGroup from '@/sandbox/components/form/CCheckboxGroup';
 import CCurrency from '@/sandbox/components/form/CCurrency';
 import CNumber from '@/sandbox/components/form/CNumber';
@@ -308,8 +307,8 @@ export const createSettings = memoize((platform) => {
           ],
         },
         ...ifAnyCarrierAllows([
-          ALLOW_PACKAGE_TYPE_DIGITAL_STAMP,
-          ALLOW_PACKAGE_TYPE_MAILBOX,
+          CONFIG.ALLOW_PACKAGE_TYPE_DIGITAL_STAMP,
+          CONFIG.ALLOW_PACKAGE_TYPE_MAILBOX,
         ], {
           title: FORM.PACKAGE_TYPE,
           settings: [
@@ -321,7 +320,7 @@ export const createSettings = memoize((platform) => {
                 options: CONSTS.PACKAGE_TYPE_OPTIONS,
               },
             },
-            ...ifAnyCarrierAllows(ALLOW_PACKAGE_TYPE_DIGITAL_STAMP, {
+            ...ifAnyCarrierAllows(CONFIG.ALLOW_PACKAGE_TYPE_DIGITAL_STAMP, {
               key: CONFIG.KEY,
               name: CONFIG.PRICE_PACKAGE_TYPE_DIGITAL_STAMP,
               component: CCurrency,
@@ -330,7 +329,7 @@ export const createSettings = memoize((platform) => {
                 CONFIG.SHOW_PRICES,
               ],
             }),
-            ...ifAnyCarrierAllows(ALLOW_PACKAGE_TYPE_MAILBOX, {
+            ...ifAnyCarrierAllows(CONFIG.ALLOW_PACKAGE_TYPE_MAILBOX, {
               key: CONFIG.KEY,
               name: CONFIG.PRICE_PACKAGE_TYPE_MAILBOX,
               component: CCurrency,
