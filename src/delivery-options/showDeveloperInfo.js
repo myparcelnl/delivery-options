@@ -1,9 +1,9 @@
 /* eslint-disable max-lines-per-function,no-console,no-magic-numbers */
 import * as CONFIG from '@/data/keys/configKeys';
-import { SENDMYPARCEL } from '@/data/keys/platformKeys';
+import { MYPARCEL } from '@/data/keys/platformKeys';
+import { POSTNL } from '@/data/keys/carrierKeys';
 import { UPDATE_DELIVERY_OPTIONS } from '@/config/eventConfig';
 import { defaultAddress } from '@/data/defaultAddress';
-import { defaultConfiguration } from '@/config/defaultConfiguration';
 
 /**
  * Output some information in the console to help a developer get started quickly.
@@ -38,14 +38,17 @@ export const showDeveloperInfo = () => {
     'padding: .2em 0;',
   ];
 
-  const { config } = defaultConfiguration(SENDMYPARCEL);
-
   const demoConfig = {
     config: {
-      [CONFIG.PLATFORM]: config[CONFIG.PLATFORM],
-      [CONFIG.CARRIER_SETTINGS]: config[CONFIG.CARRIER_SETTINGS],
+      [CONFIG.PLATFORM]: MYPARCEL,
+      [CONFIG.CARRIER_SETTINGS]: {
+        [POSTNL]: {
+          [CONFIG.ALLOW_DELIVERY_OPTIONS]: true,
+          [CONFIG.ALLOW_PICKUP_LOCATIONS]: true,
+        },
+      },
     },
-    address: defaultAddress[SENDMYPARCEL],
+    address: defaultAddress[MYPARCEL],
   };
 
   console.log('%cWelcome to the MyParcel delivery options!', styleHeader1.join(';'));
