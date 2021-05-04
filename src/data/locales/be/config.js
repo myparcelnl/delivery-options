@@ -1,7 +1,5 @@
-import * as CARRIERS from '@/data/keys/carrierKeys';
 import * as CONFIG from '@/data/keys/configKeys';
 import { DEFAULT_MAX_PAGE_ITEMS, DEFAULT_PRICE } from '@/data/keys/settingsConsts';
-import { getDefaultCarrierConfig } from '@/delivery-options/data/carriers/getDefaultCarrierConfig';
 
 export const config = {
   [CONFIG.LOCALE]: 'nl-BE',
@@ -25,15 +23,4 @@ export const config = {
    * Show more pickup items by default for BE because it doesn't show the distance.
    */
   [CONFIG.FEATURE_MAX_PAGE_ITEMS]: DEFAULT_MAX_PAGE_ITEMS,
-
-  [CONFIG.CARRIER_SETTINGS]: {
-    ...getDefaultCarrierConfig(CARRIERS.BPOST),
-    ...getDefaultCarrierConfig(CARRIERS.DPD),
-    ...getDefaultCarrierConfig(CARRIERS.POSTNL, {
-      [CONFIG.ALLOW_MONDAY_DELIVERY]: false,
-      [CONFIG.ALLOW_SATURDAY_DELIVERY]: false,
-      [CONFIG.ALLOW_MORNING_DELIVERY]: false,
-      [CONFIG.ALLOW_EVENING_DELIVERY]: false,
-    }),
-  },
 };

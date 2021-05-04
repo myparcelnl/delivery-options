@@ -1,9 +1,11 @@
+import * as CARRIERS from '@/data/keys/carrierKeys';
 import * as CONFIG from '@/data/keys/configKeys';
 import { MYPARCEL, SENDMYPARCEL } from '@/data/keys/platformKeys';
 import MockDate from 'mockdate';
 import { UPDATED_DELIVERY_OPTIONS } from '@/config/eventConfig';
 import { mockDeliveryOptions } from '@Tests/unit/delivery-options/mockDeliveryOptions';
 import { waitForEvent } from '@Tests/waitForEvent';
+import { configBus } from '@/delivery-options/config/configBus';
 
 // Timestamps are before all cutoff times
 const FRIDAY = '2020-03-13T10:00:00';
@@ -32,6 +34,12 @@ const configSendMyParcel = {
   [CONFIG.DROP_OFF_DELAY]: 0,
   [CONFIG.FRIDAY_CUTOFF_TIME]: '14:30',
   [CONFIG.ALLOW_SATURDAY_DELIVERY]: true,
+
+  [CONFIG.CARRIER_SETTINGS]: {
+    [CARRIERS.BPOST]: {
+      [CONFIG.ALLOW_DELIVERY_OPTIONS]: true,
+    },
+  },
 };
 
 /**

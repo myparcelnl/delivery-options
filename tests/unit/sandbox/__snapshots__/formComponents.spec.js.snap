@@ -108,14 +108,7 @@ exports[`Sandbox form components @/sandbox/components/form/CRadioGroup 1`] = `
 exports[`Sandbox form components @/sandbox/components/form/CSelect 1`] = `
 <select
   class="custom-select"
-  disabledfield="disabled"
-  htmlfield="html"
-  labelfield="label"
   options="[object Object],[object Object]"
-  optionsfield="options"
-  selectsize="0"
-  textfield="text"
-  valuefield="value"
 >
   <option
     value="a"

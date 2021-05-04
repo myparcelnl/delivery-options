@@ -1,11 +1,12 @@
-import './jest';
-import { Vue } from 'vue/types/vue';
+import './jest'
+import {Vue} from 'vue/types/vue'
 
 declare namespace MyParcel {
   type Environment = 'dev' | 'staging' | 'acceptance' | 'prod'
 
-  type CarrierName = 'postnl' | 'bpost' | 'dpd'
-  type CarrierNameOrId = CarrierName | number
+  type CarrierName = 'postnl' | 'bpost' | 'cheapcargo' | 'dpd' | 'redjepakketje' | 'dhl'
+  type CarrierID = 1 | 2 | 3 | 4 | 5 | 6
+  type CarrierNameOrId = CarrierName | CarrierID
   type Platform = 'myparcel' | 'belgie' | 'flespakket'
 
   /**

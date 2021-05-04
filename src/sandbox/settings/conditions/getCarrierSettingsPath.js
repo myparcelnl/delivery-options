@@ -1,3 +1,12 @@
 import * as CONFIG from '@/data/keys/configKeys';
 
-export const getCarrierSettingsPath = (...setting) => [CONFIG.KEY, CONFIG.CARRIER_SETTINGS, ...setting].join('.');
+/**
+ * @param {...any} setting
+ */
+export function getCarrierSettingsPath(...setting) {
+  return [
+    CONFIG.KEY,
+    CONFIG.CARRIER_SETTINGS,
+    ...setting,
+  ].join('.');
+}

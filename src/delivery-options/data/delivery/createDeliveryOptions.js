@@ -13,11 +13,14 @@ import { getPackageTypeOptions } from '@/delivery-options/data/delivery/getPacka
  * If multi carrier, return another level of settings.
  *
  * @param {MyParcel.CarrierName} carrier - Carrier name or id.
- *
+ * @param {MyParcel.Platform} platform - Platform name.
  * @returns {Promise.<MyParcelDeliveryOptions.FormEntry[]>}
  */
-export async function createDeliveryOptions(carrier = configBus.currentCarrier) {
-  const deliveryOptions = await fetchDeliveryOptions(carrier);
+export async function createDeliveryOptions(
+  carrier = configBus.currentCarrier,
+  platform = configBus.get(CONFIG.PLATFORM),
+) {
+  const deliveryOptions = await fetchDeliveryOptions(carrier, platform);
 
   if (!deliveryOptions.length) {
     return [];

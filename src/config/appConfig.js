@@ -1,6 +1,6 @@
 import { DEFAULT_PLATFORM } from '@/data/keys/settingsConsts';
 import { configBus } from '@/delivery-options/config/configBus';
-import { platformUrlMap } from '@/config/platformConfig';
+import { platformUrlMap } from '@/config/platform/platformUrlMap';
 
 /**
  * Overrides environment. For use when developing. Set to null to use default behavior.

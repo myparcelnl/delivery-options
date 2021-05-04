@@ -1,7 +1,6 @@
 <template>
   <CInput
     v-model="mutableValue"
-    v-bind="filteredProps"
     :options="translatedOptions"
     component="BFormSelect" />
 </template>

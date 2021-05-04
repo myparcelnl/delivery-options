@@ -1,11 +1,12 @@
 import * as ADDRESS from '@/data/keys/addressKeys';
 import * as CONFIG from '@/data/keys/configKeys';
-import * as STRINGS from '@/data/keys/stringsKeys';
 import { DEFAULT_PLATFORM } from '@/data/keys/settingsConsts';
 import { createConfigBus } from '@/delivery-options/config/configBus';
 import { defaultAddress } from '@/data/defaultAddress';
-import { defaultConfiguration } from '@/config/defaultConfiguration';
-import mergeWith from 'lodash-es/mergeWith';
+import { POSTNL } from '@/data/keys/carrierKeys';
+import { get, merge, set } from 'lodash-es';
+import { getDefaultCarrierSettings } from '@Tests/unit/delivery-options/defaultCarrierSettings';
+import { platformCarrierMap } from '@/config/platform/platformCarrierMap';
 
 /**
  * Get a configBus instance with the given default platform data and optional overrides.
@@ -29,20 +30,18 @@ export const mockConfigBus = (data = DEFAULT_PLATFORM) => {
       : DEFAULT_PLATFORM;
   }
 
+  // Add default carrier settings for the first carrier of current platform if no carrier settings are present.
+  if (!get(data, 'config.carrierSettings')) {
+    merge(data, getDefaultCarrierSettings(platformCarrierMap[platform][0]));
+  }
+
+  data[CONFIG.KEY][CONFIG.PLATFORM] = platform;
+
   // Merge data into the default config.
-  window.MyParcelConfig = mergeWith(
-    {
-      ...defaultConfiguration(platform),
-      [ADDRESS.KEY]: defaultAddress[platform],
-    },
-    data,
-    (objValue, srcValue, key) => {
-      // Override everything directly except the config and strings objects.
-      if (![CONFIG.KEY, STRINGS.KEY].includes(key)) {
-        return srcValue;
-      }
-    },
-  );
+  window.MyParcelConfig = {
+    [ADDRESS.KEY]: defaultAddress[platform],
+    ...data,
+  };
 
   return createConfigBus();
 };
