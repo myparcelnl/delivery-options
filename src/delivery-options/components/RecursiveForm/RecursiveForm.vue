@@ -1,6 +1,7 @@
 <template>
   <table
     v-if="mutableOption.hasOwnProperty('component') && mutableOption.loop === false"
+    v-show="!mutableOption.hidden"
     :class="`${$classBase}__table`">
     <tr
       :class="`${$classBase}__choice`">
@@ -12,6 +13,7 @@
 
   <table
     v-else-if="validChoices"
+    v-show="!mutableOption.hidden"
     :class="`${$classBase}__table`">
     <tr
       v-for="choice in validChoices"
@@ -141,6 +143,7 @@
   </table>
   <table
     v-else
+    v-show="!mutableOption.hidden"
     :class="`${$classBase}__table`">
     <tr>
       <td>

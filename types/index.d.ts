@@ -255,6 +255,7 @@ declare namespace MyParcelDeliveryOptions {
     dependency?: FormEntryDependency
     loop?: boolean
     pagination?: number
+    hidden?: boolean
   }
 
   interface FormEntryChoice {
