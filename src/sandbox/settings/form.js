@@ -107,7 +107,7 @@ export const createSettings = memoize((platform) => {
           name: CONFIG.CUTOFF_TIME,
           component: CTimepicker,
         },
-        ...ifAnyCarrierAllows(CONFIG.FEATURE_ALLOW_SHOW_DELIVERY_DATE, {
+        {
           title: FORM.SHOW_DELIVERY_DATE,
           settings: [
             ...perCarrier({
@@ -118,7 +118,7 @@ export const createSettings = memoize((platform) => {
               ],
             }),
           ],
-        }),
+        },
       ],
     },
     {
