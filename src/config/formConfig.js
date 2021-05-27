@@ -29,6 +29,7 @@ export const SHIPMENT_OPTIONS = 'shipmentOptions';
 // Delivery > Deliver (> Carrier) > Delivery moment > Shipment options = [signature?, only_recipient?]
 export const SIGNATURE = 'signature';
 export const ONLY_RECIPIENT = 'only_recipient';
+export const SHOW_DELIVERY_DATE = 'showDeliveryDate';
 
 // Delivery > Pickup
 export const PICKUP = 'pickup';

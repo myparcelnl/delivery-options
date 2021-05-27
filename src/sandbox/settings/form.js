@@ -107,6 +107,18 @@ export const createSettings = memoize((platform) => {
           name: CONFIG.CUTOFF_TIME,
           component: CTimepicker,
         },
+        ...ifAnyCarrierAllows(CONFIG.FEATURE_ALLOW_SHOW_DELIVERY_DATE, {
+          title: FORM.SHOW_DELIVERY_DATE,
+          settings: [
+            ...perCarrier({
+              name: CONFIG.FEATURE_ALLOW_SHOW_DELIVERY_DATE,
+              component: CToggle,
+              conditions: [
+                CONFIG.ALLOW_DELIVERY_OPTIONS,
+              ],
+            }),
+          ],
+        }),
       ],
     },
     {
