@@ -17,9 +17,9 @@ export function getLowestPriceFromFormConfig(config, carrierName = null, configB
     .map((carrierName) => {
       const parentEnabled = configBus.isEnabled(config, null, carrierName);
 
-      // When the entire option is not enabled just return 0. It will not be counted or shown.
+      // When the entire option is not enabled just return []. It will not be counted or shown.
       if (!parentEnabled) {
-        return [0];
+        return [];
       }
 
       return config.options
