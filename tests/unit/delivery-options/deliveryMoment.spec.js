@@ -5,7 +5,6 @@ import MockDate from 'mockdate';
 import { UPDATED_DELIVERY_OPTIONS } from '@/config/eventConfig';
 import { mockDeliveryOptions } from '@Tests/unit/delivery-options/mockDeliveryOptions';
 import { waitForEvent } from '@Tests/waitForEvent';
-import { configBus } from '@/delivery-options/config/configBus';
 
 // Timestamps are before all cutoff times
 const FRIDAY = '2020-03-13T10:00:00';
@@ -179,5 +178,47 @@ describe('Delivery moments', () => {
     expect(choices).toStrictEqual([
       '2020-03-16T00:00:00.000Z',
     ]);
+  });
+
+  it('hides delivery date when requested', async() => {
+    expect.assertions(3);
+
+    const wrapper = mockDeliveryOptions({
+      [CONFIG.KEY]: {
+        [CONFIG.PLATFORM]: SENDMYPARCEL,
+        [CONFIG.DELIVERY_DAYS_WINDOW]: 1,
+        [CONFIG.FEATURE_ALLOW_SHOW_DELIVERY_DATE]: true,
+        [CONFIG.CARRIER_SETTINGS]: {
+          [CARRIERS.POSTNL]: {
+            [CONFIG.ALLOW_DELIVERY_OPTIONS]: true,
+            [CONFIG.FEATURE_ALLOW_SHOW_DELIVERY_DATE]: true,
+          },
+          [CARRIERS.BPOST]: {
+            [CONFIG.ALLOW_DELIVERY_OPTIONS]: true,
+            [CONFIG.FEATURE_ALLOW_SHOW_DELIVERY_DATE]: false,
+          },
+          [CARRIERS.DPD]: {
+            [CONFIG.ALLOW_DELIVERY_OPTIONS]: true,
+          },
+        },
+      },
+    });
+
+    await waitForEvent(UPDATED_DELIVERY_OPTIONS);
+
+    const postnl = wrapper.findChoice('carrier', CARRIERS.POSTNL);
+    expect(postnl.find('[data-test-id="deliveryDate__select__label"]').element).toBeVisible();
+
+    const bpost = wrapper.findChoice('carrier', CARRIERS.BPOST);
+    const bpostInput = wrapper.findChoice('carrier__input', CARRIERS.BPOST);
+    bpostInput.element.click();
+    await waitForEvent(UPDATED_DELIVERY_OPTIONS);
+    expect(bpost.find('[data-test-id="deliveryDate__select__label"]').element).not.toBeVisible();
+
+    const dpd = wrapper.findChoice('carrier', CARRIERS.DPD);
+    const dpdInput = wrapper.findChoice('carrier__input', CARRIERS.DPD);
+    dpdInput.element.click();
+    await waitForEvent(UPDATED_DELIVERY_OPTIONS);
+    expect(dpd.find('[data-test-id="deliveryDate__select__label"]').element).toBeVisible();
   });
 });

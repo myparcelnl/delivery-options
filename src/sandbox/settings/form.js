@@ -49,7 +49,7 @@ export const createSettings = memoize((platform) => {
         name: CONFIG.DELIVERY_DAYS_WINDOW,
         component: CNumber,
         props: {
-          min: 0,
+          min: 1,
           max: 14,
         },
       },
@@ -106,6 +106,18 @@ export const createSettings = memoize((platform) => {
           key: CONFIG.KEY,
           name: CONFIG.CUTOFF_TIME,
           component: CTimepicker,
+        },
+        {
+          title: CONFIG.FEATURE_ALLOW_SHOW_DELIVERY_DATE,
+          settings: [
+            ...perCarrier({
+              name: CONFIG.FEATURE_ALLOW_SHOW_DELIVERY_DATE,
+              component: CToggle,
+              conditions: [
+                CONFIG.ALLOW_DELIVERY_OPTIONS,
+              ],
+            }),
+          ],
         },
       ],
     },

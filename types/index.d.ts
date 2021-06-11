@@ -158,6 +158,7 @@ declare namespace MyParcelDeliveryOptions {
     allowRetry?: boolean
     pickupLocationsDefaultView?: 'map' | 'list'
     pickupShowDistance?: boolean
+    allowShowDeliveryDate?: boolean
 
     // Can be JSON string or object.
     pickupLocationsMapTileLayerData?: string | MapTileLayerData
@@ -169,6 +170,7 @@ declare namespace MyParcelDeliveryOptions {
       allowMorningDelivery?: boolean
       allowOnlyRecipient?: boolean
       allowSignature?: boolean
+      allowShowDeliveryDate?: boolean
 
       // NL only
       allowSaturdayDelivery?: boolean
@@ -255,6 +257,7 @@ declare namespace MyParcelDeliveryOptions {
     dependency?: FormEntryDependency
     loop?: boolean
     pagination?: number
+    hidden?: boolean
   }
 
   interface FormEntryChoice {

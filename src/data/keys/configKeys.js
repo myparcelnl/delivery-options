@@ -74,6 +74,11 @@ export const FEATURE_PICKUP_LOCATIONS_DEFAULT_VIEW = 'pickupLocationsDefaultView
 export const FEATURE_PICKUP_SHOW_DISTANCE = 'pickupShowDistance';
 
 /*
+ * Show delivery date label or select if true. Hide otherwise.
+ */
+export const FEATURE_ALLOW_SHOW_DELIVERY_DATE = 'allowShowDeliveryDate';
+
+/*
  * Tile layer data for use with the pickup locations map.
  */
 export const PICKUP_LOCATIONS_MAP_TILE_LAYER_DATA = 'pickupLocationsMapTileLayerData';
@@ -97,6 +102,7 @@ export const settingsWithCarrierOverride = [
   ALLOW_PICKUP_LOCATIONS,
   ALLOW_SATURDAY_DELIVERY,
   ALLOW_SIGNATURE,
+  FEATURE_ALLOW_SHOW_DELIVERY_DATE,
   PRICE_PACKAGE_TYPE_DIGITAL_STAMP,
   PRICE_PACKAGE_TYPE_MAILBOX,
   PRICE_EVENING_DELIVERY,
@@ -121,4 +127,5 @@ export const carrierFeatures = [
   ALLOW_PICKUP_LOCATIONS,
   ALLOW_SATURDAY_DELIVERY,
   ALLOW_SIGNATURE,
+  FEATURE_ALLOW_SHOW_DELIVERY_DATE,
 ];

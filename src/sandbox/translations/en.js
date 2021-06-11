@@ -64,6 +64,7 @@ export const englishTranslations = {
   [`field.${CONFIG.FEATURE_MAX_PAGE_ITEMS}`]: 'Pickup items per page',
   [`field.${CONFIG.FEATURE_PICKUP_LOCATIONS_DEFAULT_VIEW}`]: 'Default pickup view',
   [`field.${CONFIG.FEATURE_PICKUP_SHOW_DISTANCE}`]: 'Show distances',
+  [`field.${CONFIG.FEATURE_ALLOW_SHOW_DELIVERY_DATE}`]: 'Show delivery date',
   [`field.${CONFIG.FRIDAY_CUTOFF_TIME}.description`]: `Like the regular "@:field.${CONFIG.CUTOFF_TIME}" setting: This option allows you to indicate the latest cutoff time before an order will still be picked, packed and dispatched on the same/first set dropoff day, taking the dropoff delay into account.`,
   [`field.${CONFIG.FRIDAY_CUTOFF_TIME}`]: 'Friday cutoff time',
   [`field.${CONFIG.PACKAGE_TYPE}`]: 'Package type',

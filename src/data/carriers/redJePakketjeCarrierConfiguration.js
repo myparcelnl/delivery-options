@@ -22,6 +22,7 @@ export class RedJePakketjeCarrierConfiguration extends AbstractCarrierConfigurat
         FEATURES.FEATURES_PACKAGE_TYPE_MAILBOX,
         FEATURES.FEATURES_PICKUP,
         FEATURES.FEATURES_SIGNATURE,
+        FEATURES.FEATURES_SHOW_DELIVERY_DATE,
       ],
     };
   }
