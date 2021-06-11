@@ -99,3 +99,12 @@ export const FEATURES_SIGNATURE = [
   CONFIG.ALLOW_SIGNATURE,
   CONFIG.PRICE_SIGNATURE,
 ];
+
+/**
+ * Permission to show delivery date.
+ *
+ * @type {String[]}
+ */
+export const FEATURES_SHOW_DELIVERY_DATE = [
+  CONFIG.FEATURE_ALLOW_SHOW_DELIVERY_DATE,
+];

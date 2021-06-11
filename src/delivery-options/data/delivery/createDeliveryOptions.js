@@ -36,6 +36,7 @@ export async function createDeliveryOptions(
       ? {
         name: DELIVERY_DATE,
         type: 'select',
+        hidden: !configBus.get(CONFIG.FEATURE_ALLOW_SHOW_DELIVERY_DATE),
         choices: getDeliveryDates(deliveryOptions),
       }
       : getPackageTypeOptions(packageType),
