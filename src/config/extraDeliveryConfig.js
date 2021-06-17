@@ -1,9 +1,13 @@
 import * as CONFIG from '@/data/keys/configKeys';
-import { MYPARCEL, SENDMYPARCEL } from '@/data/keys/platformKeys';
+import { FEATURES_MONDAY_DELIVERY, FEATURES_SATURDAY_DELIVERY } from '@/data/carrierFeatures';
 
-const MONDAY = 1;
-const FRIDAY = 5;
-const SATURDAY = 6;
+export const MONDAY = 1;
+export const TUESDAY = 2;
+export const WEDNESDAY = 3;
+export const THURSDAY = 4;
+export const FRIDAY = 5;
+export const SATURDAY = 6;
+export const SUNDAY = 0;
 
 /**
  * Settings for extra delivery days.
@@ -12,23 +16,15 @@ const SATURDAY = 6;
  */
 export const extraDeliveryConfig = [
   {
+    cutoffTime: CONFIG.SATURDAY_CUTOFF_TIME,
     deliveryDay: MONDAY,
     dropOffDay: SATURDAY,
-    platforms: [MYPARCEL],
-    requires: [
-      CONFIG.ALLOW_MONDAY_DELIVERY,
-      CONFIG.SATURDAY_CUTOFF_TIME,
-    ],
-    cutoffTime: CONFIG.SATURDAY_CUTOFF_TIME,
+    requires: FEATURES_MONDAY_DELIVERY,
   },
   {
+    cutoffTime: CONFIG.FRIDAY_CUTOFF_TIME,
     deliveryDay: SATURDAY,
     dropOffDay: FRIDAY,
-    platforms: [SENDMYPARCEL],
-    requires: [
-      CONFIG.ALLOW_SATURDAY_DELIVERY,
-      CONFIG.FRIDAY_CUTOFF_TIME,
-    ],
-    cutoffTime: CONFIG.FRIDAY_CUTOFF_TIME,
+    requires: FEATURES_SATURDAY_DELIVERY,
   },
 ];

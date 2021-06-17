@@ -1,11 +1,10 @@
 import * as CONFIG from '@/data/keys/configKeys';
-import { DEFAULT_MAX_PAGE_ITEMS, DEFAULT_PRICE } from '@/data/keys/settingsConsts';
+import { DEFAULT_MAX_PAGE_ITEMS } from '@/data/keys/settingsConsts';
 
 export const config = {
   [CONFIG.LOCALE]: 'nl-BE',
 
   [CONFIG.ALLOW_SATURDAY_DELIVERY]: true,
-  [CONFIG.PRICE_SATURDAY_DELIVERY]: DEFAULT_PRICE,
   [CONFIG.FRIDAY_CUTOFF_TIME]: '15:00',
 
   /**
