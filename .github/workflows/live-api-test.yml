@@ -1,0 +1,20 @@
+name: Run test on the live API
+
+on:
+  schedule:
+    - cron: '0 12 * * *'
+
+jobs:
+  test:
+    name: Run test on live API
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 2
+          ref: 'master'
+      - uses: bahmutov/npm-install@v1
+      - name: Run jest
+        run: ./node_modules/.bin/cross-env npm test -- tests/unit/delivery-options/testLiveApi.spec.js --coverage=false
+        env:
+          NODE_ICU_DATA: node_modules/full-icu
