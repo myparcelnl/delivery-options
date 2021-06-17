@@ -24,8 +24,12 @@ export const fakeDeliveryOptionsResponse = jest.fn();
  * @returns {Object[]}
  */
 fakeDeliveryOptionsResponse.mockImplementation((args) => {
-  const deliveryDaysWindow = args.deliverydays_window || 1;
-  const dropOffDelay = args.dropoff_delay || 0;
+  args.deliverydays_window = args.deliverydays_window ?? 1;
+  args.dropoff_delay = args.dropoff_delay ?? 0;
+  args.dropoff_days = args.dropoff_days ?? [0, 1, 2, 3, 4, 5, 6];
+
+  const deliveryDaysWindow = args.deliverydays_window;
+  const dropOffDelay = args.dropoff_delay;
   let startIndex = dropOffDelay + 1;
 
   return Array

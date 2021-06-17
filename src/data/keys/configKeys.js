@@ -41,7 +41,6 @@ export const PRICE_PACKAGE_TYPE_MAILBOX = 'pricePackageTypeMailbox';
  * For use with Monday delivery.
  */
 export const ALLOW_MONDAY_DELIVERY = 'allowMondayDelivery';
-export const PRICE_MONDAY_DELIVERY = 'priceMondayDelivery';
 export const SATURDAY_CUTOFF_TIME = 'saturdayCutoffTime';
 
 /*
@@ -49,7 +48,6 @@ export const SATURDAY_CUTOFF_TIME = 'saturdayCutoffTime';
  */
 export const ALLOW_SATURDAY_DELIVERY = 'allowSaturdayDelivery';
 export const FRIDAY_CUTOFF_TIME = 'fridayCutoffTime';
-export const PRICE_SATURDAY_DELIVERY = 'priceSaturdayDelivery';
 
 /*
  * Carrier settings object

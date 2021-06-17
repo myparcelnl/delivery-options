@@ -213,6 +213,7 @@ export const createConfigBus = (eventCallee = null) => {
           this[item] = configuration[item];
         });
 
+        this.currentCarrier = Object.keys(configuration.config.carrierSettings)[0];
         this.weekdays = getWeekdays(configuration.config.locale);
 
         document.dispatchEvent(new Event(EVENTS.UPDATE_DELIVERY_OPTIONS));

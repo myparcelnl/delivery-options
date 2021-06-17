@@ -1,28 +1,21 @@
 import * as CONFIG from '@/data/keys/configKeys';
-import { extraDeliveryConfig } from '@/config/extraDeliveryConfig';
+import { checkIsDropOffDay } from '@/delivery-options/data/request/checkIsDropOffDay';
+import { getExtraDropOffDay } from '@/delivery-options/data/request/getExtraDropOffDay';
 import { configBus as realConfigBus } from '@/delivery-options/config/configBus';
 
 /**
  * Get cutoff time for a special delivery day. Returns default cutoff time if the conditions for an extra delivery day
  *  don't pass.
  *
- * @param {import('@/delivery-options/config/configBus')} configBus - Optional parameter for easier testing.
+ * @param {import('@/delivery-options/config/configBus').configBus} configBus - Optional parameter for easier testing.
  *
- * @returns {MyParcelDeliveryOptions.Config.cutoffTime}
+ * @returns {String}
  */
 export function getCutOffTime(configBus = realConfigBus) {
-  const today = new Date().getDay();
+  const extraDropOffDay = getExtraDropOffDay(configBus);
+  const todayIsExtraDropOffDay = extraDropOffDay && checkIsDropOffDay(extraDropOffDay.dropOffDay, configBus);
 
-  const extraDropOffDay = extraDeliveryConfig.find((setting) => {
-    const allowedForPlatform = setting.platforms.includes(configBus.get(CONFIG.PLATFORM));
-    const todayIsExtraDay = today === setting.dropOffDay;
-    const requirementsFulfilled = setting.requires.every((requirement) => Boolean(configBus.get(requirement)));
-    const extraDayIsDropOffDay = configBus.get(CONFIG.DROP_OFF_DAYS).includes(setting.dropOffDay);
-
-    return todayIsExtraDay && allowedForPlatform && extraDayIsDropOffDay && requirementsFulfilled;
-  });
-
-  return extraDropOffDay
+  return todayIsExtraDropOffDay
     ? configBus.get(extraDropOffDay.cutoffTime)
     : configBus.get(CONFIG.CUTOFF_TIME);
 }
