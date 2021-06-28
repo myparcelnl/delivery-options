@@ -110,7 +110,7 @@ export const FEATURES_SHOW_DELIVERY_DATE = [
 ];
 
 /**
- * Permission to show Drop off days.
+ * Permission to show drop off days.
  *
  * @type {String[]}
  */
@@ -119,7 +119,7 @@ export const FEATURES_DROP_OFF_DAYS = [
 ];
 
 /**
- * Permission to show Drop off delay.
+ * Permission to show drop off delay.
  *
  * @type {String[]}
  */
@@ -128,7 +128,7 @@ export const FEATURES_DROP_OFF_DELAY = [
 ];
 
 /**
- * Permission to show Cutoff time.
+ * Permission to show cutoff time.
  *
  * @type {String[]}
  */
