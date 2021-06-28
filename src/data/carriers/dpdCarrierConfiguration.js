@@ -53,7 +53,9 @@ export class DpdCarrierConfiguration extends AbstractCarrierConfiguration {
       [SENDMYPARCEL]: [
         FEATURES.FEATURES_DELIVERY,
         FEATURES.FEATURES_PICKUP,
-        FEATURES.FEATURES_SHOW_DELIVERY_DATE,
+        FEATURES.FEATURES_DROP_OFF_DAYS,
+        FEATURES.FEATURES_DROP_OFF_DELAY,
+        FEATURES.FEATURES_CUTOFF_TIME,
       ],
     };
   }

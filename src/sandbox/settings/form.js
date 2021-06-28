@@ -81,31 +81,55 @@ export const createSettings = memoize((platform) => {
           ],
         },
         {
-          key: CONFIG.KEY,
-          name: CONFIG.DROP_OFF_DAYS,
-          component: CCheckboxGroup,
-          props: {
-            // Map the weekdays to options. If the day is sunday set index to 0.
-            options: weekdays.map((day, index) => ({
-              value: index === weekdays.length - 1 ? 0 : index + 1,
-              text: day,
-            })),
-          },
+          title: CONFIG.DROP_OFF_DAYS,
+          settings: [
+            ...perCarrier({
+              key: CONFIG.KEY,
+              name: CONFIG.DROP_OFF_DAYS,
+              component: CCheckboxGroup,
+              props: {
+                // Map the weekdays to options. If the day is sunday set index to 0.
+                options: weekdays.map((day, index) => ({
+                  value: index === weekdays.length - 1 ? 0 : index + 1,
+                  text: day,
+                })),
+                conditions: [
+                  CONFIG.ALLOW_DELIVERY_OPTIONS,
+                ],
+              },
+            }),
+          ],
         },
         ...deliveryDaysWindow,
         {
-          key: CONFIG.KEY,
-          name: CONFIG.DROP_OFF_DELAY,
-          component: CNumber,
-          props: {
-            min: CONSTS.DROP_OFF_DELAY_MIN,
-            max: CONSTS.DROP_OFF_DELAY_MAX,
-          },
+          title: CONFIG.DROP_OFF_DELAY,
+          settings: [
+            ...perCarrier({
+              key: CONFIG.KEY,
+              name: CONFIG.DROP_OFF_DELAY,
+              component: CNumber,
+              props: {
+                min: CONSTS.DROP_OFF_DELAY_MIN,
+                max: CONSTS.DROP_OFF_DELAY_MAX,
+              },
+              conditions: [
+                CONFIG.ALLOW_DELIVERY_OPTIONS,
+              ],
+            }),
+          ],
         },
         {
-          key: CONFIG.KEY,
-          name: CONFIG.CUTOFF_TIME,
-          component: CTimepicker,
+          title: CONFIG.CUTOFF_TIME,
+          settings: [
+            ...perCarrier({
+              key: CONFIG.KEY,
+              name: CONFIG.CUTOFF_TIME,
+              component: CTimepicker,
+              conditions: [
+                CONFIG.ALLOW_DELIVERY_OPTIONS,
+              ],
+            }),
+          ],
         },
         {
           title: CONFIG.FEATURE_ALLOW_SHOW_DELIVERY_DATE,
@@ -233,7 +257,6 @@ export const createSettings = memoize((platform) => {
             },
           ],
         }),
-
         ...ifAnyCarrierAllows(CONFIG.ALLOW_SATURDAY_DELIVERY, {
           title: FORM.SATURDAY_DELIVERY,
           settings: [
