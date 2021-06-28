@@ -3,14 +3,6 @@ import CCodeEditor from '@/sandbox/components/form/CCodeEditor';
 import CCountrySelect from '@/sandbox/components/form/CCountrySelect';
 import CCurrency from '@/sandbox/components/form/CCurrency';
 import { i18n } from '@/sandbox/services/vue-i18n';
-import CCheckboxGroup from '@/sandbox/components/form/CCheckboxGroup';
-import { mockConfigBus } from '@Tests/unit/delivery-options/mockConfigBus';
-import { DEFAULT_PLATFORM } from '@/data/keys/settingsConsts';
-import { mockDeliveryOptions } from '@Tests/unit/delivery-options/mockDeliveryOptions';
-import * as CONFIG from '@/data/keys/configKeys';
-import { MYPARCEL, SENDMYPARCEL } from '@/data/keys/platformKeys';
-import * as CARRIERS from '@/data/keys/carrierKeys';
-import { DROP_OFF_DAYS } from '@/data/keys/configKeys';
 
 // Test options.
 const options = [
