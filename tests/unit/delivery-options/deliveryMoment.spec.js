@@ -219,6 +219,6 @@ describe('Delivery moments', () => {
     const dpdInput = wrapper.findChoice('carrier__input', CARRIERS.DPD);
     dpdInput.element.click();
     await waitForEvent(UPDATED_DELIVERY_OPTIONS);
-    expect(dpd.find('[data-test-id="deliveryDate__select__label"]').element).toBeVisible();
+    expect(dpd.find('[data-test-id="deliveryDate__select__label"]').element).not.toBeVisible();
   });
 });

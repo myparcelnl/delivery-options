@@ -108,3 +108,30 @@ export const FEATURES_SIGNATURE = [
 export const FEATURES_SHOW_DELIVERY_DATE = [
   CONFIG.FEATURE_ALLOW_SHOW_DELIVERY_DATE,
 ];
+
+/**
+ * Permission to show drop off days.
+ *
+ * @type {String[]}
+ */
+export const FEATURES_DROP_OFF_DAYS = [
+  CONFIG.DROP_OFF_DAYS,
+];
+
+/**
+ * Permission to show drop off delay.
+ *
+ * @type {String[]}
+ */
+export const FEATURES_DROP_OFF_DELAY = [
+  CONFIG.DROP_OFF_DELAY,
+];
+
+/**
+ * Permission to show cutoff time.
+ *
+ * @type {String[]}
+ */
+export const FEATURES_CUTOFF_TIME = [
+  CONFIG.CUTOFF_TIME,
+];
