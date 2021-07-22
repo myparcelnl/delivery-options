@@ -4,7 +4,6 @@ import { configBus } from '@/delivery-options/config/configBus';
 import { createDeliveryOptions } from '@/delivery-options/data/delivery/createDeliveryOptions';
 import { cssClassBase } from '@/delivery-options/cssClassBase';
 import { getPriceLabelFromFormConfig } from '@/delivery-options/data/prices/getPriceLabelFromFormConfig';
-import { PLATFORM } from '@/data/keys/configKeys';
 
 /**
  * Get deliver options for carriers in the config.

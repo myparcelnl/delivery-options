@@ -5,6 +5,8 @@
   "rules": {
     "no-underscore-dangle": "off",
     "no-magic-numbers": "off",
-    "max-lines-per-function": "off"
+    "max-len": "off",
+    "max-lines-per-function": "off",
+    "vue/max-len": "off"
   }
 }
