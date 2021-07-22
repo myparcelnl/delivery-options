@@ -3,11 +3,13 @@
     <div class="pb-2">
       <CButton
         v-test="'button--list'"
+        :is-selected="selected === views.list"
         @click="selected = views.list"
         v-text="$configBus.strings.pickupLocationsListButton" />
       <CButton
         v-test="'button--map'"
         class="ml-1"
+        :is-selected="selected === views.map"
         @click="selected = views.map"
         v-text="$configBus.strings.pickupLocationsMapButton" />
     </div>
