@@ -26,6 +26,8 @@
         [`${$classBase}__choice`]: true,
         [`${$classBase}__choice--has-image`]: choice.hasOwnProperty('image'),
         [`${$classBase}__choice--disabled`]: choice.disabled,
+        [`${$classBase}__choice--${choice.name}`]: true,
+        [`${$classBase}__choice--selected`]: isSelected(choice),
       }">
       <td
         v-if="mutableOption.type !== 'heading'"
