@@ -9,8 +9,8 @@ import { countryCodes } from '@/data/keys/countryCodes';
 export const defaultAddress = {
   [MYPARCEL]: {
     [ADDRESS.CC]: countryCodes.NETHERLANDS,
-    [ADDRESS.NUMBER]: 31,
-    [ADDRESS.POSTAL_CODE]: '2132JE',
+    [ADDRESS.NUMBER]: 68,
+    [ADDRESS.POSTAL_CODE]: '2514GL',
   },
   [SENDMYPARCEL]: {
     [ADDRESS.CC]: countryCodes.BELGIUM,
