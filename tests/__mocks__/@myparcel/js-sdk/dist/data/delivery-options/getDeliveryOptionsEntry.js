@@ -1,3 +1,45 @@
+const morningEveningShipmentOptions = [
+  {
+    name: 'large_format',
+    schema: {
+      type: 'boolean',
+      enum: [
+        true,
+        false,
+      ],
+    },
+  },
+  {
+    name: 'only_recipient',
+    schema: {
+      type: 'boolean',
+      enum: [
+        true,
+      ],
+    },
+  },
+  {
+    name: 'signature',
+    schema: {
+      type: 'boolean',
+      enum: [
+        true,
+        false,
+      ],
+    },
+  },
+  {
+    name: 'return',
+    schema: {
+      type: 'boolean',
+      enum: [
+        true,
+        false,
+      ],
+    },
+  },
+];
+
 /**
  * @param {Object} today - Dayjs date.
  * @param {Boolean} isExtraDropOffDay
@@ -37,47 +79,32 @@ export function getDeliveryOptionsEntry(today, isExtraDropOffDay) {
               },
             },
           ],
-          shipment_options: [
+          shipment_options: morningEveningShipmentOptions,
+        }],
+      ...isExtraDropOffDay
+        ? []
+        : [{
+          type: 'evening',
+          package_type: 'package',
+          delivery_time_frames: [
             {
-              name: 'large_format',
-              schema: {
-                type: 'boolean',
-                enum: [
-                  true,
-                  false,
-                ],
+              type: 'start',
+              date_time: {
+                date: `${formattedDate} 08:00:00.000000`,
+                timezone_type: 3,
+                timezone: 'Europe/Amsterdam',
               },
             },
             {
-              name: 'only_recipient',
-              schema: {
-                type: 'boolean',
-                enum: [
-                  true,
-                ],
-              },
-            },
-            {
-              name: 'signature',
-              schema: {
-                type: 'boolean',
-                enum: [
-                  true,
-                  false,
-                ],
-              },
-            },
-            {
-              name: 'return',
-              schema: {
-                type: 'boolean',
-                enum: [
-                  true,
-                  false,
-                ],
+              type: 'end',
+              date_time: {
+                date: `${formattedDate} 12:00:00.000000`,
+                timezone_type: 3,
+                timezone: 'Europe/Amsterdam',
               },
             },
           ],
+          shipment_options: morningEveningShipmentOptions,
         }],
       {
         type: 'standard',

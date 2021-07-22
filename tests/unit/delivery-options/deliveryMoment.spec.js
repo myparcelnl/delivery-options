@@ -1,4 +1,5 @@
 import * as CONFIG from '@/data/keys/configKeys';
+import * as FORM from '@/config/formConfig';
 import { BPOST, DPD, POSTNL, RED_JE_PAKKETJE } from '@/data/keys/carrierKeys';
 import { FRIDAY, MONDAY, SATURDAY, SUNDAY, THURSDAY, TUESDAY, WEDNESDAY } from '@/config/extraDeliveryConfig';
 import { MYPARCEL, SENDMYPARCEL } from '@/data/keys/platformKeys';
@@ -286,5 +287,43 @@ describe('Delivery moments', () => {
     const extraDropOffDay = getExtraDropOffDay(configBus);
     const todayIsExtraDropOffDay = extraDropOffDay && checkIsDropOffDay(extraDropOffDay.dropOffDay, configBus);
     expect(todayIsExtraDropOffDay)[expected ? 'toBeTruthy' : 'toBeFalsy']();
+  });
+
+  it.each`
+    allowMorning | allowEvening
+    ${true}      | ${true}
+    ${false}     | ${false}
+    ${true}      | ${false}
+    ${false}     | ${true}
+  `('shows delivery moments in the right order with morning "$allowMorning" and evening "$allowEvening"', async({ allowMorning, allowEvening }) => {
+    expect.assertions(1);
+    const date = dayjs().weekday(TUESDAY).set('h', 10).set('m', 0).toDate();
+    MockDate.set(date);
+
+    const wrapper = mockDeliveryOptions({
+      [CONFIG.KEY]: {
+        [CONFIG.PLATFORM]: MYPARCEL,
+        [CONFIG.DROP_OFF_DAYS]: [0, 1, 2, 3, 4, 5, 6],
+        [CONFIG.CARRIER_SETTINGS]: {
+          [POSTNL]: {
+            [CONFIG.ALLOW_DELIVERY_OPTIONS]: true,
+            [CONFIG.ALLOW_MORNING_DELIVERY]: allowMorning,
+            [CONFIG.ALLOW_EVENING_DELIVERY]: allowEvening,
+          },
+        },
+      },
+    });
+    await waitForEvent(UPDATED_DELIVERY_OPTIONS);
+
+    const deliveryMomentsWrappers = wrapper.findAll('[data-test-id="deliveryMoment"]');
+    const deliveryMoments = deliveryMomentsWrappers.wrappers.map((wrapper) => {
+      return wrapper.element.getAttribute('data-test-choice');
+    });
+
+    expect(deliveryMoments).toEqual([
+      ...allowMorning ? [FORM.DELIVERY_MORNING] : [],
+      FORM.DELIVERY_STANDARD,
+      ...allowEvening ? [FORM.DELIVERY_EVENING] : [],
+    ]);
   });
 });

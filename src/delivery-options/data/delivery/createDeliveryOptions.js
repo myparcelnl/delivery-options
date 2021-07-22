@@ -31,7 +31,7 @@ export async function createDeliveryOptions(
   const packageType = configBus.get(CONFIG.PACKAGE_TYPE);
   const isDefaultPackageType = packageType === CONSTS.DEFAULT_PACKAGE_TYPE;
 
-  const packageTypeOrDeliveryMomentOptions = [
+  const packageTypeOrDeliveryDateOptions = [
     isDefaultPackageType
       ? {
         name: DELIVERY_DATE,
@@ -43,7 +43,7 @@ export async function createDeliveryOptions(
   ];
 
   return [
-    ...packageTypeOrDeliveryMomentOptions,
+    ...packageTypeOrDeliveryDateOptions,
     {
       name: DELIVERY_MOMENT,
       type: 'radio',

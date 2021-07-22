@@ -3,6 +3,13 @@ import { createIsoString } from '@/delivery-options/data/dates/createIsoString';
 import { createLocaleString } from '@/delivery-options/data/dates/createLocaleString';
 
 /**
+ * Defines the order the delivery moments should be displayed.
+ *
+ * @type {String[]}
+ */
+const order = ['morning', 'standard', 'evening'];
+
+/**
  * Create the dependencies object for delivery options.
  *
  * @param {Object} deliveryOptions - Delivery options object.
@@ -15,23 +22,25 @@ export const createDeliveryDependencies = (deliveryOptions) => ({
     [createIsoString(option.date.date)]: {
 
       // delivery_moment is dependant on delivery_date
-      [DELIVERY_MOMENT]: option.possibilities.reduce((deliveryMoments, possibility) => ({
-        ...deliveryMoments,
-        [possibility.type]: {
+      [DELIVERY_MOMENT]: option.possibilities
+        .sort((optionA, optionB) => order.indexOf(optionA.type) - order.indexOf(optionB.type))
+        .reduce((deliveryMoments, possibility) => ({
+          ...deliveryMoments,
+          [possibility.type]: {
 
-          moments: possibility.delivery_time_frames.reduce((acc, timeFrame) => ({
-            ...acc,
-            [timeFrame.type]: createLocaleString(timeFrame.date_time.date),
-          }), {}),
-
-          // And shipment_options is dependant on delivery_moment
-          [SHIPMENT_OPTIONS]: possibility.shipment_options
-            .reduce((shipmentOptions, shipmentOption) => ({
-              ...shipmentOptions,
-              [shipmentOption.name]: shipmentOption.schema,
+            moments: possibility.delivery_time_frames.reduce((acc, timeFrame) => ({
+              ...acc,
+              [timeFrame.type]: createLocaleString(timeFrame.date_time.date),
             }), {}),
-        },
-      }), {}),
+
+            // And shipment_options is dependant on delivery_moment
+            [SHIPMENT_OPTIONS]: possibility.shipment_options
+              .reduce((shipmentOptions, shipmentOption) => ({
+                ...shipmentOptions,
+                [shipmentOption.name]: shipmentOption.schema,
+              }), {}),
+          },
+        }), {}),
     },
   }), {}),
 });
