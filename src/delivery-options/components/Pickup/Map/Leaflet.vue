@@ -50,6 +50,8 @@ import { fetchPickupLocations } from '@/delivery-options/data/pickup/fetchPickup
  * @property {L} mapObject
  */
 
+const MINIMUM_VISIBLE_MARKERS = 5;
+
 /* eslint-disable babel/new-cap */
 export default {
   name: 'Leaflet',
@@ -337,13 +339,13 @@ export default {
     },
 
     /**
-     * Fit the bounds of the map to the visible markers to determine the center, then apply the set zoom level.
+     * Fit the bounds of the map to the closest few markers so at least something is visible no matter the distance.
      */
     fitToMarkers() {
-      const bounds = this.markers.map((marker) => marker.latLng);
+      const firstFewMarkers = this.markers.slice(0, MINIMUM_VISIBLE_MARKERS);
+      const bounds = firstFewMarkers.map((marker) => marker.latLng);
 
       this.map.fitBounds(bounds);
-      this.map.setZoom(this.zoom);
     },
 
     addMapEvents() {
