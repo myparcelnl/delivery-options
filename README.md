@@ -2,20 +2,30 @@
 [![NPM](https://img.shields.io/npm/v/@myparcel/delivery-options)](https://www.npmjs.com/package/@myparcel/delivery-options/)
 [![Coverage Status](https://img.shields.io/codecov/c/github/myparcelnl/delivery-options?logo=codecov)](https://codecov.io/gh/myparcelnl/delivery-options)
 
+[![Sandbox](https://img.shields.io/badge/-Sandbox-lightblue?style=for-the-badge&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAA3NCSVQICAjb4U/gAAAACXBIWXMAAADIAAAAyAEU/dc7AAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAAGxQTFRF////KysrLhcXKxUrIiIiHh4eJCQkIyMjICAgJBskIyMjIiIiICAgIx0jJCAgJCAgIh4iIR4hJB8fIh4gIx8fIx8gIx8hIx8gJB8gIyAgIx8gIx8gIh8gIx8gIx8gIx8gIx8fIx8gIx8gIx8gvcsSrgAAACN0Uk5TAAYLDA8RFRYYHB0mKCw/QERFaoaav8TO0NLn6fT2+Pn7/f5ZFmViAAAAeElEQVQYV42NSxaCQAwEW1QQQUBA5M9A3/+OZhgybK1F3qtapAFPvpHsEZRNK3xfyCYjBRUdbyDsbBjWIhWS3TtDcD5eWA+nzYfdkeUanFtcuDm/XjREvfV4+WjA8y4nZYtz5f8wmocPBRugppmVlaVM1SOVoQrwA9cyDpymMUbnAAAAAElFTkSuQmCC)](https://myparcelnl.github.io/delivery-options)
+
 ## Introduction
 This is the MyParcel delivery options module for use in any e-commerce platform's checkout, by [MyParcel], [SendMyParcel] and [Flespakket] customers. It's used to show your customers the possible delivery and/or pickup options for their location, based on your settings. It only has the bare minimum css styling so it should integrate with the design of your webshop easily.
 
+- [Browser support](#browser-support)
 - [Sandbox](#sandbox)
 - [Installation](#installation)
 - [Usage](#usage)
+  * [All options](#all-options)
 - [Examples](#examples)
+  * [Setting up the configuration](#setting-up-the-configuration)
+  * [Getting the address from your environment](#getting-the-address-from-your-environment)
+  * [Usage in forms](#usage-in-forms)
+  * [Allowing or disallowing delivery or pickup for specific countries](#allowing-or-disallowing-delivery-or-pickup-for-specific-countries)
+    + [Integration examples](#integration-examples)
+      - [Our WooCommerce implementation](#our-woocommerce-implementation)
+      - [Our Magento 2 implementation](#our-magento-2-implementation)
+    + [Attach data to an order using a hidden input](#attach-data-to-an-order-using-a-hidden-input)
+    + [Deselect options](#deselect-options)
 - [Contribute](#contribute)
 - [Support](#support)
 
-![screenshot](screenshots/example1.png)
-![screenshot](screenshots/example2.png)
-
-### Browser support
+## Browser support
 This app is written in [Vue.js], it supports IE9 and up.
 
 ## Sandbox
@@ -215,6 +225,31 @@ You'll often want to use the delivery options module in a checkout form in your 
     - Send events to the delivery options telling it when to update or rerender.
     - Listen to the delivery options' events to update your application according to the changes.
     - Attach the output data to the order that is being created.
+
+### Allowing or disallowing settings for specific countries
+Let's say you want to disallow delivery to the Netherlands, only allow pickup in Belgium, for bpost. For DPD you want pickup only, wherever it's possible.
+
+The configuration would look like this:
+```js
+window.MyParcelConfig = {
+  config: {
+    platform: 'belgie',
+    carrierSettings: {
+      bpost: {
+        // Allow delivery options in all countries it's possible in except the Netherlands.
+        allowDeliveryOptions: {allow: false, items: ['NL']},
+        // Only allow pickup locations in Belgium.
+        allowPickupLocations: {allow: true, items: ['BE']},
+      },
+      dpd: {
+        allowDeliveryOptions: false,
+        allowPickupLocations: true,
+      }
+    }
+  }
+};
+```
+This is currently only possible for `allowDeliveryOptions` and `allowPickupLocations`. If you want this feature to be available for more settings, please create a feature request. Or, if you want to do it yourself you can send us a pull request!
 
 #### Integration examples
 
