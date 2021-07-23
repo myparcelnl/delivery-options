@@ -13,20 +13,19 @@
       @close="showModal = false" />
 
     <div v-show="!showModal">
-      <l-map
+      <LMap
         v-if="showMap"
         ref="map"
         :class="mapClass"
-        :zoom="zoom"
         :center="center">
-        <l-marker
+        <LMarker
           v-for="marker in markers"
           :key="'marker_' + marker.id"
           :ref="marker.id"
           :lat-lng="marker.latLng"
           :icon="marker.icon"
           @click="onClickMarker(marker)" />
-      </l-map>
+      </LMap>
     </div>
   </div>
 </template>
@@ -68,8 +67,6 @@ export default {
     const DEBOUNCE_DELAY = 300;
     const DEFAULT_LAT = 52.2906535;
     const DEFAULT_LONG = 4.7070306;
-    const DEFAULT_MAX_ZOOM = 12;
-    const DEFAULT_ZOOM = 14;
 
     return {
       showModal: false,
@@ -77,8 +74,6 @@ export default {
       modalData: null,
 
       center: [DEFAULT_LAT, DEFAULT_LONG],
-      maxZoom: DEFAULT_MAX_ZOOM,
-      zoom: DEFAULT_ZOOM,
 
       /**
        * The Leaflet map will be stored in this variable.
