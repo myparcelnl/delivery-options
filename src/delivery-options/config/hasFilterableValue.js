@@ -3,6 +3,7 @@
  *
  * @param {MyParcelDeliveryOptions.FilterableOption} filterableOption
  * @param {String} searchItem
+ *
  * @returns {Boolean}
  */
 export function hasFilterableValue(filterableOption, searchItem) {
