@@ -13,20 +13,19 @@
       @close="showModal = false" />
 
     <div v-show="!showModal">
-      <l-map
+      <LMap
         v-if="showMap"
         ref="map"
         :class="mapClass"
-        :zoom="zoom"
         :center="center">
-        <l-marker
+        <LMarker
           v-for="marker in markers"
           :key="'marker_' + marker.id"
           :ref="marker.id"
           :lat-lng="marker.latLng"
           :icon="marker.icon"
           @click="onClickMarker(marker)" />
-      </l-map>
+      </LMap>
     </div>
   </div>
 </template>
@@ -50,6 +49,8 @@ import { fetchPickupLocations } from '@/delivery-options/data/pickup/fetchPickup
  * @property {L} mapObject
  */
 
+const MINIMUM_VISIBLE_MARKERS = 5;
+
 /* eslint-disable babel/new-cap */
 export default {
   name: 'Leaflet',
@@ -66,8 +67,6 @@ export default {
     const DEBOUNCE_DELAY = 300;
     const DEFAULT_LAT = 52.2906535;
     const DEFAULT_LONG = 4.7070306;
-    const DEFAULT_MAX_ZOOM = 12;
-    const DEFAULT_ZOOM = 14;
 
     return {
       showModal: false,
@@ -75,8 +74,6 @@ export default {
       modalData: null,
 
       center: [DEFAULT_LAT, DEFAULT_LONG],
-      maxZoom: DEFAULT_MAX_ZOOM,
-      zoom: DEFAULT_ZOOM,
 
       /**
        * The Leaflet map will be stored in this variable.
@@ -337,13 +334,13 @@ export default {
     },
 
     /**
-     * Fit the bounds of the map to the visible markers to determine the center, then apply the set zoom level.
+     * Fit the bounds of the map to the closest few markers so at least something is visible no matter the distance.
      */
     fitToMarkers() {
-      const bounds = this.markers.map((marker) => marker.latLng);
+      const firstFewMarkers = this.markers.slice(0, MINIMUM_VISIBLE_MARKERS);
+      const bounds = firstFewMarkers.map((marker) => marker.latLng);
 
       this.map.fitBounds(bounds);
-      this.map.setZoom(this.zoom);
     },
 
     addMapEvents() {
