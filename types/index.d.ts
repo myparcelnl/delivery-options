@@ -127,6 +127,11 @@ declare namespace MyParcelDeliveryOptions {
     possibilities: PickupPossibility[]
   }
 
+  interface FilterableOption {
+    allow: boolean,
+    items: string[]
+  }
+
   /**
    * Configuration object from the external platform.
    */
@@ -136,8 +141,8 @@ declare namespace MyParcelDeliveryOptions {
     platform?: MyParcel.Platform
     currency?: string
 
-    allowDeliveryOptions?: boolean
-    allowPickupLocations?: boolean
+    allowDeliveryOptions?: boolean | FilterableOption
+    allowPickupLocations?: boolean | FilterableOption
 
     packageType?: MyParcel.PackageType
 

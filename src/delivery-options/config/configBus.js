@@ -9,6 +9,10 @@ import Vue from 'vue';
 import debounce from 'lodash-es/debounce';
 import { getConfig } from '@/delivery-options/config/getConfig';
 import { getWeekdays } from '@/helpers/getWeekdays';
+import { settingHasCarrierOverride } from '@/delivery-options/config/settingHasCarrierOverride';
+import { settingHasCountryOverride } from '@/delivery-options/config/settingHasCountryOverride';
+import { hasFilterableValue } from '@/delivery-options/config/hasFilterableValue';
+import isObject from 'lodash-es/isObject';
 
 /**
  * The config bus to be used throughout the application. It's filled with `createConfigBus()`, otherwise the entire
@@ -248,12 +252,11 @@ export const createConfigBus = (eventCallee = null) => {
         let setting;
         const optionKey = typeof option === 'string' ? option : option[key];
 
-        // If the setting is in the settingsWithCarrierOverride array don't check the carrierSettings object.
         const settingsByCarrier = this.getSettingsByCarrier(carrier);
-        const hasOverride = CONFIG.settingsWithCarrierOverride.includes(optionKey);
         const isInCarrier = settingsByCarrier && settingsByCarrier.hasOwnProperty(optionKey);
 
-        if (hasOverride && isInCarrier) {
+        // If the setting can have carrier overrides array get the carrier setting instead if it exists.
+        if (isInCarrier && settingHasCarrierOverride(optionKey)) {
           setting = settingsByCarrier[optionKey];
         } else {
           setting = this.config[optionKey];
@@ -283,7 +286,12 @@ export const createConfigBus = (eventCallee = null) => {
           return true;
         }
 
-        return Boolean(this.get(option, key ?? 'enabled', carrier));
+        const optionValue = this.get(option, key ?? 'enabled', carrier);
+        if (isObject(optionValue) && settingHasCountryOverride(option[key ?? 'enabled'])) {
+          return hasFilterableValue(optionValue, this.address.cc);
+        }
+
+        return Boolean(optionValue);
       },
 
       /**

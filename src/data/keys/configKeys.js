@@ -115,6 +115,16 @@ export const settingsWithCarrierOverride = [
 ];
 
 /**
+ * Settings that can be set per country.
+ *
+ * @type {(String)[]}
+ */
+export const settingsWithCountryOverrides = [
+  ALLOW_DELIVERY_OPTIONS,
+  ALLOW_PICKUP_LOCATIONS,
+];
+
+/**
  * @type {String[]}
  */
 export const carrierFeatures = [

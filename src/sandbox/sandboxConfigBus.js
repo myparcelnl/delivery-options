@@ -9,10 +9,11 @@ import isPlainObject from 'lodash-es/isPlainObject';
 import objectGet from 'lodash-es/get';
 import objectHas from 'lodash-es/has';
 import objectSet from 'lodash-es/set';
+import { platforms } from '@/config/platform/platforms';
 import { sandboxPlatformCarrierMap } from '@/sandbox/config/sandboxPlatformCarrierMap';
+import { settingHasCarrierOverride } from '@/delivery-options/config/settingHasCarrierOverride';
 import { sortObject } from '@/helpers/sortObject';
 import { sortObjectSiblings } from '@/helpers/sortObjectSiblings';
-import { platforms } from '@/config/platform/platforms';
 
 export const sandboxConfigBus = new Vue({
   name: 'SandboxConfigBus',
@@ -55,7 +56,7 @@ export const sandboxConfigBus = new Vue({
         // Get all settings allowing carrier overrides.
         Object
           .keys(config[CONFIG.KEY])
-          .filter((item) => CONFIG.settingsWithCarrierOverride.includes(item))
+          .filter(settingHasCarrierOverride)
           .forEach((item) => {
             const originalItemPath = [CONFIG.KEY, item].join('.');
             const value = objectGet(config, originalItemPath);
