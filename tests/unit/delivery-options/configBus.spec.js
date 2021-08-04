@@ -5,6 +5,8 @@ import { DEFAULT_PLATFORM } from '@/data/keys/settingsConsts';
 import { defaultConfiguration } from '@/config/defaultConfiguration';
 import { formConfigPickup } from '@/config/formConfig';
 import { mockConfigBus } from './mockConfigBus';
+import { defaultAddress } from '@/data/defaultAddress';
+import * as ADDRESS from '@/data/keys/addressKeys';
 
 let configBus = mockConfigBus(DEFAULT_PLATFORM);
 
@@ -31,8 +33,8 @@ describe('configBus', () => {
 
   it('prioritizes settings correctly', () => {
     configBus = mockConfigBus({
-      config: {
-        platform: SENDMYPARCEL,
+      [CONFIG.KEY]: {
+        [CONFIG.PLATFORM]: SENDMYPARCEL,
         [CONFIG.ALLOW_PICKUP_LOCATIONS]: true,
         [CONFIG.CARRIER_SETTINGS]: {
           [CARRIERS.DPD]: {
@@ -52,8 +54,8 @@ describe('configBus', () => {
     expect(configBus.get(CONFIG.ALLOW_PICKUP_LOCATIONS)).toBe(true);
 
     configBus = mockConfigBus({
-      config: {
-        platform: SENDMYPARCEL,
+      [CONFIG.KEY]: {
+        [CONFIG.PLATFORM]: SENDMYPARCEL,
         [CONFIG.ALLOW_DELIVERY_OPTIONS]: false,
         [CONFIG.CARRIER_SETTINGS]: {
           [CARRIERS.DPD]: {
@@ -141,5 +143,54 @@ describe('configBus', () => {
     mockData.config.carrierSettings[CARRIERS.DPD].allowPickupLocations = false;
     configBus = mockConfigBus(mockData);
     expect(configBus.isEnabledInAnyCarrier(formConfigPickup)).toEqual(false);
+  });
+
+  it('supports overriding settings per country', () => {
+    const mockData = {
+      [ADDRESS.KEY]: defaultAddress[SENDMYPARCEL],
+      [CONFIG.KEY]: {
+        [CONFIG.PLATFORM]: SENDMYPARCEL,
+        [CONFIG.CARRIER_SETTINGS]: {
+          [CARRIERS.BPOST]: {
+            [CONFIG.ALLOW_DELIVERY_OPTIONS]: { allow: true, items: ['NL', 'BE'] },
+            [CONFIG.ALLOW_PICKUP_LOCATIONS]: { allow: false, items: ['BE'] },
+          },
+          [CARRIERS.POSTNL]: {
+            [CONFIG.ALLOW_DELIVERY_OPTIONS]: { allow: true, items: ['NL'] },
+            [CONFIG.ALLOW_PICKUP_LOCATIONS]: { allow: true, items: ['NL'] },
+          },
+          [CARRIERS.DPD]: {
+            [CONFIG.ALLOW_DELIVERY_OPTIONS]: { allow: false, items: ['BE', 'DE'] },
+            [CONFIG.ALLOW_PICKUP_LOCATIONS]: { allow: true, items: ['BE', 'DE'] },
+          },
+        },
+      },
+    };
+    configBus = mockConfigBus(mockData);
+
+    configBus.$data.currentCarrier = CARRIERS.DPD;
+    expect(configBus.isEnabled(CONFIG.ALLOW_DELIVERY_OPTIONS)).toBe(false);
+    expect(configBus.isEnabled(CONFIG.ALLOW_PICKUP_LOCATIONS)).toBe(true);
+
+    configBus.$data.currentCarrier = CARRIERS.BPOST;
+    expect(configBus.isEnabled(CONFIG.ALLOW_DELIVERY_OPTIONS)).toBe(true);
+    expect(configBus.isEnabled(CONFIG.ALLOW_PICKUP_LOCATIONS)).toBe(false);
+
+    configBus.$data.currentCarrier = CARRIERS.POSTNL;
+    expect(configBus.isEnabled(CONFIG.ALLOW_DELIVERY_OPTIONS)).toBe(false);
+    expect(configBus.isEnabled(CONFIG.ALLOW_PICKUP_LOCATIONS)).toBe(false);
+
+    configBus.address.cc = 'DE';
+    configBus.$data.currentCarrier = CARRIERS.DPD;
+    expect(configBus.isEnabled(CONFIG.ALLOW_DELIVERY_OPTIONS)).toBe(false);
+    expect(configBus.isEnabled(CONFIG.ALLOW_PICKUP_LOCATIONS)).toBe(true);
+
+    configBus.$data.currentCarrier = CARRIERS.BPOST;
+    expect(configBus.isEnabled(CONFIG.ALLOW_DELIVERY_OPTIONS)).toBe(false);
+    expect(configBus.isEnabled(CONFIG.ALLOW_PICKUP_LOCATIONS)).toBe(true);
+
+    configBus.$data.currentCarrier = CARRIERS.POSTNL;
+    expect(configBus.isEnabled(CONFIG.ALLOW_DELIVERY_OPTIONS)).toBe(false);
+    expect(configBus.isEnabled(CONFIG.ALLOW_PICKUP_LOCATIONS)).toBe(false);
   });
 });
