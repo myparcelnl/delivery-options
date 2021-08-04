@@ -36,7 +36,11 @@ export default {
   },
   computed: {
     requiredAddressParts() {
-      return addressRequirements[this.$configBus.address.cc];
+      return addressRequirements[this.$configBus.address.cc]
+        .map((requirement) => {
+          // If the requirement is an array, only return the first one because it means only one is actually required.
+          return Array.isArray(requirement) ? requirement[0] : requirement;
+        });
     },
 
     hasRetry() {

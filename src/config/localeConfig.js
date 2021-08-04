@@ -26,6 +26,6 @@ export const CONFIG_MAP = {
  * @type {Object<String, String[]>}
  */
 export const addressRequirements = {
-  [countryCodes.NETHERLANDS]: ['postalCode', 'number'],
+  [countryCodes.NETHERLANDS]: ['postalCode', ['number', 'street']],
   [countryCodes.BELGIUM]: ['postalCode', 'city'],
 };

@@ -151,8 +151,13 @@ export default {
       const countryCode = addressRequirements.hasOwnProperty(cc) ? cc : countryCodes.NETHERLANDS;
       const requirements = addressRequirements[countryCode];
 
+      const hasItem = (item) => this.$configBus.address.hasOwnProperty(item) && this.$configBus.address[item];
       const meetsRequirements = (item) => {
-        return this.$configBus.address.hasOwnProperty(item) && this.$configBus.address[item];
+        if (Array.isArray(item)) {
+          return item.some(hasItem);
+        }
+
+        return hasItem(item);
       };
 
       // False if any requirements are not met, true otherwise.

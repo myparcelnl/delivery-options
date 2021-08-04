@@ -24,8 +24,11 @@ export const getDefaultRequestParameters = (configBus = realConfigBus) => {
   const addressValues = {
     cc: configBus.address.cc,
     city: configBus.address.city,
-    number: configBus.address.number,
     postal_code: configBus.address.postalCode,
+    // If number is present, don't use the street field.
+    ...configBus.address.number
+      ? { number: configBus.address.number }
+      : { street: configBus.address.street },
   };
 
   Object.keys(addressValues).forEach((key) => {
