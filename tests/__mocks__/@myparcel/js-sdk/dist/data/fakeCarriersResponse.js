@@ -53,6 +53,15 @@ const allCarrierData = [
       logo_png: '/skin/general-images/carrier-logos/dhl.png',
     },
   },
+  {
+    id: 7,
+    name: 'bol.com',
+    human: 'Bol.com',
+    meta: {
+      logo_svg: '/skin/general-images/carrier-logos/svg/bol.com.svg',
+      logo_png: '/skin/general-images/carrier-logos/bol.com.png',
+    },
+  },
 ];
 
 /**
