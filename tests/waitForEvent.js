@@ -1,12 +1,13 @@
 import Vue from 'vue';
+import { debounce } from 'lodash-es/function';
 
 /**
- * @param {String} event - Event name.
+ * @param {string} event - Event name.
  * @param {Vue|Document} subject
- *
+ * @param {number} debounceDelay
  * @returns {Promise}
  */
-export function waitForEvent(event, subject = document) {
+export function waitForEvent(event, subject = document, debounceDelay = 0) {
   const isVue = subject instanceof Vue;
 
   const add = isVue ? '$on' : 'addEventListener';
@@ -18,6 +19,10 @@ export function waitForEvent(event, subject = document) {
       resolve();
     };
 
-    subject[add](event, listener);
+    if (debounceDelay > 0) {
+      subject[add](event, debounce(listener, debounceDelay));
+    } else {
+      subject[add](event, listener);
+    }
   });
 }

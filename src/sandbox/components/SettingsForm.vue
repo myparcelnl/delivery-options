@@ -33,6 +33,7 @@
     <FormGroup
       v-for="setting in resolvedForm"
       :key="`${platform}.${setting.title}`"
+      v-test="`${platform}.${setting.title}`"
       :prefix="`${platform}.`"
       :form-item="setting" />
   </form>

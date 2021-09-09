@@ -1,56 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Sandbox form components @/sandbox/components/form/CCheckboxGroup 1`] = `
-<div
-  checked="checked"
-  class="bv-no-focus-ring"
+<bformcheckboxgroup-stub
+  checked=""
   disabledfield="disabled"
   htmlfield="html"
   options="[object Object],[object Object]"
-  role="group"
-  tabindex="-1"
   textfield="text"
   value=""
   valuefield="value"
->
-  <div
-    class="custom-control custom-control-inline custom-checkbox"
-  >
-    <input
-      class="custom-control-input"
-      type="checkbox"
-      value="a"
-    />
-    <label
-      class="custom-control-label"
-    >
-      <span>
-        Option A
-      </span>
-    </label>
-  </div>
-  <div
-    class="custom-control custom-control-inline custom-checkbox"
-  >
-    <input
-      class="custom-control-input"
-      type="checkbox"
-      value="b"
-    />
-    <label
-      class="custom-control-label"
-    >
-      <span>
-        Option B
-      </span>
-    </label>
-  </div>
-</div>
+/>
 `;
 
 exports[`Sandbox form components @/sandbox/components/form/CNumber 1`] = `
-<input
-  class="form-control"
+<bforminput-stub
   debounce="0"
   formatter="function bvConfigurablePropDefault() {
     const value = (0, _config.getComponentConfig)(componentKey, key, prop.default);
@@ -59,7 +22,6 @@ exports[`Sandbox form components @/sandbox/components/form/CNumber 1`] = `
   lazy="true"
   placeholder=<Default>
   step="1"
-  type="number"
 />
 `;
 
@@ -106,29 +68,15 @@ exports[`Sandbox form components @/sandbox/components/form/CRadioGroup 1`] = `
 `;
 
 exports[`Sandbox form components @/sandbox/components/form/CSelect 1`] = `
-<select
-  class="custom-select"
+<bformselect-stub
   options="[object Object],[object Object]"
->
-  <option
-    value="a"
-  >
-    Option A
-  </option>
-  <option
-    value="b"
-  >
-    Option B
-  </option>
-</select>
+/>
 `;
 
 exports[`Sandbox form components @/sandbox/components/form/CTextInput 1`] = `
-<input
-  class="form-control"
+<bforminput-stub
   lazy="true"
   placeholder=<Default>
-  type="text"
 />
 `;
 
@@ -146,25 +94,17 @@ exports[`Sandbox form components @/sandbox/components/form/CTextarea 1`] = `
 `;
 
 exports[`Sandbox form components @/sandbox/components/form/CTimepicker 1`] = `
-<input
-  class="form-control"
+<binput-stub
   lazy="true"
   placeholder="HH:mm"
-  type="time"
 />
 `;
 
 exports[`Sandbox form components @/sandbox/components/form/CToggle 1`] = `
-<div
-  class="custom-control custom-switch b-custom-control-lg"
->
-  <input
-    class="custom-control-input"
-    type="checkbox"
-    value="true"
-  />
-  <label
-    class="custom-control-label"
-  />
-</div>
+<bformcheckbox-stub
+  id=""
+  size="lg"
+  switch=""
+  type="text"
+/>
 `;

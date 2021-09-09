@@ -4,7 +4,6 @@ import DeliveryOptions from '@/delivery-options/DeliveryOptions';
 import { MYPARCEL } from '@/data/keys/platformKeys';
 import Sandbox from '@/sandbox/Sandbox';
 import { addWrapperExtensions } from '@Tests/unit/wrapperExtensions';
-import { i18n } from '@/sandbox/services/vue-i18n';
 import { mockVue as mockDeliveryOptionsVue } from './delivery-options/mockVue';
 import { mockVue as mockSandboxVue } from './sandbox/mockVue';
 
@@ -35,7 +34,6 @@ export function baseMockApp(
     component || fallbackComponent,
     {
       localVue: wrapperData.localVue || mockFunction(configBusData),
-      i18n,
       ...wrapperData,
     },
   );

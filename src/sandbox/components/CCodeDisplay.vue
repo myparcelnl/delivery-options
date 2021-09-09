@@ -49,7 +49,7 @@ export default {
   computed: {
     codeHtml() {
       const language = hljs.getLanguage(this.language) ? this.language : 'javascript';
-      const content = hljs.highlight(language, this.code).value;
+      const content = hljs.highlight(this.code, { language }).value;
 
       return `<div class="code__wrapper">${content}</div>`;
     },
