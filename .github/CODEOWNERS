@@ -1,3 +1,30 @@
-*    @myparcelnl/frontend-developers
+# --- Only frontend developers ---
+*  @myparcelnl/frontend
 
-*.md @myparcelnl/frontend-developers @myparcelnl/plugin-developers
+# --- Both integration and frontend developers ---
+*.json  @myparcelnl/integration @myparcelnl/frontend
+*.md    @myparcelnl/integration @myparcelnl/frontend
+*.yml   @myparcelnl/integration @myparcelnl/frontend
+
+# Css and related file types
+*.css   @myparcelnl/integration @myparcelnl/frontend
+*.sass  @myparcelnl/integration @myparcelnl/frontend
+*.scss  @myparcelnl/integration @myparcelnl/frontend
+*.styl  @myparcelnl/integration @myparcelnl/frontend
+
+# HTML and HTML-like
+*.hbs   @myparcelnl/integration @myparcelnl/frontend
+*.html  @myparcelnl/integration @myparcelnl/frontend
+*.tpl   @myparcelnl/integration @myparcelnl/frontend
+*.twig  @myparcelnl/integration @myparcelnl/frontend
+
+# Images
+*.jpeg  @myparcelnl/integration @myparcelnl/frontend
+*.jpg   @myparcelnl/integration @myparcelnl/frontend
+*.png   @myparcelnl/integration @myparcelnl/frontend
+*.svg   @myparcelnl/integration @myparcelnl/frontend
+
+# --- Exceptions ---
+# Include IT support for readme changes
+readme.md  @myparcelnl/integration @myparcelnl/frontend @myparcelnl/it-support
+README.md  @myparcelnl/integration @myparcelnl/frontend @myparcelnl/it-support
