@@ -74,7 +74,7 @@ export const FEATURE_PICKUP_SHOW_DISTANCE = 'pickupShowDistance';
 /*
  * Show delivery date label or select if true. Hide otherwise.
  */
-export const FEATURE_ALLOW_SHOW_DELIVERY_DATE = 'allowShowDeliveryDate';
+export const FEATURE_SHOW_DELIVERY_DATE = 'allowShowDeliveryDate';
 
 /*
  * Tile layer data for use with the pickup locations map.
@@ -104,7 +104,7 @@ export const settingsWithCarrierOverride = [
   DELIVERY_DAYS_WINDOW,
   DROP_OFF_DAYS,
   DROP_OFF_DELAY,
-  FEATURE_ALLOW_SHOW_DELIVERY_DATE,
+  FEATURE_SHOW_DELIVERY_DATE,
   PRICE_EVENING_DELIVERY,
   PRICE_MORNING_DELIVERY,
   PRICE_ONLY_RECIPIENT,
@@ -143,5 +143,5 @@ export const carrierFeatures = [
   DELIVERY_DAYS_WINDOW,
   DROP_OFF_DAYS,
   DROP_OFF_DELAY,
-  FEATURE_ALLOW_SHOW_DELIVERY_DATE,
+  FEATURE_SHOW_DELIVERY_DATE,
 ];

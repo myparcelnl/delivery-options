@@ -207,15 +207,15 @@ describe('Delivery moments', () => {
       [CONFIG.KEY]: {
         [CONFIG.PLATFORM]: SENDMYPARCEL,
         [CONFIG.DELIVERY_DAYS_WINDOW]: 1,
-        [CONFIG.FEATURE_ALLOW_SHOW_DELIVERY_DATE]: true,
+        [CONFIG.FEATURE_SHOW_DELIVERY_DATE]: true,
         [CONFIG.CARRIER_SETTINGS]: {
           [POSTNL]: {
             [CONFIG.ALLOW_DELIVERY_OPTIONS]: true,
-            [CONFIG.FEATURE_ALLOW_SHOW_DELIVERY_DATE]: true,
+            [CONFIG.FEATURE_SHOW_DELIVERY_DATE]: true,
           },
           [BPOST]: {
             [CONFIG.ALLOW_DELIVERY_OPTIONS]: true,
-            [CONFIG.FEATURE_ALLOW_SHOW_DELIVERY_DATE]: false,
+            [CONFIG.FEATURE_SHOW_DELIVERY_DATE]: false,
           },
           [DPD]: {
             [CONFIG.ALLOW_DELIVERY_OPTIONS]: true,

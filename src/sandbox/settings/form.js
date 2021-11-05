@@ -132,10 +132,10 @@ export const createSettings = memoize((platform) => {
           ],
         },
         {
-          title: CONFIG.FEATURE_ALLOW_SHOW_DELIVERY_DATE,
+          title: CONFIG.FEATURE_SHOW_DELIVERY_DATE,
           settings: [
             ...perCarrier({
-              name: CONFIG.FEATURE_ALLOW_SHOW_DELIVERY_DATE,
+              name: CONFIG.FEATURE_SHOW_DELIVERY_DATE,
               component: CToggle,
               conditions: [
                 CONFIG.ALLOW_DELIVERY_OPTIONS,
