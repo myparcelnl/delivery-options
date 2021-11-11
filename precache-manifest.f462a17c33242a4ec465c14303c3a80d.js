@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/delivery-options/manifest.json"
   },
   {
-    "revision": "b77700eaeefbe844ed4c",
+    "revision": "4f0b1daada433bf8646e",
     "url": "/delivery-options/myparcel.js"
   },
   {
