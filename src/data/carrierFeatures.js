@@ -104,7 +104,7 @@ export const FEATURES_SIGNATURE = [
  * @type {String[]}
  */
 export const FEATURES_SHOW_DELIVERY_DATE = [
-  CONFIG.FEATURE_ALLOW_SHOW_DELIVERY_DATE,
+  CONFIG.FEATURE_SHOW_DELIVERY_DATE,
 ];
 
 /**
@@ -123,6 +123,15 @@ export const FEATURES_DROP_OFF_DAYS = [
  */
 export const FEATURES_DROP_OFF_DELAY = [
   CONFIG.DROP_OFF_DELAY,
+];
+
+/**
+ * Permission to select number of delivery days in list.
+ *
+ * @type {String[]}
+ */
+export const FEATURES_DELIVERY_DAYS_WINDOW = [
+  CONFIG.DELIVERY_DAYS_WINDOW,
 ];
 
 /**

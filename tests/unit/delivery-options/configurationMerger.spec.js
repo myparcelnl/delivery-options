@@ -33,7 +33,8 @@ describe('ConfigurationMerger', () => {
         [CONFIG.ALLOW_MORNING_DELIVERY]: false,
         [CONFIG.ALLOW_PACKAGE_TYPE_DIGITAL_STAMP]: false,
         [CONFIG.ALLOW_SATURDAY_DELIVERY]: false,
-        [CONFIG.FEATURE_ALLOW_SHOW_DELIVERY_DATE]: false,
+        [CONFIG.ALLOW_PICKUP_LOCATIONS]: false,
+        [CONFIG.ALLOW_SIGNATURE]: false,
       },
     });
 
