@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "9f627fcc8b19f3060e86da38d6682f51",
+    "revision": "461fedf35d8d16a7846425cfe5e19f8c",
     "url": "/delivery-options/index.html"
   },
   {
@@ -8,8 +8,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/delivery-options/manifest.json"
   },
   {
-    "revision": "7ae3eeb35865140adf2b",
-    "url": "/delivery-options/myparcel.js"
+    "revision": "b0b92e786d07e960131c",
+    "url": "/delivery-options/myparcel.lib.js"
   },
   {
     "revision": "b6216d61c03e6ce0c9aea6ca7808f7ca",
