@@ -12,7 +12,15 @@ import { sandboxConfigBus } from '@/sandbox/sandboxConfigBus';
  */
 export function carrierSetting(setting, platform) {
   return sandboxConfigBus.carrierData.reduce((acc, carrier) => {
-    const currentCarrierConfig = CarrierConfigurationFactory.create(carrier.name, platform);
+    let currentCarrierConfig;
+
+    try {
+      currentCarrierConfig = CarrierConfigurationFactory.create(carrier, platform);
+    } catch (e) {
+      // Just ignore this error, it means a carrier is not supported by the sandbox.
+      return acc;
+    }
+
     const allowedInCarrier = currentCarrierConfig.hasFeature(setting.name);
 
     if (allowedInCarrier) {
