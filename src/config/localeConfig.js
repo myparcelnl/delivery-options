@@ -27,5 +27,5 @@ export const CONFIG_MAP = {
  */
 export const addressRequirements = {
   [countryCodes.NETHERLANDS]: ['postalCode', ['number', 'street']],
-  [countryCodes.BELGIUM]: ['postalCode', 'city'],
+  [countryCodes.BELGIUM]: ['postalCode', ['city', 'number', 'street']],
 };
