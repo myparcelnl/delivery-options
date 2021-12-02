@@ -16,7 +16,7 @@ This is the MyParcel delivery options module for use in any e-commerce platform'
   * [Setting up the configuration](#setting-up-the-configuration)
   * [Getting the address from your environment](#getting-the-address-from-your-environment)
   * [Usage in forms](#usage-in-forms)
-  * [Allowing or disallowing delivery or pickup for specific countries](#allowing-or-disallowing-delivery-or-pickup-for-specific-countries)
+  * [Allowing or disallowing delivery or pickup for specific countries](#allowing-or-disallowing-settings-for-specific-countries)
     + [Integration examples](#integration-examples)
       - [Our WooCommerce implementation](#our-woocommerce-implementation)
       - [Our Magento 2 implementation](#our-magento-2-implementation)
@@ -256,8 +256,8 @@ This is currently only possible for `allowDeliveryOptions` and `allowPickupLocat
 ##### Our WooCommerce implementation
 Files that can help you get started:
 
-- Backend: [/includes/frontend/class-wcmp-checkout.php](https://github.com/myparcelnl/woocommerce/blob/master/includes/frontend/class-wcmp-checkout.php)
-- Frontend: [/assets/js/wcmp-frontend.js](https://github.com/myparcelnl/woocommerce/blob/master/assets/js/wcmp-frontend.js)
+- Backend: [/includes/frontend/class-wcmp-checkout.php](https://github.com/myparcelnl/woocommerce/blob/main/includes/frontend/class-wcmp-checkout.php)
+- Frontend: [/assets/js/wcmp-frontend.js](https://github.com/myparcelnl/woocommerce/blob/main/src/js/wcmp-frontend.js)
 
 ##### Our Magento 2 implementation
 Files that can help you get started:

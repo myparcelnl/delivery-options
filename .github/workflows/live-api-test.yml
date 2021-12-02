@@ -12,7 +12,7 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 2
-          ref: 'master'
+          ref: 'main'
       - uses: bahmutov/npm-install@v1
       - name: Run jest
         run: ./node_modules/.bin/cross-env npm test -- tests/unit/delivery-options/testLiveApi.spec.js --coverage=false

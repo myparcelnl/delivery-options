@@ -2,15 +2,13 @@ name: Build
 
 on:
   pull_request:
-    branches-ignore:
-      - master
     paths-ignore:
       - ./**/*.md
       - screenshots/**/*
 
   push:
     branches:
-      - master
+      - main
       - develop
     paths:
       - src/**/*
@@ -58,7 +56,7 @@ jobs:
 
   release:
     name: Publish
-    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     needs:
       - build
@@ -72,7 +70,7 @@ jobs:
           name: dist
 
       - name: Run semantic release
-        uses: cycjimmy/semantic-release-action@v2
+        run: npx semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{secrets.NPM_TOKEN}}
