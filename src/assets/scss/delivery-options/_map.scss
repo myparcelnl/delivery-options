@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 .#{$classBase}__pickup-locations {
   &--map {
     &--modal {
@@ -58,8 +60,8 @@
             background-color: rgba(lighten($positive, 30%), .5);
             opacity: 0;
             border-radius: 100%;
-            top: -($ripple-size / 2 - 5px);
-            left: -($ripple-size / 2 - 5px);
+            top: -(math.div($ripple-size, 2) - 5px);
+            left: -(math.div($ripple-size, 2) - 5px);
           }
 
           &--loading {
