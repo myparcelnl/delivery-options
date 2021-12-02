@@ -16,7 +16,9 @@
     "test:watch": "jest --watch"
   },
   "main": "dist/myparcel.js",
+  "types": "types/index.d.ts",
   "files": [
+    "types/index.d.ts",
     "dist/myparcel.js",
     "dist/myparcel.lib.js"
   ],
