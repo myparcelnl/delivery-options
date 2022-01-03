@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Try the sandbox
+    url: https://myparcelnl.github.io/delivery-options/
+    about: The sandbox contains all available options and allows you to build or test configurations.
+  - name: Contact customer support
+    url: https://www.myparcel.nl/services/contact/
+    about: For issues regarding your account and shipments.
