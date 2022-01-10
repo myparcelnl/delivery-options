@@ -1,5 +1,4 @@
-import './jest'
-import {Vue} from 'vue/types/vue'
+import { Vue } from 'vue/types/vue';
 
 declare namespace MyParcel {
   type Environment = 'dev' | 'staging' | 'acceptance' | 'prod'
