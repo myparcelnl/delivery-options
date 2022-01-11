@@ -1,6 +1,6 @@
 import { getCarrierSettingsPath } from '@/sandbox/settings/conditions/getCarrierSettingsPath';
-import { sandboxConfigBus } from '@/sandbox/sandboxConfigBus';
 import { platformCarrierMap } from '@/config/platform/platformCarrierMap';
+import { sandboxConfigBus } from '@/sandbox/sandboxConfigBus';
 
 /**
  * Match fallback value and any carrier's value.

@@ -25,7 +25,7 @@ let instance;
 /**
  * The initial selector the app will try to mount in. It's possible to pass a different selector using CustomEvents.
  *
- * @type {String}
+ * @type {string}
  */
 const baseSelector = `#${process.env.VUE_APP_CLASS_BASE}`;
 
@@ -33,7 +33,7 @@ const baseSelector = `#${process.env.VUE_APP_CLASS_BASE}`;
  * Load the application.
  *
  * @param {CustomEvent|Event} event - Event.
- * @param {String} selector - CSS selector of the element to render in.
+ * @param {string} selector - CSS selector of the element to render in.
  */
 function loadApp(event, selector = baseSelector) {
   if (event instanceof CustomEvent) {
@@ -68,7 +68,7 @@ function loadApp(event, selector = baseSelector) {
   /**
    * Set the base class as global attribute.
    *
-   * @type {String}
+   * @type {string}
    *
    * @see https://stackoverflow.com/questions/50828904/using-environment-variables-with-vue-js
    */
@@ -81,7 +81,7 @@ function loadApp(event, selector = baseSelector) {
  * Set up the configBus and render the Vue app.
  *
  * @param {CustomEvent|Event} event - Event.
- * @param {String} selector - CSS selector of the element to render in.
+ * @param {string} selector - CSS selector of the element to render in.
  */
 function renderApp(event, selector = baseSelector) {
   selector = checkSelector(event, selector);

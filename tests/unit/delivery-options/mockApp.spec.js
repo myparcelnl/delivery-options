@@ -24,6 +24,7 @@ describe('app mocking', () => {
           [POSTNL]: {
             [CONFIG.ALLOW_DELIVERY_OPTIONS]: true,
             // Disabled by ConfigurationMerger
+            [CONFIG.ALLOW_SAME_DAY_DELIVERY]: false,
             [CONFIG.ALLOW_SATURDAY_DELIVERY]: false,
           },
         },

@@ -1,6 +1,5 @@
 import * as CONFIG from '@/data/keys/configKeys';
 import * as CONSTS from '@/data/keys/settingsConsts';
-import * as FORM from '@/config/formConfig';
 import CCodeEditor from '@/sandbox/components/form/CCodeEditor';
 import CNumber from '@/sandbox/components/form/CNumber';
 import CSelect from '@/sandbox/components/form/CSelect';
@@ -21,7 +20,7 @@ export const featuresForm = [
       options: CONSTS.PICKUP_LOCATIONS_VIEWS,
     },
     conditions: [
-      inAnyCarrier(FORM.PICKUP),
+      inAnyCarrier(CONFIG.ALLOW_PICKUP_LOCATIONS),
     ],
   },
   {
@@ -29,7 +28,7 @@ export const featuresForm = [
     component: CToggle,
     name: CONFIG.FEATURE_PICKUP_SHOW_DISTANCE,
     conditions: [
-      inAnyCarrier(FORM.PICKUP),
+      inAnyCarrier(CONFIG.ALLOW_PICKUP_LOCATIONS),
     ],
   },
   {
@@ -37,7 +36,7 @@ export const featuresForm = [
     component: CCodeEditor,
     name: CONFIG.PICKUP_LOCATIONS_MAP_TILE_LAYER_DATA,
     conditions: [
-      inAnyCarrier(FORM.PICKUP),
+      inAnyCarrier(CONFIG.ALLOW_PICKUP_LOCATIONS),
     ],
   },
   {
@@ -49,7 +48,7 @@ export const featuresForm = [
       max: CONSTS.PICKUP_MAX_PAGE_ITEMS_LIMIT,
     },
     conditions: [
-      inAnyCarrier(FORM.PICKUP),
+      inAnyCarrier(CONFIG.ALLOW_PICKUP_LOCATIONS),
     ],
   },
 ];

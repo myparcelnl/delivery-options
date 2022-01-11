@@ -4,12 +4,12 @@ import { ExportValues } from '@/delivery-options/config/exports/ExportValues';
 
 export class DeliveryExportValues extends ExportValues {
   /**
-   * @type {Boolean}
+   * @type {boolean}
    */
   isPickup = false;
 
   /**
-   * @type {String}
+   * @type {string}
    */
   deliveryDate;
 
@@ -19,17 +19,16 @@ export class DeliveryExportValues extends ExportValues {
   packageType = DEFAULT_PACKAGE_TYPE;
 
   /**
-   * @type {MyParcelDeliveryOptions.ShipmentOption[]}
+   * @type {{ShipmentOptionName, boolean}}
    */
   shipmentOptions = [];
 
   update(values) {
-    this.deliveryDate = values[FORM.DELIVERY_DATE] || this.deliveryDate;
-    this.shipmentOptions = values[FORM.SHIPMENT_OPTIONS] || this.shipmentOptions;
-
     this.setCarrier(values[FORM.CARRIER]);
     this.setDeliveryType(values[FORM.DELIVERY_MOMENT]);
     this.switchPackageType(values[FORM.PACKAGE_TYPE] || this.packageType);
+    this.setShipmentOptions(values);
+    this.deliveryDate = values[FORM.DELIVERY_DATE] || this.deliveryDate;
   }
 
   /**
@@ -50,7 +49,7 @@ export class DeliveryExportValues extends ExportValues {
   /**
    * There's no delivery type with other package types (yet) so super.isComplete() will return false forever.
    *
-   * @returns {Boolean|Boolean}
+   * @returns {boolean | boolean}
    */
   isComplete() {
     if (this.packageType === DEFAULT_PACKAGE_TYPE) {

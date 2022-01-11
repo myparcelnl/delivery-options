@@ -6,20 +6,7 @@ export const fakeDeliveryOptionsResponse = jest.fn();
 /**
  * Generate an array of delivery options much like the actual API response.
  *
- * @param {Object} args
- * @param {String} args.package_type
- * @param {String} args.include
- * @param {MyParcel.Platform} args.platform
- * @param {String} args.carrier
- * @param {String} args.cc
- * @param {Number} args.number
- * @param {String} args.postal_code
- * @param {String} args.cutoff_time
- * @param {Number} args.deliverydays_window
- * @param {Number} args.dropoff_delay
- * @param {String} args.dropoff_days
- * @param {?Boolean} args.monday_delivery
- * @param {?Boolean} args.saturday_delivery
+ * @param {MyParcelDeliveryOptions.DeliveryOptionsRequestParameters} args
  *
  * @returns {Object[]}
  */
@@ -30,7 +17,7 @@ fakeDeliveryOptionsResponse.mockImplementation((args) => {
 
   const deliveryDaysWindow = args.deliverydays_window;
   const dropOffDelay = args.dropoff_delay;
-  let startIndex = dropOffDelay + 1;
+  let startIndex = dropOffDelay;
 
   return Array
     .from({ length: dropOffDelay + deliveryDaysWindow })

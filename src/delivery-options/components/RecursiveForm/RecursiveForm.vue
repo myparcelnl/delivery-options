@@ -17,7 +17,7 @@
     :class="`${$classBase}__table`">
     <tr
       v-for="choice in validChoices"
-      :key="mutableOption.name + '--' + choice.name"
+      :key="`${mutableOption.name}--${choice.name}`"
       v-test="{
         id: mutableOption.name,
         choice: choice.name,
@@ -38,7 +38,7 @@
             :id="`${$classBase}__${mutableOption.name}--${choice.name}`"
             v-model="selected[choice.name]"
             v-test="{
-              id: mutableOption.name + '__input',
+              id: `${mutableOption.name}__input`,
               choice: choice.name,
             }"
             :class="choice.class"
@@ -52,7 +52,7 @@
             :id="`${$classBase}__${mutableOption.name}--${choice.name}`"
             v-model="selected"
             v-test="{
-              id: mutableOption.name + '__input',
+              id: `${mutableOption.name}__input`,
               choice: choice.name,
             }"
             :class="choice.class"
@@ -69,13 +69,13 @@
           id: `${mutableOption.name}__${mutableOption.component.name}`,
           choice: choice.name,
         }"
-        :colspan="validChoices.length <= 1 ? null : (hasPrice(choice) ? 1 : 2)"
+        :colspan="validChoices.length <= 1 ? null : hasPrice(choice) ? 1 : 2"
         :data="choice"
         :is-selected="isSelected(choice)" />
 
       <td
         v-else
-        :colspan="validChoices.length <= 1 ? null : (hasPrice(choice) ? 1 : 2)">
+        :colspan="validChoices.length <= 1 ? null : hasPrice(choice) ? 1 : 2">
         <label :for="`${$classBase}__${mutableOption.name}--${choice.name}`">
           <img
             v-if="choice.hasOwnProperty('image')"
@@ -124,7 +124,7 @@
           appear>
           <recursive-form
             v-for="subOption in chosenOptions"
-            :key="choice.name + '--' + subOption.name"
+            :key="`${choice.name}--${subOption.name}`"
             :option="subOption"
             :loading="loading" />
         </transition-group>
@@ -161,8 +161,8 @@
             }"
             :name="mutableOption.name">
             <option
-              v-for="(selectChoice, index) of mutableChoices"
-              :key="index + '--' + selectChoice.name"
+              v-for="(selectChoice, index) in mutableChoices"
+              :key="`${index}--${selectChoice.name}`"
               v-test="{
                 id: `${mutableOption.name}__select__option`,
                 choice: selectChoice.name,
@@ -213,7 +213,6 @@ export default {
     const CHOICES_DEBOUNCE_DELAY = 10;
 
     return {
-
       /**
        * Mutable copy of this.option to allow a watcher to latch onto it and correctly make its Array/Object properties
        *  reactive, if any.
@@ -230,21 +229,21 @@ export default {
       /**
        * Loading state.
        *
-       * @type {Boolean|String}
+       * @type {boolean | string}
        */
       loading: false,
 
       /**
        * Currently selected value.
        *
-       * @type {Object|String}
+       * @type {Object | string}
        */
       selected: this.option.type === 'checkbox' ? {} : null,
 
       /**
        * Mutable copy of the option.pagination attribute. Unused if option has no pagination.
        *
-       * @type {Number}
+       * @type {number}
        *
        * @see https://vuejs.org/v2/guide/components-props.html#One-Way-Data-Flow
        */
@@ -271,7 +270,7 @@ export default {
          * @see https://vuejs.org/v2/api/#Vue-nextTick
          */
         updateDependency: debounce((args) => {
-          this.$nextTick(() => {
+          this.$nextTick().then(() => {
             this.getChoicesByDependency(args);
           });
         }, CHOICES_DEBOUNCE_DELAY),
@@ -293,7 +292,7 @@ export default {
     /**
      * Whether the current option has choices or not.
      *
-     * @returns {Boolean}
+     * @returns {boolean}
      */
     hasChoices() {
       return !!this.mutableChoices.length;
@@ -302,7 +301,7 @@ export default {
     /**
      * Whether the current option has pagination or not.
      *
-     * @returns {Boolean}
+     * @returns {boolean}
      */
     hasPagination() {
       return this.mutableOption.hasOwnProperty('pagination');
@@ -311,7 +310,7 @@ export default {
     /**
      * Whether the current option has one or more dependencies or not.
      *
-     * @returns {Boolean}
+     * @returns {boolean}
      */
     hasDependency() {
       return this.mutableOption.hasOwnProperty('dependency');
@@ -342,7 +341,7 @@ export default {
     /**
      * Whether to render price strings at all.
      *
-     * @returns {Boolean}
+     * @returns {boolean}
      */
     showPrices() {
       return this.$configBus.isEnabled(SHOW_PRICES);
@@ -404,7 +403,7 @@ export default {
         this.mutableChoices = newOption.choices;
 
         if (!this.hasDependency) {
-          this.$nextTick(() => {
+          this.$nextTick().then(() => {
             this.setSelected();
           });
         }
@@ -446,7 +445,7 @@ export default {
     selected: {
 
       /**
-       * @param {*} value - New value for current option.
+       * @param {any} value - New value for current option.
        */
       handler(value) {
         if (value === null) {
@@ -458,6 +457,7 @@ export default {
           value,
         });
       },
+
       deep: typeof selected !== 'string',
       immediate: true,
     },
@@ -476,7 +476,7 @@ export default {
     document.addEventListener(EVENTS.HIDE_DELIVERY_OPTIONS, this.listeners.unselect);
   },
 
-  beforeDestroy() {
+  beforeUnmount() {
     if (this.hasDependency) {
       this.$configBus.$off(EVENTS.AFTER_UPDATE, this.listeners.updateDependency);
     }
@@ -489,7 +489,7 @@ export default {
     /**
      * @param {Object} choice - The choice to check.
      *
-     * @returns {Boolean}
+     * @returns {boolean}
      */
     isSelected(choice) {
       if (typeof this.selected === 'string') {
@@ -537,9 +537,9 @@ export default {
         return this.createChoices(choices, option, dependencies, dependency);
       }, []);
 
-      this.option.choices = [...newChoices];
+      this.mutableOption.choices = [...newChoices];
 
-      this.$nextTick(this.setSelected);
+      this.$nextTick().then(this.setSelected);
     },
 
     /**
@@ -592,7 +592,7 @@ export default {
 
       let selected;
 
-      // If there's nothing to formSelect, just return.
+      // If there's nothing to select, just return.
       if (!hasChoices) {
         return;
       }
@@ -601,13 +601,9 @@ export default {
         // If there's a value set dedupe the array of values, otherwise set empty object.
         selected = choices.reduce(setCheckboxSelected, setValue || {});
       } else if (type === 'select') {
-        if (isSet) {
-          selected = getChoiceOrFirst(choices, (choice) => choice.name === setValue);
-        } else if (hasChoices) {
-          selected = this.firstChoice.name;
-        }
+        selected = this.firstChoice.name;
       } else if (isSet && !!setValue) {
-        // If this option is in configBus.values, formSelect it.
+        // If this option is in configBus.values, select it.
         selected = getChoiceOrFirst(choices, (choice) => choice.name === setValue);
       } else if (hasChoices) {
         // If nothing was selected, choose the option with a selected attribute or just get the first option.
@@ -622,7 +618,7 @@ export default {
      *
      * @param {Object} choice
      *
-     * @returns {Boolean}
+     * @returns {boolean}
      */
     hasPrice(choice) {
       return this.$configBus.isEnabled(SHOW_PRICES) && Boolean(choice.price);

@@ -6,13 +6,15 @@ import { CarrierConfigurationFactory } from '@/data/carriers/carrierConfiguratio
 import { DeliveryExportValues } from '@/delivery-options/config/exports/DeliveryExportValues';
 import { PickupExportValues } from '@/delivery-options/config/exports/PickupExportValues';
 import Vue from 'vue';
+import { carrierCanOnlyHaveSameDayDelivery } from '@/delivery-options/data/request/carrierCanOnlyHaveSameDayDelivery';
 import debounce from 'lodash-es/debounce';
 import { getConfig } from '@/delivery-options/config/getConfig';
 import { getWeekdays } from '@/helpers/getWeekdays';
-import { settingHasCarrierOverride } from '@/delivery-options/config/settingHasCarrierOverride';
-import { settingHasCountryOverride } from '@/delivery-options/config/settingHasCountryOverride';
 import { hasFilterableValue } from '@/delivery-options/config/hasFilterableValue';
 import isObject from 'lodash-es/isObject';
+import { isPastCutoff } from '@/delivery-options/config/isPastCutoff';
+import { settingHasCarrierOverride } from '@/delivery-options/config/settingHasCarrierOverride';
+import { settingHasCountryOverride } from '@/delivery-options/config/settingHasCountryOverride';
 
 /**
  * The config bus to be used throughout the application. It's filled with `createConfigBus()`, otherwise the entire
@@ -33,138 +35,142 @@ export const createConfigBus = (eventCallee = null) => {
   configBus = new Vue({
     name: 'ConfigBus',
 
-    data: {
-      /**
-       * Name of the last event that (re)created the configBus.
-       *
-       * @type {String}
-       */
-      eventCallee: eventCallee ? eventCallee.name : null,
+    data() {
+      return {
+        /**
+         * Name of the last event that (re)created the configBus.
+         *
+         * @type {string}
+         */
+        eventCallee: eventCallee ? eventCallee.name : null,
 
-      /**
-       * All carrier data.
-       *
-       * @type {MyParcelDeliveryOptions.CarrierData[]}
-       */
-      carrierData: [],
+        /**
+         * All carrier data.
+         *
+         * @type {MyParcelDeliveryOptions.CarrierData[]}
+         */
+        carrierData: [],
 
-      /**
-       * All carrier data of carriers that have pickup locations enabled.
-       *
-       * @type {MyParcelDeliveryOptions.CarrierData[]}
-       */
-      carrierDataWithPickupLocations: [],
+        /**
+         * All carrier data of carriers that have pickup locations enabled.
+         *
+         * @type {MyParcelDeliveryOptions.CarrierData[]}
+         */
+        carrierDataWithPickupLocations: [],
 
-      /**
-       * All carrier data of carriers that have delivery options enabled.
-       *
-       * @type {MyParcelDeliveryOptions.CarrierData[]}
-       */
-      carrierDataWithDeliveryOptions: [],
+        /**
+         * All carrier data of carriers that have delivery options enabled.
+         *
+         * @type {MyParcelDeliveryOptions.CarrierData[]}
+         */
+        carrierDataWithDeliveryOptions: [],
 
-      /**
-       * The current carrier.
-       *
-       * @type {MyParcel.CarrierName}
-       */
-      currentCarrier: null,
+        /**
+         * The current carrier.
+         *
+         * @type {MyParcel.CarrierName}
+         */
+        currentCarrier: null,
 
-      /**
-       * Dependency object, used for settings that depend on each other "vertically".
-       *
-       * Example: delivery > carrier > deliveryDate ⬅ [horizontal dependency]
-       *                             | deliveryMoment
-       *                             | shipmentOptions
-       *                            ⬆️ [vertical dependencies that depend on siblings instead of their parent.].
-       */
-      dependencies: {},
+        /**
+         * Dependency object, used for settings that depend on each other "vertically".
+         *
+         * Example: delivery > carrier > deliveryDate ⬅ [horizontal dependency]
+         *                             | deliveryMoment
+         *                             | shipmentOptions
+         *                            ⬆️ [vertical dependencies that depend on siblings instead of their parent.].
+         *
+         * @type {MyParcelDeliveryOptions.CarrierDeliveryDependencies}
+         */
+        dependencies: {},
 
-      /**
-       * Object to store all pickup data in to be able to send it back to the application.
-       *
-       * @type {Object.<MyParcel.PickupLocation>}
-       */
-      pickupLocations: {},
+        /**
+         * Object to store all pickup data in to be able to send it back to the application.
+         *
+         * @type {Object.<MyParcel.PickupLocation>}
+         */
+        pickupLocations: {},
 
-      /**
-       * Whether to show a modal or not.
-       */
-      showModal: false,
+        /**
+         * Whether to show a modal or not.
+         */
+        showModal: false,
 
-      /**
-       * Data object to pass to modalComponent.
-       *
-       * @type {Object}
-       */
-      modalData: null,
+        /**
+         * Data object to pass to modalComponent.
+         *
+         * @type {Object}
+         */
+        modalData: null,
 
-      /**
-       * Array containing any errors causing the delivery options not to show.
-       *
-       * @type {Array}
-       */
-      errors: [],
+        /**
+         * Array containing any errors causing the delivery options not to show.
+         *
+         * @type {Array}
+         */
+        errors: [],
 
-      /**
-       * The object where settings will be stored.
-       *
-       * @type {Object}
-       */
-      values: {},
+        /**
+         * The object where settings will be stored.
+         *
+         * @type {Object}
+         */
+        values: {},
 
-      /**
-       * String weekdays.
-       *
-       * @type {String[]}
-       */
-      weekdays: [],
+        /**
+         * String weekdays.
+         *
+         * @type {string[]}
+         */
+        weekdays: [],
 
-      /**
-       * The object where the values that are sent to the external platform will be stored. Similar to `this.values`,
-       *  but this object is tweaked to comply with our API and conventions and to maximize readability for the
-       *  developers using it.
-       *
-       * @type {DeliveryExportValues|PickupExportValues}
-       */
-      exportValues: null,
+        /**
+         * The object where the values that are sent to the external platform will be stored. Similar to `this.values`,
+         *  but this object is tweaked to comply with our API and conventions and to maximize readability for the
+         *  developers using it.
+         *
+         * @type {DeliveryExportValues|PickupExportValues}
+         */
+        exportValues: null,
 
-      /**
-       * @type {DeliveryExportValues}
-       */
-      deliveryExportValues: null,
+        /**
+         * @type {DeliveryExportValues}
+         */
+        deliveryExportValues: null,
 
-      /**
-       * @type {PickupExportValues}
-       */
-      pickupExportValues: null,
+        /**
+         * @type {PickupExportValues}
+         */
+        pickupExportValues: null,
 
-      /**
-       * Must be defined before it is filled in created().
-       *
-       * @type {MyParcelDeliveryOptions.Configuration}
-       */
-      config: null,
+        /**
+         * Must be defined before it is filled in created().
+         *
+         * @type {MyParcelDeliveryOptions.Configuration}
+         */
+        config: null,
 
-      /**
-       * Must be defined before it is filled in created().
-       *
-       * @type {MyParcel.Strings}
-       */
-      strings: null,
+        /**
+         * Must be defined before it is filled in created().
+         *
+         * @type {MyParcel.Strings}
+         */
+        strings: null,
 
-      /**
-       * Must be defined before it is filled in created().
-       *
-       * @type {MyParcel.Address}
-       */
-      address: null,
+        /**
+         * Must be defined before it is filled in created().
+         *
+         * @type {MyParcel.Address}
+         */
+        address: null,
+      };
     },
 
     computed: {
       /**
        * Whether there are multiple carriers with delivery available or not.
        *
-       * @returns {Boolean}
+       * @returns {boolean}
        */
       hasMultipleDeliveryCarriers() {
         return this.carrierDataWithDeliveryOptions.length > 1;
@@ -173,7 +179,7 @@ export const createConfigBus = (eventCallee = null) => {
       /**
        * Whether there are multiple carriers with pickup locations or not.
        *
-       * @returns {Boolean}
+       * @returns {boolean}
        */
       hasMultiplePickupCarriers() {
         return this.carrierDataWithPickupLocations.length > 1;
@@ -240,11 +246,11 @@ export const createConfigBus = (eventCallee = null) => {
        * 4. `defaultConfig.<option>`                       - Will be in `this.config` if there are no user defined
        *                                                     default settings.
        *
-       * @param {Object|String} option - Option object or name.
-       * @param {String} key - Key name to use. Defaults to "name".
+       * @param {Object | string} option - Option object or name.
+       * @param {string} key - Key name to use. Defaults to "name".
        * @param {MyParcel.CarrierName} carrier - Carrier name.
        *
-       * @returns {*}
+       * @returns {any}
        */
       get(option, key = null, carrier = null) {
         carrier = carrier ?? this.currentCarrier;
@@ -270,12 +276,12 @@ export const createConfigBus = (eventCallee = null) => {
        *  config or if `option.enabled` is false. Only returns true if `option.enabled` is present, in the config and
        *  true.
        *
-       * @param {String|MyParcelDeliveryOptions.FormConfig|Object} option - FormConfig options object.
+       * @param {string | MyParcelDeliveryOptions.FormConfig | Object} option - FormConfig options object.
        *
-       * @param {String} key - String key to use with this.get().
+       * @param {string} key - String key to use with this.get().
        * @param {MyParcel.CarrierName} carrier - Carrier name.
        *
-       * @returns {Boolean}
+       * @returns {boolean}
        */
       isEnabled(option, key = null, carrier = null) {
         if (typeof option === 'string') {
@@ -322,9 +328,9 @@ export const createConfigBus = (eventCallee = null) => {
       },
 
       /**
-       * @param {String|MyParcelDeliveryOptions.FormConfig|Object} option
+       * @param {string | MyParcelDeliveryOptions.FormConfig | Object} option
        *
-       * @returns {Boolean}
+       * @returns {boolean}
        */
       isEnabledInAnyCarrier(option) {
         const carrierSettings = this.get(CONFIG.CARRIER_SETTINGS);
@@ -337,9 +343,9 @@ export const createConfigBus = (eventCallee = null) => {
       /**
        * Get a value by name.
        *
-       * @param {String} name - Name of the property to add/update.
+       * @param {string} name - Name of the property to add/update.
        *
-       * @returns {*}
+       * @returns {any}
        */
       getValue(name) {
         return this.values[name];
@@ -358,8 +364,8 @@ export const createConfigBus = (eventCallee = null) => {
        * Updates the configBus with the new delivery options data and communicate it to the external platform.
        *
        * @param {Object} obj - Destructured update event.
-       * @param {String} obj.name - Name of the setting that was updated.
-       * @param {*} obj.value - Setting value.
+       * @param {string} obj.name - Name of the setting that was updated.
+       * @param {any} obj.value - Setting value.
        */
       updateExternalData({ name, value }) {
         this.values[name] = value;
@@ -387,7 +393,7 @@ export const createConfigBus = (eventCallee = null) => {
 
         // Using $nextTick to emit event after this function is done.
         // @see https://forum.vuejs.org/t/do-something-after-emit-has-finished-successful/10663/10
-        this.$nextTick(() => {
+        this.$nextTick().then(() => {
           this.$emit(EVENTS.AFTER_UPDATE, { name, value });
         });
       },
@@ -396,8 +402,8 @@ export const createConfigBus = (eventCallee = null) => {
        * Update the current carrier.
        *
        * @param {Object} obj - Name/value object.
-       * @param {String} obj.name - Setting that changed.
-       * @param {MyParcel.CarrierName|Number} obj.value - New carrier or pickup location id.
+       * @param {string} obj.name - Setting that changed.
+       * @param {MyParcel.CarrierName | number} obj.value - New carrier or pickup location id.
        */
       updateCurrentCarrier({ name, value }) {
         if (FORM.CARRIER === name) {
@@ -427,6 +433,12 @@ export const createConfigBus = (eventCallee = null) => {
 
         this.carrierDataWithDeliveryOptions = this.carrierData.filter((carrier) => {
           const carrierConfiguration = CarrierConfigurationFactory.create(carrier.name, this.get('platform'));
+          const pastCutoff = isPastCutoff(this.get(CONFIG.CUTOFF_TIME_SAME_DAY, carrier.name));
+
+          if (carrierCanOnlyHaveSameDayDelivery(carrier.name) && pastCutoff) {
+            return false;
+          }
+
           return carrier.deliveryEnabled && carrierConfiguration.allowsDeliveryIn(this.address.cc);
         });
       },

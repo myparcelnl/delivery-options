@@ -30,7 +30,7 @@ const parametersByPlatform = {
  * @param {MyParcel.Platform} platform - Platform name.
  * @param {import('@/delivery-options/config/configBus')} configBus - Optional parameter for easier testing.
  *
- * @returns {Object}
+ * @returns {DeliveryOptionsRequestParameters}
  */
 export function getParametersByPlatform(platform = realConfigBus.get(CONFIG.PLATFORM), configBus = realConfigBus) {
   return {

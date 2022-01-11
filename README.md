@@ -71,6 +71,7 @@ window.MyParcelConfig = {
     // The price for each option
     priceMorningDelivery: 7.95,
     priceStandardDelivery: 5.85,
+    priceSameDayDelivery: 7.65,
     priceEveningDelivery: 6.25,
     priceSignature: 0.35,
     priceOnlyRecipient: 0.30,
@@ -250,6 +251,51 @@ window.MyParcelConfig = {
 };
 ```
 This is currently only possible for `allowDeliveryOptions` and `allowPickupLocations`. If you want this feature to be available for more settings, please create a feature request. Or, if you want to do it yourself you can send us a pull request!
+
+### Using RedJePakketje for same day delivery only
+
+Use case: You always want to use PostNL for regular shipments, but if a same day delivery is possible, you want to allow your customer to choose RedJePakketje.
+
+Example configuration:
+
+```js
+window.MyParcelConfig = {
+  config: {
+    platform: 'myparcel',
+    allowSameDayDelivery: true,
+    cutoffTimeSameDay: '8:30',
+    deliveryDaysWindow: 7,
+    dropOffDelay: 1,
+    priceSameDayDelivery: 6.65,
+    priceStandardDelivery: 4.95,
+    carrierSettings: {
+      // Carriers are shown in order of the carrierSettings object, so RJP will be above PostNL.
+      redjepakketje: {
+        allowDeliveryOptions: true,
+        deliveryDaysWindow: 1,
+        dropOffDelay: 0,
+      },
+      postnl: {
+        allowDeliveryOptions: true,
+      }
+    }
+  }
+};
+```
+
+The fields `deliveryDaysWindow` and `dropOffDelay` inside `carrierSettings.redjepakketje` are very important here. This setup would give you the following logic:
+
+> **Current day and time: Tuesday, 6:45**
+> - RedJePakketje
+>   - The only option is today, which costs € 6.65.
+> - PostNL
+>   - First option: Tomorrow, standard delivery, € 4.95.
+>   - The next 6 valid days are also available.
+
+> **Current day and time: Tuesday, 14:30**
+> - PostNL
+>   - First option: Tomorrow, standard delivery, € 4.95.
+>   - The next 6 valid days are also available.
 
 #### Integration examples
 

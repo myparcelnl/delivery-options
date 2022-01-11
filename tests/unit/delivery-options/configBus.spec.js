@@ -101,6 +101,7 @@ describe('configBus', () => {
     expect(configBus.getSettingsByCarrier(CARRIERS.POSTNL)).toEqual({
       [CONFIG.ALLOW_DELIVERY_OPTIONS]: true,
       // Disabled by ConfigurationMerger.
+      [CONFIG.ALLOW_SAME_DAY_DELIVERY]: false,
       [CONFIG.ALLOW_SATURDAY_DELIVERY]: false,
     });
 

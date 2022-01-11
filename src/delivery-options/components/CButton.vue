@@ -1,8 +1,9 @@
 <template>
   <button
+    type="button"
     :class="{
-      [$classBase + '__button']: true,
-      [$classBase + '__button--selected']: isSelected,
+      [`${$classBase}__button`]: true,
+      [`${$classBase}__button--selected`]: isSelected,
     }"
     @click="(event) => $emit('click', event)" />
 </template>
@@ -15,5 +16,7 @@ export default {
       type: Boolean,
     },
   },
+
+  emits: ['click'],
 };
 </script>

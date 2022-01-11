@@ -1,3 +1,6 @@
+import * as FORM from '@/config/formConfig';
+import { DELIVERY_SAME_DAY, DELIVERY_STANDARD } from '@/config/formConfig';
+
 export class ExportValues {
   /**
    * @type {MyParcel.CarrierName}
@@ -5,14 +8,14 @@ export class ExportValues {
   carrier;
 
   /**
-   * @type {MyParcel.DeliveryType}
+   * @type {MyParcelDeliveryOptions.DeliveryType}
    */
   deliveryType;
 
   /**
    * Method to check if the values are complete and should be communicated with the external platform.
    *
-   * @returns {Boolean}
+   * @returns {boolean}
    */
   isComplete() {
     return !!this.deliveryType;
@@ -26,9 +29,24 @@ export class ExportValues {
   }
 
   /**
-   * @param {MyParcel.DeliveryType} deliveryType
+   * @param {MyParcelDeliveryOptions.DeliveryType} deliveryType
    */
   setDeliveryType(deliveryType) {
+    // Transform internal sameDay delivery type back to standard.
+    if (deliveryType === DELIVERY_SAME_DAY) {
+      deliveryType = DELIVERY_STANDARD;
+    }
+
     this.deliveryType = deliveryType;
+  }
+
+  setShipmentOptions(values) {
+    const shipmentOptions = values[FORM.SHIPMENT_OPTIONS] || this.shipmentOptions;
+
+    if (values[FORM.DELIVERY_MOMENT] === DELIVERY_SAME_DAY) {
+      shipmentOptions.same_day_delivery = true;
+    }
+
+    this.shipmentOptions = shipmentOptions;
   }
 }

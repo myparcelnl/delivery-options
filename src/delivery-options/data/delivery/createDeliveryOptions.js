@@ -2,12 +2,12 @@ import * as CONFIG from '@/data/keys/configKeys';
 import * as CONSTS from '@/data/keys/settingsConsts';
 import { DELIVERY, DELIVERY_DATE, DELIVERY_MOMENT, SHIPMENT_OPTIONS } from '@/config/formConfig';
 import { configBus } from '@/delivery-options/config/configBus';
-import { createDeliveryDependencies } from '@/delivery-options/data/delivery/createDeliveryDependencies';
+import { createDeliveryDependencies } from '@/delivery-options/data/delivery/dependencies/createDeliveryDependencies';
 import { fetchDeliveryOptions } from '@/delivery-options/data/delivery/fetchDeliveryOptions';
-import { formatDeliveryMoments } from '@/delivery-options/data/delivery/formatDeliveryMoments';
-import { formatShipmentOptions } from '@/delivery-options/data/delivery/formatShipmentOptions';
+import { formatShipmentOption } from '@/delivery-options/data/delivery/dependencies/formatShipmentOption';
 import { getDeliveryDates } from '@/delivery-options/data/delivery/getDeliveryDates';
 import { getPackageTypeOptions } from '@/delivery-options/data/delivery/getPackageTypeOptions';
+import { transformDeliveryMoments } from '@/delivery-options/data/delivery/transformDeliveryMoments';
 
 /**
  * If multi carrier, return another level of settings.
@@ -50,7 +50,7 @@ export async function createDeliveryOptions(
       dependency: {
         name: DELIVERY_DATE,
         parent: DELIVERY,
-        transform: formatDeliveryMoments,
+        transform: transformDeliveryMoments,
       },
       choices: [],
     },
@@ -60,7 +60,7 @@ export async function createDeliveryOptions(
       dependency: {
         name: [DELIVERY_DATE, DELIVERY_MOMENT],
         parent: SHIPMENT_OPTIONS,
-        transform: formatShipmentOptions,
+        transform: formatShipmentOption,
       },
       choices: [],
     },

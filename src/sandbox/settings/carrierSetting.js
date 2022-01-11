@@ -15,29 +15,31 @@ export function carrierSetting(setting, platform) {
     let currentCarrierConfig;
 
     try {
-      currentCarrierConfig = CarrierConfigurationFactory.create(carrier, platform);
+      currentCarrierConfig = CarrierConfigurationFactory.create(carrier.name, platform);
     } catch (e) {
-      // Just ignore this error, it means a carrier is not supported by the sandbox.
+      /*
+       * Should not be caught. This will fail in the sandbox if carriers exist in the api which we don't support, and
+       * that's fine.
+      */
       return acc;
     }
 
     const allowedInCarrier = currentCarrierConfig.hasFeature(setting.name);
-
-    if (allowedInCarrier) {
-      return [
-        ...acc,
-        {
-          ...setting,
-          key: `${CONFIG.KEY}.${CONFIG.CARRIER_SETTINGS}.${carrier.name}`,
-          carrier: {
-            name: carrier.name,
-            text: carrier.label,
-            image: carrier.image,
-          },
-        },
-      ];
+    if (!allowedInCarrier) {
+      return acc;
     }
 
-    return acc;
+    return [
+      ...acc,
+      {
+        ...setting,
+        key: `${CONFIG.KEY}.${CONFIG.CARRIER_SETTINGS}.${carrier.name}`,
+        carrier: {
+          name: carrier.name,
+          text: carrier.label,
+          image: carrier.image,
+        },
+      },
+    ];
   }, []);
 }

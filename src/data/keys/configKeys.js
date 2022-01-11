@@ -15,9 +15,11 @@ export const ALLOW_EVENING_DELIVERY = 'allowEveningDelivery';
 export const ALLOW_MORNING_DELIVERY = 'allowMorningDelivery';
 export const ALLOW_ONLY_RECIPIENT = 'allowOnlyRecipient';
 export const ALLOW_PICKUP_LOCATIONS = 'allowPickupLocations';
+export const ALLOW_SAME_DAY_DELIVERY = 'allowSameDayDelivery';
 export const ALLOW_SIGNATURE = 'allowSignature';
 
 export const CUTOFF_TIME = 'cutoffTime';
+export const CUTOFF_TIME_SAME_DAY = 'cutoffTimeSameDay';
 export const DELIVERY_DAYS_WINDOW = 'deliveryDaysWindow';
 export const DROP_OFF_DAYS = 'dropOffDays';
 export const DROP_OFF_DELAY = 'dropOffDelay';
@@ -26,6 +28,7 @@ export const PRICE_EVENING_DELIVERY = 'priceEveningDelivery';
 export const PRICE_MORNING_DELIVERY = 'priceMorningDelivery';
 export const PRICE_ONLY_RECIPIENT = 'priceOnlyRecipient';
 export const PRICE_PICKUP = 'pricePickup';
+export const PRICE_SAME_DAY_DELIVERY = 'priceSameDayDelivery';
 export const PRICE_SIGNATURE = 'priceSignature';
 export const PRICE_STANDARD_DELIVERY = 'priceStandardDelivery';
 
@@ -67,7 +70,7 @@ export const FEATURE_ALLOW_RETRY = 'allowRetry';
 export const FEATURE_PICKUP_LOCATIONS_DEFAULT_VIEW = 'pickupLocationsDefaultView';
 
 /*
- * Show distance under each pickup location if true. Otherwise shows street name and number.
+ * Show distance under each pickup location if true. Otherwise, shows street name and number.
  */
 export const FEATURE_PICKUP_SHOW_DISTANCE = 'pickupShowDistance';
 
@@ -98,6 +101,7 @@ export const settingsWithCarrierOverride = [
   ALLOW_MORNING_DELIVERY,
   ALLOW_ONLY_RECIPIENT,
   ALLOW_PICKUP_LOCATIONS,
+  ALLOW_SAME_DAY_DELIVERY,
   ALLOW_SATURDAY_DELIVERY,
   ALLOW_SIGNATURE,
   CUTOFF_TIME,
@@ -111,6 +115,7 @@ export const settingsWithCarrierOverride = [
   PRICE_PACKAGE_TYPE_DIGITAL_STAMP,
   PRICE_PACKAGE_TYPE_MAILBOX,
   PRICE_PICKUP,
+  PRICE_SAME_DAY_DELIVERY,
   PRICE_SIGNATURE,
   PRICE_STANDARD_DELIVERY,
 ];
@@ -118,7 +123,7 @@ export const settingsWithCarrierOverride = [
 /**
  * Settings that can be set per country.
  *
- * @type {(String)[]}
+ * @type {(string)[]}
  */
 export const settingsWithCountryOverrides = [
   ALLOW_DELIVERY_OPTIONS,
@@ -126,7 +131,7 @@ export const settingsWithCountryOverrides = [
 ];
 
 /**
- * @type {String[]}
+ * @type {string[]}
  */
 export const carrierFeatures = [
   ALLOW_DELIVERY_OPTIONS,
@@ -137,6 +142,7 @@ export const carrierFeatures = [
   ALLOW_PACKAGE_TYPE_DIGITAL_STAMP,
   ALLOW_PACKAGE_TYPE_MAILBOX,
   ALLOW_PICKUP_LOCATIONS,
+  ALLOW_SAME_DAY_DELIVERY,
   ALLOW_SATURDAY_DELIVERY,
   ALLOW_SIGNATURE,
   CUTOFF_TIME,

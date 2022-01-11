@@ -10,7 +10,7 @@ import { getRequestParameters } from '@/delivery-options/data/request/getRequest
  * @param {MyParcel.CarrierName} carrier - Carrier name.
  * @param {MyParcel.Platform} platform - Platform name.
  *
- * @returns {Promise}
+ * @returns {Promise<DeliveryOption[]>}
  */
 export function fetchDeliveryOptions(carrier = configBus.currentCarrier, platform = configBus.get(CONFIG.PLATFORM)) {
   const carrierAllowsPackageType = CarrierConfigurationFactory

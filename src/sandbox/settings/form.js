@@ -80,57 +80,15 @@ export const createSettings = memoize((platform) => {
             CONFIG.SHOW_PRICES,
           ],
         },
-        {
-          title: CONFIG.DROP_OFF_DAYS,
-          settings: [
-            ...perCarrier({
-              key: CONFIG.KEY,
-              name: CONFIG.DROP_OFF_DAYS,
-              component: CCheckboxGroup,
-              props: {
-                // Map the weekdays to options. If the day is sunday set index to 0.
-                options: weekdays.map((day, index) => ({
-                  value: index === weekdays.length - 1 ? 0 : index + 1,
-                  text: day,
-                })),
-                conditions: [
-                  CONFIG.ALLOW_DELIVERY_OPTIONS,
-                ],
-              },
-            }),
-          ],
-        },
-        ...deliveryDaysWindow,
-        {
-          title: CONFIG.DROP_OFF_DELAY,
-          settings: [
-            ...perCarrier({
-              key: CONFIG.KEY,
-              name: CONFIG.DROP_OFF_DELAY,
-              component: CNumber,
-              props: {
-                min: CONSTS.DROP_OFF_DELAY_MIN,
-                max: CONSTS.DROP_OFF_DELAY_MAX,
-              },
-              conditions: [
-                CONFIG.ALLOW_DELIVERY_OPTIONS,
-              ],
-            }),
-          ],
-        },
-        {
-          title: CONFIG.CUTOFF_TIME,
-          settings: [
-            ...perCarrier({
-              key: CONFIG.KEY,
-              name: CONFIG.CUTOFF_TIME,
-              component: CTimepicker,
-              conditions: [
-                CONFIG.ALLOW_DELIVERY_OPTIONS,
-              ],
-            }),
-          ],
-        },
+      ],
+    },
+    {
+      title: FORM.DELIVERY,
+      settings: [
+        ...perCarrier({
+          name: CONFIG.ALLOW_DELIVERY_OPTIONS,
+          component: CToggle,
+        }),
         {
           title: CONFIG.FEATURE_SHOW_DELIVERY_DATE,
           settings: [
@@ -143,15 +101,6 @@ export const createSettings = memoize((platform) => {
             }),
           ],
         },
-      ],
-    },
-    {
-      title: FORM.DELIVERY,
-      settings: [
-        ...perCarrier({
-          name: CONFIG.ALLOW_DELIVERY_OPTIONS,
-          component: CToggle,
-        }),
         {
           title: FORM.DELIVERY_STANDARD,
           settings: [
@@ -174,6 +123,30 @@ export const createSettings = memoize((platform) => {
             },
           ],
         },
+        ...ifAnyCarrierAllows(CONFIG.ALLOW_SAME_DAY_DELIVERY, {
+          title: FORM.DELIVERY_SAME_DAY,
+          settings: [
+            ...perCarrier({
+              key: CONFIG.KEY,
+              name: CONFIG.ALLOW_SAME_DAY_DELIVERY,
+              component: CToggle,
+              conditions: [
+                CONFIG.ALLOW_DELIVERY_OPTIONS,
+              ],
+            }),
+            {
+              key: CONFIG.KEY,
+              name: CONFIG.PRICE_SAME_DAY_DELIVERY,
+              component: CCurrency,
+              conditions: [
+                CONFIG.SHOW_PRICES,
+                CONFIG.ALLOW_DELIVERY_OPTIONS,
+                inAnyCarrier(CONFIG.ALLOW_SAME_DAY_DELIVERY),
+              ],
+              props: currencyProps,
+            },
+          ],
+        }),
         ...ifAnyCarrierAllows(CONFIG.ALLOW_MORNING_DELIVERY, {
           title: FORM.DELIVERY_MORNING,
           settings: [
@@ -401,6 +374,76 @@ export const createSettings = memoize((platform) => {
             inAnyCarrier(CONFIG.ALLOW_PICKUP_LOCATIONS),
           ],
         },
+      ],
+    },
+    {
+      title: 'dropoff',
+      description: 'dropoff',
+      settings: [
+        {
+          title: CONFIG.DROP_OFF_DAYS,
+          settings: [
+            ...perCarrier({
+              key: CONFIG.KEY,
+              name: CONFIG.DROP_OFF_DAYS,
+              component: CCheckboxGroup,
+              props: {
+                // Map the weekdays to options. If the day is sunday set index to 0.
+                options: weekdays.map((day, index) => ({
+                  value: index === weekdays.length - 1 ? 0 : index + 1,
+                  text: day,
+                })),
+                conditions: [
+                  CONFIG.ALLOW_DELIVERY_OPTIONS,
+                ],
+              },
+            }),
+          ],
+        },
+        ...deliveryDaysWindow,
+        {
+          title: CONFIG.DROP_OFF_DELAY,
+          settings: [
+            ...perCarrier({
+              key: CONFIG.KEY,
+              name: CONFIG.DROP_OFF_DELAY,
+              component: CNumber,
+              props: {
+                min: CONSTS.DROP_OFF_DELAY_MIN,
+                max: CONSTS.DROP_OFF_DELAY_MAX,
+              },
+              conditions: [
+                CONFIG.ALLOW_DELIVERY_OPTIONS,
+              ],
+            }),
+          ],
+        },
+        {
+          title: CONFIG.CUTOFF_TIME,
+          settings: [
+            ...perCarrier({
+              key: CONFIG.KEY,
+              name: CONFIG.CUTOFF_TIME,
+              component: CTimepicker,
+              conditions: [
+                CONFIG.ALLOW_DELIVERY_OPTIONS,
+              ],
+            }),
+          ],
+        },
+        ...ifAnyCarrierAllows(CONFIG.ALLOW_SAME_DAY_DELIVERY, {
+          title: CONFIG.CUTOFF_TIME_SAME_DAY,
+          settings: [
+            ...perCarrier({
+              key: CONFIG.KEY,
+              name: CONFIG.CUTOFF_TIME_SAME_DAY,
+              component: CTimepicker,
+              conditions: [
+                CONFIG.ALLOW_SAME_DAY_DELIVERY,
+              ],
+            }),
+          ],
+        }),
       ],
     },
     {
