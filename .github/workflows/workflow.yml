@@ -33,7 +33,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: myparcelnl/actions/yarn-install@v1
       - name: 'Run tests'
-        run: ./node_modules/.bin/cross-env yarn test --coverage
+        run: ./node_modules/.bin/cross-env yarn test:unit --coverage
         env:
           NODE_ICU_DATA: node_modules/full-icu
 
