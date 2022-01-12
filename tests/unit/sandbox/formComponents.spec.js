@@ -29,23 +29,23 @@ describe('Sandbox form components', () => {
       '{"data":{"code":["test code"]}}',
     );
 
-    const { element: codeElement } = wrapper.findByTestId('code');
-    const { element: textElement } = wrapper.findByTestId('text');
+    const codeWrapper = wrapper.findByTestId('code');
+    const textWrapper = wrapper.findByTestId('text');
 
     wrapper.vm.showCode();
     await wrapper.vm.$nextTick();
-    expect(codeElement).toBeVisible();
-    expect(textElement).not.toBeVisible();
+    expect(codeWrapper.isVisible()).toBeTruthy();
+    expect(textWrapper.isVisible()).toBeFalsy();
 
     wrapper.vm.hideCode();
     await wrapper.vm.$nextTick();
-    expect(codeElement).not.toBeVisible();
-    expect(textElement).toBeVisible();
+    expect(codeWrapper.isVisible()).toBeFalsy();
+    expect(textWrapper.isVisible()).toBeTruthy();
 
     wrapper.vm.showCode();
     await wrapper.vm.$nextTick();
-    expect(codeElement).toBeVisible();
-    expect(textElement).not.toBeVisible();
+    expect(codeWrapper.isVisible()).toBeTruthy();
+    expect(textWrapper.isVisible()).toBeFalsy();
 
     textarea.setValue(['invalid data']);
     await wrapper.vm.$nextTick();

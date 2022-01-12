@@ -1,5 +1,5 @@
 {
-//  "root": true,
+  "root": true,
   "extends": [
     "@myparcel/eslint-config/preset-vue"
   ],
@@ -16,5 +16,13 @@
         ]
       }
     ]
-  }
+  },
+  "overrides": [
+    {
+      "extends": "@myparcel/eslint-config/preset-typescript",
+      "files": [
+        "**/*.ts"
+      ]
+    }
+  ]
 }

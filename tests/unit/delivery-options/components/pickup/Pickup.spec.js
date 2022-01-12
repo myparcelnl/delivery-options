@@ -38,7 +38,7 @@ describe('Pickup.vue', () => {
   });
 
   it('shows map view by default', () => {
-    expect(wrapper.findByTestId('view--map').element).toBeVisible();
+    expect(wrapper.findByTestId('view--map').isVisible()).toBeTruthy();
     expect(wrapper.findByTestId('view--list').exists()).toBeFalsy();
   });
 
@@ -47,7 +47,7 @@ describe('Pickup.vue', () => {
     await wrapper.findByTestId('button--list').element.click();
 
     expect(wrapper.findByTestId('view--map').exists()).toBeFalsy();
-    expect(wrapper.findByTestId('view--list').element).toBeVisible();
+    expect(wrapper.findByTestId('view--list').isVisible()).toBeTruthy();
   });
 
   it('has functional pagination', async() => {

@@ -31,11 +31,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-        with:
-          fetch-depth: 2
       - uses: myparcelnl/actions/yarn-install@v1
       - name: 'Run tests'
-        run: ./node_modules/.bin/cross-env npm test
+        run: ./node_modules/.bin/cross-env yarn test --coverage
         env:
           NODE_ICU_DATA: node_modules/full-icu
 
@@ -73,7 +71,7 @@ jobs:
           name: dist
 
       - name: 'Release'
-        uses: cycjimmy/semantic-release-action@v2
+        run: 'npx semantic-release'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{secrets.NPM_TOKEN}}
