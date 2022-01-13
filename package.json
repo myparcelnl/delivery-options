@@ -6,8 +6,6 @@
   "scripts": {
     "build": "vue-cli-service build --report",
     "build:dev": "vue-cli-service build --mode development",
-    "lint": "eslint --quiet .",
-    "release": "semantic-release",
     "serve": "vue-cli-service serve",
     "serve-bare": "vue-cli-service serve src/delivery-options/main.js",
     "serve:prod": "vue-cli-service build --dest local && serve -s local",
