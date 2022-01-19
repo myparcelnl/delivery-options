@@ -1,12 +1,13 @@
-const { addGitHubPlugin } = require('@myparcel/semantic-release-config/src/plugins/addGitHubPlugin');
-const mainConfig = require('@myparcel/semantic-release-config');
-const npmConfig = require('@myparcel/semantic-release-config/npm');
+const { addGitPlugin, addGitHubPlugin, addNpmPlugin } = require('@myparcel/semantic-release-config/src/plugins');
+const baseConfig = require('@myparcel/semantic-release-config/npm');
 
 module.exports = {
-  ...mainConfig,
+  ...baseConfig,
   extends: '@myparcel/semantic-release-config/npm',
   plugins: [
-    ...npmConfig.plugins,
+    ...baseConfig.plugins,
+    addNpmPlugin(),
     addGitHubPlugin(),
+    addGitPlugin(),
   ],
 };

@@ -227,19 +227,19 @@ describe('Delivery moments', () => {
     await waitForEvent(UPDATED_DELIVERY_OPTIONS);
 
     const postnl = wrapper.findChoice('carrier', POSTNL);
-    expect(postnl.find('[data-test-id="deliveryDate__select__label"]').element).toBeVisible();
+    expect(postnl.find('[data-test-id="deliveryDate__select__label"]').isVisible()).toBeTruthy();
 
     const bpost = wrapper.findChoice('carrier', BPOST);
     const bpostInput = wrapper.findChoice('carrier__input', BPOST);
     bpostInput.element.click();
     await waitForEvent(UPDATED_DELIVERY_OPTIONS);
-    expect(bpost.find('[data-test-id="deliveryDate__select__label"]').element).not.toBeVisible();
+    expect(bpost.find('[data-test-id="deliveryDate__select__label"]').isVisible()).toBeFalsy();
 
     const dpd = wrapper.findChoice('carrier', DPD);
     const dpdInput = wrapper.findChoice('carrier__input', DPD);
     dpdInput.element.click();
     await waitForEvent(UPDATED_DELIVERY_OPTIONS);
-    expect(dpd.find('[data-test-id="deliveryDate__select__label"]').element).not.toBeVisible();
+    expect(dpd.find('[data-test-id="deliveryDate__select__label"]').isVisible()).toBeFalsy();
   });
 
   test.each`
