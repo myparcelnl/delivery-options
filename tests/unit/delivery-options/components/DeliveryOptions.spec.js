@@ -109,7 +109,7 @@ describe('DeliveryOptions.vue', () => {
 
     document.dispatchEvent(new Event(SHOW_DELIVERY_OPTIONS));
     await waitForEvent(UPDATED_DELIVERY_OPTIONS);
-    expect(app.findChoice('delivery', 'deliver').element).toBeVisible();
+    expect(app.findChoice('delivery', 'deliver').isVisible()).toBeTruthy();
   });
 
   it('clears all listeners on destroy', () => {

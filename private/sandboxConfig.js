@@ -1,4 +1,3 @@
-const FaviconsWebpackPlugin = require('favicons-webpack-plugin/src');
 const { createConfig } = require('./createConfig.js');
 
 const slug = 'sandbox';
@@ -19,15 +18,6 @@ const sandboxConfig = createConfig('Delivery Options Sandbox', slug, {
       chunks: 'all',
     },
   },
-
-  plugins: [
-    new FaviconsWebpackPlugin({
-      cache: true,
-      inject: true,
-      logo: './src/assets/images/logo.png',
-      prefix: 'img/icons/',
-    }),
-  ],
 });
 
 module.exports = { sandboxConfig };
