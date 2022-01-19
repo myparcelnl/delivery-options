@@ -2,6 +2,9 @@
   "env": {
     "jest": true
   },
+  "parserOptions": {
+    "requireConfigFile": false
+  },
   "rules": {
     "no-underscore-dangle": "off",
     "no-magic-numbers": "off",
