@@ -13,7 +13,7 @@ describe('ConfigurationMerger', () => {
         [CONFIG.PLATFORM]: MYPARCEL,
         [CONFIG.DROP_OFF_DAYS]: [1, 3, 4],
         [CONFIG.CARRIER_SETTINGS]: {
-          [CARRIERS.RED_JE_PAKKETJE]: {
+          [CARRIERS.INSTABOX]: {
             [CONFIG.ALLOW_DELIVERY_OPTIONS]: true,
           },
         },
@@ -26,7 +26,7 @@ describe('ConfigurationMerger', () => {
     expect(mergedConfiguration[CONFIG.KEY][CONFIG.DROP_OFF_DAYS]).toStrictEqual([1, 3, 4]);
     // Check the carrier settings are overriding the defaults properly.
     expect(mergedConfiguration[CONFIG.KEY][CONFIG.CARRIER_SETTINGS]).toStrictEqual({
-      [CARRIERS.RED_JE_PAKKETJE]: {
+      [CARRIERS.INSTABOX]: {
         [CONFIG.ALLOW_DELIVERY_OPTIONS]: true,
         [CONFIG.ALLOW_EVENING_DELIVERY]: false,
         [CONFIG.ALLOW_MONDAY_DELIVERY]: false,

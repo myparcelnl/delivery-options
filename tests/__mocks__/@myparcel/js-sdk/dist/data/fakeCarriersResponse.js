@@ -37,11 +37,11 @@ const allCarrierData = [
   },
   {
     id: 5,
-    name: 'redjepakketje',
-    human: 'Red je Pakketje',
+    name: 'instabox',
+    human: 'Instabox',
     meta: {
-      logo_svg: '/skin/general-images/carrier-logos/svg/redjepakketje.svg',
-      logo_png: '/skin/general-images/carrier-logos/redjepakketje.png',
+      logo_svg: '/skin/general-images/carrier-logos/svg/instabox.svg',
+      logo_png: '/skin/general-images/carrier-logos/instabox.png',
     },
   },
   {

@@ -11,7 +11,7 @@ import { isFeatureActive } from '@/helpers/isFeatureActive';
 export const sandboxPlatformCarrierMap = {
   [PLATFORMS.MYPARCEL]: [
     CARRIERS.POSTNL,
-    ...isFeatureActive('myparcel.carriers.rjp') ? [CARRIERS.RED_JE_PAKKETJE] : [],
+    ...isFeatureActive('myparcel.carriers.rjp') ? [CARRIERS.INSTABOX] : [],
     ...isFeatureActive('myparcel.carriers.dhl') ? [CARRIERS.DHL] : [],
   ],
   [PLATFORMS.SENDMYPARCEL]: [

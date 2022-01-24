@@ -1,6 +1,6 @@
 import * as CONFIG from '@/data/keys/configKeys';
 import * as FORM from '@/config/formConfig';
-import { BPOST, DPD, POSTNL, RED_JE_PAKKETJE } from '@/data/keys/carrierKeys';
+import { BPOST, DPD, POSTNL, INSTABOX } from '@/data/keys/carrierKeys';
 import { FRIDAY, MONDAY, SATURDAY, SUNDAY, THURSDAY, TUESDAY, WEDNESDAY } from '@/config/extraDeliveryConfig';
 import { MYPARCEL, SENDMYPARCEL } from '@/data/keys/platformKeys';
 import MockDate from 'mockdate';
@@ -251,7 +251,7 @@ describe('Delivery moments', () => {
     ${MYPARCEL}     | ${POSTNL}          | ${FRIDAY}    | ${false}
     ${MYPARCEL}     | ${POSTNL}          | ${SATURDAY}  | ${true}
     ${MYPARCEL}     | ${POSTNL}          | ${SUNDAY}    | ${false}
-    ${MYPARCEL}     | ${RED_JE_PAKKETJE} | ${SATURDAY}  | ${false}
+    ${MYPARCEL}     | ${INSTABOX} | ${SATURDAY}  | ${false}
     ${SENDMYPARCEL} | ${BPOST}           | ${MONDAY}    | ${false}
     ${SENDMYPARCEL} | ${BPOST}           | ${TUESDAY}   | ${false}
     ${SENDMYPARCEL} | ${BPOST}           | ${WEDNESDAY} | ${false}

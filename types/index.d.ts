@@ -3,7 +3,7 @@ import { Vue } from 'vue/types/vue';
 declare namespace MyParcel {
   type Environment = 'dev' | 'staging' | 'acceptance' | 'prod'
 
-  type CarrierName = 'postnl' | 'bpost' | 'cheapcargo' | 'dpd' | 'redjepakketje' | 'dhl'
+  type CarrierName = 'postnl' | 'bpost' | 'cheapcargo' | 'dpd' | 'instabox' | 'dhl'
   type CarrierID = 1 | 2 | 3 | 4 | 5 | 6
   type CarrierNameOrId = CarrierName | CarrierID
   type Platform = 'myparcel' | 'belgie' | 'flespakket'

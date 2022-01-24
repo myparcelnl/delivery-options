@@ -3,8 +3,8 @@ import { BpostCarrierConfiguration } from '@/data/carriers/bpostCarrierConfigura
 import { CheapCargoCarrierConfiguration } from '@/data/carriers/cheapCargoCarrierConfiguration';
 import { DhlCarrierConfiguration } from '@/data/carriers/dhlCarrierConfiguration';
 import { DpdCarrierConfiguration } from '@/data/carriers/dpdCarrierConfiguration';
+import { InstaboxCarrierConfiguration } from '@/data/carriers/instaboxCarrierConfiguration';
 import { PostNlCarrierConfiguration } from '@/data/carriers/postNlCarrierConfiguration';
-import { RedJePakketjeCarrierConfiguration } from '@/data/carriers/redJePakketjeCarrierConfiguration';
 import memoize from 'lodash-es/memoize';
 
 const carrierConfiguration = memoize((carrierName, platform) => {
@@ -19,8 +19,8 @@ const carrierConfiguration = memoize((carrierName, platform) => {
       return new DpdCarrierConfiguration(platform);
     case CARRIERS.POSTNL:
       return new PostNlCarrierConfiguration(platform);
-    case CARRIERS.RED_JE_PAKKETJE:
-      return new RedJePakketjeCarrierConfiguration(platform);
+    case CARRIERS.INSTABOX:
+      return new InstaboxCarrierConfiguration(platform);
     default:
       throw new Error(`No configuration found for carrier ${carrierName}`);
   }
