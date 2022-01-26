@@ -9,7 +9,7 @@ import * as PLATFORMS from '@/data/keys/platformKeys';
 export const platformCarrierMap = {
   [PLATFORMS.MYPARCEL]: [
     CARRIERS.POSTNL,
-    CARRIERS.RED_JE_PAKKETJE,
+    CARRIERS.INSTABOX,
     CARRIERS.DHL,
   ],
   [PLATFORMS.SENDMYPARCEL]: [

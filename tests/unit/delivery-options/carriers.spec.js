@@ -12,7 +12,7 @@ describe('carriers', () => {
       [CONFIG.KEY]: {
         [CONFIG.PLATFORM]: PLATFORMS.MYPARCEL,
         [CONFIG.CARRIER_SETTINGS]: {
-          [CARRIERS.RED_JE_PAKKETJE]: {
+          [CARRIERS.INSTABOX]: {
             [CONFIG.ALLOW_DELIVERY_OPTIONS]: true,
           },
         },
@@ -20,13 +20,13 @@ describe('carriers', () => {
     });
 
     await waitForEvent(UPDATED_DELIVERY_OPTIONS);
-    const redJePakketje = app.findChoice('carrier', CARRIERS.RED_JE_PAKKETJE);
+    const instabox = app.findChoice('carrier', CARRIERS.INSTABOX);
     expect(app.findChoice('carrier', CARRIERS.POSTNL).exists()).toBe(false);
-    expect(redJePakketje.exists()).toBe(true);
+    expect(instabox.exists()).toBe(true);
     expect(app.findChoice('carrier', CARRIERS.DHL).exists()).toBe(false);
 
     // Single carriers don't show a carrier logo.
-    expect(redJePakketje.find('[data-test-id="image"]').exists()).toBe(false);
+    expect(instabox.find('[data-test-id="image"]').exists()).toBe(false);
   });
 
   it('can show multiple carriers', async() => {
@@ -35,7 +35,7 @@ describe('carriers', () => {
       [CONFIG.KEY]: {
         [CONFIG.PLATFORM]: PLATFORMS.MYPARCEL,
         [CONFIG.CARRIER_SETTINGS]: {
-          [CARRIERS.RED_JE_PAKKETJE]: {
+          [CARRIERS.INSTABOX]: {
             [CONFIG.ALLOW_DELIVERY_OPTIONS]: true,
           },
           [CARRIERS.POSTNL]: {
@@ -47,14 +47,14 @@ describe('carriers', () => {
 
     await waitForEvent(UPDATED_DELIVERY_OPTIONS);
     const postNl = app.findChoice('carrier', CARRIERS.POSTNL);
-    const redJePakketje = app.findChoice('carrier', CARRIERS.RED_JE_PAKKETJE);
+    const instabox = app.findChoice('carrier', CARRIERS.INSTABOX);
     const dhl = app.findChoice('carrier', CARRIERS.DHL);
 
     expect(postNl.exists()).toBe(true);
-    expect(redJePakketje.exists()).toBe(true);
+    expect(instabox.exists()).toBe(true);
     expect(dhl.exists()).toBe(false);
 
     expect(postNl.find('[data-test-id="image"]').exists()).toBe(true);
-    expect(redJePakketje.find('[data-test-id="image"]').exists()).toBe(true);
+    expect(instabox.find('[data-test-id="image"]').exists()).toBe(true);
   });
 });
