@@ -3,7 +3,7 @@ import { AbstractCarrierConfiguration } from '@/data/carriers/abstractCarrierCon
 import { MYPARCEL } from '@/data/keys/platformKeys';
 import { countryCodes } from '@/data/keys/countryCodes';
 
-export class RedJePakketjeCarrierConfiguration extends AbstractCarrierConfiguration {
+export class InstaboxCarrierConfiguration extends AbstractCarrierConfiguration {
   getCountriesForDelivery() {
     return [
       countryCodes.NETHERLANDS,

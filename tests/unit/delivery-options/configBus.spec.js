@@ -104,7 +104,7 @@ describe('configBus', () => {
       [CONFIG.ALLOW_SATURDAY_DELIVERY]: false,
     });
 
-    expect(configBus.getSettingsByCarrier(CARRIERS.RED_JE_PAKKETJE)).toEqual(null);
+    expect(configBus.getSettingsByCarrier(CARRIERS.INSTABOX)).toEqual(null);
   });
 
   test('isEnabledInAnyCarrier', () => {
