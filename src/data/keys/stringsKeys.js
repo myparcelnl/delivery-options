@@ -21,6 +21,7 @@ export const HEADER_DELIVERY_OPTIONS = 'headerDeliveryOptions';
 
 export const DELIVERY_EVENING_TITLE = 'deliveryEveningTitle';
 export const DELIVERY_MORNING_TITLE = 'deliveryMorningTitle';
+export const DELIVERY_SAME_DAY_DELIVERY_TITLE = 'deliverySameDayTitle';
 export const DELIVERY_STANDARD_TITLE = 'deliveryStandardTitle';
 export const DELIVERY_TITLE = 'deliveryTitle';
 export const ONLY_RECIPIENT_TITLE = 'onlyRecipientTitle';

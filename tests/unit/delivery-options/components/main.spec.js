@@ -9,7 +9,6 @@ import { showDeveloperInfo } from '@/delivery-options/showDeveloperInfo';
 import { waitForEvent } from '@Tests/waitForEvent';
 
 const classBase = process.env.VUE_APP_CLASS_BASE;
-const dispatchSpy = jest.spyOn(document, 'dispatchEvent');
 
 const createHtml = (id = classBase) => {
   const element = document.createElement('div');
@@ -24,10 +23,6 @@ describe('main.js', () => {
     await import('@/delivery-options/main');
   });
 
-  afterEach(() => {
-    dispatchSpy.mockClear();
-  });
-
   it('can show information to developers', () => {
     const consoleSpy = jest.spyOn(console, 'log');
     consoleSpy.mockImplementation(jest.fn());
@@ -36,7 +31,7 @@ describe('main.js', () => {
   });
 
   it('renders the delivery options after the first update event', async() => {
-    expect.assertions(6);
+    expect.assertions(5);
 
     const carrierPostNl = dataTest('carrier') + dataTest('postnl', 'choice');
     const deliveryDeliver = dataTest('delivery') + dataTest('deliver', 'choice');
@@ -62,7 +57,6 @@ describe('main.js', () => {
     expect(document.querySelector(deliveryDeliver)).toBeVisible();
     expect(document.querySelector(carrierPostNl)).toBeVisible();
     expect(document.querySelector(deliveryPickup)).toBeVisible();
-    expect(dispatchSpy).toHaveBeenCalledTimes(5);
   });
 
   it('rerenders the delivery options', async() => {

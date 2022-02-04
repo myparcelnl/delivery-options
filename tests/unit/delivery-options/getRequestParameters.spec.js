@@ -50,7 +50,6 @@ describe('Request parameters', () => {
     const configBus = mockConfigBus();
 
     expect(getOptionalRequestParameters(configBus)).toEqual({
-      cutoff_time: '17:00',
       deliverydays_window: 7,
       dropoff_days: '1;2;3;4;5',
       dropoff_delay: 0,

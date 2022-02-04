@@ -8,7 +8,7 @@ import { waitForEvent } from '@Tests/waitForEvent';
  *
  * @param {Object} config
  *
- * @returns {String[]}
+ * @returns {Promise<string[]>}
  */
 export async function getMockedDeliveryDateChoices(config) {
   const wrapper = mockDeliveryOptions({

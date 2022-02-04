@@ -9,7 +9,7 @@ import { configBus } from '@/delivery-options/config/configBus';
  *
  * @returns {MyParcelDeliveryOptions.FormEntryChoice}
  */
-export function formatDeliveryMoments(option, deps) {
+export function transformDeliveryMoments(option, deps) {
   if (!option.hasOwnProperty('label')
     || !configBus.strings.hasOwnProperty(option.label)
     || !configBus.strings[option.label]) {

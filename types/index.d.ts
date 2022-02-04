@@ -21,10 +21,11 @@ declare namespace MyParcel {
   /**
    * @see https://myparcelnl.github.io/api/#6_A_3
    */
-  type ShipmentOptionName = 'cooled_delivery' | 'large_format' | 'only_recipient' | 'signature' | 'return'
+  type ShipmentOptionName = 'cooled_delivery' | 'large_format' | 'only_recipient' | 'signature' | 'return' | 'same_day_delivery'
 }
 
 declare namespace MyParcelDeliveryOptions {
+  type DeliveryType = MyParcel.DeliveryType | 'sameDay';
 
   /**
    * Configuration object supplied by the platform.
@@ -186,6 +187,7 @@ declare namespace MyParcelDeliveryOptions {
       priceMorningDelivery?: number
       priceOnlyRecipient?: number
       pricePickup?: number
+      priceSameDayDelivery?: number
       priceSignature?: number
       priceStandardDelivery?: number
     }
@@ -216,24 +218,30 @@ declare namespace MyParcelDeliveryOptions {
     end: Timestamp
   }
 
-  interface ShipmentOption {
-    name: MyParcel.ShipmentOptionName
-    schema: {
-      type: string
-      enum: boolean[]
-    }
+  interface EnumSchema<Type> {
+    type: Type extends boolean ? 'boolean' : string;
+    enum: Type[];
   }
 
-  interface DeliveryTimeFrame {
-    type: string
+  interface ShipmentOption {
+    name: MyParcel.ShipmentOptionName
+    schema: EnumSchema<boolean>
+  }
+
+  interface DeliveryTimeFrame<Type = 'start' | 'end'> {
+    type: Type
     date_time: Timestamp
   }
 
   interface DeliveryPossibility {
-    type: MyParcel.DeliveryType
+    collect_date?: any
+    delivery_time_frames: [
+      DeliveryTimeFrame<'start'>,
+      DeliveryTimeFrame<'end'>
+    ]
+    package_type: string
     shipment_options: ShipmentOption[]
-    collect_date: any
-    delivery_time_frames: DeliveryTimeFrame[]
+    type: MyParcel.DeliveryType
   }
 
   interface PickupPossibility {
@@ -285,6 +293,39 @@ declare namespace MyParcelDeliveryOptions {
     token?: string
     maxZoom?: number
   }
+
+  type CarrierDeliveryDependencies = Record<MyParcel.CarrierName, DeliveryDependencies>
+
+  interface DeliveryDependencies {
+    // ISO date string
+    deliveryDate: Record<string, { deliveryMoment: DeliveryDependencyMoments }>;
+  }
+
+  type DeliveryDependencyMoments = Record<DeliveryType, DeliveryDependencyMoment>
+
+  interface DeliveryDependencyMoment {
+    moments: {
+      start: string
+      end: string
+    },
+    shipmentOptions: Record<MyParcel.ShipmentOptionName, EnumSchema<boolean>>
+  }
+
+   interface DeliveryOptionsRequestParameters {
+     carrier: string;
+     cc: string;
+     cutoff_time?: string;
+     deliverydays_window?: number;
+     dropoff_days?: string;
+     dropoff_delay?: number;
+     include?: 'shipment_options';
+     monday_delivery?: boolean;
+     number: number;
+     package_type?: MyParcel.PackageType;
+     platform: MyParcel.Platform;
+     postal_code: string;
+     saturday_delivery?: boolean;
+   }
 }
 
 declare module 'MyParcel' {

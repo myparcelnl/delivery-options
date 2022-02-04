@@ -6,7 +6,7 @@
  *
  * @returns {MyParcelDeliveryOptions.FormEntryChoice}
  */
-export function formatShipmentOptions(choice, options) {
+export function formatShipmentOption(choice, options) {
   const hasOnlyOneOption = options.enum.length === 1;
 
   return {

@@ -10,7 +10,7 @@ import { getParametersByPlatform } from '@/delivery-options/data/request/request
  *
  * @param {MyParcel.CarrierName} carrier - Carrier name or id.
  *
- * @returns {Object}
+ * @returns {MyParcelDeliveryOptions.DeliveryOptionsRequestParameters}
  */
 export const getRequestParameters = (carrier = configBus.currentCarrier) => {
   const parameters = getDefaultRequestParameters();

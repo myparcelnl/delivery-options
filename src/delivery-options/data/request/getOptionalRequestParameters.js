@@ -7,13 +7,12 @@ import { configBus as realConfigBus } from '@/delivery-options/config/configBus'
  *
  * @param {import('@/delivery-options/config/configBus')} configBus - Optional parameter for easier testing.
  *
- * @returns {Object}
+ * @returns {Partial<MyParcelDeliveryOptions.DeliveryOptionsRequestParameters>}
  */
 export const getOptionalRequestParameters = (configBus = realConfigBus) => {
   const dropOffDays = configBus.get(CONFIG.DROP_OFF_DAYS);
 
   return {
-    cutoff_time: configBus.get(CONFIG.CUTOFF_TIME),
     deliverydays_window: configBus.get(CONFIG.DELIVERY_DAYS_WINDOW),
     // Convert dropOffDays to a semicolon separated string if needed
     dropoff_days: Array.isArray(dropOffDays) ? dropOffDays.join(';') : dropOffDays,

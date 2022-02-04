@@ -6,7 +6,7 @@ import { configBus as realConfigBus } from '@/delivery-options/config/configBus'
  *
  * @param {import('@/delivery-options/config/configBus')} configBus - Optional parameter for easier testing.
  *
- * @returns {Object}
+ * @returns {Partial<MyParcelDeliveryOptions.DeliveryOptionsRequestParameters>}
  */
 export const getDefaultRequestParameters = (configBus = realConfigBus) => {
   const parameters = {

@@ -1,54 +1,41 @@
-import { MONDAY, SATURDAY, SUNDAY } from '@/config/extraDeliveryConfig';
-import { MYPARCEL, SENDMYPARCEL } from '@/data/keys/platformKeys';
-import { cutoffTimeHasPassed } from '@Mocks/@myparcel/js-sdk/dist/data/delivery-options/cutoffTimeHasPassed';
+import { FEATURES_SAME_DAY_DELIVERY } from '@/data/carrierFeatures';
 import { dayjs } from '@Tests/dayjs';
 import { findExtraDelivery } from '@Mocks/@myparcel/js-sdk/dist/data/delivery-options/findExtraDelivery';
-import { getDeliveryOptionsEntry } from './getDeliveryOptionsEntry';
-import { getDropOffDay } from '@Mocks/@myparcel/js-sdk/dist/data/delivery-options/getDropOffDay';
-
-const daysWithoutDelivery = {
-  [MYPARCEL]: [MONDAY, SUNDAY],
-  [SENDMYPARCEL]: [SATURDAY, SUNDAY],
-};
+import { getCarrierConfiguration } from '@Mocks/@myparcel/js-sdk/dist/data/delivery-options/getCarrierConfiguration';
+import { getDeliveryOptionsEntry } from './entries/getDeliveryOptionsEntry';
+import {
+  shouldSkipToNextDeliveryDate,
+} from '@Mocks/@myparcel/js-sdk/dist/data/delivery-options/shouldSkipToNextDeliveryDate';
 
 /**
  * Returns the next available delivery date, very much like the actual responses from the API. This needs to be
  * quite precise because we can't mock the current date with real api responses.
  *
- * @param {Object} args
- * @param {Number} daysOffset
- * @param {import('dayjs').Dayjs} date
+ * @param {MyParcelDeliveryOptions.DeliveryOptionsRequestParameters} args
+ * @param {number} daysOffset
+ * @param {import('dayjs').Dayjs} currentDate
  *
  * @returns {Object}
  */
-export function getNextDeliveryOption(args, daysOffset = 1, date = dayjs()) {
-  const next = () => getNextDeliveryOption(args, daysOffset + 1, date);
+export function getNextDeliveryOption(args, daysOffset = 0, currentDate = dayjs()) {
+  const next = () => getNextDeliveryOption(args, daysOffset + 1, currentDate);
 
-  const currentDeliveryDate = date.add(daysOffset, 'day');
-  const dropOffDay = getDropOffDay(currentDeliveryDate, args.dropoff_days);
-  const currentDayOfWeek = currentDeliveryDate.weekday();
-  const todayIsDisallowed = daysWithoutDelivery[args.platform].includes(currentDayOfWeek);
-  const extraDelivery = findExtraDelivery(args, currentDayOfWeek);
+  const carrierConfiguration = getCarrierConfiguration(args);
+  const canHaveSameDay = carrierConfiguration && carrierConfiguration.hasFeature(FEATURES_SAME_DAY_DELIVERY);
+  const hasSameDayDelivery = daysOffset === 0 && canHaveSameDay;
+  const currentDeliveryDate = currentDate.add(daysOffset, 'day');
+  const extraDelivery = hasSameDayDelivery ? null : findExtraDelivery(args, currentDeliveryDate.weekday());
 
-  // Skip Saturday or Monday if its setting is not enabled.
-  if (extraDelivery) {
-    const extraDeliveryEnabled = args[`${args.platform === MYPARCEL ? 'monday' : 'saturday'}_delivery`] === 1;
-    const isExtraDropOffDay = dropOffDay.weekday() === extraDelivery.dropOffDay;
-
-    if (!extraDeliveryEnabled || !isExtraDropOffDay) {
-      return next();
-    }
-  } else if (todayIsDisallowed) {
-    return next();
-  }
-
-  // If today is the dropoff day, check if the cutoff time has passed.
-  if (date.isSame(dropOffDay) && cutoffTimeHasPassed(args.cutoff_time, date)) {
+  if ((daysOffset === 0 && !canHaveSameDay) || shouldSkipToNextDeliveryDate(currentDate, currentDeliveryDate, args, extraDelivery)) {
     return next();
   }
 
   return {
     index: daysOffset,
-    data: getDeliveryOptionsEntry(currentDeliveryDate, !!extraDelivery),
+    data: getDeliveryOptionsEntry(
+      currentDeliveryDate,
+      Boolean(extraDelivery),
+      hasSameDayDelivery,
+    ),
   };
 }
