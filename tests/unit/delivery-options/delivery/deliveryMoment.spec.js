@@ -1,6 +1,6 @@
 import * as CONFIG from '@/data/keys/configKeys';
 import * as FORM from '@/config/formConfig';
-import { POSTNL, RED_JE_PAKKETJE } from '@/data/keys/carrierKeys';
+import { INSTABOX, POSTNL } from '@/data/keys/carrierKeys';
 import { MYPARCEL } from '@/data/keys/platformKeys';
 import MockDate from 'mockdate';
 import { TUESDAY } from '@/config/extraDeliveryConfig';
@@ -68,7 +68,7 @@ describe('Delivery moments', () => {
     expect.assertions(2);
     const config = {
       [CONFIG.CARRIER_SETTINGS]: {
-        [RED_JE_PAKKETJE]: {
+        [INSTABOX]: {
           [CONFIG.ALLOW_DELIVERY_OPTIONS]: true,
           [CONFIG.ALLOW_SAME_DAY_DELIVERY]: true,
         },

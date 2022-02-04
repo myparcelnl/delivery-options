@@ -1,5 +1,5 @@
 import * as CONFIG from '@/data/keys/configKeys';
-import { BPOST, DPD, POSTNL, RED_JE_PAKKETJE } from '@/data/keys/carrierKeys';
+import { BPOST, DPD, INSTABOX, POSTNL } from '@/data/keys/carrierKeys';
 import { FRIDAY, MONDAY, SATURDAY, SUNDAY, THURSDAY, TUESDAY, WEDNESDAY } from '@/config/extraDeliveryConfig';
 import { MYPARCEL, SENDMYPARCEL } from '@/data/keys/platformKeys';
 import MockDate from 'mockdate';
@@ -14,24 +14,24 @@ describe('Delivery moments', () => {
   });
 
   test.each`
-    platform        | carrier            | weekday      | expected
-    ${MYPARCEL}     | ${POSTNL}          | ${MONDAY}    | ${false}
-    ${MYPARCEL}     | ${POSTNL}          | ${TUESDAY}   | ${false}
-    ${MYPARCEL}     | ${POSTNL}          | ${WEDNESDAY} | ${false}
-    ${MYPARCEL}     | ${POSTNL}          | ${THURSDAY}  | ${false}
-    ${MYPARCEL}     | ${POSTNL}          | ${FRIDAY}    | ${false}
-    ${MYPARCEL}     | ${POSTNL}          | ${SATURDAY}  | ${true}
-    ${MYPARCEL}     | ${POSTNL}          | ${SUNDAY}    | ${false}
-    ${MYPARCEL}     | ${RED_JE_PAKKETJE} | ${SATURDAY}  | ${false}
-    ${SENDMYPARCEL} | ${BPOST}           | ${MONDAY}    | ${false}
-    ${SENDMYPARCEL} | ${BPOST}           | ${TUESDAY}   | ${false}
-    ${SENDMYPARCEL} | ${BPOST}           | ${WEDNESDAY} | ${false}
-    ${SENDMYPARCEL} | ${BPOST}           | ${THURSDAY}  | ${false}
-    ${SENDMYPARCEL} | ${BPOST}           | ${FRIDAY}    | ${true}
-    ${SENDMYPARCEL} | ${BPOST}           | ${SATURDAY}  | ${false}
-    ${SENDMYPARCEL} | ${BPOST}           | ${SUNDAY}    | ${false}
-    ${SENDMYPARCEL} | ${DPD}             | ${FRIDAY}    | ${false}
-    ${SENDMYPARCEL} | ${POSTNL}          | ${FRIDAY}    | ${false}
+    platform        | carrier     | weekday      | expected
+    ${MYPARCEL}     | ${POSTNL}   | ${MONDAY}    | ${false}
+    ${MYPARCEL}     | ${POSTNL}   | ${TUESDAY}   | ${false}
+    ${MYPARCEL}     | ${POSTNL}   | ${WEDNESDAY} | ${false}
+    ${MYPARCEL}     | ${POSTNL}   | ${THURSDAY}  | ${false}
+    ${MYPARCEL}     | ${POSTNL}   | ${FRIDAY}    | ${false}
+    ${MYPARCEL}     | ${POSTNL}   | ${SATURDAY}  | ${true}
+    ${MYPARCEL}     | ${POSTNL}   | ${SUNDAY}    | ${false}
+    ${MYPARCEL}     | ${INSTABOX} | ${SATURDAY}  | ${false}
+    ${SENDMYPARCEL} | ${BPOST}    | ${MONDAY}    | ${false}
+    ${SENDMYPARCEL} | ${BPOST}    | ${TUESDAY}   | ${false}
+    ${SENDMYPARCEL} | ${BPOST}    | ${WEDNESDAY} | ${false}
+    ${SENDMYPARCEL} | ${BPOST}    | ${THURSDAY}  | ${false}
+    ${SENDMYPARCEL} | ${BPOST}    | ${FRIDAY}    | ${true}
+    ${SENDMYPARCEL} | ${BPOST}    | ${SATURDAY}  | ${false}
+    ${SENDMYPARCEL} | ${BPOST}    | ${SUNDAY}    | ${false}
+    ${SENDMYPARCEL} | ${DPD}      | ${FRIDAY}    | ${false}
+    ${SENDMYPARCEL} | ${POSTNL}   | ${FRIDAY}    | ${false}
   `('handles extra dropoff day for $platform, $carrier on day $weekday correctly', ({
     platform,
     carrier,
