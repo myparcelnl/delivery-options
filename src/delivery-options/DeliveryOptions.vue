@@ -45,8 +45,14 @@ import { getAddress } from '@/delivery-options/config/getAddress';
 import { getDeliveryOptions } from '@/delivery-options/data/delivery/getDeliveryOptions';
 import { getPickupLocations } from '@/delivery-options/data/pickup/getPickupLocations';
 import isEqual from 'lodash-es/isEqual';
+import { PACKAGE_TYPE } from '../data/keys/configKeys';
+import { PACKAGE_TYPE_PACKAGE } from '../data/keys/settingsConsts';
+
 
 const DEBOUNCE_DELAY = 300;
+const DATE = 'date';
+const NL = 'NL';
+const BE = 'BE';
 
 export default {
   name: 'DeliveryOptions',
@@ -336,8 +342,8 @@ export default {
     /**
      * Trigger an update on the checkout. Throttled to avoid overloading the external platform with updates.
      *
-     * @param {Object|Boolean} data - If data is false, sends empty update.
-     * @param {String} data.name - Name of the changed option (if called through update).
+     * @param {Object | boolean} data - If data is false, sends empty update.
+     * @param {string} data.name - Name of the changed option (if called through update).
      * @param {*} data.value - New value of the changed option (if called through update).
      */
     updateExternal(data) {
@@ -347,6 +353,10 @@ export default {
 
       if (!isEmptied && !hasExportValues) {
         return;
+      }
+
+      if (!this.shouldShowDeliveryDate(exportValues)) {
+        exportValues.deliveryDate = null;
       }
 
       /*
@@ -382,6 +392,21 @@ export default {
       this.$configBus.modalData = {
         component: Errors,
       };
+    },
+
+    /**
+     * Determine whether the delivery date should be included.
+     *
+     * @param {Object} exportValues
+     * @returns {boolean}
+     */
+    shouldShowDeliveryDate(exportValues) {
+      const isPackage = PACKAGE_TYPE_PACKAGE === exportValues[PACKAGE_TYPE];
+      const isDomesticShipment = this.configBus.address.cc === (NL || BE);
+      const isPickup = exportValues.deliveryType === 'pickup';
+      const showDeliveryDateFromConfig = this.configBus.config.allowShowDeliveryDate;
+
+      return isPackage && isDomesticShipment && !isPickup && showDeliveryDateFromConfig;
     },
 
     /**
