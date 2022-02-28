@@ -44,15 +44,13 @@ import { fetchAllCarriers } from '@/delivery-options/data/carriers/fetchAllCarri
 import { getAddress } from '@/delivery-options/config/getAddress';
 import { getDeliveryOptions } from '@/delivery-options/data/delivery/getDeliveryOptions';
 import { getPickupLocations } from '@/delivery-options/data/pickup/getPickupLocations';
+import { shouldShowDeliveryDate } from './config/exports/ExportValues';
 import isEqual from 'lodash-es/isEqual';
-import { PACKAGE_TYPE } from '../data/keys/configKeys';
 import { PACKAGE_TYPE_PACKAGE } from '../data/keys/settingsConsts';
 
-
 const DEBOUNCE_DELAY = 300;
-const DATE = 'date';
-const NL = 'NL';
-const BE = 'BE';
+export const BE = 'BE';
+export const NL = 'NL';
 
 export default {
   name: 'DeliveryOptions',
@@ -355,10 +353,6 @@ export default {
         return;
       }
 
-      if (!this.shouldShowDeliveryDate(exportValues)) {
-        exportValues.deliveryDate = null;
-      }
-
       /*
        * Send a CustomEvent with the values as data.
        */
@@ -392,21 +386,6 @@ export default {
       this.$configBus.modalData = {
         component: Errors,
       };
-    },
-
-    /**
-     * Determine whether the delivery date should be included.
-     *
-     * @param {Object} exportValues
-     * @returns {boolean}
-     */
-    shouldShowDeliveryDate(exportValues) {
-      const isPackage = PACKAGE_TYPE_PACKAGE === exportValues[PACKAGE_TYPE];
-      const isDomesticShipment = this.configBus.address.cc === (NL || BE);
-      const isPickup = exportValues.deliveryType === 'pickup';
-      const showDeliveryDateFromConfig = this.configBus.config.allowShowDeliveryDate;
-
-      return isPackage && isDomesticShipment && !isPickup && showDeliveryDateFromConfig;
     },
 
     /**

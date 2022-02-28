@@ -1,6 +1,8 @@
 import * as FORM from '@/config/formConfig';
 import { DEFAULT_PACKAGE_TYPE } from '@/data/keys/settingsConsts';
 import { ExportValues } from '@/delivery-options/config/exports/ExportValues';
+import { PACKAGE_TYPE_PACKAGE } from '../../../data/keys/settingsConsts';
+import { BE, NL } from '../../DeliveryOptions';
 
 export class DeliveryExportValues extends ExportValues {
   /**
@@ -29,6 +31,7 @@ export class DeliveryExportValues extends ExportValues {
     this.switchPackageType(values[FORM.PACKAGE_TYPE] || this.packageType);
     this.setShipmentOptions(values);
     this.deliveryDate = values[FORM.DELIVERY_DATE] || this.deliveryDate;
+    // this.deliveryDate = this.shouldShowDeliveryDate(values);
   }
 
   /**
@@ -57,6 +60,25 @@ export class DeliveryExportValues extends ExportValues {
     }
 
     return true;
+  }
+
+  /**
+   * Determine whether the delivery date should be included.
+   *
+   * @param {Object} values
+   * @returns {null|string}
+   */
+  shouldShowDeliveryDate(values) {
+    const isPackage = PACKAGE_TYPE_PACKAGE === this.packageType;
+    const isNlOrBeShipment = [BE, NL].includes(values.address.cc);
+    const isPickup = this.deliveryType === 'pickup';
+    const showDeliveryDateFromConfig = values.config.allowShowDeliveryDate;
+
+    if (isPackage && isNlOrBeShipment && !isPickup && showDeliveryDateFromConfig) {
+      return values[FORM.DELIVERY_DATE] || this.deliveryDate;
+    }
+
+    return null;
   }
 
   toObject() {
