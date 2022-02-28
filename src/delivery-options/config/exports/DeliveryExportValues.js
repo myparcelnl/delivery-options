@@ -1,8 +1,8 @@
 import * as FORM from '@/config/formConfig';
-import { DEFAULT_PACKAGE_TYPE } from '@/data/keys/settingsConsts';
+import { BE, DEFAULT_PACKAGE_TYPE, DELIVERY_TYPE_PICKUP, NL } from '@/data/keys/settingsConsts';
+import { CARRIER_SETTINGS } from '../../../data/keys/configKeys';
 import { ExportValues } from '@/delivery-options/config/exports/ExportValues';
-import { PACKAGE_TYPE_PACKAGE } from '../../../data/keys/settingsConsts';
-import { BE, NL } from '../../DeliveryOptions';
+import { configBus } from '@/delivery-options/config/configBus';
 
 export class DeliveryExportValues extends ExportValues {
   /**
@@ -30,8 +30,7 @@ export class DeliveryExportValues extends ExportValues {
     this.setDeliveryType(values[FORM.DELIVERY_MOMENT]);
     this.switchPackageType(values[FORM.PACKAGE_TYPE] || this.packageType);
     this.setShipmentOptions(values);
-    this.deliveryDate = values[FORM.DELIVERY_DATE] || this.deliveryDate;
-    // this.deliveryDate = this.shouldShowDeliveryDate(values);
+    this.deliveryDate = this.shouldShowDeliveryDate(values);
   }
 
   /**
@@ -69,10 +68,11 @@ export class DeliveryExportValues extends ExportValues {
    * @returns {null|string}
    */
   shouldShowDeliveryDate(values) {
-    const isPackage = PACKAGE_TYPE_PACKAGE === this.packageType;
-    const isNlOrBeShipment = [BE, NL].includes(values.address.cc);
-    const isPickup = this.deliveryType === 'pickup';
-    const showDeliveryDateFromConfig = values.config.allowShowDeliveryDate;
+    const carrierSettings = configBus.get(CARRIER_SETTINGS)[this.carrier];
+    const isPackage = DEFAULT_PACKAGE_TYPE === this.packageType;
+    const isNlOrBeShipment = [BE, NL].includes(configBus.address.cc);
+    const isPickup = this.deliveryType === DELIVERY_TYPE_PICKUP;
+    const showDeliveryDateFromConfig = carrierSettings.allowShowDeliveryDate;
 
     if (isPackage && isNlOrBeShipment && !isPickup && showDeliveryDateFromConfig) {
       return values[FORM.DELIVERY_DATE] || this.deliveryDate;

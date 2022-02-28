@@ -8,6 +8,7 @@ export const DEFAULT_PLATFORM = PLATFORMS.MYPARCEL;
 export const PACKAGE_TYPE_PACKAGE = 'package';
 export const PACKAGE_TYPE_DIGITAL_STAMP = 'digital_stamp';
 export const PACKAGE_TYPE_MAILBOX = 'mailbox';
+export const DELIVERY_TYPE_PICKUP = 'pickup';
 
 export const DEFAULT_PACKAGE_TYPE = PACKAGE_TYPE_PACKAGE;
 
@@ -18,6 +19,8 @@ export const DROP_OFF_DELAY_MIN = 0;
 export const PICKUP_MAX_PAGE_ITEMS_LIMIT = 20;
 export const PICKUP_MIN_PAGE_ITEMS_LIMIT = 0;
 export const DEFAULT_MAX_PAGE_ITEMS = 10;
+export const BE = 'BE';
+export const NL = 'NL'
 
 export const PICKUP_LOCATIONS_VIEWS = [
   {

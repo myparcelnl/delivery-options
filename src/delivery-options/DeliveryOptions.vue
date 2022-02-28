@@ -44,13 +44,9 @@ import { fetchAllCarriers } from '@/delivery-options/data/carriers/fetchAllCarri
 import { getAddress } from '@/delivery-options/config/getAddress';
 import { getDeliveryOptions } from '@/delivery-options/data/delivery/getDeliveryOptions';
 import { getPickupLocations } from '@/delivery-options/data/pickup/getPickupLocations';
-import { shouldShowDeliveryDate } from './config/exports/ExportValues';
 import isEqual from 'lodash-es/isEqual';
-import { PACKAGE_TYPE_PACKAGE } from '../data/keys/settingsConsts';
 
 const DEBOUNCE_DELAY = 300;
-export const BE = 'BE';
-export const NL = 'NL';
 
 export default {
   name: 'DeliveryOptions',
