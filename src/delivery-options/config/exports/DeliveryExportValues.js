@@ -1,6 +1,6 @@
 import * as FORM from '@/config/formConfig';
 import { BE, DEFAULT_PACKAGE_TYPE, DELIVERY_TYPE_PICKUP, NL } from '@/data/keys/settingsConsts';
-import { CARRIER_SETTINGS, FEATURE_SHOW_DELIVERY_DATE } from '../../../data/keys/configKeys';
+import { CARRIER_SETTINGS, FEATURE_SHOW_DELIVERY_DATE } from '@/data/keys/configKeys';
 import { ExportValues } from '@/delivery-options/config/exports/ExportValues';
 import { configBus } from '@/delivery-options/config/configBus';
 
