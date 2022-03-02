@@ -68,7 +68,7 @@ export class DeliveryExportValues extends ExportValues {
    * @returns {null|string}
    */
   shouldShowDeliveryDate(values) {
-    const carrierSettings = configBus.get(CARRIER_SETTINGS)[this.carrier];
+    const carrierSettings = configBus.get(CARRIER_SETTINGS)?[this.carrier];
     const isPackage = DEFAULT_PACKAGE_TYPE === this.packageType;
     const isNlOrBeShipment = [BE, NL].includes(configBus.address.cc);
     const isPickup = this.deliveryType === DELIVERY_TYPE_PICKUP;
