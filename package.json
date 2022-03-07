@@ -1,6 +1,6 @@
 {
   "name": "@myparcel/delivery-options",
-  "version": "3.3.5",
+  "version": "5.1.0",
   "description": "MyParcel delivery options module for checkouts.",
   "author": "Edie Lemoine (edie@myparcel.nl)",
   "scripts": {

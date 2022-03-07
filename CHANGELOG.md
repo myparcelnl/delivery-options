@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.1.0](https://github.com/myparcelnl/delivery-options/compare/v5.0.0...v5.1.0) (2022-03-07)
+
+
+### :sparkles: New Features
+
+* **config:** allow sameday cutoff time per carrier ([#110](https://github.com/myparcelnl/delivery-options/issues/110)) ([0aab9d7](https://github.com/myparcelnl/delivery-options/commit/0aab9d79f7e6b54303cae59160c6ac03f3d1102b))
+* **instabox:** add same day delivery ([#101](https://github.com/myparcelnl/delivery-options/issues/101)) ([ddc488d](https://github.com/myparcelnl/delivery-options/commit/ddc488d35c6f4b7ea44e529c3f7fe488e262062b))
+
 ## [5.0.0](https://github.com/myparcelnl/delivery-options/compare/v4.4.0...v5.0.0) (2022-02-01)
 
 
@@ -433,4 +441,3 @@ All notable changes to this project will be documented in this file. See
 * the select of the delivery date ([5d25704](https://github.com/myparcelnl/delivery-options/commit/5d2570492d17de6f6a3e3ddae3a8e981c073a7e0))
 
 ## 0.1.0 (2016-11-02)
-
