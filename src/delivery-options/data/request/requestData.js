@@ -35,6 +35,6 @@ const parametersByPlatform = {
 export function getParametersByPlatform(platform = realConfigBus.get(CONFIG.PLATFORM), configBus = realConfigBus) {
   return {
     ...parametersByPlatform[platform](configBus),
-    cutoff_time: getCutOffTime(configBus),
+    ...getCutOffTime(configBus),
   };
 }
