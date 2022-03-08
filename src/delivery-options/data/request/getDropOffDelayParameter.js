@@ -8,11 +8,11 @@ import { configBus as realConfigBus } from '@/delivery-options/config/configBus'
  * @returns {Partial<DeliveryOptionsRequestParameters>}
  */
 export function getDropOffDelayParameter(configBus = realConfigBus) {
-  if (configBus.isEnabled(CONFIG.ALLOW_SAME_DAY_DELIVERY)) {
-    return {
-      dropoff_delay: hasSameDayDelivery() ? 0 : 1,
-    };
+  if (!configBus.isEnabled(CONFIG.ALLOW_SAME_DAY_DELIVERY)) {
+    return {};
   }
 
-  return {};
+  return {
+    dropoff_delay: hasSameDayDelivery() ? 0 : 1,
+  };
 }
