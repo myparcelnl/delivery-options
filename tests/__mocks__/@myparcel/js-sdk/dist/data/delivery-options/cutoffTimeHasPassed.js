@@ -1,13 +1,13 @@
-import { createCutOffTimeDate } from '@Tests/helpers/createCutOffTimeDate';
+import { createCutoffTimeDate } from '@Tests/helpers/createCutoffTimeDate';
 
 /**
- * @param {String} cutoffTime - Timestamp in HH:mm format.
+ * @param {string} cutoffTime - Timestamp in HH:mm format.
  * @param {import('dayjs').Dayjs} date
  *
  * @returns {import('dayjs').Dayjs}
  */
 export function cutoffTimeHasPassed(cutoffTime, date) {
-  const cutOffTimeDate = createCutOffTimeDate(cutoffTime, date);
+  const cutOffTimeDate = createCutoffTimeDate(cutoffTime, date);
 
   return !date.isBefore(cutOffTimeDate);
 }
