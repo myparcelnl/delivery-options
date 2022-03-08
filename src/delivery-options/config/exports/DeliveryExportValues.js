@@ -31,7 +31,7 @@ export class DeliveryExportValues extends ExportValues {
     this.setDeliveryType(values[FORM.DELIVERY_MOMENT]);
     this.switchPackageType(values[FORM.PACKAGE_TYPE] || this.packageType);
     this.setShipmentOptions(values);
-    this.deliveryDate = this.shouldShowDeliveryDate(values);
+    this.setDeliveryDate(values);
   }
 
   /**
