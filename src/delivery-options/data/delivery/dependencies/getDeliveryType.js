@@ -1,4 +1,5 @@
 import { DELIVERY_SAME_DAY } from '@/config/formConfig';
+import { hasSameDayDelivery } from '@/delivery-options/data/request/hasSameDayDelivery';
 import { possibilityIsSameDay } from '@/delivery-options/data/delivery/dependencies/possibilityIsSameDay';
 
 /**
@@ -9,7 +10,7 @@ import { possibilityIsSameDay } from '@/delivery-options/data/delivery/dependenc
 export function getDeliveryType(possibility) {
   let { type } = possibility;
 
-  if (possibilityIsSameDay(possibility)) {
+  if (possibilityIsSameDay(possibility) || hasSameDayDelivery()) {
     type = DELIVERY_SAME_DAY;
   }
 

@@ -3,7 +3,7 @@
  *
  * @returns {boolean}
  */
-export function isPastCutoff(time) {
+export function isPastTime(time) {
   const [hour, minutes] = time.split(':').map(Number);
   const cutoffDateTime = new Date();
   cutoffDateTime.setHours(hour);
