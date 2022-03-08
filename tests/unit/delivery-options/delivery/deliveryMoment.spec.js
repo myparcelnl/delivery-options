@@ -73,23 +73,23 @@ describe('Delivery moments', () => {
       ]);
     });
 
-  it('returns same day delivery if same day is enabled and current time is before same day cutoff time', async() => {
+  it('returns same day delivery if same day is enabled and current time is before same day cut-off time', async() => {
     expect.assertions(1);
-    // Before same day cutoff time (which defaults to 9:30)
+    // Before same day cut-off time (which defaults to 9:30)
     const date = dayjs().weekday(TUESDAY).set('h', 6).set('m', 0);
     expect(await getDeliveryMoments(date, sameDayConfig)).toEqual([FORM.DELIVERY_SAME_DAY]);
   });
 
-  it('returns standard delivery if same day is enabled and current time is before regular cutoff time', async() => {
+  it('returns standard delivery if same day is enabled and current time is before regular cut-off time', async() => {
     expect.assertions(1);
-    // Before cutoff time (which defaults to 17:00)
+    // Before cut-off time (which defaults to 17:00)
     const date = dayjs().weekday(TUESDAY).set('h', 15).set('m', 0);
     expect(await getDeliveryMoments(date, sameDayConfig)).toEqual([FORM.DELIVERY_STANDARD]);
   });
 
-  it('returns same day delivery if same day is enabled and current time is after regular cutoff time', async() => {
+  it('returns same day delivery if same day is enabled and current time is after regular cut-off time', async() => {
     expect.assertions(1);
-    // After cutoff time (which defaults to 17:00)
+    // After cut-off time (which defaults to 17:00)
     const date = dayjs().weekday(TUESDAY).set('h', 20).set('m', 0);
     expect(await getDeliveryMoments(date, sameDayConfig)).toEqual([FORM.DELIVERY_SAME_DAY]);
   });

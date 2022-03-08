@@ -14,7 +14,7 @@ import { configBus as realConfigBus } from '@/delivery-options/config/configBus'
  *
  * @returns {string}
  */
-export function getCutOffTime(configBus = realConfigBus) {
+export function getCutoffTime(configBus = realConfigBus) {
   const extraDropOffDay = getExtraDropOffDay(configBus);
   const todayIsExtraDropOffDay = extraDropOffDay && checkIsDropOffDay(extraDropOffDay.dropOffDay, configBus);
 

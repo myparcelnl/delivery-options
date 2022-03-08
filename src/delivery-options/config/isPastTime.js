@@ -5,9 +5,9 @@
  */
 export function isPastTime(time) {
   const [hour, minutes] = time.split(':').map(Number);
-  const cutoffDateTime = new Date();
-  cutoffDateTime.setHours(hour);
-  cutoffDateTime.setMinutes(minutes);
+  const date = new Date();
+  date.setHours(hour);
+  date.setMinutes(minutes);
 
-  return cutoffDateTime <= new Date();
+  return date <= new Date();
 }

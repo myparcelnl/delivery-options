@@ -1,6 +1,6 @@
 import * as CONFIG from '@/data/keys/configKeys';
 import { MYPARCEL, SENDMYPARCEL } from '@/data/keys/platformKeys';
-import { getCutOffTime } from '@/helpers/delivery/getCutOffTime';
+import { getCutoffTime } from '@/helpers/delivery/getCutoffTime';
 import { getDropOffDelayParameter } from '@/delivery-options/data/request/getDropOffDelayParameter';
 import { configBus as realConfigBus } from '@/delivery-options/config/configBus';
 
@@ -36,7 +36,7 @@ const parametersByPlatform = {
 export function getParametersByPlatform(platform = realConfigBus.get(CONFIG.PLATFORM), configBus = realConfigBus) {
   return {
     ...parametersByPlatform[platform](configBus),
-    cutoff_time: getCutOffTime(configBus),
+    cutoff_time: getCutoffTime(configBus),
     ...getDropOffDelayParameter(configBus),
   };
 }
