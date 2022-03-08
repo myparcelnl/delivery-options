@@ -1,5 +1,5 @@
 import * as CONFIG from '@/data/keys/configKeys';
-import { hasSameDayDelivery } from '@/delivery-options/data/request/hasSameDayDelivery';
+import { hasSameDayDelivery } from '@/helpers/delivery/hasSameDayDelivery';
 import { configBus as realConfigBus } from '@/delivery-options/config/configBus';
 
 /**
@@ -7,7 +7,7 @@ import { configBus as realConfigBus } from '@/delivery-options/config/configBus'
  *
  * @returns {Partial<DeliveryOptionsRequestParameters>}
  */
-export function getDropOffDelayOverride(configBus = realConfigBus) {
+export function getDropOffDelayParameter(configBus = realConfigBus) {
   if (configBus.isEnabled(CONFIG.ALLOW_SAME_DAY_DELIVERY)) {
     return {
       dropoff_delay: hasSameDayDelivery() ? 0 : 1,

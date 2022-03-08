@@ -1,7 +1,7 @@
 import * as CONFIG from '@/data/keys/configKeys';
-import { checkIsDropOffDay } from '@/delivery-options/data/request/checkIsDropOffDay';
+import { checkIsDropOffDay } from '@/helpers/delivery/checkIsDropOffDay';
 import { getExtraDropOffDay } from '@/delivery-options/data/request/getExtraDropOffDay';
-import { hasSameDayDelivery } from '@/delivery-options/data/request/hasSameDayDelivery';
+import { hasSameDayDelivery } from '@/helpers/delivery/hasSameDayDelivery';
 import { configBus as realConfigBus } from '@/delivery-options/config/configBus';
 
 /**

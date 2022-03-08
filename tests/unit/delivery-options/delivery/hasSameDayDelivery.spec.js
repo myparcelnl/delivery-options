@@ -1,7 +1,7 @@
 import * as CARRIERS from '@/data/keys/carrierKeys';
 import * as CONFIG from '@/data/keys/configKeys';
 import * as Mockdate from 'mockdate';
-import { hasSameDayDelivery } from '@/delivery-options/data/request/hasSameDayDelivery';
+import { hasSameDayDelivery } from '@/helpers/delivery/hasSameDayDelivery';
 import { mockConfigBus } from '@Tests/unit/delivery-options/mockConfigBus';
 
 const tuesdayBeforeNormalCutoffTime = '2020-03-10T14:30:00';

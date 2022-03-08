@@ -1,5 +1,5 @@
 import { DELIVERY_SAME_DAY } from '@/config/formConfig';
-import { hasSameDayDelivery } from '@/delivery-options/data/request/hasSameDayDelivery';
+import { hasSameDayDelivery } from '@/helpers/delivery/hasSameDayDelivery';
 import { possibilityIsSameDay } from '@/delivery-options/data/delivery/dependencies/possibilityIsSameDay';
 
 /**

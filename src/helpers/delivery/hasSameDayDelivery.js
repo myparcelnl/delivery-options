@@ -1,6 +1,6 @@
 import * as CONFIG from '@/data/keys/configKeys';
-import { isPastCutoffTime } from '@/delivery-options/data/request/isPastCutoffTime';
-import { isPastSameDayCutoffTime } from '@/delivery-options/data/request/isPastSameDayCutoffTime';
+import { isPastCutoffTime } from '@/helpers/delivery/isPastCutoffTime';
+import { isPastSameDayCutoffTime } from '@/helpers/delivery/isPastSameDayCutoffTime';
 import { configBus as realConfigBus } from '@/delivery-options/config/configBus';
 
 /**
