@@ -86,11 +86,4 @@ describe('Delivery moments', () => {
     const date = dayjs().weekday(TUESDAY).set('h', 15).set('m', 0);
     expect(await getDeliveryMoments(date, sameDayConfig)).toEqual([FORM.DELIVERY_STANDARD]);
   });
-
-  it('returns same day delivery if same day is enabled and current time is after regular cut-off time', async() => {
-    expect.assertions(1);
-    // After cut-off time (which defaults to 17:00)
-    const date = dayjs().weekday(TUESDAY).set('h', 20).set('m', 0);
-    expect(await getDeliveryMoments(date, sameDayConfig)).toEqual([FORM.DELIVERY_SAME_DAY]);
-  });
 });

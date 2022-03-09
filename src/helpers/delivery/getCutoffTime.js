@@ -1,8 +1,10 @@
 import * as CONFIG from '@/data/keys/configKeys';
+import { END_OF_DAY_CUTOFF_TIME } from '@/data/keys/settingsConsts';
 import { checkIsDropOffDay } from '@/helpers/delivery/checkIsDropOffDay';
 import { getExtraDropOffDay } from '@/delivery-options/data/request/getExtraDropOffDay';
 import { hasSameDayDelivery } from '@/helpers/delivery/hasSameDayDelivery';
 import { configBus as realConfigBus } from '@/delivery-options/config/configBus';
+import { isPastCutoffTime } from './isPastCutoffTime';
 
 /**
  * Get the correct cutoff time for today as follows:
@@ -25,7 +27,7 @@ export function getCutoffTime(configBus = realConfigBus) {
   }
 
   if (hasSameDayDelivery()) {
-    cutoffTime = configBus.get(CONFIG.CUTOFF_TIME_SAME_DAY);
+    cutoffTime = isPastCutoffTime(configBus) ? END_OF_DAY_CUTOFF_TIME : configBus.get(CONFIG.CUTOFF_TIME_SAME_DAY);
   }
 
   return cutoffTime;

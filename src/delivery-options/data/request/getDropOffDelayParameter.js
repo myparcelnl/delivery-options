@@ -1,6 +1,7 @@
 import * as CONFIG from '@/data/keys/configKeys';
 import { hasSameDayDelivery } from '@/helpers/delivery/hasSameDayDelivery';
 import { configBus as realConfigBus } from '@/delivery-options/config/configBus';
+import { isPastCutoffTime } from '../../../helpers/delivery/isPastCutoffTime';
 
 /**
  * @param {import('@/delivery-options/config/configBus').configBus} configBus - Optional parameter for easier testing.
@@ -12,7 +13,13 @@ export function getDropOffDelayParameter(configBus = realConfigBus) {
     return {};
   }
 
+  let dropOffdelay = 1;
+
+  if (hasSameDayDelivery()) {
+    dropOffdelay = isPastCutoffTime(configBus) ? 1 : 0;
+  }
+
   return {
-    dropoff_delay: hasSameDayDelivery() ? 0 : 1,
+    dropoff_delay: dropOffdelay,
   };
 }
