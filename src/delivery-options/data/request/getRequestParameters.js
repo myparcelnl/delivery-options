@@ -27,6 +27,6 @@ export const getRequestParameters = (carrier = configBus.currentCarrier) => {
 
   return {
     ...parameters,
-    ...getParametersByPlatform(),
+    ...getParametersByPlatform(carrier),
   };
 };
