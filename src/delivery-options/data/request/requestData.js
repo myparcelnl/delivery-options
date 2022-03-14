@@ -25,19 +25,20 @@ const parametersByPlatform = {
   [SENDMYPARCEL]: getParametersForBE,
 };
 
-/**
+/** .................................................
  * Get the request parameters for the given platform.
  *
- * @param carrier
- * @param {MyParcel.Platform} platform - Platform name.
  * @param {import('@/delivery-options/config/configBus')} configBus - Optional parameter for easier testing.
  *
  * @returns {DeliveryOptionsRequestParameters}
  */
-export function getParametersByPlatform(carrier, platform = realConfigBus.get(CONFIG.PLATFORM), configBus = realConfigBus) {
+export function getParametersByPlatform(
+  configBus = realConfigBus,
+) {
+  const platform = configBus.get(CONFIG.PLATFORM);
+
   return {
     ...parametersByPlatform[platform](configBus),
     cutoff_time: getCutoffTime(configBus),
-    ...getDropOffDelayParameter(carrier, configBus),
   };
 }

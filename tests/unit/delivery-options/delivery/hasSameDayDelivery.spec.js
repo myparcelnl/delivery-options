@@ -37,6 +37,6 @@ describe('hasSameDayDelivery', () => {
     ${'wednesday after normal day cut-off time'} | ${wednesdayAfterNormalDayCutoffTime} | ${true}
   `('on $name, should return $hasSameDay for same day delivery', ({ time, hasSameDay }) => {
     Mockdate.set(time);
-    expect(hasSameDayDelivery(configBus)).toBe(hasSameDay);
+    expect(hasSameDayDelivery(null, configBus)).toBe(hasSameDay);
   });
 });

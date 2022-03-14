@@ -4,12 +4,15 @@ import { isPastSameDayCutoffTime } from '@/helpers/delivery/isPastSameDayCutoffT
 import { configBus as realConfigBus } from '@/delivery-options/config/configBus';
 
 /**
+ * @param {MyParcel.CarrierName} carrier
  * @param {import('@/delivery-options/config/configBus').configBus} configBus - Optional parameter for easier testing.
  *
  * @returns {boolean}
  */
-export function hasSameDayDelivery(configBus = realConfigBus) {
-  const hasSameDay = configBus.isEnabled(CONFIG.ALLOW_SAME_DAY_DELIVERY);
+export function hasSameDayDelivery(carrier = null, configBus = realConfigBus) {
+  carrier = carrier ?? configBus.currentCarrier;
+
+  const hasSameDay = configBus.isEnabled(CONFIG.ALLOW_SAME_DAY_DELIVERY, null, carrier);
 
   if (!hasSameDay) {
     return false;
