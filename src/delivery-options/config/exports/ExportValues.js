@@ -1,6 +1,5 @@
 import * as FORM from '@/config/formConfig';
 import { DELIVERY_SAME_DAY, DELIVERY_STANDARD } from '@/config/formConfig';
-import { shouldShowDeliveryDate } from '@/delivery-options/config/exports/DeliveryExportValues';
 
 export class ExportValues {
   /**
@@ -39,10 +38,6 @@ export class ExportValues {
     }
 
     this.deliveryType = deliveryType;
-  }
-
-  setDeliveryDate(values) {
-    this.deliveryDate = shouldShowDeliveryDate(values);
   }
 
   setShipmentOptions(values) {
