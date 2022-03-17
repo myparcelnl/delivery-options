@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [5.1.1](https://github.com/myparcelnl/delivery-options/compare/v5.1.0...v5.1.1) (2022-03-17)
+
+
+### :bug: Bug Fixes
+
+* only include delivery date when needed ([#108](https://github.com/myparcelnl/delivery-options/issues/108)) ([310fc7e](https://github.com/myparcelnl/delivery-options/commit/310fc7eae03ae702d60411b46f63f34849245d99))
+
 ## [5.1.0](https://github.com/myparcelnl/delivery-options/compare/v5.0.0...v5.1.0) (2022-03-07)
 
 
