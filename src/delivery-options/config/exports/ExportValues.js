@@ -42,10 +42,7 @@ export class ExportValues {
 
   setShipmentOptions(values) {
     const shipmentOptions = values[FORM.SHIPMENT_OPTIONS] || this.shipmentOptions;
-
-    if (values[FORM.DELIVERY_MOMENT] === DELIVERY_SAME_DAY) {
-      shipmentOptions.same_day_delivery = true;
-    }
+    shipmentOptions.same_day_delivery = values[FORM.DELIVERY_MOMENT] === DELIVERY_SAME_DAY;
 
     this.shipmentOptions = shipmentOptions;
   }

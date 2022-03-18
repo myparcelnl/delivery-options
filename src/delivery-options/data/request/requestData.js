@@ -1,6 +1,7 @@
 import * as CONFIG from '@/data/keys/configKeys';
 import { MYPARCEL, SENDMYPARCEL } from '@/data/keys/platformKeys';
-import { getCutOffTime } from '@/delivery-options/data/request/getCutOffTime';
+import { getCutoffTime } from '@/helpers/delivery/getCutoffTime';
+import { getDropOffDelayParameter } from '@/delivery-options/data/request/getDropOffDelayParameter';
 import { configBus as realConfigBus } from '@/delivery-options/config/configBus';
 
 const getParametersForNL = (configBus) => ({
@@ -24,17 +25,20 @@ const parametersByPlatform = {
   [SENDMYPARCEL]: getParametersForBE,
 };
 
-/**
+/** .................................................
  * Get the request parameters for the given platform.
  *
- * @param {MyParcel.Platform} platform - Platform name.
  * @param {import('@/delivery-options/config/configBus')} configBus - Optional parameter for easier testing.
  *
  * @returns {DeliveryOptionsRequestParameters}
  */
-export function getParametersByPlatform(platform = realConfigBus.get(CONFIG.PLATFORM), configBus = realConfigBus) {
+export function getParametersByPlatform(
+  configBus = realConfigBus,
+) {
+  const platform = configBus.get(CONFIG.PLATFORM);
+
   return {
     ...parametersByPlatform[platform](configBus),
-    cutoff_time: getCutOffTime(configBus),
+    cutoff_time: getCutoffTime(configBus),
   };
 }

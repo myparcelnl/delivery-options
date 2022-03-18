@@ -31,6 +31,15 @@ async function getDeliveryMoments(date, config) {
   });
 }
 
+const sameDayConfig = {
+  [CONFIG.CARRIER_SETTINGS]: {
+    [INSTABOX]: {
+      [CONFIG.ALLOW_DELIVERY_OPTIONS]: true,
+      [CONFIG.ALLOW_SAME_DAY_DELIVERY]: true,
+    },
+  },
+};
+
 describe('Delivery moments', () => {
   afterEach(() => {
     MockDate.reset();
@@ -64,22 +73,17 @@ describe('Delivery moments', () => {
       ]);
     });
 
-  it('distinguishes between regular and same day delivery', async() => {
-    expect.assertions(2);
-    const config = {
-      [CONFIG.CARRIER_SETTINGS]: {
-        [INSTABOX]: {
-          [CONFIG.ALLOW_DELIVERY_OPTIONS]: true,
-          [CONFIG.ALLOW_SAME_DAY_DELIVERY]: true,
-        },
-      },
-    };
+  it('returns same day delivery if same day is enabled and current time is before same day cut-off time', async() => {
+    expect.assertions(1);
+    // Before same day cut-off time (which defaults to 9:30)
+    const date = dayjs().weekday(TUESDAY).set('h', 6).set('m', 0);
+    expect(await getDeliveryMoments(date, sameDayConfig)).toEqual([FORM.DELIVERY_SAME_DAY]);
+  });
 
-    // Before cutoff time (which defaults to 9:30am)
-    const date = dayjs().weekday(TUESDAY).set('h', 9).set('m', 0);
-    expect(await getDeliveryMoments(date, config)).toEqual([FORM.DELIVERY_SAME_DAY]);
-
-    // Past cutoff time
-    expect(await getDeliveryMoments(date.set('h', 20), config)).toEqual([FORM.DELIVERY_STANDARD]);
+  it('returns standard delivery if same day is enabled and current time is before regular cut-off time', async() => {
+    expect.assertions(1);
+    // Before cut-off time (which defaults to 17:00)
+    const date = dayjs().weekday(TUESDAY).set('h', 15).set('m', 0);
+    expect(await getDeliveryMoments(date, sameDayConfig)).toEqual([FORM.DELIVERY_STANDARD]);
   });
 });

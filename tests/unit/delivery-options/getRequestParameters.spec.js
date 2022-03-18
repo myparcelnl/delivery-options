@@ -68,14 +68,14 @@ describe('Request parameters', () => {
 
     // Arbitrary non-friday day
     MockDate.set(tuesday);
-    expect(getParametersByPlatform(PLATFORMS.SENDMYPARCEL, sendMyParcelConfigBus)).toEqual({
+    expect(getParametersByPlatform(sendMyParcelConfigBus)).toEqual({
       cutoff_time: '15:00',
       deliverydays_window: 1,
       saturday_delivery: 1,
     });
 
     MockDate.set(friday);
-    expect(getParametersByPlatform(PLATFORMS.SENDMYPARCEL, sendMyParcelConfigBus)).toEqual({
+    expect(getParametersByPlatform(sendMyParcelConfigBus)).toEqual({
       cutoff_time: '12:00',
       deliverydays_window: 1,
       saturday_delivery: 1,
@@ -96,13 +96,13 @@ describe('Request parameters', () => {
 
     // Arbitrary non-saturday day
     MockDate.set(tuesday);
-    expect(getParametersByPlatform(PLATFORMS.MYPARCEL, myParcelConfigBus)).toEqual({
+    expect(getParametersByPlatform(myParcelConfigBus)).toEqual({
       cutoff_time: '15:00',
       monday_delivery: 1,
     });
 
     MockDate.set(saturday);
-    expect(getParametersByPlatform(PLATFORMS.MYPARCEL, myParcelConfigBus)).toEqual({
+    expect(getParametersByPlatform(myParcelConfigBus)).toEqual({
       cutoff_time: '12:00',
       monday_delivery: 1,
     });

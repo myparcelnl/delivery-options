@@ -1,8 +1,8 @@
 import MockDate from 'mockdate';
 import { dayjs } from '@Tests/dayjs';
-import { isPastCutoff } from '@/delivery-options/config/isPastCutoff';
+import { isPastTime } from '@/delivery-options/config/isPastTime';
 
-describe('isPastCutoff function', () => {
+describe('isPastTime function', () => {
   test.each`
    currentTime   | cutOffTime | passed
    ${'00:00'}    | ${'09:30'} | ${false}
@@ -12,7 +12,7 @@ describe('isPastCutoff function', () => {
    ${'09:30:59'} | ${'09:31'} | ${false}
    ${'12:00'}    | ${'09:30'} | ${true}
    ${'12:00'}    | ${'12:30'} | ${false}
-  `('if current time is $currentTime and cutoff is $cutOffTime, isPastCutoff should return $passed',
+  `('if current time is $currentTime and cutoff is $cutOffTime, isPastTime should return $passed',
     ({ currentTime, cutOffTime, passed }) => {
       const [hours, minutes, seconds] = currentTime.split(':');
       const date = dayjs()
@@ -21,7 +21,7 @@ describe('isPastCutoff function', () => {
         .set('s', seconds ?? 0);
 
       MockDate.set(date.toDate());
-      expect(isPastCutoff(cutOffTime)).toEqual(passed);
+      expect(isPastTime(cutOffTime)).toEqual(passed);
       MockDate.reset();
     });
 });

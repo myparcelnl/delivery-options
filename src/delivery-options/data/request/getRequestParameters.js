@@ -2,6 +2,7 @@ import { configBus } from '@/delivery-options/config/configBus';
 import { getDefaultRequestParameters } from '@/delivery-options/data/request/getDefaultRequestParameters';
 import { getOptionalRequestParameters } from '@/delivery-options/data/request/getOptionalRequestParameters';
 import { getParametersByPlatform } from '@/delivery-options/data/request/requestData';
+import { getCarrierRequestParameters } from '@/delivery-options/data/request/getCarrierRequestParameters';
 
 /**
  * Gather the parameters for the delivery options request.
@@ -10,7 +11,7 @@ import { getParametersByPlatform } from '@/delivery-options/data/request/request
  *
  * @param {MyParcel.CarrierName} carrier - Carrier name or id.
  *
- * @returns {MyParcelDeliveryOptions.DeliveryOptionsRequestParameters}
+ * @returns {Partial<MyParcelDeliveryOptions.DeliveryOptionsRequestParameters>}
  */
 export const getRequestParameters = (carrier = configBus.currentCarrier) => {
   const parameters = getDefaultRequestParameters();
@@ -19,14 +20,16 @@ export const getRequestParameters = (carrier = configBus.currentCarrier) => {
   parameters.carrier = carrier;
 
   // Get the settings that are set in the config and add those to the parameters.
-  const setParameters = Object.keys(optionalParameters).filter((value) => !!optionalParameters[value]);
-
-  setParameters.forEach((option) => {
-    parameters[option] = optionalParameters[option];
-  });
+  Object
+    .keys(optionalParameters)
+    .filter((value) => !!optionalParameters[value])
+    .forEach((option) => {
+      parameters[option] = optionalParameters[option];
+    });
 
   return {
     ...parameters,
     ...getParametersByPlatform(),
+    ...getCarrierRequestParameters(carrier),
   };
 };

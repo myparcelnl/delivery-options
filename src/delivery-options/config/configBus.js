@@ -6,13 +6,13 @@ import { CarrierConfigurationFactory } from '@/data/carriers/carrierConfiguratio
 import { DeliveryExportValues } from '@/delivery-options/config/exports/DeliveryExportValues';
 import { PickupExportValues } from '@/delivery-options/config/exports/PickupExportValues';
 import Vue from 'vue';
-import { carrierCanOnlyHaveSameDayDelivery } from '@/delivery-options/data/request/carrierCanOnlyHaveSameDayDelivery';
+import { carrierCanOnlyHaveSameDayDelivery } from '@/helpers/delivery/carrierCanOnlyHaveSameDayDelivery';
 import debounce from 'lodash-es/debounce';
 import { getConfig } from '@/delivery-options/config/getConfig';
 import { getWeekdays } from '@/helpers/getWeekdays';
 import { hasFilterableValue } from '@/delivery-options/config/hasFilterableValue';
 import isObject from 'lodash-es/isObject';
-import { isPastCutoff } from '@/delivery-options/config/isPastCutoff';
+import { isPastSameDayCutoffTime } from '@/helpers/delivery/isPastSameDayCutoffTime';
 import { settingHasCarrierOverride } from '@/delivery-options/config/settingHasCarrierOverride';
 import { settingHasCountryOverride } from '@/delivery-options/config/settingHasCountryOverride';
 
@@ -433,9 +433,8 @@ export const createConfigBus = (eventCallee = null) => {
 
         this.carrierDataWithDeliveryOptions = this.carrierData.filter((carrier) => {
           const carrierConfiguration = CarrierConfigurationFactory.create(carrier.name, this.get('platform'));
-          const pastCutoff = isPastCutoff(this.get(CONFIG.CUTOFF_TIME_SAME_DAY, carrier.name));
 
-          if (carrierCanOnlyHaveSameDayDelivery(carrier.name) && pastCutoff) {
+          if (carrierCanOnlyHaveSameDayDelivery(carrier.name) && isPastSameDayCutoffTime(carrier.name)) {
             return false;
           }
 
