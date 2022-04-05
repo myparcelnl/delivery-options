@@ -67,10 +67,9 @@ jobs:
         with:
           name: dist
 
-      - name: 'Release'
-        run: 'npx semantic-release'
+      - uses: myparcelnl/actions/semantic-release@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_REPO_TOKEN }}
           NPM_TOKEN: ${{secrets.NPM_TOKEN}}
 
       - name: 'Publish updated sandbox'
@@ -78,5 +77,5 @@ jobs:
         with:
           BRANCH: gh-pages
           FOLDER: dist
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_REPO_TOKEN }}
 
