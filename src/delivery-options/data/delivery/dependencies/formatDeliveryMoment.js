@@ -1,9 +1,9 @@
 import * as CONFIG from '@/data/keys/configKeys';
-import { SHIPMENT_OPTIONS, deliveryMoments } from '@/config/formConfig';
+import { DELIVERY_EVENING, DELIVERY_MORNING, SHIPMENT_OPTIONS, deliveryMoments } from '@/config/formConfig';
+import { configBus } from '@/delivery-options/config/configBus';
 import { formatPossibility } from '@/delivery-options/data/delivery/dependencies/formatPossibility';
 import { formatShipmentOptions } from '@/delivery-options/data/delivery/dependencies/formatShipmentOptions';
 import { getDeliveryType } from '@/delivery-options/data/delivery/dependencies/getDeliveryType';
-import { configBus } from '@/delivery-options/config/configBus';
 
 /**
  * Delivery moment is dependant on delivery date.
@@ -18,9 +18,13 @@ export function formatDeliveryMoment(option) {
       return deliveryMoments.indexOf(possibilityA.type) - deliveryMoments.indexOf(possibilityB.type);
     })
     .reduce((acc, possibility) => {
-      if (!configBus.get(CONFIG.FEATURE_SHOW_DELIVERY_DATE) && ['morning', 'evening'].includes(possibility.type)) {
+      if (!configBus.get(CONFIG.FEATURE_SHOW_DELIVERY_DATE) && [
+        DELIVERY_MORNING,
+        DELIVERY_EVENING,
+      ].includes(possibility.type)) {
         return { ...acc };
       }
+
       return {
         ...acc,
         [getDeliveryType(possibility)]: {
