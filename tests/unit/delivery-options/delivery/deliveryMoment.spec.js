@@ -73,6 +73,25 @@ describe('Delivery moments', () => {
       ]);
     });
 
+  it('does not return morning and evening delivery options when delivery date is not shown', async() => {
+    expect.assertions(1);
+    const date = dayjs().weekday(TUESDAY).set('h', 10).set('m', 0);
+    const deliveryMoments = await getDeliveryMoments(date, {
+      [CONFIG.DROP_OFF_DAYS]: [0, 1, 2, 3, 4, 5, 6],
+      [CONFIG.CARRIER_SETTINGS]: {
+        [POSTNL]: {
+          [CONFIG.ALLOW_DELIVERY_OPTIONS]: true,
+          [CONFIG.ALLOW_MORNING_DELIVERY]: true,
+          [CONFIG.ALLOW_EVENING_DELIVERY]: true,
+          [CONFIG.FEATURE_SHOW_DELIVERY_DATE]: false,
+        },
+      },
+    });
+    expect(deliveryMoments).toEqual([
+      FORM.DELIVERY_STANDARD,
+    ]);
+  });
+
   it('returns same day delivery if same day is enabled and current time is before same day cut-off time', async() => {
     expect.assertions(1);
     // Before same day cut-off time (which defaults to 9:30)
