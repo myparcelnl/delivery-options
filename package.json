@@ -2,7 +2,25 @@
   "name": "@myparcel/delivery-options",
   "version": "5.1.1",
   "description": "MyParcel delivery options module for checkouts.",
-  "author": "Edie Lemoine (edie@myparcel.nl)",
+  "homepage": "https://myparcelnl.github.io/delivery-options",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/myparcelnl/delivery-options.git"
+  },
+  "license": "MIT",
+  "author": "Edie Lemoine <edie@myparcel.nl>",
+  "main": "dist/myparcel.js",
+  "types": "types/index.d.ts",
+  "directories": {
+    "test": "tests"
+  },
+  "files": [
+    "types/index.d.ts",
+    "dist/myparcel.js",
+    "dist/myparcel.lib.js",
+    "types",
+    "index.d.ts"
+  ],
   "scripts": {
     "build": "vue-cli-service build --report",
     "build:dev": "vue-cli-service build --mode development",
@@ -13,15 +31,6 @@
     "test:unit": "vue-cli-service test:unit",
     "test:watch": "jest --watch"
   },
-  "main": "dist/myparcel.js",
-  "types": "types/index.d.ts",
-  "files": [
-    "types/index.d.ts",
-    "dist/myparcel.js",
-    "dist/myparcel.lib.js",
-    "types",
-    "index.d.ts"
-  ],
   "dependencies": {
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
     "@myparcel/js-sdk": "^2.0.3",
@@ -69,19 +78,7 @@
     "webpack": "^4.46.0",
     "webpack-bundle-analyzer": "^4.5.0"
   },
-  "bugs": {
-    "url": "https://github.com/myparcelnl/delivery-options/issues"
-  },
-  "directories": {
-    "test": "tests"
-  },
-  "homepage": "https://myparcelnl.github.io/delivery-options",
-  "license": "ISC",
   "publishConfig": {
     "access": "public"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/myparcelnl/delivery-options.git"
   }
 }
