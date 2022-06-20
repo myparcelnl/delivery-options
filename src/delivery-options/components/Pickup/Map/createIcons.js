@@ -1,5 +1,5 @@
 /* eslint-disable no-magic-numbers */
-import MarkerSvg from '!raw-loader!@/assets/images/marker.svg';
+import MarkerSvg from '@/assets/images/marker.svg?raw';
 import { configBus } from '@/delivery-options/config/configBus';
 
 /**

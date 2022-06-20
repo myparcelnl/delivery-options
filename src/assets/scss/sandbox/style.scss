@@ -1,17 +1,17 @@
-@import "../index";
-@import "fonts";
-@import "variables";
-@import "utilities";
+@import '../index';
+@import 'fonts';
+@import 'variables';
+@import 'utilities';
 
-@import "bootstrap";
-@import "~bootstrap-vue/src/index";
-@import "../transitions/index";
+@import 'bootstrap';
+@import 'bootstrap-vue/src/index';
+@import '../transitions/index';
 
-@import "components/card";
-@import "components/code";
-@import "components/form";
-@import "components/hljs";
-@import "components/pre-loader";
+@import 'components/card';
+@import 'components/code';
+@import 'components/form';
+@import 'components/hljs';
+@import 'components/pre-loader';
 
 html, body {
   height: 100%;

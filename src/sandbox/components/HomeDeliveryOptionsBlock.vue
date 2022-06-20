@@ -152,7 +152,7 @@ export default {
         return;
       }
 
-      if (process.env.NODE_ENV === 'development') {
+      if (import.meta.env.DEV) {
         await import('@/delivery-options/main');
       } else {
         await createScript('/delivery-options/myparcel.lib.js');

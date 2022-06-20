@@ -6,11 +6,11 @@
 export const getWindowObject = () => {
   // Allow mocking for user and tests.
   if (!window.hasOwnProperty('MyParcelConfig')) {
-    if (['development', 'test'].includes(process.env.NODE_ENV)) {
-      window.MyParcelConfig = {};
-    } else {
+    if (import.meta.env.PROD) {
       throw 'No config found! (window.MyParcelConfig is required.)';
     }
+
+    window.MyParcelConfig = {};
   }
 
   return typeof window.MyParcelConfig === 'string'

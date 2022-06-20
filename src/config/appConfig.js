@@ -7,7 +7,7 @@ import { platformUrlMap } from '@/config/platform/platformUrlMap';
  *
  * @type {String}
  */
-const mode = 'production';
+const mode = import.meta.env.DEV ? 'development' : 'production';
 
 const platform = configBus && configBus.config
   ? configBus.config.platform
@@ -29,7 +29,7 @@ config.staging = {
 
 config.development = {
   ...config.production,
-  apiUrl: `http://api.dev.${url}`,
+  apiUrl: `https://api.dev.${url}`,
 };
 
 config.test = config.production;
@@ -37,4 +37,4 @@ config.test = config.production;
 /**
  * Config by environment and platform.
  */
-export const appConfig = config[mode || process.env.NODE_ENV];
+export const appConfig = config[mode];

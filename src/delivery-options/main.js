@@ -13,7 +13,7 @@ import { cssClassBase } from '@/delivery-options/cssClassBase';
 import { showDeveloperInfo } from '@/delivery-options/showDeveloperInfo';
 
 // This is not present in the compiled code.
-if (process.env.NODE_ENV === 'development' && !window.hasOwnProperty('MyParcelConfig')) {
+if (import.meta.env.DEV && !window.hasOwnProperty('MyParcelConfig')) {
   window.onload = showDeveloperInfo;
 }
 
@@ -27,7 +27,7 @@ let instance;
  *
  * @type {string}
  */
-const baseSelector = `#${process.env.VUE_APP_CLASS_BASE}`;
+const baseSelector = `#${cssClassBase}`;
 
 /**
  * Load the application.

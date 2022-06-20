@@ -7,6 +7,15 @@
 <script>
 import CSelect from '@/sandbox/components/form/CSelect';
 
+/**
+ * @param id
+ */
+export async function serverImport(id) {
+  const { createRequire } = await import('module');
+  const require = createRequire('/../../../package.json');
+  return require(id);
+}
+
 export default {
   name: 'CCountrySelect',
   components: { CSelect },
@@ -22,6 +31,7 @@ export default {
   data() {
     return {
       mutableOptions: this.options,
+      countryModules: [],
     };
   },
 
@@ -31,8 +41,9 @@ export default {
      * Update the countries list on load and locale change.
      */
     '$i18n.locale': {
-      async handler(locale) {
-        const countries = await require(`@/sandbox/translations/countries/${locale}.json`);
+      handler(locale) {
+        const key = Object.keys(this.countryModules).find((key) => key.endsWith(`${locale}.json`));
+        const countries = this.countryModules[key] ?? [];
 
         this.mutableOptions = Object.keys(countries).map((country) => {
           return {
@@ -44,6 +55,10 @@ export default {
 
       immediate: true,
     },
+  },
+
+  beforeMount() {
+    this.countryModules = import.meta.globEager('@/sandbox/translations/countries/*.json');
   },
 };
 </script>

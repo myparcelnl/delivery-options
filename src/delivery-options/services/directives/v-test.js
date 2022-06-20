@@ -11,9 +11,9 @@ import isObject from 'lodash-es/isObject';
  * @param {import('vue').VNode} vnode
  */
 export const vTest = (el, binding, vnode) => {
-  if (process.env.NODE_ENV !== 'test') {
-    return;
-  }
+  // if (__NODE_ENV__ !== 'test') {
+  //   return;
+  // }
 
   if (isObject(binding.value)) {
     Object.keys(binding.value).forEach((value) => {

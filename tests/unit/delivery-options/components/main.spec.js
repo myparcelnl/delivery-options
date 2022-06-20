@@ -7,8 +7,9 @@ import { getDefaultCarrierSettings } from '@Tests/unit/delivery-options/defaultC
 import { merge } from 'lodash-es';
 import { showDeveloperInfo } from '@/delivery-options/showDeveloperInfo';
 import { waitForEvent } from '@Tests/waitForEvent';
+import { cssClassBase } from '@/delivery-options/cssClassBase';
 
-const classBase = process.env.VUE_APP_CLASS_BASE;
+const classBase = cssClassBase;
 
 const createHtml = (id = classBase) => {
   const element = document.createElement('div');

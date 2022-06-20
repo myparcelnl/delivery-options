@@ -18,11 +18,11 @@ export default {
 
   computed: {
     hash() {
-      return process.env.VUE_APP_COMMIT_HASH;
+      return 'process.env.VUE_APP_COMMIT_HASH';
     },
 
     url() {
-      return process.env.VUE_APP_REPOSITORY_URL;
+      return 'process.env.VUE_APP_REPOSITORY_URL';
     },
   },
 };

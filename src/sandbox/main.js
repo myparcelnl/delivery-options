@@ -6,6 +6,7 @@ import Sandbox from '@/sandbox/Sandbox';
 import Vue from 'vue';
 import { appConfig } from '@/config/appConfig';
 import { configObject } from '@/sandbox/config';
+import { cssClassBase } from '@/delivery-options/cssClassBase';
 import { getUrl } from '@/config/urlConfig';
 import { i18n } from '@/sandbox/services/vue-i18n';
 import { isDev } from '@/helpers/environment';
@@ -17,14 +18,15 @@ useBootstrap();
 window.MyParcelConfig = {};
 
 Vue.prototype.$appConfig = appConfig;
-Vue.prototype.$classBase = process.env.VUE_APP_CLASS_BASE;
+Vue.prototype.$classBase = cssClassBase;
 Vue.prototype.$config = configObject;
 Vue.prototype.$getUrl = getUrl;
 
 Vue.config.performance = isDev;
+Vue.config.productionTip = false;
 
 export const app = new Vue({
   name: 'MyParcelDeliveryOptionsSandbox',
   i18n,
   render: (h) => h(Sandbox),
-}).$mount(`#${process.env.VUE_APP_CLASS_BASE}`);
+}).$mount(`#${cssClassBase}`);

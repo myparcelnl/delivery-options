@@ -5,17 +5,17 @@ const webpack = require('webpack');
 const { deliveryOptionsLibConfig } = require('./private/deliveryOptionsLibConfig.js');
 const { repository } = require('./package.json');
 
-process.env.VUE_APP_REPOSITORY_URL = repository.url.replace('.git', '');
-process.env.VUE_APP_COMMIT_HASH = require('child_process')
+process.env.VITE_REPOSITORY_URL = repository.url.replace('.git', '');
+process.env.VITE_COMMIT_HASH = require('child_process')
   .execSync('git rev-parse HEAD')
   .toString()
   .trim();
 
 const {
   NODE_ENV,
-  VUE_APP_CLASS_BASE,
-  VUE_APP_COMMIT_HASH,
-  VUE_APP_REPOSITORY_URL,
+  VITE_CLASS_BASE,
+  VITE_COMMIT_HASH,
+  VITE_REPOSITORY_URL,
 } = process.env;
 
 /**
@@ -37,7 +37,7 @@ module.exports = {
     extract: false,
     loaderOptions: {
       sass: {
-        additionalData: `$classBase: '${VUE_APP_CLASS_BASE}';`,
+        additionalData: `$classBase: '${VITE_CLASS_BASE}';`,
       },
     },
   },
@@ -53,9 +53,9 @@ module.exports = {
     },
     plugins: [
       new webpack.EnvironmentPlugin({
-        VUE_APP_CLASS_BASE: JSON.stringify(VUE_APP_CLASS_BASE),
-        VUE_APP_COMMIT_HASH: JSON.stringify(VUE_APP_COMMIT_HASH),
-        VUE_APP_REPOSITORY_URL: JSON.stringify(VUE_APP_REPOSITORY_URL),
+        VITE_CLASS_BASE: JSON.stringify(VITE_CLASS_BASE),
+        VITE_COMMIT_HASH: JSON.stringify(VITE_COMMIT_HASH),
+        VITE_REPOSITORY_URL: JSON.stringify(VITE_REPOSITORY_URL),
       }),
     ],
   },
