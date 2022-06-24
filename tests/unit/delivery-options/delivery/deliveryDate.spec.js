@@ -1,11 +1,48 @@
 import * as CONFIG from '@/data/keys/configKeys';
 import { BPOST, DPD, POSTNL } from '@/data/keys/carrierKeys';
-import { SENDMYPARCEL } from '@/data/keys/platformKeys';
+import { MYPARCEL, SENDMYPARCEL } from '@/data/keys/platformKeys';
 import { UPDATED_DELIVERY_OPTIONS } from '@/config/eventConfig';
 import { mockDeliveryOptions } from '@Tests/unit/delivery-options/mockDeliveryOptions';
 import { waitForEvent } from '@Tests/waitForEvent';
 
 describe('delivery date', () => {
+  it('exposes delivery date by default', async() => {
+    expect.assertions(1);
+
+    mockDeliveryOptions({
+      [CONFIG.KEY]: {
+        [CONFIG.PLATFORM]: MYPARCEL,
+        [CONFIG.CARRIER_SETTINGS]: {
+          [POSTNL]: {
+            [CONFIG.ALLOW_DELIVERY_OPTIONS]: true,
+          },
+        },
+      },
+    });
+
+    const event = await waitForEvent(UPDATED_DELIVERY_OPTIONS);
+    expect(event.detail.date).not.toBeNull();
+  });
+
+  it('does not expose delivery date when it\'s turned off', async() => {
+    expect.assertions(1);
+
+    mockDeliveryOptions({
+      [CONFIG.KEY]: {
+        [CONFIG.PLATFORM]: MYPARCEL,
+        [CONFIG.FEATURE_SHOW_DELIVERY_DATE]: false,
+        [CONFIG.CARRIER_SETTINGS]: {
+          [POSTNL]: {
+            [CONFIG.ALLOW_DELIVERY_OPTIONS]: true,
+          },
+        },
+      },
+    });
+
+    const event = await waitForEvent(UPDATED_DELIVERY_OPTIONS);
+    expect(event.detail.date).toBeNull();
+  });
+
   it('hides delivery date when requested', async() => {
     expect.assertions(3);
 
