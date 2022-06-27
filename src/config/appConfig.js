@@ -29,7 +29,7 @@ config.staging = {
 
 config.development = {
   ...config.production,
-  apiUrl: `https://api.dev.${url}`,
+  apiUrl: `https://api.${url}`,
 };
 
 config.test = config.production;

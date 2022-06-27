@@ -3,6 +3,9 @@
   "extends": [
     "@myparcel/eslint-config/preset-vue"
   ],
+  "parserOptions": {
+    "requireConfigFile": false
+  },
   "rules": {
     "jsdoc/no-undefined-types": [
       "warn",
