@@ -23,5 +23,5 @@ Please read our [contribution guidelines](CONTRIBUTING.md)
 [Flespakket]: https://flespakket.nl
 [MyParcel]: https://myparcel.nl
 [SendMyParcel]: https://sendmyparcel.be
-[documentation]: https://developer.myparcel.nl/documentation/60.delivery-options/
+[documentation]: https://developer.myparcel.nl/documentation/60.delivery-options.html
 [sandbox]: https://myparcelnl.github.io/delivery-options
