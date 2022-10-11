@@ -15,3 +15,6 @@ export const CHEAP_CARGO = 'cheapcargo';
 
 /** @type {MyParcel.CarrierName} */
 export const DHL = 'dhl';
+
+/** @type {MyParcel.CarrierName} */
+export const DHL_FOR_YOU = 'dhlforyou';

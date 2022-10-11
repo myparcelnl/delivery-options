@@ -11,6 +11,7 @@ export const platformCarrierMap = {
     CARRIERS.POSTNL,
     CARRIERS.INSTABOX,
     CARRIERS.DHL,
+    CARRIERS.DHL_FOR_YOU,
   ],
   [PLATFORMS.SENDMYPARCEL]: [
     CARRIERS.BPOST,
