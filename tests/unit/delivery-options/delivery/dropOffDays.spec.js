@@ -1,5 +1,5 @@
 import * as CONFIG from '@/data/keys/configKeys';
-import {BPOST, DHL_FOR_YOU, DPD, INSTABOX, POSTNL} from '@/data/keys/carrierKeys';
+import {BPOST, DHL_EUROPLUS, DHL_FOR_YOU, DHL_PARCEL_CONNECT, DPD, INSTABOX, POSTNL} from '@/data/keys/carrierKeys';
 import { FRIDAY, MONDAY, SATURDAY, SUNDAY, THURSDAY, TUESDAY, WEDNESDAY } from '@/config/extraDeliveryConfig';
 import { MYPARCEL, SENDMYPARCEL } from '@/data/keys/platformKeys';
 import MockDate from 'mockdate';
@@ -23,7 +23,6 @@ describe('Delivery moments', () => {
     ${MYPARCEL}     | ${POSTNL}   | ${SATURDAY}  | ${true}
     ${MYPARCEL}     | ${POSTNL}   | ${SUNDAY}    | ${false}
     ${MYPARCEL}     | ${INSTABOX} | ${SATURDAY}  | ${false}
-    ${MYPARCEL}     | ${DHL_FOR_YOU} | ${WEDNESDAY}  | ${false}
     ${SENDMYPARCEL} | ${BPOST}    | ${MONDAY}    | ${false}
     ${SENDMYPARCEL} | ${BPOST}    | ${TUESDAY}   | ${false}
     ${SENDMYPARCEL} | ${BPOST}    | ${WEDNESDAY} | ${false}
