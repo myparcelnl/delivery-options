@@ -1,0 +1,59 @@
+{
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "nx/tasks-runners/default",
+      "options": {
+        "cacheableOperations": [
+          "build",
+          "build:dev",
+          "buildOnly",
+          "clean",
+          "lint",
+          "lint:fix"
+        ]
+      }
+    }
+  },
+  "targetDefaults": {
+    "build": {
+      "dependsOn": [
+        "^build"
+      ],
+      "outputs": [
+        "{projectRoot}/lib"
+      ]
+    },
+    "build:dev": {
+      "dependsOn": [
+        "^build:dev"
+      ],
+      "outputs": [
+        "{projectRoot}/lib"
+      ]
+    },
+    "buildOnly": {
+      "dependsOn": [
+        "^buildOnly"
+      ],
+      "outputs": [
+        "{projectRoot}/lib"
+      ]
+    },
+    "serve": {
+      "dependsOn": [
+        "^serve"
+      ]
+    },
+    "dev": {
+      "dependsOn": [
+        "^dev"
+      ]
+    },
+    "clean": {
+      "outputs": [
+        "{projectRoot}/lib"
+      ]
+    }
+  },
+  "defaultBase": "main"
+}

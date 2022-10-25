@@ -1,10 +1,26 @@
 {
+  "extends": "@vue/tsconfig/tsconfig.json",
   "compilerOptions": {
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "noEmit": true
+    "preserveValueImports": false,
+    "importsNotUsedAsValues": "remove",
+    "types": [
+      "vite/client"
+    ],
+    "paths": {
+      "@myparcel/delivery-options-build-*": [
+        "./packages/build/*/src"
+      ],
+      "@myparcel/delivery-options-*": [
+        "./packages/*/src"
+      ],
+      "@myparcel/delivery-options": [
+        "./packages/core/src"
+      ]
+    }
   },
-  "exclude": [
-    "node_modules"
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    }
   ]
 }

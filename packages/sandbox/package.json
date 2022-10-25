@@ -1,0 +1,22 @@
+{
+  "name": "@myparcel/delivery-options-sandbox",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "build": "vue-tsc --noEmit && vite build",
+    "build:dev": "vite --mode development",
+    "buildOnly": "vite build",
+    "lint": "eslint",
+    "lint:fix": "eslint --fix"
+  },
+  "dependencies": {
+    "@myparcel/delivery-options": "workspace:*",
+    "@myparcel/delivery-options-shared": "workspace:*",
+    "vue": "^3.2.41",
+    "vue-i18n": "^9.2.2"
+  },
+  "devDependencies": {
+    "vue-tsc": "^1.0.9"
+  }
+}

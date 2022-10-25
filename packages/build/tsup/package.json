@@ -1,0 +1,21 @@
+{
+  "name": "@myparcel/delivery-options-build-tsup",
+  "version": "0.0.0",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": "./lib/index.js"
+  },
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "build": "tsup --dts",
+    "build:dev": "tsup --watch --dts --sourcemap",
+    "buildOnly": "tsup",
+    "lint": "eslint",
+    "lint:fix": "eslint --fix"
+  },
+  "dependencies": {
+    "tsup": "^6.3.0"
+  }
+}

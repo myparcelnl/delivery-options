@@ -1,7 +1,9 @@
 .DS_Store
 node_modules
-/dist
-/coverage
+dist
+coverage
+lib
+cache
 
 # local env files
 .env.local
@@ -13,11 +15,16 @@ yarn-debug.log*
 yarn-error.log*
 
 # Editor directories and files
-.idea
 .vscode
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
-/myparcel-js-sdk/
+
+.yarn/*
+!.yarn/releases
+!.yarn/patches
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions

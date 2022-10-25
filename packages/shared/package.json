@@ -1,0 +1,19 @@
+{
+  "name": "@myparcel/delivery-options-shared",
+  "private": true,
+  "version": "5.1.0",
+  "type": "module",
+  "types": "lib/index.d.ts",
+  "main": "./lib/index.js",
+  "scripts": {
+    "build": "tsup --dts",
+    "build:dev": "tsup --watch --dts --sourcemap",
+    "buildOnly": "tsup",
+    "lint": "eslint",
+    "lint:fix": "eslint --fix"
+  },
+  "devDependencies": {
+    "@myparcel/delivery-options-build-tsup": "workspace:*",
+    "vue": "^3.2.41"
+  }
+}

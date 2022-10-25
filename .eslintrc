@@ -22,7 +22,10 @@
       "extends": "@myparcel/eslint-config/preset-typescript",
       "files": [
         "**/*.ts"
-      ]
+      ],
+      "rules": {
+        "@typescript-eslint/consistent-type-definitions": "off"
+      }
     }
   ]
 }

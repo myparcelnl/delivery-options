@@ -1,0 +1,71 @@
+@import "../index";
+@import "src/assets/scss/variables";
+@import "src/assets/scss/keyframes";
+
+.#{$classBase} {
+  @import "src/assets/scss/transitions/index";
+  @import "src/assets/scss/choice";
+  @import "src/assets/scss/image";
+  @import "src/assets/scss/loader";
+  @import "src/assets/scss/modal";
+  @import "src/assets/scss/table";
+  @import "src/assets/scss/pickup";
+  @import "src/assets/scss/map";
+
+  position: relative;
+
+  .pb-2 {
+    padding-bottom: 0.5rem;
+  }
+
+  .ml-1 {
+    margin-left: 0.25rem;
+  }
+
+  .#{$classBase} {
+    &__h-auto {
+      height: auto;
+    }
+
+    &__d-block {
+      display: block !important;
+    }
+
+    &__w-100 {
+      width: 100%;
+    }
+
+    &__float {
+      &--left {
+        float: left;
+      }
+
+      &--right {
+        float: right;
+      }
+    }
+
+    &__text {
+      &--green {
+        color: $positive;
+      }
+
+      &--small {
+        opacity: .6;
+        font-size: 0.9em;
+      }
+    }
+
+    &__errors {
+      input {
+        width: 100%;
+      }
+    }
+
+    &__spacing {
+      &--md {
+        height: $image-size-md !important;
+      }
+    }
+  }
+}
