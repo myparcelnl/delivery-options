@@ -47,8 +47,9 @@ jobs:
         run: yarn run build
 
       - uses: myparcelnl/actions/semantic-release@v2
+        with:
+          token: ${{ secrets.GH_REPO_TOKEN }}
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_REPO_TOKEN }}
           NPM_TOKEN: ${{secrets.NPM_TOKEN}}
 
       - name: 'Publish updated sandbox'
