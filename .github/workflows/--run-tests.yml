@@ -12,7 +12,18 @@ jobs:
 
       - uses: myparcelnl/actions/yarn-install@v2
 
+      - name: 'Cache coverage'
+        uses: actions/cache@v3
+        id: cache-coverage
+        with:
+          path: ./coverage
+          key: ${{ runner.os }}-coverage-${{ hashFiles('**/yarn.lock') }}-${{ hashFiles('**/src') }}
+          restore-keys: |
+            ${{ runner.os }}-coverage-${{ hashFiles('**/yarn.lock') }}
+            ${{ runner.os }}-coverage-
+
       - name: 'Run tests'
+        if: steps.cache-coverage.outputs.cache-hit != 'true'
         run: ./node_modules/.bin/cross-env yarn test:unit --coverage
         env:
           NODE_ICU_DATA: node_modules/full-icu
