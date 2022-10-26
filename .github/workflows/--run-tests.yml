@@ -17,6 +17,6 @@ jobs:
         env:
           NODE_ICU_DATA: node_modules/full-icu
 
-      - uses: codecov/codecov-action@v2
+      - uses: codecov/codecov-action@v3
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
