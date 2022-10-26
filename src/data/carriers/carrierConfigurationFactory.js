@@ -2,6 +2,9 @@ import * as CARRIERS from '@/data/keys/carrierKeys';
 import { BpostCarrierConfiguration } from '@/data/carriers/bpostCarrierConfiguration';
 import { CheapCargoCarrierConfiguration } from '@/data/carriers/cheapCargoCarrierConfiguration';
 import { DhlCarrierConfiguration } from '@/data/carriers/dhlCarrierConfiguration';
+import { DhlForYouCarrierConfiguration } from '@/data/carriers/dhlForYouCarrierConfiguration';
+import { DhlParcelConnectCarrierConfiguration } from '@/data/carriers/dhlParcelConnectCarrierConfiguration';
+import { DhlEuroplusCarrierConfiguration } from '@/data/carriers/dhlEuroplusCarrierConfiguration';
 import { DpdCarrierConfiguration } from '@/data/carriers/dpdCarrierConfiguration';
 import { InstaboxCarrierConfiguration } from '@/data/carriers/instaboxCarrierConfiguration';
 import { PostNlCarrierConfiguration } from '@/data/carriers/postNlCarrierConfiguration';
@@ -15,6 +18,12 @@ const carrierConfiguration = memoize((carrierName, platform) => {
       return new CheapCargoCarrierConfiguration(platform);
     case CARRIERS.DHL:
       return new DhlCarrierConfiguration(platform);
+    case CARRIERS.DHL_FOR_YOU:
+      return new DhlForYouCarrierConfiguration(platform);
+    case CARRIERS.DHL_PARCEL_CONNECT:
+      return new DhlParcelConnectCarrierConfiguration(platform);
+    case CARRIERS.DHL_EUROPLUS:
+      return new DhlEuroplusCarrierConfiguration(platform);
     case CARRIERS.DPD:
       return new DpdCarrierConfiguration(platform);
     case CARRIERS.POSTNL:
