@@ -24,12 +24,17 @@
   "scripts": {
     "build": "vue-cli-service build --report",
     "build:dev": "vue-cli-service build --mode development",
+    "postinstall": "husky install",
     "serve": "vue-cli-service serve",
     "serve-bare": "vue-cli-service serve src/delivery-options/main.js",
     "serve:prod": "vue-cli-service build --dest local && serve -s local",
     "test:log": "jest --json --outputFile='tests/jest-log.json'",
     "test:unit": "vue-cli-service test:unit",
     "test:watch": "jest --watch"
+  },
+  "lint-staged": {
+    "*.{js,vue}": "eslint --fix",
+    "package.json": "npx -q sort-package-json"
   },
   "dependencies": {
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
@@ -65,7 +70,7 @@
     "dayjs": "^1.10.7",
     "full-icu": "^1.4.0",
     "highlight.js": "^11.4.0",
-    "husky": "^7.0.4",
+    "husky": "^8.0.1",
     "jest": "^27.4.7",
     "mockdate": "^3.0.2",
     "sass": "^1.47.0",
