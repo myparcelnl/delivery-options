@@ -24,7 +24,7 @@
   "scripts": {
     "build": "vue-cli-service build",
     "build:dev": "vue-cli-service build --mode development",
-    "postinstall": "is-ci || husky install",
+    "prepare": "is-ci || husky install",
     "serve": "vue-cli-service serve",
     "serve-bare": "vue-cli-service serve src/delivery-options/main.js",
     "serve:prod": "vue-cli-service build --dest local && serve -s local",
