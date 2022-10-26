@@ -39,7 +39,7 @@
           `${$classBase}__d-block`,
           `${$classBase}__text--small`,
         ]">
-        <span v-text="pickupData.address.street + ' ' + pickupData.address.number" />
+        <span v-text="`${pickupData.address.street} ${pickupData.address.number}`" />
       </span>
     </label>
 
@@ -67,6 +67,7 @@ export default {
     isSelected: {
       type: Boolean,
     },
+
     data: {
       type: Object,
       default: null,
@@ -93,9 +94,9 @@ export default {
     /**
      * Format distance for given amount of meters.
      *
-     * @param {Number|String} distance - Distance in meters.
+     * @param {number | string} distance - Distance in meters.
      *
-     * @returns {String}
+     * @returns {string}
      */
     formatDistance(distance) {
       const mToKm = 1000;

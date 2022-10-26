@@ -7,9 +7,9 @@ import { getDay } from '@/helpers/getDay';
 /**
  * Get the array of weekdays by using a (slightly) hacky trick with dates.
  *
- * @param {String} locale - Optional locale override.
+ * @param {string} locale - Optional locale override.
  *
- * @returns {String[]}
+ * @returns {string[]}
  */
 export const getWeekdays = (locale = configBus.get(CONFIG.LOCALE)) => {
   const dates = [];

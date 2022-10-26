@@ -7,7 +7,7 @@ import { createIsoString } from '@/delivery-options/data/dates/createIsoString';
  *
  * @param {Object[]} possibilities - Possibilities array from pickup_locations response.
  *
- * @returns {String}
+ * @returns {string}
  */
 export function getPickupDate(possibilities) {
   // Get the possibility that belongs to the currently selected pickup moment

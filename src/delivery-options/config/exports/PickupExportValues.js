@@ -5,7 +5,7 @@ import { getPickupDate } from '@/delivery-options/data/pickup/getPickupDate';
 
 export class PickupExportValues extends ExportValues {
   /**
-   * @type {String}
+   * @type {string}
    */
   deliveryDate;
 

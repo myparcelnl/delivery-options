@@ -2,12 +2,12 @@
   <transition-group name="fade">
     <PreLoader
       v-if="loading"
-      :key="'preloader'" />
+      key="preloader" />
     <template v-else>
-      <SandboxHeader :key="'header'" />
-      <SandboxIntroduction :key="'intro'" />
-      <SandboxSettings :key="'settings'" />
-      <SandboxFooter :key="'footer'" />
+      <SandboxHeader key="header" />
+      <SandboxIntroduction key="intro" />
+      <SandboxSettings key="settings" />
+      <SandboxFooter key="footer" />
     </template>
   </transition-group>
 </template>

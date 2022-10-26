@@ -33,7 +33,7 @@ export const formTextInput = {
     /**
      * Translate the placeholder if possible.
      *
-     * @returns {String}
+     * @returns {string}
      */
     placeholderValue() {
       return this.$te(this.placeholder)

@@ -1,7 +1,7 @@
 /**
  * Convert a date string to a date string not ruined by the existence of timezones.
  *
- * @param {String} date - The date to convert.
+ * @param {string} date - The date to convert.
  *
  * @example createDate('2019-10-15 00:00:00.000000');
  *
@@ -11,7 +11,7 @@ export function createDate(date) {
   /**
    * Index where the date ends, before the time starts.
    *
-   * @type {Number}
+   * @type {number}
    */
   const dateLength = 10;
 

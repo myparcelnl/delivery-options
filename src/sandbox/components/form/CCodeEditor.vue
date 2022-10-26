@@ -84,6 +84,7 @@ export default {
       },
     },
   },
+
   methods: {
     showCode() {
       if (this.codeShown) {

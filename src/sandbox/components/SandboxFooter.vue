@@ -5,7 +5,7 @@
         Currently deployed commit:
 
         <a
-          :href="url + '/commits/' + hash"
+          :href="`${url}/commits/${hash}`"
           v-text="hash" />
       </div>
     </div>
@@ -20,6 +20,7 @@ export default {
     hash() {
       return process.env.VUE_APP_COMMIT_HASH;
     },
+
     url() {
       return process.env.VUE_APP_REPOSITORY_URL;
     },

@@ -15,6 +15,22 @@
           "webpack"
         ]
       }
+    ],
+    "vue/no-unregistered-components": [
+      "error",
+      {
+        "ignorePatterns": [
+          "RecursiveForm",
+          "BCard",
+          "BDropdownItem",
+          "BInputGroupPrepend",
+          "BInputGroupText",
+          "BNavItemDropdown",
+          "BSpinner",
+          "BTab",
+          "BTabs"
+        ]
+      }
     ]
   },
   "overrides": [

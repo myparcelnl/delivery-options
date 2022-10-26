@@ -5,7 +5,7 @@ import { sandboxConfigBus } from '@/sandbox/sandboxConfigBus';
 /**
  * Match fallback value and any carrier's value.
  *
- * @param {String[]|String} setting - The setting to validate.
+ * @param {string[] | string} setting - The setting to validate.
  *
  * @returns {Array}
  */

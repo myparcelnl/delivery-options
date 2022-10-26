@@ -54,6 +54,7 @@ export default {
     Modal,
     Loader,
   },
+
   data() {
     return {
       configBus,
@@ -61,7 +62,7 @@ export default {
       /**
        * Whether to show the delivery options module at all or not.
        *
-       * @type {Boolean}
+       * @type {boolean}
        */
       showDeliveryOptions: false,
 
@@ -71,14 +72,14 @@ export default {
        * Used while hiding the delivery options to disappear instantly but allow the module to clean up and send events
        *  before actually removing itself.
        *
-       * @type {Boolean}
+       * @type {boolean}
        */
       fakeShowDeliveryOptions: true,
 
       /**
        * Whether the delivery options are loading or not.
        *
-       * @type {Boolean}
+       * @type {boolean}
        */
       loading: true,
 
@@ -92,7 +93,7 @@ export default {
       /**
        * The object that will be converted to a JSON string and put in `#mypa-input`.
        *
-       * @type {String}
+       * @type {string}
        */
       externalData: null,
 
@@ -110,6 +111,7 @@ export default {
           document.addEventListener(EVENTS.UPDATE_DELIVERY_OPTIONS, this.listeners.update);
           this.listeners.update();
         },
+
         hide: () => {
           this.fakeHideSelf();
 
@@ -126,6 +128,7 @@ export default {
           const lastUpdateTimeout = setTimeout(onLastUpdate, LAST_UPDATE_CUTOFF);
           document.addEventListener(EVENTS.UPDATED_DELIVERY_OPTIONS, onLastUpdate);
         },
+
         update: debounce(this.getDeliveryOptions, DEBOUNCE_DELAY),
         updateExternal: debounce(this.updateExternal, DEBOUNCE_DELAY),
       },
@@ -140,7 +143,7 @@ export default {
      *
      * Otherwise returns true.
      *
-     * @returns {Boolean}
+     * @returns {boolean}
      */
     hasValidAddress() {
       if (!this.$configBus.address || !this.$configBus.address.cc) {
@@ -188,7 +191,7 @@ export default {
     /**
      * Check if the cc in the given address allows delivery options and if any top level setting is enabled.
      *
-     * @returns {Boolean}
+     * @returns {boolean}
      */
     hasSomethingToShow() {
       const { isEnabledInAnyCarrier } = this.$configBus;
@@ -225,7 +228,7 @@ export default {
     this.$configBus.$on(EVENTS.ERROR, this.handleError);
   },
 
-  beforeDestroy() {
+  beforeUnmount() {
     document.removeEventListener(EVENTS.UPDATE_DELIVERY_OPTIONS, this.listeners.update);
 
     document.removeEventListener(EVENTS.SHOW_DELIVERY_OPTIONS, this.listeners.show);

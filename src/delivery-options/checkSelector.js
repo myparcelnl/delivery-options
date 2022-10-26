@@ -1,8 +1,8 @@
 /**
  * @param {CustomEvent|Event} event - Event.
- * @param {String} selector - CSS selector.
+ * @param {string} selector - CSS selector.
  *
- * @returns {String|undefined}
+ * @returns {string | undefined}
  */
 export function checkSelector(event, selector) {
   if (event instanceof CustomEvent && event.detail.selector) {

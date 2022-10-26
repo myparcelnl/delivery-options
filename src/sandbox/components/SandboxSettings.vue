@@ -52,7 +52,7 @@ export default {
     }), DEBOUNCE_DELAY);
   },
 
-  beforeDestroy() {
+  beforeUnmount() {
     sandboxConfigBus.$off('created:formItem');
   },
 

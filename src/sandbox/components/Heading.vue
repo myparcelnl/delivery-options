@@ -1,6 +1,6 @@
 <template>
   <component
-    :is="'h' + level"
+    :is="`h${level}`"
     :id="id || uniqueId">
     <slot />
     <Help
@@ -30,10 +30,12 @@ export default {
       type: String,
       default: null,
     },
+
     level: {
       type: Number,
       default: 1,
     },
+
     helpText: {
       type: String,
       default: null,

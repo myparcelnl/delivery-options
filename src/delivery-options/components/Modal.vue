@@ -32,14 +32,17 @@ export default {
     inline: {
       type: Boolean,
     },
+
     component: {
       type: Object,
       default: null,
     },
+
     modalData: {
       type: Object,
       default: null,
     },
+
     hasCloseButton: {
       type: Boolean,
     },

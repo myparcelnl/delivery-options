@@ -1,19 +1,19 @@
 <template>
-  <b-tabs
+  <BTabs
     v-if="tabs.length > 1"
     justified
     content-class="py-2">
-    <b-tab
+    <BTab
       v-for="(tab, index) in tabs"
-      :key="'tab_' + tab.name"
+      :key="`tab_${tab.name}`"
       :title="$te(tab.label) ? $t(tab.label) : tab.label"
       :active="activeTab ? activeTab === tab.name : index === 0"
       @click="() => handleClick(tab)">
       <component
         :is="tab.component"
         v-bind="tab.props" />
-    </b-tab>
-  </b-tabs>
+    </BTab>
+  </BTabs>
 
   <component
     :is="tabs[0].component"
@@ -37,6 +37,7 @@ export default {
       activeTab: null,
     };
   },
+
   methods: {
     handleClick(tab) {
       this.activeTab = tab.name;

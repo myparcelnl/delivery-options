@@ -4,8 +4,8 @@ import { platformCarrierMap } from '@/config/platform/platformCarrierMap';
 /**
  * Pass given data in an array if setting(s) are allowed in any carrier of the current platform.
  *
- * @param {String|String[]} settings
- * @param {String} data - Form data.
+ * @param {string | string[]} settings
+ * @param {string} data - Form data.
  * @param {MyParcel.Platform} platform
  *
  * @returns {Array}

@@ -8,7 +8,7 @@
             {{ $configBus.strings[part] }}
             <input
               v-model="values[part]"
-              :name="part + '-input'"
+              :name="`${part}-input`"
               type="text"
               :placeholder="$configBus.strings[part]"
               v-text="$configBus.strings[part]">
@@ -34,6 +34,7 @@ export default {
       values: { ...this.$configBus.address },
     };
   },
+
   computed: {
     requiredAddressParts() {
       return addressRequirements[this.$configBus.address.cc]
@@ -47,6 +48,7 @@ export default {
       return this.$configBus.get(FEATURE_ALLOW_RETRY);
     },
   },
+
   methods: {
     /**
      * Update the address in the configBus with the new address and send the it to the external platform.

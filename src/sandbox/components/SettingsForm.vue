@@ -7,7 +7,7 @@
 
       <BBtn
         v-for="(link, index) in getPlatformData(platform).links"
-        :key="'button_' + link.text"
+        :key="`button_${link.text}`"
         size="sm"
         :class="{
           'ml-1': index > 0,
@@ -55,6 +55,7 @@ export default {
       type: String,
       default: DEFAULT_PLATFORM,
     },
+
     form: {
       type: [Array, Function],
       default: null,

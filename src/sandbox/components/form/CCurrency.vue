@@ -1,8 +1,8 @@
 <template>
   <component :is="symbol ? 'b-input-group' : 'div'">
-    <b-input-group-prepend v-if="symbol">
-      <b-input-group-text v-text="symbol" />
-    </b-input-group-prepend>
+    <BInputGroupPrepend v-if="symbol">
+      <BInputGroupText v-text="symbol" />
+    </BInputGroupPrepend>
 
     <CNumber
       ref="input"

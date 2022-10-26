@@ -91,7 +91,7 @@ export const sandboxConfigBus = new Vue({
     /**
      * Get a setting from the user's settings.
      *
-     * @param {...String} option - String key to search for.
+     * @param {...string} option - String key to search for.
      *
      * @returns {*}
      */
@@ -109,7 +109,7 @@ export const sandboxConfigBus = new Vue({
      * @private
      *
      * @param {Object} object - Object to search.
-     * @param {...String} option - String key to search for.
+     * @param {...string} option - String key to search for.
      *
      * @returns {*}
      */
@@ -137,9 +137,9 @@ export const sandboxConfigBus = new Vue({
      * Update a setting value in the user settings and emit events.
      *
      * @param {Object} obj - Data.
-     * @param {String} obj.name - Name.
-     * @param {String} obj.value - Value.
-     * @param {Boolean} sort - Sorts object siblings when setting new value.
+     * @param {string} obj.name - Name.
+     * @param {string} obj.value - Value.
+     * @param {boolean} sort - Sorts object siblings when setting new value.
      */
     update({ name, value }, sort = false) {
       let mutableValue = value;

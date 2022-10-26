@@ -72,7 +72,7 @@ export default {
     sandboxConfigBus.$on('created:formItem', debounce(() => this.setCode(), DEBOUNCE_DELAY));
   },
 
-  beforeDestroy() {
+  beforeUnmount() {
     sandboxConfigBus.$off('updated_settings', this.setCode);
   },
 
@@ -139,9 +139,9 @@ export default {
     /**
      * Format mutableCode in given language and return it.
      *
-     * @param {String} language
+     * @param {string} language
      *
-     * @returns {String}
+     * @returns {string}
      */
     getFormattedCode(language) {
       const code = formatCode(this.mutableCode);

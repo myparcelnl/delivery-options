@@ -11,8 +11,8 @@
         v-for="index in 3"
         :key="`block-${index}`"
         :style="{
-          'animation-delay': index * 0.05 + 's',
-          'transition-delay': index * 0.035 + 's',
+          'animation-delay': `${index * 0.05}s`,
+          'transition-delay': `${index * 0.035}s`,
         }" />
     </transition-group>
   </div>

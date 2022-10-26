@@ -3,9 +3,9 @@ import { settingsWithCarrierOverride } from '@/data/keys/configKeys';
 /**
  * Returns whether given setting can be overridden by carrier settings.
  *
- * @param {String} setting
+ * @param {string} setting
  *
- * @returns {Boolean}
+ * @returns {boolean}
  */
 export function settingHasCarrierOverride(setting) {
   return settingsWithCarrierOverride.includes(setting);

@@ -18,8 +18,8 @@ export class AbstractCarrierConfiguration {
   /**
    * Check if the carrier allows delivery in a specific country.
    *
-   * @param {String} country
-   * @returns {Boolean}
+   * @param {string} country
+   * @returns {boolean}
    */
   allowsDeliveryIn(country) {
     return this.getCountriesForDelivery().includes(country.toUpperCase());
@@ -28,8 +28,8 @@ export class AbstractCarrierConfiguration {
   /**
    * Check if the carrier allows pickup in a specific country.
    *
-   * @param {String} country
-   * @returns {Boolean}
+   * @param {string} country
+   * @returns {boolean}
    */
   allowsPickupIn(country) {
     return this.getCountriesForPickup().includes(country.toUpperCase());
@@ -38,7 +38,7 @@ export class AbstractCarrierConfiguration {
   /**
    * The countries this carrier can deliver to.
    *
-   * @returns {String[]}
+   * @returns {string[]}
    */
   getCountriesForDelivery() {
     return [
@@ -50,7 +50,7 @@ export class AbstractCarrierConfiguration {
   /**
    * The countries this carrier can find pickup locations in.
    *
-   * @returns {String[]}
+   * @returns {string[]}
    */
   getCountriesForPickup() {
     return [
@@ -62,7 +62,7 @@ export class AbstractCarrierConfiguration {
   /**
    * Features this carrier has.
    *
-   * @returns {Object<MyParcel.Platform, String[]>}
+   * @returns {Object<MyParcel.Platform, string[]>}
    */
   getFeatures() {
     return {};
@@ -71,7 +71,7 @@ export class AbstractCarrierConfiguration {
   /**
    * Get the features for the current platform.
    *
-   * @returns {String[]|String[][]}
+   * @returns {string[] | string[][]}
    */
   getPlatformFeatures() {
     const features = this.getFeatures();
@@ -86,8 +86,8 @@ export class AbstractCarrierConfiguration {
   /**
    * Check whether a feature is enabled for this carrier.
    *
-   * @param {String|String[]} features
-   * @returns {Boolean}
+   * @param {string | string[]} features
+   * @returns {boolean}
    */
   hasFeature(features) {
     const platformFeatures = this.getPlatformFeatures();

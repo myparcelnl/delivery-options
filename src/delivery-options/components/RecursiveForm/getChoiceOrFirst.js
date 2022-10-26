@@ -5,7 +5,7 @@
  * @param {Array} choices - Choices array.
  * @param {Function} predicate - Function to use in find().
  *
- * @returns {String} - Choice name.
+ * @returns {string} - Choice name.
  */
 export function getChoiceOrFirst(choices, predicate) {
   return (choices.find(predicate) || choices[0]).name;

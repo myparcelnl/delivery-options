@@ -15,7 +15,7 @@
     </div>
 
     <transition name="shove">
-      <div :class="$classBase + '__pickup-locations--list'">
+      <div :class="`${$classBase}__pickup-locations--list`">
         <recursive-form
           v-if="selected === views.list"
           v-test="'view--list'"
@@ -52,6 +52,7 @@ export default {
       default: null,
     },
   },
+
   data() {
     return {
       selected: null,
@@ -62,20 +63,23 @@ export default {
         pagination: this.$configBus.get(CONFIG.FEATURE_MAX_PAGE_ITEMS),
         choices: this.data.choices,
       },
+
       views: {
         map: MAP_VIEW,
         list: LIST_VIEW,
       },
     };
   },
+
   created() {
     this.selected = this.getDefaultMapView();
   },
+
   methods: {
     /**
      * Get the default map view setting or fall back to default.
      *
-     * @returns {String}
+     * @returns {string}
      */
     getDefaultMapView() {
       const setting = this.$configBus.get(CONFIG.FEATURE_PICKUP_LOCATIONS_DEFAULT_VIEW);

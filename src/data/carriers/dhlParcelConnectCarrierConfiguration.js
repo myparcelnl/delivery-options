@@ -74,4 +74,3 @@ export class DhlParcelConnectCarrierConfiguration extends AbstractCarrierConfigu
     };
   }
 }
-

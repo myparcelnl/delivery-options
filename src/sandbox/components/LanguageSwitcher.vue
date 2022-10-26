@@ -1,19 +1,18 @@
 <template>
-  <b-nav-item-dropdown
+  <BNavItemDropdown
     :text="languageName($i18n.locale)"
     right>
-    <b-dropdown-item
-      v-for="(locale, i) of availableLanguages"
+    <BDropdownItem
+      v-for="(locale, i) in availableLanguages"
       :key="`Lang${i}`"
       :active="locale === $i18n.locale"
       @click.prevent="$i18n.locale = locale">
       {{ languageName(locale) }}
-    </b-dropdown-item>
-  </b-nav-item-dropdown>
+    </BDropdownItem>
+  </BNavItemDropdown>
 </template>
 
 <script>
-
 export default {
   name: 'LanguageSwitcher',
   data() {
@@ -25,6 +24,7 @@ export default {
       },
     };
   },
+
   methods: {
     languageName(locale) {
       return this.map[locale];

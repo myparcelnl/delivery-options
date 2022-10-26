@@ -1,7 +1,7 @@
 /**
  * Creates either a script or a link tag depending on the given url to load an external resource programmatically.
  *
- * @param {String} url - URL to load.
+ * @param {string} url - URL to load.
  * @returns {Promise}
  */
 export const createScript = (url) => new Promise((resolve) => {

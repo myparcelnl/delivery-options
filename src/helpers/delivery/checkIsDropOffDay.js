@@ -2,11 +2,11 @@ import * as CONFIG from '@/data/keys/configKeys';
 import { configBus as realConfigBus } from '@/delivery-options/config/configBus';
 
 /**
- * @param {Number} dropOffDay
+ * @param {number} dropOffDay
  * @param {import('@/delivery-options/config/configBus').configBus} configBus
- * @param {Number} day
+ * @param {number} day
  *
- * @returns {Boolean}
+ * @returns {boolean}
  */
 export function checkIsDropOffDay(dropOffDay, configBus = realConfigBus, day = new Date().getDay()) {
   const dateMatches = day === dropOffDay;

@@ -2,9 +2,9 @@
  * Convert given code to formatted js notation removing quotes around properties and replacing double quotes.
  *
  * @param {*} code - Code to convert.
- * @param {String} mode - Format mode. If 'javascript' will replace/remove quotes.
+ * @param {string} mode - Format mode. If 'javascript' will replace/remove quotes.
  *
- * @returns {String}
+ * @returns {string}
  */
 export const formatCode = (code, mode = 'javascript') => {
   if (typeof code === 'string') {

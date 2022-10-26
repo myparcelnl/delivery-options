@@ -9,8 +9,8 @@
       <tr>
         <td :colspan="$configBus.hasMultipleDeliveryCarriers ? 1 : 2">
           <p>
-            <span v-text="data.address.street + ' ' + data.address.number" /><br>
-            <span v-text="data.address.postal_code + ' ' + data.address.city" />
+            <span v-text="`${data.address.street} ${data.address.number}`" /><br>
+            <span v-text="`${data.address.postal_code} ${data.address.city}`" />
 
             <template v-if="!!data.location.phone_number">
               <br>
@@ -61,7 +61,7 @@
         <td>
           <recursive-form
             v-for="(option, index) in data.options"
-            :key="'pickup_' + index"
+            :key="`pickup_${index}`"
             :option="option" />
         </td>
       </tr>
@@ -83,11 +83,13 @@ export default {
       default: null,
     },
   },
+
   data() {
     return {
       weekdays: null,
     };
   },
+
   computed: {
     strings() {
       return this.$configBus.strings;

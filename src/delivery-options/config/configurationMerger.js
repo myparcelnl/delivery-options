@@ -2,13 +2,13 @@ import { CARRIER_SETTINGS, DROP_OFF_DAYS, carrierFeatures } from '@/data/keys/co
 import { CarrierConfigurationFactory } from '@/data/carriers/carrierConfigurationFactory';
 import { defaultConfiguration } from '@/config/defaultConfiguration';
 import mergeWith from 'lodash-es/mergeWith';
-import { validatePlatform } from "@/delivery-options/config/validatePlatform";
+import { validatePlatform } from '@/delivery-options/config/validatePlatform';
 
 export class ConfigurationMerger {
   /**
    * These items should never be merged and the new value must always overwrite the default value.
    *
-   * @type {String[]}
+   * @type {string[]}
    */
   KEYS_NOT_ALLOWED_TO_MERGE = [
     DROP_OFF_DAYS,
@@ -55,7 +55,7 @@ export class ConfigurationMerger {
    *
    * @param {*} defaultValue - The default value.
    * @param {*} newValue - The new value.
-   * @param {String} key - Key of the current object.
+   * @param {string} key - Key of the current object.
    *
    * @returns {*}
    */

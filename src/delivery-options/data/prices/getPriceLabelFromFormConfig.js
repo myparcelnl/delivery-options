@@ -12,7 +12,7 @@ import { configBus as realConfigBus } from '@/delivery-options/config/configBus'
  * @param {MyParcel.CarrierName} carrier
  * @param {import('@/delivery-options/config/configBus')} configBus - Optional parameter for easier testing.
  *
- * @returns {?String}
+ * @returns {?string}
  */
 export function getPriceLabelFromFormConfig(formSettings, carrier = null, configBus = realConfigBus) {
   const minimumPrice = getLowestPriceFromFormConfig(formSettings, carrier, configBus);

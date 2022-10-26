@@ -8,7 +8,7 @@ import { configBus as realConfigBus } from '@/delivery-options/config/configBus'
  * @param {MyParcel.CarrierName} carrierName
  * @param {import('@/delivery-options/config/configBus')} configBus - Optional parameter for easier testing.
  *
- * @returns {Number}
+ * @returns {number}
  */
 export function getLowestPriceFromFormConfig(config, carrierName = null, configBus = realConfigBus) {
   const carriers = carrierName ? [carrierName] : Object.keys(configBus.get(CONFIG.CARRIER_SETTINGS));

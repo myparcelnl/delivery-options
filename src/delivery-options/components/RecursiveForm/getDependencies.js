@@ -2,7 +2,7 @@
  * Recursively search for dependencies.
  *
  * @param {Object} dependencies - Haystack.
- * @param {Array|String} dependencyNames - Dependency name(s).
+ * @param {Array | string} dependencyNames - Dependency name(s).
  *
  * @returns {*}
  */
@@ -10,7 +10,7 @@ import { configBus } from '@/delivery-options/config/configBus';
 
 /**
  * @param {Object} dependencies - Dependency object.
- * @param {String|String[]} dependencyNames - Name(s) of dependencies.
+ * @param {string | string[]} dependencyNames - Name(s) of dependencies.
  *
  * @returns {null}
  */

@@ -2,7 +2,7 @@
   <component
     :is="component"
     :size="size"
-    :variant="'outline-' + (icon ? 'dark' : carrier.name)"
+    :variant="`outline-${icon ? 'dark' : carrier.name}`"
     v-bind="$attrs">
     <img
       v-if="icon"
@@ -26,15 +26,18 @@ export default {
       type: Object,
       default: null,
     },
+
     component: {
       type: [String, Object],
       default: () => 'b-button',
     },
+
     icon: Boolean,
     size: {
       type: String,
       default: null,
     },
+
     text: Boolean,
   },
 };

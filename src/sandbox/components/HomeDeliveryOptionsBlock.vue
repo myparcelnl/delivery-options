@@ -1,11 +1,11 @@
 <template>
-  <b-card
+  <BCard
     class="delivery-options my-3 p-2"
     :class="{ 'delivery-options--loading': loading }">
     <form>
       <div v-html="deliveryOptionsDiv" />
     </form>
-  </b-card>
+  </BCard>
 </template>
 
 <script>
@@ -31,14 +31,17 @@ export default {
         startLoading: () => {
           this.loading = true;
         },
+
         stopLoading: () => {
           this.loading = false;
         },
+
         loadAndRender: () => {
           this.listeners.startLoading();
 
           return this.listeners.render();
         },
+
         loadAndUpdate: () => {
           this.listeners.startLoading();
 
@@ -76,7 +79,7 @@ export default {
     document.addEventListener(EVENTS.UPDATED_DELIVERY_OPTIONS, this.listeners.stopLoading);
   },
 
-  beforeDestroy() {
+  beforeUnmount() {
     sandboxConfigBus.$off('updated:platform');
     sandboxConfigBus.$off('updated_settings');
 
@@ -126,7 +129,7 @@ export default {
     /**
      * Dispatch an event.
      *
-     * @param {String} event - Event to send.
+     * @param {string} event - Event to send.
      * @param {*} data - Any data to put in the detail property. Event will be a CustomEvent if this is used.
      */
     dispatchEvent(event, data = null) {

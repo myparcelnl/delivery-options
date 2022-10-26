@@ -6,7 +6,7 @@ import split from 'lodash-es/split';
  * Sort the sibling keys in an object starting from given path alphabetically.
  *
  * @param {Object} object - Object to search.
- * @param {String} path - Path to get siblings of.
+ * @param {string} path - Path to get siblings of.
  *
  * @returns {Object}
  */
