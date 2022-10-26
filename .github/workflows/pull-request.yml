@@ -1,0 +1,13 @@
+name: 'Run tests 🧪'
+
+on:
+  pull_request:
+    branches:
+      - main
+      - alpha
+      - beta
+
+jobs:
+  test:
+    uses: ./.github/workflows/--run-tests.yml
+    secrets: inherit

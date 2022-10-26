@@ -1,0 +1,22 @@
+name: '🔸 Run tests 🧪'
+
+on:
+  workflow_call:
+
+jobs:
+  test:
+    name: 'Run tests'
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: myparcelnl/actions/yarn-install@v2
+
+      - name: 'Run tests'
+        run: ./node_modules/.bin/cross-env yarn test:unit --coverage
+        env:
+          NODE_ICU_DATA: node_modules/full-icu
+
+      - uses: codecov/codecov-action@v2
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}

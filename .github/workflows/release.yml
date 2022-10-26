@@ -1,0 +1,40 @@
+name: 'Release new version 🚀'
+
+on:
+  push:
+    branches:
+      - main
+      - alpha
+      - beta
+
+jobs:
+  test:
+    uses: ./.github/workflows/--run-tests.yml
+    secrets: inherit
+
+  release:
+    runs-on: ubuntu-22.04
+    needs:
+      - test
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+
+      - uses: myparcelnl/actions/yarn-install@v2
+
+      - name: 'Create build'
+        run: yarn run build
+
+      - uses: myparcelnl/actions/semantic-release@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_REPO_TOKEN }}
+          NPM_TOKEN: ${{secrets.NPM_TOKEN}}
+
+      - name: 'Publish updated sandbox'
+        uses: JamesIves/github-pages-deploy-action@releases/v3
+        with:
+          BRANCH: gh-pages
+          FOLDER: dist
+          GITHUB_TOKEN: ${{ secrets.GH_REPO_TOKEN }}
