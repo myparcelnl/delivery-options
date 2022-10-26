@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [5.2.1](https://github.com/myparcelnl/delivery-options/compare/v5.2.0...v5.2.1) (2022-10-26)
+
+
+### :bug: Bug Fixes
+
+* change script that installs husky ([d41f665](https://github.com/myparcelnl/delivery-options/commit/d41f665fbfe56061bd8670c6d4742dae5b8f5037))
+
 ## [5.2.0](https://github.com/myparcelnl/delivery-options/compare/v5.1.1...v5.2.0) (2022-10-26)
 
 
