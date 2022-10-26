@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.2.0](https://github.com/myparcelnl/delivery-options/compare/v5.1.1...v5.2.0) (2022-10-26)
+
+
+### :bug: Bug Fixes
+
+* expose delivery date by default ([#118](https://github.com/myparcelnl/delivery-options/issues/118)) ([4035407](https://github.com/myparcelnl/delivery-options/commit/4035407592f38035b294968f47905b9514c362a8))
+
+
+### :sparkles: New Features
+
+* add dhl carriers ([#122](https://github.com/myparcelnl/delivery-options/issues/122)) ([8b4b018](https://github.com/myparcelnl/delivery-options/commit/8b4b0180d47ec202b99128bab61c4039ef84128b)), closes [#123](https://github.com/myparcelnl/delivery-options/issues/123) [#124](https://github.com/myparcelnl/delivery-options/issues/124)
+* do not show morning and evening without deliverydate ([#116](https://github.com/myparcelnl/delivery-options/issues/116)) ([1df61c5](https://github.com/myparcelnl/delivery-options/commit/1df61c5846f93191c448805b91e9633a56af2074))
+
 ### [5.1.1](https://github.com/myparcelnl/delivery-options/compare/v5.1.0...v5.1.1) (2022-03-17)
 
 
