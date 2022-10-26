@@ -12,7 +12,7 @@ jobs:
       - uses: actions/checkout@v2
         with:
           ref: 'main'
-      - uses: myparcelnl/actions/yarn-install@v1
+      - uses: myparcelnl/actions/yarn-install@v2
       - name: 'Run jest'
         run: ./node_modules/.bin/cross-env yarn test:unit -- tests/unit/delivery-options/testLiveApi.spec.js --coverage=false
         env:
