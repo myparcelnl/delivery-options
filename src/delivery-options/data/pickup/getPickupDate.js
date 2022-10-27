@@ -15,5 +15,5 @@ export function getPickupDate(possibilities) {
     return item.delivery_type_name === configBus.getValue(FORM.PICKUP_MOMENT);
   });
 
-  return createIsoString(possibility.moment.start.date);
+  return possibility.moment?.start?.date ? createIsoString(possibility.moment.start.date) : null;
 }

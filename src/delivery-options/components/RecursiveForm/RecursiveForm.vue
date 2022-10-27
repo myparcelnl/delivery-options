@@ -171,7 +171,7 @@
               v-text="selectChoice.label" />
           </select>
           <strong
-            v-else
+            v-else-if="firstChoice"
             v-test="{
               id: `${mutableOption.name}__select__label`,
               choice: firstChoice.name,

@@ -10,6 +10,7 @@ export const getDefaultStrings = () => ({
   [STRINGS.CITY]: 'Plaats',
   [STRINGS.POSTAL_CODE]: 'Postcode',
   [STRINGS.NUMBER]: 'Huisnummer',
+  [STRINGS.STREET]: 'Straat',
   [STRINGS.ADDRESS_NOT_FOUND]: 'Adresgegevens niet ingevuld',
 
   // Other strings
@@ -28,6 +29,7 @@ export const getDefaultStrings = () => ({
   [STRINGS.DELIVERY_STANDARD_TITLE]: '',
   [STRINGS.DELIVERY_TITLE]: 'Thuis of op het werk bezorgen',
   [STRINGS.ONLY_RECIPIENT_TITLE]: 'Alleen ontvanger',
+  [STRINGS.PICK_UP]: 'Afhalen',
   [STRINGS.PICK_UP_FROM]: 'Afhalen vanaf',
   [STRINGS.PICKUP_TITLE]: 'Afhalen op locatie',
   [STRINGS.SIGNATURE_TITLE]: 'Handtekening voor ontvangst',
@@ -41,4 +43,10 @@ export const getDefaultStrings = () => ({
 
   [STRINGS.PACKAGE_TYPE_DIGITAL_STAMP]: 'Digitale postzegel',
   [STRINGS.PACKAGE_TYPE_MAILBOX]: 'Brievenbuspakje',
+
+  [STRINGS.ERROR_3212]: '{} is verplicht.',
+  [STRINGS.ERROR_3224]: '',
+  [STRINGS.ERROR_3505]: 'Postcode is niet geldig voor het gekozen land.',
+  [STRINGS.ERROR_3506]: '',
+  [STRINGS.ERROR_3728]: '',
 });

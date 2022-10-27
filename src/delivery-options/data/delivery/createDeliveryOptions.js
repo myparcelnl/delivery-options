@@ -22,10 +22,6 @@ export async function createDeliveryOptions(
 ) {
   const deliveryOptions = await fetchDeliveryOptions(carrier, platform);
 
-  if (!deliveryOptions.length) {
-    return [];
-  }
-
   configBus.dependencies[carrier] = createDeliveryDependencies(deliveryOptions);
 
   const packageType = configBus.get(CONFIG.PACKAGE_TYPE);

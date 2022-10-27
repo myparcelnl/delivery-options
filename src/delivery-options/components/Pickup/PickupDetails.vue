@@ -51,7 +51,9 @@
         </td>
       </tr>
     </table>
-    <table :class="`${$classBase}__table`">
+    <table
+      v-if="data.options.length"
+      :class="`${$classBase}__table`">
       <tr>
         <td>
           <h3 v-text="strings.options" />

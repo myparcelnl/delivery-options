@@ -1,47 +1,69 @@
 <template>
   <div :class="`${$classBase}__errors`">
     <h4 v-text="$configBus.strings.addressNotFound" />
-    <form v-if="hasRetry">
-      <template v-for="part in requiredAddressParts">
-        <p :key="part">
-          <label>
-            {{ $configBus.strings[part] }}
-            <input
-              v-model="values[part]"
-              :name="`${part}-input`"
-              type="text"
-              :placeholder="$configBus.strings[part]"
-              v-text="$configBus.strings[part]">
-          </label>
-        </p>
-      </template>
-      <button
-        @click.prevent="retry"
-        v-text="$configBus.strings.retry" />
-    </form>
+
+    <ul>
+      <li
+        v-for="error in errors"
+        :key="error">
+        <span v-text="error" />
+      </li>
+    </ul>
+
+    <button
+      v-if="hasRetry"
+      type="button"
+      @click.prevent="retry"
+      v-text="$configBus.strings.retry" />
   </div>
 </template>
 
 <script>
 import * as EVENTS from '@/config/eventConfig';
+import { ADDRESS_CASE_MAP } from '@/data/keys/addressKeys';
+import { ERROR_MISSING_REQUIRED_PARAMETER } from '@/config/errorConfig';
 import { FEATURE_ALLOW_RETRY } from '@/data/keys/configKeys';
-import { addressRequirements } from '@/config/localeConfig';
 
 export default {
   name: 'Errors',
+
+  props: {
+    /**
+     * @type {{options: {code: number, endpoint: string, message: string, type: string}[]}}
+     */
+    data: {
+      type: Object,
+      default: null,
+    },
+  },
+
   data() {
     return {
-      values: { ...this.$configBus.address },
+      values: {
+        ...this.$configBus.address,
+      },
     };
   },
 
   computed: {
-    requiredAddressParts() {
-      return addressRequirements[this.$configBus.address.cc]
-        .map((requirement) => {
-          // If the requirement is an array, only return the first one because it means only one is actually required.
-          return Array.isArray(requirement) ? requirement[0] : requirement;
-        });
+    /**
+     * Map api errors into translations and return them.
+     *
+     * @returns {string[]}
+     */
+    errors() {
+      return this.data.options.map((option) => {
+        let configBusString = this.$configBus.strings[`error${option.code}`];
+
+        if (configBusString && option.code === ERROR_MISSING_REQUIRED_PARAMETER) {
+          const field = (/^(\w+)\s/).exec(option.message);
+          const mappedField = ADDRESS_CASE_MAP[field[1]] || field[1];
+
+          configBusString = configBusString.replace('{}', this.$configBus.strings[mappedField] || mappedField);
+        }
+
+        return configBusString || option.message;
+      });
     },
 
     hasRetry() {
@@ -51,7 +73,7 @@ export default {
 
   methods: {
     /**
-     * Update the address in the configBus with the new address and send the it to the external platform.
+     * Update the address in the configBus with the new address and send it to the external platform.
      */
     retry() {
       const newAddress = { ...this.$configBus.address, ...this.values };

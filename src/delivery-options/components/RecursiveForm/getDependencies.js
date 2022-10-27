@@ -31,7 +31,7 @@ export function getDependencies(dependencies, dependencyNames) {
         result = dependencies[needle][first];
       }
 
-      if (needles.length > 0) {
+      if (result && needles.length > 0) {
         result = getDependencies(result, needles);
       }
     }

@@ -7,7 +7,7 @@ import { config as nlConfig } from '@/data/locales/nl/config';
 import { strings as nlStrings } from '@/data/locales/nl/strings';
 
 /**
- * @type {Object<String, MyParcelDeliveryOptions.Configuration>}
+ * @type {Object<string, MyParcelDeliveryOptions.Configuration>}
  */
 export const CONFIG_MAP = {
   [countryCodes.NETHERLANDS]: {
@@ -18,14 +18,4 @@ export const CONFIG_MAP = {
     [CONFIG.KEY]: beConfig,
     [STRINGS.KEY]: beStrings,
   },
-};
-
-/**
- * TODO: Temporary hard coded requirements. Depends on https://jira.dmp.zone/browse/MY-16173.
- *
- * @type {Object<String, String[]>}
- */
-export const addressRequirements = {
-  [countryCodes.NETHERLANDS]: ['postalCode', ['number', 'street']],
-  [countryCodes.BELGIUM]: ['postalCode', ['city', 'number', 'street']],
 };
