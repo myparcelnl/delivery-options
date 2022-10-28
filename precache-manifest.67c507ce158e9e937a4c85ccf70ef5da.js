@@ -24,8 +24,40 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/delivery-options/favicon-32x32.png"
   },
   {
-    "revision": "fa7ecb348b7a8e0ec5dcd16d36e8dd86",
+    "revision": "ec765567552eda12f11579fa986f9c95",
     "url": "/delivery-options/index.html"
+  },
+  {
+    "revision": "9e595351f9cbe25ffec9",
+    "url": "/delivery-options/js/PreLoader.7ad04432.js"
+  },
+  {
+    "revision": "ff0176efad657945bc4e",
+    "url": "/delivery-options/js/SandboxFooter.d9783a23.js"
+  },
+  {
+    "revision": "9fd52228e5ba523e8f62",
+    "url": "/delivery-options/js/SandboxHeader.d13638a7.js"
+  },
+  {
+    "revision": "55e6775bd04a81261182",
+    "url": "/delivery-options/js/SandboxIntroduction.a2661752.js"
+  },
+  {
+    "revision": "7b5ee9d4bae2840fc1f3",
+    "url": "/delivery-options/js/SandboxSettings.512a0647.js"
+  },
+  {
+    "revision": "b118b45e41997e4c919c",
+    "url": "/delivery-options/js/chunk-51c52110.c6533a0c.js"
+  },
+  {
+    "revision": "b55780ad878eb818890d",
+    "url": "/delivery-options/js/chunk-vendors.ae9c07b2.js"
+  },
+  {
+    "revision": "178ded2e45f4fb06f9ee",
+    "url": "/delivery-options/js/components/CCodeDisplay.310d3e9b.js"
   },
   {
     "revision": "aa97df55a61574413d194aa44c80af51",
@@ -36,16 +68,16 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/delivery-options/mstile-150x150.png"
   },
   {
-    "revision": "1dd2dc15b4934e7f6ba1",
-    "url": "/delivery-options/myparcel.js"
-  },
-  {
     "revision": "b6216d61c03e6ce0c9aea6ca7808f7ca",
     "url": "/delivery-options/robots.txt"
   },
   {
     "revision": "e1bc6677479213f0f70a0a599f5ea8d7",
     "url": "/delivery-options/safari-pinned-tab.svg"
+  },
+  {
+    "revision": "5204f1e3d1ed809b93fe",
+    "url": "/delivery-options/sandbox.js"
   },
   {
     "revision": "685a574cb7b4b1eb749fd5327422a9fb",

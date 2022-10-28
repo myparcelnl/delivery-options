@@ -24,7 +24,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/delivery-options/favicon-32x32.png"
   },
   {
-    "revision": "2c5190275386c5b73fc4b5dfbc624062",
+    "revision": "fa7ecb348b7a8e0ec5dcd16d36e8dd86",
     "url": "/delivery-options/index.html"
   },
   {
@@ -36,8 +36,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/delivery-options/mstile-150x150.png"
   },
   {
-    "revision": "c6f42d7bdfc1b7a68732",
-    "url": "/delivery-options/myparcel.lib.js"
+    "revision": "1d3bab5560e483866256",
+    "url": "/delivery-options/myparcel.js"
   },
   {
     "revision": "b6216d61c03e6ce0c9aea6ca7808f7ca",
