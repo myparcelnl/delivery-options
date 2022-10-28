@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [5.2.2](https://github.com/myparcelnl/delivery-options/compare/v5.2.1...v5.2.2) (2022-10-28)
+
+
+### :bug: Bug Fixes
+
+* **dhl:** remove unsupported options ([#133](https://github.com/myparcelnl/delivery-options/issues/133)) ([bcb9f25](https://github.com/myparcelnl/delivery-options/commit/bcb9f2568650a1c17d00c827a147e709ba9d2e92))
+
 ### [5.2.1](https://github.com/myparcelnl/delivery-options/compare/v5.2.0...v5.2.1) (2022-10-26)
 
 
