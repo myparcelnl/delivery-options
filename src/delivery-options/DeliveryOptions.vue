@@ -145,7 +145,7 @@ export default {
      * @returns {boolean}
      */
     hasValidAddress() {
-      return this.$configBus.address && this.$configBus.address.cc;
+      return Boolean(this.$configBus.address && this.$configBus.address.cc);
     },
 
     /**

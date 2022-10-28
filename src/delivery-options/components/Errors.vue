@@ -1,17 +1,27 @@
 <template>
-  <div :class="`${$classBase}__errors`">
+  <div
+    v-test="'errors'"
+    :class="`${$classBase}__errors`">
     <h4 v-text="$configBus.strings.addressNotFound" />
 
-    <ul>
+    <ul
+      v-if="errors.length"
+      v-test="'errors__ul'">
       <li
-        v-for="error in errors"
-        :key="error">
-        <span v-text="error" />
+        v-for="(error, index) in errors"
+        :key="`${error.code}--${index}`"
+        v-test="{
+          code: error.code,
+          index: index,
+          id: 'errors__li',
+        }">
+        <span v-text="error.translation" />
       </li>
     </ul>
 
     <button
       v-if="hasRetry"
+      v-test="'button--retry'"
       type="button"
       @click.prevent="retry"
       v-text="$configBus.strings.retry" />
@@ -62,7 +72,10 @@ export default {
           configBusString = configBusString.replace('{}', this.$configBus.strings[mappedField] || mappedField);
         }
 
-        return configBusString || option.message;
+        return {
+          ...option,
+          translation: configBusString || option.message,
+        };
       });
     },
 

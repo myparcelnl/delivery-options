@@ -1,5 +1,6 @@
 import { RENDER_DELIVERY_OPTIONS, UPDATED_DELIVERY_OPTIONS, UPDATE_DELIVERY_OPTIONS } from '@/config/eventConfig';
 import { MYPARCEL } from '@/data/keys/platformKeys';
+import Vue from 'vue';
 import { dataTest } from '@Tests/unit/selectors';
 import { defaultAddress } from '@/data/defaultAddress';
 import { defaultConfiguration } from '@/config/defaultConfiguration';
@@ -19,6 +20,9 @@ const createHtml = (id = classBase) => {
 describe('main.js', () => {
   beforeAll(async() => {
     createHtml();
+
+    Vue.config.productionTip = false;
+    Vue.config.devtools = false;
 
     await import('@/delivery-options/main');
   });
