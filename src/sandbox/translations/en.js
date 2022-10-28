@@ -33,6 +33,7 @@ export const englishTranslations = {
   [`field.${ADDRESS.CITY}`]: 'City',
   [`field.${ADDRESS.KEY}`]: 'Address',
   [`field.${ADDRESS.NUMBER}`]: 'Number',
+  [`field.${ADDRESS.STREET}`]: 'Street',
   [`field.${ADDRESS.POSTAL_CODE}`]: 'Postal code',
   [`field.${CONFIG.ALLOW_DELIVERY_OPTIONS}`]: 'Allow delivery options',
   [`field.${CONFIG.ALLOW_EVENING_DELIVERY}`]: 'Allow evening delivery',

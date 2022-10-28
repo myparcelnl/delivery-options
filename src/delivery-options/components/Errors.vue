@@ -19,6 +19,20 @@
       </li>
     </ul>
 
+    <p
+      v-for="field in requiredFields"
+      :key="field.name">
+      <label>
+        {{ $configBus.strings[field.name] }}
+        <input
+          v-model="values[field.name]"
+          :name="`${field.name}-input`"
+          v-bind="field.attributes"
+          :placeholder="$configBus.strings[field.name]"
+          v-text="$configBus.strings[field.name]">
+      </label>
+    </p>
+
     <button
       v-if="hasRetry"
       v-test="'button--retry'"
@@ -30,7 +44,7 @@
 
 <script>
 import * as EVENTS from '@/config/eventConfig';
-import { ADDRESS_CASE_MAP } from '@/data/keys/addressKeys';
+import { ADDRESS_CASE_MAP, ADDRESS_FIELDS, ADDRESS_FIELD_COMBINATIONS } from '@/data/keys/addressKeys';
 import { ERROR_MISSING_REQUIRED_PARAMETER } from '@/config/errorConfig';
 import { FEATURE_ALLOW_RETRY } from '@/data/keys/configKeys';
 
@@ -57,19 +71,53 @@ export default {
 
   computed: {
     /**
+     * @returns {{name: string, attributes: Object<string, any>}[]}
+     */
+    requiredFields() {
+      const errors = this.mappedOptions
+        .filter((option) => option.field)
+        .map((option) => option.field);
+
+      const optionsFromErrors = new Set(errors);
+
+      const [fields] = ADDRESS_FIELD_COMBINATIONS
+        .map((combination) => ({
+          combination,
+          common: combination.filter((option) => optionsFromErrors.has(option)).length,
+        }))
+        .sort((itemA, itemB) => itemB.common - itemA.common)
+        .map((item) => item.combination);
+
+      return ADDRESS_FIELDS.filter((field) => fields.includes(field.name));
+    },
+
+    mappedOptions() {
+      return this.data.options.map((option) => {
+        let field = null;
+
+        if (option.code === ERROR_MISSING_REQUIRED_PARAMETER) {
+          const match = (/^(\w+)\s/).exec(option.message);
+          field = ADDRESS_CASE_MAP[match[1]] || match[1];
+        }
+
+        return {
+          ...option,
+          field,
+        };
+      });
+    },
+
+    /**
      * Map api errors into translations and return them.
      *
      * @returns {string[]}
      */
     errors() {
-      return this.data.options.map((option) => {
+      return this.mappedOptions.map((option) => {
         let configBusString = this.$configBus.strings[`error${option.code}`];
 
         if (configBusString && option.code === ERROR_MISSING_REQUIRED_PARAMETER) {
-          const field = (/^(\w+)\s/).exec(option.message);
-          const mappedField = ADDRESS_CASE_MAP[field[1]] || field[1];
-
-          configBusString = configBusString.replace('{}', this.$configBus.strings[mappedField] || mappedField);
+          configBusString = configBusString.replace('{}', this.$configBus.strings[option.field]);
         }
 
         return {

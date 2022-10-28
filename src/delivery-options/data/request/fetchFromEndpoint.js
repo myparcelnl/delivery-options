@@ -11,7 +11,7 @@ import memoize from 'lodash-es/memoize';
 export const METHOD_GET = 'get';
 export const METHOD_SEARCH = 'search';
 
-const memoizedFetch = memoize(async function fetchFunc(endpoint, options = {}, handleError = true) {
+const memoizedFetch = memoize(async function fetchFunc(endpoint, options = {}) {
   const client = new Client();
 
   client.config.acceptLanguage = configBus ? configBus.get(LOCALE) : 'nl-NL';
@@ -28,17 +28,15 @@ const memoizedFetch = memoize(async function fetchFunc(endpoint, options = {}, h
   try {
     response = await client[endpoint][options.method](options.params) || [];
   } catch (e) {
-    if (handleError) {
-      if (!configBus) {
-        return;
-      }
-
-      return { response: [], error: e };
+    if (!configBus) {
+      return;
     }
 
-    throw e;
+    return {
+      response: [],
+      error: e,
+    };
   }
-
   return { response, error: null };
 }, (...args) => JSON.stringify(args));
 
@@ -50,12 +48,11 @@ const memoizedFetch = memoize(async function fetchFunc(endpoint, options = {}, h
  * @param {Object} options - Options.
  * @param {string} options.method? - Method.
  * @param {Object} options.params? - URL parameters.
- * @param {boolean} handleError
  *
  * @returns {Promise<{response: Array, errors: Array}>}
  */
-export const fetchFromEndpoint = async(endpoint, options = {}, handleError = true) => {
-  const { response, error } = await memoizedFetch(endpoint, options, handleError);
+export const fetchFromEndpoint = async(endpoint, options = {}) => {
+  const { response, error } = await memoizedFetch(endpoint, options);
 
   if (error) {
     const { errors } = error;
@@ -63,7 +60,13 @@ export const fetchFromEndpoint = async(endpoint, options = {}, handleError = tru
     configBus.errors = [];
 
     if (errors && errors.length && !isEqual([{ code: 0 }], errors)) {
-      errors.forEach((error) => configBus.addError({ type: 'api', endpoint, ...error }));
+      errors.forEach((error) => {
+        configBus.addError({
+          type: 'api',
+          endpoint,
+          ...error,
+        });
+      });
     } else {
       configBus.addError({ type: 'fatal', endpoint, error });
     }

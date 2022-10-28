@@ -19,7 +19,6 @@ export async function fetchPickupLocations(carrierName, parameters = {}) {
         ...parameters,
       },
     },
-    false,
   );
 
   /**
