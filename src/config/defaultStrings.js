@@ -46,6 +46,7 @@ export const getDefaultStrings = () => ({
 
   [STRINGS.ERROR_3212]: '{} is verplicht.',
   [STRINGS.ERROR_3224]: '',
+  [STRINGS.ERROR_3501]: 'Dit adres is niet gevonden.',
   [STRINGS.ERROR_3505]: 'Postcode is niet geldig voor het gekozen land.',
   [STRINGS.ERROR_3506]: '',
   [STRINGS.ERROR_3728]: '',

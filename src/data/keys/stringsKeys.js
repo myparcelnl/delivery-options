@@ -46,6 +46,7 @@ export const PACKAGE_TYPE_MAILBOX = 'packageTypeMailbox';
 
 export const ERROR_3212 = 'error3212';
 export const ERROR_3224 = 'error3224';
+export const ERROR_3501 = 'error3501';
 export const ERROR_3505 = 'error3505';
 export const ERROR_3506 = 'error3506';
 export const ERROR_3728 = 'error3728';
