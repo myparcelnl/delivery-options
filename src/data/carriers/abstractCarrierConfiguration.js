@@ -52,7 +52,7 @@ export class AbstractCarrierConfiguration {
       case PACKAGE_TYPE_DIGITAL_STAMP:
         return this.hasFeature(ALLOW_PACKAGE_TYPE_DIGITAL_STAMP);
       default:
-        return true;
+        return false;
     }
   }
 
