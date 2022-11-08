@@ -440,7 +440,7 @@ export const createConfigBus = (eventCallee = null) => {
 
           return carrier.deliveryEnabled
             && carrierConfiguration.allowsDeliveryIn(this.address.cc)
-            && carrierConfiguration.allowsPackageType(this.get(CONFIG.PACKAGE_TYPE));
+            && carrierConfiguration.allowsPackageTypeIn(this.get(CONFIG.PACKAGE_TYPE), this.address.cc);
         });
       },
     },
