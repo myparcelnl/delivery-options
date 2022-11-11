@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [5.2.3](https://github.com/myparcelnl/delivery-options/compare/v5.2.2...v5.2.3) (2022-11-11)
+
+
+### :bug: Bug Fixes
+
+* stop disallowed package types from being displayed ([#134](https://github.com/myparcelnl/delivery-options/issues/134)) ([d44e951](https://github.com/myparcelnl/delivery-options/commit/d44e95174225fa3e92a99f00bb7717816fd7ea5b))
+
 ### [5.2.2](https://github.com/myparcelnl/delivery-options/compare/v5.2.1...v5.2.2) (2022-10-28)
 
 
