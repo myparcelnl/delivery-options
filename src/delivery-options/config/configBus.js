@@ -438,7 +438,9 @@ export const createConfigBus = (eventCallee = null) => {
             return false;
           }
 
-          return carrier.deliveryEnabled && carrierConfiguration.allowsDeliveryIn(this.address.cc);
+          return carrier.deliveryEnabled
+            && carrierConfiguration.allowsDeliveryIn(this.address.cc)
+            && carrierConfiguration.allowsPackageTypeIn(this.get(CONFIG.PACKAGE_TYPE), this.address.cc);
         });
       },
     },

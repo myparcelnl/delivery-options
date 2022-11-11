@@ -1,3 +1,5 @@
+import { ALLOW_PACKAGE_TYPE_DIGITAL_STAMP, ALLOW_PACKAGE_TYPE_MAILBOX } from '@/data/keys/configKeys';
+import { PACKAGE_TYPE_DIGITAL_STAMP, PACKAGE_TYPE_MAILBOX, PACKAGE_TYPE_PACKAGE } from '@/data/keys/settingsConsts';
 import { countryCodes } from '@/data/keys/countryCodes';
 import { flatten } from 'lodash-es';
 import { validatePlatform } from '@/delivery-options/config/validatePlatform';
@@ -33,6 +35,26 @@ export class AbstractCarrierConfiguration {
    */
   allowsPickupIn(country) {
     return this.getCountriesForPickup().includes(country.toUpperCase());
+  }
+
+  /**
+   * Check if the carrier offers a specific package type.
+   *
+   * @param {string} packageTypeName
+   * @param {string} country
+   * @returns {boolean}
+   */
+  allowsPackageTypeIn(packageTypeName, country) {
+    switch (packageTypeName) {
+      case PACKAGE_TYPE_PACKAGE:
+        return true;
+      case PACKAGE_TYPE_MAILBOX:
+        return country === countryCodes.NETHERLANDS && this.hasFeature(ALLOW_PACKAGE_TYPE_MAILBOX);
+      case PACKAGE_TYPE_DIGITAL_STAMP:
+        return country === countryCodes.NETHERLANDS && this.hasFeature(ALLOW_PACKAGE_TYPE_DIGITAL_STAMP);
+      default:
+        return false;
+    }
   }
 
   /**
