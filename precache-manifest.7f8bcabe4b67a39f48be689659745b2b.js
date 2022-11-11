@@ -36,7 +36,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/delivery-options/mstile-150x150.png"
   },
   {
-    "revision": "1d3bab5560e483866256",
+    "revision": "1c096e096652dfc68996",
     "url": "/delivery-options/myparcel.js"
   },
   {
