@@ -27,6 +27,8 @@ export class DhlForYouCarrierConfiguration extends AbstractCarrierConfiguration 
         FEATURES.FEATURES_SAME_DAY_DELIVERY,
         FEATURES.FEATURES_SHOW_DELIVERY_DATE,
         FEATURES.FEATURES_PICKUP,
+        FEATURES.FEATURES_ONLY_RECIPIENT,
+        FEATURES.FEATURES_SIGNATURE,
       ],
     };
   }
