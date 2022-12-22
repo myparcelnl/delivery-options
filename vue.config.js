@@ -42,19 +42,6 @@ module.exports = {
     },
   },
 
-  pwa: {
-    name: 'MyParcel delivery options sandbox',
-    themeColor: '#0f5c47',
-    msTileColor: '#0f5c47',
-    appleMobileWebAppCapable: 'yes',
-    manifest: {
-      short_name: 'Delivery options',
-    },
-    manifestOptions: {
-      background_color: '#0f5c47',
-    },
-  },
-
   configureWebpack: {
     resolve: {
       symlinks: false,
