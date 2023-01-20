@@ -13,7 +13,9 @@ jobs:
         with:
           ref: 'main'
 
-      - uses: myparcelnl/actions/yarn-install@v2
+      - uses: myparcelnl/actions/yarn-install@v3
+        with:
+          node-version: 16
 
       - name: 'Run jest'
         run: ./node_modules/.bin/cross-env yarn test:unit -- tests/unit/delivery-options/testLiveApi.spec.js --coverage=false

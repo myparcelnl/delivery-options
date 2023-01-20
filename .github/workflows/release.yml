@@ -36,7 +36,9 @@ jobs:
           persist-credentials: false
           fetch-depth: 0
 
-      - uses: myparcelnl/actions/yarn-install@v2
+      - uses: myparcelnl/actions/yarn-install@v3
+        with:
+          node-version: 16
 
       - name: 'Cache build'
         uses: actions/cache@v3
@@ -53,7 +55,7 @@ jobs:
         if: steps.cache-build.outputs.cache-hit != 'true'
         run: yarn run build
 
-      - uses: myparcelnl/actions/semantic-release@v2
+      - uses: myparcelnl/actions/semantic-release@v3
         with:
           token: ${{ steps.credentials.outputs.token }}
         env:
