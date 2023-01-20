@@ -24,8 +24,15 @@ jobs:
     needs:
       - test
     steps:
+      - uses: myparcelnl/actions/setup-git-credentials@v3
+        id: credentials
+        with:
+          app-id: ${{ secrets.MYPARCEL_APP_ID }}
+          private-key: ${{ secrets.MYPARCEL_APP_PRIVATE_KEY }}
+
       - uses: actions/checkout@v3
         with:
+          token: ${{ steps.credentials.outputs.token }}
           persist-credentials: false
           fetch-depth: 0
 
@@ -48,13 +55,13 @@ jobs:
 
       - uses: myparcelnl/actions/semantic-release@v2
         with:
-          token: ${{ secrets.GH_REPO_TOKEN }}
+          token: ${{ steps.credentials.outputs.token }}
         env:
-          NPM_TOKEN: ${{secrets.NPM_TOKEN}}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: 'Publish updated sandbox'
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
           BRANCH: gh-pages
           FOLDER: dist
-          GITHUB_TOKEN: ${{ secrets.GH_REPO_TOKEN }}
+          GITHUB_TOKEN: ${{ steps.credentials.outputs.token }}
