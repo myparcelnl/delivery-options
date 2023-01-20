@@ -10,10 +10,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - uses: myparcelnl/actions/yarn-install@v3
-        with:
-          node-version: 16
-
       - name: 'Cache coverage'
         uses: actions/cache@v3
         id: cache-coverage
@@ -23,6 +19,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-coverage-${{ hashFiles('**/yarn.lock') }}
             ${{ runner.os }}-coverage-
+
+      - uses: myparcelnl/actions/yarn-install@v3
+        if: steps.cache-coverage.outputs.cache-hit != 'true'
+        with:
+          node-version: 16
 
       - name: 'Run tests'
         if: steps.cache-coverage.outputs.cache-hit != 'true'
