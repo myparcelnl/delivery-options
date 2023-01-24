@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [5.3.1](https://github.com/myparcelnl/delivery-options/compare/v5.3.0...v5.3.1) (2023-01-24)
+
+
+### :bug: Bug Fixes
+
+* **sandbox:** remove pwa ([#142](https://github.com/myparcelnl/delivery-options/issues/142)) ([0bf289e](https://github.com/myparcelnl/delivery-options/commit/0bf289e288ad6fe0976454ef6aabfb6a87d2f115))
+
 ## [5.3.0](https://github.com/myparcelnl/delivery-options/compare/v5.2.3...v5.3.0) (2022-11-29)
 
 
