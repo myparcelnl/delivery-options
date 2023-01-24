@@ -1,9 +1,9 @@
-import * as CONFIG from '@/data/keys/configKeys';
-import { POSTNL } from '@/data/keys/carrierKeys';
+import {CONFIG} from '../../data';
+import { POSTNL } from '../../data/keys/carrierKeys';
 import Vue from 'vue';
 import { Wrapper } from '@vue/test-utils';
 import { configBus } from '../../config/configBus';
-import { defaultConfiguration } from '@/config/defaultConfiguration';
+import { defaultConfiguration } from '../../config/defaultConfiguration';
 import { merge } from 'lodash-es';
 import { mockDeliveryOptions } from './mockDeliveryOptions';
 

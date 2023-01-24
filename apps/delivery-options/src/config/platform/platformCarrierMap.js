@@ -1,5 +1,5 @@
-import * as CARRIERS from '../../data/keys/carrierKeys';
-import * as PLATFORMS from '../../data/keys/platformKeys';
+import {CARRIERS} from '../../data';
+import {PLATFORMS} from '../../data';
 
 /**
  * Maps platforms to their available carriers.

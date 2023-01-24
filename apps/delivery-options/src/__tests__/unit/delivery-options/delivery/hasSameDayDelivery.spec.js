@@ -1,9 +1,9 @@
-import * as CARRIERS from '@/data/keys/carrierKeys';
-import * as CONFIG from '@/data/keys/configKeys';
+import {CARRIERS} from '../../data';
+import {CONFIG} from '../../data';
 import * as Mockdate from 'mockdate';
-import { hasSameDayDelivery } from '@/helpers/delivery/hasSameDayDelivery';
+import { hasSameDayDelivery } from '../../helpers/delivery/hasSameDayDelivery';
 import { mockConfigBus } from '@Tests/unit/delivery-options/mockConfigBus';
-import {DHL_FOR_YOU, INSTABOX} from "@/data/keys/carrierKeys";
+import {DHL_FOR_YOU, INSTABOX} from "../../data/keys/carrierKeys";
 
 const tuesdayBeforeNormalCutoffTime = '2020-03-10T14:30:00';
 const tuesdayPastNormalCutoffTime = '2020-03-10T17:30:00';

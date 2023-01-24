@@ -1,4 +1,4 @@
-import * as STRINGS from '@/data/keys/stringsKeys';
+import { STRINGS } from '../../../data';
 
 export const strings = {
   [STRINGS.SATURDAY_DELIVERY_TITLE]: 'Zaterdaglevering',

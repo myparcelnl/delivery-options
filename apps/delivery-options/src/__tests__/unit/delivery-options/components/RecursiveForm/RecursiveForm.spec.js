@@ -1,10 +1,10 @@
-import * as CARRIERS from '@/data/keys/carrierKeys';
-import * as CONFIG from '@/data/keys/configKeys';
-import * as PLATFORMS from '@/data/keys/platformKeys';
+import {CARRIERS} from '../../data';
+import {CONFIG} from '../../data';
+import {PLATFORMS} from '../../data';
 import RecursiveForm from '../../components/RecursiveForm/RecursiveForm';
-import { UPDATED_DELIVERY_OPTIONS } from '@/config/eventConfig';
-import { defaultConfiguration } from '@/config/defaultConfiguration';
-import { formConfigDelivery } from '@/config/formConfig';
+import { UPDATED_DELIVERY_OPTIONS } from '../../config/eventConfig';
+import { defaultConfiguration } from '../../config/defaultConfiguration';
+import { formConfigDelivery } from '../../config/formConfig';
 import { getPriceLabelFromFormConfig } from '../../data/prices/getPriceLabelFromFormConfig';
 import { mockDeliveryOptions } from '@Tests/unit/delivery-options/mockDeliveryOptions';
 import { mockVue } from '@Tests/unit/delivery-options/mockVue';

@@ -1,4 +1,4 @@
-import isPlainObject from 'lodash-es/isPlainObject';
+import{ isPlainObject } from 'lodash-unified';
 
 /**
  * @param {Object} object - Object to sort.

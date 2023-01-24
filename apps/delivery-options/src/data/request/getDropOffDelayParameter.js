@@ -1,12 +1,12 @@
-import * as CONFIG from '@/data/keys/configKeys';
-import * as CARRIERS from '@/data/keys/carrierKeys';
-import { hasSameDayDelivery } from '@/helpers/delivery/hasSameDayDelivery';
-import { isPastCutoffTime } from '@/helpers/delivery/isPastCutoffTime';
-import { configBus as realConfigBus } from '@/delivery-options/config/configBus';
+import {CONFIG} from '../../data';
+import {CARRIERS} from '../../data';
+import { hasSameDayDelivery } from '../../helpers/delivery/hasSameDayDelivery';
+import { isPastCutoffTime } from '../../helpers/delivery/isPastCutoffTime';
+import { configBus as realConfigBus } from '../../config/configBus';
 
 /**
  * @param {MyParcel.CarrierName} carrier
- * @param {import('@/delivery-options/config/configBus')} configBus - Optional parameter for easier testing.
+ * @param {import('../../config/configBus')} configBus - Optional parameter for easier testing.
  *
  * @returns {Partial<DeliveryOptionsRequestParameters>}
  */

@@ -1,7 +1,7 @@
-import * as FEATURES from '@/data/carrierFeatures';
-import { AbstractCarrierConfiguration } from '@/data/carriers/abstractCarrierConfiguration';
-import { SENDMYPARCEL } from '@/data/keys/platformKeys';
-import { countryCodes } from '@/data/keys/countryCodes';
+import * as FEATURES from '../../data/carrierFeatures';
+import { AbstractCarrierConfiguration } from '../../data/carriers/abstractCarrierConfiguration';
+import { SENDMYPARCEL } from '../../data/keys/platformKeys';
+import { countryCodes } from '../../data/keys/countryCodes';
 
 export class DpdCarrierConfiguration extends AbstractCarrierConfiguration {
   getCountriesForDelivery() {

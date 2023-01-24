@@ -1,82 +1,33 @@
 {
-  "name": "@myparcel/delivery-options",
-  "version": "5.1.1",
+  "name": "@myparcel-do/monorepo",
+  "version": "1.0.0",
   "description": "MyParcel delivery options module for checkouts.",
   "homepage": "https://myparcelnl.github.io/delivery-options",
   "repository": {
     "type": "git",
     "url": "https://github.com/myparcelnl/delivery-options.git"
   },
+  "workspaces": [
+    "apps/*",
+    "libs/*"
+  ],
+  "prettier": "@myparcel/prettier-config",
   "license": "MIT",
   "author": "Edie Lemoine <edie@myparcel.nl>",
-  "main": "dist/myparcel.js",
-  "types": "types/index.d.ts",
-  "directories": {
-    "test": "tests"
-  },
-  "files": [
-    "types/index.d.ts",
-    "dist/myparcel.js",
-    "dist/myparcel.lib.js",
-    "types",
-    "index.d.ts"
-  ],
   "scripts": {
-    "build": "vue-cli-service build --report",
-    "build:dev": "vue-cli-service build --mode development",
-    "build:all": "yarn build:sandbox && yarn build:delivery-options && yarn build:delivery-options-lib",
-    "build:sandbox": "vite build -c vite.config.js",
-    "build:delivery-options": "vite build -c vite.do.config.js",
-    "build:delivery-options-lib": "vite build -c vite.do-lib.config.js",
-    "serve": "vite",
-    "serve-bare": "vue-cli-service serve src/delivery-options/main.js",
-    "serve:prod": "vue-cli-service build --dest local && serve -s local",
-    "test:log": "jest --json --outputFile='tests/jest-log.json'",
-    "test:unit": "vue-cli-service test:unit",
-    "test:watch": "jest --watch"
-  },
-  "dependencies": {
-    "@fortawesome/free-solid-svg-icons": "^6.1.1",
-    "@myparcel/js-sdk": "^2.0.3",
-    "core-js": "^3.23.2",
-    "custom-event-polyfill": "^1.0.7",
-    "lodash-es": "^4.17.21",
-    "vue": "^2.6.14",
-    "vue-async-computed": "^3.9.0",
-    "vue-click-outside": "^1.1.0",
-    "vue-fa": "^2.0.1"
+    "build": "yarn workspaces foreach -pvi run build",
+    "ws:esbuild:build": "esbuild --bundle --platform=node --target=node12 --outdir=dist src/index.ts"
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.0.2",
-    "@commitlint/config-conventional": "^17.0.2",
-    "@myparcel/eslint-config": "^3.6.1",
-    "@myparcel/semantic-release-config": "^3.1.0",
-    "@testing-library/jest-dom": "^5.16.4",
-    "@types/jest": "^28.1.3",
-    "@types/leaflet": "^1.7.11",
-    "@vue/babel-preset-app": "^5.0.6",
-    "@vue/test-utils": "^1.3.0",
-    "@vue/web-component-wrapper": "^1.3.0",
-    "autoprefixer": "^10.4.7",
-    "babel-jest": "^28.1.1",
-    "babel-plugin-intl": "^0.1.1",
-    "bootstrap-vue": "^2.22.0",
-    "cross-env": "^7.0.3",
-    "dayjs": "^1.11.3",
-    "full-icu": "^1.4.0",
-    "highlight.js": "^11.5.1",
-    "husky": "^8.0.1",
-    "jest": "^28.1.1",
-    "mockdate": "^3.0.5",
-    "sass": "^1.53.0",
-    "vite": "^2.9.12",
-    "vite-plugin-banner": "^0.3.0",
-    "vite-plugin-vue2": "^2.0.1",
-    "vue-i18n": "^8.27.2",
-    "vue-template-compiler": "^2.6.14",
-    "vuex": "^3.6.2"
+    "@commitlint/cli": "^17.4.2",
+    "@commitlint/config-conventional": "^17.4.2",
+    "@myparcel-eslint/eslint-config-esnext": "^1.2.0",
+    "@myparcel-eslint/eslint-config-node": "^1.2.0",
+    "@myparcel-eslint/eslint-config-prettier": "^1.2.0",
+    "@myparcel-eslint/eslint-config-prettier-typescript": "^1.2.0",
+    "@myparcel-eslint/eslint-config-prettier-vue": "^1.2.0",
+    "@myparcel/semantic-release-config": "^4.1.0",
+    "@vue/tsconfig": "^0.1.3"
   },
-  "publishConfig": {
-    "access": "public"
-  }
+  "private": true
 }

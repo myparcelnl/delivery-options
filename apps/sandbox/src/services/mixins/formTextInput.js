@@ -1,5 +1,5 @@
-import { formInputProps } from '@/sandbox/services/mixins/formInputProps';
-import { vModelMixin } from '@/sandbox/services/mixins/vModel';
+import { formInputProps } from '../../delivery-options/src/sandbox/services/mixins/formInputProps';
+import { vModelMixin } from '../../delivery-options/src/sandbox/services/mixins/vModel';
 
 export const formTextInput = {
   mixins: [

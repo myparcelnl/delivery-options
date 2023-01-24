@@ -6,9 +6,9 @@
 </template>
 
 <script>
-import CInput from '@/sandbox/components/form/CInput';
-import { formSelect } from '@/sandbox/services/mixins/formSelect';
-import { hasOptions } from '@/sandbox/services/mixins/hasOptions';
+import CInput from '../../delivery-options/src/sandbox/components/form/CInput';
+import { formSelect } from '../../delivery-options/src/sandbox/services/mixins/formSelect';
+import { hasOptions } from '../../delivery-options/src/sandbox/services/mixins/hasOptions';
 
 export default {
   name: 'CSelect',

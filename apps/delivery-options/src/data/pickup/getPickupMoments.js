@@ -2,9 +2,9 @@ import {
   PICKUP_MOMENT,
   PICKUP_STANDARD,
   formConfigPickup,
-} from '@/config/formConfig';
-import { configBus } from '@/delivery-options/config/configBus';
-import { createLocaleString } from '@/delivery-options/data/dates/createLocaleString';
+} from '../../config/formConfig';
+import { configBus } from '../../config/configBus';
+import { createLocaleString } from '../../data/dates/createLocaleString';
 
 const deliveryTypeMap = {
   pickup: PICKUP_STANDARD,

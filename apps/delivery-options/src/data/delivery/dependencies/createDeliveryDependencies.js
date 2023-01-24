@@ -1,8 +1,8 @@
-import { DELIVERY_DATE, DELIVERY_MOMENT } from '@/config/formConfig';
-import { createIsoString } from '@/delivery-options/data/dates/createIsoString';
-import { formatDeliveryMoment } from '@/delivery-options/data/delivery/dependencies/formatDeliveryMoment';
-import { hasSameDayDelivery } from '@/helpers/delivery/hasSameDayDelivery';
-import { setSameDayDelivery } from '@/delivery-options/data/delivery/dependencies/setSameDayDelivery';
+import { DELIVERY_DATE, DELIVERY_MOMENT } from '../../../config';
+import { createIsoString } from '../../dates';
+import { formatDeliveryMoment } from './formatDeliveryMoment';
+import { hasSameDayDelivery } from '../../../helpers';
+import { setSameDayDelivery } from './setSameDayDelivery';
 
 /**
  * Create the dependencies object for delivery options.

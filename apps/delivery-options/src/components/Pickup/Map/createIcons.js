@@ -1,6 +1,6 @@
 /* eslint-disable no-magic-numbers */
-import MarkerSvg from '@/assets/images/marker.svg?raw';
-import { configBus } from '@/delivery-options/config/configBus';
+import MarkerSvg from '../../../assets/images/marker.svg?raw';
+import { configBus } from '../../../config';
 
 /**
  * Create icons for carriers and the default and loading states.

@@ -1,3 +1,3 @@
-import capitalize from 'lodash-es/capitalize';
+import{ capitalize } from 'lodash-unified';
 
 export { capitalize };

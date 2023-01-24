@@ -1,7 +1,7 @@
-import * as CONFIG from '@/data/keys/configKeys';
-import { UPDATED_DELIVERY_OPTIONS } from '@/config/eventConfig';
-import { mockDeliveryOptions } from '@Tests/unit/delivery-options/mockDeliveryOptions';
-import { waitForEvent } from '@Tests/waitForEvent';
+import {CONFIG} from '../../data';
+import { UPDATED_DELIVERY_OPTIONS } from '../../config';
+import { mockDeliveryOptions } from '../unit/delivery-options/mockDeliveryOptions';
+import { waitForEvent } from '../waitForEvent';
 
 /**
  * Mock delivery options and returns the array of visible choices for the delivery date option.

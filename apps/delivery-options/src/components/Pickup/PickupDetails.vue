@@ -70,7 +70,7 @@
 </template>
 
 <script>
-import { createLocaleString } from '@/delivery-options/data/dates/createLocaleString';
+import { createLocaleString } from '../../data/dates/createLocaleString';
 
 export default {
   name: 'PickupDetails',

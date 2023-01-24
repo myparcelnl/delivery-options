@@ -1,7 +1,7 @@
 import { CARRIER_SETTINGS, DROP_OFF_DAYS, carrierFeatures } from '../data/keys/configKeys';
 import { CarrierConfigurationFactory } from '../data/carriers/carrierConfigurationFactory';
 import { defaultConfiguration } from '../config/defaultConfiguration';
-import mergeWith from 'lodash-es/mergeWith';
+import{ mergeWith } from 'lodash-unified';
 import { validatePlatform } from '../config/validatePlatform';
 
 export class ConfigurationMerger {

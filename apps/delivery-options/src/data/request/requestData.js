@@ -1,8 +1,8 @@
-import * as CONFIG from '@/data/keys/configKeys';
-import { MYPARCEL, SENDMYPARCEL } from '@/data/keys/platformKeys';
-import { getCutoffTime } from '@/helpers/delivery/getCutoffTime';
-import { getDropOffDelayParameter } from '@/delivery-options/data/request/getDropOffDelayParameter';
-import { configBus as realConfigBus } from '@/delivery-options/config/configBus';
+import {CONFIG} from '../../data';
+import { MYPARCEL, SENDMYPARCEL } from '../../data/keys/platformKeys';
+import { getCutoffTime } from '../../helpers/delivery/getCutoffTime';
+import { getDropOffDelayParameter } from '../../data/request/getDropOffDelayParameter';
+import { configBus as realConfigBus } from '../../config/configBus';
 
 const getParametersForNL = (configBus) => ({
   monday_delivery: Number(configBus.get(CONFIG.ALLOW_MONDAY_DELIVERY, null, configBus.currentCarrier)),
@@ -28,7 +28,7 @@ const parametersByPlatform = {
 /** .................................................
  * Get the request parameters for the given platform.
  *
- * @param {import('@/delivery-options/config/configBus')} configBus - Optional parameter for easier testing.
+ * @param {import('../../config/configBus')} configBus - Optional parameter for easier testing.
  *
  * @returns {DeliveryOptionsRequestParameters}
  */

@@ -1,5 +1,5 @@
-import { formConfigDelivery, formConfigPickup } from '@/config/formConfig';
-import { configBus } from '@/delivery-options/config/configBus';
+import { formConfigDelivery, formConfigPickup } from '../../config/formConfig';
+import { configBus } from '../../config/configBus';
 
 /**
  * Create the array of carrier data, deduping and adding pickup/delivery settings.

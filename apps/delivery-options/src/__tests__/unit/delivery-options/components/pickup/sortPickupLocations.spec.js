@@ -1,4 +1,4 @@
-import * as CONFIG from '@/data/keys/configKeys';
+import {CONFIG} from '../../data';
 import { fakePickupLocationsResponse } from '@Mocks/@myparcel/js-sdk/dist/data/fakePickupLocationsResponse';
 import { mockConfigBus } from '@Tests/unit/delivery-options/mockConfigBus';
 import { sortPickupLocations } from '../../data/pickup/sortPickupLocations';

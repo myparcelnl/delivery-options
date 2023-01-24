@@ -1,13 +1,13 @@
-import { RENDER_DELIVERY_OPTIONS, UPDATED_DELIVERY_OPTIONS, UPDATE_DELIVERY_OPTIONS } from '@/config/eventConfig';
-import { MYPARCEL } from '@/data/keys/platformKeys';
-import { dataTest } from '@Tests/unit/selectors';
-import { defaultAddress } from '@/data/defaultAddress';
-import { defaultConfiguration } from '@/config/defaultConfiguration';
-import { getDefaultCarrierSettings } from '@Tests/unit/delivery-options/defaultCarrierSettings';
+import { RENDER_DELIVERY_OPTIONS, UPDATED_DELIVERY_OPTIONS, UPDATE_DELIVERY_OPTIONS } from '../../../../config';
+import { MYPARCEL } from '../../../../data/keys/platformKeys';
+import { dataTest } from '../../selectors';
+import { defaultAddress } from '../../../../data/defaultAddress';
+import { defaultConfiguration } from '../../../../config';
+import { getDefaultCarrierSettings } from '../defaultCarrierSettings';
 import { merge } from 'lodash-es';
-import { showDeveloperInfo } from '../../showDeveloperInfo';
-import { waitForEvent } from '@Tests/waitForEvent';
-import { cssClassBase } from '../../cssClassBase';
+import { showDeveloperInfo } from '../../../../showDeveloperInfo';
+import { waitForEvent } from '../../../waitForEvent';
+import { cssClassBase } from '../../../../cssClassBase';
 
 const classBase = cssClassBase;
 
@@ -21,7 +21,7 @@ describe('main.js', () => {
   beforeAll(async() => {
     createHtml();
 
-    await import('../../main');
+    await import('../../../../main');
   });
 
   it('can show information to developers', () => {

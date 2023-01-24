@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import CInput from '@/sandbox/components/form/CInput';
-import { formTextInput } from '@/sandbox/services/mixins/formTextInput';
+import CInput from '../../delivery-options/src/sandbox/components/form/CInput';
+import { formTextInput } from '../../delivery-options/src/sandbox/services/mixins/formTextInput';
 
 export default {
   name: 'CTextInput',

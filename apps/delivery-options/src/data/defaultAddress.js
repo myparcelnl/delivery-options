@@ -1,7 +1,7 @@
 /* eslint-disable no-magic-numbers */
-import * as ADDRESS from '@/data/keys/addressKeys';
-import { MYPARCEL, SENDMYPARCEL } from '@/data/keys/platformKeys';
-import { countryCodes } from '@/data/keys/countryCodes';
+import * as ADDRESS from '../data/keys/addressKeys';
+import { MYPARCEL, SENDMYPARCEL } from './keys/platformKeys';
+import { countryCodes } from '../data/keys/countryCodes';
 
 /**
  * @type {object<MyParcelDeliveryOptions.Address>}

@@ -1,5 +1,5 @@
 /* eslint-disable max-len,vue/max-len */
-import { MYPARCEL, SENDMYPARCEL } from '@/data/keys/platformKeys';
+import { MYPARCEL, SENDMYPARCEL } from '../../data/keys/platformKeys';
 import MockDate from 'mockdate';
 import { getNextDeliveryOption } from '@Mocks/@myparcel/js-sdk/dist/data/delivery-options/getNextDeliveryOption';
 

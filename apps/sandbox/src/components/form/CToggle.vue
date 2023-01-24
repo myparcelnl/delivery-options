@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import { formCheckbox } from '@/sandbox/services/mixins/formCheckbox';
+import { formCheckbox } from '../../delivery-options/src/sandbox/services/mixins/formCheckbox';
 
 export default {
   name: 'CToggle',

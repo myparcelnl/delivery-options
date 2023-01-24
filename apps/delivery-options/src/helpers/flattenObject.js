@@ -1,4 +1,4 @@
-import isPlainObject from 'lodash-es/isPlainObject';
+import{ isPlainObject } from 'lodash-unified';
 
 /**
  * Flatten an object's keys recursively.

@@ -1,6 +1,6 @@
-import * as CONFIG from '../../data/keys/configKeys';
-import { MYPARCEL, SENDMYPARCEL } from '../../data/keys/platformKeys';
-import { sandboxConfigBus } from '../../sandbox/sandboxConfigBus';
+import * as CONFIG from './data/keys/configKeys';
+import { MYPARCEL, SENDMYPARCEL } from './data/keys/platformKeys';
+import { sandboxConfigBus } from '../sandbox/sandboxConfigBus';
 
 describe('sandboxConfigBus', () => {
   it('is a renderless Vue instance', () => {

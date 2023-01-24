@@ -17,8 +17,8 @@
 </template>
 
 <script>
-import CNumber from '@/sandbox/components/form/CNumber';
-import { formCurrencyInput } from '@/sandbox/services/mixins/formCurrencyInput';
+import CNumber from '../../delivery-options/src/sandbox/components/form/CNumber';
+import { formCurrencyInput } from '../../delivery-options/src/sandbox/services/mixins/formCurrencyInput';
 
 export default {
   name: 'CCurrency',

@@ -13,17 +13,17 @@
 </template>
 
 <script>
-import { sandboxConfigBus } from '@/sandbox/sandboxConfigBus';
+import { sandboxConfigBus } from './sandboxConfigBus';
 
 export default {
   name: 'Sandbox',
 
   components: {
-    PreLoader: () => import(/* webpackChunkName: "PreLoader" */'@/sandbox/components/PreLoader'),
-    SandboxHeader: () => import(/* webpackChunkName: "SandboxHeader" */'@/sandbox/components/SandboxHeader'),
-    SandboxIntroduction: () => import(/* webpackChunkName: "SandboxIntroduction" */'@/sandbox/components/SandboxIntroduction'),
-    SandboxSettings: () => import(/* webpackChunkName: "SandboxSettings" */'@/sandbox/components/SandboxSettings'),
-    SandboxFooter: () => import(/* webpackChunkName: "SandboxFooter" */'@/sandbox/components/SandboxFooter'),
+    PreLoader: () => import('./components/PreLoader'),
+    SandboxHeader: () => import('./components/SandboxHeader'),
+    SandboxIntroduction: () => import('./components/SandboxIntroduction'),
+    SandboxSettings: () => import('./components/SandboxSettings'),
+    SandboxFooter: () => import('./components/SandboxFooter'),
   },
 
   data() {

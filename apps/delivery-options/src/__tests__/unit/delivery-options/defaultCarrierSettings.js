@@ -1,5 +1,5 @@
-import * as CONFIG from '@/data/keys/configKeys';
-import { POSTNL } from '@/data/keys/carrierKeys';
+import {CONFIG} from '../../data';
+import { POSTNL } from '../../data/keys/carrierKeys';
 
 export const getDefaultCarrierSettings = (carrier = POSTNL) => ({
   [CONFIG.KEY]: {

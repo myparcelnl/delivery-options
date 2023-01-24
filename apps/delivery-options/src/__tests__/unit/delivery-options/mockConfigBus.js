@@ -1,12 +1,9 @@
-import * as ADDRESS from '@/data/keys/addressKeys';
-import * as CONFIG from '@/data/keys/configKeys';
-import { DEFAULT_PLATFORM } from '@/data/keys/settingsConsts';
-import { createConfigBus } from '../../config/configBus';
-import { defaultAddress } from '@/data/defaultAddress';
-import { POSTNL } from '@/data/keys/carrierKeys';
-import { get, merge, set } from 'lodash-es';
+import { CONFIG, ADDRESS } from '@myparcel/delivery-options';
 import { getDefaultCarrierSettings } from '@Tests/unit/delivery-options/defaultCarrierSettings';
-import { platformCarrierMap } from '@/config/platform/platformCarrierMap';
+import { get, merge } from 'lodash-es';
+import { createConfigBus, platformCarrierMap } from '../../../config';
+import { defaultAddress } from '../../../data';
+import { DEFAULT_PLATFORM } from '../../../data/keys';
 
 /**
  * Get a configBus instance with the given default platform data and optional overrides.

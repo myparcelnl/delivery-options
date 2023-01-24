@@ -1,5 +1,5 @@
-import { FEATURE_PICKUP_SHOW_DISTANCE } from '@/data/keys/configKeys';
-import { configBus } from '@/delivery-options/config/configBus';
+import { FEATURE_PICKUP_SHOW_DISTANCE } from '../../data/keys/configKeys';
+import { configBus } from '../../config/configBus';
 
 /**
  * Sort the given pickup locations by distance from low to high, if distance is enabled. Otherwise sort alphabetically

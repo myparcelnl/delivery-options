@@ -1,7 +1,7 @@
 import { BFormSelect } from 'bootstrap-vue/src/components/form-select/form-select';
-import { formInputProps } from '@/sandbox/services/mixins/formInputProps';
-import { hasOptions } from '@/sandbox/services/mixins/hasOptions';
-import { vModelMixin } from '@/sandbox/services/mixins/vModel';
+import { formInputProps } from '../../delivery-options/src/sandbox/services/mixins/formInputProps';
+import { hasOptions } from '../../delivery-options/src/sandbox/services/mixins/hasOptions';
+import { vModelMixin } from '../../delivery-options/src/sandbox/services/mixins/vModel';
 
 export const formSelect = {
   extends: BFormSelect,

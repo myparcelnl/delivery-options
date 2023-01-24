@@ -1,7 +1,7 @@
 /* eslint-disable no-magic-numbers */
-import * as CONFIG from '@/data/keys/configKeys';
-import { defaultConfiguration } from '@/config/defaultConfiguration';
-import merge from 'lodash-es/merge';
+import {CONFIG} from '@myparcel/delivery-options';
+import { defaultConfiguration } from '../../delivery-options/src/config/defaultConfiguration';
+import{ merge } from 'lodash-unified';
 
 export const demoConfiguration = (platform) => {
   return merge(

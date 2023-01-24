@@ -1,4 +1,4 @@
-import { SAME_DAY_DELIVERY } from '@/config/formConfig';
+import { SAME_DAY_DELIVERY } from '../../../config';
 
 /**
  * The first element of the delivery options will be the only candidate for sameday delivery, in case

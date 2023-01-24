@@ -1,5 +1,5 @@
-import { DEFAULT_PLATFORM } from '@/data/keys/settingsConsts';
-import { getWeekdays } from '@/helpers/getWeekdays';
+import { DEFAULT_PLATFORM } from '../../data/keys/settingsConsts';
+import { getWeekdays } from '../../helpers/getWeekdays';
 import { mockConfigBus } from './mockConfigBus';
 
 let configBus;

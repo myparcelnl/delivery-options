@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import isObject from 'lodash-es/isObject';
+import{ isObject } from 'lodash-unified';
 
 /**
  * Add a data-test attribute(s) to an element with 'v-test', but only if the environment is 'test'. If you don't provide

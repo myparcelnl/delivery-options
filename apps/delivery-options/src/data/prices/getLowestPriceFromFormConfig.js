@@ -1,12 +1,12 @@
-import * as CONFIG from '@/data/keys/configKeys';
-import { configBus as realConfigBus } from '@/delivery-options/config/configBus';
+import {CONFIG} from '../../data';
+import { configBus as realConfigBus } from '../../config/configBus';
 
 /**
  * Finds the lowest price from a form config. Ignores options that are not enabled.
  *
  * @param {MyParcelDeliveryOptions.FormConfig} config - Names of price settings.
  * @param {MyParcel.CarrierName} carrierName
- * @param {import('@/delivery-options/config/configBus')} configBus - Optional parameter for easier testing.
+ * @param {import('../../config/configBus')} configBus - Optional parameter for easier testing.
  *
  * @returns {number}
  */

@@ -1,4 +1,4 @@
-import * as PLATFORMS from '../../data/keys/platformKeys';
+import {PLATFORMS} from '../../data';
 
 /**
  * @type {MyParcel.Platform[]}

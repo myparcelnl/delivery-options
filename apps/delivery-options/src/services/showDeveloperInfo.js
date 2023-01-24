@@ -1,9 +1,6 @@
 /* eslint-disable max-lines-per-function,no-console,no-magic-numbers */
-import * as CONFIG from './data/keys/configKeys';
-import { MYPARCEL } from './data/keys/platformKeys';
-import { POSTNL } from './data/keys/carrierKeys';
-import { UPDATE_DELIVERY_OPTIONS } from './config';
-import { defaultAddress } from './data/defaultAddress';
+import { defaultAddress, MYPARCEL, POSTNL, CONFIG } from '../data';
+import { UPDATE_DELIVERY_OPTIONS } from '../config';
 
 /**
  * Output some information in the console to help a developer get started quickly.

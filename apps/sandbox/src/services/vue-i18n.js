@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import VueI18n from 'vue-i18n';
-import { englishTranslations } from '@/sandbox/translations/en';
+import { englishTranslations } from '../../delivery-options/src/sandbox/translations/en';
 
 Vue.use(VueI18n);
 

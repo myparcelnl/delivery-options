@@ -1,24 +1,19 @@
-import * as CONFIG from '@/data/keys/configKeys';
-import * as CONSTS from '@/data/keys/settingsConsts';
-import * as FORM from '@/config/formConfig';
-import * as STRINGS from '@/data/keys/stringsKeys';
-import CCheckboxGroup from '@/sandbox/components/form/CCheckboxGroup';
-import CCurrency from '@/sandbox/components/form/CCurrency';
-import CNumber from '@/sandbox/components/form/CNumber';
-import CSelect from '@/sandbox/components/form/CSelect';
-import CTimepicker from '@/sandbox/components/form/CTimepicker';
-import CToggle from '@/sandbox/components/form/CToggle';
-import { GENERAL } from '@/sandbox/settings';
-import { SENDMYPARCEL } from '@/data/keys/platformKeys';
-import { allowedInAnyCarrier } from '@/sandbox/settings/conditions/allowedInAnyCarrier';
-import { carrierSetting } from '@/sandbox/settings/carrierSetting';
-import { featuresForm } from '@/sandbox/settings/formParts/featuresForm';
-import { getWeekdays } from '@/helpers/getWeekdays';
-import { i18n } from '@/sandbox/services/vue-i18n';
-import { inAnyCarrier } from '@/sandbox/settings/conditions/inAnyCarrier';
-import memoize from 'lodash-es/memoize';
-import { sandboxConfigBus } from '@/sandbox/sandboxConfigBus';
-import { stringsForm } from '@/sandbox/settings/formParts/stringForm';
+import CCheckboxGroup from '../components/form/CCheckboxGroup.vue';
+import CCurrency from '../components/form/CCurrency.vue';
+import CNumber from '../components/form/CNumber.vue';
+import CSelect from '../components/form/CSelect.vue';
+import CTimepicker from '../components/form/CTimepicker.vue';
+import CToggle from '../components/form/CToggle.vue';
+import { GENERAL } from '../settings';
+import { SENDMYPARCEL } from '../../delivery-options/src/data/keys/platformKeys';
+import { allowedInAnyCarrier } from './conditions/allowedInAnyCarrier';
+import { carrierSetting } from './carrierSetting';
+import { featuresForm } from './formParts/featuresForm';
+import { i18n } from '../services/vue-i18n';
+import { inAnyCarrier } from './conditions/inAnyCarrier';
+import{ memoize } from 'lodash-unified';
+import { sandboxConfigBus } from '../sandboxConfigBus';
+import { stringsForm } from './formParts/stringForm';
 
 const currencyProps = {
   symbol: sandboxConfigBus.getSetting(CONFIG.KEY, CONFIG.CURRENCY) || '€',

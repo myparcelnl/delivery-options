@@ -1,8 +1,8 @@
-import { ALLOW_PACKAGE_TYPE_DIGITAL_STAMP, ALLOW_PACKAGE_TYPE_MAILBOX } from '@/data/keys/configKeys';
-import { PACKAGE_TYPE_DIGITAL_STAMP, PACKAGE_TYPE_MAILBOX, PACKAGE_TYPE_PACKAGE } from '@/data/keys/settingsConsts';
-import { countryCodes } from '@/data/keys/countryCodes';
+import { ALLOW_PACKAGE_TYPE_DIGITAL_STAMP, ALLOW_PACKAGE_TYPE_MAILBOX } from '../../data/keys/configKeys';
+import { PACKAGE_TYPE_DIGITAL_STAMP, PACKAGE_TYPE_MAILBOX, PACKAGE_TYPE_PACKAGE } from '../../data/keys/settingsConsts';
+import { countryCodes } from '../../data/keys/countryCodes';
 import { flatten } from 'lodash-es';
-import { validatePlatform } from '@/delivery-options/config/validatePlatform';
+import { validatePlatform } from '../../config/validatePlatform';
 
 export class AbstractCarrierConfiguration {
   /**

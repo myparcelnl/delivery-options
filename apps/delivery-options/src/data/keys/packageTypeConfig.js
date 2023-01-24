@@ -1,6 +1,4 @@
-import * as CONFIG from '@/data/keys/configKeys';
-import * as CONSTS from '@/data/keys/settingsConsts';
-import * as STRINGS from '@/data/keys/stringsKeys';
+import { CONFIG, CONSTS, STRINGS } from '../../data';
 
 export const packageTypeLabelMap = {
   [CONSTS.PACKAGE_TYPE_MAILBOX]: STRINGS.PACKAGE_TYPE_MAILBOX,

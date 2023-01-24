@@ -1,10 +1,10 @@
-import { ERROR } from '@/config/eventConfig';
-import { ERROR_INVALID_COUNTRY_CODE } from '@/config/errorConfig';
-import { MYPARCEL } from '@/data/keys/platformKeys';
-import { configBus } from '../../config/configBus';
-import { fakeDeliveryOptionsResponse } from '@Mocks/@myparcel/js-sdk/dist/data/fakeDeliveryOptionsResponse';
-import { mockDeliveryOptions } from '@Tests/unit/delivery-options/mockDeliveryOptions';
-import { waitForEvent } from '@Tests/waitForEvent';
+import { ERROR } from '../../../config';
+import { ERROR_INVALID_COUNTRY_CODE } from '../../../config';
+import { MYPARCEL } from '../../../data/keys/platformKeys';
+import { configBus } from '../../../config';
+import { fakeDeliveryOptionsResponse } from '../../../__mocks__/@myparcel/js-sdk/dist/data/fakeDeliveryOptionsResponse';
+import { mockDeliveryOptions } from './mockDeliveryOptions';
+import { waitForEvent } from '../../waitForEvent';
 
 describe('Error handling', () => {
   let app;

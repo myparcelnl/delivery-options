@@ -1,6 +1,6 @@
-import { PICKUP_LOCATION } from '@/config/formConfig';
-import Pickup from '@/delivery-options/components/Pickup/Pickup';
-import { createPickupChoices } from '@/delivery-options/data/pickup/createPickupChoices';
+import { PICKUP_LOCATION } from '../../config';
+import Pickup from '../../components/Pickup/Pickup.vue';
+import { createPickupChoices } from './createPickupChoices';
 
 /**
  * Create the pickup options array.

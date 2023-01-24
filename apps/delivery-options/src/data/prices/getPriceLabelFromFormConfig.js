@@ -1,8 +1,8 @@
-import * as CONFIG from '@/data/keys/configKeys';
-import * as STRINGS from '@/data/keys/stringsKeys';
-import { formatCurrency } from '@/delivery-options/data/prices/formatCurrency';
-import { getLowestPriceFromFormConfig } from '@/delivery-options/data/prices/getLowestPriceFromFormConfig';
-import { configBus as realConfigBus } from '@/delivery-options/config/configBus';
+import {CONFIG} from '../../data';
+import {STRINGS} from '../../data';
+import { formatCurrency } from '../../data/prices/formatCurrency';
+import { getLowestPriceFromFormConfig } from '../../data/prices/getLowestPriceFromFormConfig';
+import { configBus as realConfigBus } from '../../config/configBus';
 
 /**
  * Create a price label from a form config object. Returns a string with "from x" or "x discount" based on the minimum
@@ -10,7 +10,7 @@ import { configBus as realConfigBus } from '@/delivery-options/config/configBus'
  *
  * @param {MyParcelDeliveryOptions.FormConfig} formSettings
  * @param {MyParcel.CarrierName} carrier
- * @param {import('@/delivery-options/config/configBus')} configBus - Optional parameter for easier testing.
+ * @param {import('../../config/configBus')} configBus - Optional parameter for easier testing.
  *
  * @returns {?string}
  */

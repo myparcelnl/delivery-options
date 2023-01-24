@@ -1,4 +1,4 @@
-import { SAME_DAY_DELIVERY } from '@/config/formConfig';
+import { SAME_DAY_DELIVERY } from '../../../config';
 
 /**
  * @param {MyParcelDeliveryOptions.DeliveryPossibility} possibility

@@ -1,5 +1,4 @@
-import * as CONFIG from '../data/keys/configKeys';
-import * as STRINGS from '../data/keys/stringsKeys';
+import { CONFIG, STRINGS } from '../data';
 
 export const DELIVERY = 'delivery';
 

@@ -8,8 +8,8 @@
 
 <script>
 import { BFormInput } from 'bootstrap-vue/src/components/form-input';
-import CInput from '@/sandbox/components/form/CInput';
-import { formNumberInput } from '@/sandbox/services/mixins/formNumberInput';
+import CInput from '../../delivery-options/src/sandbox/components/form/CInput';
+import { formNumberInput } from '../../delivery-options/src/sandbox/services/mixins/formNumberInput';
 
 export default {
   name: 'CNumber',

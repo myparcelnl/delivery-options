@@ -16,26 +16,26 @@
 </template>
 
 <script>
-import * as EVENTS from '@/config/eventConfig';
+import {EVENTS} from '@myparcel/delivery-options';
 import {
   CODE_FORMAT_JAVASCRIPT,
   CODE_FORMAT_JAVASCRIPT_ES6,
   CODE_FORMAT_JSON,
-} from '@/sandbox/config/forms/codeFormats';
-import CRadioGroup from '@/sandbox/components/form/CRadioGroup';
-import debounce from 'lodash-es/debounce';
-import { flattenObject } from '@/helpers/flattenObject';
-import { formatCode } from '@/sandbox/services/filters/formatCode';
-import intersection from 'lodash-es/intersection';
-import last from 'lodash-es/last';
-import pick from 'lodash-es/pick';
-import { sandboxConfigBus } from '@/sandbox/sandboxConfigBus';
+} from '../../delivery-options/src/sandbox/config/forms/codeFormats';
+import CRadioGroup from '../../delivery-options/src/sandbox/components/form/CRadioGroup';
+import{ debounce } from 'lodash-unified';
+import { flattenObject } from '../../delivery-options/src/helpers/flattenObject';
+import { formatCode } from '../../delivery-options/src/sandbox/services/filters/formatCode';
+import{ intersection } from 'lodash-unified';
+import{ last } from 'lodash-unified';
+import{ pick } from 'lodash-unified';
+import { sandboxConfigBus } from '../../delivery-options/src/sandbox/sandboxConfigBus';
 
 export default {
   name: 'HomeCodeBlock',
   components: {
     CRadioGroup,
-    CCodeDisplay: () => import(/* webpackChunkName: "components/CCodeDisplay" */ '@/sandbox/components/CCodeDisplay'),
+    CCodeDisplay: () => import(/* webpackChunkName: "components/CCodeDisplay" */ '../../delivery-options/src/sandbox/components/CCodeDisplay'),
   },
 
   props: {

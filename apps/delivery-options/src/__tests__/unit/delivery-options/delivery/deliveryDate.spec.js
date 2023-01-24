@@ -1,7 +1,7 @@
-import * as CONFIG from '@/data/keys/configKeys';
-import { BPOST, DPD, POSTNL } from '@/data/keys/carrierKeys';
-import { MYPARCEL, SENDMYPARCEL } from '@/data/keys/platformKeys';
-import { UPDATED_DELIVERY_OPTIONS } from '@/config/eventConfig';
+import {CONFIG} from '../../data';
+import { BPOST, DPD, POSTNL } from '../../data/keys/carrierKeys';
+import { MYPARCEL, SENDMYPARCEL } from '../../data/keys/platformKeys';
+import { UPDATED_DELIVERY_OPTIONS } from '../../config/eventConfig';
 import { mockDeliveryOptions } from '@Tests/unit/delivery-options/mockDeliveryOptions';
 import { waitForEvent } from '@Tests/waitForEvent';
 

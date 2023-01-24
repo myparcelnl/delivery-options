@@ -34,11 +34,11 @@
 </template>
 
 <script>
-import * as CONFIG from '@/data/keys/configKeys';
-import * as FORM from '@/config/formConfig';
-import CButton from '@/delivery-options/components/CButton';
-import Leaflet from '@/delivery-options/components/Pickup/Map/Leaflet';
-import PickupOption from '@/delivery-options/components/Pickup/PickupOption';
+import {CONFIG} from '../../data';
+import * as FORM from '../../config/formConfig';
+import CButton from '../../components/CButton.vue';
+import Leaflet from '../../components/Pickup/Map/Leaflet.vue';
+import PickupOption from '../../components/Pickup/PickupOption.vue';
 
 const MAP_VIEW = 'map';
 const LIST_VIEW = 'list';

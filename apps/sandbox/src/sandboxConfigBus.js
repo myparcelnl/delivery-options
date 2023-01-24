@@ -1,19 +1,17 @@
-import * as CONFIG from '@/data/keys/configKeys';
-import { CarrierConfigurationFactory } from '@/data/carriers/carrierConfigurationFactory';
+import * as CONFIG from '@myparcel/delivery-options';
+import {
+  CarrierConfigurationFactory,
+  defaultAddress,
+  fetchCarrierData,
+  platforms,
+  settingHasCarrierOverride,
+  sortObject,
+  sortObjectSiblings,
+} from '@myparcel/delivery-options';
+import { isEqual, isPlainObject, objectGet, objectHas, objectSet } from 'lodash-unified';
 import Vue from 'vue';
-import { defaultAddress } from '@/data/defaultAddress';
-import { demoConfiguration } from '@/sandbox/config/demoConfiguration';
-import { fetchCarrierData } from '@/delivery-options/data/carriers/fetchCarrierData';
-import isEqual from 'lodash-es/isEqual';
-import isPlainObject from 'lodash-es/isPlainObject';
-import objectGet from 'lodash-es/get';
-import objectHas from 'lodash-es/has';
-import objectSet from 'lodash-es/set';
-import { platforms } from '@/config/platform/platforms';
-import { sandboxPlatformCarrierMap } from '@/sandbox/config/sandboxPlatformCarrierMap';
-import { settingHasCarrierOverride } from '@/delivery-options/config/settingHasCarrierOverride';
-import { sortObject } from '@/helpers/sortObject';
-import { sortObjectSiblings } from '@/helpers/sortObjectSiblings';
+import { demoConfiguration } from './config/demoConfiguration';
+import { sandboxPlatformCarrierMap } from './config/sandboxPlatformCarrierMap';
 
 export const sandboxConfigBus = new Vue({
   name: 'SandboxConfigBus',

@@ -1,12 +1,12 @@
-import * as CARRIERS from '@/data/keys/carrierKeys';
-import * as CONFIG from '@/data/keys/configKeys';
-import { MYPARCEL, SENDMYPARCEL } from '@/data/keys/platformKeys';
-import { DEFAULT_PLATFORM } from '@/data/keys/settingsConsts';
-import { defaultConfiguration } from '@/config/defaultConfiguration';
-import { formConfigPickup } from '@/config/formConfig';
+import {CARRIERS} from '../../data';
+import {CONFIG} from '../../data';
+import { MYPARCEL, SENDMYPARCEL } from '../../data/keys/platformKeys';
+import { DEFAULT_PLATFORM } from '../../data/keys/settingsConsts';
+import { defaultConfiguration } from '../../config/defaultConfiguration';
+import { formConfigPickup } from '../../config/formConfig';
 import { mockConfigBus } from './mockConfigBus';
-import { defaultAddress } from '@/data/defaultAddress';
-import * as ADDRESS from '@/data/keys/addressKeys';
+import { defaultAddress } from '../../data/defaultAddress';
+import {ADDRESS} from '../../data';
 
 let configBus = mockConfigBus(DEFAULT_PLATFORM);
 

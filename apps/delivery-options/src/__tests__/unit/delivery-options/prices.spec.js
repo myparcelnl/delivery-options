@@ -1,7 +1,7 @@
-import * as CARRIERS from '@/data/keys/carrierKeys';
-import * as CONFIG from '@/data/keys/configKeys';
-import * as PLATFORMS from '@/data/keys/platformKeys';
-import { formConfigDelivery, formConfigPickup } from '@/config/formConfig';
+import {CARRIERS} from '../../data';
+import {CONFIG} from '../../data';
+import {PLATFORMS} from '../../data';
+import { formConfigDelivery, formConfigPickup } from '../../config/formConfig';
 import { getLowestPriceFromFormConfig } from '../../data/prices/getLowestPriceFromFormConfig';
 import { getPriceLabelFromFormConfig } from '../../data/prices/getPriceLabelFromFormConfig';
 import { mockConfigBus } from '@Tests/unit/delivery-options/mockConfigBus';

@@ -13,8 +13,8 @@
 </template>
 
 <script>
-import Help from '@/sandbox/components/Help';
-import { uniqueIdMixin } from '@/sandbox/services/mixins/uniqueIdMixin';
+import Help from '../../delivery-options/src/sandbox/components/Help';
+import { uniqueIdMixin } from '../../delivery-options/src/sandbox/services/mixins/uniqueIdMixin';
 
 export default {
   name: 'Heading',

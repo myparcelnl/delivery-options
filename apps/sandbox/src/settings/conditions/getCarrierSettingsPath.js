@@ -1,4 +1,4 @@
-import * as CONFIG from '@/data/keys/configKeys';
+import {CONFIG} from '@myparcel/delivery-options';
 
 /**
  * @param {...any} setting

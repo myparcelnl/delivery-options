@@ -1,6 +1,6 @@
-import { API_BASE_URL } from '@/data/keys/configKeys';
-import { appConfig } from '@/config/appConfig';
-import { configBus } from '@/delivery-options/config/configBus';
+import { API_BASE_URL } from '../../data/keys/configKeys';
+import { appConfig } from '../../config/appConfig';
+import { configBus } from '../../config/configBus';
 
 /**
  * Get the apiUrl, first check if there is one entered in the config and return that, if not formSelect either the prod

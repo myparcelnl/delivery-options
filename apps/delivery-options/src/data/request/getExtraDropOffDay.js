@@ -1,10 +1,10 @@
-import * as CONFIG from '@/data/keys/configKeys';
-import { CarrierConfigurationFactory } from '@/data/carriers/carrierConfigurationFactory';
-import { extraDeliveryConfig } from '@/config/extraDeliveryConfig';
-import { configBus as realConfigBus } from '@/delivery-options/config/configBus';
+import {CONFIG} from '../../data';
+import { CarrierConfigurationFactory } from '../../data/carriers/carrierConfigurationFactory';
+import { extraDeliveryConfig } from '../../config/extraDeliveryConfig';
+import { configBus as realConfigBus } from '../../config/configBus';
 
 /**
- * @param {import('@/delivery-options/config/configBus').configBus} configBus
+ * @param {import('../../config/configBus').configBus} configBus
  *
  * @returns {Object}
  */

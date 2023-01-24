@@ -1,7 +1,7 @@
-import * as ADDRESS from '@/data/keys/addressKeys';
-import * as CONFIG from '@/data/keys/configKeys';
-import * as FORM from '@/config/formConfig';
-import * as STRINGS from '@/data/keys/stringsKeys';
+import {ADDRESS} from '@myparcel/delivery-options';
+import {CONFIG} from '@myparcel/delivery-options';
+import {FORM} from '@myparcel/delivery-options';
+import {STRINGS} from '@myparcel/delivery-options';
 
 export const englishTranslations = {
   'code.description': 'When you adjust the settings in the left column, you will see the changes reflected in the code below. This is a complete configuration object for use with the Delivery Options module. You could build this object manually, but it\'s more reliable to retrieve its properties using a (rest) API.',

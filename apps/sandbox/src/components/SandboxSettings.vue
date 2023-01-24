@@ -25,10 +25,10 @@
 </template>
 
 <script>
-import Heading from '@/sandbox/components/Heading';
-import SandboxTabs from '@/sandbox/components/SandboxTabs';
-import debounce from 'lodash-es/debounce';
-import { sandboxConfigBus } from '@/sandbox/sandboxConfigBus';
+import Heading from '../../delivery-options/src/sandbox/components/Heading';
+import SandboxTabs from '../../delivery-options/src/sandbox/components/SandboxTabs';
+import{ debounce } from 'lodash-unified';
+import { sandboxConfigBus } from '../../delivery-options/src/sandbox/sandboxConfigBus';
 
 export default {
   name: 'SandboxSettings',

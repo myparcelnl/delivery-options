@@ -1,4 +1,4 @@
-import { createLocaleString } from '@/delivery-options/data/dates/createLocaleString';
+import { createLocaleString } from '../../dates';
 
 /**
  * @param {MyParcelDeliveryOptions.DeliveryPossibility} deliveryPossibility

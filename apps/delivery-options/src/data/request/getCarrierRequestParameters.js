@@ -1,5 +1,5 @@
-import * as CARRIERS from '@/data/keys/carrierKeys';
-import { getInstaboxDropOffDelay } from '@/delivery-options/data/request/getInstaboxDropOffDelay';
+import {CARRIERS} from '../../data';
+import { getInstaboxDropOffDelay } from '../../data/request/getInstaboxDropOffDelay';
 
 /**
  * @param {MyParcel.CarrierName} carrier

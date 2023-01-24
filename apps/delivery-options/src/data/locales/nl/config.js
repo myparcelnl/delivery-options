@@ -1,4 +1,4 @@
-import * as CONFIG from '@/data/keys/configKeys';
+import { CONFIG } from '../../../data';
 
 export const config = {
   [CONFIG.LOCALE]: 'nl-NL',

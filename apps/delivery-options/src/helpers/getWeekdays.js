@@ -1,8 +1,8 @@
 /* eslint-disable no-magic-numbers */
-import * as CONFIG from '@/data/keys/configKeys';
-import { capitalize } from '@/delivery-options/services/filters/capitalize';
-import { configBus } from '@/delivery-options/config/configBus';
-import { getDay } from '@/helpers/getDay';
+import * as CONFIG from '../data/keys/configKeys';
+import { capitalize } from '../services/filters/capitalize';
+import { configBus } from '../config';
+import { getDay } from './getDay';
 
 /**
  * Get the array of weekdays by using a (slightly) hacky trick with dates.

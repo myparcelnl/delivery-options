@@ -1,10 +1,10 @@
 import AsyncComputed from 'vue-async-computed';
-import { MYPARCEL } from '@/data/keys/platformKeys';
-import RecursiveForm from '../../components/RecursiveForm/RecursiveForm';
+import { MYPARCEL } from '../../../data/keys/platformKeys';
+import RecursiveForm from '../../../components/RecursiveForm/RecursiveForm.vue';
 import { createLocalVue } from '@vue/test-utils';
-import { cssClassBase } from '../../cssClassBase';
+import { cssClassBase } from '../../../cssClassBase';
 import { mockConfigBus } from './mockConfigBus';
-import { vTest } from '../../services/directives/v-test';
+import { vTest } from '../../../services/directives/v-test';
 
 export const mockVue = (data = MYPARCEL) => {
   const localVue = createLocalVue();

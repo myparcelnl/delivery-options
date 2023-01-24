@@ -27,15 +27,15 @@
 </template>
 
 <script>
-import CTextarea from '@/sandbox/components/form/CTextarea';
+import CTextarea from '../../delivery-options/src/sandbox/components/form/CTextarea';
 import ClickOutside from 'vue-click-outside';
-import { formTextarea } from '@/sandbox/services/mixins/formTextarea';
-import { formatCode } from '@/sandbox/services/filters/formatCode';
+import { formTextarea } from '../../delivery-options/src/sandbox/services/mixins/formTextarea';
+import { formatCode } from '../../delivery-options/src/sandbox/services/filters/formatCode';
 
 export default {
   name: 'CCodeEditor',
   components: {
-    CCodeDisplay: () => import(/* webpackChunkName: "components/CCodeDisplay" */ '@/sandbox/components/CCodeDisplay'),
+    CCodeDisplay: () => import(/* webpackChunkName: "components/CCodeDisplay" */ '../../delivery-options/src/sandbox/components/CCodeDisplay'),
     CTextarea,
   },
 

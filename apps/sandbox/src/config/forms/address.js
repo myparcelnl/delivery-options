@@ -1,8 +1,6 @@
-import * as ADDRESS from '@/data/keys/addressKeys';
-import * as STRINGS from '@/data/keys/stringsKeys';
-import { MYPARCEL, SENDMYPARCEL } from '@/data/keys/platformKeys';
-import CCountrySelect from '@/sandbox/components/form/CCountrySelect';
-import CNumber from '@/sandbox/components/form/CNumber';
+import { ADDRESS, MYPARCEL, SENDMYPARCEL, STRINGS } from '@myparcel/delivery-options';
+import CCountrySelect from '../../components/form/CCountrySelect.vue';
+import CNumber from '../../components/form/CNumber.vue';
 
 /**
  * @param {MyParcel.Platform} platform

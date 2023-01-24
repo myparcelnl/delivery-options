@@ -1,6 +1,6 @@
-import * as CONFIG from '@/data/keys/configKeys';
-import { CarrierConfigurationFactory } from '@/data/carriers/carrierConfigurationFactory';
-import { sandboxConfigBus } from '@/sandbox/sandboxConfigBus';
+import {CONFIG} from '@myparcel/delivery-options';
+import { CarrierConfigurationFactory } from '../../delivery-options/src/data/carriers/carrierConfigurationFactory';
+import { sandboxConfigBus } from '../../delivery-options/src/sandbox/sandboxConfigBus';
 
 /**
  * Transform a given setting into a form setting entry. Item is not processed if it's not allowed in given platform.

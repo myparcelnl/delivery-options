@@ -1,4 +1,4 @@
-import { configBus } from '@/delivery-options/config/configBus';
+import { configBus } from '../../config/configBus';
 
 /**
  * Format the delivery moments for display. If the current label isn't in the config or is an empty string it shows the

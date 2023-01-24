@@ -1,5 +1,5 @@
-import { packageTypeLabelMap, packageTypePriceMap } from '@/data/keys/packageTypeConfig';
-import { PACKAGE_TYPE } from '@/config/formConfig';
+import { packageTypeLabelMap, packageTypePriceMap } from '../../data/keys/packageTypeConfig';
+import { PACKAGE_TYPE } from '../../config/formConfig';
 
 /**
  * @param {MyParcel.PackageType} packageType

@@ -1,8 +1,8 @@
-import { CARRIER_SETTINGS } from '@/data/keys/configKeys';
-import { configBus } from '@/delivery-options/config/configBus';
-import { createCarrierData } from '@/delivery-options/data/carriers/createCarrierData';
-import { fetchCarrierData } from '@/delivery-options/data/carriers/fetchCarrierData';
-import { fetchMultiple } from '@/delivery-options/data/request/fetchMultiple';
+import { CARRIER_SETTINGS } from '../../data/keys/configKeys';
+import { configBus } from '../../config/configBus';
+import { createCarrierData } from '../../data/carriers/createCarrierData';
+import { fetchCarrierData } from '../../data/carriers/fetchCarrierData';
+import { fetchMultiple } from '../../data/request/fetchMultiple';
 
 /**
  * Fetch all carrier information, based on the carriers in config.carrierSettings.

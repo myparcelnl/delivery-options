@@ -1,8 +1,8 @@
-import * as CONFIG from '@/data/keys/configKeys';
-import * as PLATFORMS from '@/data/keys/platformKeys';
-import { DEFAULT_PLATFORM } from '@/data/keys/settingsConsts';
+import {CONFIG} from '../../data';
+import {PLATFORMS} from '../../data';
+import { DEFAULT_PLATFORM } from '../../data/keys/settingsConsts';
 import MockDate from 'mockdate';
-import { defaultAddress } from '@/data/defaultAddress';
+import { defaultAddress } from '../../data/defaultAddress';
 import { getDefaultRequestParameters } from '../../data/request/getDefaultRequestParameters';
 import { getOptionalRequestParameters } from '../../data/request/getOptionalRequestParameters';
 import { getParametersByPlatform } from '../../data/request/requestData';

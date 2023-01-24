@@ -14,9 +14,9 @@
 
 <script>
 import Fa from 'vue-fa';
-import debounce from 'lodash-es/debounce';
+import{ debounce } from 'lodash-unified';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
-import { hasVariantProp } from '@/sandbox/services/mixins/hasVariantProp';
+import { hasVariantProp } from '../../delivery-options/src/sandbox/services/mixins/hasVariantProp';
 
 export default {
   name: 'Help',

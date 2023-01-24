@@ -1,5 +1,5 @@
-import { CarrierConfigurationFactory } from '@/data/carriers/carrierConfigurationFactory';
-import { platformCarrierMap } from '@/config/platform/platformCarrierMap';
+import { CarrierConfigurationFactory } from '../../delivery-options/src/data/carriers/carrierConfigurationFactory';
+import { platformCarrierMap } from '../../delivery-options/src/config/platform/platformCarrierMap';
 
 /**
  * Pass given data in an array if setting(s) are allowed in any carrier of the current platform.

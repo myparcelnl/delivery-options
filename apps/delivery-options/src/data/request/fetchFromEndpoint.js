@@ -2,10 +2,10 @@ import '@myparcel/js-sdk/dist/endpoint/public/carriers';
 import '@myparcel/js-sdk/dist/endpoint/public/delivery-options';
 import '@myparcel/js-sdk/dist/endpoint/public/pickup-locations';
 import Client from '@myparcel/js-sdk/dist/client';
-import { LOCALE } from '@/data/keys/configKeys';
-import { configBus } from '@/delivery-options/config/configBus';
-import { getApiUrl } from '@/delivery-options/data/request/getApiUrl';
-import memoize from 'lodash-es/memoize';
+import { LOCALE } from '../keys/configKeys';
+import { configBus } from '../../config';
+import { getApiUrl } from './getApiUrl';
+import { memoize } from 'lodash-unified';
 
 export const METHOD_GET = 'get';
 export const METHOD_SEARCH = 'search';

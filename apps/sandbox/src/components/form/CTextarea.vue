@@ -7,8 +7,8 @@
 </template>
 
 <script>
-import CInput from '@/sandbox/components/form/CInput';
-import { formTextarea } from '@/sandbox/services/mixins/formTextarea';
+import CInput from '../../delivery-options/src/sandbox/components/form/CInput';
+import { formTextarea } from '../../delivery-options/src/sandbox/services/mixins/formTextarea';
 
 export default {
   name: 'CTextarea',

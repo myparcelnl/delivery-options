@@ -1,6 +1,6 @@
-import * as FORM from '@/config/formConfig';
-import { configBus } from '@/delivery-options/config/configBus';
-import { createIsoString } from '@/delivery-options/data/dates/createIsoString';
+import * as FORM from '../../config/formConfig';
+import { configBus } from '../../config/configBus';
+import { createIsoString } from '../../data/dates/createIsoString';
 
 /**
  * Get the pickup date from given possibilities array using the currently selected pickup moment.

@@ -1,6 +1,6 @@
-import { LOCALE } from '@/data/keys/configKeys';
-import { configBus } from '@/delivery-options/config/configBus';
-import { createDate } from '@/delivery-options/data/dates/createDate';
+import { LOCALE } from '../../data/keys/configKeys';
+import { configBus } from '../../config/configBus';
+import { createDate } from '../../data/dates/createDate';
 
 /**
  * Format a given date string into the locale format set through the configBus. Force the timezone to be UTC to avoid

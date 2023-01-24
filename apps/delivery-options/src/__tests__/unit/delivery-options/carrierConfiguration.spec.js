@@ -1,7 +1,7 @@
-import * as CARRIERS from '@/data/keys/carrierKeys';
-import { PACKAGE_TYPE_DIGITAL_STAMP, PACKAGE_TYPE_MAILBOX } from '@/data/keys/settingsConsts';
-import { CarrierConfigurationFactory } from '@/data/carriers/carrierConfigurationFactory';
-import { MYPARCEL } from '@/data/keys/platformKeys';
+import {CARRIERS} from '../../data';
+import { PACKAGE_TYPE_DIGITAL_STAMP, PACKAGE_TYPE_MAILBOX } from '../../data/keys/settingsConsts';
+import { CarrierConfigurationFactory } from '../../data/carriers/carrierConfigurationFactory';
+import { MYPARCEL } from '../../data/keys/platformKeys';
 
 describe('CarrierConfiguration', () => {
   it('(dis)allows delivery in', () => {

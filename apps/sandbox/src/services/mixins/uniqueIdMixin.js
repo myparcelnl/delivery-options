@@ -1,4 +1,4 @@
-import uniqueId from 'lodash-es/uniqueId';
+import{ uniqueId } from 'lodash-unified';
 
 export const uniqueIdMixin = {
   data() {

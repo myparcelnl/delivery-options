@@ -1,7 +1,6 @@
 /* eslint-disable no-magic-numbers */
-import * as SETTINGS from '@/data/keys/configKeys';
+export { PLATFORM } from '../../delivery-options/src/data/keys/configKeys';
 
-export const { PLATFORM } = SETTINGS;
 export const CARRIER = 'carrier';
 
 export const CONFIG = 'config';

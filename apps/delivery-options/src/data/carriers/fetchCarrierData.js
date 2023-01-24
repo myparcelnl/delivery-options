@@ -1,5 +1,5 @@
-import { METHOD_SEARCH, fetchFromEndpoint } from '@/delivery-options/data/request/fetchFromEndpoint';
-import { formatCarrierResponse } from '@/delivery-options/data/carriers/formatCarrierResponse';
+import { METHOD_SEARCH, fetchFromEndpoint } from '../../data/request/fetchFromEndpoint';
+import { formatCarrierResponse } from '../../data/carriers/formatCarrierResponse';
 
 /**
  * Fetch carrier data.

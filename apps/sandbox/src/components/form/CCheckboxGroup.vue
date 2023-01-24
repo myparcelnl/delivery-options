@@ -9,8 +9,8 @@
 
 <script>
 import { BFormCheckboxGroup } from 'bootstrap-vue/src/components/form-checkbox/form-checkbox-group';
-import CInput from '@/sandbox/components/form/CInput';
-import { formCheckboxGroup } from '@/sandbox/services/mixins/formCheckboxGroup';
+import CInput from '../../delivery-options/src/sandbox/components/form/CInput';
+import { formCheckboxGroup } from '../../delivery-options/src/sandbox/services/mixins/formCheckboxGroup';
 
 export default {
   name: 'CCheckboxGroup',

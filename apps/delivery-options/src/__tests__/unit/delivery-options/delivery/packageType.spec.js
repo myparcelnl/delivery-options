@@ -1,6 +1,6 @@
-import * as CONFIG from '@/data/keys/configKeys';
-import { PACKAGE_TYPE_DIGITAL_STAMP, PACKAGE_TYPE_MAILBOX, PACKAGE_TYPE_PACKAGE } from '@/data/keys/settingsConsts';
-import { UPDATED_DELIVERY_OPTIONS } from '@/config/eventConfig';
+import {CONFIG} from '../../data';
+import { PACKAGE_TYPE_DIGITAL_STAMP, PACKAGE_TYPE_MAILBOX, PACKAGE_TYPE_PACKAGE } from '../../data/keys/settingsConsts';
+import { UPDATED_DELIVERY_OPTIONS } from '../../config/eventConfig';
 import { mockDeliveryOptions } from '@Tests/unit/delivery-options/mockDeliveryOptions';
 import { waitForEvent } from '@Tests/waitForEvent';
 

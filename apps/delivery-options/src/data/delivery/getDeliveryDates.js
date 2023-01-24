@@ -1,7 +1,7 @@
-import * as CONFIG from '@/data/keys/configKeys';
-import { configBus } from '@/delivery-options/config/configBus';
-import { createDate } from '@/delivery-options/data/dates/createDate';
-import { createIsoString } from '@/delivery-options/data/dates/createIsoString';
+import {CONFIG} from '../../data';
+import { configBus } from '../../config/configBus';
+import { createDate } from '../../data/dates/createDate';
+import { createIsoString } from '../../data/dates/createIsoString';
 
 /**
  * @param {MyParcel.DeliveryOption[]} deliveryOptions - Delivery options object.

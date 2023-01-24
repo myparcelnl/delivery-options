@@ -1,14 +1,14 @@
-import * as CARRIERS from '@/data/keys/carrierKeys';
-import { BpostCarrierConfiguration } from '@/data/carriers/bpostCarrierConfiguration';
-import { CheapCargoCarrierConfiguration } from '@/data/carriers/cheapCargoCarrierConfiguration';
-import { DhlCarrierConfiguration } from '@/data/carriers/dhlCarrierConfiguration';
-import { DhlForYouCarrierConfiguration } from '@/data/carriers/dhlForYouCarrierConfiguration';
-import { DhlParcelConnectCarrierConfiguration } from '@/data/carriers/dhlParcelConnectCarrierConfiguration';
-import { DhlEuroplusCarrierConfiguration } from '@/data/carriers/dhlEuroplusCarrierConfiguration';
-import { DpdCarrierConfiguration } from '@/data/carriers/dpdCarrierConfiguration';
-import { InstaboxCarrierConfiguration } from '@/data/carriers/instaboxCarrierConfiguration';
-import { PostNlCarrierConfiguration } from '@/data/carriers/postNlCarrierConfiguration';
-import memoize from 'lodash-es/memoize';
+import {CARRIERS} from '../../data';
+import { BpostCarrierConfiguration } from './bpostCarrierConfiguration';
+import { CheapCargoCarrierConfiguration } from './cheapCargoCarrierConfiguration';
+import { DhlCarrierConfiguration } from './dhlCarrierConfiguration';
+import { DhlEuroplusCarrierConfiguration } from './dhlEuroplusCarrierConfiguration';
+import { DhlForYouCarrierConfiguration } from './dhlForYouCarrierConfiguration';
+import { DhlParcelConnectCarrierConfiguration } from './dhlParcelConnectCarrierConfiguration';
+import { DpdCarrierConfiguration } from './dpdCarrierConfiguration';
+import { InstaboxCarrierConfiguration } from './instaboxCarrierConfiguration';
+import { PostNlCarrierConfiguration } from './postNlCarrierConfiguration';
+import{ memoize } from 'lodash-unified';
 
 const carrierConfiguration = memoize((carrierName, platform) => {
   switch (carrierName) {

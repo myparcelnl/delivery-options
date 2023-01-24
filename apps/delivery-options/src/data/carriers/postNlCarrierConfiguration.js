@@ -1,6 +1,6 @@
-import * as FEATURES from '@/data/carrierFeatures';
-import { MYPARCEL, SENDMYPARCEL } from '@/data/keys/platformKeys';
-import { AbstractCarrierConfiguration } from '@/data/carriers/abstractCarrierConfiguration';
+import * as FEATURES from '../../data/carrierFeatures';
+import { MYPARCEL, SENDMYPARCEL } from '../../data/keys/platformKeys';
+import { AbstractCarrierConfiguration } from '../../data/carriers/abstractCarrierConfiguration';
 
 export class PostNlCarrierConfiguration extends AbstractCarrierConfiguration {
   getFeatures() {

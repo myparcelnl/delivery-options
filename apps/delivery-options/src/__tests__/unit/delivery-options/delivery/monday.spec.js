@@ -1,6 +1,6 @@
-import * as CONFIG from '@/data/keys/configKeys';
+import {CONFIG} from '../../data';
 import { DATE_SATURDAY, DATE_SATURDAY_AFTER_CUTOFF, configMyParcel } from '@Tests/unit/delivery-options/delivery/data';
-import { FRIDAY, MONDAY, SATURDAY, THURSDAY, TUESDAY, WEDNESDAY } from '@/config/extraDeliveryConfig';
+import { FRIDAY, MONDAY, SATURDAY, THURSDAY, TUESDAY, WEDNESDAY } from '../../config/extraDeliveryConfig';
 import MockDate from 'mockdate';
 import { getMockedDeliveryDateChoices } from '@Tests/helpers/getMockedDeliveryDateChoices';
 

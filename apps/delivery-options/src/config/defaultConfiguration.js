@@ -9,7 +9,7 @@ import {
   DEFAULT_PRICE,
 } from '../data/keys/settingsConsts';
 import { getDefaultStrings } from '../config/defaultStrings';
-import merge from 'lodash-es/merge';
+import{ merge } from 'lodash-unified';
 import { platformConfig } from '../config/platform/platformConfig';
 
 /**

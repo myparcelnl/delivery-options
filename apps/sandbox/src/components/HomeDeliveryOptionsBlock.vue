@@ -9,14 +9,14 @@
 </template>
 
 <script>
-import * as CONFIG from '@/data/keys/configKeys';
-import * as EVENTS from '@/config/eventConfig';
-import * as STRINGS from '@/data/keys/stringsKeys';
-import cloneDeep from 'lodash-es/cloneDeep';
-import { createScript } from '@/delivery-options/services/createScript';
-import debounce from 'lodash-es/debounce';
-import isEqual from 'lodash-es/isEqual';
-import { sandboxConfigBus } from '@/sandbox/sandboxConfigBus';
+import {CONFIG} from '@myparcel/delivery-options';
+import {EVENTS} from '@myparcel/delivery-options';
+import {STRINGS} from '@myparcel/delivery-options';
+import{ cloneDeep } from 'lodash-unified';
+import { createScript } from '../../delivery-options/src/delivery-options/services/createScript';
+import{ debounce } from 'lodash-unified';
+import{ isEqual } from 'lodash-unified';
+import { sandboxConfigBus } from '../../delivery-options/src/sandbox/sandboxConfigBus';
 
 export default {
   name: 'HomeDeliveryOptionsBlock',
@@ -153,7 +153,7 @@ export default {
       }
 
       if (import.meta.env.DEV) {
-        await import('@/delivery-options/main');
+        await import('../../delivery-options/src/delivery-options/main');
       } else {
         await createScript('/delivery-options/myparcel.lib.js');
       }

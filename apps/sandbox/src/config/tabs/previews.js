@@ -1,5 +1,5 @@
-import HomeCodeBlock from '@/sandbox/components/HomeCodeBlock';
-import HomeDeliveryOptionsBlock from '@/sandbox/components/HomeDeliveryOptionsBlock';
+import HomeCodeBlock from '../../delivery-options/src/sandbox/components/HomeCodeBlock';
+import HomeDeliveryOptionsBlock from '../../delivery-options/src/sandbox/components/HomeDeliveryOptionsBlock';
 
 export default [
   {

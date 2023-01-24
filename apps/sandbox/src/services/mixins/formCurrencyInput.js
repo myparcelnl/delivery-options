@@ -1,4 +1,4 @@
-import { formNumberInput } from '@/sandbox/services/mixins/formNumberInput';
+import { formNumberInput } from '../../delivery-options/src/sandbox/services/mixins/formNumberInput';
 
 export const formCurrencyInput = {
   mixins: [

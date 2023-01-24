@@ -1,11 +1,11 @@
-import * as CONFIG from '@/data/keys/configKeys';
-import { isPastCutoffTime } from '@/helpers/delivery/isPastCutoffTime';
-import { isPastSameDayCutoffTime } from '@/helpers/delivery/isPastSameDayCutoffTime';
-import { configBus as realConfigBus } from '@/delivery-options/config/configBus';
+import {CONFIG} from '../../data';
+import { isPastCutoffTime } from '../../helpers/delivery/isPastCutoffTime';
+import { isPastSameDayCutoffTime } from '../../helpers/delivery/isPastSameDayCutoffTime';
+import { configBus as realConfigBus } from '../../config/configBus';
 
 /**
  * @param {MyParcel.CarrierName} carrier
- * @param {import('@/delivery-options/config/configBus').configBus} configBus - Optional parameter for easier testing.
+ * @param {import('../../config/configBus').configBus} configBus - Optional parameter for easier testing.
  *
  * @returns {boolean}
  */

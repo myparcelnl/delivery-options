@@ -1,8 +1,8 @@
-import { configBus } from '@/delivery-options/config/configBus';
-import { getDefaultRequestParameters } from '@/delivery-options/data/request/getDefaultRequestParameters';
-import { getOptionalRequestParameters } from '@/delivery-options/data/request/getOptionalRequestParameters';
-import { getParametersByPlatform } from '@/delivery-options/data/request/requestData';
-import { getCarrierRequestParameters } from '@/delivery-options/data/request/getCarrierRequestParameters';
+import { configBus } from '../../config/configBus';
+import { getDefaultRequestParameters } from '../../data/request/getDefaultRequestParameters';
+import { getOptionalRequestParameters } from '../../data/request/getOptionalRequestParameters';
+import { getParametersByPlatform } from '../../data/request/requestData';
+import { getCarrierRequestParameters } from '../../data/request/getCarrierRequestParameters';
 
 /**
  * Gather the parameters for the delivery options request.

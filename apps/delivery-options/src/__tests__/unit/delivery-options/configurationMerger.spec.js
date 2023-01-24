@@ -1,9 +1,9 @@
-import * as ADDRESS from '@/data/keys/addressKeys';
-import * as CARRIERS from '@/data/keys/carrierKeys';
-import * as CONFIG from '@/data/keys/configKeys';
+import {ADDRESS} from '../../data';
+import {CARRIERS} from '../../data';
+import {CONFIG} from '../../data';
 import { ConfigurationMerger } from '../../config/configurationMerger';
-import { MYPARCEL } from '@/data/keys/platformKeys';
-import { defaultAddress } from '@/data/defaultAddress';
+import { MYPARCEL } from '../../data/keys/platformKeys';
+import { defaultAddress } from '../../data/defaultAddress';
 
 describe('ConfigurationMerger', () => {
   it('should merge configurations correctly', () => {

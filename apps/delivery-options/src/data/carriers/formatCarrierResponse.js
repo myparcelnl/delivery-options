@@ -1,4 +1,4 @@
-import { appConfig } from '@/config/appConfig';
+import { appConfig } from '../../config/appConfig';
 
 /**
  * Format the carriers response to fit in the checkout form.

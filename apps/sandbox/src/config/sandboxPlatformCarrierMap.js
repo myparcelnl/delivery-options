@@ -1,6 +1,6 @@
-import * as CARRIERS from '@/data/keys/carrierKeys';
-import * as PLATFORMS from '@/data/keys/platformKeys';
-import { isFeatureActive } from '@/helpers/isFeatureActive';
+import {CARRIERS} from '@myparcel/delivery-options';
+import {PLATFORMS} from '@myparcel/delivery-options';
+import { isFeatureActive } from '../../delivery-options/src/helpers/isFeatureActive';
 
 /**
  * Sandbox override of platformCarrierMap, to be able to hide certain carriers in the settings using feature toggles,

@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import CSelect from '@/sandbox/components/form/CSelect';
+import CSelect from '../../delivery-options/src/sandbox/components/form/CSelect';
 
 /**
  * @param id
@@ -58,7 +58,7 @@ export default {
   },
 
   beforeMount() {
-    this.countryModules = import.meta.globEager('@/sandbox/translations/countries/*.json');
+    this.countryModules = import.meta.globEager('../../delivery-options/src/sandbox/translations/countries/*.json');
   },
 };
 </script>

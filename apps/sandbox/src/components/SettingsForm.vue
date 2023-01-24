@@ -39,12 +39,12 @@
 </template>
 
 <script>
-import { DEFAULT_PLATFORM } from '@/data/keys/settingsConsts';
+import { DEFAULT_PLATFORM } from '../../delivery-options/src/data/keys/settingsConsts';
 import Fa from 'vue-fa';
 import FormGroup from './FormGroup';
-import Heading from '@/sandbox/components/Heading';
+import Heading from '../../delivery-options/src/sandbox/components/Heading';
 import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
-import { platformTabs } from '@/sandbox/config/tabs/platformTabs';
+import { platformTabs } from '../../delivery-options/src/sandbox/config/tabs/platformTabs';
 
 export default {
   name: 'SettingsForm',

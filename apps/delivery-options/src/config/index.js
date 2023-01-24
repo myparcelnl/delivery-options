@@ -19,3 +19,5 @@ export * from './settingHasCarrierOverride';
 export * from './settingHasCountryOverride';
 export * from './urlConfig';
 export * from './validatePlatform';
+
+export * as FORM from './formConfig'

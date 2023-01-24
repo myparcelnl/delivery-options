@@ -1,7 +1,7 @@
-import * as CARRIERS from '@/data/keys/carrierKeys';
-import * as CONFIG from '@/data/keys/configKeys';
-import * as PLATFORMS from '@/data/keys/platformKeys';
-import { UPDATED_DELIVERY_OPTIONS } from '@/config/eventConfig';
+import {CARRIERS} from '../../data';
+import {CONFIG} from '../../data';
+import {PLATFORMS} from '../../data';
+import { UPDATED_DELIVERY_OPTIONS } from '../../config/eventConfig';
 import { mockDeliveryOptions } from '@Tests/unit/delivery-options/mockDeliveryOptions';
 import { waitForEvent } from '@Tests/waitForEvent';
 

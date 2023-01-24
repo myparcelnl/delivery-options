@@ -1,10 +1,9 @@
-import * as CONFIG from '@/data/keys/configKeys';
-import * as CONSTS from '@/data/keys/settingsConsts';
-import CCodeEditor from '@/sandbox/components/form/CCodeEditor';
-import CNumber from '@/sandbox/components/form/CNumber';
-import CSelect from '@/sandbox/components/form/CSelect';
-import CToggle from '@/sandbox/components/form/CToggle';
-import { inAnyCarrier } from '@/sandbox/settings/conditions/inAnyCarrier';
+import { CONFIG, CONSTS } from '@myparcel/delivery-options';
+import CCodeEditor from '../../components/form/CCodeEditor.vue';
+import CNumber from '../../components/form/CNumber.vue';
+import CSelect from '../../components/form/CNumber.vue';
+import CToggle from '../../components/form/CNumber.vue';
+import { inAnyCarrier } from '../conditions/inAnyCarrier';
 
 export const featuresForm = [
   {

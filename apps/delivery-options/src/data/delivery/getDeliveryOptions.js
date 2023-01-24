@@ -1,9 +1,9 @@
-import * as STRINGS from '@/data/keys/stringsKeys';
-import { CARRIER, DELIVER, formConfigDelivery } from '@/config/formConfig';
-import { configBus } from '@/delivery-options/config/configBus';
-import { createDeliveryOptions } from '@/delivery-options/data/delivery/createDeliveryOptions';
-import { cssClassBase } from '@/delivery-options/cssClassBase';
-import { getPriceLabelFromFormConfig } from '@/delivery-options/data/prices/getPriceLabelFromFormConfig';
+import {STRINGS} from '../../data';
+import { CARRIER, DELIVER, formConfigDelivery } from '../../config';
+import { configBus } from '../../config';
+import { createDeliveryOptions } from './createDeliveryOptions';
+import { cssClassBase } from '../../services';
+import { getPriceLabelFromFormConfig } from '../prices';
 
 /**
  * Get deliver options for carriers in the config.

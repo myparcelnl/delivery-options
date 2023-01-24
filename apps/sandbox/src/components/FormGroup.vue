@@ -67,14 +67,14 @@
 </template>
 
 <script>
-import CTextInput from '@/sandbox/components/form/CTextInput';
-import CarrierButton from '@/sandbox/components/CarrierButton';
-import Heading from '@/sandbox/components/Heading';
-import Help from '@/sandbox/components/Help';
-import debounce from 'lodash-es/debounce';
-import isEqual from 'lodash-es/isEqual';
-import { sandboxConfigBus } from '@/sandbox/sandboxConfigBus';
-import { uniqueIdMixin } from '@/sandbox/services/mixins/uniqueIdMixin';
+import CTextInput from '../../delivery-options/src/sandbox/components/form/CTextInput';
+import CarrierButton from '../../delivery-options/src/sandbox/components/CarrierButton';
+import Heading from '../../delivery-options/src/sandbox/components/Heading';
+import Help from '../../delivery-options/src/sandbox/components/Help';
+import{ debounce } from 'lodash-unified';
+import{ isEqual } from 'lodash-unified';
+import { sandboxConfigBus } from '../../delivery-options/src/sandbox/sandboxConfigBus';
+import { uniqueIdMixin } from '../../delivery-options/src/sandbox/services/mixins/uniqueIdMixin';
 
 const SET_DEBOUNCE_DELAY = 300;
 

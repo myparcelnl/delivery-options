@@ -1,6 +1,4 @@
-import objectGet from 'lodash-es/get';
-import objectSet from 'lodash-es/set';
-import split from 'lodash-es/split';
+import {get as objectGet, set as objectSet, split} from 'lodash-unified';
 
 /**
  * Sort the sibling keys in an object starting from given path alphabetically.

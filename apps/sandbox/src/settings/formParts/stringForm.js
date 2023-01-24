@@ -1,7 +1,7 @@
-import * as CONFIG from '@/data/keys/configKeys';
-import * as FORM from '@/config/formConfig';
-import * as STRINGS from '@/data/keys/stringsKeys';
-import { inAnyCarrier } from '@/sandbox/settings/conditions/inAnyCarrier';
+import {CONFIG} from '@myparcel/delivery-options';
+import {FORM} from '@myparcel/delivery-options';
+import {STRINGS} from '@myparcel/delivery-options';
+import { inAnyCarrier } from '../../delivery-options/src/sandbox/settings/conditions/inAnyCarrier';
 
 export const stringsForm = [
   {

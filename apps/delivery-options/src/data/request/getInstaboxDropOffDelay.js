@@ -1,8 +1,8 @@
-import * as CARRIERS from '@/data/keys/carrierKeys';
-import * as CONFIG from '@/data/keys/configKeys';
-import { configBus } from '@/delivery-options/config/configBus';
-import { hasSameDayDelivery } from '@/helpers/delivery/hasSameDayDelivery';
-import { isPastCutoffTime } from '@/helpers/delivery/isPastCutoffTime';
+import {CARRIERS} from '../../data';
+import {CONFIG} from '../../data';
+import { configBus } from '../../config/configBus';
+import { hasSameDayDelivery } from '../../helpers/delivery/hasSameDayDelivery';
+import { isPastCutoffTime } from '../../helpers/delivery/isPastCutoffTime';
 
 /**
  * DropOff delay for Instabox when sameday delivery is disabled should never be 0 and when enabled, dropOff delay will

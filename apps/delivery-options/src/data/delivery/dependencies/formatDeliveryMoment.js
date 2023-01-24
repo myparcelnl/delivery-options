@@ -1,9 +1,8 @@
-import * as CONFIG from '@/data/keys/configKeys';
-import { DELIVERY_EVENING, DELIVERY_MORNING, SHIPMENT_OPTIONS, deliveryMoments } from '@/config/formConfig';
-import { configBus } from '@/delivery-options/config/configBus';
-import { formatPossibility } from '@/delivery-options/data/delivery/dependencies/formatPossibility';
-import { formatShipmentOptions } from '@/delivery-options/data/delivery/dependencies/formatShipmentOptions';
-import { getDeliveryType } from '@/delivery-options/data/delivery/dependencies/getDeliveryType';
+import { configBus, DELIVERY_EVENING, DELIVERY_MORNING, deliveryMoments, SHIPMENT_OPTIONS } from '../../../config';
+import { CONFIG } from '../../../data';
+import { formatPossibility } from './formatPossibility';
+import { formatShipmentOptions } from './formatShipmentOptions';
+import { getDeliveryType } from './getDeliveryType';
 
 /**
  * Delivery moment is dependant on delivery date.

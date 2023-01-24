@@ -1,5 +1,5 @@
-import * as ADDRESS from '@/data/keys/addressKeys';
-import * as CONFIG from '@/data/keys/configKeys';
+import {ADDRESS} from '../../data';
+import {CONFIG} from '../../data';
 import {
   DISABLE_DELIVERY_OPTIONS,
   HIDE_DELIVERY_OPTIONS,
@@ -7,11 +7,11 @@ import {
   UPDATED_DELIVERY_OPTIONS,
   UPDATE_CONFIG_IN,
   UPDATE_DELIVERY_OPTIONS,
-} from '@/config/eventConfig';
-import { MYPARCEL, SENDMYPARCEL } from '@/data/keys/platformKeys';
+} from '../../config/eventConfig';
+import { MYPARCEL, SENDMYPARCEL } from '../../data/keys/platformKeys';
 import { createWaitableMock } from '@Tests/unit/createWaitableMock';
-import { defaultAddress } from '@/data/defaultAddress';
-import { defaultConfiguration } from '@/config/defaultConfiguration';
+import { defaultAddress } from '../../data/defaultAddress';
+import { defaultConfiguration } from '../../config/defaultConfiguration';
 import { mockDeliveryOptions } from '@Tests/unit/delivery-options/mockDeliveryOptions';
 import { waitForEvent } from '@Tests/waitForEvent';
 

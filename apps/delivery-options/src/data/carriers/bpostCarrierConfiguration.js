@@ -1,6 +1,6 @@
-import * as FEATURES from '@/data/carrierFeatures';
-import { AbstractCarrierConfiguration } from '@/data/carriers/abstractCarrierConfiguration';
-import { SENDMYPARCEL } from '@/data/keys/platformKeys';
+import * as FEATURES from '../../data/carrierFeatures';
+import { AbstractCarrierConfiguration } from '../../data/carriers/abstractCarrierConfiguration';
+import { SENDMYPARCEL } from '../../data/keys/platformKeys';
 
 export class BpostCarrierConfiguration extends AbstractCarrierConfiguration {
   getFeatures() {

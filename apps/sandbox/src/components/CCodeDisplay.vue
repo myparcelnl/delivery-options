@@ -12,9 +12,9 @@
 </template>
 
 <script>
-import { CODE_FORMAT_JAVASCRIPT } from '@/sandbox/config/forms/codeFormats';
-import debounce from 'lodash-es/debounce';
-import { hljs } from '@/sandbox/services/highlightjs';
+import { CODE_FORMAT_JAVASCRIPT } from '../../delivery-options/src/sandbox/config/forms/codeFormats';
+import{ debounce } from 'lodash-unified';
+import { hljs } from '../../delivery-options/src/sandbox/services/highlightjs';
 
 export default {
   name: 'CCodeDisplay',

@@ -1,10 +1,10 @@
-import * as CONFIG from '@/data/keys/configKeys';
-import { isPastTime } from '@/delivery-options/config/isPastTime';
-import { configBus as realConfigBus } from '@/delivery-options/config/configBus';
+import {CONFIG} from '../../data';
+import { isPastTime } from '../../config/isPastTime';
+import { configBus as realConfigBus } from '../../config/configBus';
 
 /**
  * @param {MyParcel.CarrierName} carrierName
- * @param {import('@/delivery-options/config/configBus').configBus} configBus - Optional parameter for easier testing.
+ * @param {import('../../config/configBus').configBus} configBus - Optional parameter for easier testing.
  *
  * @returns {boolean}
  */

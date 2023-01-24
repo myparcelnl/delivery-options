@@ -1,8 +1,8 @@
 import address from './forms/address';
 import codeFormats from './forms/codeFormats';
-import objectGet from 'lodash-es/get';
-import previews from '@/sandbox/config/tabs/previews';
-import settings from '@/sandbox/config/tabs/settings';
+import{ objectGet } from 'lodash-unified';
+import previews from '../../delivery-options/src/sandbox/config/tabs/previews';
+import settings from '../../delivery-options/src/sandbox/config/tabs/settings';
 
 const config = {
   forms: { address, codeFormats },

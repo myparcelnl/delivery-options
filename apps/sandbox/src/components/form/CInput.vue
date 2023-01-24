@@ -1,5 +1,5 @@
 <script>
-import { formInputProps } from '@/sandbox/services/mixins/formInputProps';
+import { formInputProps } from '../../delivery-options/src/sandbox/services/mixins/formInputProps';
 
 const INPUT_DEBOUNCE_DELAY = 300;
 

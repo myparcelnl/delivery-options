@@ -1,4 +1,4 @@
 import Vue from 'vue';
-import { formatCode } from '@/sandbox/services/filters/formatCode';
+import { formatCode } from '../../delivery-options/src/sandbox/services/filters/formatCode';
 
 Vue.filter('formatCode', formatCode);

@@ -1,5 +1,5 @@
-import * as CONFIG from '@/data/keys/configKeys';
-import { DEFAULT_MAX_PAGE_ITEMS } from '@/data/keys/settingsConsts';
+import { CONFIG } from '../../../data';
+import { DEFAULT_MAX_PAGE_ITEMS } from '../../keys';
 
 export const config = {
   [CONFIG.LOCALE]: 'nl-BE',

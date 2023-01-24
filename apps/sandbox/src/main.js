@@ -1,16 +1,16 @@
-import '../assets/scss/sandbox/style.scss';
-import '@/delivery-options/services/filters';
-import '@/delivery-options/services/directives';
-import '@/sandbox/services/filters';
-import Sandbox from '@/sandbox/Sandbox';
+import './assets/scss/sandbox/style.scss';
+import '../../delivery-options/src/delivery-options/services/filters';
+import '../../delivery-options/src/delivery-options/services/directives';
+import '../../delivery-options/src/sandbox/services/filters';
+import Sandbox from '../../delivery-options/src/sandbox/Sandbox';
 import Vue from 'vue';
-import { appConfig } from '@/config/appConfig';
-import { configObject } from '@/sandbox/config';
-import { cssClassBase } from '@/delivery-options/cssClassBase';
-import { getUrl } from '@/config/urlConfig';
-import { i18n } from '@/sandbox/services/vue-i18n';
-import { isDev } from '@/helpers/environment';
-import { useBootstrap } from '@/sandbox/services/bootstrap';
+import { appConfig } from '../../delivery-options/src/config/appConfig';
+import { configObject } from '../../delivery-options/src/sandbox/config';
+import { cssClassBase } from '../../delivery-options/src/delivery-options/cssClassBase';
+import { getUrl } from '../../delivery-options/src/config/urlConfig';
+import { i18n } from '../../delivery-options/src/sandbox/services/vue-i18n';
+import { isDev } from '../../delivery-options/src/helpers/environment';
+import { useBootstrap } from '../../delivery-options/src/sandbox/services/bootstrap';
 
 useBootstrap();
 

@@ -1,6 +1,6 @@
-import * as CARRIERS from '@/data/keys/carrierKeys';
-import { CarrierConfigurationFactory } from '@/data/carriers/carrierConfigurationFactory';
-import { MYPARCEL } from '@/data/keys/platformKeys';
+import {CARRIERS} from '../../data';
+import { CarrierConfigurationFactory } from '../../data/carriers/carrierConfigurationFactory';
+import { MYPARCEL } from '../../data/keys/platformKeys';
 
 describe('CarrierConfigurationFactory', () => {
   it.each`

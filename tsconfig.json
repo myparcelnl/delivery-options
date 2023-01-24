@@ -1,10 +1,10 @@
 {
+  "extends": "@vue/tsconfig/tsconfig.json",
   "compilerOptions": {
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "noEmit": true
-  },
-  "exclude": [
-    "node_modules"
-  ]
+    "paths": {
+      "@myparcel/delivery-options": [
+        "./apps/delivery-options/src"
+      ]
+    }
+  }
 }

@@ -1,4 +1,4 @@
-import { configBus } from '@/delivery-options/config/configBus';
+import { configBus } from '../../config';
 
 /**
  * Set the selected value for a checkbox option.

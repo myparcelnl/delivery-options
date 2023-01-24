@@ -184,14 +184,14 @@
 </template>
 
 <script>
-import * as EVENTS from '@/config/eventConfig';
-import Loader from '@/delivery-options/components/Loader';
-import PickupOption from '../Pickup/PickupOption';
-import { SHOW_PRICES } from '@/data/keys/configKeys';
-import debounce from 'lodash-es/debounce';
-import { formConfig } from '@/config/formConfig';
-import { formatCurrency } from '@/delivery-options/data/prices/formatCurrency';
-import { getChoiceOrFirst } from '@/delivery-options/components/RecursiveForm/getChoiceOrFirst';
+import * as EVENTS from '../../config/eventConfig';
+import Loader from '../../components/Loader.vue';
+import PickupOption from '../Pickup/PickupOption.vue';
+import { SHOW_PRICES } from '../../data/keys/configKeys';
+import { debounce } from 'lodash-unified';
+import { formConfig } from '../../config';
+import { formatCurrency } from '../../data/prices/formatCurrency';
+import { getChoiceOrFirst } from './getChoiceOrFirst';
 import { getDependencies } from './getDependencies';
 import { setCheckboxSelected } from './setCheckboxSelected';
 

@@ -23,9 +23,9 @@
 </template>
 
 <script>
-import * as EVENTS from '@/config/eventConfig';
-import { FEATURE_ALLOW_RETRY } from '@/data/keys/configKeys';
-import { addressRequirements } from '@/config/localeConfig';
+import * as EVENTS from '../config/eventConfig';
+import { FEATURE_ALLOW_RETRY } from '../data/keys/configKeys';
+import { addressRequirements } from '../config/localeConfig';
 
 export default {
   name: 'Errors',

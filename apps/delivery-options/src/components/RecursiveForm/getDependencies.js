@@ -6,7 +6,7 @@
  *
  * @returns {*}
  */
-import { configBus } from '@/delivery-options/config/configBus';
+import { configBus } from '../../config';
 
 /**
  * @param {Object} dependencies - Dependency object.

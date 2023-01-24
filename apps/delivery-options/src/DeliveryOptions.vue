@@ -30,21 +30,20 @@
 </template>
 
 <script>
-import * as EVENTS from '@/config/eventConfig';
-import * as FORM from '@/config/formConfig';
-import { ERROR_INVALID_POSTAL_CODE, FATAL_ERRORS } from '@/config/errorConfig';
-import Errors from '@/delivery-options/components/Errors';
-import Loader from '@/delivery-options/components/Loader';
-import Modal from '@/delivery-options/components/Modal';
-import { addressRequirements } from '@/config/localeConfig';
-import { configBus } from '@/delivery-options/config/configBus';
-import { countryCodes } from '@/data/keys/countryCodes';
-import debounce from 'lodash-es/debounce';
-import { fetchAllCarriers } from '@/delivery-options/data/carriers/fetchAllCarriers';
-import { getAddress } from '@/delivery-options/config/getAddress';
-import { getDeliveryOptions } from '@/delivery-options/data/delivery/getDeliveryOptions';
-import { getPickupLocations } from '@/delivery-options/data/pickup/getPickupLocations';
-import isEqual from 'lodash-es/isEqual';
+import * as EVENTS from './config/eventConfig';
+import * as FORM from './config/formConfig';
+import { ERROR_INVALID_POSTAL_CODE, FATAL_ERRORS } from './config/errorConfig';
+import { debounce, isEqual } from 'lodash-unified';
+import Errors from './components/Errors.vue';
+import Loader from './components/Loader.vue';
+import Modal from './components/Modal.vue';
+import { addressRequirements } from './config/localeConfig';
+import { configBus } from './config/configBus';
+import { countryCodes } from './data/keys/countryCodes';
+import { fetchAllCarriers } from './data/carriers/fetchAllCarriers';
+import { getAddress } from './config/getAddress';
+import { getDeliveryOptions } from './data/delivery/getDeliveryOptions';
+import { getPickupLocations } from './data/pickup/getPickupLocations';
 
 const DEBOUNCE_DELAY = 300;
 

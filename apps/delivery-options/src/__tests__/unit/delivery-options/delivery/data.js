@@ -1,8 +1,8 @@
 // Timestamps are before all cutoff times
-import * as CONFIG from '@/data/keys/configKeys';
-import { FRIDAY, MONDAY, SATURDAY, THURSDAY, TUESDAY, WEDNESDAY } from '@/config/extraDeliveryConfig';
-import { MYPARCEL, SENDMYPARCEL } from '@/data/keys/platformKeys';
-import { BPOST } from '@/data/keys/carrierKeys';
+import {CONFIG} from '../../data';
+import { FRIDAY, MONDAY, SATURDAY, THURSDAY, TUESDAY, WEDNESDAY } from '../../config/extraDeliveryConfig';
+import { MYPARCEL, SENDMYPARCEL } from '../../data/keys/platformKeys';
+import { BPOST } from '../../data/keys/carrierKeys';
 
 export const DATE_FRIDAY = '2020-03-13T10:00:00Z';
 export const DATE_SATURDAY = '2020-03-14T10:00:00Z';

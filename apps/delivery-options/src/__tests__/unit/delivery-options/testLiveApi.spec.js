@@ -1,6 +1,6 @@
-import * as CONFIG from '@/data/keys/configKeys';
-import { BPOST, POSTNL } from '@/data/keys/carrierKeys';
-import { MYPARCEL, SENDMYPARCEL } from '@/data/keys/platformKeys';
+import {CONFIG} from '../../data';
+import { BPOST, POSTNL } from '../../data/keys/carrierKeys';
+import { MYPARCEL, SENDMYPARCEL } from '../../data/keys/platformKeys';
 import dayjs from 'dayjs';
 import { fakeDeliveryOptionsResponse } from '@Mocks/@myparcel/js-sdk/dist/data/fakeDeliveryOptionsResponse';
 import { fetchDeliveryOptions } from '../../data/delivery/fetchDeliveryOptions';

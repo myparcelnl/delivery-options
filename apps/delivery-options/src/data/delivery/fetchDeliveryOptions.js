@@ -1,8 +1,8 @@
-import * as CONFIG from '@/data/keys/configKeys';
-import { METHOD_SEARCH, fetchFromEndpoint } from '@/delivery-options/data/request/fetchFromEndpoint';
-import { CarrierConfigurationFactory } from '@/data/carriers/carrierConfigurationFactory';
-import { configBus } from '@/delivery-options/config/configBus';
-import { getRequestParameters } from '@/delivery-options/data/request/getRequestParameters';
+import {CONFIG} from '../../data';
+import { METHOD_SEARCH, fetchFromEndpoint } from '../../data/request/fetchFromEndpoint';
+import { CarrierConfigurationFactory } from '../../data/carriers/carrierConfigurationFactory';
+import { configBus } from '../../config/configBus';
+import { getRequestParameters } from '../../data/request/getRequestParameters';
 
 /**
  * Fetch delivery options.

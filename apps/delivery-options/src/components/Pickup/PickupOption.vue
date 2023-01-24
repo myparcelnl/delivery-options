@@ -54,9 +54,9 @@
 </template>
 
 <script>
-import * as CONFIG from '@/data/keys/configKeys';
+import {CONFIG} from '../../data';
 import Fa from 'vue-fa';
-import PickupDetails from './PickupDetails';
+import PickupDetails from './PickupDetails.vue';
 import { faEllipsisH } from '@fortawesome/free-solid-svg-icons/faEllipsisH';
 
 export default {

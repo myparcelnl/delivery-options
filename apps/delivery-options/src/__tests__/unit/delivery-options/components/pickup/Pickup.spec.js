@@ -1,11 +1,11 @@
-import * as CONFIG from '@/data/keys/configKeys';
-import Pickup from '../../components/Pickup/Pickup';
+import {CONFIG} from '../../data';
+import Pickup from '../../components/Pickup/Pickup.vue';
 import { configBus } from '../../config/configBus';
 import { createPickupChoices } from '../../data/pickup/createPickupChoices';
 import { fakePickupLocationsResponse } from '@Mocks/@myparcel/js-sdk/dist/data/fakePickupLocationsResponse';
 import { fetchAllCarriers } from '../../data/carriers/fetchAllCarriers';
 import { mockDeliveryOptions } from '@Tests/unit/delivery-options/mockDeliveryOptions';
-import { mockVue } from '../../mockVue';
+import { mockVue } from '../mockVue';
 
 describe('Pickup.vue', () => {
   let wrapper;

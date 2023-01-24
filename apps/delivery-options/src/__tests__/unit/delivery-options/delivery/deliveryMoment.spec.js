@@ -1,10 +1,10 @@
-import * as CONFIG from '@/data/keys/configKeys';
-import * as FORM from '@/config/formConfig';
-import { INSTABOX, POSTNL } from '@/data/keys/carrierKeys';
-import { MYPARCEL } from '@/data/keys/platformKeys';
+import {CONFIG} from '../../data';
+import * as FORM from '../../config/formConfig';
+import { INSTABOX, POSTNL } from '../../data/keys/carrierKeys';
+import { MYPARCEL } from '../../data/keys/platformKeys';
 import MockDate from 'mockdate';
-import { TUESDAY } from '@/config/extraDeliveryConfig';
-import { UPDATED_DELIVERY_OPTIONS } from '@/config/eventConfig';
+import { TUESDAY } from '../../config/extraDeliveryConfig';
+import { UPDATED_DELIVERY_OPTIONS } from '../../config/eventConfig';
 import { dayjs } from '@Tests/dayjs';
 import { mockDeliveryOptions } from '@Tests/unit/delivery-options/mockDeliveryOptions';
 import { waitForEvent } from '@Tests/waitForEvent';

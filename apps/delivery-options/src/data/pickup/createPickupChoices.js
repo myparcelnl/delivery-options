@@ -1,9 +1,9 @@
-import { configBus } from '@/delivery-options/config/configBus';
-import { fetchMultiple } from '@/delivery-options/data/request/fetchMultiple';
-import { fetchPickupLocations } from '@/delivery-options/data/pickup/fetchPickupLocations';
-import { formatPickupLocations } from '@/delivery-options/data/pickup/formatPickupLocations';
-import { getPickupMoments } from '@/delivery-options/data/pickup/getPickupMoments';
-import { sortPickupLocations } from '@/delivery-options/data/pickup/sortPickupLocations';
+import { configBus } from '../../config/configBus';
+import { fetchMultiple } from '../../data/request/fetchMultiple';
+import { fetchPickupLocations } from '../../data/pickup/fetchPickupLocations';
+import { formatPickupLocations } from '../../data/pickup/formatPickupLocations';
+import { getPickupMoments } from '../../data/pickup/getPickupMoments';
+import { sortPickupLocations } from '../../data/pickup/sortPickupLocations';
 
 /**
  * Format the pickup locations into choices for use with the recursive form.

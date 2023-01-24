@@ -7,8 +7,8 @@
 
 <script>
 import { BFormRadioGroup } from 'bootstrap-vue/src/components/form-radio';
-import CInput from '@/sandbox/components/form/CInput';
-import { formRadioGroup } from '@/sandbox/services/mixins/formRadioGroup';
+import CInput from '../../delivery-options/src/sandbox/components/form/CInput';
+import { formRadioGroup } from '../../delivery-options/src/sandbox/services/mixins/formRadioGroup';
 
 export default {
   name: 'CRadioGroup',

@@ -1,10 +1,10 @@
 /* eslint-disable max-params */
 import { mount, shallowMount } from '@vue/test-utils';
-import DeliveryOptions from '../../DeliveryOptions';
-import { MYPARCEL } from '@/data/keys/platformKeys';
-import Sandbox from '@/sandbox/Sandbox';
+import DeliveryOptions from '../../DeliveryOptions.vue';
+import { MYPARCEL } from '../../data/keys/platformKeys';
+import Sandbox from '../sandbox/Sandbox';
 import { addWrapperExtensions } from '@Tests/unit/wrapperExtensions';
-import { i18n } from '@/sandbox/services/vue-i18n';
+import { i18n } from '../sandbox/services/vue-i18n';
 import { mockVue as mockDeliveryOptionsVue } from './delivery-options/mockVue';
 import { mockVue as mockSandboxVue } from './sandbox/mockVue';
 
