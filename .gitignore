@@ -20,4 +20,11 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw?
-/myparcel-js-sdk/
+
+.yarn/*
+!.yarn/releases
+!.yarn/patches
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+
