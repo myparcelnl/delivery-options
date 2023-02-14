@@ -68,6 +68,7 @@ declare namespace MyParcelDeliveryOptions {
     options?: string
     packageTypeDigitalStamp?: string
     packageTypeMailbox?: string
+    pickUp?: string
     pickUpFrom?: string
     pickupLocationsListButton?: string
     pickupLocationsMapButton?: string
@@ -75,6 +76,7 @@ declare namespace MyParcelDeliveryOptions {
     postalCode?: string
     retry?: string
     signatureTitle?: string
+    street?: string
 
     // NL only
     mondayDeliveryTitle?: string
@@ -85,6 +87,15 @@ declare namespace MyParcelDeliveryOptions {
     beDeliveryTitle?: string
     saturdayDeliveryTitle?: string
     wrongPostalCodeCity?: string
+
+    /**
+     * @see src/config/errorConfig.js
+     */
+    error3212?: string
+    error3224?: string
+    error3505?: string
+    error3506?: string
+    error3728?: string
   }
 
   /**

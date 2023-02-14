@@ -1,12 +1,11 @@
+// eslint-disable-next-line jsdoc/require-returns
 /**
  * Creates a mock function that checks when and how many times it has been called. You use this in jest to wait until a
  * function is called any amount of times.
  *
- * @param {Function} original
+ * @param {Mock|Function} original
  *
  * @see https://github.com/facebook/jest/issues/7432#issuecomment-443536177
- *
- * @returns {Mock}
  */
 export const createWaitableMock = (original = null) => {
   let resolve;

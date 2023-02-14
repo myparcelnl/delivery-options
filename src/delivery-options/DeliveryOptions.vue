@@ -32,13 +32,11 @@
 <script>
 import * as EVENTS from '@/config/eventConfig';
 import * as FORM from '@/config/formConfig';
-import { ERROR_INVALID_POSTAL_CODE, FATAL_ERRORS } from '@/config/errorConfig';
 import Errors from '@/delivery-options/components/Errors';
+import { FATAL_ERRORS } from '@/config/errorConfig';
 import Loader from '@/delivery-options/components/Loader';
 import Modal from '@/delivery-options/components/Modal';
-import { addressRequirements } from '@/config/localeConfig';
 import { configBus } from '@/delivery-options/config/configBus';
-import { countryCodes } from '@/data/keys/countryCodes';
 import debounce from 'lodash-es/debounce';
 import { fetchAllCarriers } from '@/delivery-options/data/carriers/fetchAllCarriers';
 import { getAddress } from '@/delivery-options/config/getAddress';
@@ -58,6 +56,11 @@ export default {
   data() {
     return {
       configBus,
+
+      /**
+       * API errors.
+       */
+      errors: [],
 
       /**
        * Whether to show the delivery options module at all or not.
@@ -137,55 +140,12 @@ export default {
 
   computed: {
     /**
-     * False if:
-     *  - CC is undefined
-     *  - Not all properties in addressRequirements for the current CC are present.
-     *
-     * Otherwise returns true.
+     * False if address or address.cc is missing.
      *
      * @returns {boolean}
      */
     hasValidAddress() {
-      if (!this.$configBus.address || !this.$configBus.address.cc) {
-        return false;
-      }
-
-      const { cc } = this.$configBus.address;
-      const countryCode = addressRequirements.hasOwnProperty(cc) ? cc : countryCodes.NETHERLANDS;
-      const requirements = addressRequirements[countryCode];
-
-      const hasItem = (item) => this.$configBus.address.hasOwnProperty(item) && this.$configBus.address[item];
-      const meetsRequirements = (item) => {
-        if (Array.isArray(item)) {
-          return item.some(hasItem);
-        }
-
-        return hasItem(item);
-      };
-
-      // False if any requirements are not met, true otherwise.
-      const valid = requirements.every(meetsRequirements);
-
-      // If invalid, tell the configBus which fields are missing.
-      if (!valid) {
-        this.$configBus.addError(
-          // Add the invalid fields to errors
-          requirements.reduce((acc, item) => {
-            return meetsRequirements(item)
-              ? acc
-              : [
-                ...acc,
-                {
-                  code: ERROR_INVALID_POSTAL_CODE,
-                  type: 'address',
-                  error: item,
-                },
-              ];
-          }, []),
-        );
-      }
-
-      return valid;
+      return Boolean(this.$configBus.address && this.$configBus.address.cc);
     },
 
     /**
@@ -288,6 +248,8 @@ export default {
      * @returns {Promise}
      */
     async getDeliveryOptions(event) {
+      this.errors = [];
+
       /**
        * Get the address from the CustomEvent if that is how this function was called and there is an address present.
        * Use the window object otherwise.
@@ -295,7 +257,7 @@ export default {
       const newAddress = getAddress(event && event.detail ? event.detail.address : null);
 
       const isRenderEvent = configBus.eventCallee && configBus.eventCallee.startsWith(EVENTS.RENDER_DELIVERY_OPTIONS);
-      const addressChanged = isEqual(this.$configBus.address, newAddress);
+      const addressChanged = !isEqual(this.$configBus.address, newAddress);
 
       /**
        * Return if address didn't change, but only if the delivery options are already showing.
@@ -369,8 +331,11 @@ export default {
      * @param {Object} e - Error object.
      */
     handleError(e) {
+      this.errors.push(e);
+
       if (FATAL_ERRORS.includes(e.code) || e.type === 'fatal') {
         this.hideSelf();
+        return;
       }
 
       this.showAddressErrors();
@@ -384,6 +349,7 @@ export default {
       this.$configBus.showModal = true;
       this.$configBus.modalData = {
         component: Errors,
+        options: this.errors,
       };
     },
 

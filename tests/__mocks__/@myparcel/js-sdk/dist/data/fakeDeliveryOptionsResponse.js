@@ -1,4 +1,5 @@
 /* eslint-disable no-continue */
+import { ERROR_INVALID_POSTAL_CODE } from '@/config/errorConfig';
 import { getNextDeliveryOption } from './delivery-options/getNextDeliveryOption';
 
 export const fakeDeliveryOptionsResponse = jest.fn();
@@ -10,7 +11,7 @@ export const fakeDeliveryOptionsResponse = jest.fn();
  *
  * @returns {Object[]}
  */
-fakeDeliveryOptionsResponse.mockImplementation((args) => {
+export const deliveryOptionsResponseDefault = (args) => {
   args.deliverydays_window = args.deliverydays_window ?? 1;
   args.dropoff_delay = args.dropoff_delay ?? 0;
   args.dropoff_days = args.dropoff_days ?? [0, 1, 2, 3, 4, 5, 6];
@@ -27,4 +28,17 @@ fakeDeliveryOptionsResponse.mockImplementation((args) => {
       startIndex += (index - startIndex) + 1;
       return data;
     });
-});
+};
+
+export const deliveryOptionsResponseInvalidPostalCode = () => {
+  throw {
+    errors: [
+      {
+        code: ERROR_INVALID_POSTAL_CODE,
+        message: 'Invalid postal code',
+      },
+    ],
+  };
+};
+
+fakeDeliveryOptionsResponse.mockImplementation(deliveryOptionsResponseDefault);

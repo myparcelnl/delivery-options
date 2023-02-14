@@ -8,6 +8,9 @@ import { vTest } from '@/delivery-options/services/directives/v-test';
 export const mockVue = () => {
   const localVue = createLocalVue();
 
+  localVue.config.productionTip = false;
+  localVue.config.devtools = false;
+
   useBootstrap(localVue);
 
   localVue.prototype.$appConfig = appConfig;
@@ -15,7 +18,7 @@ export const mockVue = () => {
   localVue.prototype.$config = configObject;
   localVue.prototype.$getUrl = getUrl;
 
-  localVue.component('font-awesome-icon', { template: '<i></i>' });
+  localVue.component('FontAwesomeIcon', { template: '<i></i>' });
 
   localVue.directive('test', vTest);
 

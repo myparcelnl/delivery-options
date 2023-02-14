@@ -6,10 +6,6 @@ import {
 import { configBus } from '@/delivery-options/config/configBus';
 import { createLocaleString } from '@/delivery-options/data/dates/createLocaleString';
 
-const deliveryTypeMap = {
-  pickup: PICKUP_STANDARD,
-};
-
 /**
  * Get pickup moments.
  *
@@ -33,18 +29,29 @@ export function getPickupMoments(pickupLocation) {
     return new Date(dateA.moment.start.date) - new Date(dateB.moment.start.date);
   });
 
+  if (!pickupLocation.possibilities.some((possibility) => Boolean(possibility.moment?.start?.date))) {
+    return [];
+  }
+
   return [
     {
       name: PICKUP_MOMENT,
       type: 'radio',
       choices: pickupLocation.possibilities.map((possibility) => {
-        const pickupTime = createLocaleString(possibility.moment.start.date);
-        const pickupText = `${configBus.strings.pickUpFrom} ${pickupTime}`;
-        const deliveryType = deliveryTypeMap[possibility.delivery_type_name];
+        const deliveryType = possibility.delivery_type_name || PICKUP_STANDARD;
         const pickupConfig = formConfigPickup.options.find(({ name }) => name === deliveryType);
 
         if (!configBus.isEnabled(pickupConfig)) {
           return null;
+        }
+
+        const timestamp = possibility.moment?.start?.date;
+
+        let pickupText = configBus.strings.pickUp;
+
+        if (timestamp) {
+          const pickupTime = possibility.moment?.start?.date ? createLocaleString(possibility.moment.start.date) : null;
+          pickupText = `${configBus.strings.pickUpFrom} ${pickupTime}`;
         }
 
         return {

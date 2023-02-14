@@ -3,12 +3,12 @@ import { END_OF_DAY_CUTOFF_TIME } from '@/data/keys/settingsConsts';
 import { checkIsDropOffDay } from '@/helpers/delivery/checkIsDropOffDay';
 import { getExtraDropOffDay } from '@/delivery-options/data/request/getExtraDropOffDay';
 import { hasSameDayDelivery } from '@/helpers/delivery/hasSameDayDelivery';
-import { configBus as realConfigBus } from '@/delivery-options/config/configBus';
 import { isPastCutoffTime } from './isPastCutoffTime';
+import { configBus as realConfigBus } from '@/delivery-options/config/configBus';
 
 /**
  * Get the correct cutoff time for today as follows:
- * - Extra drop off day cutoff time, if monday or saturday delivery is enabled and today is the respective dropoff day.
+ * - Extra drop off day cutoff time, if monday or saturday delivery is enabled and today is the respective drop off day.
  * - Same day cutoff time, if enabled
  * - Default cutoff time.
  *
@@ -30,5 +30,5 @@ export function getCutoffTime(configBus = realConfigBus) {
     cutoffTime = isPastCutoffTime(configBus) ? END_OF_DAY_CUTOFF_TIME : configBus.get(CONFIG.CUTOFF_TIME_SAME_DAY);
   }
 
-  return cutoffTime;
+  return cutoffTime || '';
 }
