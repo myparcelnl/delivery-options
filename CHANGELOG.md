@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.4.0](https://github.com/myparcelnl/delivery-options/compare/v5.3.1...v5.4.0) (2023-02-14)
+
+
+### :sparkles: New Features
+
+* improve error handling ([#132](https://github.com/myparcelnl/delivery-options/issues/132)) ([74dc157](https://github.com/myparcelnl/delivery-options/commit/74dc157a5e95a6ebea9675ce1676402ef823f12d)), closes [#36](https://github.com/myparcelnl/delivery-options/issues/36) [#44](https://github.com/myparcelnl/delivery-options/issues/44) [#75](https://github.com/myparcelnl/delivery-options/issues/75) [#111](https://github.com/myparcelnl/delivery-options/issues/111)
+
 ### [5.3.1](https://github.com/myparcelnl/delivery-options/compare/v5.3.0...v5.3.1) (2023-01-24)
 
 
