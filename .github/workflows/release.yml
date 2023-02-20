@@ -58,6 +58,8 @@ jobs:
       - name: 'Create build'
         if: steps.cache-build.outputs.cache-hit != 'true'
         run: yarn run build
+        env:
+          NODE_OPTIONS: --openssl-legacy-provider
 
       - uses: myparcelnl/actions/semantic-release@v3
         with:
