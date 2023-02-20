@@ -1,8 +1,13 @@
 import * as FEATURES from '@/data/carrierFeatures';
 import { MYPARCEL, SENDMYPARCEL } from '@/data/keys/platformKeys';
 import { AbstractCarrierConfiguration } from '@/data/carriers/abstractCarrierConfiguration';
+import { POSTNL } from '../keys/carrierKeys';
 
 export class PostNlCarrierConfiguration extends AbstractCarrierConfiguration {
+  getName() {
+    return POSTNL;
+  }
+
   getFeatures() {
     return {
       [MYPARCEL]: [

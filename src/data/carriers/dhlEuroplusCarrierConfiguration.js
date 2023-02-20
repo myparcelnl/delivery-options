@@ -1,9 +1,14 @@
 import * as FEATURES from '@/data/carrierFeatures';
 import { AbstractCarrierConfiguration } from '@/data/carriers/abstractCarrierConfiguration';
+import { DHL_EUROPLUS } from '../keys/carrierKeys';
 import { MYPARCEL } from '@/data/keys/platformKeys';
 import { countryCodes } from '@/data/keys/countryCodes';
 
 export class DhlEuroplusCarrierConfiguration extends AbstractCarrierConfiguration {
+  getName() {
+    return DHL_EUROPLUS;
+  }
+
   getCountriesForDelivery() {
     return [
       countryCodes.BULGARIA,

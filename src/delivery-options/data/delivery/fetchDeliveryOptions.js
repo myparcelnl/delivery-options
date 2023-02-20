@@ -10,11 +10,13 @@ import { getRequestParameters } from '@/delivery-options/data/request/getRequest
  * @param {MyParcel.CarrierName} carrier - Carrier name.
  * @param {MyParcel.Platform} platform - Platform name.
  *
- * @returns {Promise<DeliveryOption[]>}
+ * @returns {Promise<MyParcelDeliveryOptions.DeliveryOption[]>}
  */
 export function fetchDeliveryOptions(carrier = configBus.currentCarrier, platform = configBus.get(CONFIG.PLATFORM)) {
-  const carrierAllowsPackageType = CarrierConfigurationFactory
-    .create(carrier, platform)
+  const carrierConfiguration = CarrierConfigurationFactory
+    .create(carrier, platform);
+
+  const carrierAllowsPackageType = carrierConfiguration
     .hasFeature([
       CONFIG.ALLOW_PACKAGE_TYPE_MAILBOX,
       CONFIG.ALLOW_PACKAGE_TYPE_DIGITAL_STAMP,
@@ -32,7 +34,7 @@ export function fetchDeliveryOptions(carrier = configBus.currentCarrier, platfor
       method: METHOD_SEARCH,
       params: {
         ...packageType,
-        ...getRequestParameters(carrier),
+        ...getRequestParameters(carrierConfiguration),
       },
     },
   );

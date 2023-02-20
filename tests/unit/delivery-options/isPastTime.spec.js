@@ -12,6 +12,7 @@ describe('isPastTime function', () => {
    ${'09:30:59'} | ${'09:31'} | ${false}
    ${'12:00'}    | ${'09:30'} | ${true}
    ${'12:00'}    | ${'12:30'} | ${false}
+   ${'12:00'}    | ${null}    | ${false}
   `('if current time is $currentTime and cutoff is $cutOffTime, isPastTime should return $passed',
     ({ currentTime, cutOffTime, passed }) => {
       const [hours, minutes, seconds] = currentTime.split(':');

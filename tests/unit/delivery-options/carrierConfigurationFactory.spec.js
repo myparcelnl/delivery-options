@@ -10,7 +10,6 @@ describe('CarrierConfigurationFactory', () => {
     ${CARRIERS.DPD}
     ${CARRIERS.DHL_FOR_YOU}
     ${CARRIERS.DPD}
-    ${CARRIERS.INSTABOX}
     ${CARRIERS.DHL_EUROPLUS}
     ${CARRIERS.DHL_PARCEL_CONNECT}
   `('should create a configuration for $carrier', ({ carrier }) => {

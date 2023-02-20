@@ -1,7 +1,7 @@
 import * as FORM from '@/config/formConfig';
-import { CARRIER_SETTINGS, FEATURE_SHOW_DELIVERY_DATE } from '@/data/keys/configKeys';
 import { DEFAULT_PACKAGE_TYPE } from '@/data/keys/settingsConsts';
 import { ExportValues } from '@/delivery-options/config/exports/ExportValues';
+import { FEATURE_SHOW_DELIVERY_DATE } from '@/data/keys/configKeys';
 import { configBus } from '@/delivery-options/config/configBus';
 import { countryCodes } from '@/data/keys/countryCodes';
 

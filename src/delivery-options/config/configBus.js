@@ -427,12 +427,13 @@ export const createConfigBus = (eventCallee = null) => {
        */
       setAdvancedCarrierData() {
         this.carrierDataWithPickupLocations = this.carrierData.filter((carrier) => {
-          const carrierConfiguration = CarrierConfigurationFactory.create(carrier.name, this.get('platform'));
+          const carrierConfiguration = CarrierConfigurationFactory.create(carrier.name);
+
           return carrier.pickupEnabled && carrierConfiguration.allowsPickupIn(this.address.cc);
         });
 
         this.carrierDataWithDeliveryOptions = this.carrierData.filter((carrier) => {
-          const carrierConfiguration = CarrierConfigurationFactory.create(carrier.name, this.get('platform'));
+          const carrierConfiguration = CarrierConfigurationFactory.create(carrier.name);
 
           if (carrierCanOnlyHaveSameDayDelivery(carrier.name) && isPastSameDayCutoffTime(carrier.name)) {
             return false;

@@ -2,7 +2,7 @@ import * as ADDRESS from '@/data/keys/addressKeys';
 import * as STRINGS from '@/data/keys/stringsKeys';
 import { MYPARCEL, SENDMYPARCEL } from '@/data/keys/platformKeys';
 import CCountrySelect from '@/sandbox/components/form/CCountrySelect';
-import CNumber from '@/sandbox/components/form/CNumber';
+import CTextInput from '@/sandbox/components/form/CTextInput.vue';
 
 /**
  * @param {MyParcel.Platform} platform
@@ -24,6 +24,7 @@ function getForm(platform) {
         component: CCountrySelect,
         props: {
           label: STRINGS.CC,
+          autocomplete: 'country',
         },
       },
       {
@@ -34,15 +35,15 @@ function getForm(platform) {
           autocomplete: 'postal-code',
         },
       },
-      ...forPlatforms([MYPARCEL], {
+      {
         key: ADDRESS.KEY,
-        name: ADDRESS.NUMBER,
-        component: CNumber,
+        name: ADDRESS.STREET,
+        component: CTextInput,
         props: {
-          label: STRINGS.NUMBER,
-          min: 1,
+          label: STRINGS.STREET,
+          autocomplete: 'address-line1',
         },
-      }),
+      },
       ...forPlatforms([SENDMYPARCEL], {
         key: ADDRESS.KEY,
         name: ADDRESS.CITY,

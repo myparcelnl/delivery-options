@@ -9,11 +9,11 @@ import { mockVue as mockDeliveryOptionsVue } from './delivery-options/mockVue';
 import { mockVue as mockSandboxVue } from './sandbox/mockVue';
 
 /**
- * @param {String} app
+ * @param {string} app
  * @param {Object} component
  * @param {Object|MyParcel.CarrierName} configBusData - Parameters to pass to mockConfigBus().
  * @param {Object} wrapperData
- * @param {Boolean} shallow - Whether or not to do a shallow mount.
+ * @param {boolean} shallow - Whether to do a shallow mount.
  * @returns {Wrapper}
  */
 export function baseMockApp(
@@ -31,10 +31,12 @@ export function baseMockApp(
   const mockFunction = isSandbox ? mockSandboxVue : mockDeliveryOptionsVue;
   const mountFunction = shallow ? shallowMount : mount;
 
+  const localVue = wrapperData.localVue || mockFunction(configBusData);
+
   const wrapper = mountFunction(
     component || fallbackComponent,
     {
-      localVue: wrapperData.localVue || mockFunction(configBusData),
+      localVue,
       i18n,
       ...wrapperData,
     },

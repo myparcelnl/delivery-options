@@ -1,3 +1,4 @@
+import { CarrierConfigurationFactory } from '@/data/carriers/carrierConfigurationFactory';
 import { configBus } from '@/delivery-options/config/configBus';
 import { fetchMultiple } from '@/delivery-options/data/request/fetchMultiple';
 import { fetchPickupLocations } from '@/delivery-options/data/pickup/fetchPickupLocations';
@@ -13,8 +14,18 @@ import { sortPickupLocations } from '@/delivery-options/data/pickup/sortPickupLo
  *
  * @returns {Object[]}
  */
-export async function createPickupChoices(createRequestCallback = (carrier) => fetchPickupLocations(carrier.name)) {
-  const requests = configBus.carrierDataWithPickupLocations.map(createRequestCallback);
+export async function createPickupChoices(createRequestCallback = null) {
+  const defaultCallback = (carrier) => {
+    const carrierConfiguration = CarrierConfigurationFactory.create(
+      carrier.name,
+      configBus.get('platform'),
+    );
+
+    return fetchPickupLocations(carrierConfiguration);
+  };
+
+  const requests = configBus.carrierDataWithPickupLocations.map(createRequestCallback || defaultCallback);
+
   let { responses } = await fetchMultiple(requests);
 
   if (!responses.length) {

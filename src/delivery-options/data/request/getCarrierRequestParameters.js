@@ -1,13 +1,16 @@
-import * as CARRIERS from '@/data/keys/carrierKeys';
-import { getInstaboxDropOffDelay } from '@/delivery-options/data/request/getInstaboxDropOffDelay';
+import { AbstractCarrierConfiguration } from '@/data/carriers/abstractCarrierConfiguration';
+import { FEATURES_SAME_DAY_DELIVERY } from '@/data/carrierFeatures';
+import { getSameDayDropOffDelay } from './getSameDayDropOffDelay';
 
 /**
- * @param {MyParcel.CarrierName} carrier
+ * @param {AbstractCarrierConfiguration} carrierConfiguration
  *
  * @returns {Partial<MyParcelDeliveryOptions.DeliveryOptionsRequestParameters>}
  */
-export function getCarrierRequestParameters(carrier) {
+export function getCarrierRequestParameters(carrierConfiguration) {
+  const hasSameDayDelivery = carrierConfiguration.hasFeature(FEATURES_SAME_DAY_DELIVERY);
+
   return {
-    ...carrier === CARRIERS.INSTABOX ? getInstaboxDropOffDelay() : {},
+    ...hasSameDayDelivery ? getSameDayDropOffDelay(carrierConfiguration?.getName()) : {},
   };
 }

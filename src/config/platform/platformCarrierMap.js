@@ -9,7 +9,6 @@ import * as PLATFORMS from '@/data/keys/platformKeys';
 export const platformCarrierMap = {
   [PLATFORMS.MYPARCEL]: [
     CARRIERS.POSTNL,
-    CARRIERS.INSTABOX,
     CARRIERS.DHL,
     CARRIERS.DHL_FOR_YOU,
     CARRIERS.DHL_PARCEL_CONNECT,

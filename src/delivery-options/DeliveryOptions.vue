@@ -247,6 +247,7 @@ export default {
      *
      * @returns {Promise}
      */
+    // eslint-disable-next-line complexity
     async getDeliveryOptions(event) {
       this.errors = [];
 
@@ -272,6 +273,7 @@ export default {
       // Don't start loading if there's nothing to load, and hide if needed.
       if (!this.hasSomethingToShow) {
         this.hideSelf();
+
         return;
       }
 
@@ -281,6 +283,7 @@ export default {
 
       if (!this.hasValidAddress) {
         this.showAddressErrors();
+
         return;
       }
 
@@ -303,7 +306,7 @@ export default {
      *
      * @param {Object | boolean} data - If data is false, sends empty update.
      * @param {string} data.name - Name of the changed option (if called through update).
-     * @param {*} data.value - New value of the changed option (if called through update).
+     * @param {any} data.value - New value of the changed option (if called through update).
      */
     updateExternal(data) {
       const { exportValues } = this.$configBus;

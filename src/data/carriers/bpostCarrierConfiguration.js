@@ -1,8 +1,13 @@
 import * as FEATURES from '@/data/carrierFeatures';
 import { AbstractCarrierConfiguration } from '@/data/carriers/abstractCarrierConfiguration';
+import { BPOST } from '../keys/carrierKeys';
 import { SENDMYPARCEL } from '@/data/keys/platformKeys';
 
 export class BpostCarrierConfiguration extends AbstractCarrierConfiguration {
+  getName() {
+    return BPOST;
+  }
+
   getFeatures() {
     return {
       [SENDMYPARCEL]: [

@@ -1,6 +1,6 @@
 import * as CONFIG from '@/data/keys/configKeys';
 import * as FORM from '@/config/formConfig';
-import { INSTABOX, POSTNL } from '@/data/keys/carrierKeys';
+import { DHL_FOR_YOU, POSTNL } from '@/data/keys/carrierKeys';
 import { MYPARCEL } from '@/data/keys/platformKeys';
 import MockDate from 'mockdate';
 import { TUESDAY } from '@/config/extraDeliveryConfig';
@@ -33,7 +33,7 @@ async function getDeliveryMoments(date, config) {
 
 const sameDayConfig = {
   [CONFIG.CARRIER_SETTINGS]: {
-    [INSTABOX]: {
+    [DHL_FOR_YOU]: {
       [CONFIG.ALLOW_DELIVERY_OPTIONS]: true,
       [CONFIG.ALLOW_SAME_DAY_DELIVERY]: true,
     },
@@ -96,13 +96,17 @@ describe('Delivery moments', () => {
     expect.assertions(1);
     // Before same day cut-off time (which defaults to 9:30)
     const date = dayjs().weekday(TUESDAY).set('h', 6).set('m', 0);
-    expect(await getDeliveryMoments(date, sameDayConfig)).toEqual([FORM.DELIVERY_SAME_DAY]);
+    const deliveryMoments = await getDeliveryMoments(date, sameDayConfig);
+
+    expect(deliveryMoments).toEqual([FORM.DELIVERY_SAME_DAY]);
   });
 
   it('returns standard delivery if same day is enabled and current time is before regular cut-off time', async() => {
     expect.assertions(1);
     // Before cut-off time (which defaults to 17:00)
     const date = dayjs().weekday(TUESDAY).set('h', 15).set('m', 0);
-    expect(await getDeliveryMoments(date, sameDayConfig)).toEqual([FORM.DELIVERY_STANDARD]);
+    const deliveryMoments = await getDeliveryMoments(date, sameDayConfig);
+
+    expect(deliveryMoments).toEqual([FORM.DELIVERY_STANDARD]);
   });
 });

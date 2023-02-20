@@ -17,6 +17,15 @@ export class AbstractCarrierConfiguration {
     this.platform = validatePlatform(platform);
   }
 
+  // eslint-disable-next-line jsdoc/require-returns-check
+  /**
+   * @returns {MyParcel.CarrierName}
+   */
+  getName() {
+    /* istanbul ignore next */
+    throw new Error('Not implemented');
+  }
+
   /**
    * Check if the carrier allows delivery in a specific country.
    *

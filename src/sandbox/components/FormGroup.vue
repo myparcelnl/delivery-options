@@ -54,7 +54,8 @@
           <component
             :is="formItem.component || 'CTextInput'"
             :id="formItemName"
-            v-model="mutableValue"
+            v-model.trim="mutableValue"
+            autocomplete="off"
             :name="formItemName"
             v-bind="{
               ...formItem.props || {},

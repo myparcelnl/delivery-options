@@ -1,9 +1,14 @@
 import * as FEATURES from '@/data/carrierFeatures';
 import { AbstractCarrierConfiguration } from '@/data/carriers/abstractCarrierConfiguration';
+import { DHL } from '../keys/carrierKeys';
 import { MYPARCEL } from '@/data/keys/platformKeys';
 import { countryCodes } from '@/data/keys/countryCodes';
 
 export class DhlCarrierConfiguration extends AbstractCarrierConfiguration {
+  getName() {
+    return DHL;
+  }
+
   getCountriesForDelivery() {
     return [
       countryCodes.AUSTRIA,

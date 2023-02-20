@@ -1,9 +1,14 @@
 import * as FEATURES from '@/data/carrierFeatures';
 import { AbstractCarrierConfiguration } from '@/data/carriers/abstractCarrierConfiguration';
+import { DPD } from '../keys/carrierKeys';
 import { SENDMYPARCEL } from '@/data/keys/platformKeys';
 import { countryCodes } from '@/data/keys/countryCodes';
 
 export class DpdCarrierConfiguration extends AbstractCarrierConfiguration {
+  getName() {
+    return DPD;
+  }
+
   getCountriesForDelivery() {
     return [
       countryCodes.AUSTRIA,

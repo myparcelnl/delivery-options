@@ -6,6 +6,9 @@ module.exports = {
     + 'lodash-es'
     + ')/)',
   ],
+  collectCoverageFrom: [
+    'src/**/*.{js,vue}',
+  ],
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
     '^@Tests/(.*)$': '<rootDir>/tests/$1',

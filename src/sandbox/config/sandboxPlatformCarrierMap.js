@@ -1,6 +1,5 @@
 import * as CARRIERS from '@/data/keys/carrierKeys';
 import * as PLATFORMS from '@/data/keys/platformKeys';
-import { isFeatureActive } from '@/helpers/isFeatureActive';
 
 /**
  * Sandbox override of platformCarrierMap, to be able to hide certain carriers in the settings using feature toggles,
@@ -11,8 +10,10 @@ import { isFeatureActive } from '@/helpers/isFeatureActive';
 export const sandboxPlatformCarrierMap = {
   [PLATFORMS.MYPARCEL]: [
     CARRIERS.POSTNL,
-    ...isFeatureActive('myparcel.carriers.rjp') ? [CARRIERS.INSTABOX] : [],
-    ...isFeatureActive('myparcel.carriers.dhl') ? [CARRIERS.DHL] : [],
+    CARRIERS.DHL,
+    CARRIERS.DHL_FOR_YOU,
+    CARRIERS.DHL_PARCEL_CONNECT,
+    CARRIERS.DHL_EUROPLUS,
   ],
   [PLATFORMS.SENDMYPARCEL]: [
     CARRIERS.BPOST,
