@@ -23,7 +23,7 @@ jobs:
       - uses: myparcelnl/actions/yarn-install@v3
         if: steps.cache-coverage.outputs.cache-hit != 'true'
         with:
-          node-version: 16
+          node-version: 18
 
       - name: 'Run tests'
         if: steps.cache-coverage.outputs.cache-hit != 'true'
