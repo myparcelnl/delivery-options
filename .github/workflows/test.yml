@@ -7,6 +7,12 @@ on:
       - alpha
       - beta
 
+  merge_group:
+
+concurrency:
+    group: ${{ github.workflow }}-${{ github.ref }}
+    cancel-in-progress: true
+
 jobs:
   test:
     uses: ./.github/workflows/--run-tests.yml
