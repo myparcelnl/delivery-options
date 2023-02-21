@@ -43,7 +43,7 @@ import {createPickupChoices} from '@/delivery-options/data/pickup/createPickupCh
 import {createScript} from '@/delivery-options/services/createScript';
 import debounce from 'lodash-es/debounce';
 import {fetchPickupLocations} from '@/delivery-options/data/pickup/fetchPickupLocations';
-import {CarrierConfigurationFactory} from '@/../data/carriers/carrierConfigurationFactory';
+import {CarrierConfigurationFactory} from '@/data/carriers/carrierConfigurationFactory';
 
 /**
  * @member this.$refs.map
