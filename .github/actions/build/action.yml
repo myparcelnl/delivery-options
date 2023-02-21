@@ -1,0 +1,28 @@
+name: 'Build'
+description: 'Build the project'
+runs:
+  using: composite
+  steps:
+    - name: 'Cache build'
+      uses: actions/cache@v3
+      id: cache-build
+      with:
+        path: |
+          ./dist
+        key: ${{ runner.os }}-build-${{ hashFiles('**/yarn.lock') }}-${{ hashFiles('**/src') }}
+        restore-keys: |
+          ${{ runner.os }}-build-${{ hashFiles('**/yarn.lock') }}-
+          ${{ runner.os }}-build-
+
+    - name: 'Create build'
+      if: steps.cache-build.outputs.cache-hit != 'true'
+      run: yarn build
+      shell: bash
+      env:
+        NODE_OPTIONS: --openssl-legacy-provider
+
+    - name: 'Check bundle size'
+      run: npx bundlewatch
+      shell: bash
+      env:
+        BUNDLEWATCH_GITHUB_TOKEN: ${{ secrets.BUNDLEWATCH_GITHUB_TOKEN }}
