@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.0](https://github.com/myparcelnl/delivery-options/compare/v5.4.0...v5.5.0) (2023-02-21)
+
+
+### :bug: Bug Fixes
+
+* remove instabox and improve carrier handling ([#158](https://github.com/myparcelnl/delivery-options/issues/158)) ([36b70dc](https://github.com/myparcelnl/delivery-options/commit/36b70dcbffbb298d8a2e398f298b53eddc60f225))
+
+
+### :sparkles: New Features
+
+* show carrier name next to logo ([#159](https://github.com/myparcelnl/delivery-options/issues/159)) ([8815de7](https://github.com/myparcelnl/delivery-options/commit/8815de79779bfd83dc8fd36dd0e322bf086c701f))
+
 ## [5.4.0](https://github.com/myparcelnl/delivery-options/compare/v5.3.1...v5.4.0) (2023-02-14)
 
 
