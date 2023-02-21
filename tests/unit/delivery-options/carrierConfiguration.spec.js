@@ -8,6 +8,8 @@ import { PACKAGE_TYPE_DIGITAL_STAMP, PACKAGE_TYPE_MAILBOX } from '@/data/keys/se
 import { AbstractCarrierConfiguration } from '@/data/carriers/abstractCarrierConfiguration';
 import { MYPARCEL } from '@/data/keys/platformKeys';
 
+class MockEmptyCarrierConfiguration extends AbstractCarrierConfiguration {}
+
 class MockCarrierConfiguration extends AbstractCarrierConfiguration {
   getName() {
     return 'mock';
@@ -64,5 +66,25 @@ describe('CarrierConfiguration', () => {
   it('checks if feature is allowed', () => {
     expect(config.hasFeature(FEATURES_PACKAGE_TYPE_MAILBOX)).toBe(true);
     expect(config.hasFeature(FEATURES_SATURDAY_DELIVERY)).toBe(false);
+  });
+
+  it('throws an error when name is not implemented', () => {
+    const emptyConfig = new MockEmptyCarrierConfiguration(MYPARCEL);
+    expect(() => emptyConfig.getName()).toThrow();
+  });
+
+  it('has default features', () => {
+    const emptyConfig = new MockEmptyCarrierConfiguration(MYPARCEL);
+    expect(emptyConfig.getFeatures()).toEqual({});
+  });
+
+  it('has default countries for delivery', () => {
+    const emptyConfig = new MockEmptyCarrierConfiguration(MYPARCEL);
+    expect(emptyConfig.getCountriesForDelivery()).toEqual([]);
+  });
+
+  it('has default countries for pickup', () => {
+    const emptyConfig = new MockEmptyCarrierConfiguration(MYPARCEL);
+    expect(emptyConfig.getCountriesForPickup()).toEqual([]);
   });
 });

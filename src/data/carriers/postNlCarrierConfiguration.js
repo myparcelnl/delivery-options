@@ -1,4 +1,5 @@
 import * as FEATURES from '@/data/carrierFeatures';
+import { BELGIUM, NETHERLANDS } from '@myparcel/js-sdk/dist/constant/countries-iso2';
 import { MYPARCEL, SENDMYPARCEL } from '@/data/keys/platformKeys';
 import { AbstractCarrierConfiguration } from '@/data/carriers/abstractCarrierConfiguration';
 import { POSTNL } from '../keys/carrierKeys';
@@ -6,6 +7,20 @@ import { POSTNL } from '../keys/carrierKeys';
 export class PostNlCarrierConfiguration extends AbstractCarrierConfiguration {
   getName() {
     return POSTNL;
+  }
+
+  getCountriesForDelivery() {
+    return [
+      BELGIUM,
+      NETHERLANDS,
+    ];
+  }
+
+  getCountriesForPickup() {
+    return [
+      BELGIUM,
+      NETHERLANDS,
+    ];
   }
 
   getFeatures() {

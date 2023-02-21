@@ -1,8 +1,35 @@
 import * as FEATURES from '@/data/carrierFeatures';
+import {
+  AUSTRIA,
+  BELGIUM,
+  BULGARIA,
+  CZECH_REPUBLIC,
+  DENMARK,
+  ESTONIA,
+  FINLAND,
+  FRANCE,
+  GERMANY,
+  GREECE,
+  HUNGARY,
+  IRELAND,
+  ITALY,
+  LATVIA,
+  LIECHTENSTEIN,
+  LITHUANIA,
+  LUXEMBOURG,
+  NETHERLANDS,
+  POLAND,
+  PORTUGAL,
+  ROMANIA,
+  SLOVAKIA,
+  SLOVENIA,
+  SPAIN,
+  SWEDEN,
+  UNITED_KINGDOM,
+} from '@myparcel/js-sdk/dist/constant/countries-iso2';
 import { AbstractCarrierConfiguration } from '@/data/carriers/abstractCarrierConfiguration';
 import { DPD } from '../keys/carrierKeys';
 import { SENDMYPARCEL } from '@/data/keys/platformKeys';
-import { countryCodes } from '@/data/keys/countryCodes';
 
 export class DpdCarrierConfiguration extends AbstractCarrierConfiguration {
   getName() {
@@ -11,45 +38,45 @@ export class DpdCarrierConfiguration extends AbstractCarrierConfiguration {
 
   getCountriesForDelivery() {
     return [
-      countryCodes.AUSTRIA,
-      countryCodes.BELGIUM,
-      countryCodes.BULGARIA,
-      countryCodes.CZECH_REPUBLIC,
-      countryCodes.DENMARK,
-      countryCodes.ESTONIA,
-      countryCodes.FINLAND,
-      countryCodes.FRANCE,
-      countryCodes.GERMANY,
-      countryCodes.GREECE,
-      countryCodes.HUNGARY,
-      countryCodes.IRELAND,
-      countryCodes.ITALY,
-      countryCodes.LATVIA,
-      countryCodes.LIECHTENSTEIN,
-      countryCodes.LITHUANIA,
-      countryCodes.LUXEMBOURG,
-      countryCodes.NETHERLANDS,
-      countryCodes.POLAND,
-      countryCodes.PORTUGAL,
-      countryCodes.ROMANIA,
-      countryCodes.SLOVAKIA,
-      countryCodes.SLOVENIA,
-      countryCodes.SPAIN,
-      countryCodes.SWEDEN,
+      AUSTRIA,
+      BELGIUM,
+      BULGARIA,
+      CZECH_REPUBLIC,
+      DENMARK,
+      ESTONIA,
+      FINLAND,
+      FRANCE,
+      GERMANY,
+      GREECE,
+      HUNGARY,
+      IRELAND,
+      ITALY,
+      LATVIA,
+      LIECHTENSTEIN,
+      LITHUANIA,
+      LUXEMBOURG,
+      NETHERLANDS,
+      POLAND,
+      PORTUGAL,
+      ROMANIA,
+      SLOVAKIA,
+      SLOVENIA,
+      SPAIN,
+      SWEDEN,
     ];
   }
 
   getCountriesForPickup() {
     return [
-      countryCodes.AUSTRIA,
-      countryCodes.BELGIUM,
-      countryCodes.DENMARK,
-      countryCodes.FINLAND,
-      countryCodes.FRANCE,
-      countryCodes.GERMANY,
-      countryCodes.NETHERLANDS,
-      countryCodes.PORTUGAL,
-      countryCodes.UNITED_KINGDOM,
+      AUSTRIA,
+      BELGIUM,
+      DENMARK,
+      FINLAND,
+      FRANCE,
+      GERMANY,
+      NETHERLANDS,
+      PORTUGAL,
+      UNITED_KINGDOM,
     ];
   }
 

@@ -39,6 +39,17 @@
       "files": [
         "**/*.ts"
       ]
+    },
+    {
+      "files": [
+        "**/*.spec.*"
+      ],
+      "rules": {
+        "max-classes-per-file": "off",
+        "max-lines-per-function": "off",
+        "max-statements": "off",
+        "no-magic-numbers": "off"
+      }
     }
   ]
 }

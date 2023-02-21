@@ -1,8 +1,33 @@
 import * as FEATURES from '@/data/carrierFeatures';
+import {
+  AUSTRIA,
+  BELGIUM,
+  BULGARIA,
+  CROATIA,
+  CZECH_REPUBLIC,
+  DENMARK,
+  ESTONIA,
+  FINLAND,
+  FRANCE,
+  GERMANY,
+  GREECE,
+  HUNGARY,
+  IRELAND,
+  ITALY,
+  LATVIA,
+  LITHUANIA,
+  POLAND,
+  PORTUGAL,
+  ROMANIA,
+  SLOVAKIA,
+  SLOVENIA,
+  SPAIN,
+  SWEDEN,
+  UNITED_KINGDOM,
+} from '@myparcel/js-sdk/dist/constant/countries-iso2';
 import { AbstractCarrierConfiguration } from '@/data/carriers/abstractCarrierConfiguration';
 import { DHL } from '../keys/carrierKeys';
 import { MYPARCEL } from '@/data/keys/platformKeys';
-import { countryCodes } from '@/data/keys/countryCodes';
 
 export class DhlCarrierConfiguration extends AbstractCarrierConfiguration {
   getName() {
@@ -11,41 +36,41 @@ export class DhlCarrierConfiguration extends AbstractCarrierConfiguration {
 
   getCountriesForDelivery() {
     return [
-      countryCodes.AUSTRIA,
-      countryCodes.BULGARIA,
-      countryCodes.CROATIA,
-      countryCodes.CZECH_REPUBLIC,
-      countryCodes.DENMARK,
-      countryCodes.ESTONIA,
-      countryCodes.FINLAND,
-      countryCodes.FRANCE,
-      countryCodes.GERMANY,
-      countryCodes.GREECE,
-      countryCodes.HUNGARY,
-      countryCodes.IRELAND,
-      countryCodes.ITALY,
-      countryCodes.LATVIA,
-      countryCodes.LITHUANIA,
-      countryCodes.POLAND,
-      countryCodes.PORTUGAL,
-      countryCodes.ROMANIA,
-      countryCodes.SLOVAKIA,
-      countryCodes.SLOVENIA,
-      countryCodes.SPAIN,
-      countryCodes.SWEDEN,
+      AUSTRIA,
+      BULGARIA,
+      CROATIA,
+      CZECH_REPUBLIC,
+      DENMARK,
+      ESTONIA,
+      FINLAND,
+      FRANCE,
+      GERMANY,
+      GREECE,
+      HUNGARY,
+      IRELAND,
+      ITALY,
+      LATVIA,
+      LITHUANIA,
+      POLAND,
+      PORTUGAL,
+      ROMANIA,
+      SLOVAKIA,
+      SLOVENIA,
+      SPAIN,
+      SWEDEN,
     ];
   }
 
   getCountriesForPickup() {
     return [
-      countryCodes.AUSTRIA,
-      countryCodes.BELGIUM,
-      countryCodes.GERMANY,
-      countryCodes.DENMARK,
-      countryCodes.FINLAND,
-      countryCodes.FRANCE,
-      countryCodes.UNITED_KINGDOM,
-      countryCodes.PORTUGAL,
+      AUSTRIA,
+      BELGIUM,
+      GERMANY,
+      DENMARK,
+      FINLAND,
+      FRANCE,
+      UNITED_KINGDOM,
+      PORTUGAL,
     ];
   }
 

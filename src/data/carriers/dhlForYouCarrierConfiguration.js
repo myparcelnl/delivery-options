@@ -2,7 +2,7 @@ import * as FEATURES from '@/data/carrierFeatures';
 import { AbstractCarrierConfiguration } from '@/data/carriers/abstractCarrierConfiguration';
 import { DHL_FOR_YOU } from '../keys/carrierKeys';
 import { MYPARCEL } from '@/data/keys/platformKeys';
-import { countryCodes } from '@/data/keys/countryCodes';
+import { NETHERLANDS } from '@myparcel/js-sdk/dist/constant/countries-iso2';
 
 export class DhlForYouCarrierConfiguration extends AbstractCarrierConfiguration {
   getName() {
@@ -11,13 +11,13 @@ export class DhlForYouCarrierConfiguration extends AbstractCarrierConfiguration 
 
   getCountriesForDelivery() {
     return [
-      countryCodes.NETHERLANDS,
+      NETHERLANDS,
     ];
   }
 
   getCountriesForPickup() {
     return [
-      countryCodes.NETHERLANDS,
+      NETHERLANDS,
     ];
   }
 

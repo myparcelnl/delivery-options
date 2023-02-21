@@ -1,4 +1,5 @@
 import * as FEATURES from '@/data/carrierFeatures';
+import { BELGIUM, NETHERLANDS } from '@myparcel/js-sdk/dist/constant/countries-iso2';
 import { AbstractCarrierConfiguration } from '@/data/carriers/abstractCarrierConfiguration';
 import { BPOST } from '../keys/carrierKeys';
 import { SENDMYPARCEL } from '@/data/keys/platformKeys';
@@ -6,6 +7,30 @@ import { SENDMYPARCEL } from '@/data/keys/platformKeys';
 export class BpostCarrierConfiguration extends AbstractCarrierConfiguration {
   getName() {
     return BPOST;
+  }
+
+  /**
+   * The countries this carrier can deliver to.
+   *
+   * @returns {string[]}
+   */
+  getCountriesForDelivery() {
+    return [
+      BELGIUM,
+      NETHERLANDS,
+    ];
+  }
+
+  /**
+   * The countries this carrier can find pickup locations in.
+   *
+   * @returns {string[]}
+   */
+  getCountriesForPickup() {
+    return [
+      BELGIUM,
+      NETHERLANDS,
+    ];
   }
 
   getFeatures() {

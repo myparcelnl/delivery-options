@@ -34,16 +34,16 @@
 import * as CONFIG from '@/data/keys/configKeys';
 import * as EVENTS from '@/config/eventConfig';
 import * as FORM from '@/config/formConfig';
+import {CarrierConfigurationFactory} from '@/data/carriers/carrierConfigurationFactory';
 import Modal from '@/delivery-options/components/Modal';
+import {NETHERLANDS} from '@myparcel/js-sdk/dist/constant/countries-iso2';
 import PickupDetails from '@/delivery-options/components/Pickup/PickupDetails';
 import Vue from 'vue';
-import {countryCodes} from '@/data/keys/countryCodes';
 import {createIcons} from '@/delivery-options/components/Pickup/Map/createIcons';
 import {createPickupChoices} from '@/delivery-options/data/pickup/createPickupChoices';
 import {createScript} from '@/delivery-options/services/createScript';
 import debounce from 'lodash-es/debounce';
 import {fetchPickupLocations} from '@/delivery-options/data/pickup/fetchPickupLocations';
-import {CarrierConfigurationFactory} from '@/data/carriers/carrierConfigurationFactory';
 
 /**
  * @member this.$refs.map
@@ -135,7 +135,7 @@ export default {
      *  @returns {Boolean}
      */
     canUseDragFeature() {
-      return countryCodes.NETHERLANDS === this.$configBus.address.cc;
+      return NETHERLANDS === this.$configBus.address.cc;
     },
 
     mapClass() {
