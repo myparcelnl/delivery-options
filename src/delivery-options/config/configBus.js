@@ -427,14 +427,17 @@ export const createConfigBus = (eventCallee = null) => {
        */
       setAdvancedCarrierData() {
         this.carrierDataWithPickupLocations = this.carrierData.filter((carrier) => {
-          const carrierConfiguration = CarrierConfigurationFactory.create(carrier.name, this.get('platform'));
+          const carrierConfiguration = CarrierConfigurationFactory.create(carrier.name);
+
           return carrier.pickupEnabled && carrierConfiguration.allowsPickupIn(this.address.cc);
         });
 
         this.carrierDataWithDeliveryOptions = this.carrierData.filter((carrier) => {
-          const carrierConfiguration = CarrierConfigurationFactory.create(carrier.name, this.get('platform'));
+          const carrierConfiguration = CarrierConfigurationFactory.create(carrier.name);
 
           if (carrierCanOnlyHaveSameDayDelivery(carrier.name) && isPastSameDayCutoffTime(carrier.name)) {
+            // We don't have a carrier with only same-day delivery at the moment, so this won't be covered.
+            /* istanbul ignore next */
             return false;
           }
 

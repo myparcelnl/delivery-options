@@ -105,7 +105,7 @@ describe('configBus', () => {
       [CONFIG.ALLOW_SATURDAY_DELIVERY]: false,
     });
 
-    expect(configBus.getSettingsByCarrier(CARRIERS.INSTABOX)).toEqual(null);
+    expect(configBus.getSettingsByCarrier(CARRIERS.DHL_FOR_YOU)).toEqual(null);
   });
 
   test('isEnabledInAnyCarrier', () => {

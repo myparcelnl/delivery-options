@@ -1,6 +1,6 @@
 import { ALLOW_PACKAGE_TYPE_DIGITAL_STAMP, ALLOW_PACKAGE_TYPE_MAILBOX } from '@/data/keys/configKeys';
 import { PACKAGE_TYPE_DIGITAL_STAMP, PACKAGE_TYPE_MAILBOX, PACKAGE_TYPE_PACKAGE } from '@/data/keys/settingsConsts';
-import { countryCodes } from '@/data/keys/countryCodes';
+import { NETHERLANDS } from '@myparcel/js-sdk/dist/constant/countries-iso2';
 import { flatten } from 'lodash-es';
 import { validatePlatform } from '@/delivery-options/config/validatePlatform';
 
@@ -15,6 +15,14 @@ export class AbstractCarrierConfiguration {
    */
   constructor(platform) {
     this.platform = validatePlatform(platform);
+  }
+
+  // eslint-disable-next-line jsdoc/require-returns-check
+  /**
+   * @returns {MyParcel.CarrierName}
+   */
+  getName() {
+    throw new Error('Not implemented');
   }
 
   /**
@@ -49,9 +57,9 @@ export class AbstractCarrierConfiguration {
       case PACKAGE_TYPE_PACKAGE:
         return true;
       case PACKAGE_TYPE_MAILBOX:
-        return country === countryCodes.NETHERLANDS && this.hasFeature(ALLOW_PACKAGE_TYPE_MAILBOX);
+        return country === NETHERLANDS && this.hasFeature(ALLOW_PACKAGE_TYPE_MAILBOX);
       case PACKAGE_TYPE_DIGITAL_STAMP:
-        return country === countryCodes.NETHERLANDS && this.hasFeature(ALLOW_PACKAGE_TYPE_DIGITAL_STAMP);
+        return country === NETHERLANDS && this.hasFeature(ALLOW_PACKAGE_TYPE_DIGITAL_STAMP);
       default:
         return false;
     }
@@ -63,10 +71,7 @@ export class AbstractCarrierConfiguration {
    * @returns {string[]}
    */
   getCountriesForDelivery() {
-    return [
-      countryCodes.BELGIUM,
-      countryCodes.NETHERLANDS,
-    ];
+    return [];
   }
 
   /**
@@ -75,10 +80,7 @@ export class AbstractCarrierConfiguration {
    * @returns {string[]}
    */
   getCountriesForPickup() {
-    return [
-      countryCodes.BELGIUM,
-      countryCodes.NETHERLANDS,
-    ];
+    return [];
   }
 
   /**

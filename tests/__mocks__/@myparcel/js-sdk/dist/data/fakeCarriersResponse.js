@@ -36,6 +36,33 @@ const allCarrierData = [
     },
   },
   {
+    id: 6,
+    name: 'dhl',
+    human: 'DHL',
+    meta: {
+      logo_svg: '/skin/general-images/carrier-logos/svg/dhl.svg',
+      logo_png: '/skin/general-images/carrier-logos/dhl.png',
+    },
+  },
+  {
+    id: 8,
+    name: 'ups',
+    human: 'UPS',
+    meta: {
+      logo_svg: '/skin/general-images/carrier-logos/svg/ups.svg',
+      logo_png: '/skin/general-images/carrier-logos/ups.png',
+    },
+  },
+  {
+    id: 7,
+    name: 'bol.com',
+    human: 'Bol.com',
+    meta: {
+      logo_svg: '/skin/general-images/carrier-logos/svg/bol.com.svg',
+      logo_png: '/skin/general-images/carrier-logos/bol.com.png',
+    },
+  },
+  {
     id: 5,
     name: 'instabox',
     human: 'Instabox',
@@ -45,12 +72,30 @@ const allCarrierData = [
     },
   },
   {
-    id: 6,
-    name: 'dhl',
-    human: 'DHL',
+    id: 9,
+    name: 'dhlforyou',
+    human: 'DHL For You',
     meta: {
-      logo_svg: '/skin/general-images/carrier-logos/svg/dhl.svg',
-      logo_png: '/skin/general-images/carrier-logos/dhl.png',
+      logo_svg: '/skin/general-images/carrier-logos/svg/dhlforyou.svg',
+      logo_png: '/skin/general-images/carrier-logos/dhlforyou.png',
+    },
+  },
+  {
+    id: 10,
+    name: 'dhlparcelconnect',
+    human: 'DHL Parcel Connect',
+    meta: {
+      logo_svg: '/skin/general-images/carrier-logos/svg/dhlparcelconnect.svg',
+      logo_png: '/skin/general-images/carrier-logos/dhlparcelconnect.png',
+    },
+  },
+  {
+    id: 11,
+    name: 'dhleuroplus',
+    human: 'DHL Europlus',
+    meta: {
+      logo_svg: '/skin/general-images/carrier-logos/svg/dhleuroplus.svg',
+      logo_png: '/skin/general-images/carrier-logos/dhleuroplus.png',
     },
   },
 ];

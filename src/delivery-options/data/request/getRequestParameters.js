@@ -1,23 +1,23 @@
-import { configBus } from '@/delivery-options/config/configBus';
+import { AbstractCarrierConfiguration } from '@/data/carriers/abstractCarrierConfiguration';
+import { getCarrierRequestParameters } from '@/delivery-options/data/request/getCarrierRequestParameters';
 import { getDefaultRequestParameters } from '@/delivery-options/data/request/getDefaultRequestParameters';
 import { getOptionalRequestParameters } from '@/delivery-options/data/request/getOptionalRequestParameters';
 import { getParametersByPlatform } from '@/delivery-options/data/request/requestData';
-import { getCarrierRequestParameters } from '@/delivery-options/data/request/getCarrierRequestParameters';
 
 /**
  * Gather the parameters for the delivery options request.
  *
  * @see https://myparcelnl.github.io/api/#8
  *
- * @param {MyParcel.CarrierName} carrier - Carrier name or id.
+ * @param {AbstractCarrierConfiguration} carrierConfiguration - Carrier name or id.
  *
  * @returns {Partial<MyParcelDeliveryOptions.DeliveryOptionsRequestParameters>}
  */
-export const getRequestParameters = (carrier = configBus.currentCarrier) => {
+export const getRequestParameters = (carrierConfiguration) => {
   const parameters = getDefaultRequestParameters();
   const optionalParameters = getOptionalRequestParameters();
 
-  parameters.carrier = carrier;
+  parameters.carrier = carrierConfiguration?.getName();
 
   // Get the settings that are set in the config and add those to the parameters.
   Object
@@ -30,6 +30,6 @@ export const getRequestParameters = (carrier = configBus.currentCarrier) => {
   return {
     ...parameters,
     ...getParametersByPlatform(),
-    ...getCarrierRequestParameters(carrier),
+    ...getCarrierRequestParameters(carrierConfiguration),
   };
 };

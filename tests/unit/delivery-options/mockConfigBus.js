@@ -1,10 +1,9 @@
 import * as ADDRESS from '@/data/keys/addressKeys';
 import * as CONFIG from '@/data/keys/configKeys';
+import { get, merge } from 'lodash-es';
 import { DEFAULT_PLATFORM } from '@/data/keys/settingsConsts';
 import { createConfigBus } from '@/delivery-options/config/configBus';
 import { defaultAddress } from '@/data/defaultAddress';
-import { POSTNL } from '@/data/keys/carrierKeys';
-import { get, merge, set } from 'lodash-es';
 import { getDefaultCarrierSettings } from '@Tests/unit/delivery-options/defaultCarrierSettings';
 import { platformCarrierMap } from '@/config/platform/platformCarrierMap';
 

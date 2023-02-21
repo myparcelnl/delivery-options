@@ -1,5 +1,5 @@
 import * as PLATFORMS from '@/data/keys/platformKeys';
-import { countryCodes } from '@/data/keys/countryCodes';
+import {NETHERLANDS, BELGIUM} from '@myparcel/js-sdk/dist/constant/countries-iso2';
 
 /**
  * Map platforms to locales.
@@ -7,6 +7,6 @@ import { countryCodes } from '@/data/keys/countryCodes';
  * @type {Object<MyParcel.Platform, String>}
  */
 export const platformLocaleMap = {
-  [PLATFORMS.MYPARCEL]: countryCodes.NETHERLANDS,
-  [PLATFORMS.SENDMYPARCEL]: countryCodes.BELGIUM,
+  [PLATFORMS.MYPARCEL]: NETHERLANDS,
+  [PLATFORMS.SENDMYPARCEL]: BELGIUM,
 };

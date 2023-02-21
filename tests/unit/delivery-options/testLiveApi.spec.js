@@ -1,6 +1,7 @@
 import * as CONFIG from '@/data/keys/configKeys';
 import { BPOST, POSTNL } from '@/data/keys/carrierKeys';
 import { MYPARCEL, SENDMYPARCEL } from '@/data/keys/platformKeys';
+import { CarrierConfigurationFactory } from '@/data/carriers/carrierConfigurationFactory';
 import dayjs from 'dayjs';
 import { fakeDeliveryOptionsResponse } from '@Mocks/@myparcel/js-sdk/dist/data/fakeDeliveryOptionsResponse';
 import { fetchDeliveryOptions } from '@/delivery-options/data/delivery/fetchDeliveryOptions';
@@ -72,7 +73,7 @@ describe('test settings on the live API', () => {
     const realResponse = await fetchDeliveryOptions();
     const receivedDeliveryOptions = realResponse.map(formatDates);
 
-    const fakeResponse = fakeDeliveryOptionsResponse(getRequestParameters());
+    const fakeResponse = fakeDeliveryOptionsResponse(getRequestParameters(CarrierConfigurationFactory.create(POSTNL, MYPARCEL)));
     const calculatedDeliveryOptions = fakeResponse.map(formatDates);
 
     expect(receivedDeliveryOptions).toEqual(calculatedDeliveryOptions);

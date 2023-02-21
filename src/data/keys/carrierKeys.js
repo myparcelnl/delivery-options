@@ -8,12 +8,6 @@ export const DPD = 'dpd';
 export const BPOST = 'bpost';
 
 /** @type {MyParcel.CarrierName} */
-export const INSTABOX = 'instabox';
-
-/** @type {MyParcel.CarrierName} */
-export const CHEAP_CARGO = 'cheapcargo';
-
-/** @type {MyParcel.CarrierName} */
 export const DHL = 'dhl';
 
 /** @type {MyParcel.CarrierName} */

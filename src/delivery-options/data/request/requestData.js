@@ -1,7 +1,6 @@
 import * as CONFIG from '@/data/keys/configKeys';
 import { MYPARCEL, SENDMYPARCEL } from '@/data/keys/platformKeys';
 import { getCutoffTime } from '@/helpers/delivery/getCutoffTime';
-import { getDropOffDelayParameter } from '@/delivery-options/data/request/getDropOffDelayParameter';
 import { configBus as realConfigBus } from '@/delivery-options/config/configBus';
 
 const getParametersForNL = (configBus) => ({

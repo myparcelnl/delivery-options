@@ -37,12 +37,14 @@ describe('Request parameters', () => {
     configBus = mockConfigBus({ address });
     configBus.$data.currentCarrier = 'postnl';
 
+    const { street, ...withoutStreet } = address;
+
     expect(getDefaultRequestParameters(configBus))
       .toEqual({
         carrier: 'postnl',
         include: 'shipment_options',
         platform: PLATFORMS.MYPARCEL,
-        ...address,
+        ...withoutStreet,
       });
   });
 

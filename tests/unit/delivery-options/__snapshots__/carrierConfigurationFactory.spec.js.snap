@@ -1,0 +1,550 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CarrierConfigurationFactory should create a configuration for bpost 1`] = `
+Object {
+  "countriesForDelivery": Array [
+    "BE",
+    "NL",
+  ],
+  "countriesForPickup": Array [
+    "BE",
+    "NL",
+  ],
+  "features": Object {
+    "belgie": Array [
+      Array [
+        "allowDeliveryOptions",
+        "priceStandardDelivery",
+      ],
+      Array [
+        "allowPickupLocations",
+        "pricePickup",
+      ],
+      Array [
+        "allowSaturdayDelivery",
+        "fridayCutoffTime",
+      ],
+      Array [
+        "allowSignature",
+        "priceSignature",
+      ],
+      Array [
+        "allowShowDeliveryDate",
+      ],
+      Array [
+        "deliveryDaysWindow",
+      ],
+      Array [
+        "dropOffDays",
+      ],
+      Array [
+        "dropOffDelay",
+      ],
+      Array [
+        "cutoffTime",
+      ],
+    ],
+  },
+  "name": "bpost",
+  "platformFeatures": Array [],
+}
+`;
+
+exports[`CarrierConfigurationFactory should create a configuration for dhl 1`] = `
+Object {
+  "countriesForDelivery": Array [
+    "AT",
+    "BG",
+    "HR",
+    "CZ",
+    "DK",
+    "EE",
+    "FI",
+    "FR",
+    "DE",
+    "GR",
+    "HU",
+    "IE",
+    "IT",
+    "LV",
+    "LT",
+    "PL",
+    "PT",
+    "RO",
+    "SK",
+    "SI",
+    "ES",
+    "SE",
+  ],
+  "countriesForPickup": Array [
+    "AT",
+    "BE",
+    "DE",
+    "DK",
+    "FI",
+    "FR",
+    "GB",
+    "PT",
+  ],
+  "features": Object {
+    "myparcel": Array [
+      Array [
+        "allowDeliveryOptions",
+        "priceStandardDelivery",
+      ],
+      Array [
+        "allowPickupLocations",
+        "pricePickup",
+      ],
+      Array [
+        "allowShowDeliveryDate",
+      ],
+    ],
+  },
+  "name": "dhl",
+  "platformFeatures": Array [
+    Array [
+      "allowDeliveryOptions",
+      "priceStandardDelivery",
+    ],
+    Array [
+      "allowPickupLocations",
+      "pricePickup",
+    ],
+    Array [
+      "allowShowDeliveryDate",
+    ],
+  ],
+}
+`;
+
+exports[`CarrierConfigurationFactory should create a configuration for dhleuroplus 1`] = `
+Object {
+  "countriesForDelivery": Array [
+    "BG",
+    "DK",
+    "DE",
+    "EE",
+    "FI",
+    "FR",
+    "GR",
+    "HU",
+    "IE",
+    "IT",
+    "HR",
+    "LV",
+    "LT",
+    "LU",
+    "AT",
+    "PL",
+    "PT",
+    "RO",
+    "SI",
+    "SK",
+    "ES",
+    "CZ",
+    "SE",
+  ],
+  "countriesForPickup": Array [],
+  "features": Object {
+    "myparcel": Array [
+      Array [
+        "allowDeliveryOptions",
+        "priceStandardDelivery",
+      ],
+    ],
+  },
+  "name": "dhleuroplus",
+  "platformFeatures": Array [
+    Array [
+      "allowDeliveryOptions",
+      "priceStandardDelivery",
+    ],
+  ],
+}
+`;
+
+exports[`CarrierConfigurationFactory should create a configuration for dhlforyou 1`] = `
+Object {
+  "countriesForDelivery": Array [
+    "NL",
+  ],
+  "countriesForPickup": Array [
+    "NL",
+  ],
+  "features": Object {
+    "myparcel": Array [
+      Array [
+        "cutoffTime",
+      ],
+      Array [
+        "allowDeliveryOptions",
+        "priceStandardDelivery",
+      ],
+      Array [
+        "deliveryDaysWindow",
+      ],
+      Array [
+        "dropOffDays",
+      ],
+      Array [
+        "dropOffDelay",
+      ],
+      Array [
+        "priceSameDayDelivery",
+        "allowSameDayDelivery",
+        "cutoffTimeSameDay",
+      ],
+      Array [
+        "allowShowDeliveryDate",
+      ],
+      Array [
+        "allowPickupLocations",
+        "pricePickup",
+      ],
+      Array [
+        "priceOnlyRecipient",
+        "allowOnlyRecipient",
+      ],
+      Array [
+        "allowSignature",
+        "priceSignature",
+      ],
+    ],
+  },
+  "name": "dhlforyou",
+  "platformFeatures": Array [
+    Array [
+      "cutoffTime",
+    ],
+    Array [
+      "allowDeliveryOptions",
+      "priceStandardDelivery",
+    ],
+    Array [
+      "deliveryDaysWindow",
+    ],
+    Array [
+      "dropOffDays",
+    ],
+    Array [
+      "dropOffDelay",
+    ],
+    Array [
+      "priceSameDayDelivery",
+      "allowSameDayDelivery",
+      "cutoffTimeSameDay",
+    ],
+    Array [
+      "allowShowDeliveryDate",
+    ],
+    Array [
+      "allowPickupLocations",
+      "pricePickup",
+    ],
+    Array [
+      "priceOnlyRecipient",
+      "allowOnlyRecipient",
+    ],
+    Array [
+      "allowSignature",
+      "priceSignature",
+    ],
+  ],
+}
+`;
+
+exports[`CarrierConfigurationFactory should create a configuration for dhlparcelconnect 1`] = `
+Object {
+  "countriesForDelivery": Array [
+    "BG",
+    "DK",
+    "DE",
+    "EE",
+    "FI",
+    "FR",
+    "GR",
+    "HU",
+    "IE",
+    "IT",
+    "HR",
+    "LV",
+    "LT",
+    "LU",
+    "AT",
+    "PL",
+    "PT",
+    "RO",
+    "SI",
+    "SK",
+    "ES",
+    "CZ",
+    "SE",
+  ],
+  "countriesForPickup": Array [
+    "BG",
+    "DK",
+    "DE",
+    "EE",
+    "FI",
+    "FR",
+    "GR",
+    "HU",
+    "IE",
+    "IT",
+    "HR",
+    "LV",
+    "LT",
+    "LU",
+    "AT",
+    "PL",
+    "PT",
+    "RO",
+    "SI",
+    "SK",
+    "ES",
+    "CZ",
+    "SE",
+  ],
+  "features": Object {
+    "myparcel": Array [
+      Array [
+        "allowDeliveryOptions",
+        "priceStandardDelivery",
+      ],
+      Array [
+        "allowPickupLocations",
+        "pricePickup",
+      ],
+    ],
+  },
+  "name": "dhlparcelconnect",
+  "platformFeatures": Array [
+    Array [
+      "allowDeliveryOptions",
+      "priceStandardDelivery",
+    ],
+    Array [
+      "allowPickupLocations",
+      "pricePickup",
+    ],
+  ],
+}
+`;
+
+exports[`CarrierConfigurationFactory should create a configuration for dpd 1`] = `
+Object {
+  "countriesForDelivery": Array [
+    "AT",
+    "BE",
+    "BG",
+    "CZ",
+    "DK",
+    "EE",
+    "FI",
+    "FR",
+    "DE",
+    "GR",
+    "HU",
+    "IE",
+    "IT",
+    "LV",
+    "LI",
+    "LT",
+    "LU",
+    "NL",
+    "PL",
+    "PT",
+    "RO",
+    "SK",
+    "SI",
+    "ES",
+    "SE",
+  ],
+  "countriesForPickup": Array [
+    "AT",
+    "BE",
+    "DK",
+    "FI",
+    "FR",
+    "DE",
+    "NL",
+    "PT",
+    "GB",
+  ],
+  "features": Object {
+    "belgie": Array [
+      Array [
+        "allowDeliveryOptions",
+        "priceStandardDelivery",
+      ],
+      Array [
+        "allowPickupLocations",
+        "pricePickup",
+      ],
+      Array [
+        "dropOffDays",
+      ],
+      Array [
+        "dropOffDelay",
+      ],
+      Array [
+        "cutoffTime",
+      ],
+    ],
+  },
+  "name": "dpd",
+  "platformFeatures": Array [],
+}
+`;
+
+exports[`CarrierConfigurationFactory should create a configuration for postnl 1`] = `
+Object {
+  "countriesForDelivery": Array [
+    "BE",
+    "NL",
+  ],
+  "countriesForPickup": Array [
+    "BE",
+    "NL",
+  ],
+  "features": Object {
+    "belgie": Array [
+      Array [
+        "allowDeliveryOptions",
+        "priceStandardDelivery",
+      ],
+      Array [
+        "priceOnlyRecipient",
+        "allowOnlyRecipient",
+      ],
+      Array [
+        "allowPickupLocations",
+        "pricePickup",
+      ],
+      Array [
+        "allowSignature",
+        "priceSignature",
+      ],
+      Array [
+        "allowShowDeliveryDate",
+      ],
+      Array [
+        "deliveryDaysWindow",
+      ],
+      Array [
+        "dropOffDays",
+      ],
+      Array [
+        "dropOffDelay",
+      ],
+      Array [
+        "cutoffTime",
+      ],
+    ],
+    "myparcel": Array [
+      Array [
+        "allowDeliveryOptions",
+        "priceStandardDelivery",
+      ],
+      Array [
+        "allowEveningDelivery",
+        "priceEveningDelivery",
+      ],
+      Array [
+        "allowMorningDelivery",
+        "priceMorningDelivery",
+      ],
+      Array [
+        "priceOnlyRecipient",
+        "allowOnlyRecipient",
+      ],
+      Array [
+        "allowPackageTypeDigitalStamp",
+      ],
+      Array [
+        "allowPackageTypeMailbox",
+      ],
+      Array [
+        "allowMondayDelivery",
+        "saturdayCutoffTime",
+      ],
+      Array [
+        "allowPickupLocations",
+        "pricePickup",
+      ],
+      Array [
+        "allowSignature",
+        "priceSignature",
+      ],
+      Array [
+        "allowShowDeliveryDate",
+      ],
+      Array [
+        "deliveryDaysWindow",
+      ],
+      Array [
+        "dropOffDays",
+      ],
+      Array [
+        "dropOffDelay",
+      ],
+      Array [
+        "cutoffTime",
+      ],
+    ],
+  },
+  "name": "postnl",
+  "platformFeatures": Array [
+    Array [
+      "allowDeliveryOptions",
+      "priceStandardDelivery",
+    ],
+    Array [
+      "allowEveningDelivery",
+      "priceEveningDelivery",
+    ],
+    Array [
+      "allowMorningDelivery",
+      "priceMorningDelivery",
+    ],
+    Array [
+      "priceOnlyRecipient",
+      "allowOnlyRecipient",
+    ],
+    Array [
+      "allowPackageTypeDigitalStamp",
+    ],
+    Array [
+      "allowPackageTypeMailbox",
+    ],
+    Array [
+      "allowMondayDelivery",
+      "saturdayCutoffTime",
+    ],
+    Array [
+      "allowPickupLocations",
+      "pricePickup",
+    ],
+    Array [
+      "allowSignature",
+      "priceSignature",
+    ],
+    Array [
+      "allowShowDeliveryDate",
+    ],
+    Array [
+      "deliveryDaysWindow",
+    ],
+    Array [
+      "dropOffDays",
+    ],
+    Array [
+      "dropOffDelay",
+    ],
+    Array [
+      "cutoffTime",
+    ],
+  ],
+}
+`;
