@@ -77,16 +77,21 @@
         v-else
         :colspan="validChoices.length <= 1 ? null : hasPrice(choice) ? 1 : 2">
         <label :for="`${$classBase}__${mutableOption.name}--${choice.name}`">
-          <img
-            v-if="choice.hasOwnProperty('image')"
-            v-test="'image'"
-            :src="choice.image"
-            :alt="choice.name"
-            :class="[
-              `${$classBase}__image`,
-              `${$classBase}__image--md`,
-            ]"
-            :title="$configBus.strings[choice.label]">
+          <span v-if="choice.hasOwnProperty('image')">
+            <img
+              v-if="choice.hasOwnProperty('image')"
+              v-test="'image'"
+              :src="choice.image"
+              :alt="choice.name"
+              :class="[
+                `${$classBase}__image`,
+                `${$classBase}__image--md`,
+              ]"
+              :title="$configBus.strings[choice.label]">
+            &nbsp;
+            <span v-text="choice.label" />
+          </span>
+
           <span
             v-else
             v-text="choice.plainLabel || $configBus.strings[choice.label]" />
