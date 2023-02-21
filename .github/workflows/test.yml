@@ -14,13 +14,18 @@ concurrency:
     cancel-in-progress: true
 
 jobs:
+  test:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/test
+        with:
+          codecov-token: ${{ secrets.CODECOV_TOKEN }}
+
   build:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v3
-
-      - uses: ./actions/build
-
-  test:
-    uses: ./.github/workflows/--run-tests.yml
-    secrets: inherit
+      - uses: ./.github/actions/build
+        with:
+          bundlewatch-token: ${{ secrets.BUNDLEWATCH_GITHUB_TOKEN }}
