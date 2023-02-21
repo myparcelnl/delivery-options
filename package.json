@@ -91,11 +91,13 @@
     "access": "public"
   },
   "bundlewatch": {
-    "trackBranches": [
-      "main",
-      "alpha",
-      "beta"
-    ],
+    "ci": {
+      "trackBranches": [
+        "main",
+        "alpha",
+        "beta"
+      ]
+    },
     "files": [
       {
         "path": "dist/myparcel.js"

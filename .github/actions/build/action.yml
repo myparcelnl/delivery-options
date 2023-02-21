@@ -52,5 +52,4 @@ runs:
       run: npx bundlewatch
       shell: bash
       env:
-        CI_BRANCH_BASE: ${{ github.base_ref || 'main' }}
         BUNDLEWATCH_GITHUB_TOKEN: ${{ inputs.bundlewatch-token }}
