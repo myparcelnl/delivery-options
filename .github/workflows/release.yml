@@ -33,7 +33,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: ./.github/actions/build
         with:
-          bundlewatch-token: ${{ secrets.BUNDLEWATCH_GITHUB_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
 
   release:
     runs-on: ubuntu-22.04
@@ -54,6 +54,8 @@ jobs:
           fetch-depth: 0
 
       - uses: ./.github/actions/build
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - uses: actions/upload-pages-artifact@v1
         with:

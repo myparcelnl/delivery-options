@@ -2,7 +2,7 @@ name: 'Build'
 description: 'Build the project'
 
 inputs:
-  bundlewatch-token:
+  token:
     description: 'The token for bundlewatch'
     required: true
 
@@ -19,7 +19,7 @@ runs:
       with:
         path: |
           ./dist
-        key: ${{ runner.os }}-build-${{ hashFiles('**/yarn.lock') }}-${{ hashFiles('**/src') }}
+        key: ${{ runner.os }}-build--${{ hashFiles('**/yarn.lock') }}-${{ hashFiles('**/src') }}
         restore-keys: |
           ${{ runner.os }}-build-${{ hashFiles('**/yarn.lock') }}-
           ${{ runner.os }}-build-
@@ -31,25 +31,6 @@ runs:
       env:
         NODE_OPTIONS: --openssl-legacy-provider
 
-    - name: 'Prepare env values - push'
-      if: ${{ github.event_name == 'push' }}
-      shell: bash
-      run: |
-        BRANCH=$(echo '${{ github.event.ref }}' | sed 's/^refs\/heads\///')
-        echo "CI_BRANCH=$BRANCH" >> $GITHUB_ENV
-        echo "CI_BRANCH_BASE=$BRANCH" >> $GITHUB_ENV
-        echo "CI_COMMIT_SHA=${{ github.sha }}" >> $GITHUB_ENV
-
-    - name: 'Prepare env values - pull request'
-      if: ${{ github.event_name == 'pull_request' }}
-      shell: bash
-      run: |
-        echo "CI_BRANCH=${{ github.head_ref }}" >> $GITHUB_ENV
-        echo "CI_BRANCH_BASE=${{ github.base_ref }}" >> $GITHUB_ENV
-        echo "CI_COMMIT_SHA=${{ github.event.pull_request.head.sha }}" >> $GITHUB_ENV
-
-    - name: 'Check bundle size'
-      run: npx bundlewatch
-      shell: bash
-      env:
-        BUNDLEWATCH_GITHUB_TOKEN: ${{ inputs.bundlewatch-token }}
+    - uses: myparcelnl/actions/bundlewatch@v3
+      with:
+        token: ${{ inputs.token }}
