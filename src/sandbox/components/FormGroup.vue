@@ -27,11 +27,24 @@
     <template v-else>
       <BCol cols="5">
         <label
-          class="col-form-label col-form-label-sm d-flex justify-content-between"
+          class="col-form-label col-form-label-sm d-flex flex-column flex-lg-row"
           :for="formItemName">
           <span v-t="translation(formItem.name)" />
 
-          <span class="d-flex">
+          <span class="d-inline-flex ml-auto">
+            <BBadge
+              v-if="formItem.carrier"
+              class="border mr-1 my-auto"
+              variant="light">
+              <img
+                class="mx-1"
+                height="16"
+                :src="$getUrl.carrierLogo(formItem.carrier.name)"
+                :alt="`${formItem.carrier.text} logo`">
+
+              {{ formItem.carrier.text }}
+            </BBadge>
+
             <Help
               v-if="translation(formItem.name, 'description')"
               triggers="hover focus"
@@ -39,17 +52,13 @@
               <!-- eslint-disable-next-line vue/no-v-html : This value never contains user input. -->
               <div v-html="$t(translation(formItem.name, 'description'))" />
             </Help>
-            <img
-              v-if="formItem.carrier"
-              class="img-fluid ml-1"
-              width="30"
-              :src="$getUrl.carrierLogo(formItem.carrier.name)"
-              :alt="formItem.carrier.text">
           </span>
         </label>
       </BCol>
 
-      <BCol cols="7">
+      <BCol
+        cols="6"
+        class="d-flex">
         <component :is="!!formItem.carrier ? 'BInputGroup' : 'div'">
           <component
             :is="formItem.component || 'CTextInput'"

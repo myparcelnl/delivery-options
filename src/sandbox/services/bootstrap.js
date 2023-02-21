@@ -1,5 +1,6 @@
 import {
   AlertPlugin,
+  BadgePlugin,
   ButtonPlugin,
   CardPlugin,
   FormCheckboxPlugin,
@@ -26,6 +27,7 @@ import Vue from 'vue';
  */
 export const useBootstrap = (vue = Vue) => {
   vue.use(AlertPlugin);
+  vue.use(BadgePlugin);
   vue.use(ButtonPlugin);
   vue.use(CardPlugin);
   vue.use(FormCheckboxPlugin);

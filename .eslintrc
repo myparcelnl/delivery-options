@@ -21,11 +21,15 @@
       {
         "ignorePatterns": [
           "RecursiveForm",
+          "BBadge",
           "BCard",
+          "BCol",
           "BDropdownItem",
+          "BFormRow",
           "BInputGroupPrepend",
           "BInputGroupText",
           "BNavItemDropdown",
+          "BRow",
           "BSpinner",
           "BTab",
           "BTabs"
