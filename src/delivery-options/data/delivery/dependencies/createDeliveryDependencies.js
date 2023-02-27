@@ -13,9 +13,6 @@ import { setSameDayDelivery } from '@/delivery-options/data/delivery/dependencie
  */
 export const createDeliveryDependencies = (deliveryOptions) => ({
   [DELIVERY_DATE]: deliveryOptions.reduce((deliveryDates, option, index) => {
-    if (index === 0 && hasSameDayDelivery()) {
-      setSameDayDelivery(option);
-    }
 
     return {
       ...deliveryDates,
