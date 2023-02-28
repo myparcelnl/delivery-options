@@ -54,4 +54,13 @@ export class PostNlCarrierConfiguration extends AbstractCarrierConfiguration {
       ],
     };
   }
+
+  getDefaultRequestParameters() {
+    return {
+      cc: 'cc',
+      city: 'city',
+      postal_code: 'postalCode',
+      number: 'number',
+    };
+  }
 }
