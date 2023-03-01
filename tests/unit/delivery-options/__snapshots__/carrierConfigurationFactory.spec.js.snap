@@ -121,6 +121,7 @@ Object {
 exports[`CarrierConfigurationFactory should create a configuration for dhleuroplus 1`] = `
 Object {
   "countriesForDelivery": Array [
+    "BE",
     "BG",
     "DK",
     "DE",
@@ -135,6 +136,7 @@ Object {
     "LV",
     "LT",
     "LU",
+    "NL",
     "AT",
     "PL",
     "PT",
@@ -168,6 +170,7 @@ exports[`CarrierConfigurationFactory should create a configuration for dhlforyou
 Object {
   "countriesForDelivery": Array [
     "NL",
+    "BE",
   ],
   "countriesForPickup": Array [
     "NL",
