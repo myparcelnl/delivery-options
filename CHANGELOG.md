@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.6.0](https://github.com/myparcelnl/delivery-options/compare/v5.5.0...v5.6.0) (2023-03-01)
+
+
+### :sparkles: New Features
+
+* add features for dhl for you ([#160](https://github.com/myparcelnl/delivery-options/issues/160)) ([2af3205](https://github.com/myparcelnl/delivery-options/commit/2af32050e6dabed5a64f8d2432d36eadb88b4492))
+
+
+### :bug: Bug Fixes
+
+* fix pickup map not showing locations ([#161](https://github.com/myparcelnl/delivery-options/issues/161)) ([f1d8671](https://github.com/myparcelnl/delivery-options/commit/f1d8671b6f9c5b40aa45ea7427bc29fa6b9669ba))
+
 ## [5.5.0](https://github.com/myparcelnl/delivery-options/compare/v5.4.0...v5.5.0) (2023-02-21)
 
 
