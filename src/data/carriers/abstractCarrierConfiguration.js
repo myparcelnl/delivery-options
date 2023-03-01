@@ -11,7 +11,7 @@ export class AbstractCarrierConfiguration {
   platform;
 
   /**
-   * @type Record[]
+   * @type {Record<string, unknown>[]}
    */
   parameters;
 
@@ -116,7 +116,7 @@ export class AbstractCarrierConfiguration {
   /**
    * Get the parameters necessary for the delivery options request.
    *
-   * @returns {Record[]}
+   * @returns {Record<string, unknown>[]}
    */
   getDefaultRequestParameters() {
     return [];

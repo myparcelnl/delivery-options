@@ -26,11 +26,9 @@ export const getDefaultRequestParameters = (configBus = realConfigBus) => {
   const carrierConfiguration = CarrierConfigurationFactory.create(parameters.carrier);
   const carrierRequestParameters = carrierConfiguration.parameters;
 
-
-
   Object.keys(carrierRequestParameters).forEach((key) => {
     addressValues[key] = configBus.address[carrierRequestParameters[key]];
-  })
+  });
 
   Object.keys(addressValues).forEach((key) => {
     /**
