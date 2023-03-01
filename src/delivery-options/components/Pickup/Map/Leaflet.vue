@@ -294,6 +294,7 @@ export default {
     onClickMarker(marker) {
       this.selectMarker(marker);
       this.$configBus.$emit(EVENTS.UPDATE, { name: FORM.PICKUP_LOCATION, value: this.selectedPickupLocation.name });
+      this.$configBus.$emit(EVENTS.UPDATE, { name: FORM.CARRIER, value: this.selectedPickupLocation.carrier });
 
       this.showModal = true;
     },
