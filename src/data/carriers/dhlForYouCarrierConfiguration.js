@@ -1,8 +1,8 @@
 import * as FEATURES from '@/data/carrierFeatures';
+import { BELGIUM, NETHERLANDS } from '@myparcel/js-sdk/dist/constant/countries-iso2';
 import { AbstractCarrierConfiguration } from '@/data/carriers/abstractCarrierConfiguration';
 import { DHL_FOR_YOU } from '../keys/carrierKeys';
 import { MYPARCEL } from '@/data/keys/platformKeys';
-import { NETHERLANDS } from '@myparcel/js-sdk/dist/constant/countries-iso2';
 
 export class DhlForYouCarrierConfiguration extends AbstractCarrierConfiguration {
   getName() {
@@ -12,6 +12,7 @@ export class DhlForYouCarrierConfiguration extends AbstractCarrierConfiguration 
   getCountriesForDelivery() {
     return [
       NETHERLANDS,
+      BELGIUM,
     ];
   }
 
@@ -35,6 +36,15 @@ export class DhlForYouCarrierConfiguration extends AbstractCarrierConfiguration 
         FEATURES.FEATURES_ONLY_RECIPIENT,
         FEATURES.FEATURES_SIGNATURE,
       ],
+    };
+  }
+
+  getDefaultRequestParameters() {
+    return {
+      cc: 'cc',
+      city: 'city',
+      postal_code: 'postalCode',
+      number: 'number',
     };
   }
 }

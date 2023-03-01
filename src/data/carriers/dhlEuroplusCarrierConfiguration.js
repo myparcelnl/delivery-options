@@ -16,6 +16,7 @@ import {
   LATVIA,
   LITHUANIA,
   LUXEMBOURG,
+  NETHERLANDS,
   POLAND,
   PORTUGAL,
   ROMANIA,
@@ -31,6 +32,16 @@ import { MYPARCEL } from '@/data/keys/platformKeys';
 export class DhlEuroplusCarrierConfiguration extends AbstractCarrierConfiguration {
   getName() {
     return DHL_EUROPLUS;
+  }
+
+  getDefaultRequestParameters() {
+    return {
+      cc: 'cc',
+      city: 'city',
+      postal_code: 'postalCode',
+      number: 'number',
+      street: 'street',
+    };
   }
 
   getCountriesForDelivery() {
@@ -49,6 +60,7 @@ export class DhlEuroplusCarrierConfiguration extends AbstractCarrierConfiguratio
       LATVIA,
       LITHUANIA,
       LUXEMBOURG,
+      NETHERLANDS,
       AUSTRIA,
       POLAND,
       PORTUGAL,

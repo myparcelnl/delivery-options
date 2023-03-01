@@ -11,10 +11,16 @@ export class AbstractCarrierConfiguration {
   platform;
 
   /**
+   * @type {Record<string, unknown>[]}
+   */
+  parameters;
+
+  /**
    * @param {MyParcel.Platform} platform
    */
   constructor(platform) {
     this.platform = validatePlatform(platform);
+    this.parameters = this.getDefaultRequestParameters();
   }
 
   // eslint-disable-next-line jsdoc/require-returns-check
@@ -105,6 +111,15 @@ export class AbstractCarrierConfiguration {
     }
 
     return features[this.platform];
+  }
+
+  /**
+   * Get the parameters necessary for the delivery options request.
+   *
+   * @returns {Record<string, unknown>[]}
+   */
+  getDefaultRequestParameters() {
+    return [];
   }
 
   /**

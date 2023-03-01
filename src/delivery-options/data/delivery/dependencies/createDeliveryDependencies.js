@@ -1,8 +1,6 @@
 import { DELIVERY_DATE, DELIVERY_MOMENT } from '@/config/formConfig';
 import { createIsoString } from '@/delivery-options/data/dates/createIsoString';
 import { formatDeliveryMoment } from '@/delivery-options/data/delivery/dependencies/formatDeliveryMoment';
-import { hasSameDayDelivery } from '@/helpers/delivery/hasSameDayDelivery';
-import { setSameDayDelivery } from '@/delivery-options/data/delivery/dependencies/setSameDayDelivery';
 
 /**
  * Create the dependencies object for delivery options.
@@ -13,10 +11,6 @@ import { setSameDayDelivery } from '@/delivery-options/data/delivery/dependencie
  */
 export const createDeliveryDependencies = (deliveryOptions) => ({
   [DELIVERY_DATE]: deliveryOptions.reduce((deliveryDates, option, index) => {
-    if (index === 0 && hasSameDayDelivery()) {
-      setSameDayDelivery(option);
-    }
-
     return {
       ...deliveryDates,
       [createIsoString(option.date.date)]: {

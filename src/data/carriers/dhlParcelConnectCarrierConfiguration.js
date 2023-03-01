@@ -97,4 +97,14 @@ export class DhlParcelConnectCarrierConfiguration extends AbstractCarrierConfigu
       ],
     };
   }
+
+  getDefaultRequestParameters() {
+    return {
+      cc: 'cc',
+      city: 'city',
+      postal_code: 'postalCode',
+      number: 'number',
+      street: 'street',
+    };
+  }
 }

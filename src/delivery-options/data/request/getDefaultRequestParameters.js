@@ -1,5 +1,6 @@
 import * as CONFIG from '@/data/keys/configKeys';
 import { configBus as realConfigBus } from '@/delivery-options/config/configBus';
+import { CarrierConfigurationFactory } from '@/data/carriers/carrierConfigurationFactory';
 
 /**
  * Get the default parameters for all API requests.
@@ -21,15 +22,13 @@ export const getDefaultRequestParameters = (configBus = realConfigBus) => {
     carrier: configBus.currentCarrier,
   };
 
-  const addressValues = {
-    cc: configBus.address.cc,
-    city: configBus.address.city,
-    postal_code: configBus.address.postalCode,
-    // If number is present, don't use the street field.
-    ...configBus.address.number
-      ? { number: configBus.address.number }
-      : { street: configBus.address.street },
-  };
+  const addressValues = {};
+  const carrierConfiguration = CarrierConfigurationFactory.create(parameters.carrier);
+  const carrierRequestParameters = carrierConfiguration.parameters;
+
+  Object.keys(carrierRequestParameters).forEach((key) => {
+    addressValues[key] = configBus.address[carrierRequestParameters[key]];
+  });
 
   Object.keys(addressValues).forEach((key) => {
     /**
