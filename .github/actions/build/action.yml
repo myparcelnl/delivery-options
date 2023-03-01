@@ -19,10 +19,7 @@ runs:
       with:
         path: |
           ./dist
-        key: ${{ runner.os }}-build--${{ hashFiles('**/yarn.lock') }}-${{ hashFiles('**/src') }}
-        restore-keys: |
-          ${{ runner.os }}-build-${{ hashFiles('**/yarn.lock') }}-
-          ${{ runner.os }}-build-
+        key: ${{ runner.os }}-build-${{ hashFiles('**/yarn.lock') }}-${{ hashFiles('**/src') }}
 
     - name: 'Create build'
       if: steps.cache-build.outputs.cache-hit != 'true'

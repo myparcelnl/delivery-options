@@ -9,7 +9,6 @@ on:
 
     paths-ignore:
       - ./**/*.md
-      - ./.github/**/*
       - ./screenshots/**/*
 
   workflow_dispatch:
