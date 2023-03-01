@@ -1,6 +1,7 @@
 import * as FEATURES from '@/data/carrierFeatures';
 import {
   AUSTRIA,
+  BELGIUM,
   BULGARIA,
   CROATIA,
   CZECH_REPUBLIC,
@@ -46,6 +47,7 @@ export class DhlEuroplusCarrierConfiguration extends AbstractCarrierConfiguratio
 
   getCountriesForDelivery() {
     return [
+      BELGIUM,
       BULGARIA,
       DENMARK,
       GERMANY,
