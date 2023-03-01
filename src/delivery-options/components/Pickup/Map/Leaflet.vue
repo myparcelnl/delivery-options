@@ -294,6 +294,7 @@ export default {
     onClickMarker(marker) {
       this.selectMarker(marker);
       this.$configBus.$emit(EVENTS.UPDATE, { name: FORM.PICKUP_LOCATION, value: this.selectedPickupLocation.name });
+      this.$configBus.$emit(EVENTS.UPDATE, { name: FORM.CARRIER, value: this.selectedPickupLocation.carrier });
 
       this.showModal = true;
     },
@@ -369,7 +370,7 @@ export default {
 
       // Map the new center latlng to the request parameters.
       const useLatLng = (carrier) => fetchPickupLocations(
-        CarrierConfigurationFactory.create(carrier.name),
+        CarrierConfigurationFactory.create(carrier),
         {
           latitude: center.lat,
           longitude: center.lng,
@@ -446,7 +447,7 @@ export default {
      * @returns {Object}
      */
     getCarrierIcon(carrier, active = false) {
-      const carrierName = carrier.name;
+      const carrierName = carrier;
       const suffix = active ? '_active' : '';
 
       if (!this.icons.hasOwnProperty(carrierName + suffix)) {
