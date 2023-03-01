@@ -1,0 +1,31 @@
+{
+  "name": "@myparcel-do/shared",
+  "version": "1.0.0-alpha.0",
+  "license": "MIT",
+  "sideEffects": false,
+  "type": "module",
+  "exports": {
+    ".": "./lib/index.js",
+    "./src": "./src/index.ts"
+  },
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "files": [
+    "./lib",
+    "./src"
+  ],
+  "scripts": {
+    "build": "run ws:tsup:build \"$(pwd)\"",
+    "build:dev": "run ws:tsup:build:dev \"$(pwd)\"",
+    "clean": "run ws:clean \"$(pwd)\"",
+    "lint": "run ws:lint \"$(pwd)\"",
+    "typecheck": "run ws:tsup:typecheck \"$(pwd)\"",
+    "watch": "run ws:tsup:watch \"$(pwd)\""
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@myparcel-do/build-tsup": "workspace:*"
+  }
+}

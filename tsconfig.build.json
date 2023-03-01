@@ -1,0 +1,17 @@
+{
+  "extends": "@vue/tsconfig/tsconfig.web.json",
+  "compilerOptions": {
+    "importsNotUsedAsValues": "remove",
+    "incremental": true,
+    "preserveValueImports": false,
+    "types": ["node", "vite/client"]
+  },
+  "include": [],
+  "exclude": [
+    "**/node_modules",
+    "**/lib",
+    "**/dist",
+    "**/__tests__/*",
+    "**/*.spec.*"
+  ]
+}
