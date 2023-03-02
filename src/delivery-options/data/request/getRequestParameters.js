@@ -1,4 +1,5 @@
 import { AbstractCarrierConfiguration } from '@/data/carriers/abstractCarrierConfiguration';
+import { configBus } from '../../config/configBus';
 import { getCarrierRequestParameters } from '@/delivery-options/data/request/getCarrierRequestParameters';
 import { getDefaultRequestParameters } from '@/delivery-options/data/request/getDefaultRequestParameters';
 import { getOptionalRequestParameters } from '@/delivery-options/data/request/getOptionalRequestParameters';
@@ -14,8 +15,8 @@ import { getParametersByPlatform } from '@/delivery-options/data/request/request
  * @returns {Partial<MyParcelDeliveryOptions.DeliveryOptionsRequestParameters>}
  */
 export const getRequestParameters = (carrierConfiguration) => {
-  const parameters = getDefaultRequestParameters();
-  const optionalParameters = getOptionalRequestParameters();
+  const parameters = getDefaultRequestParameters(configBus, carrierConfiguration);
+  const optionalParameters = getOptionalRequestParameters(configBus);
 
   parameters.carrier = carrierConfiguration?.getName();
 

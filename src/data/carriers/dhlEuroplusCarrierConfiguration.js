@@ -1,6 +1,7 @@
 import * as FEATURES from '@/data/carrierFeatures';
 import {
   AUSTRIA,
+  BELGIUM,
   BULGARIA,
   CROATIA,
   CZECH_REPUBLIC,
@@ -34,18 +35,9 @@ export class DhlEuroplusCarrierConfiguration extends AbstractCarrierConfiguratio
     return DHL_EUROPLUS;
   }
 
-  getDefaultRequestParameters() {
-    return {
-      cc: 'cc',
-      city: 'city',
-      postal_code: 'postalCode',
-      number: 'number',
-      street: 'street',
-    };
-  }
-
   getCountriesForDelivery() {
     return [
+      BELGIUM,
       BULGARIA,
       DENMARK,
       GERMANY,

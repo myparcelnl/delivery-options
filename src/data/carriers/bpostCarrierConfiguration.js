@@ -1,5 +1,6 @@
 import * as FEATURES from '@/data/carrierFeatures';
 import { BELGIUM, NETHERLANDS } from '@myparcel/js-sdk/dist/constant/countries-iso2';
+import { CITY, POSTAL_CODE } from '../keys/addressKeys';
 import { AbstractCarrierConfiguration } from '@/data/carriers/abstractCarrierConfiguration';
 import { BPOST } from '../keys/carrierKeys';
 import { SENDMYPARCEL } from '@/data/keys/platformKeys';
@@ -7,6 +8,10 @@ import { SENDMYPARCEL } from '@/data/keys/platformKeys';
 export class BpostCarrierConfiguration extends AbstractCarrierConfiguration {
   getName() {
     return BPOST;
+  }
+
+  getDefaultRequestParameters() {
+    return [CITY, POSTAL_CODE];
   }
 
   /**

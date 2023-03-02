@@ -44,14 +44,14 @@ function getForm(platform) {
           autocomplete: 'address-line1',
         },
       },
-      ...forPlatforms([SENDMYPARCEL], {
+      {
         key: ADDRESS.KEY,
         name: ADDRESS.CITY,
         props: {
           label: STRINGS.CITY,
           autocomplete: 'address-level2',
         },
-      }),
+      },
     ],
   };
 }

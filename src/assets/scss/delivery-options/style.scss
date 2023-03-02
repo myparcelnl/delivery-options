@@ -27,6 +27,11 @@
       height: auto;
     }
 
+    &__d-flex {
+      display: flex !important;
+      align-items: center;
+    }
+
     &__d-block {
       display: block !important;
     }

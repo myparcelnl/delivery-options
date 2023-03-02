@@ -16,24 +16,26 @@ export function fetchDeliveryOptions(carrier = configBus.currentCarrier, platfor
   const carrierConfiguration = CarrierConfigurationFactory
     .create(carrier, platform);
 
+  const countriesForDelivery = carrierConfiguration.getCountriesForDelivery();
+  const hasFakeDelivery = carrierConfiguration.hasFakeDelivery();
+
+  // Return an empty array if the carrier doesn't deliver to the current country and fake delivery is enabled.
+  if (hasFakeDelivery && !countriesForDelivery.includes(configBus.address.cc)) {
+    return Promise.resolve([]);
+  }
+
   const carrierAllowsPackageType = carrierConfiguration
     .hasFeature([
       CONFIG.ALLOW_PACKAGE_TYPE_MAILBOX,
       CONFIG.ALLOW_PACKAGE_TYPE_DIGITAL_STAMP,
     ]);
 
-  const packageType = carrierAllowsPackageType
-    ? {
-      package_type: configBus.get(CONFIG.PACKAGE_TYPE),
-    }
-    : {};
-
   return fetchFromEndpoint(
     'delivery_options',
     {
       method: METHOD_SEARCH,
       params: {
-        ...packageType,
+        ...carrierAllowsPackageType ? { package_type: configBus.get(CONFIG.PACKAGE_TYPE) } : {},
         ...getRequestParameters(carrierConfiguration),
       },
     },
