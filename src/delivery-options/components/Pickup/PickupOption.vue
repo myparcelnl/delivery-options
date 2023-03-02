@@ -5,7 +5,7 @@
       :class="`${$classBase}__d-block`"
       @click="isSelected ? showModal() : null">
       <span
-        v-if="pickupData.carrier.image"
+        v-if="carrierData.image"
         :class="[
           `${$classBase}__d-block`,
           `${$classBase}__float--left`,
@@ -15,8 +15,10 @@
             `${$classBase}__image`,
             `${$classBase}__image--sm`,
           ]"
-          :src="pickupData.carrier.image"
-          :alt="pickupData.carrier.name">&nbsp;
+          :src="carrierData.image"
+          :title="carrierData.label"
+          :alt="carrierData.label">
+        >&nbsp;
       </span>
 
       <span :class="`${$classBase}__d-block`">
@@ -87,6 +89,10 @@ export default {
 
     pickupData() {
       return this.data.pickupData;
+    },
+
+    carrierData() {
+      return this.$configBus.carrierData.find((carrier) => carrier.name === this.data.pickupData.carrier) ?? {};
     },
   },
 
