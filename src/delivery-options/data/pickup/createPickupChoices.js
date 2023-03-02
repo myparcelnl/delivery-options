@@ -42,7 +42,7 @@ export async function createPickupChoices(createRequestCallback = null) {
     name: option.location.location_code,
     label: option.location.location_name,
     carrier: option.carrier,
-    image: configBus.hasMultiplePickupCarriers ? option.carrier.image : null,
+    image: option.carrier.image,
     options: getPickupMoments(option),
   }));
 }
