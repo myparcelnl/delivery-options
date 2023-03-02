@@ -370,7 +370,7 @@ export default {
 
       // Map the new center latlng to the request parameters.
       const useLatLng = (carrier) => fetchPickupLocations(
-        CarrierConfigurationFactory.create(carrier),
+        CarrierConfigurationFactory.create(carrier.name),
         {
           latitude: center.lat,
           longitude: center.lng,
