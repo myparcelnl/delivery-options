@@ -6,6 +6,9 @@ module.exports = {
     + 'lodash-es'
     + ')/)',
   ],
+  testPathIgnorePatterns: [
+    'tests/unit/delivery-options/testLiveApi.spec.js',
+  ],
   collectCoverageFrom: [
     'src/**/*.{js,vue}',
   ],
