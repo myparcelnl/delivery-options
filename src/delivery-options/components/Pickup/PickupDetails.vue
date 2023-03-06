@@ -7,7 +7,7 @@
         </td>
       </tr>
       <tr>
-        <td :colspan="$configBus.hasMultipleDeliveryCarriers ? 1 : 2">
+        <td :colspan="$configBus.hasMultiplePickupCarriers ? 1 : 2">
           <p>
             <span v-text="`${data.address.street} ${data.address.number}`" /><br>
             <span v-text="`${data.address.postal_code} ${data.address.city}`" />
@@ -19,7 +19,7 @@
           </p>
         </td>
 
-        <td v-if="$configBus.hasMultipleDeliveryCarriers">
+        <td v-if="$configBus.hasMultiplePickupCarriers">
           <img
             :class="[
               `${$classBase}__image`,
@@ -27,8 +27,9 @@
               `${$classBase}__h-auto`,
               `${$classBase}__float--right`,
             ]"
-            :src="data.carrier.image"
-            :alt="data.carrier.human">
+            :src="carrierData.image"
+            :title="carrierData.label"
+            :alt="carrierData.label">
         </td>
       </tr>
     </table>
@@ -98,7 +99,7 @@ export default {
     },
 
     carrierData() {
-      return this.$configBus.currentCarrier;
+      return this.$configBus.carrierData.find((carrier) => carrier.name === this.$configBus.currentCarrier) ?? {};
     },
 
     /**

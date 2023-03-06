@@ -87,9 +87,9 @@ export const createConfigBus = (eventCallee = null) => {
         /**
          * Object to store all pickup data in to be able to send it back to the application.
          *
-         * @type {Object.<MyParcel.PickupLocation>}
+         * @type {MyParcel.PickupLocation[]}
          */
-        pickupLocations: {},
+        pickupLocations: [],
 
         /**
          * Whether to show a modal or not.
