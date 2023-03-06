@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [5.6.1](https://github.com/myparcelnl/delivery-options/compare/v5.6.0...v5.6.1) (2023-03-06)
+
+
+### :bug: Bug Fixes
+
+* fix carrier not being set for pickup locations ([#167](https://github.com/myparcelnl/delivery-options/issues/167)) ([bd65323](https://github.com/myparcelnl/delivery-options/commit/bd65323c326c0f962bb0d03c606cd8a998c2d5dc))
+* fix error on pickup map ([#164](https://github.com/myparcelnl/delivery-options/issues/164)) ([ef710f7](https://github.com/myparcelnl/delivery-options/commit/ef710f71f0963147e94aabf98d8896d4aaa76549))
+* fix error when using default same day cutoff time ([#165](https://github.com/myparcelnl/delivery-options/issues/165)) ([343c7e7](https://github.com/myparcelnl/delivery-options/commit/343c7e7fc6df1e27a0423c7bb108237c9aee2af4))
+* fix european delivery moments ([#163](https://github.com/myparcelnl/delivery-options/issues/163)) ([76362eb](https://github.com/myparcelnl/delivery-options/commit/76362eb352b22794a59b1b7d0de1b86212161614))
+
 ## [5.6.0](https://github.com/myparcelnl/delivery-options/compare/v5.5.0...v5.6.0) (2023-03-01)
 
 
