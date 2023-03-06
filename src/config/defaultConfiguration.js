@@ -49,7 +49,7 @@ export const defaultConfiguration = (platform = DEFAULT_PLATFORM) => {
       [CONFIG.ALLOW_SIGNATURE]: true,
 
       [CONFIG.CUTOFF_TIME]: '17:00',
-      [CONFIG.CUTOFF_TIME_SAME_DAY]: '9:30',
+      [CONFIG.CUTOFF_TIME_SAME_DAY]: '09:30',
       [CONFIG.DELIVERY_DAYS_WINDOW]: DEFAULT_DELIVERY_DAYS_WINDOW,
       [CONFIG.DROP_OFF_DAYS]: [1, 2, 3, 4, 5],
       [CONFIG.DROP_OFF_DELAY]: 0,
