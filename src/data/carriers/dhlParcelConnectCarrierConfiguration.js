@@ -36,11 +36,9 @@ export class DhlParcelConnectCarrierConfiguration extends AbstractCarrierConfigu
   getCountriesForDelivery() {
     return [
       BULGARIA,
-      DENMARK,
       GERMANY,
       ESTONIA,
       FINLAND,
-      FRANCE,
       GREECE,
       HUNGARY,
       IRELAND,
@@ -57,7 +55,6 @@ export class DhlParcelConnectCarrierConfiguration extends AbstractCarrierConfigu
       SLOVAKIA,
       SPAIN,
       CZECH_REPUBLIC,
-      SWEDEN,
     ];
   }
 
@@ -95,16 +92,6 @@ export class DhlParcelConnectCarrierConfiguration extends AbstractCarrierConfigu
         FEATURES.FEATURES_DELIVERY,
         FEATURES.FEATURES_PICKUP,
       ],
-    };
-  }
-
-  getDefaultRequestParameters() {
-    return {
-      cc: 'cc',
-      city: 'city',
-      postal_code: 'postalCode',
-      number: 'number',
-      street: 'street',
     };
   }
 }

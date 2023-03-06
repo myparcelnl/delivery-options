@@ -70,7 +70,7 @@ describe('test settings on the live API', () => {
 
     jest.mock('@/delivery-options/config/configBus', () => ({ configBus: mockedConfigBus }));
 
-    const realResponse = await fetchDeliveryOptions();
+    const realResponse = await fetchDeliveryOptions(POSTNL, MYPARCEL);
     const receivedDeliveryOptions = realResponse.map(formatDates);
 
     const fakeResponse = fakeDeliveryOptionsResponse(getRequestParameters(CarrierConfigurationFactory.create(POSTNL, MYPARCEL)));

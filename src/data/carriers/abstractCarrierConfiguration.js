@@ -1,4 +1,5 @@
 import { ALLOW_PACKAGE_TYPE_DIGITAL_STAMP, ALLOW_PACKAGE_TYPE_MAILBOX } from '@/data/keys/configKeys';
+import { CITY, POSTAL_CODE, STREET } from '../keys/addressKeys';
 import { PACKAGE_TYPE_DIGITAL_STAMP, PACKAGE_TYPE_MAILBOX, PACKAGE_TYPE_PACKAGE } from '@/data/keys/settingsConsts';
 import { NETHERLANDS } from '@myparcel/js-sdk/dist/constant/countries-iso2';
 import { flatten } from 'lodash-es';
@@ -11,16 +12,10 @@ export class AbstractCarrierConfiguration {
   platform;
 
   /**
-   * @type {Record<string, unknown>[]}
-   */
-  parameters;
-
-  /**
    * @param {MyParcel.Platform} platform
    */
   constructor(platform) {
     this.platform = validatePlatform(platform);
-    this.parameters = this.getDefaultRequestParameters();
   }
 
   // eslint-disable-next-line jsdoc/require-returns-check
@@ -38,7 +33,7 @@ export class AbstractCarrierConfiguration {
    * @returns {boolean}
    */
   allowsDeliveryIn(country) {
-    return this.getCountriesForDelivery().includes(country.toUpperCase());
+    return this.getCountriesForDelivery().includes(country.toUpperCase()) || this.hasFakeDelivery();
   }
 
   /**
@@ -116,10 +111,10 @@ export class AbstractCarrierConfiguration {
   /**
    * Get the parameters necessary for the delivery options request.
    *
-   * @returns {Record<string, unknown>[]}
+   * @returns {string[]}
    */
   getDefaultRequestParameters() {
-    return [];
+    return [CITY, POSTAL_CODE, STREET];
   }
 
   /**
@@ -137,5 +132,15 @@ export class AbstractCarrierConfiguration {
     }
 
     return permissions.includes(features);
+  }
+
+  /**
+   * Enable to use empty delivery options (without fetching) for this carrier in all countries that are not in
+   * getCountriesForDelivery.
+   *
+   * @returns {boolean}
+   */
+  hasFakeDelivery() {
+    return false;
   }
 }

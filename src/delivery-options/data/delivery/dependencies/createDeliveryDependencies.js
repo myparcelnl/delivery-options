@@ -10,7 +10,7 @@ import { formatDeliveryMoment } from '@/delivery-options/data/delivery/dependenc
  * @returns {MyParcelDeliveryOptions.DeliveryDependencies}
  */
 export const createDeliveryDependencies = (deliveryOptions) => ({
-  [DELIVERY_DATE]: deliveryOptions.reduce((deliveryDates, option, index) => {
+  [DELIVERY_DATE]: deliveryOptions.reduce((deliveryDates, option) => {
     return {
       ...deliveryDates,
       [createIsoString(option.date.date)]: {

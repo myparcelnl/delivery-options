@@ -77,7 +77,9 @@
         v-else
         :colspan="validChoices.length <= 1 ? null : hasPrice(choice) ? 1 : 2">
         <label :for="`${$classBase}__${mutableOption.name}--${choice.name}`">
-          <span v-if="choice.hasOwnProperty('image')">
+          <span
+            v-if="choice.hasOwnProperty('image')"
+            :class="`${$classBase}__d-flex`">
             <img
               v-if="choice.hasOwnProperty('image')"
               v-test="'image'"

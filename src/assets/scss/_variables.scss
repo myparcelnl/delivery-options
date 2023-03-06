@@ -1,5 +1,11 @@
+$dhl-color: #ffcb01;
+
 $carriers: (
   postnl: #ed8c00,
   bpost: #ef2637,
   dpd: #dc0032,
+  dhl: $dhl-color,
+  dhlparcelconnect: $dhl-color,
+  dhlforyou: $dhl-color,
+  dhleuroplus: $dhl-color,
 );

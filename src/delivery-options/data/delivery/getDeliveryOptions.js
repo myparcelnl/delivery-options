@@ -1,12 +1,12 @@
 import * as STRINGS from '@/data/keys/stringsKeys';
 import { CARRIER, DELIVER, formConfigDelivery } from '@/config/formConfig';
-import { configBus } from '@/delivery-options/config/configBus';
 import { createDeliveryOptions } from '@/delivery-options/data/delivery/createDeliveryOptions';
 import { cssClassBase } from '@/delivery-options/cssClassBase';
 import { getPriceLabelFromFormConfig } from '@/delivery-options/data/prices/getPriceLabelFromFormConfig';
+import { configBus } from '../../config/configBus';
 
 /**
- * Get deliver options for carriers in the config.
+ * Get delivery options for carriers in the config.
  *
  * @returns {Object}
  */
@@ -29,7 +29,7 @@ export function getDeliveryOptions() {
           ...carrier,
           class: `${cssClassBase}__spacing--md`,
           priceTag: getPriceLabelFromFormConfig(formConfigDelivery, carrier.name),
-          options: () => createDeliveryOptions(carrier.name),
+          options: () => createDeliveryOptions(carrier.name, configBus.get('platform')),
         };
 
         if (!configBus.hasMultipleDeliveryCarriers) {

@@ -121,6 +121,7 @@ Object {
 exports[`CarrierConfigurationFactory should create a configuration for dhleuroplus 1`] = `
 Object {
   "countriesForDelivery": Array [
+    "BE",
     "BG",
     "DK",
     "DE",
@@ -198,9 +199,6 @@ Object {
         "cutoffTimeSameDay",
       ],
       Array [
-        "allowShowDeliveryDate",
-      ],
-      Array [
         "allowPickupLocations",
         "pricePickup",
       ],
@@ -238,9 +236,6 @@ Object {
       "cutoffTimeSameDay",
     ],
     Array [
-      "allowShowDeliveryDate",
-    ],
-    Array [
       "allowPickupLocations",
       "pricePickup",
     ],
@@ -260,11 +255,9 @@ exports[`CarrierConfigurationFactory should create a configuration for dhlparcel
 Object {
   "countriesForDelivery": Array [
     "BG",
-    "DK",
     "DE",
     "EE",
     "FI",
-    "FR",
     "GR",
     "HU",
     "IE",
@@ -281,7 +274,6 @@ Object {
     "SK",
     "ES",
     "CZ",
-    "SE",
   ],
   "countriesForPickup": Array [
     "BG",
@@ -403,8 +395,8 @@ Object {
 exports[`CarrierConfigurationFactory should create a configuration for postnl 1`] = `
 Object {
   "countriesForDelivery": Array [
-    "BE",
     "NL",
+    "BE",
   ],
   "countriesForPickup": Array [
     "BE",

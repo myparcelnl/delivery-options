@@ -334,6 +334,11 @@ export default {
      * @param {Object} e - Error object.
      */
     handleError(e) {
+      if (process.env.NODE_ENV === 'development') {
+        // eslint-disable-next-line no-console
+        console.error(e);
+      }
+
       this.errors.push(e);
 
       if (FATAL_ERRORS.includes(e.code) || e.type === 'fatal') {

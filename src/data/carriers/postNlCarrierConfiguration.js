@@ -1,5 +1,6 @@
 import * as FEATURES from '@/data/carrierFeatures';
 import { BELGIUM, NETHERLANDS } from '@myparcel/js-sdk/dist/constant/countries-iso2';
+import { CITY, POSTAL_CODE, STREET } from '../keys/addressKeys';
 import { MYPARCEL, SENDMYPARCEL } from '@/data/keys/platformKeys';
 import { AbstractCarrierConfiguration } from '@/data/carriers/abstractCarrierConfiguration';
 import { POSTNL } from '../keys/carrierKeys';
@@ -9,11 +10,16 @@ export class PostNlCarrierConfiguration extends AbstractCarrierConfiguration {
     return POSTNL;
   }
 
+  getDefaultRequestParameters() {
+    return [POSTAL_CODE, STREET, CITY];
+  }
+
   getCountriesForDelivery() {
-    return [
-      BELGIUM,
-      NETHERLANDS,
-    ];
+    return [NETHERLANDS, BELGIUM];
+  }
+
+  hasFakeDelivery() {
+    return true;
   }
 
   getCountriesForPickup() {
@@ -52,15 +58,6 @@ export class PostNlCarrierConfiguration extends AbstractCarrierConfiguration {
         FEATURES.FEATURES_DROP_OFF_DELAY,
         FEATURES.FEATURES_CUTOFF_TIME,
       ],
-    };
-  }
-
-  getDefaultRequestParameters() {
-    return {
-      cc: 'cc',
-      city: 'city',
-      postal_code: 'postalCode',
-      number: 'number',
     };
   }
 }

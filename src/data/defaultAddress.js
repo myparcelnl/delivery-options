@@ -9,15 +9,14 @@ import { MYPARCEL, SENDMYPARCEL } from '@/data/keys/platformKeys';
 export const defaultAddress = {
   [MYPARCEL]: {
     [ADDRESS.CC]: NETHERLANDS,
-    [ADDRESS.NUMBER]: 31,
+    [ADDRESS.CITY]: 'Hoofddorp',
     [ADDRESS.POSTAL_CODE]: '2132JE',
     [ADDRESS.STREET]: 'Antareslaan 31',
   },
   [SENDMYPARCEL]: {
     [ADDRESS.CC]: BELGIUM,
     [ADDRESS.CITY]: 'Antwerpen',
-    [ADDRESS.NUMBER]: 16,
-    [ADDRESS.STREET]: 'Adriaan Brouwerstraat 16',
     [ADDRESS.POSTAL_CODE]: '2000',
+    [ADDRESS.STREET]: 'Adriaan Brouwerstraat 16',
   },
 };
