@@ -10,16 +10,7 @@ export class ExportValues {
   /**
    * @type {MyParcelDeliveryOptions.DeliveryType}
    */
-  deliveryType;
-
-  /**
-   * Method to check if the values are complete and should be communicated with the external platform.
-   *
-   * @returns {boolean}
-   */
-  isComplete() {
-    return !!this.deliveryType;
-  }
+  deliveryType = DELIVERY_STANDARD;
 
   /**
    * @param {MyParcel.CarrierName} carrier

@@ -50,19 +50,6 @@ export class DeliveryExportValues extends ExportValues {
   }
 
   /**
-   * There's no delivery type with other package types (yet) so super.isComplete() will return false forever.
-   *
-   * @returns {boolean | boolean}
-   */
-  isComplete() {
-    if (this.packageType === DEFAULT_PACKAGE_TYPE) {
-      return super.isComplete();
-    }
-
-    return true;
-  }
-
-  /**
    * Determine whether the delivery date should be included.
    *
    * @param {Object} values
