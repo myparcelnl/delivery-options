@@ -8,9 +8,9 @@ export class ExportValues {
   carrier;
 
   /**
-   * @type {MyParcelDeliveryOptions.DeliveryType}
+   * @type {null|MyParcelDeliveryOptions.DeliveryType}
    */
-  deliveryType = DELIVERY_STANDARD;
+  deliveryType;
 
   /**
    * @param {MyParcel.CarrierName} carrier
@@ -28,7 +28,7 @@ export class ExportValues {
       deliveryType = DELIVERY_STANDARD;
     }
 
-    this.deliveryType = deliveryType;
+    this.deliveryType = deliveryType ?? DELIVERY_STANDARD;
   }
 
   setShipmentOptions(values) {

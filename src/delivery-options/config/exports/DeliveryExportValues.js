@@ -12,7 +12,7 @@ export class DeliveryExportValues extends ExportValues {
   isPickup = false;
 
   /**
-   * @type {string}
+   * @type {null|string}
    */
   deliveryDate;
 
