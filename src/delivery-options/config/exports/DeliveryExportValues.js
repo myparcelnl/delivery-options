@@ -12,7 +12,7 @@ export class DeliveryExportValues extends ExportValues {
   isPickup = false;
 
   /**
-   * @type {string}
+   * @type {null|string}
    */
   deliveryDate;
 
@@ -47,19 +47,6 @@ export class DeliveryExportValues extends ExportValues {
     this.deliveryType = null;
     this.deliveryDate = null;
     this.shipmentOptions = [];
-  }
-
-  /**
-   * There's no delivery type with other package types (yet) so super.isComplete() will return false forever.
-   *
-   * @returns {boolean | boolean}
-   */
-  isComplete() {
-    if (this.packageType === DEFAULT_PACKAGE_TYPE) {
-      return super.isComplete();
-    }
-
-    return true;
   }
 
   /**

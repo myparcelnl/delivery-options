@@ -310,10 +310,9 @@ export default {
      */
     updateExternal(data) {
       const { exportValues } = this.$configBus;
-      const hasExportValues = exportValues && exportValues.isComplete();
       const isEmptied = data === false || (data.name === FORM.DELIVERY && data.value === null);
 
-      if (!isEmptied && !hasExportValues) {
+      if (!isEmptied && !exportValues) {
         return;
       }
 
