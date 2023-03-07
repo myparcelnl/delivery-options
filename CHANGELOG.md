@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.7.0](https://github.com/myparcelnl/delivery-options/compare/v5.6.1...v5.7.0) (2023-03-07)
+
+
+### :sparkles: New Features
+
+* always show carrier image ([#166](https://github.com/myparcelnl/delivery-options/issues/166)) ([f90f1f2](https://github.com/myparcelnl/delivery-options/commit/f90f1f2a39ec97c010f07be76343f8f624336acb))
+
+
+### :bug: Bug Fixes
+
+* fix sending events when delivery options are empty ([#169](https://github.com/myparcelnl/delivery-options/issues/169)) ([f0d84e1](https://github.com/myparcelnl/delivery-options/commit/f0d84e1a3e8cd45414750d0eb49172c1cd3aaac5))
+
 ### [5.6.1](https://github.com/myparcelnl/delivery-options/compare/v5.6.0...v5.6.1) (2023-03-06)
 
 
