@@ -233,7 +233,7 @@ export default {
         options: [
           {
             name: FORM.DELIVERY,
-            type: 'radio',
+            type: choices.length > 1 ? 'radio' : 'heading',
             choices,
           },
         ],

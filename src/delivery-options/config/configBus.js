@@ -166,26 +166,6 @@ export const createConfigBus = (eventCallee = null) => {
       };
     },
 
-    computed: {
-      /**
-       * Whether there are multiple carriers with delivery available or not.
-       *
-       * @returns {boolean}
-       */
-      hasMultipleDeliveryCarriers() {
-        return this.carrierDataWithDeliveryOptions.length > 1;
-      },
-
-      /**
-       * Whether there are multiple carriers with pickup locations or not.
-       *
-       * @returns {boolean}
-       */
-      hasMultiplePickupCarriers() {
-        return this.carrierDataWithPickupLocations.length > 1;
-      },
-    },
-
     watch: {
       /**
        * When the current carrier changes update the values.

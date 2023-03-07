@@ -6,7 +6,7 @@ import { merge } from 'lodash-es';
 import { mockDeliveryOptions } from '@Tests/unit/delivery-options/mockDeliveryOptions';
 import { waitForEvent } from '@Tests/waitForEvent';
 
-const CONFIG_SINGLE_CARRIER = Object.freeze({
+const CONFIG_DELIVERY_SINGLE_CARRIER = Object.freeze({
   [CONFIG.KEY]: {
     [CONFIG.PLATFORM]: PLATFORMS.MYPARCEL,
     [CONFIG.CARRIER_SETTINGS]: {
@@ -17,7 +17,7 @@ const CONFIG_SINGLE_CARRIER = Object.freeze({
   },
 });
 
-const CONFIG_MULTIPLE_CARRIERS = Object.freeze(merge({}, CONFIG_SINGLE_CARRIER, {
+const CONFIG_DELIVERY_MULTIPLE_CARRIERS = Object.freeze(merge({}, CONFIG_DELIVERY_SINGLE_CARRIER, {
   [CONFIG.KEY]: {
     [CONFIG.CARRIER_SETTINGS]: {
       [CARRIERS.DHL_FOR_YOU]: {
@@ -27,56 +27,79 @@ const CONFIG_MULTIPLE_CARRIERS = Object.freeze(merge({}, CONFIG_SINGLE_CARRIER, 
   },
 }));
 
+const CONFIG_PICKUP_MULTIPLE_CARRIERS = Object.freeze({
+  [CONFIG.KEY]: {
+    [CONFIG.CARRIER_SETTINGS]: {
+      [CARRIERS.POSTNL]: {
+        [CONFIG.ALLOW_PICKUP_LOCATIONS]: true,
+      },
+      [CARRIERS.DHL_FOR_YOU]: {
+        [CONFIG.ALLOW_PICKUP_LOCATIONS]: true,
+      },
+    },
+  },
+});
+
+const carrierHasImage = (wrapper, carrier) => {
+  const postNl = wrapper.findChoice('carrier', carrier);
+  const postNlImage = postNl.find('[data-test-id="image"]');
+  expect(postNlImage.exists()).toBe(true);
+  expect(postNlImage.attributes('src')).toContain('assets.myparcel.nl');
+};
+
 describe('carriers', () => {
   it('shows one carrier', async() => {
     expect.assertions(3);
-    const app = await mockDeliveryOptions(CONFIG_SINGLE_CARRIER);
+    const wrapper = await mockDeliveryOptions(CONFIG_DELIVERY_SINGLE_CARRIER);
 
     await waitForEvent(UPDATED_DELIVERY_OPTIONS);
-    const postnl = app.findChoice('carrier', CARRIERS.POSTNL);
-    expect(app.findChoice('carrier', CARRIERS.DHL_FOR_YOU).exists()).toBe(false);
+    const postnl = wrapper.findChoice('carrier', CARRIERS.POSTNL);
+    expect(wrapper.findChoice('carrier', CARRIERS.DHL_FOR_YOU).exists()).toBe(false);
     expect(postnl.exists()).toBe(true);
-    expect(app.findChoice('carrier', CARRIERS.DHL).exists()).toBe(false);
+    expect(wrapper.findChoice('carrier', CARRIERS.DHL).exists()).toBe(false);
   });
 
   it('can show multiple carriers', async() => {
-    expect.assertions(5);
-    const app = await mockDeliveryOptions(CONFIG_MULTIPLE_CARRIERS);
+    expect.assertions(3);
+    const wrapper = await mockDeliveryOptions(CONFIG_DELIVERY_MULTIPLE_CARRIERS);
 
     await waitForEvent(UPDATED_DELIVERY_OPTIONS);
 
-    const postNl = app.findChoice('carrier', CARRIERS.POSTNL);
-    const dhlForYou = app.findChoice('carrier', CARRIERS.DHL_FOR_YOU);
-    const bpost = app.findChoice('carrier', CARRIERS.BPOST);
+    const postNl = wrapper.findChoice('carrier', CARRIERS.POSTNL);
+    const dhlForYou = wrapper.findChoice('carrier', CARRIERS.DHL_FOR_YOU);
+    const bpost = wrapper.findChoice('carrier', CARRIERS.BPOST);
 
     expect(postNl.exists()).toBe(true);
     expect(dhlForYou.exists()).toBe(true);
     expect(bpost.exists()).toBe(false);
-
-    expect(postNl.find('[data-test-id="image"]').exists()).toBe(true);
-    expect(dhlForYou.find('[data-test-id="image"]').exists()).toBe(true);
   });
 
-  it('does not show a carrier logo when there is only one carrier', async() => {
-    const app = await mockDeliveryOptions(CONFIG_SINGLE_CARRIER);
+  it('shows a carrier logo when there is a single carrier', async() => {
+    expect.assertions(2);
+    const wrapper = await mockDeliveryOptions(CONFIG_DELIVERY_SINGLE_CARRIER);
 
     await waitForEvent(UPDATED_DELIVERY_OPTIONS);
 
-    const postNl = app.findChoice('carrier', CARRIERS.POSTNL);
-
-    expect(postNl.find('[data-test-id="image"]').exists()).toBe(false);
+    carrierHasImage(wrapper, CARRIERS.POSTNL);
   });
 
   it('shows carrier logos when there are multiple carriers', async() => {
-    expect.assertions(2);
-    const app = await mockDeliveryOptions(CONFIG_MULTIPLE_CARRIERS);
+    expect.assertions(4);
+    const wrapper = await mockDeliveryOptions(CONFIG_DELIVERY_MULTIPLE_CARRIERS);
 
     await waitForEvent(UPDATED_DELIVERY_OPTIONS);
 
-    const postNl = app.findChoice('carrier', CARRIERS.POSTNL);
-    const dhlForYou = app.findChoice('carrier', CARRIERS.DHL_FOR_YOU);
+    carrierHasImage(wrapper, CARRIERS.POSTNL);
+    carrierHasImage(wrapper, CARRIERS.DHL_FOR_YOU);
+  });
 
-    expect(postNl.find('[data-test-id="image"]').exists()).toBe(true);
-    expect(dhlForYou.find('[data-test-id="image"]').exists()).toBe(true);
+  it('shows carrier logos in pickup list', async() => {
+    expect.assertions(4);
+    const wrapper = mockDeliveryOptions(CONFIG_PICKUP_MULTIPLE_CARRIERS);
+
+    await waitForEvent(UPDATED_DELIVERY_OPTIONS);
+
+    carrierHasImage(wrapper, CARRIERS.POSTNL);
+    carrierHasImage(wrapper, CARRIERS.DHL_FOR_YOU);
   });
 });

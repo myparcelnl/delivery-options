@@ -7,7 +7,7 @@
         </td>
       </tr>
       <tr>
-        <td :colspan="$configBus.hasMultiplePickupCarriers ? 1 : 2">
+        <td>
           <p>
             <span v-text="`${data.address.street} ${data.address.number}`" /><br>
             <span v-text="`${data.address.postal_code} ${data.address.city}`" />
@@ -19,7 +19,7 @@
           </p>
         </td>
 
-        <td v-if="$configBus.hasMultiplePickupCarriers">
+        <td>
           <img
             :class="[
               `${$classBase}__image`,
