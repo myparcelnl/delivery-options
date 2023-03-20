@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [5.7.1](https://github.com/myparcelnl/delivery-options/compare/v5.7.0...v5.7.1) (2023-03-20)
+
+
+### :bug: Bug Fixes
+
+* do not show inputs when allowRetry is false ([#170](https://github.com/myparcelnl/delivery-options/issues/170)) ([f0e2c19](https://github.com/myparcelnl/delivery-options/commit/f0e2c19acddb21b012dcf41c9d001e708ac1e3c5))
+
 ## [5.7.0](https://github.com/myparcelnl/delivery-options/compare/v5.6.1...v5.7.0) (2023-03-07)
 
 
