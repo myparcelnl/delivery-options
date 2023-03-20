@@ -19,26 +19,27 @@
       </li>
     </ul>
 
-    <p
-      v-for="field in requiredFields"
-      :key="field.name">
-      <label>
-        {{ $configBus.strings[field.name] }}
-        <input
-          v-model="values[field.name]"
-          :name="`${field.name}-input`"
-          v-bind="field.attributes"
-          :placeholder="$configBus.strings[field.name]"
-          v-text="$configBus.strings[field.name]">
-      </label>
-    </p>
+    <template v-if="hasRetry">
+      <p
+        v-for="field in requiredFields"
+        :key="field.name">
+        <label>
+          {{ $configBus.strings[field.name] }}
+          <input
+            v-model="values[field.name]"
+            :name="`${field.name}-input`"
+            v-bind="field.attributes"
+            :placeholder="$configBus.strings[field.name]"
+            v-text="$configBus.strings[field.name]">
+        </label>
+      </p>
 
-    <button
-      v-if="hasRetry"
-      v-test="'button--retry'"
-      type="button"
-      @click.prevent="retry"
-      v-text="$configBus.strings.retry" />
+      <button
+        v-test="'button--retry'"
+        type="button"
+        @click.prevent="retry"
+        v-text="$configBus.strings.retry" />
+    </template>
   </div>
 </template>
 
