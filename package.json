@@ -87,6 +87,9 @@
     "webpack": "^4.46.0"
   },
   "packageManager": "yarn@3.4.1",
+  "volta": {
+    "node": "16.20.0"
+  },
   "publishConfig": {
     "access": "public"
   },
