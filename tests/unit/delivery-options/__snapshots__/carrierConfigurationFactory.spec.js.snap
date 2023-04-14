@@ -146,6 +146,7 @@ Object {
     "ES",
     "CZ",
     "SE",
+    "GB",
   ],
   "countriesForPickup": Array [],
   "features": Object {
@@ -299,6 +300,7 @@ Object {
     "ES",
     "CZ",
     "SE",
+    "GB",
   ],
   "features": Object {
     "myparcel": Array [

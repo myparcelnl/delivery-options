@@ -23,6 +23,7 @@ import {
   SLOVENIA,
   SPAIN,
   SWEDEN,
+  UNITED_KINGDOM,
 } from '@myparcel/js-sdk/dist/constant/countries-iso2';
 import { AbstractCarrierConfiguration } from '@/data/carriers/abstractCarrierConfiguration';
 import { DHL_PARCEL_CONNECT } from '../keys/carrierKeys';
@@ -83,6 +84,7 @@ export class DhlParcelConnectCarrierConfiguration extends AbstractCarrierConfigu
       SPAIN,
       CZECH_REPUBLIC,
       SWEDEN,
+      UNITED_KINGDOM,
     ];
   }
 
