@@ -80,6 +80,13 @@ export default {
       fakeShowDeliveryOptions: true,
 
       /**
+       * Whether the delivery options are initialized.
+       *
+       * @type {boolean}
+       */
+      initialized: false,
+
+      /**
        * Whether the delivery options are loading or not.
        *
        * @type {boolean}
@@ -140,12 +147,12 @@ export default {
 
   computed: {
     /**
-     * False if address or address.cc is missing.
+     * False if `address`, `address.cc` or `address.street` is missing.
      *
      * @returns {boolean}
      */
     hasValidAddress() {
-      return Boolean(this.$configBus.address && this.$configBus.address.cc);
+      return Boolean(this.$configBus.address && this.$configBus.address.cc && this.$configBus.address.street);
     },
 
     /**
@@ -238,6 +245,8 @@ export default {
           },
         ],
       };
+
+      this.initialized = true;
     },
 
     /**
@@ -282,8 +291,11 @@ export default {
       this.showSelf();
 
       if (!this.hasValidAddress) {
-        this.showAddressErrors();
+        if (this.initialized) {
+          this.showAddressErrors();
+        }
 
+        this.loading = false;
         return;
       }
 
