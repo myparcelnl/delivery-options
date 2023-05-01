@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [5.7.3](https://github.com/myparcelnl/delivery-options/compare/v5.7.2...v5.7.3) (2023-05-01)
+
+
+### :bug: Bug Fixes
+
+* do not render errors if address has never been filled in ([#177](https://github.com/myparcelnl/delivery-options/issues/177)) ([e82edf6](https://github.com/myparcelnl/delivery-options/commit/e82edf67ed0179f0c1e29e804e92e48ec71eff0e))
+
 ### [5.7.2](https://github.com/myparcelnl/delivery-options/compare/v5.7.1...v5.7.2) (2023-04-14)
 
 
