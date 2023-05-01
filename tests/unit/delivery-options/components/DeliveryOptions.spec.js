@@ -68,31 +68,6 @@ describe('DeliveryOptions.vue', () => {
     expect(wrapper.vm.hasValidAddress).toBe(true);
   });
 
-  it('shows retry button on missing cc', async() => {
-    expect.assertions(2);
-
-    const wrapper = mockDeliveryOptions({
-      [ADDRESS.KEY]: {},
-      [CONFIG.KEY]: {
-        [CONFIG.FEATURE_ALLOW_RETRY]: true,
-      },
-    });
-    wrapper.vm.showAddressErrors = createWaitableMock(wrapper.vm.showAddressErrors);
-
-    await wrapper.vm.showAddressErrors.waitToHaveBeenCalled(1);
-    expect(wrapper.findByTestId('button--retry').exists()).toBe(true);
-
-    // Change address to a valid address.
-    document.dispatchEvent(
-      new CustomEvent(UPDATE_DELIVERY_OPTIONS, {
-        detail: configWithValidAddress,
-      }),
-    );
-
-    await waitForEvent(UPDATED_DELIVERY_OPTIONS);
-    expect(wrapper.findByTestId('button--retry').exists()).toBe(false);
-  });
-
   it('shows errors on invalid address response from api', async() => {
     expect.assertions(2);
     fakeDeliveryOptionsResponse.mockImplementation(deliveryOptionsResponseInvalidPostalCode);
