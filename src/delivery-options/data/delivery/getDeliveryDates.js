@@ -16,9 +16,18 @@ export function getDeliveryDates(deliveryOptions) {
   // If the delivery days window is 0, don't show the delivery date to the user. We do this by just passing an empty
   //  string as the label.
   if (configBus.get(CONFIG.DELIVERY_DAYS_WINDOW) === 0) {
+    if (deliveryOptions.length > 0) {
+      return [
+        {
+          name: createIsoString(deliveryOptions[0].date.date),
+          label: '',
+        },
+      ];
+    }
+
     return [
       {
-        name: createIsoString(deliveryOptions[0].date.date),
+        name: '',
         label: '',
       },
     ];
