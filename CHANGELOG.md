@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [5.7.4](https://github.com/myparcelnl/delivery-options/compare/v5.7.3...v5.7.4) (2023-05-22)
+
+
+### :bug: Bug Fixes
+
+* fix error when dhl delivery moments are empty ([#179](https://github.com/myparcelnl/delivery-options/issues/179)) ([292bfb8](https://github.com/myparcelnl/delivery-options/commit/292bfb816894d066f8c014a54d8241b5716efc68))
+
 ### [5.7.3](https://github.com/myparcelnl/delivery-options/compare/v5.7.2...v5.7.3) (2023-05-01)
 
 
