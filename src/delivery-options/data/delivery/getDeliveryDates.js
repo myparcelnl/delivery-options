@@ -9,7 +9,7 @@ import { createIsoString } from '@/delivery-options/data/dates/createIsoString';
  * @returns {MyParcelDeliveryOptions.FormEntryChoice[]}
  */
 export function getDeliveryDates(deliveryOptions) {
-  if (!deliveryOptions) {
+  if (!deliveryOptions || deliveryOptions.length === 0) {
     return [];
   }
 
@@ -24,13 +24,6 @@ export function getDeliveryDates(deliveryOptions) {
         },
       ];
     }
-
-    return [
-      {
-        name: '',
-        label: '',
-      },
-    ];
   }
 
   return deliveryOptions.map((option) => {
