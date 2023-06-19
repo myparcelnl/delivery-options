@@ -27,7 +27,7 @@ import {
   SWEDEN,
   UNITED_KINGDOM,
 } from '@myparcel/js-sdk/dist/constant/countries-iso2';
-import { POSTAL_CODE, STREET } from '../keys/addressKeys';
+import { CITY, POSTAL_CODE, STREET } from '../keys/addressKeys';
 import { AbstractCarrierConfiguration } from '@/data/carriers/abstractCarrierConfiguration';
 import { DPD } from '../keys/carrierKeys';
 import { SENDMYPARCEL } from '@/data/keys/platformKeys';
@@ -38,7 +38,7 @@ export class DpdCarrierConfiguration extends AbstractCarrierConfiguration {
   }
 
   getDefaultRequestParameters() {
-    return [POSTAL_CODE, STREET];
+    return [POSTAL_CODE, STREET, CITY];
   }
 
   getCountriesForDelivery() {
