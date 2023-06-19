@@ -75,12 +75,22 @@ export class DpdCarrierConfiguration extends AbstractCarrierConfiguration {
     return [
       AUSTRIA,
       BELGIUM,
+      CZECH_REPUBLIC,
       DENMARK,
+      ESTONIA,
       FINLAND,
       FRANCE,
       GERMANY,
+      HUNGARY,
+      LATVIA,
+      LITHUANIA,
+      LUXEMBOURG,
       NETHERLANDS,
+      POLAND,
       PORTUGAL,
+      SLOVAKIA,
+      SLOVENIA,
+      SPAIN,
       UNITED_KINGDOM,
     ];
   }
