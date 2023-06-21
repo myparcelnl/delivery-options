@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.8.0](https://github.com/myparcelnl/delivery-options/compare/v5.7.4...v5.8.0) (2023-06-21)
+
+
+### :sparkles: New Features
+
+* **dpd:** add multiple countries for pickup ([#181](https://github.com/myparcelnl/delivery-options/issues/181)) ([42f2e0f](https://github.com/myparcelnl/delivery-options/commit/42f2e0f2a4365fed18b9adde51805bbd78a06748))
+
+
+### :bug: Bug Fixes
+
+* **dpd:** also use city for pick up locations ([#182](https://github.com/myparcelnl/delivery-options/issues/182)) ([e5610ef](https://github.com/myparcelnl/delivery-options/commit/e5610ef5e2b6abdc0f29c5ba5950a6f1e161f676))
+
 ### [5.7.4](https://github.com/myparcelnl/delivery-options/compare/v5.7.3...v5.7.4) (2023-05-22)
 
 
