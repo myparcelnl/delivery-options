@@ -123,7 +123,7 @@ describe('Request parameters', () => {
     ${POSTNL}             | ${PLATFORMS.MYPARCEL}     | ${['postal_code', 'city', 'street']}
     ${POSTNL}             | ${PLATFORMS.SENDMYPARCEL} | ${['postal_code', 'city', 'street']}
     ${BPOST}              | ${PLATFORMS.SENDMYPARCEL} | ${['postal_code', 'city']}
-    ${DPD}                | ${PLATFORMS.SENDMYPARCEL} | ${['postal_code', 'street']}
+    ${DPD}                | ${PLATFORMS.SENDMYPARCEL} | ${['postal_code', 'city', 'street']}
     ${DHL}                | ${PLATFORMS.MYPARCEL}     | ${['postal_code', 'city']}
     ${DHL_FOR_YOU}        | ${PLATFORMS.MYPARCEL}     | ${['postal_code', 'city']}
     ${DHL_EUROPLUS}       | ${PLATFORMS.MYPARCEL}     | ${['postal_code', 'city', 'street']}
