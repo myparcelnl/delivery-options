@@ -25,7 +25,6 @@ export class AbstractCarrierConfiguration {
     this.subscriptionId = subscriptionId;
   }
 
-  // eslint-disable-next-line jsdoc/require-returns-check
   /**
    * Get the identifier for this carrier, which is the name and subscription ID (if present) combined.
    *
@@ -35,6 +34,7 @@ export class AbstractCarrierConfiguration {
     return [this.getName(), this.getSubscriptionId()].filter(Boolean).join(':');
   }
 
+  // eslint-disable-next-line jsdoc/require-returns-check
   /**
    * @returns {MyParcel.CarrierName}
    */
