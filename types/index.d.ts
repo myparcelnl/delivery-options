@@ -8,6 +8,8 @@ declare namespace MyParcel {
   type CarrierNameOrId = CarrierName | CarrierID
   type Platform = 'myparcel' | 'belgie' | 'flespakket'
 
+  type CarrierIdentifier = CarrierName | `${CarrierName}:${number}`
+
   /**
    * @see https://myparcelnl.github.io/api/#6_A_1
    */
@@ -181,7 +183,7 @@ declare namespace MyParcelDeliveryOptions {
   }
 
   type CarrierSettings = {
-    [key in MyParcel.CarrierName]?: {
+    [key in MyParcel.CarrierIdentifier]?: {
       allowEveningDelivery?: boolean
       allowMorningDelivery?: boolean
       allowOnlyRecipient?: boolean
@@ -205,7 +207,8 @@ declare namespace MyParcelDeliveryOptions {
   }
 
   interface CarrierData {
-    id: number
+    id: MyParcel.CarrierID
+    identifier: MyParcel.CarrierIdentifier
     name: MyParcel.CarrierName
     label: string
     image: string

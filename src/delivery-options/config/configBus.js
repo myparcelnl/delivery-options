@@ -68,7 +68,7 @@ export const createConfigBus = (eventCallee = null) => {
         /**
          * The current carrier.
          *
-         * @type {MyParcel.CarrierName}
+         * @type {MyParcel.CarrierIdentifier}
          */
         currentCarrier: null,
 
@@ -170,7 +170,7 @@ export const createConfigBus = (eventCallee = null) => {
       /**
        * When the current carrier changes update the values.
        *
-       * @param {MyParcel.CarrierName} value - New carrier.
+       * @param {MyParcel.CarrierIdentifier} value - New carrier.
        */
       currentCarrier(value) {
         this.values[FORM.CARRIER] = value;
@@ -228,7 +228,7 @@ export const createConfigBus = (eventCallee = null) => {
        *
        * @param {Object | string} option - Option object or name.
        * @param {string} key - Key name to use. Defaults to "name".
-       * @param {MyParcel.CarrierName} carrier - Carrier name.
+       * @param {MyParcel.CarrierIdentifier} carrier - Carrier identifier.
        *
        * @returns {any}
        */
@@ -259,7 +259,7 @@ export const createConfigBus = (eventCallee = null) => {
        * @param {string | MyParcelDeliveryOptions.FormConfig | Object} option - FormConfig options object.
        *
        * @param {string} key - String key to use with this.get().
-       * @param {MyParcel.CarrierName} carrier - Carrier name.
+       * @param {MyParcel.CarrierIdentifier} carrier - Carrier identifier.
        *
        * @returns {boolean}
        */
@@ -293,7 +293,7 @@ export const createConfigBus = (eventCallee = null) => {
       /**
        * Get the carrier specific settings for the given carrier.
        *
-       * @param {MyParcel.CarrierName} carrier - Carrier name.
+       * @param {MyParcel.CarrierIdentifier} carrier - Carrier name.
        *
        * @returns {Object|null}
        */
@@ -317,7 +317,7 @@ export const createConfigBus = (eventCallee = null) => {
 
         return Object
           .keys(carrierSettings)
-          .some((carrier) => this.isEnabled(option, null, carrier));
+          .some((carrierIdentifier) => this.isEnabled(option, null, carrierIdentifier));
       },
 
       /**
@@ -407,15 +407,15 @@ export const createConfigBus = (eventCallee = null) => {
        */
       setAdvancedCarrierData() {
         this.carrierDataWithPickupLocations = this.carrierData.filter((carrier) => {
-          const carrierConfiguration = CarrierConfigurationFactory.create(carrier.name);
+          const carrierConfiguration = CarrierConfigurationFactory.create(carrier.identifier);
 
           return carrier.pickupEnabled && carrierConfiguration.allowsPickupIn(this.address.cc);
         });
 
         this.carrierDataWithDeliveryOptions = this.carrierData.filter((carrier) => {
-          const carrierConfiguration = CarrierConfigurationFactory.create(carrier.name);
+          const carrierConfiguration = CarrierConfigurationFactory.create(carrier.identifier);
 
-          if (carrierCanOnlyHaveSameDayDelivery(carrier.name) && isPastSameDayCutoffTime(carrier.name)) {
+          if (carrierCanOnlyHaveSameDayDelivery(carrier.identifier) && isPastSameDayCutoffTime(carrier.identifier)) {
             // We don't have a carrier with only same-day delivery at the moment, so this won't be covered.
             /* istanbul ignore next */
             return false;

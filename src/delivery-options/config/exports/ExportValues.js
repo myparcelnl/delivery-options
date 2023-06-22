@@ -3,7 +3,7 @@ import { DELIVERY_SAME_DAY, DELIVERY_STANDARD } from '@/config/formConfig';
 
 export class ExportValues {
   /**
-   * @type {MyParcel.CarrierName}
+   * @type {MyParcel.CarrierIdentifier}
    */
   carrier;
 
@@ -13,7 +13,7 @@ export class ExportValues {
   deliveryType;
 
   /**
-   * @param {MyParcel.CarrierName} carrier
+   * @param {MyParcel.CarrierIdentifier} carrier
    */
   setCarrier(carrier) {
     this.carrier = carrier || this.carrier;

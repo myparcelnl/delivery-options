@@ -7,7 +7,7 @@ import { getRequestParameters } from '@/delivery-options/data/request/getRequest
 /**
  * Fetch delivery options.
  *
- * @param {MyParcel.CarrierName} carrier - Carrier name.
+ * @param {MyParcel.CarrierIdentifier} carrier - Carrier name.
  * @param {MyParcel.Platform} platform - Platform name.
  *
  * @returns {Promise<MyParcelDeliveryOptions.DeliveryOption[]>}

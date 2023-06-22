@@ -8,7 +8,7 @@ import { getPriceLabelFromFormConfig } from '@/delivery-options/data/prices/getP
 /**
  * Get delivery options for carriers in the config.
  *
- * @returns {Object}
+ * @returns {Object|undefined}
  */
 export function getDeliveryOptions() {
   if (!configBus.carrierDataWithDeliveryOptions.length) {
@@ -26,9 +26,10 @@ export function getDeliveryOptions() {
       type: configBus.carrierDataWithDeliveryOptions.length > 1 ? 'radio' : 'heading',
       choices: configBus.carrierDataWithDeliveryOptions.map((carrier) => ({
         ...carrier,
+        name: carrier.identifier,
         class: `${cssClassBase}__spacing--md`,
-        priceTag: getPriceLabelFromFormConfig(formConfigDelivery, carrier.name),
-        options: () => createDeliveryOptions(carrier.name),
+        priceTag: getPriceLabelFromFormConfig(formConfigDelivery, carrier.identifier),
+        options: () => createDeliveryOptions(carrier.identifier),
       })),
     }],
   };

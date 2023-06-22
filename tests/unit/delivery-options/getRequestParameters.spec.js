@@ -2,15 +2,15 @@ import * as ADDRESS from '@/data/keys/addressKeys';
 import * as CONFIG from '@/data/keys/configKeys';
 import * as PLATFORMS from '@/data/keys/platformKeys';
 import { BPOST, DHL, DHL_EUROPLUS, DHL_FOR_YOU, DHL_PARCEL_CONNECT, DPD, POSTNL } from '@/data/keys/carrierKeys';
+import { CarrierConfigurationFactory } from '@/data/carriers/carrierConfigurationFactory';
 import { DEFAULT_PLATFORM } from '@/data/keys/settingsConsts';
+import { MYPARCEL } from '@/data/keys/platformKeys';
 import MockDate from 'mockdate';
 import { defaultAddress } from '@/data/defaultAddress';
 import { getDefaultRequestParameters } from '@/delivery-options/data/request/getDefaultRequestParameters';
 import { getOptionalRequestParameters } from '@/delivery-options/data/request/getOptionalRequestParameters';
 import { getParametersByPlatform } from '@/delivery-options/data/request/requestData';
 import { mockConfigBus } from './mockConfigBus';
-import { CarrierConfigurationFactory } from '@/data/carriers/carrierConfigurationFactory';
-import { MYPARCEL } from '@/data/keys/platformKeys';
 
 const tuesday = '2020-03-10T00:00:00';
 const friday = '2020-03-13T00:00:00';

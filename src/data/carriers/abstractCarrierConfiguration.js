@@ -12,18 +12,41 @@ export class AbstractCarrierConfiguration {
   platform;
 
   /**
-   * @param {MyParcel.Platform} platform
+   * @type {string|null}
    */
-  constructor(platform) {
+  subscriptionId;
+
+  /**
+   * @param {MyParcel.Platform} platform
+   * @param {string} subscriptionId
+   */
+  constructor(platform, subscriptionId = null) {
     this.platform = validatePlatform(platform);
+    this.subscriptionId = subscriptionId;
   }
 
   // eslint-disable-next-line jsdoc/require-returns-check
+  /**
+   * Get the identifier for this carrier, which is the name and subscription ID (if present) combined.
+   *
+   * @returns {string}
+   */
+  getIdentifier() {
+    return [this.getName(), this.getSubscriptionId()].filter(Boolean).join(':');
+  }
+
   /**
    * @returns {MyParcel.CarrierName}
    */
   getName() {
     throw new Error('Not implemented');
+  }
+
+  /**
+   * @returns {string|null}
+   */
+  getSubscriptionId() {
+    return this.subscriptionId;
   }
 
   /**
