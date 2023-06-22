@@ -293,7 +293,7 @@ export const createConfigBus = (eventCallee = null) => {
       /**
        * Get the carrier specific settings for the given carrier.
        *
-       * @param {MyParcel.CarrierIdentifier} carrier - Carrier name.
+       * @param {MyParcel.CarrierIdentifier} carrier - Carrier identifier.
        *
        * @returns {Object|null}
        */
