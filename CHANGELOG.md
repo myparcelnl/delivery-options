@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.9.0](https://github.com/myparcelnl/delivery-options/compare/v5.8.0...v5.9.0) (2023-06-23)
+
+
+### :sparkles: New Features
+
+* support custom subscription carriers ([#184](https://github.com/myparcelnl/delivery-options/issues/184)) ([0b31313](https://github.com/myparcelnl/delivery-options/commit/0b313132ca0f5ddaf620c1c7a4a7bfc000e7aabc))
+
 ## [5.8.0](https://github.com/myparcelnl/delivery-options/compare/v5.7.4...v5.8.0) (2023-06-21)
 
 
