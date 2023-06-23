@@ -2,16 +2,18 @@ import { formConfigDelivery, formConfigPickup } from '@/config/formConfig';
 import { configBus } from '@/delivery-options/config/configBus';
 
 /**
- * Create the array of carrier data, deduping and adding pickup/delivery settings.
- *
- * @param {Array} data - Data.
+ * @param {{name: string, human: string, id: number}[]} data
+ * @param {{name: MyParcel.CarrierName, identifier: MyParcel.CarrierIdentifier}[]} carriers
  *
  * @returns {Array}
  */
-export function createCarrierData(data) {
+export function createCarrierData(data, carriers) {
   return data.map((carrier) => {
+    const match = carriers.find((item) => item.name === carrier.name);
+
     return {
       ...carrier,
+      identifier: match?.identifier,
       pickupEnabled: configBus.isEnabled(formConfigPickup, null, carrier.name),
       deliveryEnabled: configBus.isEnabled(formConfigDelivery, null, carrier.name),
     };

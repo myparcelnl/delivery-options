@@ -12,10 +12,17 @@ export class AbstractCarrierConfiguration {
   platform;
 
   /**
-   * @param {MyParcel.Platform} platform
+   * @type {string|null}
    */
-  constructor(platform) {
+  subscriptionId;
+
+  /**
+   * @param {MyParcel.Platform} platform
+   * @param {string} subscriptionId
+   */
+  constructor(platform, subscriptionId = null) {
     this.platform = validatePlatform(platform);
+    this.subscriptionId = subscriptionId;
   }
 
   // eslint-disable-next-line jsdoc/require-returns-check

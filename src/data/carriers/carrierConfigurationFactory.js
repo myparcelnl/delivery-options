@@ -1,4 +1,5 @@
 import * as CARRIERS from '@/data/keys/carrierKeys';
+import { AbstractCarrierConfiguration } from './abstractCarrierConfiguration';
 import { BpostCarrierConfiguration } from '@/data/carriers/bpostCarrierConfiguration';
 import { DhlCarrierConfiguration } from '@/data/carriers/dhlCarrierConfiguration';
 import { DhlEuroplusCarrierConfiguration } from '@/data/carriers/dhlEuroplusCarrierConfiguration';
@@ -8,25 +9,24 @@ import { DpdCarrierConfiguration } from '@/data/carriers/dpdCarrierConfiguration
 import { PostNlCarrierConfiguration } from '@/data/carriers/postNlCarrierConfiguration';
 import memoize from 'lodash-es/memoize';
 
-const carrierConfiguration = memoize((carrierName, platform) => {
-  switch (carrierName) {
-    case CARRIERS.BPOST:
-      return new BpostCarrierConfiguration(platform);
-    case CARRIERS.DHL:
-      return new DhlCarrierConfiguration(platform);
-    case CARRIERS.DHL_FOR_YOU:
-      return new DhlForYouCarrierConfiguration(platform);
-    case CARRIERS.DHL_PARCEL_CONNECT:
-      return new DhlParcelConnectCarrierConfiguration(platform);
-    case CARRIERS.DHL_EUROPLUS:
-      return new DhlEuroplusCarrierConfiguration(platform);
-    case CARRIERS.DPD:
-      return new DpdCarrierConfiguration(platform);
-    case CARRIERS.POSTNL:
-      return new PostNlCarrierConfiguration(platform);
-    default:
-      throw new Error(`No configuration found for carrier ${carrierName}`);
+const carrierClassMap = Object.freeze({
+  [CARRIERS.BPOST]: BpostCarrierConfiguration,
+  [CARRIERS.DHL]: DhlCarrierConfiguration,
+  [CARRIERS.DHL_EUROPLUS]: DhlEuroplusCarrierConfiguration,
+  [CARRIERS.DHL_FOR_YOU]: DhlForYouCarrierConfiguration,
+  [CARRIERS.DHL_PARCEL_CONNECT]: DhlParcelConnectCarrierConfiguration,
+  [CARRIERS.DPD]: DpdCarrierConfiguration,
+  [CARRIERS.POSTNL]: PostNlCarrierConfiguration,
+});
+
+const getCarrierConfiguration = memoize((carrierIdentifier, platform) => {
+  const [name, subscriptionId] = carrierIdentifier.split(':');
+
+  if (carrierClassMap[name]) {
+    return new carrierClassMap[name](platform, subscriptionId);
   }
+
+  throw new Error(`No configuration found for carrier ${name}`);
 }, (carrierName, platform) => `${carrierName}_${platform}`);
 
 export class CarrierConfigurationFactory {
@@ -36,14 +36,14 @@ export class CarrierConfigurationFactory {
   platform = null;
 
   /**
-   * @param {MyParcel.CarrierName} carrierName
+   * @param {MyParcel.CarrierIdentifier} carrierIdentifier
    * @param {MyParcel.Platform|null} platform
    *
    * @returns {AbstractCarrierConfiguration}
    */
-  static create(carrierName, platform = null) {
+  static create(carrierIdentifier, platform = null) {
     this.platform = platform ?? this.platform;
 
-    return carrierConfiguration(carrierName, this.platform);
+    return getCarrierConfiguration(carrierIdentifier, this.platform);
   }
 }
