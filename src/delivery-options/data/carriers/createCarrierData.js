@@ -2,20 +2,20 @@ import { formConfigDelivery, formConfigPickup } from '@/config/formConfig';
 import { configBus } from '@/delivery-options/config/configBus';
 
 /**
- * @param {{name: string, human: string, id: number}[]} data
- * @param {{name: MyParcel.CarrierName, identifier: MyParcel.CarrierIdentifier}[]} carriers
+ * @param {{name: string, human: string, id: number}[]} apiCarriers
+ * @param {{name: MyParcel.CarrierName, identifier: MyParcel.CarrierIdentifier}[]} configCarriers
  *
  * @returns {Array}
  */
-export function createCarrierData(data, carriers) {
-  return data.map((carrier) => {
-    const match = carriers.find((item) => item.name === carrier.name);
+export function createCarrierData(apiCarriers, configCarriers) {
+  return configCarriers.map((configCarrier) => {
+    const match = apiCarriers.find((apiCarrier) => apiCarrier.name === configCarrier.name);
 
     return {
-      ...carrier,
-      identifier: match?.identifier,
-      pickupEnabled: configBus.isEnabled(formConfigPickup, null, carrier.name),
-      deliveryEnabled: configBus.isEnabled(formConfigDelivery, null, carrier.name),
+      ...match,
+      ...configCarrier,
+      pickupEnabled: configBus.isEnabled(formConfigPickup, null, configCarrier.identifier),
+      deliveryEnabled: configBus.isEnabled(formConfigDelivery, null, configCarrier.identifier),
     };
   });
 }

@@ -25,6 +25,7 @@ export function carrierSetting(setting, platform) {
     }
 
     const allowedInCarrier = currentCarrierConfig.hasFeature(setting.name);
+
     if (!allowedInCarrier) {
       return acc;
     }
@@ -33,9 +34,9 @@ export function carrierSetting(setting, platform) {
       ...acc,
       {
         ...setting,
-        key: `${CONFIG.KEY}.${CONFIG.CARRIER_SETTINGS}.${carrier.name}`,
+        key: `${CONFIG.KEY}.${CONFIG.CARRIER_SETTINGS}.${carrier.identifier}`,
         carrier: {
-          name: carrier.name,
+          name: carrier.identifier,
           text: carrier.label,
           image: carrier.image,
         },
