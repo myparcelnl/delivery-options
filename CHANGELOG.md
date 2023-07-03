@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [5.9.1](https://github.com/myparcelnl/delivery-options/compare/v5.9.0...v5.9.1) (2023-07-03)
+
+
+### :bug: Bug Fixes
+
+* **carriers:** fix errors when using two carriers with same name ([#186](https://github.com/myparcelnl/delivery-options/issues/186)) ([f238250](https://github.com/myparcelnl/delivery-options/commit/f238250c63917a58d8e53f8f7063d8237935fe2d))
+
 ## [5.9.0](https://github.com/myparcelnl/delivery-options/compare/v5.8.0...v5.9.0) (2023-06-23)
 
 
