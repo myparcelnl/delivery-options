@@ -18,7 +18,7 @@
           :src="carrierData.image"
           :title="carrierData.label"
           :alt="carrierData.label">
-        >&nbsp;
+        &nbsp;
       </span>
 
       <span :class="`${$classBase}__d-block`">
