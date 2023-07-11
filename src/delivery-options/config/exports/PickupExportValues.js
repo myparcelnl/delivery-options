@@ -1,5 +1,6 @@
 import * as FORM from '@/config/formConfig';
 import { ExportValues } from '@/delivery-options/config/exports/ExportValues';
+import { PICKUP_STANDARD } from '@/config/formConfig';
 import { configBus } from '@/delivery-options/config/configBus';
 import { getPickupDate } from '@/delivery-options/data/pickup/getPickupDate';
 
@@ -26,9 +27,11 @@ export class PickupExportValues extends ExportValues {
    * @param {Object} values
    */
   setPickupLocation(values) {
+    values[FORM.PICKUP_MOMENT] ??= PICKUP_STANDARD;
+
     const pickupLocationName = values[FORM.PICKUP_LOCATION];
 
-    if (!pickupLocationName || !values[FORM.PICKUP_MOMENT]) {
+    if (!pickupLocationName) {
       return;
     }
 
