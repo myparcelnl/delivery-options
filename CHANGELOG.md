@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [5.9.2](https://github.com/myparcelnl/delivery-options/compare/v5.9.1...v5.9.2) (2023-07-11)
+
+
+### :bug: Bug Fixes
+
+* **pickup:** fix pickup locations missing when only using list view ([91e55a0](https://github.com/myparcelnl/delivery-options/commit/91e55a08772b67d9e174957f6488903c515e51cb))
+* **pickup:** remove ">" in pickup list item ([a051b94](https://github.com/myparcelnl/delivery-options/commit/a051b94bed8d71f6978a4bc6f3a956802b001468))
+
 ### [5.9.1](https://github.com/myparcelnl/delivery-options/compare/v5.9.0...v5.9.1) (2023-07-03)
 
 
