@@ -7,7 +7,7 @@ import { configBus } from '@/delivery-options/config/configBus';
 import { getApiUrl } from '@/delivery-options/data/request/getApiUrl';
 import isEqual from 'lodash-es/isEqual';
 import memoize from 'lodash-es/memoize';
-import {ERROR_WADDEN_ISLANDS} from '@/config/errorConfig';
+import { ERROR_WADDEN_ISLANDS } from '@/config/errorConfig';
 
 export const METHOD_GET = 'get';
 export const METHOD_SEARCH = 'search';
@@ -54,9 +54,7 @@ const memoizedFetch = memoize(async function fetchFunc(endpoint, options = {}) {
  */
 export const fetchFromEndpoint = async(endpoint, options = {}) => {
   const { response, error } = await memoizedFetch(endpoint, options);
-  if (error['errors']['0']['code'] === ERROR_WADDEN_ISLANDS) {
-    return response;
-  }
+
   if (error) {
     const { errors } = error;
 

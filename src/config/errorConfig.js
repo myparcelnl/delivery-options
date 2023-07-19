@@ -1,7 +1,5 @@
 /* eslint no-multi-spaces: ["warn", { exceptions: { "VariableDeclarator": true } }] */
 
-import number from "vue-i18n/src/components/number";
-
 export const ERROR_MISSING_REQUIRED_PARAMETER   = 3212;
 export const ERROR_INVALID_CUTOFF_TIME_PROVIDED = 3214;
 export const ERROR_INVALID_QUERY_PARAMETER      = 3224;

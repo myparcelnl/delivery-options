@@ -1,5 +1,5 @@
 import { ERROR } from '@/config/eventConfig';
-import { ERROR_INVALID_COUNTRY_CODE } from '@/config/errorConfig';
+import { ERROR_INVALID_COUNTRY_CODE, ERROR_WADDEN_ISLANDS } from '@/config/errorConfig';
 import { MYPARCEL } from '@/data/keys/platformKeys';
 import { configBus } from '@/delivery-options/config/configBus';
 import { fakeDeliveryOptionsResponse } from '@Mocks/@myparcel/js-sdk/dist/data/fakeDeliveryOptionsResponse';
@@ -37,5 +37,25 @@ describe('Error handling', () => {
     await waitForEvent(ERROR, configBus);
 
     expect(hideSelfSpy).toBeCalled();
+  });
+
+  it('should do nothing when a postal code from the wadden islands throws an error', async() => {
+    fakeDeliveryOptionsResponse.mockImplementation(() => {
+      throw {
+        errors: [
+          {
+            code: ERROR_WADDEN_ISLANDS,
+          },
+        ],
+      };
+    });
+
+    app = mockDeliveryOptions(MYPARCEL);
+    const hideSelfSpy = jest.spyOn(app.vm, 'hideSelf');
+    const showAddressErrors = jest.spyOn(app.vm, 'showAddressErrors');
+    await waitForEvent(ERROR, configBus);
+
+    expect(showAddressErrors).not.toBeCalled();
+    expect(hideSelfSpy).not.toBeCalled();
   });
 });
