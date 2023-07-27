@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [5.9.3](https://github.com/myparcelnl/delivery-options/compare/v5.9.2...v5.9.3) (2023-07-27)
+
+
+### :bug: Bug Fixes
+
+* **dhl:** fix being unable to select delivery to wadden islands ([#193](https://github.com/myparcelnl/delivery-options/issues/193)) ([272cd18](https://github.com/myparcelnl/delivery-options/commit/272cd18c3b3a56516ef791a9288512939f1c8d03))
+
 ### [5.9.2](https://github.com/myparcelnl/delivery-options/compare/v5.9.1...v5.9.2) (2023-07-11)
 
 
