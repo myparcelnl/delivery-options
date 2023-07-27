@@ -33,7 +33,7 @@
 import * as EVENTS from '@/config/eventConfig';
 import * as FORM from '@/config/formConfig';
 import Errors from '@/delivery-options/components/Errors';
-import { FATAL_ERRORS } from '@/config/errorConfig';
+import { ERROR_WADDEN_ISLANDS, FATAL_ERRORS } from '@/config/errorConfig';
 import Loader from '@/delivery-options/components/Loader';
 import Modal from '@/delivery-options/components/Modal';
 import { configBus } from '@/delivery-options/config/configBus';
@@ -345,6 +345,10 @@ export default {
      * @param {Object} e - Error object.
      */
     handleError(e) {
+      if (ERROR_WADDEN_ISLANDS === e.code) {
+        return;
+      }
+
       if (process.env.NODE_ENV === 'development') {
         // eslint-disable-next-line no-console
         console.error(e);

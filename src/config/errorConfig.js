@@ -7,6 +7,7 @@ export const ERROR_ADDRESS_UNKNOWN              = 3501;
 export const ERROR_INVALID_POSTAL_CODE          = 3505;
 export const ERROR_INVALID_COUNTRY_CODE         = 3506;
 export const ERROR_UNSUPPORTED_CARRIER          = 3728;
+export const ERROR_WADDEN_ISLANDS               = 3753;
 
 /**
  * Errors that should trigger a "fatal" error, which will hide the delivery options.

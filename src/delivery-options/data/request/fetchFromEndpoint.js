@@ -7,6 +7,7 @@ import { configBus } from '@/delivery-options/config/configBus';
 import { getApiUrl } from '@/delivery-options/data/request/getApiUrl';
 import isEqual from 'lodash-es/isEqual';
 import memoize from 'lodash-es/memoize';
+import { ERROR_WADDEN_ISLANDS } from '@/config/errorConfig';
 
 export const METHOD_GET = 'get';
 export const METHOD_SEARCH = 'search';
