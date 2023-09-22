@@ -3,8 +3,8 @@ import {Vue} from 'vue/types/vue';
 declare namespace MyParcel {
   type Environment = 'dev' | 'staging' | 'acceptance' | 'prod'
 
-  type CarrierName = 'postnl' | 'bpost' | 'dpd' | 'dhl' | 'dhlforyou' | 'dhlparcelconnect' | 'dhleuroplus'
-  type CarrierID = 1 | 2 | 4 | 6 | 9 | 10 | 11
+  type CarrierName = 'postnl' | 'bpost' | 'dpd' | 'dhl' | 'ups' | 'dhlforyou' | 'dhlparcelconnect' | 'dhleuroplus'
+  type CarrierID = 1 | 2 | 4 | 6 | 8 | 9 | 10 | 11
   type CarrierNameOrId = CarrierName | CarrierID
   type Platform = 'myparcel' | 'belgie' | 'flespakket'
 

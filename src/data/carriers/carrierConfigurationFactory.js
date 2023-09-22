@@ -7,6 +7,7 @@ import { DhlForYouCarrierConfiguration } from '@/data/carriers/dhlForYouCarrierC
 import { DhlParcelConnectCarrierConfiguration } from '@/data/carriers/dhlParcelConnectCarrierConfiguration';
 import { DpdCarrierConfiguration } from '@/data/carriers/dpdCarrierConfiguration';
 import { PostNlCarrierConfiguration } from '@/data/carriers/postNlCarrierConfiguration';
+import { UpsCarrierConfiguration } from './upsCarrierConfiguration';
 import memoize from 'lodash-es/memoize';
 
 const carrierClassMap = Object.freeze({
@@ -17,6 +18,7 @@ const carrierClassMap = Object.freeze({
   [CARRIERS.DHL_PARCEL_CONNECT]: DhlParcelConnectCarrierConfiguration,
   [CARRIERS.DPD]: DpdCarrierConfiguration,
   [CARRIERS.POSTNL]: PostNlCarrierConfiguration,
+  [CARRIERS.UPS]: UpsCarrierConfiguration,
 });
 
 const getCarrierConfiguration = memoize((carrierIdentifier, platform) => {
