@@ -554,3 +554,48 @@ Object {
   ],
 }
 `;
+
+exports[`CarrierConfigurationFactory should create a configuration for ups 1`] = `
+Object {
+  "countriesForDelivery": Array [
+    "BG",
+    "DE",
+    "EE",
+    "FI",
+    "GR",
+    "HU",
+    "IE",
+    "IT",
+    "HR",
+    "LV",
+    "LT",
+    "LU",
+    "AT",
+    "PL",
+    "PT",
+    "RO",
+    "SI",
+    "SK",
+    "ES",
+    "CZ",
+  ],
+  "countriesForPickup": Array [
+    "DE",
+  ],
+  "features": Object {
+    "myparcel": Array [
+      Array [
+        "allowDeliveryOptions",
+        "priceStandardDelivery",
+      ],
+    ],
+  },
+  "name": "ups",
+  "platformFeatures": Array [
+    Array [
+      "allowDeliveryOptions",
+      "priceStandardDelivery",
+    ],
+  ],
+}
+`;

@@ -18,3 +18,6 @@ export const DHL_PARCEL_CONNECT = 'dhlparcelconnect';
 
 /** @type {MyParcel.CarrierName} */
 export const DHL_EUROPLUS = 'dhleuroplus';
+
+/** @type {MyParcel.CarrierName} */
+export const UPS = 'ups';
