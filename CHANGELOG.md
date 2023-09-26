@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.10.0](https://github.com/myparcelnl/delivery-options/compare/v5.9.3...v5.10.0) (2023-09-26)
+
+
+### :sparkles: New Features
+
+* add carrier ups ([#197](https://github.com/myparcelnl/delivery-options/issues/197)) ([299abc4](https://github.com/myparcelnl/delivery-options/commit/299abc4a4c910b00f2f91d0373d336734dc9fdd2))
+
 ### [5.9.3](https://github.com/myparcelnl/delivery-options/compare/v5.9.2...v5.9.3) (2023-07-27)
 
 
