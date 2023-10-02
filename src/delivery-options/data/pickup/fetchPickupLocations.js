@@ -1,5 +1,6 @@
-import { METHOD_SEARCH, fetchFromEndpoint } from '@/delivery-options/data/request/fetchFromEndpoint';
 import { AbstractCarrierConfiguration } from '@/data/carriers/abstractCarrierConfiguration';
+import { endpointPickupLocations } from '../endpoints';
+import { fetchFromEndpoint } from '@/delivery-options/data/request/fetchFromEndpoint';
 import { getRequestParameters } from '@/delivery-options/data/request/getRequestParameters';
 
 /**
@@ -11,9 +12,8 @@ import { getRequestParameters } from '@/delivery-options/data/request/getRequest
  */
 export async function fetchPickupLocations(carrierConfiguration, parameters = {}) {
   const data = await fetchFromEndpoint(
-    'pickup_locations',
+    endpointPickupLocations,
     {
-      method: METHOD_SEARCH,
       params: {
         ...getRequestParameters(carrierConfiguration),
         ...parameters,

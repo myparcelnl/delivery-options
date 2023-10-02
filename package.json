@@ -76,6 +76,7 @@
     "jest": "^29.2.2",
     "lint-staged": "^13.0.3",
     "mockdate": "^3.0.5",
+    "node-fetch": "^3.3.2",
     "node-gyp": "^9.3.1",
     "sass": "^1.55.0",
     "sass-loader": "^10.3.1",

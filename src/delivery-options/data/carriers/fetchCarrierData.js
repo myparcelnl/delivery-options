@@ -1,4 +1,5 @@
-import { METHOD_SEARCH, fetchFromEndpoint } from '@/delivery-options/data/request/fetchFromEndpoint';
+import { endpointCarriers } from '../endpoints';
+import { fetchFromEndpoint } from '@/delivery-options/data/request/fetchFromEndpoint';
 import { formatCarrierResponse } from '@/delivery-options/data/carriers/formatCarrierResponse';
 
 /**
@@ -9,19 +10,7 @@ import { formatCarrierResponse } from '@/delivery-options/data/carriers/formatCa
  * @returns {Promise<MyParcelDeliveryOptions.CarrierData[]>}
  */
 export async function fetchCarrierData(carrier = null) {
-  const params = {};
-
-  if (carrier) {
-    params.carrier = carrier;
-  }
-
-  const data = await fetchFromEndpoint(
-    'carriers',
-    {
-      method: METHOD_SEARCH,
-      params,
-    },
-  );
+  const data = await fetchFromEndpoint(endpointCarriers, { path: carrier });
 
   return formatCarrierResponse(data);
 }

@@ -3,23 +3,28 @@ const path = require('path');
 const { sandboxConfig } = require('./private/sandboxConfig.js');
 const webpack = require('webpack');
 const { deliveryOptionsLibConfig } = require('./private/deliveryOptionsLibConfig.js');
-const { repository } = require('./package.json');
+const {
+  repository,
+  version,
+} = require('./package.json');
 
-process.env.VUE_APP_REPOSITORY_URL = repository.url.replace('.git', '');
-process.env.VUE_APP_COMMIT_HASH = require('child_process')
+process.env.REPOSITORY_URL = repository.url.replace('.git', '');
+process.env.COMMIT_HASH = require('child_process')
   .execSync('git rev-parse HEAD')
   .toString()
   .trim();
+process.env.VERSION = version;
 
 const {
   NODE_ENV,
-  VUE_APP_CLASS_BASE,
-  VUE_APP_COMMIT_HASH,
-  VUE_APP_REPOSITORY_URL,
+  CLASS_BASE,
+  COMMIT_HASH,
+  REPOSITORY_URL,
+  VERSION,
 } = process.env;
 
 /**
- * @type {import("@vue/cli-service").ProjectOptions}
+ * @type {import('@vue/cli-service').ProjectOptions}
  */
 module.exports = {
   publicPath: NODE_ENV === 'production'
@@ -37,7 +42,7 @@ module.exports = {
     extract: false,
     loaderOptions: {
       sass: {
-        additionalData: `$classBase: '${VUE_APP_CLASS_BASE}';`,
+        additionalData: `$classBase: '${CLASS_BASE}';`,
       },
     },
   },
@@ -53,9 +58,10 @@ module.exports = {
     },
     plugins: [
       new webpack.EnvironmentPlugin({
-        VUE_APP_CLASS_BASE: JSON.stringify(VUE_APP_CLASS_BASE),
-        VUE_APP_COMMIT_HASH: JSON.stringify(VUE_APP_COMMIT_HASH),
-        VUE_APP_REPOSITORY_URL: JSON.stringify(VUE_APP_REPOSITORY_URL),
+        CLASS_BASE: CLASS_BASE,
+        COMMIT_HASH: COMMIT_HASH,
+        REPOSITORY_URL: REPOSITORY_URL,
+        VERSION: VERSION,
       }),
     ],
   },
