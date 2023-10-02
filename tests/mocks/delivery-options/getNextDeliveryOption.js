@@ -1,11 +1,9 @@
 import { FEATURES_SAME_DAY_DELIVERY } from '@/data/carrierFeatures';
 import { dayjs } from '@Tests/dayjs';
-import { findExtraDelivery } from '@Mocks/@myparcel/js-sdk/dist/data/delivery-options/findExtraDelivery';
-import { getCarrierConfiguration } from '@Mocks/@myparcel/js-sdk/dist/data/delivery-options/getCarrierConfiguration';
+import { findExtraDelivery } from './findExtraDelivery';
+import { getCarrierConfiguration } from './getCarrierConfiguration';
 import { getDeliveryOptionsEntry } from './entries/getDeliveryOptionsEntry';
-import {
-  shouldSkipToNextDeliveryDate,
-} from '@Mocks/@myparcel/js-sdk/dist/data/delivery-options/shouldSkipToNextDeliveryDate';
+import { shouldSkipToNextDeliveryDate } from './shouldSkipToNextDeliveryDate';
 
 /**
  * Returns the next available delivery date, very much like the actual responses from the API. This needs to be
@@ -26,7 +24,8 @@ export function getNextDeliveryOption(args, daysOffset = 0, currentDate = dayjs(
   const currentDeliveryDate = currentDate.add(daysOffset, 'day');
   const extraDelivery = hasSameDayDelivery ? null : findExtraDelivery(args, currentDeliveryDate.weekday());
 
-  if ((daysOffset === 0 && !canHaveSameDay) || shouldSkipToNextDeliveryDate(currentDate, currentDeliveryDate, args, extraDelivery)) {
+  if ((daysOffset === 0 && !canHaveSameDay)
+    || shouldSkipToNextDeliveryDate(currentDate, currentDeliveryDate, args, extraDelivery)) {
     return next();
   }
 

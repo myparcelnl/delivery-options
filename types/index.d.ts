@@ -23,7 +23,13 @@ declare namespace MyParcel {
   /**
    * @see https://myparcelnl.github.io/api/#6_A_3
    */
-  type ShipmentOptionName = 'cooled_delivery' | 'large_format' | 'only_recipient' | 'signature' | 'return' | 'same_day_delivery'
+  type ShipmentOptionName =
+    'cooled_delivery'
+    | 'large_format'
+    | 'only_recipient'
+    | 'signature'
+    | 'return'
+    | 'same_day_delivery'
 }
 
 declare namespace MyParcelDeliveryOptions {
@@ -33,79 +39,76 @@ declare namespace MyParcelDeliveryOptions {
    * Configuration object supplied by the platform.
    */
   interface Configuration {
-    address: Address
-    strings: Strings
-    config: Config
+    address: Address;
+    config: Config;
+    strings: Strings;
   }
 
   /**
    * Address object from the external platform.
    */
   interface Address {
-    cc: string
-    number: string | number
-    postalCode: string
-    city?: string
+    cc: string;
+    city?: string;
+    number: string | number;
+    postalCode: string;
   }
 
   /**
    * Strings object from the external platform.
    */
   interface Strings {
-    addressNotFound?: string
-    cc?: string
-    city?: string
-    closed?: string
-    deliveryEveningTitle?: string
-    deliveryMorningTitle?: string
-    deliveryStandardTitle?: string
-    deliveryTitle?: string
-    free?: string
-    from?: string
-    headerDeliveryOptions?: string
-    loadMore?: string
-    number?: string
-    onlyRecipientTitle?: string
-    openingHours?: string
-    options?: string
-    packageTypeDigitalStamp?: string
-    packageTypeMailbox?: string
-    pickUp?: string
-    pickUpFrom?: string
-    pickupLocationsListButton?: string
-    pickupLocationsMapButton?: string
-    pickupTitle?: string
-    postalCode?: string
-    retry?: string
-    signatureTitle?: string
-    street?: string
-
-    // NL only
-    mondayDeliveryTitle?: string
-    wrongnumberPostalCode?: string
-
+    addressNotFound?: string;
     // BE only
-    beDeliveryStandardTitle?: string
-    beDeliveryTitle?: string
-    saturdayDeliveryTitle?: string
-    wrongPostalCodeCity?: string
-
+    beDeliveryStandardTitle?: string;
+    beDeliveryTitle?: string;
+    cc?: string;
+    city?: string;
+    closed?: string;
+    deliveryEveningTitle?: string;
+    deliveryMorningTitle?: string;
+    deliveryStandardTitle?: string;
+    deliveryTitle?: string;
     /**
      * @see src/config/errorConfig.js
      */
-    error3212?: string
-    error3224?: string
-    error3505?: string
-    error3506?: string
-    error3728?: string
+    error3212?: string;
+    error3224?: string;
+    error3505?: string;
+    error3506?: string;
+    error3728?: string;
+    free?: string;
+    from?: string;
+    headerDeliveryOptions?: string;
+    loadMore?: string;
+    // NL only
+    mondayDeliveryTitle?: string;
+    number?: string;
+    onlyRecipientTitle?: string;
+    openingHours?: string;
+    options?: string;
+    packageTypeDigitalStamp?: string;
+    packageTypeMailbox?: string;
+    pickUp?: string;
+    pickUpFrom?: string;
+    pickupLocationsListButton?: string;
+    pickupLocationsMapButton?: string;
+    pickupTitle?: string;
+    postalCode?: string;
+    retry?: string;
+    saturdayDeliveryTitle?: string;
+    signatureTitle?: string;
+    street?: string;
+    wrongPostalCodeCity?: string;
+    wrongnumberPostalCode?: string;
   }
 
   /**
    * Response from /delivery_options
    */
   interface DeliveryOption {
-    date: Timestamp
-    possibilities: DeliveryPossibility[]
+    date: Timestamp;
+    possibilities: DeliveryPossibility[];
   }
 
   /**
@@ -118,7 +121,7 @@ declare namespace MyParcelDeliveryOptions {
       number: string
       postal_code: string
       street: string
-    }
+    };
     location: {
       distance: string
       latitude: string
@@ -136,8 +139,8 @@ declare namespace MyParcelDeliveryOptions {
         saturday: StartEndDate[]
         sunday: StartEndDate[]
       }
-    }
-    possibilities: PickupPossibility[]
+    };
+    possibilities: PickupPossibility[];
   }
 
   interface FilterableOption {
@@ -149,37 +152,29 @@ declare namespace MyParcelDeliveryOptions {
    * Configuration object from the external platform.
    */
   interface Config {
-    apiBaseUrl?: string
-    locale?: string
-    platform?: MyParcel.Platform
-    currency?: string
-
-    allowDeliveryOptions?: boolean | FilterableOption
-    allowPickupLocations?: boolean | FilterableOption
-
-    packageType?: MyParcel.PackageType
-
-    cutoffTime?: string
-    deliveryDaysWindow?: string | number
-    dropOffDays?: string
-    dropOffDelay?: string | number
-
-    // NL only
-    mondayCutoffTime?: string
-
-    // BE only
-    saturdayCutoffTime?: string
-
-    carrierSettings?: CarrierSettings
-
+    allowDeliveryOptions?: boolean | FilterableOption;
+    allowPickupLocations?: boolean | FilterableOption;
     // Feature toggles
-    allowRetry?: boolean
-    pickupLocationsDefaultView?: 'map' | 'list'
-    pickupShowDistance?: boolean
-    allowShowDeliveryDate?: boolean
-
+    allowRetry?: boolean;
+    allowShowDeliveryDate?: boolean;
+    apiBaseUrl?: string;
+    carrierSettings?: CarrierSettings;
+    currency?: string;
+    cutoffTime?: string;
+    deliveryDaysWindow?: string | number;
+    dropOffDays?: string;
+    dropOffDelay?: string | number;
+    locale?: string;
+    // NL only
+    mondayCutoffTime?: string;
+    packageType?: MyParcel.PackageType;
+    pickupLocationsDefaultView?: 'map' | 'list';
     // Can be JSON string or object.
-    pickupLocationsMapTileLayerData?: string | MapTileLayerData
+    pickupLocationsMapTileLayerData?: string | MapTileLayerData;
+    pickupShowDistance?: boolean;
+    platform?: MyParcel.Platform;
+    // BE only
+    saturdayCutoffTime?: string;
   }
 
   type CarrierSettings = {
@@ -207,92 +202,92 @@ declare namespace MyParcelDeliveryOptions {
   }
 
   interface CarrierData {
-    id: MyParcel.CarrierID
-    identifier: MyParcel.CarrierIdentifier
-    name: MyParcel.CarrierName
-    label: string
-    image: string
-    deliveryEnabled?: boolean
-    pickupEnabled?: boolean
-    pickupCountries?: String[]
-    deliverCountries?: String[]
+    deliverCountries?: String[];
+    deliveryEnabled?: boolean;
+    id: MyParcel.CarrierID;
+    identifier: MyParcel.CarrierIdentifier;
+    image: string;
+    label: string;
+    name: MyParcel.CarrierName;
+    pickupCountries?: String[];
+    pickupEnabled?: boolean;
   }
 
   interface Timestamp {
-    date: string
-    timezone: string
-    timezone_type: number
+    date: string;
+    timezone: string;
+    timezone_type: number;
   }
 
   /**
    * A start and end date object.
    */
   interface StartEndDate {
-    start: Timestamp
-    end: Timestamp
+    end: Timestamp;
+    start: Timestamp;
   }
 
   interface EnumSchema<Type> {
-    type: Type extends boolean ? 'boolean' : string;
     enum: Type[];
+    type: Type extends boolean ? 'boolean' : string;
   }
 
   interface ShipmentOption {
-    name: MyParcel.ShipmentOptionName
-    schema: EnumSchema<boolean>
+    name: MyParcel.ShipmentOptionName;
+    schema: EnumSchema<boolean>;
   }
 
   interface DeliveryTimeFrame<Type = 'start' | 'end'> {
-    type: Type
-    date_time: Timestamp
+    date_time: Timestamp;
+    type: Type;
   }
 
   interface DeliveryPossibility {
-    collect_date?: any
+    collect_date?: any;
     delivery_time_frames: [
       DeliveryTimeFrame<'start'>,
       DeliveryTimeFrame<'end'>
-    ]
-    package_type: string
-    shipment_options: ShipmentOption[]
-    type: MyParcel.DeliveryType
+    ];
+    package_type: string;
+    shipment_options: ShipmentOption[];
+    type: MyParcel.DeliveryType;
   }
 
   interface PickupPossibility {
-    delivery_type_id: number
-    delivery_type_name: MyParcel.DeliveryType
+    delivery_type_id: number;
+    delivery_type_name: MyParcel.DeliveryType;
     moment: {
       start: Timestamp
-    }
+    };
   }
 
   interface FormConfig {
-    name: string
-    enabled?: string
-    label?: string
-    price?: string
-    selected?: boolean
-    options?: FormConfig[]
+    enabled?: string;
+    label?: string;
+    name: string;
+    options?: FormConfig[];
+    price?: string;
+    selected?: boolean;
   }
 
   interface FormEntry {
-    name: string
-    type?: 'radio' | 'select' | 'checkbox' | 'text' | string
-    choices?: FormEntryChoice[]
-    component?: Vue
-    dependency?: FormEntryDependency
-    loop?: boolean
-    pagination?: number
-    hidden?: boolean
+    choices?: FormEntryChoice[];
+    component?: Vue;
+    dependency?: FormEntryDependency;
+    hidden?: boolean;
+    loop?: boolean;
+    name: string;
+    pagination?: number;
+    type?: 'radio' | 'select' | 'checkbox' | 'text' | string;
   }
 
   interface FormEntryChoice {
-    name: string
-    label?: string
-    plainLabel?: string
-    price?: number
-    disabled?: boolean
-    selected?: boolean
+    disabled?: boolean;
+    label?: string;
+    name: string;
+    plainLabel?: string;
+    price?: number;
+    selected?: boolean;
   }
 
   interface FormEntryDependency {
@@ -302,17 +297,19 @@ declare namespace MyParcelDeliveryOptions {
   }
 
   interface MapTileLayerData {
-    url: string
-    attribution: string
-    token?: string
-    maxZoom?: number
+    attribution: string;
+    maxZoom?: number;
+    token?: string;
+    url: string;
   }
 
   type CarrierDeliveryDependencies = Record<MyParcel.CarrierName, DeliveryDependencies>
 
   interface DeliveryDependencies {
     // ISO date string
-    deliveryDate: Record<string, { deliveryMoment: DeliveryDependencyMoments }>;
+    deliveryDate: Record<string, {
+      deliveryMoment: DeliveryDependencyMoments
+    }>;
   }
 
   type DeliveryDependencyMoments = Record<DeliveryType, DeliveryDependencyMoment>
@@ -325,21 +322,21 @@ declare namespace MyParcelDeliveryOptions {
     shipmentOptions: Record<MyParcel.ShipmentOptionName, EnumSchema<boolean>>
   }
 
-   interface DeliveryOptionsRequestParameters {
-     carrier: string;
-     cc: string;
-     cutoff_time?: string;
-     deliverydays_window?: number;
-     dropoff_days?: string;
-     dropoff_delay?: number;
-     include?: 'shipment_options';
-     monday_delivery?: boolean;
-     number: number;
-     package_type?: MyParcel.PackageType;
-     platform: MyParcel.Platform;
-     postal_code: string;
-     saturday_delivery?: boolean;
-   }
+  interface DeliveryOptionsRequestParameters {
+    carrier: MyParcel.CarrierIdentifier;
+    cc: string;
+    cutoff_time?: string;
+    deliverydays_window?: number;
+    dropoff_days?: string;
+    dropoff_delay?: number;
+    include?: 'shipment_options';
+    monday_delivery?: boolean;
+    number: number;
+    package_type?: MyParcel.PackageType;
+    platform: MyParcel.Platform;
+    postal_code: string;
+    saturday_delivery?: boolean;
+  }
 }
 
 declare module 'MyParcel' {

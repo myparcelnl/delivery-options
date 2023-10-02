@@ -23,7 +23,6 @@ const commonOptions = {
     [HEADER_ACCEPT_LANGUAGE]: 'nl-BE',
     [HEADER_USER_AGENT]: expect.stringMatching(/^MyParcelDeliveryOptions\/\d+\.\d+\.\d+$/),
   },
-
 };
 
 describe('api', () => {

@@ -1,13 +1,13 @@
 import '@myparcel/js-sdk/dist/endpoint/public/carriers';
 import '@myparcel/js-sdk/dist/endpoint/public/delivery-options';
 import '@myparcel/js-sdk/dist/endpoint/public/pickup-locations';
-import { LOCALE } from '@/data/keys/configKeys';
 import { ACCEPT_JSON, HEADER_ACCEPT, HEADER_ACCEPT_LANGUAGE, HEADER_USER_AGENT, METHOD_GET } from '../endpoints';
+import { DEFAULT_LOCALE } from '../../../data/locales/nl/config';
+import { LOCALE } from '@/data/keys/configKeys';
 import { configBus } from '@/delivery-options/config/configBus';
 import { getApiUrl } from '@/delivery-options/data/request/getApiUrl';
 import isEqual from 'lodash-es/isEqual';
 import memoize from 'lodash-es/memoize';
-import { DEFAULT_LOCALE } from '../../../data/locales/nl/config';
 
 const memoizedFetch = memoize(async function fetchFunc(definition, options = {}) {
   let response = [];
@@ -40,7 +40,13 @@ const memoizedFetch = memoize(async function fetchFunc(definition, options = {})
       },
     });
 
-    response = (await result.json()).data[definition.property ?? definition.endpoint] ?? [];
+    const json = await result.json();
+
+    if (!result.ok) {
+      throw json;
+    }
+
+    response = json.data[definition.property ?? definition.endpoint] ?? [];
   } catch (e) {
     if (!configBus) {
       return;

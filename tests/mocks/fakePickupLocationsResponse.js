@@ -1,6 +1,4 @@
-export const fakePickupLocationsResponse = jest.fn();
-
-fakePickupLocationsResponse.mockImplementation(() => [
+export const fakePickupLocationsResponse = jest.fn(() => [
   {
     address: {
       cc: 'BE',

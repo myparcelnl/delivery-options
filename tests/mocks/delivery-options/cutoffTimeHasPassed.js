@@ -1,4 +1,4 @@
-import { createCutoffTimeDate } from '@Tests/helpers/createCutoffTimeDate';
+import { createCutoffTimeDate } from '../../helpers/createCutoffTimeDate';
 
 /**
  * @param {string} cutoffTime - Timestamp in HH:mm format.

@@ -6,7 +6,7 @@ import { platformCarrierMap } from '@/config/platform/platformCarrierMap';
  * Use passed args to find a valid extra delivery day.
  *
  * @param {Object} args
- * @param {Number} dayOfWeek
+ * @param {number} dayOfWeek
  *
  * @returns {Object}
  */

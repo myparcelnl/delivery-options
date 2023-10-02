@@ -17,7 +17,7 @@ process.env.VERSION = version;
 
 const {
   NODE_ENV,
-  CLASS_BASE,
+  VUE_APP_CLASS_BASE,
   COMMIT_HASH,
   REPOSITORY_URL,
   VERSION,
@@ -42,7 +42,7 @@ module.exports = {
     extract: false,
     loaderOptions: {
       sass: {
-        additionalData: `$classBase: '${CLASS_BASE}';`,
+        additionalData: `$classBase: '${VUE_APP_CLASS_BASE}';`,
       },
     },
   },
@@ -58,7 +58,7 @@ module.exports = {
     },
     plugins: [
       new webpack.EnvironmentPlugin({
-        CLASS_BASE: CLASS_BASE,
+        CLASS_BASE: VUE_APP_CLASS_BASE,
         COMMIT_HASH: COMMIT_HASH,
         REPOSITORY_URL: REPOSITORY_URL,
         VERSION: VERSION,
