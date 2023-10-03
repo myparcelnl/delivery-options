@@ -2,7 +2,7 @@ import * as CONFIG from '@/data/keys/configKeys';
 import Pickup from '@/delivery-options/components/Pickup/Pickup';
 import { configBus } from '@/delivery-options/config/configBus';
 import { createPickupChoices } from '@/delivery-options/data/pickup/createPickupChoices';
-import { fakePickupLocationsResponse } from '@Mocks/@myparcel/js-sdk/dist/data/fakePickupLocationsResponse';
+import { fakePickupLocationsResponse } from '../../../../mocks/fakePickupLocationsResponse';
 import { fetchAllCarriers } from '@/delivery-options/data/carriers/fetchAllCarriers';
 import { mockDeliveryOptions } from '@Tests/unit/delivery-options/mockDeliveryOptions';
 import { mockVue } from '../../mockVue';

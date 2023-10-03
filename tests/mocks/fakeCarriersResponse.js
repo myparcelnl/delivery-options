@@ -106,6 +106,10 @@ const allCarrierData = [
  *
  * @returns {Object[]}
  */
-export const fakeCarriersResponse = (args) => {
-  return allCarrierData.filter(({ name }) => name === args.carrier);
+export const fakeCarriersResponse = (args = {}) => {
+  if (!args?.carrier) {
+    return allCarrierData;
+  }
+
+  return allCarrierData.filter(({ name }) => name === args?.carrier);
 };

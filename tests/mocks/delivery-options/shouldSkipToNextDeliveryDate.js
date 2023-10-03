@@ -1,7 +1,7 @@
 import { MONDAY, SATURDAY, SUNDAY } from '@/config/extraDeliveryConfig';
 import { MYPARCEL, SENDMYPARCEL } from '@/data/keys/platformKeys';
-import { cutoffTimeHasPassed } from '@Mocks/@myparcel/js-sdk/dist/data/delivery-options/cutoffTimeHasPassed';
-import { getDropOffDay } from '@Mocks/@myparcel/js-sdk/dist/data/delivery-options/getDropOffDay';
+import { cutoffTimeHasPassed } from './cutoffTimeHasPassed';
+import { getDropOffDay } from './getDropOffDay';
 
 const daysWithoutDelivery = {
   [MYPARCEL]: [MONDAY, SUNDAY],
@@ -22,7 +22,7 @@ export function shouldSkipToNextDeliveryDate(date, currentDeliveryDate, args, ex
 
   // Skip Saturday or Monday if its setting is not enabled.
   if (extraDelivery) {
-    const extraDeliveryEnabled = args[`${args.platform === MYPARCEL ? 'monday' : 'saturday'}_delivery`] === 1;
+    const extraDeliveryEnabled = Number(args[`${args.platform === MYPARCEL ? 'monday' : 'saturday'}_delivery`]) === 1;
     const isExtraDropOffDay = dropOffDay.weekday() === extraDelivery.dropOffDay;
 
     if (!extraDeliveryEnabled || !isExtraDropOffDay) {

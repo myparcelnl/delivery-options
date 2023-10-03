@@ -13,7 +13,7 @@ import {
   deliveryOptionsResponseDefault,
   deliveryOptionsResponseInvalidPostalCode,
   fakeDeliveryOptionsResponse,
-} from '@Mocks/@myparcel/js-sdk/dist/data/fakeDeliveryOptionsResponse';
+} from '../../../mocks/fakeDeliveryOptionsResponse';
 import { createWaitableMock } from '@Tests/unit/createWaitableMock';
 import { defaultAddress } from '@/data/defaultAddress';
 import { defaultConfiguration } from '@/config/defaultConfiguration';

@@ -1,7 +1,8 @@
 import * as CONFIG from '@/data/keys/configKeys';
-import { METHOD_SEARCH, fetchFromEndpoint } from '@/delivery-options/data/request/fetchFromEndpoint';
+import { ACCEPT_JSON, HEADER_ACCEPT, endpointDeliveryOptions } from '../endpoints';
 import { CarrierConfigurationFactory } from '@/data/carriers/carrierConfigurationFactory';
 import { configBus } from '@/delivery-options/config/configBus';
+import { fetchFromEndpoint } from '@/delivery-options/data/request/fetchFromEndpoint';
 import { getRequestParameters } from '@/delivery-options/data/request/getRequestParameters';
 
 /**
@@ -31,9 +32,11 @@ export function fetchDeliveryOptions(carrier = configBus.currentCarrier, platfor
     ]);
 
   return fetchFromEndpoint(
-    'delivery_options',
+    endpointDeliveryOptions,
     {
-      method: METHOD_SEARCH,
+      headers: {
+        [HEADER_ACCEPT]: `${ACCEPT_JSON};version=2.0`,
+      },
       params: {
         ...carrierAllowsPackageType ? { package_type: configBus.get(CONFIG.PACKAGE_TYPE) } : {},
         ...getRequestParameters(carrierConfiguration),
