@@ -68,7 +68,6 @@ export class DpdCarrierConfiguration extends AbstractCarrierConfiguration {
       SLOVENIA,
       SPAIN,
       SWEDEN,
-      UNITED_KINGDOM,
     ];
   }
 
@@ -92,6 +91,7 @@ export class DpdCarrierConfiguration extends AbstractCarrierConfiguration {
       SLOVAKIA,
       SLOVENIA,
       SPAIN,
+      UNITED_KINGDOM,
     ];
   }
 
