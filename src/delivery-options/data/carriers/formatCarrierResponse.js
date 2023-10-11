@@ -11,6 +11,7 @@ export const formatCarrierResponse = (response) => {
   return response.map((carrier) => ({
     id: carrier.id,
     name: carrier.name,
+    identifier: carrier.name,
     label: carrier.human,
     image: appConfig.assetsUrl + carrier.meta.logo_svg,
   }));
