@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.11.0](https://github.com/myparcelnl/delivery-options/compare/v5.10.1...v5.11.0) (2023-10-11)
+
+
+### :sparkles: New Features
+
+* **carriers:** add dpd ([#199](https://github.com/myparcelnl/delivery-options/issues/199)) ([9787b49](https://github.com/myparcelnl/delivery-options/commit/9787b49f4742c56c0e291d9e878ec7bf9473c7bd))
+
 ### [5.10.1](https://github.com/myparcelnl/delivery-options/compare/v5.10.0...v5.10.1) (2023-10-11)
 
 
