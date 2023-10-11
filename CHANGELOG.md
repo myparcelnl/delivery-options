@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [5.10.1](https://github.com/myparcelnl/delivery-options/compare/v5.10.0...v5.10.1) (2023-10-11)
+
+
+### :bug: Bug Fixes
+
+* remove double slash from api urls ([#198](https://github.com/myparcelnl/delivery-options/issues/198)) ([381f71a](https://github.com/myparcelnl/delivery-options/commit/381f71ab969e487e261354eb062906fbe8b0ff7c))
+* **sandbox:** fix carrier options ([30fc997](https://github.com/myparcelnl/delivery-options/commit/30fc99730bfd394e2c0053bcd747a19e6843153b))
+
 ## [5.10.0](https://github.com/myparcelnl/delivery-options/compare/v5.9.3...v5.10.0) (2023-09-26)
 
 
