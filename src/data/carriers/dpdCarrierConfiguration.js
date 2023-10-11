@@ -30,7 +30,7 @@ import {
 import { CITY, POSTAL_CODE, STREET } from '../keys/addressKeys';
 import { AbstractCarrierConfiguration } from '@/data/carriers/abstractCarrierConfiguration';
 import { DPD } from '../keys/carrierKeys';
-import { SENDMYPARCEL } from '@/data/keys/platformKeys';
+import { MYPARCEL, SENDMYPARCEL } from '@/data/keys/platformKeys';
 
 export class DpdCarrierConfiguration extends AbstractCarrierConfiguration {
   getName() {
@@ -97,6 +97,13 @@ export class DpdCarrierConfiguration extends AbstractCarrierConfiguration {
 
   getFeatures() {
     return {
+      [MYPARCEL]: [
+        FEATURES.FEATURES_DELIVERY,
+        FEATURES.FEATURES_PICKUP,
+        FEATURES.FEATURES_DROP_OFF_DAYS,
+        FEATURES.FEATURES_DROP_OFF_DELAY,
+        FEATURES.FEATURES_CUTOFF_TIME,
+      ],
       [SENDMYPARCEL]: [
         FEATURES.FEATURES_DELIVERY,
         FEATURES.FEATURES_PICKUP,

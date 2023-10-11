@@ -398,9 +398,46 @@ Object {
         "cutoffTime",
       ],
     ],
+    "myparcel": Array [
+      Array [
+        "allowDeliveryOptions",
+        "priceStandardDelivery",
+      ],
+      Array [
+        "allowPickupLocations",
+        "pricePickup",
+      ],
+      Array [
+        "dropOffDays",
+      ],
+      Array [
+        "dropOffDelay",
+      ],
+      Array [
+        "cutoffTime",
+      ],
+    ],
   },
   "name": "dpd",
-  "platformFeatures": Array [],
+  "platformFeatures": Array [
+    Array [
+      "allowDeliveryOptions",
+      "priceStandardDelivery",
+    ],
+    Array [
+      "allowPickupLocations",
+      "pricePickup",
+    ],
+    Array [
+      "dropOffDays",
+    ],
+    Array [
+      "dropOffDelay",
+    ],
+    Array [
+      "cutoffTime",
+    ],
+  ],
 }
 `;
 
