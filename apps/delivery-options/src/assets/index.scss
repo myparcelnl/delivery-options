@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+$dhl-color: #FFCB01;
+
+$carriers: (
+  bpost: #EF2637,
+  dhl: $dhl-color,
+  dhleuroplus: $dhl-color,
+  dhlforyou: $dhl-color,
+  dhlparcelconnect: $dhl-color,
+  dpd: #DC0032,
+  postnl: #ED8C00,
+  ups: #300,
+);

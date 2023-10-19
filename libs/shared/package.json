@@ -1,0 +1,38 @@
+{
+  "name": "@myparcel-do/shared",
+  "version": "6.0.0-alpha.1",
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/myparcelnl/delivery-options.git",
+    "directory": "libs/shared"
+  },
+  "license": "MIT",
+  "sideEffects": false,
+  "type": "module",
+  "exports": "./src/index.ts",
+  "main": "./src/index.ts",
+  "module": "./src/index.ts",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "./src",
+    "./dist"
+  ],
+  "dependencies": {
+    "@myparcel/constants": "^1.1.1"
+  },
+  "scripts": {
+    "build": "run ws:vue:build \"$(pwd)\"",
+    "clean": "run ws:clean \"$(pwd)\"",
+    "lint": "run ws:lint \"$(pwd)\"",
+    "lint:fix": "run ws:lint:fix \"$(pwd)\"",
+    "test": "run ws:test \"$(pwd)\"",
+    "test:coverage": "run ws:test:coverage \"$(pwd)\"",
+    "test:run": "run ws:test:run \"$(pwd)\"",
+    "test:update": "run ws:test:update \"$(pwd)\"",
+    "typecheck": "run ws:vue:typecheck \"$(pwd)\""
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

@@ -1,6 +1,7 @@
 {
-  "name": "@myparcel/delivery-options",
-  "version": "5.11.0",
+  "name": "@myparcel-do/monorepo",
+  "version": "6.0.0-alpha.1",
+  "private": true,
   "description": "MyParcel delivery options module for checkouts.",
   "homepage": "https://myparcelnl.github.io/delivery-options",
   "repository": {
@@ -9,90 +10,79 @@
   },
   "license": "MIT",
   "author": "Edie Lemoine <edie@myparcel.nl>",
+  "type": "module",
   "main": "dist/myparcel.js",
   "types": "types/index.d.ts",
   "directories": {
     "test": "tests"
   },
-  "files": [
-    "types/index.d.ts",
-    "dist/myparcel.js",
-    "dist/myparcel.lib.js",
-    "types",
-    "index.d.ts"
+  "workspaces": [
+    "apps/*",
+    "libs/*"
   ],
   "scripts": {
-    "build": "vue-cli-service build",
-    "build:dev": "vue-cli-service build --mode development",
-    "prepare": "is-ci || husky install",
-    "serve": "vue-cli-service serve",
-    "serve-bare": "vue-cli-service serve src/delivery-options/main.js",
-    "serve-bare:test": "vue-cli-service serve src/delivery-options/main.js --mode test",
-    "serve:prod": "vue-cli-service build --dest local && serve -s local",
-    "test:log": "jest --json --outputFile='tests/jest-log.json'",
-    "test:unit": "vue-cli-service test:unit",
-    "test:watch": "jest --watch"
+    "build": "nx run-many -t build",
+    "build:dev": "nx run-many -t build:dev",
+    "clean": "nx run-many -t clean --parallel=99",
+    "lint": "nx affected -t lint --output-style=stream",
+    "lint:fix": "nx affected -t lint:fix --output-style=stream",
+    "prepare": "echo 'prepare' && (is-ci || husky install)",
+    "serve": "nx run-many -t serve --parallel=99",
+    "test": "nx run-many -t test --parallel=99 --output-style=stream",
+    "test:affected": "nx affected -t test:run --output-style=stream",
+    "test:coverage": "nx run-many -t test:coverage --output-style=stream",
+    "test:run": "nx run-many -t test:run --output-style=stream",
+    "test:update": "nx run-many -t test:update --output-style=stream",
+    "typecheck": "nx run-many -t typecheck",
+    "ws:clean": "cd $0 && rimraf dist coverage .eslintcache tsconfig.build.tsbuildinfo",
+    "ws:lint": "eslint --cache $0",
+    "ws:lint:fix": "eslint --cache --fix $0",
+    "ws:test": "cd $0 && vitest --passWithNoTests",
+    "ws:test:coverage": "cd $0 && vitest run --coverage --passWithNoTests",
+    "ws:test:run": "cd $0 && vitest run --passWithNoTests",
+    "ws:test:update": "cd $0 && vitest run -u --passWithNoTests",
+    "ws:ts:build": "cd $0 && tsc --project tsconfig.base.json --emitDeclarationOnly --declarationDir dist",
+    "ws:ts:typecheck": "cd $0 && tsc --project tsconfig.base.json --noEmit",
+    "ws:vue:build": "cd $0 && vue-tsc --project tsconfig.base.json --emitDeclarationOnly --declarationDir dist",
+    "ws:vue:typecheck": "cd $0 && vue-tsc --project tsconfig.base.json --noEmit"
   },
   "lint-staged": {
-    "*.{js,vue}": "eslint --fix",
-    "package.json": "npx -q sort-package-json"
+    "*.{json,md,yml}": "prettier --write",
+    "*.{ts,vue,js,cjs,mjs}": "yarn run ws:lint:fix",
+    "package.json": "npx sort-package-json"
   },
-  "dependencies": {
-    "@fortawesome/free-solid-svg-icons": "^5.15.4",
-    "@myparcel/js-sdk": "^2.0.3",
-    "core-js": "^3.26.0",
-    "custom-event-polyfill": "^1.0.7",
-    "is-ci": "^3.0.1",
-    "lodash-es": "^4.17.21",
-    "raw-loader": "^4.0.2",
-    "vue": "~2.6.13",
-    "vue-async-computed": "^3.9.0",
-    "vue-click-outside": "^1.1.0",
-    "vue-fa": "^2.0.1"
+  "prettier": "@myparcel/prettier-config",
+  "resolutions": {
+    "eslint-plugin-prettier": "^4.2.1"
   },
   "devDependencies": {
-    "@commitlint/cli": "^16.3.0",
-    "@commitlint/config-conventional": "^16.2.4",
-    "@myparcel/eslint-config": "^3.6.2",
-    "@myparcel/semantic-release-config": "^1.4.0",
-    "@testing-library/jest-dom": "^5.16.5",
-    "@types/jest": "^27.5.2",
-    "@types/leaflet": "^1.9.0",
-    "@types/webpack": "^4.41.33",
-    "@vue/cli-plugin-babel": "^4.5.19",
-    "@vue/cli-plugin-unit-jest": "^4.5.19",
-    "@vue/cli-service": "^4.5.19",
-    "@vue/test-utils": "^1.3.0",
-    "@vue/web-component-wrapper": "^1.3.0",
-    "babel-jest": "^27.5.1",
-    "babel-plugin-intl": "^0.1.1",
-    "bootstrap-vue": "~2.21.2",
-    "bundlewatch": "^0.3.3",
-    "cross-env": "^7.0.3",
-    "dayjs": "^1.11.6",
-    "full-icu": "^1.5.0",
-    "highlight.js": "^11.6.0",
-    "husky": "^8.0.1",
-    "jest": "^29.2.2",
-    "lint-staged": "^13.0.3",
-    "mockdate": "^3.0.5",
-    "node-fetch": "^3.3.2",
-    "node-gyp": "^9.3.1",
-    "sass": "^1.55.0",
-    "sass-loader": "^10.3.1",
-    "vue-cli-plugin-multi-compiler": "^0.1.0",
-    "vue-i18n": "^8.27.2",
-    "vue-svg-loader": "^0.16.0",
-    "vue-template-compiler": "~2.6.14",
-    "vuex": "^3.6.2",
-    "webpack": "^4.46.0"
+    "@myparcel-eslint/eslint-config-esnext": "^1.3.0",
+    "@myparcel-eslint/eslint-config-import": "^1.2.0",
+    "@myparcel-eslint/eslint-config-node": "^1.3.0",
+    "@myparcel-eslint/eslint-config-prettier": "^1.3.0",
+    "@myparcel-eslint/eslint-config-prettier-typescript": "^1.3.0",
+    "@myparcel-eslint/eslint-config-prettier-typescript-vue": "^1.3.0",
+    "@myparcel/semantic-release-config": "^5.0.0",
+    "@semantic-release/exec": "^6.0.3",
+    "@semantic-release/github": "^9.2.3",
+    "@types/node": "^20.9.0",
+    "@vue/tsconfig": "^0.4.0",
+    "array.prototype.flatmap": "^1.3.0",
+    "conventional-changelog-conventionalcommits": "^7.0.0",
+    "eslint": "^8.53.0",
+    "eslint-plugin-sort-exports": "^0.8.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.0.0",
+    "nx": "^17.1.0",
+    "nx-cloud": "^16.5.0",
+    "prettier": "^2.0.0",
+    "rimraf": "^5.0.0",
+    "semantic-release": "^22.0.7",
+    "typescript": "^5.2.0"
   },
-  "packageManager": "yarn@3.4.1",
+  "packageManager": "yarn@4.0.1",
   "volta": {
-    "node": "16.20.0"
-  },
-  "publishConfig": {
-    "access": "public"
+    "node": "20.9.0"
   },
   "bundlewatch": {
     "ci": {
@@ -104,10 +94,7 @@
     },
     "files": [
       {
-        "path": "dist/myparcel.js"
-      },
-      {
-        "path": "dist/myparcel.lib.js"
+        "path": "apps/delivery-options/dist/*.js"
       }
     ]
   }

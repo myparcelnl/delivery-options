@@ -1,0 +1,60 @@
+{
+  "name": "@myparcel/delivery-options",
+  "version": "6.0.0-alpha.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/myparcelnl/js-pdk.git",
+    "directory": "apps/delivery-options"
+  },
+  "license": "MIT",
+  "sideEffects": false,
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "types": "./dist/index.d.ts"
+    },
+    "./ts": {
+      "import": "./src/index.ts",
+      "require": "./src/index.ts",
+      "types": "./src/index.d.ts"
+    }
+  },
+  "types": "./dist/index.d.ts",
+  "files": [
+    "./src",
+    "./dist"
+  ],
+  "scripts": {
+    "build": "run build:default && run build:lib",
+    "build:default": "vite build",
+    "build:lib": "vite build -c vite-lib.config.ts",
+    "clean": "run ws:clean \"$(pwd)\"",
+    "lint": "run ws:lint \"$(pwd)\"",
+    "lint:fix": "run ws:lint:fix \"$(pwd)\"",
+    "test": "run ws:test \"$(pwd)\"",
+    "test:coverage": "run ws:test:coverage \"$(pwd)\"",
+    "test:run": "run ws:test:run \"$(pwd)\"",
+    "test:update": "run ws:test:update \"$(pwd)\"",
+    "typecheck": "vue-tsc --project tsconfig.base.json --noEmit"
+  },
+  "dependencies": {
+    "@myparcel/constants": "^1.1.0",
+    "@myparcel/sdk": "^3.0.0",
+    "@myparcel/vue-form-builder": "^1.0.0-beta.17",
+    "@vueuse/core": "^10.0.0",
+    "vue": "^3.3.0"
+  },
+  "devDependencies": {
+    "@myparcel-do/build-vite": "workspace:*",
+    "@myparcel-do/shared": "workspace:*",
+    "@vue/test-utils": "^2.4.0",
+    "@vue/tsconfig": "^0.1.0",
+    "typescript": "^5.2.0",
+    "vite-plugin-custom-tsconfig": "^1.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

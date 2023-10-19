@@ -1,0 +1,119 @@
+{
+  "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "npmScope": "myparcel-do",
+  "affected": {
+    "defaultBase": "alpha"
+  },
+  "defaultBase": "alpha",
+  "namedInputs": {
+    "default": [
+      "{workspaceRoot}/tsconfig.*.json",
+      "{projectRoot}/*.cjs",
+      "{projectRoot}/*.js",
+      "{projectRoot}/*.mjs",
+      "{projectRoot}/*.ts",
+      "{projectRoot}/package.json",
+      "{projectRoot}/src/**/*",
+      "{projectRoot}/tsconfig.*.json"
+    ],
+    "prod": [
+      "default",
+      "!{projectRoot}/**/*.snap",
+      "!{projectRoot}/**/*.spec.*",
+      "!{projectRoot}/**/*.test.*",
+      "!{projectRoot}/**/__mocks__/**/*",
+      "!{projectRoot}/**/__tests__/**/*"
+    ],
+    "test": [
+      "default",
+      "{projectRoot}/**/*.snap",
+      "{projectRoot}/**/*.spec.*",
+      "{projectRoot}/**/*.test.*",
+      "{projectRoot}/**/__mocks__/**/*",
+      "{projectRoot}/**/__tests__/**/*"
+    ],
+    "lint": [
+      "test",
+      "{workspaceRoot}/.eslintignore",
+      "{workspaceRoot}/.eslintrc.cjs"
+    ],
+    "production": [
+      "default",
+      "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
+      "!{projectRoot}/tsconfig.spec.json"
+    ]
+  },
+  "targetDefaults": {
+    "build": {
+      "inputs": ["prod", "^prod"],
+      "dependsOn": ["^build"],
+      "outputs": [
+        "{projectRoot}/dist",
+        "{projectRoot}/tsconfig.build.tsbuildinfo"
+      ]
+    },
+    "build:dev": {
+      "inputs": ["prod", "^prod"],
+      "dependsOn": ["^build:dev"],
+      "outputs": [
+        "{projectRoot}/dist",
+        "{projectRoot}/tsconfig.build.tsbuildinfo"
+      ]
+    },
+    "lint": {
+      "inputs": ["lint"],
+      "outputs": ["{projectRoot}/.eslintcache"]
+    },
+    "lint:fix": {
+      "inputs": ["lint"],
+      "outputs": ["{projectRoot}/.eslintcache", "{projectRoot}/src/**/*"]
+    },
+    "test:coverage": {
+      "inputs": ["test"],
+      "dependsOn": ["^build", "^test:coverage"],
+      "outputs": ["{projectRoot}/coverage"]
+    },
+    "test:run": {
+      "dependsOn": ["^build", "^test:run"],
+      "inputs": ["test"]
+    },
+    "test:update": {
+      "inputs": ["test"],
+      "dependsOn": ["^build", "^test:update"],
+      "outputs": ["{projectRoot}/src/__tests__/__snapshots__"]
+    },
+    "@nx/vite:test": {
+      "cache": true,
+      "inputs": ["default", "^production"]
+    }
+  },
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "nx/tasks-runners/default",
+      "options": {
+        "parallel": 10,
+        "cacheableOperations": [
+          "build",
+          "build:dev",
+          "lint",
+          "lint:fix",
+          "test:run",
+          "test:update",
+          "test:coverage"
+        ]
+      }
+    },
+    "cloud": {
+      "runner": "nx-cloud",
+      "options": {
+        "parallel": 10,
+        "cacheableOperations": ["build", "test:coverage"],
+        "accessToken": "ZDk5NTE5ZWItMmYxYy00ZjNmLThjMzItMmM0MjIwZTU1M2Y3fHJlYWQtd3JpdGU="
+      }
+    }
+  },
+  "workspaceLayout": {
+    "appsDir": "apps",
+    "libsDir": "libs"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "extends": "@vue/tsconfig/tsconfig.dom.json",
+  "compilerOptions": {
+    "declaration": true,
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "moduleResolution": "Node",
+    "noEmitOnError": false,
+    "types": ["node", "vite/client"]
+  },
+  "include": ["./types/*.d.ts"],
+  "exclude": [
+    "**/node_modules/**/*",
+    "**/dist",
+    "**/cypress/**/*",
+    "**/__tests__/*",
+    "**/*.spec.*"
+  ]
+}
