@@ -4,10 +4,6 @@ import { createCarrierData } from '@/delivery-options/data/carriers/createCarrie
 import { fetchCarrierData } from '@/delivery-options/data/carriers/fetchCarrierData';
 import { fetchMultiple } from '@/delivery-options/data/request/fetchMultiple';
 import { resolveCarrierName } from './resolveCarrierName';
-import { CarrierConfigurationFactory } from '@/data/carriers/carrierConfigurationFactory';
-import { carrierCanOnlyHaveSameDayDelivery } from '@/helpers/delivery/carrierCanOnlyHaveSameDayDelivery';
-import { isPastSameDayCutoffTime } from '@/helpers/delivery/isPastSameDayCutoffTime';
-import * as CONFIG from '@/data/keys/configKeys';
 
 /**
  * Fetch all carrier information, based on the carriers in config.carrierSettings.
