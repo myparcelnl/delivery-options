@@ -309,6 +309,7 @@ export default {
       this.$configBus.modalData = {};
 
       await fetchAllCarriers();
+      this.$configBus.setAdvancedCarrierData();
       this.createForm();
 
       this.loading = false;

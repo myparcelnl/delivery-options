@@ -32,25 +32,5 @@ export async function fetchAllCarriers() {
   // Set the first carrier to currentCarrier
   configBus.currentCarrier = configBus.carrierData.length ? configBus.carrierData[0].identifier : null;
 
-  configBus.carrierDataWithPickupLocations = configBus.carrierData.filter((carrier) => {
-    const carrierConfiguration = CarrierConfigurationFactory.create(carrier.identifier);
-
-    return carrier.pickupEnabled && carrierConfiguration.allowsPickupIn(configBus.address.cc);
-  });
-
-  configBus.carrierDataWithDeliveryOptions = configBus.carrierData.filter((carrier) => {
-    const carrierConfiguration = CarrierConfigurationFactory.create(carrier.identifier);
-
-    if (carrierCanOnlyHaveSameDayDelivery(carrier.identifier) && isPastSameDayCutoffTime(carrier.identifier)) {
-      // We don't have a carrier with only same-day delivery at the moment, so this won't be covered.
-      /* istanbul ignore next */
-      return false;
-    }
-
-    return carrier.deliveryEnabled
-            && carrierConfiguration.allowsDeliveryIn(configBus.address.cc)
-            && carrierConfiguration.allowsPackageTypeIn(configBus.get(CONFIG.PACKAGE_TYPE), configBus.address.cc);
-  });
-
   return configBus;
 }
