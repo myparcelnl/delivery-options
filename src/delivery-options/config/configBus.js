@@ -400,32 +400,6 @@ export const createConfigBus = (eventCallee = null) => {
 
         this.values[FORM.CARRIER] = this.currentCarrier;
       },
-
-      /**
-       * Set the advanced carrier data. This is not done when fetching carriers because this can change based on the
-       *  entered address.
-       */
-      setAdvancedCarrierData() {
-        this.carrierDataWithPickupLocations = this.carrierData.filter((carrier) => {
-          const carrierConfiguration = CarrierConfigurationFactory.create(carrier.identifier);
-
-          return carrier.pickupEnabled && carrierConfiguration.allowsPickupIn(this.address.cc);
-        });
-
-        this.carrierDataWithDeliveryOptions = this.carrierData.filter((carrier) => {
-          const carrierConfiguration = CarrierConfigurationFactory.create(carrier.identifier);
-
-          if (carrierCanOnlyHaveSameDayDelivery(carrier.identifier) && isPastSameDayCutoffTime(carrier.identifier)) {
-            // We don't have a carrier with only same-day delivery at the moment, so this won't be covered.
-            /* istanbul ignore next */
-            return false;
-          }
-
-          return carrier.deliveryEnabled
-            && carrierConfiguration.allowsDeliveryIn(this.address.cc)
-            && carrierConfiguration.allowsPackageTypeIn(this.get(CONFIG.PACKAGE_TYPE), this.address.cc);
-        });
-      },
     },
   });
 

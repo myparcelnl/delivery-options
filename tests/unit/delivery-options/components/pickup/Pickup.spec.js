@@ -18,7 +18,6 @@ describe('Pickup.vue', () => {
     });
 
     await fetchAllCarriers();
-    configBus.setAdvancedCarrierData();
 
     const choices = await createPickupChoices();
     wrapper = mockDeliveryOptions(null, {
