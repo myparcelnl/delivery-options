@@ -299,17 +299,19 @@ export default {
         return;
       }
 
+      await this.load();
+    },
+
+    async load() {
+      this.loading = true;
+
       this.$configBus.showModal = false;
       this.$configBus.modalData = {};
 
-      if (!this.$configBus.carrierData.length || addressChanged) {
-        this.loading = true;
-        await fetchAllCarriers();
-      }
-
+      await fetchAllCarriers();
       this.$configBus.setAdvancedCarrierData();
-
       this.createForm();
+
       this.loading = false;
     },
 
