@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [5.11.1](https://github.com/myparcelnl/delivery-options/compare/v5.11.0...v5.11.1) (2023-10-30)
+
+
+### :bug: Bug Fixes
+
+* fix config change not reloading carriers ([#201](https://github.com/myparcelnl/delivery-options/issues/201)) ([b835d08](https://github.com/myparcelnl/delivery-options/commit/b835d080077fec305843735761e76c90e75cfbdf))
+
 ## [5.11.0](https://github.com/myparcelnl/delivery-options/compare/v5.10.1...v5.11.0) (2023-10-11)
 
 
