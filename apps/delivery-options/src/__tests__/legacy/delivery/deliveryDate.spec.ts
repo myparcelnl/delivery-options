@@ -1,16 +1,22 @@
-import * as CONFIG from '@/data/keys/configKeys';
-import { BPOST, DPD, POSTNL } from '@/data/keys/carrierKeys';
-import { MYPARCEL, SENDMYPARCEL } from '@/data/keys/platformKeys';
-import { UPDATED_DELIVERY_OPTIONS } from '@/config/eventConfig';
-import { mockDeliveryOptions } from '@Tests/unit/delivery-options/mockDeliveryOptions';
-import { waitForEvent } from '@Tests/waitForEvent';
+import {describe, expect, it} from 'vitest';
+import {
+  BPOST,
+  CONFIG,
+  DPD,
+  KEY_CONFIG,
+  MYPARCEL,
+  POSTNL,
+  SENDMYPARCEL,
+  UPDATED_DELIVERY_OPTIONS,
+} from '@myparcel-do/shared';
+import {mockDeliveryOptions} from '../mockDeliveryOptions';
 
 describe('delivery date', () => {
-  it('exposes delivery date by default', async() => {
+  it('exposes delivery date by default', async () => {
     expect.assertions(1);
 
     mockDeliveryOptions({
-      [CONFIG.KEY]: {
+      [KEY_CONFIG]: {
         [CONFIG.PLATFORM]: MYPARCEL,
         [CONFIG.CARRIER_SETTINGS]: {
           [POSTNL]: {
@@ -24,11 +30,11 @@ describe('delivery date', () => {
     expect(event.detail.date).not.toBeNull();
   });
 
-  it('does not expose delivery date when it\'s turned off', async() => {
+  it("does not expose delivery date when it's turned off", async () => {
     expect.assertions(1);
 
     mockDeliveryOptions({
-      [CONFIG.KEY]: {
+      [KEY_CONFIG]: {
         [CONFIG.PLATFORM]: MYPARCEL,
         [CONFIG.FEATURE_SHOW_DELIVERY_DATE]: false,
         [CONFIG.CARRIER_SETTINGS]: {
@@ -43,11 +49,11 @@ describe('delivery date', () => {
     expect(event.detail.date).toBeNull();
   });
 
-  it('hides delivery date when requested', async() => {
+  it('hides delivery date when requested', async () => {
     expect.assertions(3);
 
     const wrapper = mockDeliveryOptions({
-      [CONFIG.KEY]: {
+      [KEY_CONFIG]: {
         [CONFIG.PLATFORM]: SENDMYPARCEL,
         [CONFIG.DELIVERY_DAYS_WINDOW]: 1,
         [CONFIG.FEATURE_SHOW_DELIVERY_DATE]: true,

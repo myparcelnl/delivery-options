@@ -7,24 +7,21 @@
     <CNumber
       ref="input"
       v-model="mutableValue"
-      :min="-20"
+      :formatter="formatter"
       :max="20"
+      :min="-20"
       :step="0.01"
       lazy-formatter
-      :formatter="formatter"
       v-bind="filteredProps" />
   </component>
 </template>
 
-<script>
-import CNumber from '@/sandbox/components/form/CNumber';
-import { formCurrencyInput } from '@/sandbox/services/mixins/formCurrencyInput';
+<script lang="ts">
+import CNumber from './CNumber.vue';
 
 export default {
   name: 'CCurrency',
-  components: { CNumber },
-  mixins: [
-    formCurrencyInput,
-  ],
+  components: {CNumber},
+  mixins: [formCurrencyInput],
 };
 </script>

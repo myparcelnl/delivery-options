@@ -1,8 +1,7 @@
-import * as FORM from '@/config/formConfig';
-import { ExportValues } from '@/delivery-options/config/exports/ExportValues';
-import { PICKUP_STANDARD } from '@/config/formConfig';
-import { configBus } from '@/delivery-options/config/configBus';
-import { getPickupDate } from '@/delivery-options/data/pickup/getPickupDate';
+import {CARRIER, PICKUP_LOCATION, PICKUP_MOMENT, PICKUP_STANDARD} from '@myparcel-do/shared';
+import {configBus} from '../configBus';
+import {getPickupDate} from '../../data';
+import {ExportValues} from './ExportValues';
 
 export class PickupExportValues extends ExportValues {
   /**
@@ -15,21 +14,15 @@ export class PickupExportValues extends ExportValues {
    */
   pickupLocation;
 
-  update(values) {
-    this.setCarrier(values[FORM.CARRIER]);
-    this.setDeliveryType(values[FORM.PICKUP_MOMENT]);
-    this.setPickupLocation(values);
-  }
-
   /**
    * Set pickup location and moment, but only after they're both selected.
    *
    * @param {Object} values
    */
   setPickupLocation(values) {
-    values[FORM.PICKUP_MOMENT] ??= PICKUP_STANDARD;
+    values[PICKUP_MOMENT] ??= PICKUP_STANDARD;
 
-    const pickupLocationName = values[FORM.PICKUP_LOCATION];
+    const pickupLocationName = values[PICKUP_LOCATION];
 
     if (!pickupLocationName) {
       return;
@@ -53,7 +46,7 @@ export class PickupExportValues extends ExportValues {
      * Take out the possibilities array to use it to get the deliveryDate, but don't add it to the exportValues.
      * Also remove carrier from the pickupLocation object because it's already set in exportValues.carrier.
      */
-    const { carrier, possibilities, ...pickupLocation } = foundLocation;
+    const {carrier, possibilities, ...pickupLocation} = foundLocation;
 
     this.deliveryDate = getPickupDate(possibilities);
     this.pickupLocation = pickupLocation;
@@ -67,5 +60,11 @@ export class PickupExportValues extends ExportValues {
       deliveryType: this.deliveryType,
       pickupLocation: this.pickupLocation,
     };
+  }
+
+  update(values) {
+    this.setCarrier(values[CARRIER]);
+    this.setDeliveryType(values[PICKUP_MOMENT]);
+    this.setPickupLocation(values);
   }
 }

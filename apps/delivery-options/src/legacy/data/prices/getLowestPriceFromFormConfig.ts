@@ -1,16 +1,12 @@
-import * as CONFIG from '@/data/keys/configKeys';
-import { configBus as realConfigBus } from '@/delivery-options/config/configBus';
+import {CONFIG} from '@myparcel-do/shared';
+import {type CarrierName} from '@myparcel/constants';
 
 /**
  * Finds the lowest price from a form config. Ignores options that are not enabled.
  *
- * @param {MyParcelDeliveryOptions.FormConfig} config - Names of price settings.
- * @param {MyParcel.CarrierName} carrierName
- * @param {import('@/delivery-options/config/configBus')} configBus - Optional parameter for easier testing.
  *
- * @returns {number}
  */
-export function getLowestPriceFromFormConfig(config, carrierName = null, configBus = realConfigBus) {
+export const getLowestPriceFromFormConfig = (config, carrierName?: CarrierName, configBus = realConfigBus): number => {
   const carriers = carrierName ? [carrierName] : Object.keys(configBus.get(CONFIG.CARRIER_SETTINGS));
 
   const prices = carriers
@@ -33,4 +29,4 @@ export function getLowestPriceFromFormConfig(config, carrierName = null, configB
   }
 
   return Math.min(...prices);
-}
+};

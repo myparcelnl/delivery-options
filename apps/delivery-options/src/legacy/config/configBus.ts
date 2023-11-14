@@ -1,20 +1,9 @@
 /* eslint-disable max-lines-per-function */
-import * as CONFIG from '@/data/keys/configKeys';
-import * as EVENTS from '@/config/eventConfig';
-import * as FORM from '@/config/formConfig';
-import { CarrierConfigurationFactory } from '@/data/carriers/carrierConfigurationFactory';
-import { DeliveryExportValues } from '@/delivery-options/config/exports/DeliveryExportValues';
-import { PickupExportValues } from '@/delivery-options/config/exports/PickupExportValues';
-import Vue from 'vue';
-import { carrierCanOnlyHaveSameDayDelivery } from '@/helpers/delivery/carrierCanOnlyHaveSameDayDelivery';
-import debounce from 'lodash-es/debounce';
-import { getConfig } from '@/delivery-options/config/getConfig';
-import { getWeekdays } from '@/helpers/getWeekdays';
-import { hasFilterableValue } from '@/delivery-options/config/hasFilterableValue';
-import isObject from 'lodash-es/isObject';
-import { isPastSameDayCutoffTime } from '@/helpers/delivery/isPastSameDayCutoffTime';
-import { settingHasCarrierOverride } from '@/delivery-options/config/settingHasCarrierOverride';
-import { settingHasCountryOverride } from '@/delivery-options/config/settingHasCountryOverride';
+import {isObject} from '@vueuse/core';
+import {CARRIER, CONFIG, EVENTS, getCarrierConfiguration, PICKUP_LOCATION} from '@myparcel-do/shared';
+import {settingHasCountryOverride} from './settingHasCountryOverride';
+import {hasFilterableValue} from './hasFilterableValue';
+import {getConfig} from './getConfig';
 
 /**
  * The config bus to be used throughout the application. It's filled with `createConfigBus()`, otherwise the entire
@@ -180,11 +169,9 @@ export const createConfigBus = (eventCallee = null) => {
        * Send an event when the address changes for any external code to listen to.
        */
       address: {
-        handler: debounce(
-          function updatedAddress() {
-            document.dispatchEvent(new Event(EVENTS.UPDATED_ADDRESS));
-          }, UPDATED_ADDRESS_DEBOUNCE_DELAY,
-        ),
+        handler: debounce(function updatedAddress() {
+          document.dispatchEvent(new Event(EVENTS.UPDATED_ADDRESS));
+        }, UPDATED_ADDRESS_DEBOUNCE_DELAY),
 
         deep: true,
       },
@@ -265,7 +252,7 @@ export const createConfigBus = (eventCallee = null) => {
        */
       isEnabled(option, key = null, carrier = null) {
         if (typeof option === 'string') {
-          option = { enabled: option };
+          option = {enabled: option};
         }
 
         if (!option.hasOwnProperty('enabled')) {
@@ -273,6 +260,7 @@ export const createConfigBus = (eventCallee = null) => {
         }
 
         const optionValue = this.get(option, key ?? 'enabled', carrier);
+
         if (isObject(optionValue) && settingHasCountryOverride(option[key ?? 'enabled'])) {
           return hasFilterableValue(optionValue, this.address.cc);
         }
@@ -315,9 +303,9 @@ export const createConfigBus = (eventCallee = null) => {
       isEnabledInAnyCarrier(option) {
         const carrierSettings = this.get(CONFIG.CARRIER_SETTINGS);
 
-        return Object
-          .keys(carrierSettings)
-          .some((carrierIdentifier) => this.isEnabled(option, null, carrierIdentifier));
+        return Object.keys(carrierSettings).some((carrierIdentifier) =>
+          this.isEnabled(option, null, carrierIdentifier),
+        );
       },
 
       /**
@@ -347,9 +335,12 @@ export const createConfigBus = (eventCallee = null) => {
        * @param {string} obj.name - Name of the setting that was updated.
        * @param {any} obj.value - Setting value.
        */
-      updateExternalData({ name, value }) {
+      updateExternalData({name, value}) {
         this.values[name] = value;
-        this.updateCurrentCarrier({ name, value });
+        this.updateCurrentCarrier({
+          name,
+          value,
+        });
 
         let values;
         switch (this.getValue(FORM.DELIVERY)) {
@@ -374,7 +365,10 @@ export const createConfigBus = (eventCallee = null) => {
         // Using $nextTick to emit event after this function is done.
         // @see https://forum.vuejs.org/t/do-something-after-emit-has-finished-successful/10663/10
         this.$nextTick().then(() => {
-          this.$emit(EVENTS.AFTER_UPDATE, { name, value });
+          this.$emit(EVENTS.AFTER_UPDATE, {
+            name,
+            value,
+          });
         });
       },
 
@@ -385,10 +379,10 @@ export const createConfigBus = (eventCallee = null) => {
        * @param {string} obj.name - Setting that changed.
        * @param {MyParcel.CarrierName | number} obj.value - New carrier or pickup location id.
        */
-      updateCurrentCarrier({ name, value }) {
-        if (FORM.CARRIER === name) {
+      updateCurrentCarrier({name, value}) {
+        if (CARRIER === name) {
           this.currentCarrier = value;
-        } else if (FORM.PICKUP_LOCATION === name) {
+        } else if (PICKUP_LOCATION === name) {
           const foundPickupLocation = this.pickupLocations.find((pickupLocation) => {
             return pickupLocation.location_code === value;
           });
@@ -398,7 +392,7 @@ export const createConfigBus = (eventCallee = null) => {
           }
         }
 
-        this.values[FORM.CARRIER] = this.currentCarrier;
+        this.values[CARRIER] = this.currentCarrier;
       },
 
       /**
@@ -407,13 +401,13 @@ export const createConfigBus = (eventCallee = null) => {
        */
       setAdvancedCarrierData() {
         this.carrierDataWithPickupLocations = this.carrierData.filter((carrier) => {
-          const carrierConfiguration = CarrierConfigurationFactory.create(carrier.identifier);
+          const carrierConfiguration = getCarrierConfiguration(carrier.identifier);
 
           return carrier.pickupEnabled && carrierConfiguration.allowsPickupIn(this.address.cc);
         });
 
         this.carrierDataWithDeliveryOptions = this.carrierData.filter((carrier) => {
-          const carrierConfiguration = CarrierConfigurationFactory.create(carrier.identifier);
+          const carrierConfiguration = getCarrierConfiguration(carrier.identifier);
 
           if (carrierCanOnlyHaveSameDayDelivery(carrier.identifier) && isPastSameDayCutoffTime(carrier.identifier)) {
             // We don't have a carrier with only same-day delivery at the moment, so this won't be covered.
@@ -421,9 +415,11 @@ export const createConfigBus = (eventCallee = null) => {
             return false;
           }
 
-          return carrier.deliveryEnabled
-            && carrierConfiguration.allowsDeliveryIn(this.address.cc)
-            && carrierConfiguration.allowsPackageTypeIn(this.get(CONFIG.PACKAGE_TYPE), this.address.cc);
+          return (
+            carrier.deliveryEnabled &&
+            carrierConfiguration.allowsDeliveryIn(this.address.cc) &&
+            carrierConfiguration.allowsPackageTypeIn(this.get(CONFIG.PACKAGE_TYPE), this.address.cc)
+          );
         });
       },
     },

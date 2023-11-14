@@ -1,19 +1,7 @@
-import * as CONFIG from '@/data/keys/configKeys';
-import { CarrierConfigurationFactory } from '@/data/carriers/carrierConfigurationFactory';
-import Vue from 'vue';
-import { defaultAddress } from '@/data/defaultAddress';
-import { demoConfiguration } from '@/sandbox/config/demoConfiguration';
-import { fetchCarrierData } from '@/delivery-options/data/carriers/fetchCarrierData';
-import isEqual from 'lodash-es/isEqual';
-import isPlainObject from 'lodash-es/isPlainObject';
-import objectGet from 'lodash-es/get';
-import objectHas from 'lodash-es/has';
-import objectSet from 'lodash-es/set';
-import { platforms } from '@/config/platform/platforms';
-import { sandboxPlatformCarrierMap } from '@/sandbox/config/sandboxPlatformCarrierMap';
-import { settingHasCarrierOverride } from '@/delivery-options/config/settingHasCarrierOverride';
-import { sortObject } from '@/helpers/sortObject';
-import { sortObjectSiblings } from '@/helpers/sortObjectSiblings';
+import {defaultAddress, platforms} from '@myparcel-do/shared';
+import {CONFIG} from './settings';
+import {sandboxPlatformCarrierMap} from './config/sandboxPlatformCarrierMap';
+import {demoConfiguration} from './config/demoConfiguration';
 
 export const sandboxConfigBus = new Vue({
   name: 'SandboxConfigBus',
@@ -49,36 +37,34 @@ export const sandboxConfigBus = new Vue({
   },
 
   created() {
-    this.settings = platforms
-      .reduce((acc, platform) => {
-        const config = demoConfiguration(platform);
+    this.settings = platforms.reduce((acc, platform) => {
+      const config = demoConfiguration(platform);
 
-        // Get all settings allowing carrier overrides.
-        Object
-          .keys(config[CONFIG.KEY])
-          .filter(settingHasCarrierOverride)
-          .forEach((item) => {
-            const originalItemPath = [CONFIG.KEY, item].join('.');
-            const value = objectGet(config, originalItemPath);
+      // Get all settings allowing carrier overrides.
+      Object.keys(config[KEY_CONFIG])
+        .filter(settingHasCarrierOverride)
+        .forEach((item) => {
+          const originalItemPath = [KEY_CONFIG, item].join('.');
+          const value = objectGet(config, originalItemPath);
 
-            // Copy the value to all carriers that allow this setting
-            sandboxPlatformCarrierMap[platform].forEach((carrier) => {
-              const carrierConfig = CarrierConfigurationFactory.create(carrier, platform);
+          // Copy the value to all carriers that allow this setting
+          sandboxPlatformCarrierMap[platform].forEach((carrier) => {
+            const carrierConfig = getCarrierConfiguration(carrier, platform);
 
-              if (carrierConfig.hasFeature(item)) {
-                objectSet(config, [CONFIG.KEY, CONFIG.CARRIER_SETTINGS, carrier, item], value);
-              }
-            });
+            if (carrierConfig.hasFeature(item)) {
+              objectSet(config, [KEY_CONFIG, CONFIG.CARRIER_SETTINGS, carrier, item], value);
+            }
           });
+        });
 
-        return {
-          ...acc,
-          [platform]: sortObject({
-            ...config,
-            address: defaultAddress[platform],
-          }),
-        };
-      }, {});
+      return {
+        ...acc,
+        [platform]: sortObject({
+          ...config,
+          address: defaultAddress[platform],
+        }),
+      };
+    }, {});
   },
 
   methods: {
@@ -141,7 +127,7 @@ export const sandboxConfigBus = new Vue({
      * @param {string} obj.value - Value.
      * @param {boolean} sort - Sorts object siblings when setting new value.
      */
-    update({ name, value }, sort = false) {
+    update({name, value}, sort = false) {
       let mutableValue = value;
 
       if (Array.isArray(mutableValue)) {

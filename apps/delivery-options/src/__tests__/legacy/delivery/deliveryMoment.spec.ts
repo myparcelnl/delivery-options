@@ -1,13 +1,19 @@
-import * as CONFIG from '@/data/keys/configKeys';
-import * as FORM from '@/config/formConfig';
-import { DHL_FOR_YOU, POSTNL } from '@/data/keys/carrierKeys';
-import { MYPARCEL } from '@/data/keys/platformKeys';
-import MockDate from 'mockdate';
-import { TUESDAY } from '@/config/extraDeliveryConfig';
-import { UPDATED_DELIVERY_OPTIONS } from '@/config/eventConfig';
-import { dayjs } from '@Tests/dayjs';
-import { mockDeliveryOptions } from '@Tests/unit/delivery-options/mockDeliveryOptions';
-import { waitForEvent } from '@Tests/waitForEvent';
+import {afterEach, describe, expect, it} from 'vitest';
+import dayjs from 'dayjs';
+import {
+  CONFIG,
+  DELIVERY_EVENING,
+  DELIVERY_MORNING,
+  DELIVERY_SAME_DAY,
+  DELIVERY_STANDARD,
+  DHL_FOR_YOU,
+  KEY_CONFIG,
+  MYPARCEL,
+  POSTNL,
+  TUESDAY,
+  UPDATED_DELIVERY_OPTIONS,
+} from '@myparcel-do/shared';
+import {mockDeliveryOptions} from '../mockDeliveryOptions';
 
 /**
  * @param {dayjs.Dayjs} date
@@ -18,7 +24,7 @@ async function getDeliveryMoments(date, config) {
   MockDate.set(date.toDate());
 
   const wrapper = mockDeliveryOptions({
-    [CONFIG.KEY]: {
+    [KEY_CONFIG]: {
       [CONFIG.PLATFORM]: MYPARCEL,
       ...config,
     },
@@ -51,8 +57,9 @@ describe('Delivery moments', () => {
     ${false}     | ${false}
     ${true}      | ${false}
     ${false}     | ${true}
-  `('shows delivery moments in the right order with morning "$allowMorning" and evening "$allowEvening"',
-    async({ allowMorning, allowEvening }) => {
+  `(
+    'shows delivery moments in the right order with morning "$allowMorning" and evening "$allowEvening"',
+    async ({allowMorning, allowEvening}) => {
       expect.assertions(1);
       const date = dayjs().weekday(TUESDAY).set('h', 10).set('m', 0);
       const deliveryMoments = await getDeliveryMoments(date, {
@@ -67,13 +74,14 @@ describe('Delivery moments', () => {
       });
 
       expect(deliveryMoments).toEqual([
-        ...allowMorning ? [FORM.DELIVERY_MORNING] : [],
-        FORM.DELIVERY_STANDARD,
-        ...allowEvening ? [FORM.DELIVERY_EVENING] : [],
+        ...(allowMorning ? [DELIVERY_MORNING] : []),
+        DELIVERY_STANDARD,
+        ...(allowEvening ? [DELIVERY_EVENING] : []),
       ]);
-    });
+    },
+  );
 
-  it('does not return morning and evening delivery options when delivery date is not shown', async() => {
+  it('does not return morning and evening delivery options when delivery date is not shown', async () => {
     expect.assertions(1);
     const date = dayjs().weekday(TUESDAY).set('h', 10).set('m', 0);
     const deliveryMoments = await getDeliveryMoments(date, {
@@ -87,26 +95,24 @@ describe('Delivery moments', () => {
         },
       },
     });
-    expect(deliveryMoments).toEqual([
-      FORM.DELIVERY_STANDARD,
-    ]);
+    expect(deliveryMoments).toEqual([DELIVERY_STANDARD]);
   });
 
-  it('returns same day delivery if same day is enabled and current time is before same day cut-off time', async() => {
+  it('returns same day delivery if same day is enabled and current time is before same day cut-off time', async () => {
     expect.assertions(1);
     // Before same day cut-off time (which defaults to 9:30)
     const date = dayjs().weekday(TUESDAY).set('h', 6).set('m', 0);
     const deliveryMoments = await getDeliveryMoments(date, sameDayConfig);
 
-    expect(deliveryMoments).toEqual([FORM.DELIVERY_SAME_DAY]);
+    expect(deliveryMoments).toEqual([DELIVERY_SAME_DAY]);
   });
 
-  it('returns standard delivery if same day is enabled and current time is before regular cut-off time', async() => {
+  it('returns standard delivery if same day is enabled and current time is before regular cut-off time', async () => {
     expect.assertions(1);
     // Before cut-off time (which defaults to 17:00)
     const date = dayjs().weekday(TUESDAY).set('h', 15).set('m', 0);
     const deliveryMoments = await getDeliveryMoments(date, sameDayConfig);
 
-    expect(deliveryMoments).toEqual([FORM.DELIVERY_STANDARD]);
+    expect(deliveryMoments).toEqual([DELIVERY_STANDARD]);
   });
 });

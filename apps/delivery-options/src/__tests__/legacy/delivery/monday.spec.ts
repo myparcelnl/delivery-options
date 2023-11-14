@@ -1,15 +1,13 @@
-import * as CONFIG from '@/data/keys/configKeys';
-import { DATE_SATURDAY, DATE_SATURDAY_AFTER_CUTOFF, configMyParcel } from '@Tests/unit/delivery-options/delivery/data';
-import { FRIDAY, MONDAY, SATURDAY, THURSDAY, TUESDAY, WEDNESDAY } from '@/config/extraDeliveryConfig';
-import MockDate from 'mockdate';
-import { getMockedDeliveryDateChoices } from '@Tests/helpers/getMockedDeliveryDateChoices';
+import {getMockedDeliveryDateChoices} from '@myparcel-do/shared/src/__tests__/legacy/helpers/getMockedDeliveryDateChoices';
+import {CONFIG} from '@myparcel-do/sandbox/src/legacy/settings';
+import {configMyParcel, DATE_SATURDAY} from './data';
 
 describe('monday delivery', () => {
   afterEach(() => {
     MockDate.reset();
   });
 
-  test('can show monday delivery', async() => {
+  test('can show monday delivery', async () => {
     expect.assertions(1);
     MockDate.set(DATE_SATURDAY);
 
@@ -28,7 +26,7 @@ describe('monday delivery', () => {
     ]);
   });
 
-  it('does not show monday delivery when "allow_monday_delivery" is false', async() => {
+  it('does not show monday delivery when "allow_monday_delivery" is false', async () => {
     expect.assertions(1);
     MockDate.set(DATE_SATURDAY);
 
@@ -51,7 +49,7 @@ describe('monday delivery', () => {
     ]);
   });
 
-  it('does not show monday delivery when saturday is not a drop-off day', async() => {
+  it('does not show monday delivery when saturday is not a drop-off day', async () => {
     expect.assertions(1);
     MockDate.set(DATE_SATURDAY);
 
@@ -75,7 +73,7 @@ describe('monday delivery', () => {
     ]);
   });
 
-  it('does not show monday delivery when the saturday cutoff time has passed', async() => {
+  it('does not show monday delivery when the saturday cutoff time has passed', async () => {
     expect.assertions(1);
     MockDate.set(DATE_SATURDAY_AFTER_CUTOFF);
 

@@ -1,17 +1,15 @@
-import * as CONFIG from '@/data/keys/configKeys';
-import { fakePickupLocationsResponse } from '../../../../mocks/fakePickupLocationsResponse';
-import { mockConfigBus } from '@Tests/unit/delivery-options/mockConfigBus';
-import { sortPickupLocations } from '@/delivery-options/data/pickup/sortPickupLocations';
+import {describe, expect, it} from 'vitest';
+import {CONFIG, KEY_CONFIG} from '@myparcel-do/shared';
 
 describe('sorting pickup locations', () => {
   it('sorts by distance when distances are shown', () => {
     mockConfigBus({
-      [CONFIG.KEY]: {
+      [KEY_CONFIG]: {
         [CONFIG.FEATURE_PICKUP_SHOW_DISTANCE]: true,
       },
     });
     const sorted = sortPickupLocations(fakePickupLocationsResponse());
-    const distances = sorted.map(({ location }) => location.distance);
+    const distances = sorted.map(({location}) => location.distance);
 
     const sortedByDistance = [...distances].sort((distanceA, distanceB) => {
       return distanceA - distanceB;
@@ -22,12 +20,12 @@ describe('sorting pickup locations', () => {
 
   it('sorts alphabetically by location name when distances are hidden', () => {
     mockConfigBus({
-      [CONFIG.KEY]: {
+      [KEY_CONFIG]: {
         [CONFIG.FEATURE_PICKUP_SHOW_DISTANCE]: false,
       },
     });
     const sorted = sortPickupLocations(fakePickupLocationsResponse());
-    const names = sorted.map(({ location }) => location.location_name);
+    const names = sorted.map(({location}) => location.location_name);
 
     const sortedByName = [...names].sort((nameA, nameB) => {
       return nameA < nameB ? -1 : 1;

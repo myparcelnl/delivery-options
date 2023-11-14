@@ -1,55 +1,81 @@
-export const KEY = 'config';
+export const KEY_CONFIG = 'config';
 
 // Properties
 export const API_BASE_URL = 'apiBaseUrl';
+
 export const CURRENCY = 'currency';
+
 export const LOCALE = 'locale';
+
 export const PLATFORM = 'platform';
+
 export const SHOW_PRICES = 'showPrices';
+
 export const SHOW_PRICE_SURCHARGE = 'showPriceSurcharge';
 
 export const PACKAGE_TYPE = 'packageType';
 
 export const ALLOW_DELIVERY_OPTIONS = 'allowDeliveryOptions';
+
 export const ALLOW_EVENING_DELIVERY = 'allowEveningDelivery';
+
 export const ALLOW_MORNING_DELIVERY = 'allowMorningDelivery';
+
 export const ALLOW_ONLY_RECIPIENT = 'allowOnlyRecipient';
+
 export const ALLOW_PICKUP_LOCATIONS = 'allowPickupLocations';
+
 export const ALLOW_SAME_DAY_DELIVERY = 'allowSameDayDelivery';
+
 export const ALLOW_SIGNATURE = 'allowSignature';
 
 export const CUTOFF_TIME = 'cutoffTime';
+
 export const CUTOFF_TIME_SAME_DAY = 'cutoffTimeSameDay';
+
 export const DELIVERY_DAYS_WINDOW = 'deliveryDaysWindow';
+
 export const DROP_OFF_DAYS = 'dropOffDays';
+
 export const DROP_OFF_DELAY = 'dropOffDelay';
 
 export const PRICE_EVENING_DELIVERY = 'priceEveningDelivery';
+
 export const PRICE_MORNING_DELIVERY = 'priceMorningDelivery';
+
 export const PRICE_ONLY_RECIPIENT = 'priceOnlyRecipient';
+
 export const PRICE_PICKUP = 'pricePickup';
+
 export const PRICE_SAME_DAY_DELIVERY = 'priceSameDayDelivery';
+
 export const PRICE_SIGNATURE = 'priceSignature';
+
 export const PRICE_STANDARD_DELIVERY = 'priceStandardDelivery';
 
 /*
  * Package types
  */
 export const ALLOW_PACKAGE_TYPE_DIGITAL_STAMP = 'allowPackageTypeDigitalStamp';
+
 export const ALLOW_PACKAGE_TYPE_MAILBOX = 'allowPackageTypeMailbox';
+
 export const PRICE_PACKAGE_TYPE_DIGITAL_STAMP = 'pricePackageTypeDigitalStamp';
+
 export const PRICE_PACKAGE_TYPE_MAILBOX = 'pricePackageTypeMailbox';
 
 /*
  * For use with Monday delivery.
  */
 export const ALLOW_MONDAY_DELIVERY = 'allowMondayDelivery';
+
 export const SATURDAY_CUTOFF_TIME = 'saturdayCutoffTime';
 
 /*
  * For use with Saturday delivery.
  */
 export const ALLOW_SATURDAY_DELIVERY = 'allowSaturdayDelivery';
+
 export const FRIDAY_CUTOFF_TIME = 'fridayCutoffTime';
 
 /*
@@ -126,10 +152,7 @@ export const settingsWithCarrierOverride = [
  *
  * @type {(string)[]}
  */
-export const settingsWithCountryOverrides = [
-  ALLOW_DELIVERY_OPTIONS,
-  ALLOW_PICKUP_LOCATIONS,
-];
+export const settingsWithCountryOverrides = [ALLOW_DELIVERY_OPTIONS, ALLOW_PICKUP_LOCATIONS];
 
 /**
  * @type {string[]}
@@ -151,4 +174,4 @@ export const carrierFeatures = [
   DROP_OFF_DAYS,
   DROP_OFF_DELAY,
   FEATURE_SHOW_DELIVERY_DATE,
-];
+] as const;

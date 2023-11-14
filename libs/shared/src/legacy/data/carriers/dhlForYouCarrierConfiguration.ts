@@ -1,46 +1,51 @@
-import * as FEATURES from '@/data/carrierFeatures';
-import { BELGIUM, NETHERLANDS } from '@myparcel/js-sdk/dist/constant/countries-iso2';
-import { CITY, POSTAL_CODE } from '../keys/addressKeys';
-import { AbstractCarrierConfiguration } from '@/data/carriers/abstractCarrierConfiguration';
-import { DHL_FOR_YOU } from '../keys/carrierKeys';
-import { MYPARCEL } from '@/data/keys/platformKeys';
+import {BELGIUM, NETHERLANDS} from '@myparcel/constants/countries';
+import {type CarrierName} from '@myparcel/constants';
+import {ADDRESS_CITY, ADDRESS_POSTAL_CODE, DHL_FOR_YOU, MYPARCEL} from '../keys';
+import {
+  FEATURES_CUTOFF_TIME,
+  FEATURES_DELIVERY,
+  FEATURES_DELIVERY_DAYS_WINDOW,
+  FEATURES_DROP_OFF_DAYS,
+  FEATURES_DROP_OFF_DELAY,
+  FEATURES_ONLY_RECIPIENT,
+  FEATURES_PICKUP,
+  FEATURES_SAME_DAY_DELIVERY,
+  FEATURES_SIGNATURE,
+} from '../carrierFeatures';
+import {type AddressField} from '../../../types';
+import {AbstractCarrierConfiguration, type PlatformCarrierFeatures} from './abstractCarrierConfiguration';
 
 export class DhlForYouCarrierConfiguration extends AbstractCarrierConfiguration {
-  getName() {
-    return DHL_FOR_YOU;
+  public getCountriesForDelivery(): string[] {
+    return [NETHERLANDS, BELGIUM];
   }
 
-  getDefaultRequestParameters() {
-    return [CITY, POSTAL_CODE];
+  public getCountriesForPickup(): string[] {
+    return [NETHERLANDS];
   }
 
-  getCountriesForDelivery() {
-    return [
-      NETHERLANDS,
-      BELGIUM,
-    ];
+  public getDefaultRequestParameters(): AddressField[] {
+    return [ADDRESS_CITY, ADDRESS_POSTAL_CODE];
   }
 
-  getCountriesForPickup() {
-    return [
-      NETHERLANDS,
-    ];
-  }
-
-  getFeatures() {
+  public getFeatures(): PlatformCarrierFeatures {
     return {
       [MYPARCEL]: [
-        FEATURES.FEATURES_CUTOFF_TIME,
-        FEATURES.FEATURES_DELIVERY,
-        FEATURES.FEATURES_DELIVERY_DAYS_WINDOW,
-        FEATURES.FEATURES_DROP_OFF_DAYS,
-        FEATURES.FEATURES_DROP_OFF_DELAY,
-        FEATURES.FEATURES_SAME_DAY_DELIVERY,
-        // FEATURES.FEATURES_SHOW_DELIVERY_DATE,
-        FEATURES.FEATURES_PICKUP,
-        FEATURES.FEATURES_ONLY_RECIPIENT,
-        FEATURES.FEATURES_SIGNATURE,
+        FEATURES_CUTOFF_TIME,
+        FEATURES_DELIVERY,
+        FEATURES_DELIVERY_DAYS_WINDOW,
+        FEATURES_DROP_OFF_DAYS,
+        FEATURES_DROP_OFF_DELAY,
+        FEATURES_SAME_DAY_DELIVERY,
+        // FEATURES_SHOW_DELIVERY_DATE,
+        FEATURES_PICKUP,
+        FEATURES_ONLY_RECIPIENT,
+        FEATURES_SIGNATURE,
       ],
     };
+  }
+
+  public getName(): CarrierName {
+    return DHL_FOR_YOU;
   }
 }

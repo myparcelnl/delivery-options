@@ -1,14 +1,14 @@
 <template>
   <button
-    type="button"
     :class="{
       [`${$classBase}__button`]: true,
       [`${$classBase}__button--selected`]: isSelected,
     }"
+    type="button"
     @click="(event) => $emit('click', event)" />
 </template>
 
-<script>
+<script lang="ts">
 export default {
   name: 'CButton',
   props: {

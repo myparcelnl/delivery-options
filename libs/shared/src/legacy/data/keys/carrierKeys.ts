@@ -1,23 +1,17 @@
-/** @type {MyParcel.CarrierName} */
-export const POSTNL = 'postnl';
+import {CarrierName} from '@myparcel/constants';
 
-/** @type {MyParcel.CarrierName} */
-export const DPD = 'dpd';
+export const POSTNL = CarrierName.PostNl as const;
 
-/** @type {MyParcel.CarrierName} */
-export const BPOST = 'bpost';
+export const DPD = CarrierName.Dpd as const;
 
-/** @type {MyParcel.CarrierName} */
-export const DHL = 'dhl';
+export const BPOST = CarrierName.Bpost as const;
 
-/** @type {MyParcel.CarrierName} */
-export const DHL_FOR_YOU = 'dhlforyou';
+export const DHL = CarrierName.Dhl as const;
 
-/** @type {MyParcel.CarrierName} */
-export const DHL_PARCEL_CONNECT = 'dhlparcelconnect';
+export const DHL_FOR_YOU = CarrierName.DhlForYou as const;
 
-/** @type {MyParcel.CarrierName} */
-export const DHL_EUROPLUS = 'dhleuroplus';
+export const DHL_PARCEL_CONNECT = CarrierName.DhlParcelConnect as const;
 
-/** @type {MyParcel.CarrierName} */
-export const UPS = 'ups';
+export const DHL_EUROPLUS = CarrierName.DhlEuroPlus as const;
+
+export const UPS = CarrierName.Ups as const;

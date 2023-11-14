@@ -1,13 +1,10 @@
-import * as FEATURES from '@/data/carrierFeatures';
 import {
   AUSTRIA,
   BULGARIA,
   CROATIA,
   CZECH_REPUBLIC,
-  DENMARK,
   ESTONIA,
   FINLAND,
-  FRANCE,
   GERMANY,
   GREECE,
   HUNGARY,
@@ -22,23 +19,15 @@ import {
   SLOVAKIA,
   SLOVENIA,
   SPAIN,
-  SWEDEN,
-} from '@myparcel/js-sdk/dist/constant/countries-iso2';
-import { CITY, POSTAL_CODE, STREET } from '../keys/addressKeys';
-import { MYPARCEL, SENDMYPARCEL } from '@/data/keys/platformKeys';
-import { AbstractCarrierConfiguration } from '@/data/carriers/abstractCarrierConfiguration';
-import { UPS } from '../keys/carrierKeys';
+} from '@myparcel/constants/countries';
+import {type CarrierName} from '@myparcel/constants';
+import {ADDRESS_CITY, ADDRESS_POSTAL_CODE, ADDRESS_STREET, MYPARCEL, UPS} from '../keys';
+import {FEATURES_DELIVERY} from '../carrierFeatures';
+import {type AddressField} from '../../../types';
+import {AbstractCarrierConfiguration, type PlatformCarrierFeatures} from './abstractCarrierConfiguration';
 
 export class UpsCarrierConfiguration extends AbstractCarrierConfiguration {
-  getName() {
-    return UPS;
-  }
-
-  getDefaultRequestParameters() {
-    return [POSTAL_CODE, STREET, CITY];
-  }
-
-  getCountriesForDelivery() {
+  public getCountriesForDelivery() {
     return [
       BULGARIA,
       GERMANY,
@@ -63,21 +52,25 @@ export class UpsCarrierConfiguration extends AbstractCarrierConfiguration {
     ];
   }
 
-  hasFakeDelivery() {
-    return true;
+  public getCountriesForPickup(): string[] {
+    return [GERMANY];
   }
 
-  getCountriesForPickup() {
-    return [
-      GERMANY,
-    ];
+  public getDefaultRequestParameters(): AddressField[] {
+    return [ADDRESS_POSTAL_CODE, ADDRESS_STREET, ADDRESS_CITY];
   }
 
-  getFeatures() {
+  public getFeatures(): PlatformCarrierFeatures {
     return {
-      [MYPARCEL]: [
-        FEATURES.FEATURES_DELIVERY,
-      ],
+      [MYPARCEL]: [FEATURES_DELIVERY],
     };
+  }
+
+  public getName(): CarrierName {
+    return UPS;
+  }
+
+  public hasFakeDelivery(): boolean {
+    return true;
   }
 }

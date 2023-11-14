@@ -1,19 +1,12 @@
 /* eslint-disable max-lines-per-function,no-console,no-magic-numbers */
-import * as CONFIG from '@/data/keys/configKeys';
-import { MYPARCEL } from '@/data/keys/platformKeys';
-import { POSTNL } from '@/data/keys/carrierKeys';
-import { UPDATE_DELIVERY_OPTIONS } from '@/config/eventConfig';
-import { defaultAddress } from '@/data/defaultAddress';
+
+import {CONFIG, defaultAddress, MYPARCEL, POSTNL, UPDATE_DELIVERY_OPTIONS} from '@myparcel-do/shared';
 
 /**
  * Output some information in the console to help a developer get started quickly.
  */
 export const showDeveloperInfo = () => {
-  const styleHeader1 = [
-    'font-size: 2em',
-    'font-family: sans-serif',
-    'padding: .2em 0;',
-  ];
+  const styleHeader1 = ['font-size: 2em', 'font-family: sans-serif', 'padding: .2em 0;'];
 
   const styleHeader2 = [
     'color: gray',
@@ -34,9 +27,7 @@ export const showDeveloperInfo = () => {
     'border-left: 3px solid #14785A',
   ];
 
-  const styleCode = [
-    'padding: .2em 0;',
-  ];
+  const styleCode = ['padding: .2em 0;'];
 
   const demoConfig = {
     config: {
@@ -53,15 +44,18 @@ export const showDeveloperInfo = () => {
 
   console.log('%cWelcome to the MyParcel delivery options!', styleHeader1.join(';'));
   console.log('%cCheck out README.md for the full documentation.', styleHeader2.join(';'));
-  console.log('%cBy default, the delivery options are not visible. \n'
-    + 'To show it you must fill window.MyParcelConfig with the following data:', styleText.join(';'));
+  console.log(
+    '%cBy default, the delivery options are not visible. \n' +
+      'To show it you must fill window.MyParcelConfig with the following data:',
+    styleText.join(';'),
+  );
   console.log(`%cwindow.MyParcelConfig = ${JSON.stringify(demoConfig, null, 2)}`, styleCode.join(';'));
   console.log('%cAnd then send an event to tell the delivery options module to update its data:', styleText.join(';'));
   console.log(`%cdocument.dispatchEvent(new Event('${UPDATE_DELIVERY_OPTIONS}'));`, styleCode.join(';'));
   console.log(
-    '%cThis example shows a checkout with delivery options and pickup locations enabled for both bpost and dpd. '
-    + 'Check out the readme for all possible settings combinations.\n'
-    + '⬇ You can try it right here in your browser console. ⬇',
+    '%cThis example shows a checkout with delivery options and pickup locations enabled for both bpost and dpd. ' +
+      'Check out the readme for all possible settings combinations.\n' +
+      '⬇ You can try it right here in your browser console. ⬇',
     styleText.join(';'),
   );
   /* eslint-enable no-console */

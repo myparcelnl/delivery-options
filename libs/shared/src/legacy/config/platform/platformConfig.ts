@@ -1,11 +1,3 @@
-import * as LOCALE from '@/config/localeConfig';
-import { platformLocaleMap } from '@/config/platform/platformLocaleMap';
+import {CONFIG_MAP, platformLocaleMap} from '@myparcel-do/shared';
 
-/**
- * @param {MyParcel.Platform} platform - Platform name.
- *
- * @returns {MyParcelDeliveryOptions.Configuration}
- */
-export function platformConfig(platform) {
-  return LOCALE.CONFIG_MAP[platformLocaleMap[platform]];
-}
+export const platformConfig = (platform) => CONFIG_MAP[platformLocaleMap[platform]];

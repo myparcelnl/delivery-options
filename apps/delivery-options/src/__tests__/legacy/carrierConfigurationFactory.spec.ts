@@ -1,10 +1,9 @@
-import * as CARRIERS from '@/data/keys/carrierKeys';
-import { CarrierConfigurationFactory } from '@/data/carriers/carrierConfigurationFactory';
-import { MYPARCEL } from '@/data/keys/platformKeys';
+import {describe, expect, it} from 'vitest';
+import {CARRIERS, getCarrierConfiguration, MYPARCEL} from '@myparcel-do/shared';
 
 describe('CarrierConfigurationFactory', () => {
   it.each(Object.values(CARRIERS))('should create a configuration for %s', (carrier) => {
-    const config = CarrierConfigurationFactory.create(carrier, MYPARCEL);
+    const config = getCarrierConfiguration(carrier, MYPARCEL);
 
     expect({
       name: config.getName(),
@@ -16,12 +15,12 @@ describe('CarrierConfigurationFactory', () => {
   });
 
   it('throws error when requesting nonexistent carrier', () => {
-    expect(() => CarrierConfigurationFactory.create('nonexistent-carrier')).toThrowError();
+    expect(() => getCarrierConfiguration('nonexistent-carrier')).toThrowError();
   });
 
   it('remembers the platform', () => {
-    CarrierConfigurationFactory.create(CARRIERS.POSTNL, MYPARCEL);
+    getCarrierConfiguration(CARRIERS.POSTNL, MYPARCEL);
 
-    expect(() => CarrierConfigurationFactory.create(CARRIERS.POSTNL)).not.toThrow();
+    expect(() => getCarrierConfiguration(CARRIERS.POSTNL)).not.toThrow();
   });
 });

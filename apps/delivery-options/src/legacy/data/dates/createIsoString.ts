@@ -1,4 +1,4 @@
-import { createDate } from '@/delivery-options/data/dates/createDate';
+import {createDate} from './createDate';
 
 /**
  * Return the date as ISO string to get a date string without changing the date/time because of timezones.

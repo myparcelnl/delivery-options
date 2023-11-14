@@ -1,5 +1,3 @@
-import Vue from 'vue';
-
 /**
  * @param {String} event - Event name.
  * @param {Vue|Document} subject

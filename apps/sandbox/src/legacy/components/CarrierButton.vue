@@ -6,10 +6,10 @@
     v-bind="$attrs">
     <img
       v-if="icon"
-      class="img-fluid"
-      width="18"
+      :alt="carrier.text"
       :src="$getUrl.carrierLogo(carrier.name)"
-      :alt="carrier.text">
+      class="img-fluid"
+      width="18" />
 
     <span
       v-if="text"
@@ -18,7 +18,7 @@
   </component>
 </template>
 
-<script>
+<script lang="ts">
 export default {
   name: 'CarrierButton',
   props: {

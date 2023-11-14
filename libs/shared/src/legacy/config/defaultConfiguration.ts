@@ -1,16 +1,54 @@
 /* eslint-disable max-lines-per-function */
-import * as ADDRESS from '@/data/keys/addressKeys';
-import * as CONFIG from '@/data/keys/configKeys';
-import * as STRINGS from '@/data/keys/stringsKeys';
+
+import {merge} from 'radash';
 import {
+  type DeliveryOptionsConfiguration,
+  getDefaultStrings,
+  platformConfig,
+  type SupportedPlatformName,
+} from '@myparcel-do/shared';
+import {
+  ALLOW_DELIVERY_OPTIONS,
+  ALLOW_EVENING_DELIVERY,
+  ALLOW_MORNING_DELIVERY,
+  ALLOW_ONLY_RECIPIENT,
+  ALLOW_PICKUP_LOCATIONS,
+  ALLOW_SAME_DAY_DELIVERY,
+  ALLOW_SIGNATURE,
+  CARRIER_SETTINGS,
+  CURRENCY,
+  CUTOFF_TIME,
+  CUTOFF_TIME_SAME_DAY,
   DEFAULT_DELIVERY_DAYS_WINDOW,
   DEFAULT_PACKAGE_TYPE,
   DEFAULT_PLATFORM,
   DEFAULT_PRICE,
-} from '@/data/keys/settingsConsts';
-import { getDefaultStrings } from '@/config/defaultStrings';
-import merge from 'lodash-es/merge';
-import { platformConfig } from '@/config/platform/platformConfig';
+  DELIVERY_DAYS_WINDOW,
+  DROP_OFF_DAYS,
+  DROP_OFF_DELAY,
+  FEATURE_ALLOW_RETRY,
+  FEATURE_MAX_PAGE_ITEMS,
+  FEATURE_PICKUP_LOCATIONS_DEFAULT_VIEW,
+  FEATURE_PICKUP_SHOW_DISTANCE,
+  FEATURE_SHOW_DELIVERY_DATE,
+  KEY_ADDRESS,
+  KEY_CONFIG,
+  KEY_STRINGS,
+  PACKAGE_TYPE,
+  PICKUP_LOCATIONS_MAP_TILE_LAYER_DATA,
+  PLATFORM,
+  PRICE_EVENING_DELIVERY,
+  PRICE_MORNING_DELIVERY,
+  PRICE_ONLY_RECIPIENT,
+  PRICE_PACKAGE_TYPE_DIGITAL_STAMP,
+  PRICE_PACKAGE_TYPE_MAILBOX,
+  PRICE_PICKUP,
+  PRICE_SAME_DAY_DELIVERY,
+  PRICE_SIGNATURE,
+  PRICE_STANDARD_DELIVERY,
+  SHOW_PRICE_SURCHARGE,
+  SHOW_PRICES,
+} from '../data';
 
 /**
  * Get the default config for given platform. Gets the base config, sets platform and appends platform specific
@@ -20,79 +58,82 @@ import { platformConfig } from '@/config/platform/platformConfig';
  *
  * @returns {MyParcelDeliveryOptions.Configuration}
  */
-export const defaultConfiguration = (platform = DEFAULT_PLATFORM) => {
+export const defaultConfiguration = (
+  platform: SupportedPlatformName = DEFAULT_PLATFORM,
+): DeliveryOptionsConfiguration => {
   /**
    * Base delivery options configuration.
    *
    * @type {MyParcelDeliveryOptions.Configuration}
    */
   const baseConfig = {
-    [ADDRESS.KEY]: {},
+    [KEY_ADDRESS]: {},
 
     /**
      * @type {MyParcelDeliveryOptions.Config}
      */
-    [CONFIG.KEY]: {
-      [CONFIG.PLATFORM]: DEFAULT_PLATFORM,
-      [CONFIG.CURRENCY]: 'EUR',
-      [CONFIG.SHOW_PRICES]: true,
-      [CONFIG.SHOW_PRICE_SURCHARGE]: false,
+    [KEY_CONFIG]: {
+      [PLATFORM]: DEFAULT_PLATFORM,
+      [CURRENCY]: 'EUR',
+      [SHOW_PRICES]: true,
+      [SHOW_PRICE_SURCHARGE]: false,
 
-      [CONFIG.PACKAGE_TYPE]: DEFAULT_PACKAGE_TYPE,
+      [PACKAGE_TYPE]: DEFAULT_PACKAGE_TYPE,
 
-      [CONFIG.ALLOW_DELIVERY_OPTIONS]: true,
-      [CONFIG.ALLOW_EVENING_DELIVERY]: true,
-      [CONFIG.ALLOW_MORNING_DELIVERY]: true,
-      [CONFIG.ALLOW_ONLY_RECIPIENT]: true,
-      [CONFIG.ALLOW_PICKUP_LOCATIONS]: true,
-      [CONFIG.ALLOW_SAME_DAY_DELIVERY]: true,
-      [CONFIG.ALLOW_SIGNATURE]: true,
+      [ALLOW_DELIVERY_OPTIONS]: true,
+      [ALLOW_EVENING_DELIVERY]: true,
+      [ALLOW_MORNING_DELIVERY]: true,
+      [ALLOW_ONLY_RECIPIENT]: true,
+      [ALLOW_PICKUP_LOCATIONS]: true,
+      [ALLOW_SAME_DAY_DELIVERY]: true,
+      [ALLOW_SIGNATURE]: true,
 
-      [CONFIG.CUTOFF_TIME]: '17:00',
-      [CONFIG.CUTOFF_TIME_SAME_DAY]: '09:30',
-      [CONFIG.DELIVERY_DAYS_WINDOW]: DEFAULT_DELIVERY_DAYS_WINDOW,
-      [CONFIG.DROP_OFF_DAYS]: [1, 2, 3, 4, 5],
-      [CONFIG.DROP_OFF_DELAY]: 0,
+      [CUTOFF_TIME]: '17:00',
+      [CUTOFF_TIME_SAME_DAY]: '09:30',
+      [DELIVERY_DAYS_WINDOW]: DEFAULT_DELIVERY_DAYS_WINDOW,
+      [DROP_OFF_DAYS]: [1, 2, 3, 4, 5],
+      [DROP_OFF_DELAY]: 0,
 
-      [CONFIG.PRICE_PACKAGE_TYPE_DIGITAL_STAMP]: DEFAULT_PRICE,
-      [CONFIG.PRICE_PACKAGE_TYPE_MAILBOX]: DEFAULT_PRICE,
+      [PRICE_PACKAGE_TYPE_DIGITAL_STAMP]: DEFAULT_PRICE,
+      [PRICE_PACKAGE_TYPE_MAILBOX]: DEFAULT_PRICE,
 
-      [CONFIG.PRICE_EVENING_DELIVERY]: DEFAULT_PRICE,
-      [CONFIG.PRICE_MORNING_DELIVERY]: DEFAULT_PRICE,
-      [CONFIG.PRICE_ONLY_RECIPIENT]: DEFAULT_PRICE,
-      [CONFIG.PRICE_PICKUP]: DEFAULT_PRICE,
-      [CONFIG.PRICE_SAME_DAY_DELIVERY]: DEFAULT_PRICE,
-      [CONFIG.PRICE_SIGNATURE]: DEFAULT_PRICE,
-      [CONFIG.PRICE_STANDARD_DELIVERY]: DEFAULT_PRICE,
+      [PRICE_EVENING_DELIVERY]: DEFAULT_PRICE,
+      [PRICE_MORNING_DELIVERY]: DEFAULT_PRICE,
+      [PRICE_ONLY_RECIPIENT]: DEFAULT_PRICE,
+      [PRICE_PICKUP]: DEFAULT_PRICE,
+      [PRICE_SAME_DAY_DELIVERY]: DEFAULT_PRICE,
+      [PRICE_SIGNATURE]: DEFAULT_PRICE,
+      [PRICE_STANDARD_DELIVERY]: DEFAULT_PRICE,
 
-      [CONFIG.FEATURE_ALLOW_RETRY]: true,
-      [CONFIG.FEATURE_MAX_PAGE_ITEMS]: 5,
-      [CONFIG.FEATURE_PICKUP_LOCATIONS_DEFAULT_VIEW]: 'map',
-      [CONFIG.FEATURE_PICKUP_SHOW_DISTANCE]: true,
-      [CONFIG.FEATURE_SHOW_DELIVERY_DATE]: true,
+      [FEATURE_ALLOW_RETRY]: true,
+      [FEATURE_MAX_PAGE_ITEMS]: 5,
+      [FEATURE_PICKUP_LOCATIONS_DEFAULT_VIEW]: 'map',
+      [FEATURE_PICKUP_SHOW_DISTANCE]: true,
+      [FEATURE_SHOW_DELIVERY_DATE]: true,
 
       /**
        * Default leaflet tile layer data.
        *
        * @type {MyParcelDeliveryOptions.Config.pickupLocationsMapTileLayerData}
        */
-      [CONFIG.PICKUP_LOCATIONS_MAP_TILE_LAYER_DATA]: JSON.stringify({
+      [PICKUP_LOCATIONS_MAP_TILE_LAYER_DATA]: JSON.stringify({
         url: 'https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png',
         // eslint-disable-next-line max-len,vue/max-len
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Tiles style by <a href="https://www.hotosm.org/" target="_blank">Humanitarian OpenStreetMap Team</a> hosted by <a href="https://openstreetmap.fr/" target="_blank">OpenStreetMap France</a>',
+        attribution:
+          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Tiles style by <a href="https://www.hotosm.org/" target="_blank">Humanitarian OpenStreetMap Team</a> hosted by <a href="https://openstreetmap.fr/" target="_blank">OpenStreetMap France</a>',
         maxZoom: 19,
       }),
 
-      [CONFIG.CARRIER_SETTINGS]: {},
+      [CARRIER_SETTINGS]: {},
     },
 
     /**
      * @type {MyParcelDeliveryOptions.Strings}
      */
-    [STRINGS.KEY]: getDefaultStrings(),
+    [KEY_STRINGS]: getDefaultStrings(),
   };
 
-  baseConfig[CONFIG.KEY][CONFIG.PLATFORM] = platform;
+  baseConfig[KEY_CONFIG][PLATFORM] = platform;
 
   return merge({}, baseConfig, platformConfig(platform));
 };

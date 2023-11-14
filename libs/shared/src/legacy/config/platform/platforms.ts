@@ -1,9 +1,3 @@
-import * as PLATFORMS from '@/data/keys/platformKeys';
+import {MYPARCEL, SENDMYPARCEL} from '../../data';
 
-/**
- * @type {MyParcel.Platform[]}
- */
-export const platforms = [
-  PLATFORMS.MYPARCEL,
-  PLATFORMS.SENDMYPARCEL,
-];
+export const platforms = [MYPARCEL, SENDMYPARCEL] as const;

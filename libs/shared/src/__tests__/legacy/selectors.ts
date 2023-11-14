@@ -1,8 +1,1 @@
-/**
- * Create a [data-test-<type>="<id>"] selector string.
- *
- * @param {String} id
- * @param {String} type
- * @returns {String}
- */
-export const dataTest = (id, type = 'id') => `[data-test-${type}="${id}"]`;
+export const dataTest = (id: string, type = 'id'): string => `[data-test-${type}="${id}"]`;

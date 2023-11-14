@@ -5,24 +5,22 @@
     <slot />
     <Help
       v-if="helpText"
-      triggers="hover"
-      placement="bottom-right"
+      :content="$te(helpText) ? $t(helpText) : helpText"
       :target="id || uniqueId"
-      :content="$te(helpText) ? $t(helpText) : helpText" />
+      placement="bottom-right"
+      triggers="hover" />
   </component>
 </template>
 
-<script>
-import Help from '@/sandbox/components/Help';
-import { uniqueIdMixin } from '@/sandbox/services/mixins/uniqueIdMixin';
+<script lang="ts">
+import {uniqueIdMixin} from '../services/mixins/uniqueIdMixin';
+import Help from './Help.vue';
 
 export default {
   name: 'Heading',
-  components: { Help },
+  components: {Help},
 
-  mixins: [
-    uniqueIdMixin,
-  ],
+  mixins: [uniqueIdMixin],
 
   /* eslint-disable no-magic-numbers */
   props: {

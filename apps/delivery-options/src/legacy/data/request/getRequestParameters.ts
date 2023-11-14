@@ -1,9 +1,7 @@
-import { AbstractCarrierConfiguration } from '@/data/carriers/abstractCarrierConfiguration';
-import { configBus } from '../../config/configBus';
-import { getCarrierRequestParameters } from '@/delivery-options/data/request/getCarrierRequestParameters';
-import { getDefaultRequestParameters } from '@/delivery-options/data/request/getDefaultRequestParameters';
-import { getOptionalRequestParameters } from '@/delivery-options/data/request/getOptionalRequestParameters';
-import { getParametersByPlatform } from '@/delivery-options/data/request/requestData';
+import {getParametersByPlatform} from './requestData';
+import {getOptionalRequestParameters} from './getOptionalRequestParameters';
+import {getDefaultRequestParameters} from './getDefaultRequestParameters';
+import {getCarrierRequestParameters} from './getCarrierRequestParameters';
 
 /**
  * Gather the parameters for the delivery options request.
@@ -21,8 +19,7 @@ export const getRequestParameters = (carrierConfiguration) => {
   parameters.carrier = carrierConfiguration?.getName();
 
   // Get the settings that are set in the config and add those to the parameters.
-  Object
-    .keys(optionalParameters)
+  Object.keys(optionalParameters)
     .filter((value) => !!optionalParameters[value])
     .forEach((option) => {
       parameters[option] = optionalParameters[option];

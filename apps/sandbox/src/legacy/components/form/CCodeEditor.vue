@@ -7,9 +7,9 @@
       v-test="'code'"
       @click="hideCode">
       <CCodeDisplay
-        class="mt-0 text-pre"
         :code="mutableValue"
-        :language="language" />
+        :language="language"
+        class="mt-0 text-pre" />
     </div>
     <pre
       v-show="!codeShown"
@@ -17,20 +17,17 @@
       class="card code code--text overflow-visible text-pre">
       <CTextarea
         v-model="mutableValue"
-        rows="20"
         :class="{
           'is-invalid': !valid,
         }"
+        rows="20"
         v-bind="filteredProps" />
     </pre>
   </div>
 </template>
 
-<script>
-import CTextarea from '@/sandbox/components/form/CTextarea';
-import ClickOutside from 'vue-click-outside';
-import { formTextarea } from '@/sandbox/services/mixins/formTextarea';
-import { formatCode } from '@/sandbox/services/filters/formatCode';
+<script lang="ts">
+import CTextarea from './CTextarea.vue';
 
 export default {
   name: 'CCodeEditor',
@@ -43,9 +40,7 @@ export default {
     ClickOutside,
   },
 
-  mixins: [
-    formTextarea,
-  ],
+  mixins: [formTextarea],
 
   props: {
     language: {

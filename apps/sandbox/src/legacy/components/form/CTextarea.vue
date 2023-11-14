@@ -6,15 +6,12 @@
     v-bind="filteredProps" />
 </template>
 
-<script>
-import CInput from '@/sandbox/components/form/CInput';
-import { formTextarea } from '@/sandbox/services/mixins/formTextarea';
+<script lang="ts">
+import CInput from './CInput.vue';
 
 export default {
   name: 'CTextarea',
-  components: { CInput },
-  mixins: [
-    formTextarea,
-  ],
+  components: {CInput},
+  mixins: [formTextarea],
 };
 </script>

@@ -1,5 +1,7 @@
-/** @type {MyParcel.Platform} */
-export const MYPARCEL = 'myparcel';
+import {PlatformName} from '@myparcel/constants';
 
-/** @type {MyParcel.Platform} */
-export const SENDMYPARCEL = 'belgie';
+export const MYPARCEL = PlatformName.MyParcel as const;
+
+export const SENDMYPARCEL = PlatformName.SendMyParcel as const;
+
+export const DEFAULT_PLATFORM = MYPARCEL;

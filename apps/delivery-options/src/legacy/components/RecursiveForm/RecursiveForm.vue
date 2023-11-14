@@ -3,8 +3,7 @@
     v-if="mutableOption.hasOwnProperty('component') && mutableOption.loop === false"
     v-show="!mutableOption.hidden"
     :class="`${$classBase}__table`">
-    <tr
-      :class="`${$classBase}__choice`">
+    <tr :class="`${$classBase}__choice`">
       <component
         :is="mutableOption.component"
         :data="mutableOption" />
@@ -42,10 +41,10 @@
               choice: choice.name,
             }"
             :class="choice.class"
-            type="checkbox"
-            :name="mutableOption.name"
             :disabled="choice.disabled ? 'disabled' : false"
-            :value="choice.name">
+            :name="mutableOption.name"
+            :value="choice.name"
+            type="checkbox" />
 
           <input
             v-else
@@ -56,9 +55,9 @@
               choice: choice.name,
             }"
             :class="choice.class"
-            :type="mutableOption.type"
             :disabled="choice.disabled || validChoices.length === 1 ? 'disabled' : false"
-            :value="choice.name">
+            :type="mutableOption.type"
+            :value="choice.name" />
         </div>
       </td>
 
@@ -83,13 +82,10 @@
             <img
               v-if="choice.hasOwnProperty('image')"
               v-test="'image'"
-              :src="choice.image"
               :alt="choice.name"
-              :class="[
-                `${$classBase}__image`,
-                `${$classBase}__image--md`,
-              ]"
-              :title="$configBus.strings[choice.label]">
+              :class="[`${$classBase}__image`, `${$classBase}__image--md`]"
+              :src="choice.image"
+              :title="$configBus.strings[choice.label]" />
             &nbsp;
             <span v-text="choice.label" />
           </span>
@@ -112,7 +108,6 @@
               [`${$classBase}__text--green`]: $configBus.get(choice, 'price') < 0,
               ...choice.class,
             }">
-
             <template v-if="$configBus.get(choice, 'price') !== 0">
               <span v-text="$configBus.get(choice, 'price') > 0 ? '+ ' : '– '" />
               {{ formatCurrency($configBus.get(choice, 'price')) }}
@@ -126,21 +121,21 @@
 
         <transition-group
           v-else-if="isSelected(choice) && chosenOptions"
-          tag="div"
+          appear
           name="fade"
-          appear>
+          tag="div">
           <recursive-form
             v-for="subOption in chosenOptions"
             :key="`${choice.name}--${subOption.name}`"
-            :option="subOption"
-            :loading="loading" />
+            :loading="loading"
+            :option="subOption" />
         </transition-group>
       </td>
     </tr>
     <tr v-if="hasPagination && mutablePagination < mutableChoices.length">
       <td colspan="2">
         <div :class="`${$classBase}__button`">
-          <hr>
+          <hr />
           <a
             v-test="'button--load-more'"
             href="#"
@@ -190,17 +185,9 @@
   </table>
 </template>
 
-<script>
-import * as EVENTS from '@/config/eventConfig';
-import Loader from '@/delivery-options/components/Loader';
-import PickupOption from '../Pickup/PickupOption';
-import { SHOW_PRICES } from '@/data/keys/configKeys';
-import debounce from 'lodash-es/debounce';
-import { formConfig } from '@/config/formConfig';
-import { formatCurrency } from '@/delivery-options/data/prices/formatCurrency';
-import { getChoiceOrFirst } from '@/delivery-options/components/RecursiveForm/getChoiceOrFirst';
-import { getDependencies } from './getDependencies';
-import { setCheckboxSelected } from './setCheckboxSelected';
+<script lang="ts">
+import PickupOption from '../Pickup/PickupOption.vue';
+import Loader from '../Loader.vue';
 
 export default {
   name: 'RecursiveForm',
@@ -260,7 +247,6 @@ export default {
        * Event listeners object. Stored here so we can add and remove them easily.
        */
       listeners: {
-
         /**
          * Empty this.selected.
          */
@@ -286,7 +272,6 @@ export default {
   },
 
   computed: {
-
     /**
      * Return the first choice in the choices array.
      *
@@ -361,7 +346,6 @@ export default {
    * @see https://github.com/foxbenjaminfox/vue-async-computed
    */
   asyncComputed: {
-
     /**
      * Currently chosen options, if options is a function.
      *
@@ -385,6 +369,7 @@ export default {
             this.$configBus.addError(error);
             return [];
           }
+
           this.loading = false;
 
           choice.options = options;
@@ -401,7 +386,6 @@ export default {
 
   watch: {
     option: {
-
       /**
        * @param {Object} newOption - New value for current option.
        */
@@ -450,7 +434,6 @@ export default {
      * Watch the value of selected to emit a change event.
      */
     selected: {
-
       /**
        * @param {any} value - New value for current option.
        */
@@ -512,14 +495,14 @@ export default {
      *
      * @param {{string}} name - Name of the field that has changed.
      */
-    getChoicesByDependency({ name }) {
+    getChoicesByDependency({name}) {
       const baseDependencies = this.$configBus.dependencies[this.$configBus.currentCarrier];
 
       if (!baseDependencies) {
         return;
       }
 
-      const { dependency } = this.option;
+      const {dependency} = this.option;
       let dependencyName = dependency.name;
 
       // If dependency.name is an array, dependencyName is the last item.
@@ -559,12 +542,10 @@ export default {
      */
     createChoices(choices, option, dependencies, dependency) {
       const options = dependency.hasOwnProperty('parent')
-        ? formConfig
-          .find(({ name }) => name === dependency.parent)
-          .options
+        ? formConfig.find(({name}) => name === dependency.parent).options
         : formConfig;
 
-      let choice = options.find(({ name }) => name === option);
+      let choice = options.find(({name}) => name === option);
 
       // If choice does not exist in the config, ignore it.
       if (!choice) {
@@ -572,7 +553,7 @@ export default {
       }
 
       // Clone the object to avoid mutating the formConfig
-      choice = { ...choice };
+      choice = {...choice};
 
       // Apply transform function to the new choice, if present.
       if (dependency.hasOwnProperty('transform') && typeof dependency.transform === 'function') {
@@ -592,7 +573,7 @@ export default {
      *  current option, the option that has 'selected: true' or the first option.
      */
     setSelected() {
-      const { choices, name, type } = this.mutableOption;
+      const {choices, name, type} = this.mutableOption;
       const isSet = this.$configBus.values.hasOwnProperty(name);
       const setValue = this.$configBus.values[name];
       const hasChoices = choices.length > 0;

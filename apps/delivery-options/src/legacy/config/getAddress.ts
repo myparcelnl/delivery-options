@@ -1,13 +1,10 @@
-import { getWindowObject } from '@/delivery-options/config/getWindowObject';
+import {type DeliveryOptionsAddress} from '@myparcel-do/shared';
+import {getWindowObject} from './getWindowObject';
 
 /**
  * Use given address or get the address from the window object and convert cc to lowercase.
- *
- * @param {Object|null} address - Optional address object to use instead of window object.
- *
- * @returns {MyParcelDeliveryOptions.Address}
  */
-export const getAddress = (address) => {
+export const getAddress = (address: DeliveryOptionsAddress): DeliveryOptionsAddress => {
   const newAddress = address || getWindowObject().address || {};
 
   if (newAddress.cc) {

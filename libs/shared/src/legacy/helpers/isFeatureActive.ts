@@ -1,7 +1,3 @@
-/**
- * @param {string} feature
- * @returns {boolean}
- */
-export function isFeatureActive(feature) {
+export const isFeatureActive = (feature: string): boolean => {
   return Boolean(localStorage.getItem(`features.${feature}`));
-}
+};

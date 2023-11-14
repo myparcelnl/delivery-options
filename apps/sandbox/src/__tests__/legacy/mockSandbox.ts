@@ -1,4 +1,4 @@
-import { baseMockApp } from '../baseMockApp';
+import {baseMockApp} from '../baseMockApp';
 
 /**
  * @param {Object} configBusData

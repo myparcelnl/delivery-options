@@ -1,18 +1,8 @@
-import '@/assets/scss/delivery-options/style.scss';
-import '@/delivery-options/services/polyfills';
-import '@/delivery-options/services/directives';
-import '@/delivery-options/services/filters';
-import { RENDER_DELIVERY_OPTIONS, UPDATE_DELIVERY_OPTIONS } from '@/config/eventConfig';
-import AsyncComputed from 'vue-async-computed';
-import DeliveryOptions from '@/delivery-options/DeliveryOptions';
-import RecursiveForm from '@/delivery-options/components/RecursiveForm/RecursiveForm';
-import Vue from 'vue';
-import { checkSelector } from '@/delivery-options/checkSelector';
-import { createConfigBus } from '@/delivery-options/config/configBus';
-import { cssClassBase } from '@/delivery-options/cssClassBase';
-import { showDeveloperInfo } from '@/delivery-options/showDeveloperInfo';
-
 // This is not present in the compiled code.
+import {UPDATE_DELIVERY_OPTIONS} from '@myparcel-do/shared';
+import {showDeveloperInfo} from './showDeveloperInfo';
+import {checkSelector} from './checkSelector';
+
 if (process.env.NODE_ENV === 'development' && !window.hasOwnProperty('MyParcelConfig')) {
   window.onload = showDeveloperInfo;
 }

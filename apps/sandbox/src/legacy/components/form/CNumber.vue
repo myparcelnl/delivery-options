@@ -6,17 +6,13 @@
     v-bind="filteredProps" />
 </template>
 
-<script>
-import { BFormInput } from 'bootstrap-vue/src/components/form-input';
-import CInput from '@/sandbox/components/form/CInput';
-import { formNumberInput } from '@/sandbox/services/mixins/formNumberInput';
+<script lang="ts">
+import CInput from './CInput.vue';
 
 export default {
   name: 'CNumber',
-  components: { CInput },
+  components: {CInput},
   extends: BFormInput,
-  mixins: [
-    formNumberInput,
-  ],
+  mixins: [formNumberInput],
 };
 </script>

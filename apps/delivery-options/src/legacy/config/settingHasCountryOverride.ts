@@ -1,4 +1,4 @@
-import { settingsWithCountryOverrides } from '@/data/keys/configKeys';
+import {settingsWithCountryOverrides} from '@myparcel-do/shared';
 
 /**
  * Returns whether the given setting can be set per country.

@@ -6,8 +6,8 @@
  * @returns {MyParcel.PickupLocation[]}
  */
 export function formatPickupLocations(pickupLocations) {
-  return pickupLocations.map(({ carrier, location, address, possibilities }) => {
-    const { retail_network_id, location_code, location_name } = location;
+  return pickupLocations.map(({carrier, location, address, possibilities}) => {
+    const {retail_network_id, location_code, location_name} = location;
 
     return {
       carrier,

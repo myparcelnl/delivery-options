@@ -1,9 +1,7 @@
-import { formNumberInput } from '@/sandbox/services/mixins/formNumberInput';
+import {formNumberInput} from './formNumberInput';
 
 export const formCurrencyInput = {
-  mixins: [
-    formNumberInput,
-  ],
+  mixins: [formNumberInput],
 
   props: {
     symbol: {

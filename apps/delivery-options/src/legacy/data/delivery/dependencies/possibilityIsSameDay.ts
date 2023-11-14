@@ -1,4 +1,4 @@
-import { SAME_DAY_DELIVERY } from '@/config/formConfig';
+import {SAME_DAY_DELIVERY} from '@myparcel-do/shared';
 
 /**
  * @param {MyParcelDeliveryOptions.DeliveryPossibility} possibility
@@ -7,8 +7,10 @@ import { SAME_DAY_DELIVERY } from '@/config/formConfig';
  */
 export function possibilityIsSameDay(possibility) {
   return possibility.shipment_options.some((shipmentOption) => {
-    return SAME_DAY_DELIVERY === shipmentOption.name
-      && shipmentOption.schema.enum.length === 1
-      && shipmentOption.schema.enum[0];
+    return (
+      SAME_DAY_DELIVERY === shipmentOption.name &&
+      shipmentOption.schema.enum.length === 1 &&
+      shipmentOption.schema.enum[0]
+    );
   });
 }

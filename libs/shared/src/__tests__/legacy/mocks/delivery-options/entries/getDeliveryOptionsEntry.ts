@@ -1,5 +1,5 @@
-import { getShipmentOptions } from './getShipmentOptions';
-import { getTimeframe } from './getTimeframe';
+import {getTimeframe} from './getTimeframe';
+import {getShipmentOptions} from './getShipmentOptions';
 
 /**
  * @param {import('dayjs').Dayjs} today
@@ -18,32 +18,32 @@ export function getDeliveryOptionsEntry(today, isExtraDropOffDay, isSameDay = fa
       timezone: 'Europe/Amsterdam',
     },
     possibilities: [
-      ...isExtraDropOffDay
+      ...(isExtraDropOffDay
         ? []
         : [
-          {
-            type: 'morning',
-            package_type: 'package',
-            delivery_time_frames: [
-              getTimeframe(`${formattedDate} 8:00:00.000000`, 'start'),
-              getTimeframe(`${formattedDate} 12:00:00.000000`, 'end'),
-            ],
-            shipment_options: getShipmentOptions(['only_recipient']),
-          },
-        ],
-      ...isExtraDropOffDay
+            {
+              type: 'morning',
+              package_type: 'package',
+              delivery_time_frames: [
+                getTimeframe(`${formattedDate} 8:00:00.000000`, 'start'),
+                getTimeframe(`${formattedDate} 12:00:00.000000`, 'end'),
+              ],
+              shipment_options: getShipmentOptions(['only_recipient']),
+            },
+          ]),
+      ...(isExtraDropOffDay
         ? []
         : [
-          {
-            type: 'evening',
-            package_type: 'package',
-            delivery_time_frames: [
-              getTimeframe(`${formattedDate} 18:00:00.000000`, 'start'),
-              getTimeframe(`${formattedDate} 22:00:00.000000`, 'end'),
-            ],
-            shipment_options: getShipmentOptions(['only_recipient']),
-          },
-        ],
+            {
+              type: 'evening',
+              package_type: 'package',
+              delivery_time_frames: [
+                getTimeframe(`${formattedDate} 18:00:00.000000`, 'start'),
+                getTimeframe(`${formattedDate} 22:00:00.000000`, 'end'),
+              ],
+              shipment_options: getShipmentOptions(['only_recipient']),
+            },
+          ]),
       {
         type: 'standard',
         package_type: 'package',

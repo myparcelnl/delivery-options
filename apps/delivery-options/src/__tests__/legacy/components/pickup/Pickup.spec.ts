@@ -1,18 +1,14 @@
-import * as CONFIG from '@/data/keys/configKeys';
-import Pickup from '@/delivery-options/components/Pickup/Pickup';
-import { configBus } from '@/delivery-options/config/configBus';
-import { createPickupChoices } from '@/delivery-options/data/pickup/createPickupChoices';
-import { fakePickupLocationsResponse } from '../../../../mocks/fakePickupLocationsResponse';
-import { fetchAllCarriers } from '@/delivery-options/data/carriers/fetchAllCarriers';
-import { mockDeliveryOptions } from '@Tests/unit/delivery-options/mockDeliveryOptions';
-import { mockVue } from '../../mockVue';
+import {beforeAll, describe, expect, it} from 'vitest';
+import {CONFIG, KEY_CONFIG} from '@myparcel-do/shared';
+import {mockDeliveryOptions} from '../../mockDeliveryOptions';
+import {createPickupChoices, fetchAllCarriers} from '../../../../legacy/data';
 
 describe('Pickup.vue', () => {
   let wrapper;
 
-  beforeAll(async() => {
+  beforeAll(async () => {
     const localVue = mockVue({
-      [CONFIG.KEY]: {
+      [KEY_CONFIG]: {
         [CONFIG.FEATURE_MAX_PAGE_ITEMS]: 5,
       },
     });
@@ -21,17 +17,21 @@ describe('Pickup.vue', () => {
     configBus.setAdvancedCarrierData();
 
     const choices = await createPickupChoices();
-    wrapper = mockDeliveryOptions(null, {
-      localVue,
-      propsData: {
-        data: {
-          choices,
+    wrapper = mockDeliveryOptions(
+      null,
+      {
+        localVue,
+        propsData: {
+          data: {
+            choices,
+          },
         },
       },
-    }, Pickup);
+      Pickup,
+    );
   });
 
-  it('handle finding no pickup locations', async() => {
+  it('handle finding no pickup locations', async () => {
     expect.assertions(1);
     fakePickupLocationsResponse.mockImplementationOnce(() => []);
     await expect(createPickupChoices()).resolves.toStrictEqual([]);
@@ -42,7 +42,7 @@ describe('Pickup.vue', () => {
     expect(wrapper.findByTestId('view--list').exists()).toBeFalsy();
   });
 
-  it('can toggle between list and map view', async() => {
+  it('can toggle between list and map view', async () => {
     expect.assertions(2);
     await wrapper.findByTestId('button--list').element.click();
 
@@ -50,7 +50,7 @@ describe('Pickup.vue', () => {
     expect(wrapper.findByTestId('view--list').isVisible()).toBeTruthy();
   });
 
-  it('has functional pagination', async() => {
+  it('has functional pagination', async () => {
     expect.assertions(3);
     await wrapper.findByTestId('button--list').element.click();
 

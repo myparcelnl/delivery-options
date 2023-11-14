@@ -1,7 +1,4 @@
-import * as CONFIG from '@/data/keys/configKeys';
-import { configBus } from '@/delivery-options/config/configBus';
-import { hasSameDayDelivery } from '@/helpers/delivery/hasSameDayDelivery';
-import { isPastCutoffTime } from '@/helpers/delivery/isPastCutoffTime';
+import {CONFIG} from '@myparcel-do/shared';
 
 /**
  * DropOff delay when same-day delivery is disabled should never be 0 and when enabled, dropOff delay will vary between

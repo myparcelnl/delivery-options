@@ -1,10 +1,8 @@
-import * as CARRIERS from '@/data/keys/carrierKeys';
-import * as CONFIG from '@/data/keys/configKeys';
-import * as PLATFORMS from '@/data/keys/platformKeys';
-import { formConfigDelivery, formConfigPickup } from '@/config/formConfig';
-import { getLowestPriceFromFormConfig } from '@/delivery-options/data/prices/getLowestPriceFromFormConfig';
-import { getPriceLabelFromFormConfig } from '@/delivery-options/data/prices/getPriceLabelFromFormConfig';
-import { mockConfigBus } from '@Tests/unit/delivery-options/mockConfigBus';
+import {beforeAll, describe, expect, it} from 'vitest';
+import {CARRIERS, CONFIG, formConfigDelivery, formConfigPickup, KEY_CONFIG, PLATFORMS} from '@myparcel-do/shared';
+import {getPriceLabelFromFormConfig} from '../../legacy/data/prices/getPriceLabelFromFormConfig';
+import {getLowestPriceFromFormConfig} from '../../legacy/data/prices/getLowestPriceFromFormConfig';
+import {mockConfigBus} from './mockConfigBus';
 
 let beConfigBus;
 let nlConfigBus;
@@ -12,25 +10,25 @@ let nlConfigBus;
 describe('price logic', () => {
   beforeAll(() => {
     beConfigBus = mockConfigBus({
-      [CONFIG.KEY]: {
+      [KEY_CONFIG]: {
         [CONFIG.PLATFORM]: PLATFORMS.SENDMYPARCEL,
         [CONFIG.CARRIER_SETTINGS]: {
           [CARRIERS.BPOST]: {
             [CONFIG.PRICE_MORNING_DELIVERY]: 3.23,
-            [CONFIG.PRICE_STANDARD_DELIVERY]: 3.40,
+            [CONFIG.PRICE_STANDARD_DELIVERY]: 3.4,
             [CONFIG.PRICE_EVENING_DELIVERY]: 4.58,
             [CONFIG.PRICE_PICKUP]: -1,
           },
           [CARRIERS.DPD]: {
             [CONFIG.PRICE_MORNING_DELIVERY]: -1,
             [CONFIG.PRICE_STANDARD_DELIVERY]: 0,
-            [CONFIG.PRICE_EVENING_DELIVERY]: 3.20,
+            [CONFIG.PRICE_EVENING_DELIVERY]: 3.2,
             [CONFIG.PRICE_PICKUP]: -3,
           },
           [CARRIERS.POSTNL]: {
-            [CONFIG.PRICE_MORNING_DELIVERY]: 5.40,
+            [CONFIG.PRICE_MORNING_DELIVERY]: 5.4,
             [CONFIG.PRICE_STANDARD_DELIVERY]: 3.59,
-            [CONFIG.PRICE_EVENING_DELIVERY]: 3.20,
+            [CONFIG.PRICE_EVENING_DELIVERY]: 3.2,
             [CONFIG.PRICE_PICKUP]: 0,
           },
         },
@@ -38,13 +36,13 @@ describe('price logic', () => {
     });
 
     nlConfigBus = mockConfigBus({
-      [CONFIG.KEY]: {
+      [KEY_CONFIG]: {
         [CONFIG.PLATFORM]: PLATFORMS.MYPARCEL,
         [CONFIG.CARRIER_SETTINGS]: {
           [CARRIERS.POSTNL]: {
-            [CONFIG.PRICE_MORNING_DELIVERY]: 5.40,
+            [CONFIG.PRICE_MORNING_DELIVERY]: 5.4,
             [CONFIG.PRICE_STANDARD_DELIVERY]: 3.59,
-            [CONFIG.PRICE_EVENING_DELIVERY]: 3.20,
+            [CONFIG.PRICE_EVENING_DELIVERY]: 3.2,
             [CONFIG.PRICE_PICKUP]: 0,
           },
         },
@@ -80,7 +78,7 @@ describe('price logic', () => {
   });
 
   it('gets the correct lowest price for all carriers', () => {
-    const priceBeDelivery = getLowestPriceFromFormConfig(formConfigDelivery, null, beConfigBus);
+    const priceBeDelivery = getLowestPriceFromFormConfig(formConfigDelivery, undefined, beConfigBus);
 
     // 0 (dpd standard delivery) because morning and evening are ignored for bpost and dpd.
     expect(priceBeDelivery).toEqual(0);
@@ -98,7 +96,7 @@ describe('price logic', () => {
 
   it('handles missing, null and undefined values', () => {
     const configBus = mockConfigBus({
-      [CONFIG.KEY]: {
+      [KEY_CONFIG]: {
         [CONFIG.PLATFORM]: PLATFORMS.SENDMYPARCEL,
         [CONFIG.CARRIER_SETTINGS]: {
           [CARRIERS.BPOST]: {
@@ -109,25 +107,25 @@ describe('price logic', () => {
       },
     });
 
-    const priceLabel = getPriceLabelFromFormConfig(formConfigDelivery, null, configBus);
+    const priceLabel = getPriceLabelFromFormConfig(formConfigDelivery, undefined, configBus);
     expect(priceLabel).toEqual('Vanaf € 0,00');
   });
 
   it('handles show price surcharge setting properly', () => {
     const configBus = mockConfigBus({
-      [CONFIG.KEY]: {
+      [KEY_CONFIG]: {
         [CONFIG.PLATFORM]: PLATFORMS.SENDMYPARCEL,
         [CONFIG.SHOW_PRICE_SURCHARGE]: true,
         [CONFIG.CARRIER_SETTINGS]: {
           [CARRIERS.BPOST]: {
-            [CONFIG.PRICE_MORNING_DELIVERY]: 5.10,
+            [CONFIG.PRICE_MORNING_DELIVERY]: 5.1,
             [CONFIG.PRICE_STANDARD_DELIVERY]: 0,
           },
         },
       },
     });
 
-    const priceLabel = getPriceLabelFromFormConfig(formConfigDelivery, null, configBus);
+    const priceLabel = getPriceLabelFromFormConfig(formConfigDelivery, undefined, configBus);
     expect(priceLabel).toEqual(null);
   });
 });

@@ -706,6 +706,12 @@ __metadata:
   resolution: "@myparcel-do/shared@workspace:libs/shared"
   dependencies:
     "@myparcel/constants": "npm:^1.1.1"
+    "@myparcel/sdk": "npm:^3.3.1"
+    "@myparcel/ts-utils": "npm:^1.12.0"
+    "@vueuse/core": "npm:^10.6.0"
+    dayjs: "npm:^1.11.10"
+    pinia: "npm:^2.1.7"
+    radash: "npm:^11.0.0"
   languageName: unknown
   linkType: soft
 
@@ -879,45 +885,41 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@myparcel-vfb/core@npm:^1.0.0-beta.16":
-  version: 1.0.0-beta.16
-  resolution: "@myparcel-vfb/core@npm:1.0.0-beta.16"
+"@myparcel-vfb/core@portal:/Users/edie/Sites/myparcel/vue-form-builder/libs/core::locator=%40myparcel-do%2Fmonorepo%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "@myparcel-vfb/core@portal:/Users/edie/Sites/myparcel/vue-form-builder/libs/core::locator=%40myparcel-do%2Fmonorepo%40workspace%3A."
   dependencies:
-    "@myparcel-vfb/hook-manager": "npm:^1.0.0-beta.8"
-    "@myparcel-vfb/utils": "npm:^1.0.0-beta.4"
+    "@myparcel-vfb/hook-manager": "workspace:^1.0.0-beta.8"
+    "@myparcel-vfb/utils": "workspace:^1.0.0-beta.4"
     "@myparcel/ts-utils": "npm:^1.6.0"
-  checksum: 86abab1fbf85e6b8fc0ff7497e16ce9b7a96bb440fa4a5bedbed069358bb91354a81162569f8f919c1f4a239ceeb036674ce6b3a9cf9ed3a45f596896e4450d9
   languageName: node
-  linkType: hard
+  linkType: soft
 
-"@myparcel-vfb/hook-manager@npm:^1.0.0-beta.8":
-  version: 1.0.0-beta.8
-  resolution: "@myparcel-vfb/hook-manager@npm:1.0.0-beta.8"
+"@myparcel-vfb/hook-manager@portal:/Users/edie/Sites/myparcel/vue-form-builder/libs/hook-manager::locator=%40myparcel-do%2Fmonorepo%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "@myparcel-vfb/hook-manager@portal:/Users/edie/Sites/myparcel/vue-form-builder/libs/hook-manager::locator=%40myparcel-do%2Fmonorepo%40workspace%3A."
   dependencies:
     "@myparcel/ts-utils": "npm:^1.6.0"
-  checksum: 1983befb2188ade4e35efb458e846215fe07fd535a80d302abffd86c75e1b523c0e80a5d199472bba6b95253dc44c49ef84931b37d5c785cde30916513f4801a
   languageName: node
-  linkType: hard
+  linkType: soft
 
-"@myparcel-vfb/plugin@npm:^1.0.0-beta.16":
-  version: 1.0.0-beta.16
-  resolution: "@myparcel-vfb/plugin@npm:1.0.0-beta.16"
+"@myparcel-vfb/plugin@portal:/Users/edie/Sites/myparcel/vue-form-builder/libs/plugin::locator=%40myparcel-do%2Fmonorepo%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "@myparcel-vfb/plugin@portal:/Users/edie/Sites/myparcel/vue-form-builder/libs/plugin::locator=%40myparcel-do%2Fmonorepo%40workspace%3A."
   dependencies:
-    "@myparcel-vfb/core": "npm:^1.0.0-beta.16"
+    "@myparcel-vfb/core": "workspace:^1.0.0-beta.16"
     "@myparcel/ts-utils": "npm:^1.6.0"
     "@vue/devtools-api": "npm:^6.5.0"
-  checksum: a6c67b0a11cc5f474d6c5c923dbe4e2cf50b741d35e578e240496818c6ee2ac07dc0af08eb0845374ae4e496ae3c66097aeed2f780eba3da9b25d79c0ef69bcb
   languageName: node
-  linkType: hard
+  linkType: soft
 
-"@myparcel-vfb/utils@npm:^1.0.0-beta.4":
-  version: 1.0.0-beta.4
-  resolution: "@myparcel-vfb/utils@npm:1.0.0-beta.4"
+"@myparcel-vfb/utils@portal:/Users/edie/Sites/myparcel/vue-form-builder/libs/utils::locator=%40myparcel-do%2Fmonorepo%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "@myparcel-vfb/utils@portal:/Users/edie/Sites/myparcel/vue-form-builder/libs/utils::locator=%40myparcel-do%2Fmonorepo%40workspace%3A."
   dependencies:
     "@myparcel/ts-utils": "npm:^1.6.0"
-  checksum: 2ef5b9c813fff17935365f8908d3f03cd21523cc42ed678c4deaf9587efec8ac0c0bef373a0c2bf0f9915f0306e6cfa64ce84a4e3fa0f91f18bc376312287d80
   languageName: node
-  linkType: hard
+  linkType: soft
 
 "@myparcel/constants@npm:^1.0.0, @myparcel/constants@npm:^1.1.0, @myparcel/constants@npm:^1.1.1":
   version: 1.1.1
@@ -953,7 +955,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@myparcel/sdk@npm:^3.0.0, @myparcel/sdk@npm:^3.2.0":
+"@myparcel/sdk@npm:^3.0.0, @myparcel/sdk@npm:^3.2.0, @myparcel/sdk@npm:^3.3.1":
   version: 3.3.1
   resolution: "@myparcel/sdk@npm:3.3.1"
   dependencies:
@@ -988,20 +990,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@myparcel/vue-form-builder@npm:^1.0.0-beta.17":
-  version: 1.0.0-beta.17
-  resolution: "@myparcel/vue-form-builder@npm:1.0.0-beta.17"
+"@myparcel/vue-form-builder@portal:/Users/edie/Sites/myparcel/vue-form-builder/apps/vue-form-builder::locator=%40myparcel-do%2Fmonorepo%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "@myparcel/vue-form-builder@portal:/Users/edie/Sites/myparcel/vue-form-builder/apps/vue-form-builder::locator=%40myparcel-do%2Fmonorepo%40workspace%3A."
   dependencies:
-    "@myparcel-vfb/core": "npm:^1.0.0-beta.16"
-    "@myparcel-vfb/hook-manager": "npm:^1.0.0-beta.8"
-    "@myparcel-vfb/plugin": "npm:^1.0.0-beta.16"
-    "@myparcel-vfb/utils": "npm:^1.0.0-beta.4"
+    "@myparcel-vfb/core": "workspace:^1.0.0-beta.16"
+    "@myparcel-vfb/hook-manager": "workspace:^1.0.0-beta.8"
+    "@myparcel-vfb/plugin": "workspace:^1.0.0-beta.16"
+    "@myparcel-vfb/utils": "workspace:^1.0.0-beta.4"
     "@myparcel/ts-utils": "npm:^1.6.0"
   peerDependencies:
     vue: ^3
-  checksum: 699c33d6653b1700d488a5a13674f62373124dbc642046c9092dd74d2cb5bb3df196352c5aa031b24eb9ddafc688f925cafebf3b517e688784702c5ce2524977
   languageName: node
-  linkType: hard
+  linkType: soft
 
 "@nodelib/fs.scandir@npm:2.1.5":
   version: 2.1.5
@@ -2834,7 +2835,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vueuse/core@npm:^10.0.0, @vueuse/core@npm:^10.5.0":
+"@vueuse/core@npm:^10.0.0, @vueuse/core@npm:^10.5.0, @vueuse/core@npm:^10.6.0":
   version: 10.6.1
   resolution: "@vueuse/core@npm:10.6.1"
   dependencies:
@@ -4187,6 +4188,13 @@ __metadata:
   version: 3.0.3
   resolution: "dateformat@npm:3.0.3"
   checksum: 2effb8bef52ff912f87a05e4adbeacff46353e91313ad1ea9ed31412db26849f5a0fcc7e3ce36dbfb84fc6c881a986d5694f84838ad0da7000d5150693e78678
+  languageName: node
+  linkType: hard
+
+"dayjs@npm:^1.11.10":
+  version: 1.11.10
+  resolution: "dayjs@npm:1.11.10"
+  checksum: 4de9af50639d47df87f2e15fa36bb07e0f9ed1e9c52c6caa1482788ee9a384d668f1dbd00c54f82aaab163db07d61d2899384b8254da3a9184fc6deca080e2fe
   languageName: node
   linkType: hard
 
@@ -9374,6 +9382,13 @@ __metadata:
   version: 4.0.1
   resolution: "quick-lru@npm:4.0.1"
   checksum: f9b1596fa7595a35c2f9d913ac312fede13d37dc8a747a51557ab36e11ce113bbe88ef4c0154968845559a7709cb6a7e7cbe75f7972182451cd45e7f057a334d
+  languageName: node
+  linkType: hard
+
+"radash@npm:^11.0.0":
+  version: 11.0.0
+  resolution: "radash@npm:11.0.0"
+  checksum: 5bfb5c44b9cb12b6242a51d93facf32fac217e0e2c86f229ae11a5d12b33e558c3d771e81415f08b88790c2384ed297e3b83d2735bc631f858312ca9c9323afa
   languageName: node
   linkType: hard
 

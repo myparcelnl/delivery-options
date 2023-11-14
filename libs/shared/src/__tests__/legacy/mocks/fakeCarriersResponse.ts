@@ -111,5 +111,5 @@ export const fakeCarriersResponse = (args = {}) => {
     return allCarrierData;
   }
 
-  return allCarrierData.filter(({ name }) => name === args?.carrier);
+  return allCarrierData.filter(({name}) => name === args?.carrier);
 };

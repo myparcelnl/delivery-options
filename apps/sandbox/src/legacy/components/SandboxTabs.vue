@@ -1,13 +1,13 @@
 <template>
   <BTabs
     v-if="tabs.length > 1"
-    justified
-    content-class="py-2">
+    content-class="py-2"
+    justified>
     <BTab
       v-for="(tab, index) in tabs"
       :key="`tab_${tab.name}`"
-      :title="$te(tab.label) ? $t(tab.label) : tab.label"
       :active="activeTab ? activeTab === tab.name : index === 0"
+      :title="$te(tab.label) ? $t(tab.label) : tab.label"
       @click="() => handleClick(tab)">
       <component
         :is="tab.component"
@@ -21,7 +21,7 @@
     v-bind="tabs[0].props" />
 </template>
 
-<script>
+<script lang="ts">
 export default {
   name: 'SandboxTabs',
 

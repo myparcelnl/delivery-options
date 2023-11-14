@@ -4,12 +4,12 @@
     :options="mutableOptions" />
 </template>
 
-<script>
-import CSelect from '@/sandbox/components/form/CSelect';
+<script lang="ts">
+import CSelect from './CSelect.vue';
 
 export default {
   name: 'CCountrySelect',
-  components: { CSelect },
+  components: {CSelect},
   extends: CSelect,
 
   props: {
@@ -26,7 +26,6 @@ export default {
   },
 
   watch: {
-
     /**
      * Update the countries list on load and locale change.
      */

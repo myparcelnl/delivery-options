@@ -1,12 +1,13 @@
-import * as CARRIERS from '@/data/keys/carrierKeys';
-import * as PLATFORMS from '@/data/keys/platformKeys';
+import {type SupportedPlatformName} from '@myparcel-do/shared';
+import {type CarrierName} from '@myparcel/constants';
+import {CARRIERS, PLATFORMS} from '../../data';
 
 /**
  * Maps platforms to their available carriers.
  *
  * @type {Object<MyParcel.Platform, MyParcel.CarrierName[]>}
  */
-export const platformCarrierMap = {
+export const platformCarrierMap: Record<SupportedPlatformName, CarrierName[]> = {
   [PLATFORMS.MYPARCEL]: [
     CARRIERS.POSTNL,
     CARRIERS.DHL,
@@ -14,9 +15,5 @@ export const platformCarrierMap = {
     CARRIERS.DHL_PARCEL_CONNECT,
     CARRIERS.DHL_EUROPLUS,
   ],
-  [PLATFORMS.SENDMYPARCEL]: [
-    CARRIERS.BPOST,
-    CARRIERS.DPD,
-    CARRIERS.POSTNL,
-  ],
+  [PLATFORMS.SENDMYPARCEL]: [CARRIERS.BPOST, CARRIERS.DPD, CARRIERS.POSTNL],
 };

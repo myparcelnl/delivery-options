@@ -1,8 +1,4 @@
-import * as ADDRESS from '@/data/keys/addressKeys';
-import * as STRINGS from '@/data/keys/stringsKeys';
-import { MYPARCEL, SENDMYPARCEL } from '@/data/keys/platformKeys';
-import CCountrySelect from '@/sandbox/components/form/CCountrySelect';
-import CTextInput from '@/sandbox/components/form/CTextInput.vue';
+import {ADDRESS_CC, ADDRESS_POSTAL_CODE, ADDRESS_STREET, KEY_ADDRESS, STRINGS} from '@myparcel-do/shared';
 
 /**
  * @param {MyParcel.Platform} platform
@@ -19,8 +15,8 @@ function getForm(platform) {
     description: 'address',
     settings: [
       {
-        key: ADDRESS.KEY,
-        name: ADDRESS.CC,
+        key: KEY_ADDRESS,
+        name: ADDRESS_CC,
         component: CCountrySelect,
         props: {
           label: STRINGS.CC,
@@ -28,16 +24,16 @@ function getForm(platform) {
         },
       },
       {
-        key: ADDRESS.KEY,
-        name: ADDRESS.POSTAL_CODE,
+        key: KEY_ADDRESS,
+        name: ADDRESS_POSTAL_CODE,
         props: {
           label: STRINGS.POSTAL_CODE,
           autocomplete: 'postal-code',
         },
       },
       {
-        key: ADDRESS.KEY,
-        name: ADDRESS.STREET,
+        key: KEY_ADDRESS,
+        name: ADDRESS_STREET,
         component: CTextInput,
         props: {
           label: STRINGS.STREET,
@@ -45,8 +41,8 @@ function getForm(platform) {
         },
       },
       {
-        key: ADDRESS.KEY,
-        name: ADDRESS.CITY,
+        key: KEY_ADDRESS,
+        name: ADDRESS_CITY,
         props: {
           label: STRINGS.CITY,
           autocomplete: 'address-level2',

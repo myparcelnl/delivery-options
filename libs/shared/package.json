@@ -19,7 +19,9 @@
     "./dist"
   ],
   "dependencies": {
-    "@myparcel/constants": "^1.1.1"
+    "@myparcel/constants": "^1.1.1",
+    "@vueuse/core": "^10.6.0",
+    "radash": "^11.0.0"
   },
   "scripts": {
     "build": "run ws:vue:build \"$(pwd)\"",
@@ -34,5 +36,11 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "devDependencies": {
+    "@myparcel/sdk": "^3.3.1",
+    "@myparcel/ts-utils": "^1.12.0",
+    "dayjs": "^1.11.10",
+    "pinia": "^2.1.7"
   }
 }

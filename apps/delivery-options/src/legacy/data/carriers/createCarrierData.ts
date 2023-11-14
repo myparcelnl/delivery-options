@@ -1,6 +1,3 @@
-import { formConfigDelivery, formConfigPickup } from '@/config/formConfig';
-import { configBus } from '@/delivery-options/config/configBus';
-
 /**
  * @param {{name: string, human: string, id: number}[]} apiCarriers
  * @param {{name: MyParcel.CarrierName, identifier: MyParcel.CarrierIdentifier}[]} configCarriers

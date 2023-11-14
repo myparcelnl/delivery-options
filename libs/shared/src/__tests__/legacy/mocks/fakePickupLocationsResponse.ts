@@ -1,4 +1,4 @@
-export const fakePickupLocationsResponse = jest.fn(() => [
+export const fakePickupLocationsResponse = vi.fn(() => [
   {
     address: {
       cc: 'BE',
@@ -130,7 +130,8 @@ export const fakePickupLocationsResponse = jest.fn(() => [
         ],
       },
     },
-  }, {
+  },
+  {
     address: {
       cc: 'BE',
       city: 'Antwerpen',
@@ -248,7 +249,8 @@ export const fakePickupLocationsResponse = jest.fn(() => [
         sunday: [],
       },
     },
-  }, {
+  },
+  {
     address: {
       cc: 'BE',
       city: 'Antwerpen',
@@ -271,7 +273,7 @@ export const fakePickupLocationsResponse = jest.fn(() => [
       },
     ],
     location: {
-      location_name: 'LOUIS DELHAIZE A\'PEN \'T EILANDJE',
+      location_name: "LOUIS DELHAIZE A'PEN 'T EILANDJE",
       retail_network_id: '',
       distance: '1014',
       latitude: '51.2298727',
@@ -379,7 +381,8 @@ export const fakePickupLocationsResponse = jest.fn(() => [
         ],
       },
     },
-  }, {
+  },
+  {
     address: {
       cc: 'BE',
       city: 'Antwerpen',
@@ -497,7 +500,8 @@ export const fakePickupLocationsResponse = jest.fn(() => [
         sunday: [],
       },
     },
-  }, {
+  },
+  {
     address: {
       cc: 'BE',
       city: 'Antwerpen',
@@ -615,7 +619,8 @@ export const fakePickupLocationsResponse = jest.fn(() => [
         sunday: [],
       },
     },
-  }, {
+  },
+  {
     address: {
       cc: 'BE',
       city: 'Antwerpen',
@@ -733,7 +738,8 @@ export const fakePickupLocationsResponse = jest.fn(() => [
         sunday: [],
       },
     },
-  }, {
+  },
+  {
     address: {
       cc: 'BE',
       city: 'Antwerpen',
@@ -851,7 +857,8 @@ export const fakePickupLocationsResponse = jest.fn(() => [
         sunday: [],
       },
     },
-  }, {
+  },
+  {
     address: {
       cc: 'BE',
       city: 'Antwerpen',
@@ -969,7 +976,8 @@ export const fakePickupLocationsResponse = jest.fn(() => [
         ],
       },
     },
-  }, {
+  },
+  {
     address: {
       cc: 'BE',
       city: 'Antwerpen',
@@ -1100,7 +1108,8 @@ export const fakePickupLocationsResponse = jest.fn(() => [
         ],
       },
     },
-  }, {
+  },
+  {
     address: {
       cc: 'BE',
       city: 'Antwerpen',

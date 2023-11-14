@@ -7,29 +7,17 @@
       :options="$config.get('forms.codeFormats')" />
 
     <CCodeDisplay
-      :code="code"
-      :loading="codeRefreshing"
       :allow-hover="allowHoverFor"
+      :code="code"
       :language="format"
+      :loading="codeRefreshing"
       @click="handleClick" />
   </div>
 </template>
 
-<script>
-import * as EVENTS from '@/config/eventConfig';
-import {
-  CODE_FORMAT_JAVASCRIPT,
-  CODE_FORMAT_JAVASCRIPT_ES6,
-  CODE_FORMAT_JSON,
-} from '@/sandbox/config/forms/codeFormats';
-import CRadioGroup from '@/sandbox/components/form/CRadioGroup';
-import debounce from 'lodash-es/debounce';
-import { flattenObject } from '@/helpers/flattenObject';
-import { formatCode } from '@/sandbox/services/filters/formatCode';
-import intersection from 'lodash-es/intersection';
-import last from 'lodash-es/last';
-import pick from 'lodash-es/pick';
-import { sandboxConfigBus } from '@/sandbox/sandboxConfigBus';
+<script lang="ts">
+import {sandboxConfigBus} from '../sandboxConfigBus';
+import CRadioGroup from './form/CRadioGroup.vue';
 
 export default {
   name: 'HomeCodeBlock',
@@ -69,7 +57,10 @@ export default {
 
     sandboxConfigBus.$on('updated_settings', this.setCode);
     // Trigger setCode when new formItems have been rendered, which happens when switching platform.
-    sandboxConfigBus.$on('created:formItem', debounce(() => this.setCode(), DEBOUNCE_DELAY));
+    sandboxConfigBus.$on(
+      'created:formItem',
+      debounce(() => this.setCode(), DEBOUNCE_DELAY),
+    );
   },
 
   beforeUnmount() {
@@ -122,10 +113,7 @@ export default {
       this.codeRefreshing = true;
 
       // Filter the settings by items that are actually in the current form.
-      const newSettings = intersection(
-        Object.keys(flattenObject(settings)),
-        [...sandboxConfigBus.itemsInForm],
-      );
+      const newSettings = intersection(Object.keys(flattenObject(settings)), [...sandboxConfigBus.itemsInForm]);
 
       const filteredSettings = pick(settings, newSettings);
 

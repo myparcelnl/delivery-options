@@ -8,7 +8,7 @@
 
         <SandboxTabs
           :tabs="$config.get('tabs.settings')"
-          @switched-tab="switchPlatform" />
+          @switchedTab="switchPlatform" />
       </div>
 
       <div class="col-12 col-md-6">
@@ -17,18 +17,17 @@
         </Heading>
         <SandboxTabs
           v-if="formRendered"
-          class="sticky-top"
-          :tabs="$config.get('tabs.previews')" />
+          :tabs="$config.get('tabs.previews')"
+          class="sticky-top" />
       </div>
     </div>
   </div>
 </template>
 
-<script>
-import Heading from '@/sandbox/components/Heading';
-import SandboxTabs from '@/sandbox/components/SandboxTabs';
-import debounce from 'lodash-es/debounce';
-import { sandboxConfigBus } from '@/sandbox/sandboxConfigBus';
+<script lang="ts">
+import {sandboxConfigBus} from '../sandboxConfigBus';
+import SandboxTabs from './SandboxTabs.vue';
+import Heading from './Heading.vue';
 
 export default {
   name: 'SandboxSettings',
@@ -47,9 +46,13 @@ export default {
     const DEBOUNCE_DELAY = 50;
 
     // Catch formItem created events and use debouncing to only set formRendered when the last one is done.
-    sandboxConfigBus.$on('created:formItem', debounce(() => {
-      this.formRendered = true;
-    }), DEBOUNCE_DELAY);
+    sandboxConfigBus.$on(
+      'created:formItem',
+      debounce(() => {
+        this.formRendered = true;
+      }),
+      DEBOUNCE_DELAY,
+    );
   },
 
   beforeUnmount() {

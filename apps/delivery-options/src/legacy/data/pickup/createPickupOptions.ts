@@ -1,13 +1,12 @@
-import { PICKUP_LOCATION } from '@/config/formConfig';
-import Pickup from '@/delivery-options/components/Pickup/Pickup';
-import { createPickupChoices } from '@/delivery-options/data/pickup/createPickupChoices';
+import {PICKUP_LOCATION} from '@myparcel-do/shared';
+import {createPickupChoices} from './createPickupChoices';
 
 /**
  * Create the pickup options array.
  *
  * @returns {Promise.<MyParcelDeliveryOptions.FormEntry[]>}
  */
-export const createPickupOptions = async() => [
+export const createPickupOptions = async () => [
   {
     name: PICKUP_LOCATION,
     type: 'radio',

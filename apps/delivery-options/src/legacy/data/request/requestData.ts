@@ -1,7 +1,4 @@
-import * as CONFIG from '@/data/keys/configKeys';
-import { MYPARCEL, SENDMYPARCEL } from '@/data/keys/platformKeys';
-import { getCutoffTime } from '@/helpers/delivery/getCutoffTime';
-import { configBus as realConfigBus } from '@/delivery-options/config/configBus';
+import {CONFIG, MYPARCEL, SENDMYPARCEL} from '@myparcel-do/shared';
 
 const getParametersForNL = (configBus) => ({
   monday_delivery: Number(configBus.get(CONFIG.ALLOW_MONDAY_DELIVERY, null, configBus.currentCarrier)),
@@ -27,13 +24,8 @@ const parametersByPlatform = {
 /** .................................................
  * Get the request parameters for the given platform.
  *
- * @param {import('@/delivery-options/config/configBus')} configBus - Optional parameter for easier testing.
- *
- * @returns {DeliveryOptionsRequestParameters}
  */
-export function getParametersByPlatform(
-  configBus = realConfigBus,
-) {
+export function getParametersByPlatform(configBus = realConfigBus) {
   const platform = configBus.get(CONFIG.PLATFORM);
 
   return {

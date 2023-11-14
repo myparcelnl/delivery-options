@@ -1,12 +1,17 @@
-import * as CARRIERS from '@/data/keys/carrierKeys';
-import * as CONFIG from '@/data/keys/configKeys';
-import { MYPARCEL, SENDMYPARCEL } from '@/data/keys/platformKeys';
-import { DEFAULT_PLATFORM } from '@/data/keys/settingsConsts';
-import { defaultConfiguration } from '@/config/defaultConfiguration';
-import { formConfigPickup } from '@/config/formConfig';
-import { mockConfigBus } from './mockConfigBus';
-import { defaultAddress } from '@/data/defaultAddress';
-import * as ADDRESS from '@/data/keys/addressKeys';
+import {describe, expect, it, test} from 'vitest';
+import {
+  CARRIERS,
+  CONFIG,
+  DEFAULT_PLATFORM,
+  defaultAddress,
+  defaultConfiguration,
+  formConfigPickup,
+  KEY_ADDRESS,
+  KEY_CONFIG,
+  MYPARCEL,
+  SENDMYPARCEL,
+} from '@myparcel-do/shared';
+import {mockConfigBus} from './mockConfigBus';
 
 let configBus = mockConfigBus(DEFAULT_PLATFORM);
 
@@ -33,7 +38,7 @@ describe('configBus', () => {
 
   it('prioritizes settings correctly', () => {
     configBus = mockConfigBus({
-      [CONFIG.KEY]: {
+      [KEY_CONFIG]: {
         [CONFIG.PLATFORM]: SENDMYPARCEL,
         [CONFIG.ALLOW_PICKUP_LOCATIONS]: true,
         [CONFIG.CARRIER_SETTINGS]: {
@@ -54,7 +59,7 @@ describe('configBus', () => {
     expect(configBus.get(CONFIG.ALLOW_PICKUP_LOCATIONS)).toBe(true);
 
     configBus = mockConfigBus({
-      [CONFIG.KEY]: {
+      [KEY_CONFIG]: {
         [CONFIG.PLATFORM]: SENDMYPARCEL,
         [CONFIG.ALLOW_DELIVERY_OPTIONS]: false,
         [CONFIG.CARRIER_SETTINGS]: {
@@ -79,17 +84,19 @@ describe('configBus', () => {
     configBus = mockConfigBus(DEFAULT_PLATFORM);
 
     configBus.$data.currentCarrier = CARRIERS.DPD;
-    expect(configBus.get(CONFIG.ALLOW_SIGNATURE))
-      .toBe(defaultConfiguration(DEFAULT_PLATFORM).config[CONFIG.ALLOW_SIGNATURE]);
+    expect(configBus.get(CONFIG.ALLOW_SIGNATURE)).toBe(
+      defaultConfiguration(DEFAULT_PLATFORM).config[CONFIG.ALLOW_SIGNATURE],
+    );
 
     configBus.$data.currentCarrier = CARRIERS.BPOST;
-    expect(configBus.get(CONFIG.PRICE_ONLY_RECIPIENT))
-      .toBe(defaultConfiguration(DEFAULT_PLATFORM).config[CONFIG.PRICE_ONLY_RECIPIENT]);
+    expect(configBus.get(CONFIG.PRICE_ONLY_RECIPIENT)).toBe(
+      defaultConfiguration(DEFAULT_PLATFORM).config[CONFIG.PRICE_ONLY_RECIPIENT],
+    );
   });
 
   test('getSettingsByCarrier', () => {
     configBus = mockConfigBus({
-      [CONFIG.KEY]: {
+      [KEY_CONFIG]: {
         [CONFIG.CARRIER_SETTINGS]: {
           [CARRIERS.POSTNL]: {
             [CONFIG.ALLOW_DELIVERY_OPTIONS]: true,
@@ -110,7 +117,7 @@ describe('configBus', () => {
 
   test('isEnabledInAnyCarrier', () => {
     const mockData = {
-      [CONFIG.KEY]: {
+      [KEY_CONFIG]: {
         [CONFIG.PLATFORM]: MYPARCEL,
         [CONFIG.CARRIER_SETTINGS]: {
           [CARRIERS.POSTNL]: {
@@ -148,21 +155,39 @@ describe('configBus', () => {
 
   it('supports overriding settings per country', () => {
     const mockData = {
-      [ADDRESS.KEY]: defaultAddress[SENDMYPARCEL],
-      [CONFIG.KEY]: {
+      [KEY_ADDRESS]: defaultAddress[SENDMYPARCEL],
+      [KEY_CONFIG]: {
         [CONFIG.PLATFORM]: SENDMYPARCEL,
         [CONFIG.CARRIER_SETTINGS]: {
           [CARRIERS.BPOST]: {
-            [CONFIG.ALLOW_DELIVERY_OPTIONS]: { allow: true, items: ['NL', 'BE'] },
-            [CONFIG.ALLOW_PICKUP_LOCATIONS]: { allow: false, items: ['BE'] },
+            [CONFIG.ALLOW_DELIVERY_OPTIONS]: {
+              allow: true,
+              items: ['NL', 'BE'],
+            },
+            [CONFIG.ALLOW_PICKUP_LOCATIONS]: {
+              allow: false,
+              items: ['BE'],
+            },
           },
           [CARRIERS.POSTNL]: {
-            [CONFIG.ALLOW_DELIVERY_OPTIONS]: { allow: true, items: ['NL'] },
-            [CONFIG.ALLOW_PICKUP_LOCATIONS]: { allow: true, items: ['NL'] },
+            [CONFIG.ALLOW_DELIVERY_OPTIONS]: {
+              allow: true,
+              items: ['NL'],
+            },
+            [CONFIG.ALLOW_PICKUP_LOCATIONS]: {
+              allow: true,
+              items: ['NL'],
+            },
           },
           [CARRIERS.DPD]: {
-            [CONFIG.ALLOW_DELIVERY_OPTIONS]: { allow: false, items: ['BE', 'DE'] },
-            [CONFIG.ALLOW_PICKUP_LOCATIONS]: { allow: true, items: ['BE', 'DE'] },
+            [CONFIG.ALLOW_DELIVERY_OPTIONS]: {
+              allow: false,
+              items: ['BE', 'DE'],
+            },
+            [CONFIG.ALLOW_PICKUP_LOCATIONS]: {
+              allow: true,
+              items: ['BE', 'DE'],
+            },
           },
         },
       },

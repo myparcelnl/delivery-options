@@ -1,20 +1,17 @@
 <template>
   <CInput
     v-model="mutableValue"
-    type="time"
     placeholder="HH:mm"
+    type="time"
     v-bind="filteredProps" />
 </template>
 
-<script>
-import CInput from '@/sandbox/components/form/CInput';
-import { formTextInput } from '@/sandbox/services/mixins/formTextInput';
+<script lang="ts">
+import CInput from './CInput.vue';
 
 export default {
   name: 'CTimepicker',
-  components: { CInput },
-  mixins: [
-    formTextInput,
-  ],
+  components: {CInput},
+  mixins: [formTextInput],
 };
 </script>

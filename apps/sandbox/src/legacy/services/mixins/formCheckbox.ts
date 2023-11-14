@@ -1,10 +1,7 @@
-import { formInputProps } from '@/sandbox/services/mixins/formInputProps';
-import isEqual from 'lodash-es/isEqual';
+import {formInputProps} from './formInputProps';
 
 export const formCheckbox = {
-  mixins: [
-    formInputProps,
-  ],
+  mixins: [formInputProps],
 
   model: {
     prop: 'checked',

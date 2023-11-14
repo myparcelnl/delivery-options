@@ -1,6 +1,5 @@
-import { AbstractCarrierConfiguration } from '@/data/carriers/abstractCarrierConfiguration';
-import { FEATURES_SAME_DAY_DELIVERY } from '@/data/carrierFeatures';
-import { getSameDayDropOffDelay } from './getSameDayDropOffDelay';
+import {FEATURES_SAME_DAY_DELIVERY} from '@myparcel-do/shared';
+import {getSameDayDropOffDelay} from './getSameDayDropOffDelay';
 
 /**
  * @param {AbstractCarrierConfiguration} carrierConfiguration
@@ -11,6 +10,6 @@ export function getCarrierRequestParameters(carrierConfiguration) {
   const hasSameDayDelivery = carrierConfiguration.hasFeature(FEATURES_SAME_DAY_DELIVERY);
 
   return {
-    ...hasSameDayDelivery ? getSameDayDropOffDelay(carrierConfiguration?.getName()) : {},
+    ...(hasSameDayDelivery ? getSameDayDropOffDelay(carrierConfiguration?.getName()) : {}),
   };
 }

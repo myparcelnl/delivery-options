@@ -1,6 +1,6 @@
-import * as STRINGS from '@/data/keys/stringsKeys';
+import {SATURDAY_DELIVERY_TITLE, WRONG_POSTAL_CODE_CITY} from '@myparcel-do/shared';
 
 export const strings = {
-  [STRINGS.SATURDAY_DELIVERY_TITLE]: 'Zaterdaglevering',
-  [STRINGS.WRONG_POSTAL_CODE_CITY]: 'Combinatie postcode/plaats onbekend',
+  [SATURDAY_DELIVERY_TITLE]: 'Zaterdaglevering',
+  [WRONG_POSTAL_CODE_CITY]: 'Combinatie postcode/plaats onbekend',
 };

@@ -6,44 +6,33 @@
     }">
     <Modal
       v-if="showModal"
-      inline
       :component="modalComponent"
-      :modal-data="selectedPickupLocation"
       :has-close-button="true"
+      :modal-data="selectedPickupLocation"
+      inline
       @close="showModal = false" />
 
     <div v-show="!showModal">
       <LMap
         v-if="showMap"
         ref="map"
-        :class="mapClass"
-        :center="center">
+        :center="center"
+        :class="mapClass">
         <LMarker
           v-for="marker in markers"
-          :key="'marker_' + marker.id"
+          :key="`marker_${marker.id}`"
           :ref="marker.id"
-          :lat-lng="marker.latLng"
           :icon="marker.icon"
+          :lat-lng="marker.latLng"
           @click="onClickMarker(marker)" />
       </LMap>
     </div>
   </div>
 </template>
 
-<script>
-import * as CONFIG from '@/data/keys/configKeys';
-import * as EVENTS from '@/config/eventConfig';
-import * as FORM from '@/config/formConfig';
-import {CarrierConfigurationFactory} from '@/data/carriers/carrierConfigurationFactory';
-import Modal from '@/delivery-options/components/Modal';
-import {NETHERLANDS} from '@myparcel/js-sdk/dist/constant/countries-iso2';
-import PickupDetails from '@/delivery-options/components/Pickup/PickupDetails';
-import Vue from 'vue';
-import {createIcons} from '@/delivery-options/components/Pickup/Map/createIcons';
-import {createPickupChoices} from '@/delivery-options/data/pickup/createPickupChoices';
-import {createScript} from '@/delivery-options/services/createScript';
-import debounce from 'lodash-es/debounce';
-import {fetchPickupLocations} from '@/delivery-options/data/pickup/fetchPickupLocations';
+<script lang="ts">
+import {NETHERLANDS} from '@myparcel/constants/countries';
+import PickupDetails from '../PickupDetails.vue';
 
 /**
  * @member this.$refs.map
@@ -58,12 +47,14 @@ export default {
   components: {
     Modal,
   },
+
   props: {
     data: {
       type: Object,
       default: null,
     },
   },
+
   data() {
     const DEBOUNCE_DELAY = 300;
     const DEFAULT_LAT = 52.2906535;
@@ -226,7 +217,7 @@ export default {
     createMap() {
       this.showMap = true;
 
-      this.$nextTick(() => {
+      this.$nextTick().then(() => {
         if (!this.$refs.map) {
           return;
         }
@@ -263,7 +254,7 @@ export default {
         data = JSON.parse(data);
       }
 
-      const { url, ...tileLayerData } = data;
+      const {url, ...tileLayerData} = data;
       const tileLayer = L.tileLayer(url, tileLayerData);
 
       tileLayer.addTo(this.map);
@@ -293,8 +284,8 @@ export default {
      */
     onClickMarker(marker) {
       this.selectMarker(marker);
-      this.$configBus.$emit(EVENTS.UPDATE, { name: FORM.PICKUP_LOCATION, value: this.selectedPickupLocation.name });
-      this.$configBus.$emit(EVENTS.UPDATE, { name: FORM.CARRIER, value: this.selectedPickupLocation.carrier });
+      this.$configBus.$emit(EVENTS.UPDATE, {name: FORM.PICKUP_LOCATION, value: this.selectedPickupLocation.name});
+      this.$configBus.$emit(EVENTS.UPDATE, {name: FORM.CARRIER, value: this.selectedPickupLocation.carrier});
 
       this.showModal = true;
     },
@@ -311,12 +302,12 @@ export default {
       const firstPickupMoment = this.selectedPickupLocation.pickupData.possibilities[0].delivery_type_name;
 
       // Set the pickup moment to the first available possibility manually.
-      this.$configBus.$emit(EVENTS.UPDATE, { name: FORM.PICKUP_MOMENT, value: firstPickupMoment });
+      this.$configBus.$emit(EVENTS.UPDATE, {name: FORM.PICKUP_MOMENT, value: firstPickupMoment});
     },
 
     createMarkers() {
       this.markers = this.choices.reduce((acc, currentChoice) => {
-        const { carrier, pickupData } = currentChoice;
+        const {carrier, pickupData} = currentChoice;
         const latLng = L.latLng(pickupData.location.latitude, pickupData.location.longitude);
 
         const id = pickupData.location.location_code;
@@ -369,13 +360,11 @@ export default {
       this.centerMarker.setLatLng(center);
 
       // Map the new center latlng to the request parameters.
-      const useLatLng = (carrier) => fetchPickupLocations(
-        CarrierConfigurationFactory.create(carrier.name),
-        {
+      const useLatLng = (carrier) =>
+        fetchPickupLocations(getCarrierConfiguration(carrier.name), {
           latitude: center.lat,
           longitude: center.lng,
-        },
-      );
+        });
 
       this.choices = await createPickupChoices(useLatLng);
       this.createMarkers();
@@ -388,7 +377,7 @@ export default {
      */
     createCenterMarker() {
       const zIndexOffset = 999;
-      this.centerMarker = L.marker(this.map.getCenter(), { icon: this.icons.default, zIndexOffset });
+      this.centerMarker = L.marker(this.map.getCenter(), {icon: this.icons.default, zIndexOffset});
 
       this.centerMarker.addTo(this.map);
     },
@@ -453,6 +442,7 @@ export default {
       if (!this.icons.hasOwnProperty(carrierName + suffix)) {
         throw `Icon "${carrierName}${suffix}" doesn't exist`;
       }
+
       return this.icons[carrierName + suffix];
     },
   },

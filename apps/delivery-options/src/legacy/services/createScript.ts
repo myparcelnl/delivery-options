@@ -4,29 +4,30 @@
  * @param {string} url - URL to load.
  * @returns {Promise}
  */
-export const createScript = (url) => new Promise((resolve) => {
-  let tag;
-  const attributes = [];
+export const createScript = (url) =>
+  new Promise((resolve) => {
+    let tag;
+    const attributes = [];
 
-  if (url.endsWith('css')) {
-    tag = 'link';
-    attributes.push(['href', url]);
-    attributes.push(['rel', 'stylesheet']);
-  } else {
-    tag = 'script';
-    attributes.push(['defer', true]);
-    attributes.push(['src', url]);
-  }
+    if (url.endsWith('css')) {
+      tag = 'link';
+      attributes.push(['href', url]);
+      attributes.push(['rel', 'stylesheet']);
+    } else {
+      tag = 'script';
+      attributes.push(['defer', true]);
+      attributes.push(['src', url]);
+    }
 
-  const loadable = document.createElement(tag);
+    const loadable = document.createElement(tag);
 
-  attributes.forEach(([attribute, value]) => {
-    loadable.setAttribute(attribute, value);
+    attributes.forEach(([attribute, value]) => {
+      loadable.setAttribute(attribute, value);
+    });
+
+    loadable.onload = () => {
+      resolve();
+    };
+
+    document.head.appendChild(loadable);
   });
-
-  loadable.onload = () => {
-    resolve();
-  };
-
-  document.head.appendChild(loadable);
-});

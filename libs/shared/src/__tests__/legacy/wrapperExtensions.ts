@@ -1,4 +1,4 @@
-import { dataTest } from '@Tests/unit/selectors';
+import {dataTest} from './selectors';
 
 /**
  * @param {Wrapper} wrapper

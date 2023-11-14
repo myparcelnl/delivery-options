@@ -1,5 +1,4 @@
-import * as FORM from '@/config/formConfig';
-import { DELIVERY_SAME_DAY, DELIVERY_STANDARD } from '@/config/formConfig';
+import {DELIVERY_MOMENT, DELIVERY_SAME_DAY, DELIVERY_STANDARD, SHIPMENT_OPTIONS} from '@myparcel-do/shared';
 
 export class ExportValues {
   /**
@@ -32,8 +31,8 @@ export class ExportValues {
   }
 
   setShipmentOptions(values) {
-    const shipmentOptions = values[FORM.SHIPMENT_OPTIONS] || this.shipmentOptions;
-    shipmentOptions.same_day_delivery = values[FORM.DELIVERY_MOMENT] === DELIVERY_SAME_DAY;
+    const shipmentOptions = values[SHIPMENT_OPTIONS] || this.shipmentOptions;
+    shipmentOptions.same_day_delivery = values[DELIVERY_MOMENT] === DELIVERY_SAME_DAY;
 
     this.shipmentOptions = shipmentOptions;
   }

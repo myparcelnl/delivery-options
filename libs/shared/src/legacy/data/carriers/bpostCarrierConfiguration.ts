@@ -1,56 +1,50 @@
-import * as FEATURES from '@/data/carrierFeatures';
-import { BELGIUM, NETHERLANDS } from '@myparcel/js-sdk/dist/constant/countries-iso2';
-import { CITY, POSTAL_CODE } from '../keys/addressKeys';
-import { AbstractCarrierConfiguration } from '@/data/carriers/abstractCarrierConfiguration';
-import { BPOST } from '../keys/carrierKeys';
-import { SENDMYPARCEL } from '@/data/keys/platformKeys';
+import {BELGIUM, NETHERLANDS} from '@myparcel/constants/countries';
+import {type CarrierName} from '@myparcel/constants';
+import {ADDRESS_CITY, ADDRESS_POSTAL_CODE, BPOST, SENDMYPARCEL} from '../keys';
+import {
+  FEATURES_CUTOFF_TIME,
+  FEATURES_DELIVERY,
+  FEATURES_DELIVERY_DAYS_WINDOW,
+  FEATURES_DROP_OFF_DAYS,
+  FEATURES_DROP_OFF_DELAY,
+  FEATURES_PICKUP,
+  FEATURES_SATURDAY_DELIVERY,
+  FEATURES_SHOW_DELIVERY_DATE,
+  FEATURES_SIGNATURE,
+} from '../carrierFeatures';
+import {type AddressField} from '../../../types';
+import {AbstractCarrierConfiguration, type PlatformCarrierFeatures} from './abstractCarrierConfiguration';
 
 export class BpostCarrierConfiguration extends AbstractCarrierConfiguration {
-  getName() {
-    return BPOST;
+  public getCountriesForDelivery(): string[] {
+    return [BELGIUM, NETHERLANDS];
   }
 
-  getDefaultRequestParameters() {
-    return [CITY, POSTAL_CODE];
+  public getCountriesForPickup(): string[] {
+    return [BELGIUM, NETHERLANDS];
   }
 
-  /**
-   * The countries this carrier can deliver to.
-   *
-   * @returns {string[]}
-   */
-  getCountriesForDelivery() {
-    return [
-      BELGIUM,
-      NETHERLANDS,
-    ];
+  public getDefaultRequestParameters(): AddressField[] {
+    return [ADDRESS_CITY, ADDRESS_POSTAL_CODE];
   }
 
-  /**
-   * The countries this carrier can find pickup locations in.
-   *
-   * @returns {string[]}
-   */
-  getCountriesForPickup() {
-    return [
-      BELGIUM,
-      NETHERLANDS,
-    ];
-  }
-
-  getFeatures() {
+  public getFeatures(): PlatformCarrierFeatures {
     return {
       [SENDMYPARCEL]: [
-        FEATURES.FEATURES_DELIVERY,
-        FEATURES.FEATURES_PICKUP,
-        FEATURES.FEATURES_SATURDAY_DELIVERY,
-        FEATURES.FEATURES_SIGNATURE,
-        FEATURES.FEATURES_SHOW_DELIVERY_DATE,
-        FEATURES.FEATURES_DELIVERY_DAYS_WINDOW,
-        FEATURES.FEATURES_DROP_OFF_DAYS,
-        FEATURES.FEATURES_DROP_OFF_DELAY,
-        FEATURES.FEATURES_CUTOFF_TIME,
+        FEATURES_DELIVERY,
+        FEATURES_PICKUP,
+        FEATURES_SATURDAY_DELIVERY,
+        FEATURES_SIGNATURE,
+        FEATURES_SHOW_DELIVERY_DATE,
+        FEATURES_DELIVERY_DAYS_WINDOW,
+        FEATURES_DROP_OFF_DAYS,
+        FEATURES_DROP_OFF_DELAY,
+        FEATURES_CUTOFF_TIME,
       ],
     };
+  }
+
+  public getName(): CarrierName {
+    return BPOST;
   }
 }

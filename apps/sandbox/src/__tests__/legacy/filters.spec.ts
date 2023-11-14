@@ -1,4 +1,4 @@
-import { formatCode } from '@/sandbox/services/filters/formatCode';
+import {describe, expect, test} from 'vitest';
 
 describe('filters', () => {
   test('formatCode', () => {

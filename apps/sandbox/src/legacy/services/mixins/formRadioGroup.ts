@@ -1,9 +1,6 @@
-import { formCheckboxGroup } from '@/sandbox/services/mixins/formCheckboxGroup';
-import { hasOptions } from '@/sandbox/services/mixins/hasOptions';
+import {hasOptions} from './hasOptions';
+import {formCheckboxGroup} from './formCheckboxGroup';
 
 export const formRadioGroup = {
-  mixins: [
-    hasOptions,
-    formCheckboxGroup,
-  ],
+  mixins: [hasOptions, formCheckboxGroup],
 };

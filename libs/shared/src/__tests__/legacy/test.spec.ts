@@ -1,5 +1,4 @@
-import { shallowMount } from '@vue/test-utils';
-import { vTest } from '@/delivery-options/services/directives/v-test';
+import {shallowMount} from '@vue/test-utils';
 
 describe('Test logic', () => {
   test('v-test directive works', () => {
@@ -12,7 +11,10 @@ describe('Test logic', () => {
         }" />
       </div>
       `;
-    const wrapper = shallowMount({ template, directives: { test: vTest } });
+    const wrapper = shallowMount({
+      template,
+      directives: {test: vTest},
+    });
 
     expect(wrapper.find('[data-test-id="hello"]').exists()).toBe(true);
     expect(wrapper.find('[data-test-id="my-header"]').exists()).toBe(true);

@@ -1,4 +1,3 @@
-import * as FEATURES from '@/data/carrierFeatures';
 import {
   AUSTRIA,
   BELGIUM,
@@ -24,22 +23,15 @@ import {
   SPAIN,
   SWEDEN,
   UNITED_KINGDOM,
-} from '@myparcel/js-sdk/dist/constant/countries-iso2';
-import { CITY, POSTAL_CODE } from '../keys/addressKeys';
-import { AbstractCarrierConfiguration } from '@/data/carriers/abstractCarrierConfiguration';
-import { DHL } from '../keys/carrierKeys';
-import { MYPARCEL } from '@/data/keys/platformKeys';
+} from '@myparcel/constants/countries';
+import {type CarrierName} from '@myparcel/constants';
+import {ADDRESS_CITY, ADDRESS_POSTAL_CODE, DHL, MYPARCEL} from '../keys';
+import {FEATURES_DELIVERY, FEATURES_PICKUP, FEATURES_SHOW_DELIVERY_DATE} from '../carrierFeatures';
+import {type AddressField} from '../../../types';
+import {AbstractCarrierConfiguration, type PlatformCarrierFeatures} from './abstractCarrierConfiguration';
 
 export class DhlCarrierConfiguration extends AbstractCarrierConfiguration {
-  getName() {
-    return DHL;
-  }
-
-  getDefaultRequestParameters() {
-    return [CITY, POSTAL_CODE];
-  }
-
-  getCountriesForDelivery() {
+  public getCountriesForDelivery(): string[] {
     return [
       AUSTRIA,
       BULGARIA,
@@ -66,26 +58,21 @@ export class DhlCarrierConfiguration extends AbstractCarrierConfiguration {
     ];
   }
 
-  getCountriesForPickup() {
-    return [
-      AUSTRIA,
-      BELGIUM,
-      GERMANY,
-      DENMARK,
-      FINLAND,
-      FRANCE,
-      UNITED_KINGDOM,
-      PORTUGAL,
-    ];
+  public getCountriesForPickup(): string[] {
+    return [AUSTRIA, BELGIUM, GERMANY, DENMARK, FINLAND, FRANCE, UNITED_KINGDOM, PORTUGAL];
   }
 
-  getFeatures() {
+  public getDefaultRequestParameters(): AddressField[] {
+    return [ADDRESS_CITY, ADDRESS_POSTAL_CODE];
+  }
+
+  public getFeatures(): PlatformCarrierFeatures {
     return {
-      [MYPARCEL]: [
-        FEATURES.FEATURES_DELIVERY,
-        FEATURES.FEATURES_PICKUP,
-        FEATURES.FEATURES_SHOW_DELIVERY_DATE,
-      ],
+      [MYPARCEL]: [FEATURES_DELIVERY, FEATURES_PICKUP, FEATURES_SHOW_DELIVERY_DATE],
     };
+  }
+
+  public getName(): CarrierName {
+    return DHL;
   }
 }

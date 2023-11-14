@@ -1,22 +1,16 @@
 <template>
   <BCard
-    class="delivery-options my-3 p-2"
-    :class="{ 'delivery-options--loading': loading }">
+    :class="{'delivery-options--loading': loading}"
+    class="delivery-options my-3 p-2">
     <form>
       <div v-html="deliveryOptionsDiv" />
     </form>
   </BCard>
 </template>
 
-<script>
-import * as CONFIG from '@/data/keys/configKeys';
-import * as EVENTS from '@/config/eventConfig';
-import * as STRINGS from '@/data/keys/stringsKeys';
-import cloneDeep from 'lodash-es/cloneDeep';
-import { createScript } from '@/delivery-options/services/createScript';
-import debounce from 'lodash-es/debounce';
-import isEqual from 'lodash-es/isEqual';
-import { sandboxConfigBus } from '@/sandbox/sandboxConfigBus';
+<script lang="ts">
+import debounce from '@myparcel-do/shared/src/__tests__/legacy/__mocks__/lodash-es/debounce.js';
+import {sandboxConfigBus} from '../sandboxConfigBus.js';
 
 export default {
   name: 'HomeDeliveryOptionsBlock',
@@ -102,7 +96,7 @@ export default {
     updateDeliveryOptions() {
       this.updateSettings();
 
-      const configOrStringsChanged = [CONFIG.KEY, STRINGS.KEY].some((key) => {
+      const configOrStringsChanged = [KEY_CONFIG, KEY_STRINGS].some((key) => {
         return isEqual(this.oldSettings[key], this.settings[key]);
       });
 
@@ -134,7 +128,7 @@ export default {
      */
     dispatchEvent(event, data = null) {
       if (data) {
-        document.dispatchEvent(new CustomEvent(event, { detail: data }));
+        document.dispatchEvent(new CustomEvent(event, {detail: data}));
 
         return;
       }
@@ -152,11 +146,11 @@ export default {
         return;
       }
 
-      if (process.env.NODE_ENV === 'development') {
-        await import('@/delivery-options/main');
-      } else {
-        await createScript('/delivery-options/myparcel.lib.js');
-      }
+      // if (process.env.NODE_ENV === 'development') {
+      // await import('@/delivery-options/main');
+      // } else {
+      // await createScript('/delivery-options/myparcel.lib.js');
+      // }
 
       this.loadedDeliveryOptions = true;
     },

@@ -1,4 +1,4 @@
-import { SAME_DAY_DELIVERY } from '@/config/formConfig';
+import {SAME_DAY_DELIVERY} from '@myparcel-do/shared';
 
 /**
  * The first element of the delivery options will be the only candidate for sameday delivery, in case
@@ -7,8 +7,9 @@ import { SAME_DAY_DELIVERY } from '@/config/formConfig';
  * @param {MyParcelDeliveryOptions.DeliveryOption} option
  */
 export function setSameDayDelivery(option) {
-  const shipmentOptions = option.possibilities[0].shipment_options
-    .find((shipmentOption) => shipmentOption.name === SAME_DAY_DELIVERY);
+  const shipmentOptions = option.possibilities[0].shipment_options.find(
+    (shipmentOption) => shipmentOption.name === SAME_DAY_DELIVERY,
+  );
 
   if (!shipmentOptions) {
     return;

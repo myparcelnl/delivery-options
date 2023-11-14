@@ -1,10 +1,9 @@
-import { CarrierConfigurationFactory } from '@/data/carriers/carrierConfigurationFactory';
-import { configBus } from '@/delivery-options/config/configBus';
-import { fetchMultiple } from '@/delivery-options/data/request/fetchMultiple';
-import { fetchPickupLocations } from '@/delivery-options/data/pickup/fetchPickupLocations';
-import { formatPickupLocations } from '@/delivery-options/data/pickup/formatPickupLocations';
-import { getPickupMoments } from '@/delivery-options/data/pickup/getPickupMoments';
-import { sortPickupLocations } from '@/delivery-options/data/pickup/sortPickupLocations';
+import {getCarrierConfiguration} from '@myparcel-do/shared';
+import {fetchPickupLocations} from './fetchPickupLocations';
+import {fetchMultiple} from '../request';
+import {sortPickupLocations} from './sortPickupLocations';
+import {formatPickupLocations} from './formatPickupLocations';
+import {getPickupMoments} from './getPickupMoments';
 
 /**
  * Format the pickup locations into choices for use with the recursive form.
@@ -16,7 +15,7 @@ import { sortPickupLocations } from '@/delivery-options/data/pickup/sortPickupLo
  */
 export async function createPickupChoices(createRequestCallback = null) {
   const defaultCallback = (carrier) => {
-    const carrierConfiguration = CarrierConfigurationFactory.create(
+    const carrierConfiguration = getCarrierConfiguration(
       carrier.name,
       configBus.get('platform'),
     );

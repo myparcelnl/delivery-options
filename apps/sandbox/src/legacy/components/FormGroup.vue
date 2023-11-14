@@ -1,10 +1,10 @@
 <template>
   <BFormRow
     :id="`row_${formItemName}`"
-    class="mb-2"
     :class="{
       'text-muted': additionalProps.disabled,
-    }">
+    }"
+    class="mb-2">
     <BCol v-if="isTitle">
       <component :is="isTopLevel ? 'BCard' : 'div'">
         <Heading
@@ -13,22 +13,22 @@
           {{ $t(translation(formItem.title)) }}
         </Heading>
         <p>{{ $t(translation(formItem.title, 'description')) }}</p>
-        <hr v-if="isTopLevel">
+        <hr v-if="isTopLevel" />
 
         <FormGroup
           v-for="setting in formItem.settings"
           :key="createUniqueId(setting.name || setting.title)"
-          :prefix="formItemName"
           :form-item="setting"
-          :level="mutableLevel" />
+          :level="mutableLevel"
+          :prefix="formItemName" />
       </component>
     </BCol>
 
     <template v-else>
       <BCol cols="5">
         <label
-          class="col-form-label col-form-label-sm d-flex flex-column flex-lg-row"
-          :for="formItemName">
+          :for="formItemName"
+          class="col-form-label col-form-label-sm d-flex flex-column flex-lg-row">
           <span v-t="translation(formItem.name)" />
 
           <span class="d-inline-flex ml-auto">
@@ -37,18 +37,18 @@
               class="border mr-1 my-auto"
               variant="light">
               <img
-                class="mx-1"
-                height="16"
+                :alt="`${formItem.carrier.text} logo`"
                 :src="$getUrl.carrierLogo(formItem.carrier.name)"
-                :alt="`${formItem.carrier.text} logo`">
+                class="mx-1"
+                height="16" />
 
               {{ formItem.carrier.text }}
             </BBadge>
 
             <Help
               v-if="translation(formItem.name, 'description')"
-              triggers="hover focus"
-              :target="`row_${formItemName}`">
+              :target="`row_${formItemName}`"
+              triggers="hover focus">
               <!-- eslint-disable-next-line vue/no-v-html : This value never contains user input. -->
               <div v-html="$t(translation(formItem.name, 'description'))" />
             </Help>
@@ -57,17 +57,17 @@
       </BCol>
 
       <BCol
-        cols="6"
-        class="d-flex">
+        class="d-flex"
+        cols="6">
         <component :is="!!formItem.carrier ? 'BInputGroup' : 'div'">
           <component
             :is="formItem.component || 'CTextInput'"
             :id="formItemName"
             v-model.trim="mutableValue"
-            autocomplete="off"
             :name="formItemName"
+            autocomplete="off"
             v-bind="{
-              ...formItem.props || {},
+              ...(formItem.props || {}),
               ...additionalProps,
             }" />
         </component>
@@ -76,15 +76,13 @@
   </BFormRow>
 </template>
 
-<script>
-import CTextInput from '@/sandbox/components/form/CTextInput';
-import CarrierButton from '@/sandbox/components/CarrierButton';
-import Heading from '@/sandbox/components/Heading';
-import Help from '@/sandbox/components/Help';
-import debounce from 'lodash-es/debounce';
-import isEqual from 'lodash-es/isEqual';
-import { sandboxConfigBus } from '@/sandbox/sandboxConfigBus';
-import { uniqueIdMixin } from '@/sandbox/services/mixins/uniqueIdMixin';
+<script lang="ts">
+import {uniqueIdMixin} from '../services/mixins/uniqueIdMixin';
+import {sandboxConfigBus} from '../sandboxConfigBus';
+import CTextInput from './form/CTextInput.vue';
+import Help from './Help.vue';
+import Heading from './Heading.vue';
+import CarrierButton from './CarrierButton.vue';
 
 const SET_DEBOUNCE_DELAY = 300;
 
@@ -136,7 +134,7 @@ export default {
      * @returns {string}
      */
     formItemName() {
-      const { name, key } = this.formItem;
+      const {name, key} = this.formItem;
       const newKey = key ? `${key}.` : '';
 
       return this.prefix + newKey + (name || '');
@@ -180,7 +178,7 @@ export default {
           return this.mutableAdditionalProps;
         }
 
-        const { conditions } = this.formItem;
+        const {conditions} = this.formItem;
 
         if (!conditions || !conditions.length) {
           return {};
@@ -228,7 +226,7 @@ export default {
     setMutableValueCallback(value) {
       this.value = value;
 
-      sandboxConfigBus.update({ name: this.formItemName, value });
+      sandboxConfigBus.update({name: this.formItemName, value});
     },
 
     /**

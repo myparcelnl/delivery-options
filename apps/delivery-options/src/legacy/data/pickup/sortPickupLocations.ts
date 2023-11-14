@@ -1,5 +1,4 @@
-import { FEATURE_PICKUP_SHOW_DISTANCE } from '@/data/keys/configKeys';
-import { configBus } from '@/delivery-options/config/configBus';
+import {FEATURE_PICKUP_SHOW_DISTANCE} from '@myparcel-do/shared';
 
 /**
  * Sort the given pickup locations by distance from low to high, if distance is enabled. Otherwise sort alphabetically
@@ -12,7 +11,7 @@ import { configBus } from '@/delivery-options/config/configBus';
 export function sortPickupLocations(pickupLocations) {
   const hasDistance = configBus.isEnabled(FEATURE_PICKUP_SHOW_DISTANCE);
 
-  return pickupLocations.sort(({ location: locationA }, { location: locationB }) => {
+  return pickupLocations.sort(({location: locationA}, {location: locationB}) => {
     if (hasDistance) {
       return locationA.distance - locationB.distance;
     }

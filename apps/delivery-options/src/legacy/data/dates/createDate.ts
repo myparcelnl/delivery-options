@@ -43,10 +43,7 @@ export function createDate(date) {
    *
    * @example 2019 10 15 17 00 00.000000 -> 1573837200000
    */
-  const utcDate = Date.UTC(
-    ...dateArr,
-    ...timeWithoutDate.split(':'),
-  );
+  const utcDate = Date.UTC(...dateArr, ...timeWithoutDate.split(':'));
 
   return new Date(utcDate);
 }

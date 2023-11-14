@@ -1,7 +1,6 @@
-import { MONDAY, SATURDAY, SUNDAY } from '@/config/extraDeliveryConfig';
-import { MYPARCEL, SENDMYPARCEL } from '@/data/keys/platformKeys';
-import { cutoffTimeHasPassed } from './cutoffTimeHasPassed';
-import { getDropOffDay } from './getDropOffDay';
+import {MONDAY, MYPARCEL, SATURDAY, SENDMYPARCEL, SUNDAY} from '../../../../legacy';
+import {getDropOffDay} from './getDropOffDay';
+import {cutoffTimeHasPassed} from './cutoffTimeHasPassed';
 
 const daysWithoutDelivery = {
   [MYPARCEL]: [MONDAY, SUNDAY],

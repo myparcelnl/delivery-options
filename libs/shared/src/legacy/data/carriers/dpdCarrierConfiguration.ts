@@ -1,4 +1,3 @@
-import * as FEATURES from '@/data/carrierFeatures';
 import {
   AUSTRIA,
   BELGIUM,
@@ -26,22 +25,21 @@ import {
   SPAIN,
   SWEDEN,
   UNITED_KINGDOM,
-} from '@myparcel/js-sdk/dist/constant/countries-iso2';
-import { CITY, POSTAL_CODE, STREET } from '../keys/addressKeys';
-import { AbstractCarrierConfiguration } from '@/data/carriers/abstractCarrierConfiguration';
-import { DPD } from '../keys/carrierKeys';
-import { MYPARCEL, SENDMYPARCEL } from '@/data/keys/platformKeys';
+} from '@myparcel/constants/countries';
+import {type CarrierName} from '@myparcel/constants';
+import {ADDRESS_CITY, ADDRESS_POSTAL_CODE, ADDRESS_STREET, DPD, MYPARCEL, SENDMYPARCEL} from '../keys';
+import {
+  FEATURES_CUTOFF_TIME,
+  FEATURES_DELIVERY,
+  FEATURES_DROP_OFF_DAYS,
+  FEATURES_DROP_OFF_DELAY,
+  FEATURES_PICKUP,
+} from '../carrierFeatures';
+import {type AddressField} from '../../../types';
+import {AbstractCarrierConfiguration, type PlatformCarrierFeatures} from './abstractCarrierConfiguration';
 
 export class DpdCarrierConfiguration extends AbstractCarrierConfiguration {
-  getName() {
-    return DPD;
-  }
-
-  getDefaultRequestParameters() {
-    return [POSTAL_CODE, STREET, CITY];
-  }
-
-  getCountriesForDelivery() {
+  public getCountriesForDelivery(): string[] {
     return [
       AUSTRIA,
       BELGIUM,
@@ -71,7 +69,7 @@ export class DpdCarrierConfiguration extends AbstractCarrierConfiguration {
     ];
   }
 
-  getCountriesForPickup() {
+  public getCountriesForPickup(): string[] {
     return [
       AUSTRIA,
       BELGIUM,
@@ -95,22 +93,30 @@ export class DpdCarrierConfiguration extends AbstractCarrierConfiguration {
     ];
   }
 
-  getFeatures() {
+  public getDefaultRequestParameters(): AddressField[] {
+    return [ADDRESS_POSTAL_CODE, ADDRESS_STREET, ADDRESS_CITY];
+  }
+
+  public getFeatures(): PlatformCarrierFeatures {
     return {
       [MYPARCEL]: [
-        FEATURES.FEATURES_DELIVERY,
-        FEATURES.FEATURES_PICKUP,
-        FEATURES.FEATURES_DROP_OFF_DAYS,
-        FEATURES.FEATURES_DROP_OFF_DELAY,
-        FEATURES.FEATURES_CUTOFF_TIME,
+        FEATURES_DELIVERY,
+        FEATURES_PICKUP,
+        FEATURES_DROP_OFF_DAYS,
+        FEATURES_DROP_OFF_DELAY,
+        FEATURES_CUTOFF_TIME,
       ],
       [SENDMYPARCEL]: [
-        FEATURES.FEATURES_DELIVERY,
-        FEATURES.FEATURES_PICKUP,
-        FEATURES.FEATURES_DROP_OFF_DAYS,
-        FEATURES.FEATURES_DROP_OFF_DELAY,
-        FEATURES.FEATURES_CUTOFF_TIME,
+        FEATURES_DELIVERY,
+        FEATURES_PICKUP,
+        FEATURES_DROP_OFF_DAYS,
+        FEATURES_DROP_OFF_DELAY,
+        FEATURES_CUTOFF_TIME,
       ],
     };
+  }
+
+  public getName(): CarrierName {
+    return DPD;
   }
 }

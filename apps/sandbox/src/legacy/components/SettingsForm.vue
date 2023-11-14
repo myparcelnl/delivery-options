@@ -8,15 +8,15 @@
       <BBtn
         v-for="(link, index) in getPlatformData(platform).links"
         :key="`button_${link.text}`"
-        size="sm"
         :class="{
           'ml-1': index > 0,
         }"
-        :href="link.href">
+        :href="link.href"
+        size="sm">
         <span v-t="link.text" />
         <Fa
-          class="ml-1"
-          :icon="faExternalLinkAlt" />
+          :icon="faExternalLinkAlt"
+          class="ml-1" />
       </BBtn>
     </div>
 
@@ -24,31 +24,28 @@
       <div class="card-body">
         <Heading>Address</Heading>
         <FormGroup
+          :form-item="$config.get(`forms.address.${platform}`)"
           :level="2"
-          :prefix="`${platform}.`"
-          :form-item="$config.get(`forms.address.${platform}`)" />
+          :prefix="`${platform}.`" />
       </div>
     </div>
 
     <FormGroup
       v-for="setting in resolvedForm"
       :key="`${platform}.${setting.title}`"
-      :prefix="`${platform}.`"
-      :form-item="setting" />
+      :form-item="setting"
+      :prefix="`${platform}.`" />
   </form>
 </template>
 
-<script>
-import { DEFAULT_PLATFORM } from '@/data/keys/settingsConsts';
-import Fa from 'vue-fa';
-import FormGroup from './FormGroup';
-import Heading from '@/sandbox/components/Heading';
-import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
-import { platformTabs } from '@/sandbox/config/tabs/platformTabs';
+<script lang="ts">
+import {DEFAULT_PLATFORM} from '@myparcel-do/shared';
+import Heading from './Heading.vue';
+import FormGroup from './FormGroup.vue';
 
 export default {
   name: 'SettingsForm',
-  components: { Heading, FormGroup, Fa },
+  components: {Heading, FormGroup, Fa},
 
   props: {
     platform: {
@@ -73,14 +70,12 @@ export default {
    * Prepare the form variable based on it being a function or Array.
    */
   beforeMount() {
-    this.resolvedForm = typeof this.form === 'function'
-      ? this.form()
-      : this.form;
+    this.resolvedForm = typeof this.form === 'function' ? this.form() : this.form;
   },
 
   methods: {
     getPlatformData(platform) {
-      return platformTabs.find(({ name }) => name === platform);
+      return platformTabs.find(({name}) => name === platform);
     },
   },
 };

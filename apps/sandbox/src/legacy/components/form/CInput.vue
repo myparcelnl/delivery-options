@@ -1,15 +1,11 @@
-<script>
-import { formInputProps } from '@/sandbox/services/mixins/formInputProps';
-
+<script lang="ts">
 const INPUT_DEBOUNCE_DELAY = 300;
 
 export default {
   name: 'CInput',
   functional: true,
 
-  mixins: [
-    formInputProps,
-  ],
+  mixins: [formInputProps],
 
   props: {
     component: {

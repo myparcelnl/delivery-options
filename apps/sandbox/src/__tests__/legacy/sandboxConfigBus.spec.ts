@@ -1,6 +1,5 @@
-import * as CONFIG from '@/data/keys/configKeys';
-import { MYPARCEL, SENDMYPARCEL } from '@/data/keys/platformKeys';
-import { sandboxConfigBus } from '@/sandbox/sandboxConfigBus';
+import {describe, expect, it} from 'vitest';
+import {CONFIG, KEY_CONFIG, MYPARCEL, SENDMYPARCEL} from '@myparcel-do/shared';
 
 describe('sandboxConfigBus', () => {
   it('is a renderless Vue instance', () => {
@@ -9,11 +8,14 @@ describe('sandboxConfigBus', () => {
   });
 
   it('updates settings by path correctly', () => {
-    const currencyPath = [SENDMYPARCEL, CONFIG.KEY, CONFIG.CURRENCY].join('.');
+    const currencyPath = [SENDMYPARCEL, KEY_CONFIG, CONFIG.CURRENCY].join('.');
 
     expect(sandboxConfigBus.getSetting(currencyPath)).toBe('EUR');
 
-    sandboxConfigBus.update({ name: currencyPath, value: 'JPY' });
+    sandboxConfigBus.update({
+      name: currencyPath,
+      value: 'JPY',
+    });
 
     expect(sandboxConfigBus.getSetting(currencyPath)).toBe('JPY');
   });

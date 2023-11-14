@@ -1,6 +1,5 @@
-import * as FORM from '@/config/formConfig';
-import { configBus } from '@/delivery-options/config/configBus';
-import { createIsoString } from '@/delivery-options/data/dates/createIsoString';
+import {PICKUP_MOMENT} from '@myparcel-do/shared';
+import {createIsoString} from '../dates';
 
 /**
  * Get the pickup date from given possibilities array using the currently selected pickup moment.
@@ -12,7 +11,7 @@ import { createIsoString } from '@/delivery-options/data/dates/createIsoString';
 export function getPickupDate(possibilities) {
   // Get the possibility that belongs to the currently selected pickup moment
   const possibility = possibilities.find((item) => {
-    return item.delivery_type_name === configBus.getValue(FORM.PICKUP_MOMENT);
+    return item.delivery_type_name === configBus.getValue(PICKUP_MOMENT);
   });
 
   return possibility.moment?.start?.date ? createIsoString(possibility.moment.start.date) : null;

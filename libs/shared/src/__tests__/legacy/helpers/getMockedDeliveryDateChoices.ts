@@ -1,7 +1,5 @@
-import * as CONFIG from '@/data/keys/configKeys';
-import { UPDATED_DELIVERY_OPTIONS } from '@/config/eventConfig';
-import { mockDeliveryOptions } from '@Tests/unit/delivery-options/mockDeliveryOptions';
-import { waitForEvent } from '@Tests/waitForEvent';
+import {waitForEvent} from '../waitForEvent';
+import {KEY_CONFIG, UPDATED_DELIVERY_OPTIONS} from '../../../legacy';
 
 /**
  * Mock delivery options and returns the array of visible choices for the delivery date option.
@@ -12,7 +10,7 @@ import { waitForEvent } from '@Tests/waitForEvent';
  */
 export async function getMockedDeliveryDateChoices(config) {
   const wrapper = mockDeliveryOptions({
-    [CONFIG.KEY]: config,
+    [KEY_CONFIG]: config,
   });
 
   await waitForEvent(UPDATED_DELIVERY_OPTIONS);

@@ -1,8 +1,5 @@
-import { CARRIER_SETTINGS, DROP_OFF_DAYS, carrierFeatures } from '@/data/keys/configKeys';
-import { CarrierConfigurationFactory } from '@/data/carriers/carrierConfigurationFactory';
-import { defaultConfiguration } from '@/config/defaultConfiguration';
-import mergeWith from 'lodash-es/mergeWith';
-import { validatePlatform } from '@/delivery-options/config/validatePlatform';
+import {carrierFeatures, defaultConfiguration, DROP_OFF_DAYS, getCarrierConfiguration} from '@myparcel-do/shared';
+import {validatePlatform} from './validatePlatform';
 
 export class ConfigurationMerger {
   /**
@@ -10,19 +7,16 @@ export class ConfigurationMerger {
    *
    * @type {string[]}
    */
-  KEYS_NOT_ALLOWED_TO_MERGE = [
-    DROP_OFF_DAYS,
-  ];
-
-  /**
-   * @type {MyParcel.Platform}
-   */
-  platform;
+  KEYS_NOT_ALLOWED_TO_MERGE = [DROP_OFF_DAYS];
 
   /**
    * @type {MyParcelDeliveryOptions.Configuration}
    */
   input;
+  /**
+   * @type {MyParcel.Platform}
+   */
+  platform;
 
   /**
    * @param {MyParcel.Platform} platform
@@ -51,6 +45,29 @@ export class ConfigurationMerger {
   }
 
   /**
+   * @param {MyParcelDeliveryOptions.CarrierSettings} newValue
+   * @returns {MyParcelDeliveryOptions.CarrierSettings}
+   */
+  mergeCarrierSettings(newValue) {
+    return Object.keys(newValue).reduce((acc, carrierName) => {
+      const carrierConfig = getCarrierConfiguration(carrierName, this.platform);
+      const carrierSettings = newValue[carrierName];
+
+      // Disable carrier settings that aren't allowed in the current carrier + platform combination.
+      carrierFeatures.forEach((setting) => {
+        if (!carrierConfig.hasFeature(setting)) {
+          carrierSettings[setting] = false;
+        }
+      });
+
+      return {
+        ...acc,
+        [carrierName]: carrierSettings,
+      };
+    }, {});
+  }
+
+  /**
    * Customizer function for merging configurations. Skips values that shouldn't be merged and ignores invalid values.
    *
    * @param {*} defaultValue - The default value.
@@ -69,30 +86,5 @@ export class ConfigurationMerger {
     }
 
     return newValue === null || newValue === '' ? defaultValue : undefined;
-  }
-
-  /**
-   * @param {MyParcelDeliveryOptions.CarrierSettings} newValue
-   * @returns {MyParcelDeliveryOptions.CarrierSettings}
-   */
-  mergeCarrierSettings(newValue) {
-    return Object
-      .keys(newValue)
-      .reduce((acc, carrierName) => {
-        const carrierConfig = CarrierConfigurationFactory.create(carrierName, this.platform);
-        const carrierSettings = newValue[carrierName];
-
-        // Disable carrier settings that aren't allowed in the current carrier + platform combination.
-        carrierFeatures.forEach((setting) => {
-          if (!carrierConfig.hasFeature(setting)) {
-            carrierSettings[setting] = false;
-          }
-        });
-
-        return {
-          ...acc,
-          [carrierName]: carrierSettings,
-        };
-      }, {});
   }
 }

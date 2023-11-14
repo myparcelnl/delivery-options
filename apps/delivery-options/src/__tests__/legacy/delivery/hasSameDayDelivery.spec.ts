@@ -1,9 +1,6 @@
-import * as CARRIERS from '@/data/keys/carrierKeys';
-import { DHL_FOR_YOU } from '@/data/keys/carrierKeys';
-import * as CONFIG from '@/data/keys/configKeys';
-import * as Mockdate from 'mockdate';
-import { hasSameDayDelivery } from '@/helpers/delivery/hasSameDayDelivery';
-import { mockConfigBus } from '@Tests/unit/delivery-options/mockConfigBus';
+import {beforeAll, describe, expect, it} from 'vitest';
+import {CARRIERS, CONFIG, DHL_FOR_YOU, KEY_CONFIG} from '@myparcel-do/shared';
+import {mockConfigBus} from '../mockConfigBus';
 
 const tuesdayBeforeNormalCutoffTime = '2020-03-10T14:30:00';
 const tuesdayPastNormalCutoffTime = '2020-03-10T17:30:00';
@@ -16,7 +13,7 @@ describe('hasSameDayDelivery', () => {
 
   beforeAll(() => {
     configBus = mockConfigBus({
-      [CONFIG.KEY]: {
+      [KEY_CONFIG]: {
         [CONFIG.CARRIER_SETTINGS]: {
           [CARRIERS.DHL_FOR_YOU]: {
             [CONFIG.ALLOW_DELIVERY_OPTIONS]: true,
@@ -36,7 +33,7 @@ describe('hasSameDayDelivery', () => {
     ${DHL_FOR_YOU} | ${'wednesday before same day cut-off time'}  | ${wednesdayBeforeSameDayCutoffTime}  | ${true}
     ${DHL_FOR_YOU} | ${'wednesday after same day cut-off time'}   | ${wednesdayAfterSameDayCutoffTime}   | ${false}
     ${DHL_FOR_YOU} | ${'wednesday after normal day cut-off time'} | ${wednesdayAfterNormalDayCutoffTime} | ${true}
-  `('with $carrier, on $name, should return $hasSameDay for same day delivery', ({ carrier, time, hasSameDay }) => {
+  `('with $carrier, on $name, should return $hasSameDay for same day delivery', ({carrier, time, hasSameDay}) => {
     Mockdate.set(time);
     expect(hasSameDayDelivery(carrier, configBus)).toBe(hasSameDay);
   });

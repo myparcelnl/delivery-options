@@ -1,14 +1,6 @@
-import {
-  ENDPOINTS,
-  ENDPOINT_CARRIERS,
-  ENDPOINT_DELIVERY_OPTIONS,
-  ENDPOINT_PICKUP_LOCATIONS,
-} from '@/delivery-options/data/endpoints';
-import { fakeCarriersResponse } from '../mocks/fakeCarriersResponse';
-import { fakeDeliveryOptionsResponse } from '../mocks/fakeDeliveryOptionsResponse';
-import { fakePickupLocationsResponse } from '../mocks/fakePickupLocationsResponse';
+import {fakeCarriersResponse, fakeDeliveryOptionsResponse, fakePickupLocationsResponse} from '../mocks';
 
-global.fetch = jest.fn((url) => {
+global.fetch = vi.fn((url) => {
   const urlInstance = new URL(url);
   const endpoint = urlInstance.pathname.split('/').filter(Boolean)[0];
   const params = Object.fromEntries(urlInstance.searchParams.entries());

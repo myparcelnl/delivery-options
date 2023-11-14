@@ -1,5 +1,4 @@
-import Vue from 'vue';
-import isObject from 'lodash-es/isObject';
+import {isObject} from '@vueuse/core';
 
 /**
  * Add a data-test attribute(s) to an element with 'v-test', but only if the environment is 'test'. If you don't provide
@@ -29,7 +28,7 @@ export const vTest = (el, binding, vnode) => {
   }
 
   if (!testKey) {
-    throw new Error('Couldn\'t automatically determine a v-test key for this element.');
+    throw new Error("Couldn't automatically determine a v-test key for this element.");
   }
 
   el.setAttribute('data-test-id', testKey);

@@ -1,4 +1,4 @@
-import * as PLATFORMS from '@/data/keys/platformKeys';
+import {PLATFORMS} from '@myparcel-do/shared';
 
 export const platformTabs = [
   {

@@ -1,43 +1,34 @@
+import {describe, expect, it} from 'vitest';
 import {
+  AbstractCarrierConfiguration,
   FEATURES_DELIVERY,
   FEATURES_PACKAGE_TYPE_MAILBOX,
   FEATURES_PICKUP,
   FEATURES_SATURDAY_DELIVERY,
-} from '@/data/carrierFeatures';
-import { PACKAGE_TYPE_DIGITAL_STAMP, PACKAGE_TYPE_MAILBOX } from '@/data/keys/settingsConsts';
-import { AbstractCarrierConfiguration } from '@/data/carriers/abstractCarrierConfiguration';
-import { MYPARCEL } from '@/data/keys/platformKeys';
+  MYPARCEL,
+  PACKAGE_TYPE_DIGITAL_STAMP,
+  PACKAGE_TYPE_MAILBOX,
+} from '@myparcel-do/shared';
 
 class MockEmptyCarrierConfiguration extends AbstractCarrierConfiguration {}
 
 class MockCarrierConfiguration extends AbstractCarrierConfiguration {
-  getName() {
-    return 'mock';
-  }
-
   getCountriesForDelivery() {
-    return [
-      'NL',
-      'BE',
-    ];
+    return ['NL', 'BE'];
   }
 
   getCountriesForPickup() {
-    return [
-      'BE',
-      'FR',
-      'DE',
-    ];
+    return ['BE', 'FR', 'DE'];
   }
 
   getFeatures() {
     return {
-      [MYPARCEL]: [
-        FEATURES_DELIVERY,
-        FEATURES_PICKUP,
-        FEATURES_PACKAGE_TYPE_MAILBOX,
-      ],
+      [MYPARCEL]: [FEATURES_DELIVERY, FEATURES_PICKUP, FEATURES_PACKAGE_TYPE_MAILBOX],
     };
+  }
+
+  getName() {
+    return 'mock';
   }
 }
 

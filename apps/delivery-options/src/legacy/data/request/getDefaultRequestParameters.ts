@@ -1,14 +1,8 @@
-import * as CONFIG from '@/data/keys/configKeys';
-import { configBus as realConfigBus } from '@/delivery-options/config/configBus';
-import snakeCase from 'lodash-es/snakeCase';
+import {CONFIG} from '@myparcel-do/shared';
 
 /**
  * Get the default parameters for all API requests.
  *
- * @param {import('@/delivery-options/config/configBus')} configBus - Optional parameter for easier testing.
- *
- * @param carrierConfiguration
- * @returns {Partial<MyParcelDeliveryOptions.DeliveryOptionsRequestParameters>}
  */
 // eslint-disable-next-line default-param-last
 export const getDefaultRequestParameters = (configBus = realConfigBus, carrierConfiguration) => {
@@ -26,13 +20,16 @@ export const getDefaultRequestParameters = (configBus = realConfigBus, carrierCo
     cc: configBus.address.cc,
   };
 
-  return carrierConfiguration.getDefaultRequestParameters().reduce((acc, key) => {
-    const value = configBus.address[key];
+  return carrierConfiguration.getDefaultRequestParameters().reduce(
+    (acc, key) => {
+      const value = configBus.address[key];
 
-    if (value) {
-      acc[snakeCase(key)] = value;
-    }
+      if (value) {
+        acc[snakeCase(key)] = value;
+      }
 
-    return acc;
-  }, { ...parameters });
+      return acc;
+    },
+    {...parameters},
+  );
 };

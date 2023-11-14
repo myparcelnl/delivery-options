@@ -2,18 +2,14 @@
   <BFormCheckbox
     :id="$props.id"
     v-model="selected"
-    v-bind="filteredProps"
-    switch />
+    switch
+    v-bind="filteredProps" />
 </template>
 
-<script>
-import { formCheckbox } from '@/sandbox/services/mixins/formCheckbox';
-
+<script lang="ts">
 export default {
   name: 'CToggle',
-  mixins: [
-    formCheckbox,
-  ],
+  mixins: [formCheckbox],
 
   props: {
     checked: Boolean,

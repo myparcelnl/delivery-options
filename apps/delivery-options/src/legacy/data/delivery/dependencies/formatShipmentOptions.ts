@@ -6,9 +6,11 @@
  * @returns {MyParcelDeliveryOptions.DeliveryDependencyMoment['shipment_options']}
  */
 export function formatShipmentOptions(possibility) {
-  return possibility.shipment_options
-    .reduce((shipmentOptions, shipmentOption) => ({
+  return possibility.shipment_options.reduce(
+    (shipmentOptions, shipmentOption) => ({
       ...shipmentOptions,
       [shipmentOption.name]: shipmentOption.schema,
-    }), {});
+    }),
+    {},
+  );
 }

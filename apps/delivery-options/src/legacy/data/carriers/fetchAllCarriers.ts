@@ -1,9 +1,7 @@
-import { CARRIER_SETTINGS } from '@/data/keys/configKeys';
-import { configBus } from '@/delivery-options/config/configBus';
-import { createCarrierData } from '@/delivery-options/data/carriers/createCarrierData';
-import { fetchCarrierData } from '@/delivery-options/data/carriers/fetchCarrierData';
-import { fetchMultiple } from '@/delivery-options/data/request/fetchMultiple';
-import { resolveCarrierName } from './resolveCarrierName';
+import {fetchMultiple} from '../request/fetchMultiple';
+import {resolveCarrierName} from './resolveCarrierName';
+import {fetchCarrierData} from './fetchCarrierData';
+import {createCarrierData} from './createCarrierData';
 
 /**
  * Fetch all carrier information, based on the carriers in config.carrierSettings.
@@ -20,7 +18,7 @@ export async function fetchAllCarriers() {
   const requests = carriersToFetch.map((carrier) => () => fetchCarrierData(carrier.name));
 
   // Get the responses and errors from all the requests.
-  const { responses } = await fetchMultiple(requests);
+  const {responses} = await fetchMultiple(requests);
 
   // Create the carrierData array
   configBus.carrierData = createCarrierData(responses, carriersToFetch);

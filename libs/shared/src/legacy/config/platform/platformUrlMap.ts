@@ -1,4 +1,4 @@
-import * as PLATFORMS from '@/data/keys/platformKeys';
+import {PLATFORMS} from '../../data';
 
 /**
  * Map platform names to their respective URLs.

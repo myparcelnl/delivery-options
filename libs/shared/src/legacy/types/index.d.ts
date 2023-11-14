@@ -1,43 +1,64 @@
-import {Vue} from 'vue/types/vue';
+import {type Vue} from 'vue/types/vue';
 
+/**
+ * @deprecated
+ * @deprecated
+ */
 declare namespace MyParcel {
-  type Environment = 'dev' | 'staging' | 'acceptance' | 'prod'
+  /** @deprecated */
+  type Environment = 'dev' | 'staging' | 'acceptance' | 'prod';
 
-  type CarrierName = 'postnl' | 'bpost' | 'dpd' | 'dhl' | 'ups' | 'dhlforyou' | 'dhlparcelconnect' | 'dhleuroplus'
-  type CarrierID = 1 | 2 | 4 | 6 | 8 | 9 | 10 | 11
-  type CarrierNameOrId = CarrierName | CarrierID
-  type Platform = 'myparcel' | 'belgie' | 'flespakket'
+  /** @deprecated */
+  type CarrierName = 'postnl' | 'bpost' | 'dpd' | 'dhl' | 'ups' | 'dhlforyou' | 'dhlparcelconnect' | 'dhleuroplus';
 
-  type CarrierIdentifier = CarrierName | `${CarrierName}:${number}`
+  /** @deprecated */
+  type CarrierID = 1 | 2 | 4 | 6 | 8 | 9 | 10 | 11;
+
+  /** @deprecated */
+  type CarrierNameOrId = CarrierName | CarrierID;
+
+  /** @deprecated */
+  type Platform = 'myparcel' | 'belgie' | 'flespakket';
+
+  /** @deprecated */
+  type CarrierIdentifier = CarrierName | `${CarrierName}:${number}`;
 
   /**
+   * @deprecated
    * @see https://myparcelnl.github.io/api/#6_A_1
    */
-  type PackageType = 'package' | 'mailbox' | 'digital_stamp' | string
+  type PackageType = 'package' | 'mailbox' | 'digital_stamp' | string;
 
   /**
+   * @deprecated
    * @see https://myparcelnl.github.io/api/#6_A_2
    */
-  type DeliveryType = 'morning' | 'standard' | 'evening' | 'pickup'
+  type DeliveryType = 'morning' | 'standard' | 'evening' | 'pickup';
 
   /**
+   * @deprecated
    * @see https://myparcelnl.github.io/api/#6_A_3
    */
   type ShipmentOptionName =
-    'cooled_delivery'
+    | 'cooled_delivery'
     | 'large_format'
     | 'only_recipient'
     | 'signature'
     | 'return'
-    | 'same_day_delivery'
+    | 'same_day_delivery';
 }
 
+/** @deprecated */
+
 declare namespace MyParcelDeliveryOptions {
+  /** @deprecated */
   type DeliveryType = MyParcel.DeliveryType | 'sameDay';
 
   /**
+   * @deprecated
    * Configuration object supplied by the platform.
    */
+  /** @deprecated */
   interface Configuration {
     address: Address;
     config: Config;
@@ -45,8 +66,10 @@ declare namespace MyParcelDeliveryOptions {
   }
 
   /**
+   * @deprecated
    * Address object from the external platform.
    */
+  /** @deprecated */
   interface Address {
     cc: string;
     city?: string;
@@ -55,8 +78,10 @@ declare namespace MyParcelDeliveryOptions {
   }
 
   /**
+   * @deprecated
    * Strings object from the external platform.
    */
+  /** @deprecated */
   interface Strings {
     addressNotFound?: string;
     // BE only
@@ -70,6 +95,7 @@ declare namespace MyParcelDeliveryOptions {
     deliveryStandardTitle?: string;
     deliveryTitle?: string;
     /**
+     * @deprecated
      * @see src/config/errorConfig.js
      */
     error3212?: string;
@@ -104,53 +130,60 @@ declare namespace MyParcelDeliveryOptions {
   }
 
   /**
+   * @deprecated
    * Response from /delivery_options
    */
+  /** @deprecated */
   interface DeliveryOption {
     date: Timestamp;
     possibilities: DeliveryPossibility[];
   }
 
   /**
+   * @deprecated
    * Response from /pickup_locations
    */
+  /** @deprecated */
   interface PickupLocation {
     address: {
-      cc: string
-      city: string
-      number: string
-      postal_code: string
-      street: string
+      cc: string;
+      city: string;
+      number: string;
+      postal_code: string;
+      street: string;
     };
     location: {
-      distance: string
-      latitude: string
-      location_code: string
-      location_name: string
-      longitude: string
-      phone_number: string
-      retail_network_id: string
+      distance: string;
+      latitude: string;
+      location_code: string;
+      location_name: string;
+      longitude: string;
+      phone_number: string;
+      retail_network_id: string;
       opening_hours: {
-        monday: StartEndDate[]
-        tuesday: StartEndDate[]
-        wednesday: StartEndDate[]
-        thursday: StartEndDate[]
-        friday: StartEndDate[]
-        saturday: StartEndDate[]
-        sunday: StartEndDate[]
-      }
+        monday: StartEndDate[];
+        tuesday: StartEndDate[];
+        wednesday: StartEndDate[];
+        thursday: StartEndDate[];
+        friday: StartEndDate[];
+        saturday: StartEndDate[];
+        sunday: StartEndDate[];
+      };
     };
     possibilities: PickupPossibility[];
   }
 
+  /** @deprecated */
   interface FilterableOption {
-    allow: boolean,
-    items: string[]
+    allow: boolean;
+    items: string[];
   }
 
   /**
+   * @deprecated
    * Configuration object from the external platform.
    */
+  /** @deprecated */
   interface Config {
     allowDeliveryOptions?: boolean | FilterableOption;
     allowPickupLocations?: boolean | FilterableOption;
@@ -177,42 +210,45 @@ declare namespace MyParcelDeliveryOptions {
     saturdayCutoffTime?: string;
   }
 
+  /** @deprecated */
   type CarrierSettings = {
     [key in MyParcel.CarrierIdentifier]?: {
-      allowEveningDelivery?: boolean
-      allowMorningDelivery?: boolean
-      allowOnlyRecipient?: boolean
-      allowSignature?: boolean
-      allowShowDeliveryDate?: boolean
+      allowEveningDelivery?: boolean;
+      allowMorningDelivery?: boolean;
+      allowOnlyRecipient?: boolean;
+      allowSignature?: boolean;
+      allowShowDeliveryDate?: boolean;
 
       // NL only
-      allowSaturdayDelivery?: boolean
+      allowSaturdayDelivery?: boolean;
 
       // BE only
-      allowMondayDelivery?: boolean
+      allowMondayDelivery?: boolean;
 
-      priceEveningDelivery?: number
-      priceMorningDelivery?: number
-      priceOnlyRecipient?: number
-      pricePickup?: number
-      priceSameDayDelivery?: number
-      priceSignature?: number
-      priceStandardDelivery?: number
-    }
-  }
+      priceEveningDelivery?: number;
+      priceMorningDelivery?: number;
+      priceOnlyRecipient?: number;
+      pricePickup?: number;
+      priceSameDayDelivery?: number;
+      priceSignature?: number;
+      priceStandardDelivery?: number;
+    };
+  };
 
+  /** @deprecated */
   interface CarrierData {
-    deliverCountries?: String[];
+    deliverCountries?: string[];
     deliveryEnabled?: boolean;
     id: MyParcel.CarrierID;
     identifier: MyParcel.CarrierIdentifier;
     image: string;
     label: string;
     name: MyParcel.CarrierName;
-    pickupCountries?: String[];
+    pickupCountries?: string[];
     pickupEnabled?: boolean;
   }
 
+  /** @deprecated */
   interface Timestamp {
     date: string;
     timezone: string;
@@ -220,47 +256,52 @@ declare namespace MyParcelDeliveryOptions {
   }
 
   /**
+   * @deprecated
    * A start and end date object.
    */
+  /** @deprecated */
   interface StartEndDate {
     end: Timestamp;
     start: Timestamp;
   }
 
+  /** @deprecated */
   interface EnumSchema<Type> {
     enum: Type[];
     type: Type extends boolean ? 'boolean' : string;
   }
 
+  /** @deprecated */
   interface ShipmentOption {
     name: MyParcel.ShipmentOptionName;
     schema: EnumSchema<boolean>;
   }
 
+  /** @deprecated */
   interface DeliveryTimeFrame<Type = 'start' | 'end'> {
     date_time: Timestamp;
     type: Type;
   }
 
+  /** @deprecated */
   interface DeliveryPossibility {
     collect_date?: any;
-    delivery_time_frames: [
-      DeliveryTimeFrame<'start'>,
-      DeliveryTimeFrame<'end'>
-    ];
+    delivery_time_frames: [DeliveryTimeFrame<'start'>, DeliveryTimeFrame<'end'>];
     package_type: string;
     shipment_options: ShipmentOption[];
     type: MyParcel.DeliveryType;
   }
 
+  /** @deprecated */
   interface PickupPossibility {
     delivery_type_id: number;
     delivery_type_name: MyParcel.DeliveryType;
     moment: {
-      start: Timestamp
+      start: Timestamp;
     };
   }
 
+  /** @deprecated */
   interface FormConfig {
     enabled?: string;
     label?: string;
@@ -270,6 +311,7 @@ declare namespace MyParcelDeliveryOptions {
     selected?: boolean;
   }
 
+  /** @deprecated */
   interface FormEntry {
     choices?: FormEntryChoice[];
     component?: Vue;
@@ -281,6 +323,7 @@ declare namespace MyParcelDeliveryOptions {
     type?: 'radio' | 'select' | 'checkbox' | 'text' | string;
   }
 
+  /** @deprecated */
   interface FormEntryChoice {
     disabled?: boolean;
     label?: string;
@@ -290,12 +333,14 @@ declare namespace MyParcelDeliveryOptions {
     selected?: boolean;
   }
 
+  /** @deprecated */
   interface FormEntryDependency {
-    name: string,
-    parent: string,
-    transform?: Function,
+    name: string;
+    parent: string;
+    transform?: Function;
   }
 
+  /** @deprecated */
   interface MapTileLayerData {
     attribution: string;
     maxZoom?: number;
@@ -303,25 +348,33 @@ declare namespace MyParcelDeliveryOptions {
     url: string;
   }
 
-  type CarrierDeliveryDependencies = Record<MyParcel.CarrierName, DeliveryDependencies>
+  /** @deprecated */
+  type CarrierDeliveryDependencies = Record<MyParcel.CarrierName, DeliveryDependencies>;
 
+  /** @deprecated */
   interface DeliveryDependencies {
     // ISO date string
-    deliveryDate: Record<string, {
-      deliveryMoment: DeliveryDependencyMoments
-    }>;
+    deliveryDate: Record<
+      string,
+      {
+        deliveryMoment: DeliveryDependencyMoments;
+      }
+    >;
   }
 
-  type DeliveryDependencyMoments = Record<DeliveryType, DeliveryDependencyMoment>
+  /** @deprecated */
+  type DeliveryDependencyMoments = Record<DeliveryType, DeliveryDependencyMoment>;
 
+  /** @deprecated */
   interface DeliveryDependencyMoment {
     moments: {
-      start: string
-      end: string
-    },
-    shipmentOptions: Record<MyParcel.ShipmentOptionName, EnumSchema<boolean>>
+      start: string;
+      end: string;
+    };
+    shipmentOptions: Record<MyParcel.ShipmentOptionName, EnumSchema<boolean>>;
   }
 
+  /** @deprecated */
   interface DeliveryOptionsRequestParameters {
     carrier: MyParcel.CarrierIdentifier;
     cc: string;
@@ -339,10 +392,12 @@ declare namespace MyParcelDeliveryOptions {
   }
 }
 
+/** @deprecated */
 declare module 'MyParcel' {
-  export = MyParcel
+  export = MyParcel;
 }
 
+/** @deprecated */
 declare module 'MyParcelDeliveryOptions' {
-  export = MyParcelDeliveryOptions
+  export = MyParcelDeliveryOptions;
 }

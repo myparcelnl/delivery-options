@@ -13,7 +13,5 @@ export const getWindowObject = () => {
     }
   }
 
-  return typeof window.MyParcelConfig === 'string'
-    ? JSON.parse(window.MyParcelConfig)
-    : window.MyParcelConfig;
+  return typeof window.MyParcelConfig === 'string' ? JSON.parse(window.MyParcelConfig) : window.MyParcelConfig;
 };

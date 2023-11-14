@@ -1,12 +1,8 @@
-import { BFormTextarea } from 'bootstrap-vue';
-import { formInputProps } from '@/sandbox/services/mixins/formInputProps';
-import { vModelMixin } from '@/sandbox/services/mixins/vModel';
+import {vModelMixin} from './vModel';
+import {formInputProps} from './formInputProps';
 
 export const formTextarea = {
   extends: BFormTextarea,
 
-  mixins: [
-    vModelMixin,
-    formInputProps,
-  ],
+  mixins: [vModelMixin, formInputProps],
 };

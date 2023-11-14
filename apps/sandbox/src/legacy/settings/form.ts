@@ -1,27 +1,30 @@
-import * as CONFIG from '@/data/keys/configKeys';
-import * as CONSTS from '@/data/keys/settingsConsts';
-import * as FORM from '@/config/formConfig';
-import * as STRINGS from '@/data/keys/stringsKeys';
-import CCheckboxGroup from '@/sandbox/components/form/CCheckboxGroup';
-import CCurrency from '@/sandbox/components/form/CCurrency';
-import CNumber from '@/sandbox/components/form/CNumber';
-import CSelect from '@/sandbox/components/form/CSelect';
-import CTimepicker from '@/sandbox/components/form/CTimepicker';
-import CToggle from '@/sandbox/components/form/CToggle';
-import { GENERAL } from '@/sandbox/settings';
-import { SENDMYPARCEL } from '@/data/keys/platformKeys';
-import { allowedInAnyCarrier } from '@/sandbox/settings/conditions/allowedInAnyCarrier';
-import { carrierSetting } from '@/sandbox/settings/carrierSetting';
-import { featuresForm } from '@/sandbox/settings/formParts/featuresForm';
-import { getWeekdays } from '@/helpers/getWeekdays';
-import { i18n } from '@/sandbox/services/vue-i18n';
-import { inAnyCarrier } from '@/sandbox/settings/conditions/inAnyCarrier';
-import memoize from 'lodash-es/memoize';
-import { sandboxConfigBus } from '@/sandbox/sandboxConfigBus';
-import { stringsForm } from '@/sandbox/settings/formParts/stringForm';
+import {useMemoize} from '@vueuse/core';
+import {
+  CONFIG,
+  CONSTS,
+  KEY_CONFIG,
+  KEY_STRINGS,
+  PACKAGE_TYPE,
+  PICKUP,
+  SENDMYPARCEL,
+  STRINGS,
+} from '@myparcel-do/shared';
+import {GENERAL} from '../settings';
+import {i18n} from '../services/vue-i18n';
+import {sandboxConfigBus} from '../sandboxConfigBus';
+import CToggle from '../components/form/CToggle.vue';
+import CTimepicker from '../components/form/CTimepicker.vue';
+import CSelect from '../components/form/CSelect.vue';
+import CNumber from '../components/form/CNumber.vue';
+import CCurrency from '../components/form/CCurrency.vue';
+import {stringsForm} from './formParts/stringForm';
+import {featuresForm} from './formParts/featuresForm';
+import {inAnyCarrier} from './conditions/inAnyCarrier';
+import {allowedInAnyCarrier} from './conditions/allowedInAnyCarrier';
+import {carrierSetting} from './carrierSetting';
 
 const currencyProps = {
-  symbol: sandboxConfigBus.getSetting(CONFIG.KEY, CONFIG.CURRENCY) || '€',
+  symbol: sandboxConfigBus.getSetting(KEY_CONFIG, CONFIG.CURRENCY) || '€',
 };
 
 const weekdays = getWeekdays(i18n.locale);
@@ -34,26 +37,27 @@ const weekdays = getWeekdays(i18n.locale);
  * @returns {Array}
  */
 // eslint-disable-next-line max-lines-per-function
-export const createSettings = memoize((platform) => {
+export const createSettings = useMemoize((platform) => {
   const perCarrier = (data) => carrierSetting(data, platform);
   const ifAnyCarrierAllows = (setting, data) => allowedInAnyCarrier(setting, data, platform);
 
   /**
    * SendMyParcel doesn't allow delivery days window right now.
    */
-  const deliveryDaysWindow = platform === SENDMYPARCEL
-    ? []
-    : [
-      {
-        key: CONFIG.KEY,
-        name: CONFIG.DELIVERY_DAYS_WINDOW,
-        component: CNumber,
-        props: {
-          min: 1,
-          max: 14,
-        },
-      },
-    ];
+  const deliveryDaysWindow =
+    platform === SENDMYPARCEL
+      ? []
+      : [
+          {
+            key: KEY_CONFIG,
+            name: CONFIG.DELIVERY_DAYS_WINDOW,
+            component: CNumber,
+            props: {
+              min: 1,
+              max: 14,
+            },
+          },
+        ];
 
   return [
     {
@@ -61,29 +65,25 @@ export const createSettings = memoize((platform) => {
       description: 'general',
       settings: [
         {
-          key: CONFIG.KEY,
+          key: KEY_CONFIG,
           name: CONFIG.SHOW_PRICES,
           component: CToggle,
         },
         {
-          key: CONFIG.KEY,
+          key: KEY_CONFIG,
           name: CONFIG.CURRENCY,
-          conditions: [
-            CONFIG.SHOW_PRICES,
-          ],
+          conditions: [CONFIG.SHOW_PRICES],
         },
         {
-          key: CONFIG.KEY,
+          key: KEY_CONFIG,
           name: CONFIG.SHOW_PRICE_SURCHARGE,
           component: CToggle,
-          conditions: [
-            CONFIG.SHOW_PRICES,
-          ],
+          conditions: [CONFIG.SHOW_PRICES],
         },
       ],
     },
     {
-      title: FORM.DELIVERY,
+      title: DELIVERY,
       settings: [
         ...perCarrier({
           name: CONFIG.ALLOW_DELIVERY_OPTIONS,
@@ -95,47 +95,38 @@ export const createSettings = memoize((platform) => {
             ...perCarrier({
               name: CONFIG.FEATURE_SHOW_DELIVERY_DATE,
               component: CToggle,
-              conditions: [
-                CONFIG.ALLOW_DELIVERY_OPTIONS,
-              ],
+              conditions: [CONFIG.ALLOW_DELIVERY_OPTIONS],
             }),
           ],
         },
         {
-          title: FORM.DELIVERY_STANDARD,
+          title: DELIVERY_STANDARD,
           settings: [
             {
-              key: STRINGS.KEY,
+              key: KEY_STRINGS,
               name: STRINGS.DELIVERY_STANDARD_TITLE,
-              conditions: [
-                inAnyCarrier(CONFIG.ALLOW_DELIVERY_OPTIONS),
-              ],
+              conditions: [inAnyCarrier(CONFIG.ALLOW_DELIVERY_OPTIONS)],
             },
             {
-              key: CONFIG.KEY,
+              key: KEY_CONFIG,
               name: CONFIG.PRICE_STANDARD_DELIVERY,
               component: CCurrency,
-              conditions: [
-                CONFIG.SHOW_PRICES,
-                inAnyCarrier(CONFIG.ALLOW_DELIVERY_OPTIONS),
-              ],
+              conditions: [CONFIG.SHOW_PRICES, inAnyCarrier(CONFIG.ALLOW_DELIVERY_OPTIONS)],
               props: currencyProps,
             },
           ],
         },
         ...ifAnyCarrierAllows(CONFIG.ALLOW_SAME_DAY_DELIVERY, {
-          title: FORM.DELIVERY_SAME_DAY,
+          title: DELIVERY_SAME_DAY,
           settings: [
             ...perCarrier({
-              key: CONFIG.KEY,
+              key: KEY_CONFIG,
               name: CONFIG.ALLOW_SAME_DAY_DELIVERY,
               component: CToggle,
-              conditions: [
-                CONFIG.ALLOW_DELIVERY_OPTIONS,
-              ],
+              conditions: [CONFIG.ALLOW_DELIVERY_OPTIONS],
             }),
             {
-              key: CONFIG.KEY,
+              key: KEY_CONFIG,
               name: CONFIG.PRICE_SAME_DAY_DELIVERY,
               component: CCurrency,
               conditions: [
@@ -148,25 +139,20 @@ export const createSettings = memoize((platform) => {
           ],
         }),
         ...ifAnyCarrierAllows(CONFIG.ALLOW_MORNING_DELIVERY, {
-          title: FORM.DELIVERY_MORNING,
+          title: DELIVERY_MORNING,
           settings: [
             ...perCarrier({
               name: CONFIG.ALLOW_MORNING_DELIVERY,
               component: CToggle,
-              conditions: [
-                CONFIG.ALLOW_DELIVERY_OPTIONS,
-              ],
+              conditions: [CONFIG.ALLOW_DELIVERY_OPTIONS],
             }),
             {
-              key: STRINGS.KEY,
+              key: KEY_STRINGS,
               name: STRINGS.DELIVERY_MORNING_TITLE,
-              conditions: [
-                inAnyCarrier(CONFIG.ALLOW_DELIVERY_OPTIONS),
-                inAnyCarrier(CONFIG.ALLOW_MORNING_DELIVERY),
-              ],
+              conditions: [inAnyCarrier(CONFIG.ALLOW_DELIVERY_OPTIONS), inAnyCarrier(CONFIG.ALLOW_MORNING_DELIVERY)],
             },
             {
-              key: CONFIG.KEY,
+              key: KEY_CONFIG,
               name: CONFIG.PRICE_MORNING_DELIVERY,
               component: CCurrency,
               conditions: [
@@ -179,25 +165,20 @@ export const createSettings = memoize((platform) => {
           ],
         }),
         ...ifAnyCarrierAllows(CONFIG.ALLOW_EVENING_DELIVERY, {
-          title: FORM.DELIVERY_EVENING,
+          title: DELIVERY_EVENING,
           settings: [
             ...perCarrier({
               name: CONFIG.ALLOW_EVENING_DELIVERY,
               component: CToggle,
-              conditions: [
-                CONFIG.ALLOW_DELIVERY_OPTIONS,
-              ],
+              conditions: [CONFIG.ALLOW_DELIVERY_OPTIONS],
             }),
             {
-              key: STRINGS.KEY,
+              key: KEY_STRINGS,
               name: STRINGS.DELIVERY_EVENING_TITLE,
-              conditions: [
-                inAnyCarrier(CONFIG.ALLOW_DELIVERY_OPTIONS),
-                inAnyCarrier(CONFIG.ALLOW_EVENING_DELIVERY),
-              ],
+              conditions: [inAnyCarrier(CONFIG.ALLOW_DELIVERY_OPTIONS), inAnyCarrier(CONFIG.ALLOW_EVENING_DELIVERY)],
             },
             {
-              key: CONFIG.KEY,
+              key: KEY_CONFIG,
               name: CONFIG.PRICE_EVENING_DELIVERY,
               component: CCurrency,
               conditions: [
@@ -210,118 +191,91 @@ export const createSettings = memoize((platform) => {
           ],
         }),
         ...ifAnyCarrierAllows(CONFIG.ALLOW_MONDAY_DELIVERY, {
-          title: FORM.MONDAY_DELIVERY,
+          title: MONDAY_DELIVERY,
           settings: [
             ...perCarrier({
               name: CONFIG.ALLOW_MONDAY_DELIVERY,
               component: CToggle,
-              conditions: [
-                CONFIG.ALLOW_DELIVERY_OPTIONS,
-              ],
+              conditions: [CONFIG.ALLOW_DELIVERY_OPTIONS],
             }),
             {
-              key: CONFIG.KEY,
+              key: KEY_CONFIG,
               name: CONFIG.SATURDAY_CUTOFF_TIME,
               component: CTimepicker,
-              conditions: [
-                inAnyCarrier(CONFIG.ALLOW_DELIVERY_OPTIONS),
-                inAnyCarrier(CONFIG.ALLOW_MONDAY_DELIVERY),
-              ],
+              conditions: [inAnyCarrier(CONFIG.ALLOW_DELIVERY_OPTIONS), inAnyCarrier(CONFIG.ALLOW_MONDAY_DELIVERY)],
             },
           ],
         }),
         ...ifAnyCarrierAllows(CONFIG.ALLOW_SATURDAY_DELIVERY, {
-          title: FORM.SATURDAY_DELIVERY,
+          title: SATURDAY_DELIVERY,
           settings: [
             ...perCarrier({
               name: CONFIG.ALLOW_SATURDAY_DELIVERY,
               component: CToggle,
-              conditions: [
-                CONFIG.ALLOW_DELIVERY_OPTIONS,
-              ],
+              conditions: [CONFIG.ALLOW_DELIVERY_OPTIONS],
             }),
             {
-              key: CONFIG.KEY,
+              key: KEY_CONFIG,
               name: CONFIG.FRIDAY_CUTOFF_TIME,
               component: CTimepicker,
-              conditions: [
-                inAnyCarrier(CONFIG.ALLOW_DELIVERY_OPTIONS),
-                inAnyCarrier(CONFIG.ALLOW_SATURDAY_DELIVERY),
-              ],
+              conditions: [inAnyCarrier(CONFIG.ALLOW_DELIVERY_OPTIONS), inAnyCarrier(CONFIG.ALLOW_SATURDAY_DELIVERY)],
             },
           ],
         }),
         {
-          title: FORM.SHIPMENT_OPTIONS,
+          title: SHIPMENT_OPTIONS,
           settings: [
             ...ifAnyCarrierAllows(CONFIG.ALLOW_ONLY_RECIPIENT, {
-              title: FORM.ONLY_RECIPIENT,
+              title: ONLY_RECIPIENT,
               settings: [
                 ...perCarrier({
                   name: CONFIG.ALLOW_ONLY_RECIPIENT,
                   component: CToggle,
-                  conditions: [
-                    CONFIG.ALLOW_DELIVERY_OPTIONS,
-                  ],
+                  conditions: [CONFIG.ALLOW_DELIVERY_OPTIONS],
                 }),
                 {
-                  key: STRINGS.KEY,
+                  key: KEY_STRINGS,
                   name: STRINGS.ONLY_RECIPIENT_TITLE,
-                  conditions: [
-                    inAnyCarrier(CONFIG.ALLOW_ONLY_RECIPIENT),
-                  ],
+                  conditions: [inAnyCarrier(CONFIG.ALLOW_ONLY_RECIPIENT)],
                 },
                 {
-                  key: CONFIG.KEY,
+                  key: KEY_CONFIG,
                   name: CONFIG.PRICE_ONLY_RECIPIENT,
                   component: CCurrency,
                   props: currencyProps,
-                  conditions: [
-                    CONFIG.SHOW_PRICES,
-                    inAnyCarrier(CONFIG.ALLOW_ONLY_RECIPIENT),
-                  ],
+                  conditions: [CONFIG.SHOW_PRICES, inAnyCarrier(CONFIG.ALLOW_ONLY_RECIPIENT)],
                 },
               ],
             }),
             ...ifAnyCarrierAllows(CONFIG.ALLOW_SIGNATURE, {
-              title: FORM.SIGNATURE,
+              title: SIGNATURE,
               settings: [
                 ...perCarrier({
                   name: CONFIG.ALLOW_SIGNATURE,
                   component: CToggle,
-                  conditions: [
-                    CONFIG.ALLOW_DELIVERY_OPTIONS,
-                  ],
+                  conditions: [CONFIG.ALLOW_DELIVERY_OPTIONS],
                 }),
                 {
-                  key: STRINGS.KEY,
+                  key: KEY_STRINGS,
                   name: STRINGS.SIGNATURE_TITLE,
-                  conditions: [
-                    inAnyCarrier(CONFIG.ALLOW_SIGNATURE),
-                  ],
+                  conditions: [inAnyCarrier(CONFIG.ALLOW_SIGNATURE)],
                 },
                 {
-                  key: CONFIG.KEY,
+                  key: KEY_CONFIG,
                   name: CONFIG.PRICE_SIGNATURE,
                   component: CCurrency,
                   props: currencyProps,
-                  conditions: [
-                    CONFIG.SHOW_PRICES,
-                    inAnyCarrier(CONFIG.ALLOW_SIGNATURE),
-                  ],
+                  conditions: [CONFIG.SHOW_PRICES, inAnyCarrier(CONFIG.ALLOW_SIGNATURE)],
                 },
               ],
             }),
           ],
         },
-        ...ifAnyCarrierAllows([
-          CONFIG.ALLOW_PACKAGE_TYPE_DIGITAL_STAMP,
-          CONFIG.ALLOW_PACKAGE_TYPE_MAILBOX,
-        ], {
-          title: FORM.PACKAGE_TYPE,
+        ...ifAnyCarrierAllows([CONFIG.ALLOW_PACKAGE_TYPE_DIGITAL_STAMP, CONFIG.ALLOW_PACKAGE_TYPE_MAILBOX], {
+          title: PACKAGE_TYPE,
           settings: [
             {
-              key: CONFIG.KEY,
+              key: KEY_CONFIG,
               name: CONFIG.PACKAGE_TYPE,
               component: CSelect,
               props: {
@@ -329,50 +283,41 @@ export const createSettings = memoize((platform) => {
               },
             },
             ...ifAnyCarrierAllows(CONFIG.ALLOW_PACKAGE_TYPE_DIGITAL_STAMP, {
-              key: CONFIG.KEY,
+              key: KEY_CONFIG,
               name: CONFIG.PRICE_PACKAGE_TYPE_DIGITAL_STAMP,
               component: CCurrency,
               props: currencyProps,
-              conditions: [
-                CONFIG.SHOW_PRICES,
-              ],
+              conditions: [CONFIG.SHOW_PRICES],
             }),
             ...ifAnyCarrierAllows(CONFIG.ALLOW_PACKAGE_TYPE_MAILBOX, {
-              key: CONFIG.KEY,
+              key: KEY_CONFIG,
               name: CONFIG.PRICE_PACKAGE_TYPE_MAILBOX,
               component: CCurrency,
               props: currencyProps,
-              conditions: [
-                CONFIG.SHOW_PRICES,
-              ],
+              conditions: [CONFIG.SHOW_PRICES],
             }),
           ],
         }),
       ],
     },
     {
-      title: FORM.PICKUP,
+      title: PICKUP,
       settings: [
         ...perCarrier({
           name: CONFIG.ALLOW_PICKUP_LOCATIONS,
           component: CToggle,
         }),
         {
-          key: STRINGS.KEY,
+          key: KEY_STRINGS,
           name: STRINGS.PICKUP_TITLE,
-          conditions: [
-            inAnyCarrier(CONFIG.ALLOW_PICKUP_LOCATIONS),
-          ],
+          conditions: [inAnyCarrier(CONFIG.ALLOW_PICKUP_LOCATIONS)],
         },
         {
-          key: CONFIG.KEY,
+          key: KEY_CONFIG,
           name: CONFIG.PRICE_PICKUP,
           component: CCurrency,
           props: currencyProps,
-          conditions: [
-            CONFIG.SHOW_PRICES,
-            inAnyCarrier(CONFIG.ALLOW_PICKUP_LOCATIONS),
-          ],
+          conditions: [CONFIG.SHOW_PRICES, inAnyCarrier(CONFIG.ALLOW_PICKUP_LOCATIONS)],
         },
       ],
     },
@@ -384,7 +329,7 @@ export const createSettings = memoize((platform) => {
           title: CONFIG.DROP_OFF_DAYS,
           settings: [
             ...perCarrier({
-              key: CONFIG.KEY,
+              key: KEY_CONFIG,
               name: CONFIG.DROP_OFF_DAYS,
               component: CCheckboxGroup,
               props: {
@@ -393,9 +338,7 @@ export const createSettings = memoize((platform) => {
                   value: index === weekdays.length - 1 ? 0 : index + 1,
                   text: day,
                 })),
-                conditions: [
-                  CONFIG.ALLOW_DELIVERY_OPTIONS,
-                ],
+                conditions: [CONFIG.ALLOW_DELIVERY_OPTIONS],
               },
             }),
           ],
@@ -405,16 +348,14 @@ export const createSettings = memoize((platform) => {
           title: CONFIG.DROP_OFF_DELAY,
           settings: [
             ...perCarrier({
-              key: CONFIG.KEY,
+              key: KEY_CONFIG,
               name: CONFIG.DROP_OFF_DELAY,
               component: CNumber,
               props: {
                 min: CONSTS.DROP_OFF_DELAY_MIN,
                 max: CONSTS.DROP_OFF_DELAY_MAX,
               },
-              conditions: [
-                CONFIG.ALLOW_DELIVERY_OPTIONS,
-              ],
+              conditions: [CONFIG.ALLOW_DELIVERY_OPTIONS],
             }),
           ],
         },
@@ -422,12 +363,10 @@ export const createSettings = memoize((platform) => {
           title: CONFIG.CUTOFF_TIME,
           settings: [
             ...perCarrier({
-              key: CONFIG.KEY,
+              key: KEY_CONFIG,
               name: CONFIG.CUTOFF_TIME,
               component: CTimepicker,
-              conditions: [
-                CONFIG.ALLOW_DELIVERY_OPTIONS,
-              ],
+              conditions: [CONFIG.ALLOW_DELIVERY_OPTIONS],
             }),
           ],
         },
@@ -435,12 +374,10 @@ export const createSettings = memoize((platform) => {
           title: CONFIG.CUTOFF_TIME_SAME_DAY,
           settings: [
             ...perCarrier({
-              key: CONFIG.KEY,
+              key: KEY_CONFIG,
               name: CONFIG.CUTOFF_TIME_SAME_DAY,
               component: CTimepicker,
-              conditions: [
-                CONFIG.ALLOW_SAME_DAY_DELIVERY,
-              ],
+              conditions: [CONFIG.ALLOW_SAME_DAY_DELIVERY],
             }),
           ],
         }),
@@ -452,7 +389,7 @@ export const createSettings = memoize((platform) => {
       settings: featuresForm,
     },
     {
-      title: STRINGS.KEY,
+      title: KEY_STRINGS,
       settings: stringsForm,
     },
   ];

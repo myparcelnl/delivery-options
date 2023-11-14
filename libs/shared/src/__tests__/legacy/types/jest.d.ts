@@ -1,4 +1,4 @@
-import { WrapperArray } from '@vue/test-utils';
+import {type WrapperArray} from '@vue/test-utils';
 
 declare namespace jest {
   interface Matchers<R> {
@@ -7,15 +7,17 @@ declare namespace jest {
 }
 
 declare interface Wrapper {
-  findByTestId(id: string): Wrapper;
   findAllByTestId(id: string): WrapperArray<any>;
+
+  findByTestId(id: string): Wrapper;
+
   findChoice(id: string, choice: string): Wrapper;
 }
 
 declare interface Wrapper {
-  findByTestId(id: string): Wrapper;
-
   findAllByTestId(id: string): WrapperArray<any>;
+
+  findByTestId(id: string): Wrapper;
 
   findChoice(id: string, choice: string): Wrapper;
 }

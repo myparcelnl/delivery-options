@@ -1,4 +1,3 @@
-import * as FEATURES from '@/data/carrierFeatures';
 import {
   AUSTRIA,
   BULGARIA,
@@ -24,17 +23,14 @@ import {
   SPAIN,
   SWEDEN,
   UNITED_KINGDOM,
-} from '@myparcel/js-sdk/dist/constant/countries-iso2';
-import { AbstractCarrierConfiguration } from '@/data/carriers/abstractCarrierConfiguration';
-import { DHL_PARCEL_CONNECT } from '../keys/carrierKeys';
-import { MYPARCEL } from '@/data/keys/platformKeys';
+} from '@myparcel/constants/countries';
+import {type CarrierName} from '@myparcel/constants';
+import {DHL_PARCEL_CONNECT, MYPARCEL} from '../keys';
+import {FEATURES_DELIVERY, FEATURES_PICKUP} from '../carrierFeatures';
+import {AbstractCarrierConfiguration, type PlatformCarrierFeatures} from './abstractCarrierConfiguration';
 
 export class DhlParcelConnectCarrierConfiguration extends AbstractCarrierConfiguration {
-  getName() {
-    return DHL_PARCEL_CONNECT;
-  }
-
-  getCountriesForDelivery() {
+  public getCountriesForDelivery(): string[] {
     return [
       BULGARIA,
       GERMANY,
@@ -59,7 +55,7 @@ export class DhlParcelConnectCarrierConfiguration extends AbstractCarrierConfigu
     ];
   }
 
-  getCountriesForPickup() {
+  public getCountriesForPickup(): string[] {
     return [
       BULGARIA,
       DENMARK,
@@ -88,12 +84,13 @@ export class DhlParcelConnectCarrierConfiguration extends AbstractCarrierConfigu
     ];
   }
 
-  getFeatures() {
+  public getFeatures(): PlatformCarrierFeatures {
     return {
-      [MYPARCEL]: [
-        FEATURES.FEATURES_DELIVERY,
-        FEATURES.FEATURES_PICKUP,
-      ],
+      [MYPARCEL]: [FEATURES_DELIVERY, FEATURES_PICKUP],
     };
+  }
+
+  public getName(): CarrierName {
+    return DHL_PARCEL_CONNECT;
   }
 }

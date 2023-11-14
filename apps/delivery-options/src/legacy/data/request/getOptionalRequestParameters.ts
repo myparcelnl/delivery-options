@@ -1,13 +1,9 @@
-import * as CONFIG from '@/data/keys/configKeys';
-import { configBus as realConfigBus } from '@/delivery-options/config/configBus';
+import {CONFIG} from '@myparcel-do/shared';
 
 /**
  * These parameters are optional. If their respective settings are not defined by the user they are not added to the
  * parameters to use the default values from the API.
  *
- * @param {import('@/delivery-options/config/configBus')} configBus - Optional parameter for easier testing.
- *
- * @returns {Partial<MyParcelDeliveryOptions.DeliveryOptionsRequestParameters>}
  */
 export const getOptionalRequestParameters = (configBus = realConfigBus) => {
   const dropOffDays = configBus.get(CONFIG.DROP_OFF_DAYS);

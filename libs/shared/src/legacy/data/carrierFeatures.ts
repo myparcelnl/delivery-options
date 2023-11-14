@@ -1,155 +1,64 @@
-import * as CONFIG from '@/data/keys/configKeys';
+import {
+  ALLOW_DELIVERY_OPTIONS,
+  ALLOW_EVENING_DELIVERY,
+  ALLOW_MONDAY_DELIVERY,
+  ALLOW_MORNING_DELIVERY,
+  ALLOW_ONLY_RECIPIENT,
+  ALLOW_PACKAGE_TYPE_DIGITAL_STAMP,
+  ALLOW_PACKAGE_TYPE_MAILBOX,
+  ALLOW_PICKUP_LOCATIONS,
+  ALLOW_SAME_DAY_DELIVERY,
+  ALLOW_SATURDAY_DELIVERY,
+  ALLOW_SIGNATURE,
+  CUTOFF_TIME,
+  CUTOFF_TIME_SAME_DAY,
+  DELIVERY_DAYS_WINDOW,
+  DROP_OFF_DAYS,
+  DROP_OFF_DELAY,
+  FEATURE_SHOW_DELIVERY_DATE,
+  FRIDAY_CUTOFF_TIME,
+  PRICE_EVENING_DELIVERY,
+  PRICE_MORNING_DELIVERY,
+  PRICE_ONLY_RECIPIENT,
+  PRICE_PICKUP,
+  PRICE_SAME_DAY_DELIVERY,
+  PRICE_SIGNATURE,
+  PRICE_STANDARD_DELIVERY,
+  SATURDAY_CUTOFF_TIME,
+} from './keys';
 
-/**
- * Permissions to enable delivery.
- *
- * @type {string[]}
- */
-export const FEATURES_DELIVERY = [
-  CONFIG.ALLOW_DELIVERY_OPTIONS,
-  CONFIG.PRICE_STANDARD_DELIVERY,
-];
+export const FEATURES_DELIVERY = [ALLOW_DELIVERY_OPTIONS, PRICE_STANDARD_DELIVERY] as const;
 
-/**
- * Permissions to enable evening delivery.
- *
- * @type {string[]}
- */
-export const FEATURES_EVENING_DELIVERY = [
-  CONFIG.ALLOW_EVENING_DELIVERY,
-  CONFIG.PRICE_EVENING_DELIVERY,
-];
+export const FEATURES_EVENING_DELIVERY = [ALLOW_EVENING_DELIVERY, PRICE_EVENING_DELIVERY] as const;
 
-/**
- * Permissions to enable monday delivery.
- *
- * @type {string[]}
- */
-export const FEATURES_MONDAY_DELIVERY = [
-  CONFIG.ALLOW_MONDAY_DELIVERY,
-  CONFIG.SATURDAY_CUTOFF_TIME,
-];
+export const FEATURES_MONDAY_DELIVERY = [ALLOW_MONDAY_DELIVERY, SATURDAY_CUTOFF_TIME] as const;
 
-/**
- * Permissions to enable morning delivery.
- *
- * @type {string[]}
- */
-export const FEATURES_MORNING_DELIVERY = [
-  CONFIG.ALLOW_MORNING_DELIVERY,
-  CONFIG.PRICE_MORNING_DELIVERY,
-];
+export const FEATURES_MORNING_DELIVERY = [ALLOW_MORNING_DELIVERY, PRICE_MORNING_DELIVERY] as const;
 
-/**
- * Permissions to enable only recipient.
- *
- * @type {string[]}
- */
-export const FEATURES_ONLY_RECIPIENT = [
-  CONFIG.PRICE_ONLY_RECIPIENT,
-  CONFIG.ALLOW_ONLY_RECIPIENT,
-];
+export const FEATURES_ONLY_RECIPIENT = [PRICE_ONLY_RECIPIENT, ALLOW_ONLY_RECIPIENT] as const;
 
-/**
- * Permissions to enable package type digital stamp.
- *
- * @type {string[]}
- */
-export const FEATURES_PACKAGE_TYPE_DIGITAL_STAMP = [
-  CONFIG.ALLOW_PACKAGE_TYPE_DIGITAL_STAMP,
-];
+export const FEATURES_PACKAGE_TYPE_DIGITAL_STAMP = [ALLOW_PACKAGE_TYPE_DIGITAL_STAMP] as const;
 
-/**
- * Permissions to enable package type mailbox.
- *
- * @type {string[]}
- */
-export const FEATURES_PACKAGE_TYPE_MAILBOX = [
-  CONFIG.ALLOW_PACKAGE_TYPE_MAILBOX,
-];
+export const FEATURES_PACKAGE_TYPE_MAILBOX = [ALLOW_PACKAGE_TYPE_MAILBOX] as const;
 
-/**
- * Permissions to enable pickup.
- *
- * @type {string[]}
- */
-export const FEATURES_PICKUP = [
-  CONFIG.ALLOW_PICKUP_LOCATIONS,
-  CONFIG.PRICE_PICKUP,
-];
+export const FEATURES_PICKUP = [ALLOW_PICKUP_LOCATIONS, PRICE_PICKUP] as const;
 
-/**
- * Permissions to enable saturday delivery.
- *
- * @type {string[]}
- */
-export const FEATURES_SATURDAY_DELIVERY = [
-  CONFIG.ALLOW_SATURDAY_DELIVERY,
-  CONFIG.FRIDAY_CUTOFF_TIME,
-];
+export const FEATURES_SATURDAY_DELIVERY = [ALLOW_SATURDAY_DELIVERY, FRIDAY_CUTOFF_TIME] as const;
 
-/**
- * Permissions to enable signature.
- *
- * @type {string[]}
- */
-export const FEATURES_SIGNATURE = [
-  CONFIG.ALLOW_SIGNATURE,
-  CONFIG.PRICE_SIGNATURE,
-];
+export const FEATURES_SIGNATURE = [ALLOW_SIGNATURE, PRICE_SIGNATURE] as const;
 
-/**
- * Permission to show delivery date.
- *
- * @type {string[]}
- */
-export const FEATURES_SHOW_DELIVERY_DATE = [
-  CONFIG.FEATURE_SHOW_DELIVERY_DATE,
-];
+export const FEATURES_SHOW_DELIVERY_DATE = [FEATURE_SHOW_DELIVERY_DATE] as const;
 
-/**
- * Permission to show drop off days.
- *
- * @type {string[]}
- */
-export const FEATURES_DROP_OFF_DAYS = [
-  CONFIG.DROP_OFF_DAYS,
-];
+export const FEATURES_DROP_OFF_DAYS = [DROP_OFF_DAYS] as const;
 
-/**
- * Permission to show drop off delay.
- *
- * @type {string[]}
- */
-export const FEATURES_DROP_OFF_DELAY = [
-  CONFIG.DROP_OFF_DELAY,
-];
+export const FEATURES_DROP_OFF_DELAY = [DROP_OFF_DELAY] as const;
 
-/**
- * Permission to select number of delivery days in list.
- *
- * @type {string[]}
- */
-export const FEATURES_DELIVERY_DAYS_WINDOW = [
-  CONFIG.DELIVERY_DAYS_WINDOW,
-];
+export const FEATURES_DELIVERY_DAYS_WINDOW = [DELIVERY_DAYS_WINDOW] as const;
 
-/**
- * Permission to show cutoff time.
- *
- * @type {string[]}
- */
-export const FEATURES_CUTOFF_TIME = [
-  CONFIG.CUTOFF_TIME,
-];
+export const FEATURES_CUTOFF_TIME = [CUTOFF_TIME] as const;
 
-/**
- * Permission to have same day delivery.
- *
- * @type {string[]}
- */
 export const FEATURES_SAME_DAY_DELIVERY = [
-  CONFIG.PRICE_SAME_DAY_DELIVERY,
-  CONFIG.ALLOW_SAME_DAY_DELIVERY,
-  CONFIG.CUTOFF_TIME_SAME_DAY,
-];
+  PRICE_SAME_DAY_DELIVERY,
+  ALLOW_SAME_DAY_DELIVERY,
+  CUTOFF_TIME_SAME_DAY,
+] as const;

@@ -1,21 +1,13 @@
-import { baseMockApp } from '../baseMockApp';
+import {type DeliveryOptionsConfiguration} from '@myparcel-do/shared';
 
-/**
- * @param {Object} configBusData
- * @param {Object} wrapperData
- * @param {Object} component
- * @returns {Wrapper}
- */
-export function mockDeliveryOptions(configBusData = null, wrapperData = null, component = null) {
-  return baseMockApp('delivery-options', component, configBusData, wrapperData, false);
-}
+export const mockDeliveryOptions = (
+  configBusData?: DeliveryOptionsConfiguration,
+  wrapperData = null,
+  component = null,
+) => baseMockApp('delivery-options', component, configBusData, wrapperData, false);
 
-/**
- * @param {Object} configBusData
- * @param {Object} wrapperData
- * @param {Object} component
- * @returns {Wrapper}
- */
-export function shallowMockDeliveryOptions(configBusData = null, wrapperData = null, component = null) {
-  return baseMockApp('delivery-options', component, configBusData, wrapperData, true);
-}
+export const shallowMockDeliveryOptions = (
+  configBusData?: DeliveryOptionsConfiguration,
+  wrapperData = null,
+  component = null,
+) => baseMockApp('delivery-options', component, configBusData, wrapperData, true);

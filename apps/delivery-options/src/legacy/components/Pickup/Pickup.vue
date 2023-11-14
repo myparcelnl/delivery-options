@@ -8,8 +8,8 @@
         v-text="$configBus.strings.pickupLocationsListButton" />
       <CButton
         v-test="'button--map'"
-        class="ml-1"
         :is-selected="selected === views.map"
+        class="ml-1"
         @click="selected = views.map"
         v-text="$configBus.strings.pickupLocationsMapButton" />
     </div>
@@ -33,19 +33,18 @@
   </td>
 </template>
 
-<script>
-import * as CONFIG from '@/data/keys/configKeys';
-import * as FORM from '@/config/formConfig';
-import CButton from '@/delivery-options/components/CButton';
-import Leaflet from '@/delivery-options/components/Pickup/Map/Leaflet';
-import PickupOption from '@/delivery-options/components/Pickup/PickupOption';
+<script lang="ts">
+import {CONFIG, PICKUP_LOCATION} from '@myparcel-do/shared';
+import CButton from '../CButton.vue';
+import PickupOption from './PickupOption.vue';
+import Leaflet from './Map/Leaflet.vue';
 
 const MAP_VIEW = 'map';
 const LIST_VIEW = 'list';
 
 export default {
   name: 'Pickup',
-  components: { CButton, Leaflet },
+  components: {CButton, Leaflet},
   props: {
     data: {
       type: Object,
@@ -57,7 +56,7 @@ export default {
     return {
       selected: null,
       listOption: {
-        name: FORM.PICKUP_LOCATION,
+        name: PICKUP_LOCATION,
         type: 'radio',
         component: PickupOption,
         pagination: this.$configBus.get(CONFIG.FEATURE_MAX_PAGE_ITEMS),

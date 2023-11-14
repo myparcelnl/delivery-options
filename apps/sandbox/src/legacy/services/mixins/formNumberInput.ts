@@ -1,9 +1,7 @@
-import { formTextInput } from '@/sandbox/services/mixins/formTextInput';
+import {formTextInput} from './formTextInput';
 
 export const formNumberInput = {
-  mixins: [
-    formTextInput,
-  ],
+  mixins: [formTextInput],
 
   props: {
     step: {

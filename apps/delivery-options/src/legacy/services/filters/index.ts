@@ -1,4 +1,3 @@
-import Vue from 'vue';
-import { capitalize } from '@/delivery-options/services/filters/capitalize';
+import Vue, {capitalize} from 'vue';
 
 Vue.filter('capitalize', capitalize);

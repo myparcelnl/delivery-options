@@ -19,7 +19,6 @@ import {
   TabsPlugin,
   TooltipPlugin,
 } from 'bootstrap-vue';
-import Vue from 'vue';
 
 /**
  *

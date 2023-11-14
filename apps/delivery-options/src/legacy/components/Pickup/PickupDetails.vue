@@ -9,18 +9,19 @@
       <tr>
         <td>
           <p>
-            <span v-text="`${data.address.street} ${data.address.number}`" /><br>
+            <span v-text="`${data.address.street} ${data.address.number}`" /><br />
             <span v-text="`${data.address.postal_code} ${data.address.city}`" />
 
             <template v-if="!!data.location.phone_number">
-              <br>
-              <span v-text="data.location.phone_number" /><br>
+              <br />
+              <span v-text="data.location.phone_number" /><br />
             </template>
           </p>
         </td>
 
         <td>
           <img
+            :alt="carrierData.label"
             :class="[
               `${$classBase}__image`,
               `${$classBase}__image--lg`,
@@ -28,8 +29,7 @@
               `${$classBase}__float--right`,
             ]"
             :src="carrierData.image"
-            :title="carrierData.label"
-            :alt="carrierData.label">
+            :title="carrierData.label" />
         </td>
       </tr>
     </table>
@@ -72,9 +72,7 @@
   </div>
 </template>
 
-<script>
-import { createLocaleString } from '@/delivery-options/data/dates/createLocaleString';
-
+<script lang="ts">
 export default {
   name: 'PickupDetails',
   props: {

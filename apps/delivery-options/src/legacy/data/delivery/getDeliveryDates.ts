@@ -1,7 +1,5 @@
-import * as CONFIG from '@/data/keys/configKeys';
-import { configBus } from '@/delivery-options/config/configBus';
-import { createDate } from '@/delivery-options/data/dates/createDate';
-import { createIsoString } from '@/delivery-options/data/dates/createIsoString';
+import {CONFIG} from '@myparcel-do/shared';
+import {createDate, createIsoString} from '../dates';
 
 /**
  * @param {MyParcel.DeliveryOption[]} deliveryOptions - Delivery options object.
@@ -27,18 +25,14 @@ export function getDeliveryDates(deliveryOptions) {
   }
 
   return deliveryOptions.map((option) => {
-    const { date: deliveryMoment } = option;
+    const {date: deliveryMoment} = option;
 
     const name = createIsoString(deliveryMoment.date);
-    const dateString = createDate(deliveryMoment.date)
-      .toLocaleDateString(
-        configBus.get(CONFIG.LOCALE),
-        {
-          weekday: 'long',
-          month: 'long',
-          day: 'numeric',
-        },
-      );
+    const dateString = createDate(deliveryMoment.date).toLocaleDateString(configBus.get(CONFIG.LOCALE), {
+      weekday: 'long',
+      month: 'long',
+      day: 'numeric',
+    });
 
     const label = dateString.charAt(0).toUpperCase() + dateString.slice(1);
 

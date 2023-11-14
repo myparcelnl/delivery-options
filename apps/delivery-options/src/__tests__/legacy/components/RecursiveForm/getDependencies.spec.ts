@@ -1,5 +1,6 @@
-import { getDependencies } from '@/delivery-options/components/RecursiveForm/getDependencies';
-import { mockConfigBus } from '@Tests/unit/delivery-options/mockConfigBus';
+import {beforeAll, describe, expect, test} from 'vitest';
+import {mockConfigBus} from '../../mockConfigBus';
+import {getDependencies} from '../../../../legacy/components/RecursiveForm/getDependencies';
 
 const getDependenciesCases = [
   {
@@ -48,10 +49,7 @@ const getDependenciesCases = [
         },
       },
     },
-    dependencyName: [
-      'deliveryDate',
-      'deliveryMoment',
-    ],
+    dependencyName: ['deliveryDate', 'deliveryMoment'],
     deps: {
       moments: {
         start: '09:00',
@@ -77,10 +75,7 @@ const getDependenciesCases = [
         },
       },
     },
-    dependencyName: [
-      'deliveryDate',
-      'deliveryMoment',
-    ],
+    dependencyName: ['deliveryDate', 'deliveryMoment'],
     deps: {
       moments: {
         start: '09:00',
@@ -105,10 +100,7 @@ const getDependenciesCases = [
         },
       },
     },
-    dependencyName: [
-      'deliveryDate',
-      'deliveryMoment',
-    ],
+    dependencyName: ['deliveryDate', 'deliveryMoment'],
     deps: {
       moments: {
         start: '09:00',
@@ -133,13 +125,7 @@ describe('RecursiveForm – getDependencies', () => {
             allowSignature: false,
             cutoffTime: '17:00',
             deliveryDaysWindow: 1,
-            dropOffDays: [
-              '1',
-              '2',
-              '3',
-              '4',
-              '5',
-            ],
+            dropOffDays: ['1', '2', '3', '4', '5'],
             dropOffDelay: 0,
             pricePickup: -0.14,
             priceSignature: 0,
@@ -151,13 +137,7 @@ describe('RecursiveForm – getDependencies', () => {
             allowSignature: false,
             cutoffTime: '17:00',
             deliveryDaysWindow: 1,
-            dropOffDays: [
-              '1',
-              '2',
-              '3',
-              '4',
-              '5',
-            ],
+            dropOffDays: ['1', '2', '3', '4', '5'],
             dropOffDelay: 0,
             pricePickup: -0.2,
             priceSignature: 0,
@@ -190,7 +170,7 @@ describe('RecursiveForm – getDependencies', () => {
     });
   });
 
-  test.each(getDependenciesCases)('gets the correct dependencies', ({ dependencies, dependencyName, deps }) => {
+  test.each(getDependenciesCases)('gets the correct dependencies', ({dependencies, dependencyName, deps}) => {
     expect(getDependencies(dependencies, dependencyName)).toEqual(deps);
   });
 });

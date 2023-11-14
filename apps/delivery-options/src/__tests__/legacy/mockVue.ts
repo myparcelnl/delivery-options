@@ -1,9 +1,6 @@
-import AsyncComputed from 'vue-async-computed';
-import { MYPARCEL } from '@/data/keys/platformKeys';
-import RecursiveForm from '@/delivery-options/components/RecursiveForm/RecursiveForm';
-import { createLocalVue } from '@vue/test-utils';
-import { mockConfigBus } from './mockConfigBus';
-import { vTest } from '@/delivery-options/services/directives/v-test';
+import {createLocalVue} from '@vue/test-utils';
+import {MYPARCEL} from '@myparcel-do/shared';
+import {mockConfigBus} from './mockConfigBus';
 
 export const mockVue = (data = MYPARCEL) => {
   const localVue = createLocalVue();

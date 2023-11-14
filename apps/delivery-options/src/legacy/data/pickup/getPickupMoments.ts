@@ -1,10 +1,4 @@
-import {
-  PICKUP_MOMENT,
-  PICKUP_STANDARD,
-  formConfigPickup,
-} from '@/config/formConfig';
-import { configBus } from '@/delivery-options/config/configBus';
-import { createLocaleString } from '@/delivery-options/data/dates/createLocaleString';
+import {formConfigPickup, PICKUP_MOMENT, PICKUP_STANDARD} from '@myparcel-do/shared';
 
 /**
  * Get pickup moments.
@@ -39,7 +33,7 @@ export function getPickupMoments(pickupLocation) {
       type: 'radio',
       choices: pickupLocation.possibilities.map((possibility) => {
         const deliveryType = possibility.delivery_type_name || PICKUP_STANDARD;
-        const pickupConfig = formConfigPickup.options.find(({ name }) => name === deliveryType);
+        const pickupConfig = formConfigPickup.options.find(({name}) => name === deliveryType);
 
         if (!configBus.isEnabled(pickupConfig)) {
           return null;

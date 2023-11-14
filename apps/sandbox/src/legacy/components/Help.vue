@@ -1,8 +1,8 @@
 <template>
   <span>
     <Fa
-      :icon="faInfoCircle"
-      :class="{ [`text-${variant}`]: variant }" />
+      :class="{[`text-${variant}`]: variant}"
+      :icon="faInfoCircle" />
 
     <BPopover
       :target="target"
@@ -12,20 +12,15 @@
   </span>
 </template>
 
-<script>
-import Fa from 'vue-fa';
-import debounce from 'lodash-es/debounce';
-import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
-import { hasVariantProp } from '@/sandbox/services/mixins/hasVariantProp';
+<script lang="ts">
+import {hasVariantProp} from '../services/mixins/hasVariantProp';
 
 export default {
   name: 'Help',
 
-  components: { Fa },
+  components: {Fa},
 
-  mixins: [
-    hasVariantProp,
-  ],
+  mixins: [hasVariantProp],
 
   props: {
     target: {

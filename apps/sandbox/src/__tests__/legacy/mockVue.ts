@@ -1,9 +1,4 @@
-import { appConfig } from '@/config/appConfig';
-import { configObject } from '@/sandbox/config';
-import { createLocalVue } from '@vue/test-utils';
-import { getUrl } from '@/config/urlConfig';
-import { useBootstrap } from '@/sandbox/services/bootstrap';
-import { vTest } from '@/delivery-options/services/directives/v-test';
+import {appConfig, getUrl} from '@myparcel-do/shared';
 
 export const mockVue = () => {
   const localVue = createLocalVue();
@@ -18,7 +13,7 @@ export const mockVue = () => {
   localVue.prototype.$config = configObject;
   localVue.prototype.$getUrl = getUrl;
 
-  localVue.component('FontAwesomeIcon', { template: '<i></i>' });
+  localVue.component('FontAwesomeIcon', {template: '<i></i>'});
 
   localVue.directive('test', vTest);
 

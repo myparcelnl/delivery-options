@@ -6,8 +6,8 @@
       variant="primary">
       <BNavbarBrand href="#">
         <img
-          src="https://assets.myparcel.nl/skin/images/logo-inverse.svg"
-          alt="Logo">
+          alt="Logo"
+          src="https://assets.myparcel.nl/skin/images/logo-inverse.svg" />
 
         <span
           v-t="'title.main'"
@@ -35,13 +35,13 @@
   </header>
 </template>
 
-<script>
+<script lang="ts">
 import Fa from 'vue-fa';
-import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons/faExternalLinkAlt';
+import {faExternalLinkAlt} from '@fortawesome/free-solid-svg-icons/faExternalLinkAlt';
 
 export default {
   name: 'SandboxHeader',
-  components: { Fa },
+  components: {Fa},
   data() {
     return {
       /* eslint-disable vue/max-len,max-len */

@@ -1,6 +1,6 @@
-import { createConfigBus } from '@/delivery-options/config/configBus';
-import { createIsoString } from '@/delivery-options/data/dates/createIsoString';
-import { createLocaleString } from '@/delivery-options/data/dates/createLocaleString';
+import {describe, expect, it} from 'vitest';
+import {createIsoString, createLocaleString} from '../../legacy/data';
+import {createConfigBus} from '../../legacy/config/configBus';
 
 // Initialize the configBus
 createConfigBus();
@@ -22,14 +22,16 @@ describe('date formatting', () => {
     const date3 = '2022-11-22 09:32:10.000000';
 
     // The spaces in the expected strings are non-breaking spaces.
-    expect(createLocaleString(date3, {
-      year: 'numeric',
-      month: 'numeric',
-      day: 'numeric',
-      hour: 'numeric',
-      minute: 'numeric',
-      second: 'numeric',
-    })).toBe('22-11-2022 09:32:10');
+    expect(
+      createLocaleString(date3, {
+        year: 'numeric',
+        month: 'numeric',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+        second: 'numeric',
+      }),
+    ).toBe('22-11-2022 09:32:10');
     expect(createIsoString(date3)).toBe('2022-11-22T09:32:10.000Z');
   });
 });

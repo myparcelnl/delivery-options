@@ -1,6 +1,3 @@
-import HomeCodeBlock from '@/sandbox/components/HomeCodeBlock';
-import HomeDeliveryOptionsBlock from '@/sandbox/components/HomeDeliveryOptionsBlock';
-
 export default [
   {
     name: 'delivery-options',

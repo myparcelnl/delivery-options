@@ -6,7 +6,6 @@
  *
  * @returns {*}
  */
-import { configBus } from '@/delivery-options/config/configBus';
 
 /**
  * @param {Object} dependencies - Dependency object.
@@ -17,7 +16,7 @@ import { configBus } from '@/delivery-options/config/configBus';
 export function getDependencies(dependencies, dependencyNames) {
   // Create a new array to avoid overwriting dependencyNames.
   const needles = typeof dependencyNames === 'string' ? [dependencyNames] : [...dependencyNames];
-  const { values } = configBus;
+  const {values} = configBus;
   let result = null;
 
   needles.forEach((needle, index) => {

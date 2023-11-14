@@ -1,5 +1,3 @@
-import { configBus } from '@/delivery-options/config/configBus';
-
 /**
  * Set the selected value for a checkbox option.
  *

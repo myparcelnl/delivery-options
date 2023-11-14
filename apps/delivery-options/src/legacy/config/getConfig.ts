@@ -1,6 +1,6 @@
-import { ConfigurationMerger } from '@/delivery-options/config/configurationMerger';
-import { DEFAULT_PLATFORM } from '@/data/keys/settingsConsts';
-import { getWindowObject } from '@/delivery-options/config/getWindowObject';
+import {DEFAULT_PLATFORM} from '@myparcel-do/shared';
+import {getWindowObject} from './getWindowObject';
+import {ConfigurationMerger} from './configurationMerger';
 
 /**
  * Get data from the window config object and convert some variables.

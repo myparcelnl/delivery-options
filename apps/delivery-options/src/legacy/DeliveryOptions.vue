@@ -6,9 +6,9 @@
     @submit.prevent="">
     <Modal
       v-if="$configBus.showModal"
-      :modal-data="modalData"
+      :component="$configBus.modalData.component"
       :has-close-button="$configBus.modalData.hasCloseButton"
-      :component="$configBus.modalData.component" />
+      :modal-data="modalData" />
 
     <div v-show="!$configBus.showModal">
       <h3
@@ -29,20 +29,13 @@
   </form>
 </template>
 
-<script>
-import * as EVENTS from '@/config/eventConfig';
-import * as FORM from '@/config/formConfig';
-import Errors from '@/delivery-options/components/Errors';
-import { ERROR_WADDEN_ISLANDS, FATAL_ERRORS } from '@/config/errorConfig';
-import Loader from '@/delivery-options/components/Loader';
-import Modal from '@/delivery-options/components/Modal';
-import { configBus } from '@/delivery-options/config/configBus';
-import debounce from 'lodash-es/debounce';
-import { fetchAllCarriers } from '@/delivery-options/data/carriers/fetchAllCarriers';
-import { getAddress } from '@/delivery-options/config/getAddress';
-import { getDeliveryOptions } from '@/delivery-options/data/delivery/getDeliveryOptions';
-import { getPickupLocations } from '@/delivery-options/data/pickup/getPickupLocations';
-import isEqual from 'lodash-es/isEqual';
+<script lang="ts">
+import {DELIVERY, EVENTS, formConfig, PICKUP} from '@myparcel-do/shared';
+import {fetchAllCarriers, getDeliveryOptions, getPickupLocations} from './data';
+import {getAddress} from './config/getAddress';
+import {configBus} from './config/configBus';
+import Modal from './components/Modal.vue';
+import Loader from './components/Loader.vue';
 
 const DEBOUNCE_DELAY = 300;
 
@@ -161,7 +154,7 @@ export default {
      * @returns {boolean}
      */
     hasSomethingToShow() {
-      const { isEnabledInAnyCarrier } = this.$configBus;
+      const {isEnabledInAnyCarrier} = this.$configBus;
 
       return isEnabledInAnyCarrier(FORM.formConfigPickup) || isEnabledInAnyCarrier(FORM.formConfigDelivery);
     },
@@ -172,7 +165,7 @@ export default {
      * @returns {Object}
      */
     modalData() {
-      const { component, hasCloseButton, ...data } = this.$configBus.modalData;
+      const {component, hasCloseButton, ...data} = this.$configBus.modalData;
 
       return data;
     },
@@ -212,8 +205,8 @@ export default {
     createForm() {
       // Map form entries to functions to retrieve their content.
       const map = {
-        [FORM.DELIVERY]: getDeliveryOptions,
-        [FORM.PICKUP]: getPickupLocations,
+        [DELIVERY]: getDeliveryOptions,
+        [PICKUP]: getPickupLocations,
       };
 
       // Filter the choices checking if any of the given carriers have any above setting enabled. Also checks if the
@@ -225,7 +218,7 @@ export default {
           return acc;
         }
 
-        const configItem = FORM.formConfig.find((config) => config.name === setting);
+        const configItem = formConfig.find((config) => config.name === setting);
 
         return this.$configBus.isEnabledInAnyCarrier(configItem) ? [...acc, formData] : acc;
       }, []);
@@ -321,7 +314,7 @@ export default {
      * @param {any} data.value - New value of the changed option (if called through update).
      */
     updateExternal(data) {
-      const { exportValues } = this.$configBus;
+      const {exportValues} = this.$configBus;
       const isEmptied = data === false || (data.name === FORM.DELIVERY && data.value === null);
 
       if (!isEmptied && !exportValues) {
@@ -331,12 +324,11 @@ export default {
       /*
        * Send a CustomEvent with the values as data.
        */
-      document.dispatchEvent(new CustomEvent(
-        EVENTS.UPDATED_DELIVERY_OPTIONS,
-        {
+      document.dispatchEvent(
+        new CustomEvent(EVENTS.UPDATED_DELIVERY_OPTIONS, {
           detail: isEmptied ? null : exportValues.toObject(),
-        },
-      ));
+        }),
+      );
     },
 
     /**

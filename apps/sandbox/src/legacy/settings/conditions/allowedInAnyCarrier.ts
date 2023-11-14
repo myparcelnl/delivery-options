@@ -1,5 +1,4 @@
-import { CarrierConfigurationFactory } from '@/data/carriers/carrierConfigurationFactory';
-import { platformCarrierMap } from '@/config/platform/platformCarrierMap';
+import {getCarrierConfiguration, platformCarrierMap} from '@myparcel-do/shared';
 
 /**
  * Pass given data in an array if setting(s) are allowed in any carrier of the current platform.
@@ -12,7 +11,7 @@ import { platformCarrierMap } from '@/config/platform/platformCarrierMap';
  */
 export const allowedInAnyCarrier = (settings, data, platform) => {
   const allowed = platformCarrierMap[platform].some((carrier) => {
-    const carrierConfig = CarrierConfigurationFactory.create(carrier, platform);
+    const carrierConfig = getCarrierConfiguration(carrier, platform);
 
     if (Array.isArray(settings)) {
       return settings.every((setting) => carrierConfig.hasFeature(setting));

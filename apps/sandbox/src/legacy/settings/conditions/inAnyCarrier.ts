@@ -1,6 +1,5 @@
-import { getCarrierSettingsPath } from '@/sandbox/settings/conditions/getCarrierSettingsPath';
-import { platformCarrierMap } from '@/config/platform/platformCarrierMap';
-import { sandboxConfigBus } from '@/sandbox/sandboxConfigBus';
+import {platformCarrierMap} from '@myparcel-do/shared';
+import {getCarrierSettingsPath} from './getCarrierSettingsPath';
 
 /**
  * Match fallback value and any carrier's value.
@@ -10,7 +9,7 @@ import { sandboxConfigBus } from '@/sandbox/sandboxConfigBus';
  * @returns {Array}
  */
 export function inAnyCarrier(setting) {
-  const { platform } = sandboxConfigBus;
+  const {platform} = sandboxConfigBus;
 
   return platformCarrierMap[platform].map((carrier) => {
     if (Array.isArray(setting)) {

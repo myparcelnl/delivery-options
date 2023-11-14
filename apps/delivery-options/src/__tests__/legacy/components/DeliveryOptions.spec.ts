@@ -1,28 +1,18 @@
-import * as ADDRESS from '@/data/keys/addressKeys';
-import * as CONFIG from '@/data/keys/configKeys';
+import {describe, expect, it} from 'vitest';
 import {
-  DISABLE_DELIVERY_OPTIONS,
-  HIDE_DELIVERY_OPTIONS,
-  SHOW_DELIVERY_OPTIONS,
-  UPDATED_DELIVERY_OPTIONS,
-  UPDATE_CONFIG_IN,
+  defaultAddress,
+  defaultConfiguration,
+  KEY_ADDRESS,
+  MYPARCEL,
+  SENDMYPARCEL,
   UPDATE_DELIVERY_OPTIONS,
-} from '@/config/eventConfig';
-import { MYPARCEL, SENDMYPARCEL } from '@/data/keys/platformKeys';
-import {
-  deliveryOptionsResponseDefault,
-  deliveryOptionsResponseInvalidPostalCode,
-  fakeDeliveryOptionsResponse,
-} from '../../../mocks/fakeDeliveryOptionsResponse';
-import { createWaitableMock } from '@Tests/unit/createWaitableMock';
-import { defaultAddress } from '@/data/defaultAddress';
-import { defaultConfiguration } from '@/config/defaultConfiguration';
-import { mockDeliveryOptions } from '@Tests/unit/delivery-options/mockDeliveryOptions';
-import { waitForEvent } from '@Tests/waitForEvent';
+  UPDATED_DELIVERY_OPTIONS,
+} from '@myparcel-do/shared';
+import {mockDeliveryOptions} from '../mockDeliveryOptions';
 
 const configWithInvalidAddress = {
   ...defaultConfiguration(SENDMYPARCEL),
-  [ADDRESS.KEY]: {
+  [KEY_ADDRESS]: {
     // Invalid because cc is missing
     postalCode: '1234AB',
     number: '1',
@@ -31,11 +21,11 @@ const configWithInvalidAddress = {
 
 const configWithValidAddress = {
   ...configWithInvalidAddress,
-  [ADDRESS.KEY]: defaultAddress[MYPARCEL],
+  [KEY_ADDRESS]: defaultAddress[MYPARCEL],
 };
 
 describe('DeliveryOptions.vue', () => {
-  it('checks address requirements', async() => {
+  it('checks address requirements', async () => {
     expect.assertions(5);
 
     // Load with a valid address.
@@ -68,12 +58,12 @@ describe('DeliveryOptions.vue', () => {
     expect(wrapper.vm.hasValidAddress).toBe(true);
   });
 
-  it('shows errors on invalid address response from api', async() => {
+  it('shows errors on invalid address response from api', async () => {
     expect.assertions(2);
     fakeDeliveryOptionsResponse.mockImplementation(deliveryOptionsResponseInvalidPostalCode);
 
     const wrapper = mockDeliveryOptions({
-      [ADDRESS.KEY]: {
+      [KEY_ADDRESS]: {
         ...defaultAddress[MYPARCEL],
         postalCode: '12',
       },
@@ -86,38 +76,42 @@ describe('DeliveryOptions.vue', () => {
 
     // Change address to a valid address.
     fakeDeliveryOptionsResponse.mockImplementation(deliveryOptionsResponseDefault);
-    document.dispatchEvent(new CustomEvent(UPDATE_DELIVERY_OPTIONS, {
-      detail: configWithValidAddress,
-    }));
+    document.dispatchEvent(
+      new CustomEvent(UPDATE_DELIVERY_OPTIONS, {
+        detail: configWithValidAddress,
+      }),
+    );
 
     await waitForEvent(UPDATED_DELIVERY_OPTIONS);
     expect(wrapper.findByTestId('button--retry').exists()).toBe(false);
   });
 
-  it('only shows itself when necessary', async() => {
+  it('only shows itself when necessary', async () => {
     expect.assertions(2);
     const wrapper = mockDeliveryOptions();
     expect(wrapper.vm.hasSomethingToShow).toBe(true);
 
-    document.dispatchEvent(new CustomEvent(UPDATE_CONFIG_IN, {
-      detail: {
-        [CONFIG.KEY]: {
-          [CONFIG.PLATFORM]: MYPARCEL,
-          [CONFIG.CARRIER_SETTINGS]: {
-            postnl: {
-              [CONFIG.ALLOW_DELIVERY_OPTIONS]: false,
-              [CONFIG.ALLOW_PICKUP_LOCATIONS]: false,
+    document.dispatchEvent(
+      new CustomEvent(UPDATE_CONFIG_IN, {
+        detail: {
+          [KEY_CONFIG]: {
+            [CONFIG.PLATFORM]: MYPARCEL,
+            [CONFIG.CARRIER_SETTINGS]: {
+              postnl: {
+                [CONFIG.ALLOW_DELIVERY_OPTIONS]: false,
+                [CONFIG.ALLOW_PICKUP_LOCATIONS]: false,
+              },
             },
           },
         },
-      },
-    }));
+      }),
+    );
 
     await wrapper.vm.$nextTick();
     expect(wrapper.vm.hasSomethingToShow).toBe(false);
   });
 
-  it('can unselect delivery options', async() => {
+  it('can unselect delivery options', async () => {
     expect.assertions(1);
     const wrapper = mockDeliveryOptions();
     await waitForEvent(UPDATED_DELIVERY_OPTIONS);
@@ -128,7 +122,7 @@ describe('DeliveryOptions.vue', () => {
     expect(wrapper.findAll('input:checked')).toHaveLength(0);
   });
 
-  it('hides and shows delivery options', async() => {
+  it('hides and shows delivery options', async () => {
     expect.assertions(2);
     const wrapper = mockDeliveryOptions(SENDMYPARCEL);
 

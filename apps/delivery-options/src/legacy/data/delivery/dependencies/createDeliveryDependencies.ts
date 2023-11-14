@@ -1,6 +1,6 @@
-import { DELIVERY_DATE, DELIVERY_MOMENT } from '@/config/formConfig';
-import { createIsoString } from '@/delivery-options/data/dates/createIsoString';
-import { formatDeliveryMoment } from '@/delivery-options/data/delivery/dependencies/formatDeliveryMoment';
+import {DELIVERY_DATE, DELIVERY_MOMENT} from '@myparcel-do/shared';
+import {createIsoString} from '../../dates';
+import {formatDeliveryMoment} from './formatDeliveryMoment';
 
 /**
  * Create the dependencies object for delivery options.

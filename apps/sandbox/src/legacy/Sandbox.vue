@@ -12,18 +12,18 @@
   </transition-group>
 </template>
 
-<script>
-import { sandboxConfigBus } from '@/sandbox/sandboxConfigBus';
-
+<script lang="ts">
 export default {
   name: 'Sandbox',
 
   components: {
-    PreLoader: () => import(/* webpackChunkName: "PreLoader" */'@/sandbox/components/PreLoader'),
-    SandboxHeader: () => import(/* webpackChunkName: "SandboxHeader" */'@/sandbox/components/SandboxHeader'),
-    SandboxIntroduction: () => import(/* webpackChunkName: "SandboxIntroduction" */'@/sandbox/components/SandboxIntroduction'),
-    SandboxSettings: () => import(/* webpackChunkName: "SandboxSettings" */'@/sandbox/components/SandboxSettings'),
-    SandboxFooter: () => import(/* webpackChunkName: "SandboxFooter" */'@/sandbox/components/SandboxFooter'),
+    PreLoader: () => import(/* webpackChunkName: "PreLoader" */ '@/sandbox/components/PreLoader'),
+    SandboxHeader: () => import(/* webpackChunkName: "SandboxHeader" */ '@/sandbox/components/SandboxHeader'),
+    SandboxIntroduction: () =>
+      import(/* webpackChunkName: "SandboxIntroduction" */ '@/sandbox/components/SandboxIntroduction'),
+
+    SandboxSettings: () => import(/* webpackChunkName: "SandboxSettings" */ '@/sandbox/components/SandboxSettings'),
+    SandboxFooter: () => import(/* webpackChunkName: "SandboxFooter" */ '@/sandbox/components/SandboxFooter'),
   },
 
   data() {

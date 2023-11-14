@@ -1,16 +1,7 @@
-import * as ADDRESS from '@/data/keys/addressKeys';
-import * as CONFIG from '@/data/keys/configKeys';
-import * as PLATFORMS from '@/data/keys/platformKeys';
-import { BPOST, DHL, DHL_EUROPLUS, DHL_FOR_YOU, DHL_PARCEL_CONNECT, DPD, POSTNL } from '@/data/keys/carrierKeys';
-import { CarrierConfigurationFactory } from '@/data/carriers/carrierConfigurationFactory';
-import { DEFAULT_PLATFORM } from '@/data/keys/settingsConsts';
-import { MYPARCEL } from '@/data/keys/platformKeys';
-import MockDate from 'mockdate';
-import { defaultAddress } from '@/data/defaultAddress';
-import { getDefaultRequestParameters } from '@/delivery-options/data/request/getDefaultRequestParameters';
-import { getOptionalRequestParameters } from '@/delivery-options/data/request/getOptionalRequestParameters';
-import { getParametersByPlatform } from '@/delivery-options/data/request/requestData';
-import { mockConfigBus } from './mockConfigBus';
+import {beforeAll, describe, expect, it} from 'vitest';
+import {CONFIG, DEFAULT_PLATFORM, defaultAddress, getCarrierConfiguration, PLATFORMS} from '@myparcel-do/shared';
+import {CarrierName, PlatformName} from '@myparcel/constants';
+import {mockConfigBus} from './mockConfigBus';
 
 const tuesday = '2020-03-10T00:00:00';
 const friday = '2020-03-13T00:00:00';
@@ -26,10 +17,12 @@ describe('Request parameters', () => {
   });
 
   it('gets the correct default parameters', () => {
-    const configBus = mockConfigBus({ address: {} });
+    const configBus = mockConfigBus({address: {}});
     configBus.currentCarrier = getFirstCarrier(configBus);
 
-    expect(getDefaultRequestParameters(configBus, CarrierConfigurationFactory.create(configBus.currentCarrier, MYPARCEL))).toEqual({
+    expect(
+      getDefaultRequestParameters(configBus, getCarrierConfiguration(configBus.currentCarrier, PlatformName.MyParcel)),
+    ).toEqual({
       carrier: 'postnl',
       include: 'shipment_options',
       platform: DEFAULT_PLATFORM,
@@ -37,21 +30,20 @@ describe('Request parameters', () => {
   });
 
   it('removes undefined parameters', () => {
-    const { postalCode, ...address } = defaultAddress[PLATFORMS.MYPARCEL];
-    configBus = mockConfigBus({ address });
+    const {postalCode, ...address} = defaultAddress[PLATFORMS.MYPARCEL];
+    configBus = mockConfigBus({address});
     configBus.$data.currentCarrier = 'postnl';
-    const carrierConfiguration = CarrierConfigurationFactory.create('postnl', 'myparcel');
+    const carrierConfiguration = getCarrierConfiguration(CarrierName.PostNl, PlatformName.MyParcel);
 
-    const { street, ...withoutStreet } = address;
+    const {street, ...withoutStreet} = address;
 
-    expect(getDefaultRequestParameters(configBus, carrierConfiguration))
-      .toEqual({
-        carrier: 'postnl',
-        include: 'shipment_options',
-        platform: PLATFORMS.MYPARCEL,
-        street: 'Antareslaan 31',
-        ...withoutStreet,
-      });
+    expect(getDefaultRequestParameters(configBus, carrierConfiguration)).toEqual({
+      carrier: 'postnl',
+      include: 'shipment_options',
+      platform: PLATFORMS.MYPARCEL,
+      street: 'Antareslaan 31',
+      ...withoutStreet,
+    });
   });
 
   it('gets the correct optional parameters', () => {
@@ -66,7 +58,7 @@ describe('Request parameters', () => {
 
   it('gets the correct cutoff time for sendmyparcel when using saturday delivery', () => {
     const sendMyParcelConfigBus = mockConfigBus({
-      [CONFIG.KEY]: {
+      [KEY_CONFIG]: {
         [CONFIG.PLATFORM]: PLATFORMS.SENDMYPARCEL,
         [CONFIG.DROP_OFF_DAYS]: [4, 5],
         [CONFIG.CUTOFF_TIME]: '15:00',
@@ -94,7 +86,7 @@ describe('Request parameters', () => {
 
   it('gets the correct cutoff time for myparcel when using monday delivery', () => {
     const myParcelConfigBus = mockConfigBus({
-      [CONFIG.KEY]: {
+      [KEY_CONFIG]: {
         [CONFIG.PLATFORM]: PLATFORMS.MYPARCEL,
         [CONFIG.DROP_OFF_DAYS]: [4, 5, 6],
         [CONFIG.CUTOFF_TIME]: '15:00',
@@ -128,32 +120,28 @@ describe('Request parameters', () => {
     ${DHL_FOR_YOU}        | ${PLATFORMS.MYPARCEL}     | ${['postal_code', 'city']}
     ${DHL_EUROPLUS}       | ${PLATFORMS.MYPARCEL}     | ${['postal_code', 'city', 'street']}
     ${DHL_PARCEL_CONNECT} | ${PLATFORMS.MYPARCEL}     | ${['postal_code', 'city', 'street']}
-  `('gets address parts $expected when using carrier $carrier on platform $platform', ({
-    carrier,
-    platform,
-    expected,
-  }) => {
-    const configBus = mockConfigBus({
-      [ADDRESS.KEY]: defaultAddress[platform],
-      [CONFIG.KEY]: {
-        [CONFIG.PLATFORM]: platform,
-        [CONFIG.CARRIER_SETTINGS]: {
-          [carrier]: {
-            [CONFIG.ALLOW_DELIVERY_OPTIONS]: true,
+  `(
+    'gets address parts $expected when using carrier $carrier on platform $platform',
+    ({carrier, platform, expected}) => {
+      const configBus = mockConfigBus({
+        [KEY_ADDRESS]: defaultAddress[platform],
+        [KEY_CONFIG]: {
+          [CONFIG.PLATFORM]: platform,
+          [CONFIG.CARRIER_SETTINGS]: {
+            [carrier]: {
+              [CONFIG.ALLOW_DELIVERY_OPTIONS]: true,
+            },
           },
         },
-      },
-    });
+      });
 
-    configBus.currentCarrier = getFirstCarrier(configBus);
-    const parameters = getDefaultRequestParameters(configBus, CarrierConfigurationFactory.create(configBus.currentCarrier, MYPARCEL));
+      configBus.currentCarrier = getFirstCarrier(configBus);
+      const parameters = getDefaultRequestParameters(
+        configBus,
+        getCarrierConfiguration(configBus.currentCarrier, MYPARCEL),
+      );
 
-    expect(Object.keys(parameters).sort()).toEqual([
-      'include',
-      'platform',
-      'carrier',
-      'cc',
-      ...expected,
-    ].sort());
-  });
+      expect(Object.keys(parameters).sort()).toEqual(['include', 'platform', 'carrier', 'cc', ...expected].sort());
+    },
+  );
 });

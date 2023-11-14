@@ -1,11 +1,8 @@
-import { formInputProps } from '@/sandbox/services/mixins/formInputProps';
-import { vModelMixin } from '@/sandbox/services/mixins/vModel';
+import {vModelMixin} from './vModel';
+import {formInputProps} from './formInputProps';
 
 export const formTextInput = {
-  mixins: [
-    vModelMixin,
-    formInputProps,
-  ],
+  mixins: [vModelMixin, formInputProps],
 
   props: {
     lazy: {
@@ -36,9 +33,7 @@ export const formTextInput = {
      * @returns {string}
      */
     placeholderValue() {
-      return this.$te(this.placeholder)
-        ? this.$t(this.placeholder)
-        : this.placeholder;
+      return this.$te(this.placeholder) ? this.$t(this.placeholder) : this.placeholder;
     },
 
     /**
@@ -47,7 +42,7 @@ export const formTextInput = {
      * @returns {Object}
      */
     filteredProps() {
-      const { placeholder, ...props } = this.$props;
+      const {placeholder, ...props} = this.$props;
 
       return {
         placeholder: this.placeholderValue,

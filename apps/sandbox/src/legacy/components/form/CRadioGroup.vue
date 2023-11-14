@@ -1,21 +1,17 @@
 <template>
   <CInput
     v-model="selected"
-    component="BFormRadioGroup"
-    :options="translatedOptions" />
+    :options="translatedOptions"
+    component="BFormRadioGroup" />
 </template>
 
-<script>
-import { BFormRadioGroup } from 'bootstrap-vue/src/components/form-radio';
-import CInput from '@/sandbox/components/form/CInput';
-import { formRadioGroup } from '@/sandbox/services/mixins/formRadioGroup';
+<script lang="ts">
+import CInput from './CInput.vue';
 
 export default {
   name: 'CRadioGroup',
-  components: { CInput },
+  components: {CInput},
   extends: BFormRadioGroup,
-  mixins: [
-    formRadioGroup,
-  ],
+  mixins: [formRadioGroup],
 };
 </script>

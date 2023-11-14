@@ -1,23 +1,17 @@
 <template>
   <td>
     <label
-      :for="`${$classBase}__pickupLocation--${data.name}`"
       :class="`${$classBase}__d-block`"
+      :for="`${$classBase}__pickupLocation--${data.name}`"
       @click="isSelected ? showModal() : null">
       <span
         v-if="carrierData.image"
-        :class="[
-          `${$classBase}__d-block`,
-          `${$classBase}__float--left`,
-        ]">
+        :class="[`${$classBase}__d-block`, `${$classBase}__float--left`]">
         <img
-          :class="[
-            `${$classBase}__image`,
-            `${$classBase}__image--sm`,
-          ]"
+          :alt="carrierData.label"
+          :class="[`${$classBase}__image`, `${$classBase}__image--sm`]"
           :src="carrierData.image"
-          :title="carrierData.label"
-          :alt="carrierData.label">
+          :title="carrierData.label" />
         &nbsp;
       </span>
 
@@ -25,8 +19,8 @@
         <span v-text="data.label" />
         <Fa
           v-if="isSelected"
-          :icon="faEllipsisH"
-          :class="`${$classBase}__float--right`" />
+          :class="`${$classBase}__float--right`"
+          :icon="faEllipsisH" />
       </span>
 
       <span
@@ -37,10 +31,7 @@
 
       <span
         v-else
-        :class="[
-          `${$classBase}__d-block`,
-          `${$classBase}__text--small`,
-        ]">
+        :class="[`${$classBase}__d-block`, `${$classBase}__text--small`]">
         <span v-text="`${pickupData.address.street} ${pickupData.address.number}`" />
       </span>
     </label>
@@ -49,21 +40,19 @@
       <recursive-form
         v-for="subOption in data.options"
         :key="`${data.name}_${subOption.name}`"
-        :option="subOption"
-        :name="data.name" />
+        :name="data.name"
+        :option="subOption" />
     </template>
   </td>
 </template>
 
-<script>
-import * as CONFIG from '@/data/keys/configKeys';
-import Fa from 'vue-fa';
-import PickupDetails from './PickupDetails';
-import { faEllipsisH } from '@fortawesome/free-solid-svg-icons/faEllipsisH';
+<script lang="ts">
+import {CONFIG} from '@myparcel-do/shared';
+import PickupDetails from './PickupDetails.vue';
 
 export default {
   name: 'PickupOption',
-  components: { Fa },
+  components: {Fa},
 
   props: {
     isSelected: {
@@ -110,7 +99,7 @@ export default {
       let unit = 'm';
 
       if (distance >= mToKm) {
-        const intl = new Intl.NumberFormat(this.$configBus.get(CONFIG.LOCALE), { maximumFractionDigits: 1 });
+        const intl = new Intl.NumberFormat(this.$configBus.get(CONFIG.LOCALE), {maximumFractionDigits: 1});
         distance = intl.format(distance / mToKm);
         unit = 'km';
       }

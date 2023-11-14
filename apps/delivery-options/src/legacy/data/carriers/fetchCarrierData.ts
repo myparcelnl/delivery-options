@@ -1,6 +1,6 @@
-import { endpointCarriers } from '../endpoints';
-import { fetchFromEndpoint } from '@/delivery-options/data/request/fetchFromEndpoint';
-import { formatCarrierResponse } from '@/delivery-options/data/carriers/formatCarrierResponse';
+import {fetchFromEndpoint} from '../request/fetchFromEndpoint';
+import {endpointCarriers} from '../endpoints';
+import {formatCarrierResponse} from './formatCarrierResponse';
 
 /**
  * Fetch carrier data.
@@ -10,7 +10,7 @@ import { formatCarrierResponse } from '@/delivery-options/data/carriers/formatCa
  * @returns {Promise<MyParcelDeliveryOptions.CarrierData[]>}
  */
 export async function fetchCarrierData(carrier = null) {
-  const data = await fetchFromEndpoint(endpointCarriers, { path: carrier });
+  const data = await fetchFromEndpoint(endpointCarriers, {path: carrier});
 
   return formatCarrierResponse(data);
 }

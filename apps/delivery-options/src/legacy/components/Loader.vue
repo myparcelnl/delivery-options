@@ -5,8 +5,8 @@
       [`${$classBase}__loader--inline`]: 'inline' === type,
     }">
     <transition-group
-      name="shove"
-      appear>
+      appear
+      name="shove">
       <div
         v-for="index in 3"
         :key="`block-${index}`"
@@ -18,7 +18,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 export default {
   name: 'Loader',
   props: {

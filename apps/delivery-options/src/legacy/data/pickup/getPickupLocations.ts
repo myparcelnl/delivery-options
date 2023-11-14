@@ -1,10 +1,6 @@
-import * as STRINGS from '@/data/keys/stringsKeys';
-import { PICKUP, formConfigPickup } from '@/config/formConfig';
-import { PACKAGE_TYPE } from '@/data/keys/configKeys';
-import { PACKAGE_TYPE_PACKAGE } from '@/data/keys/settingsConsts';
-import { configBus } from '../../config/configBus';
-import { createPickupOptions } from '@/delivery-options/data/pickup/createPickupOptions';
-import { getPriceLabelFromFormConfig } from '@/delivery-options/data/prices/getPriceLabelFromFormConfig';
+import {formConfigPickup, PACKAGE_TYPE, PACKAGE_TYPE_PACKAGE, PICKUP, STRINGS} from '@myparcel-do/shared';
+import {getPriceLabelFromFormConfig} from '../prices';
+import {createPickupOptions} from './createPickupOptions';
 
 /**
  * Get the pickup options if they are enabled in the config.

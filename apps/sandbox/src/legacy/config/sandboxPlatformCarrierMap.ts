@@ -1,5 +1,4 @@
-import * as CARRIERS from '@/data/keys/carrierKeys';
-import * as PLATFORMS from '@/data/keys/platformKeys';
+import {CARRIERS, PLATFORMS} from '@myparcel-do/shared';
 
 /**
  * Sandbox override of platformCarrierMap, to be able to hide certain carriers in the settings using feature toggles,
@@ -17,9 +16,5 @@ export const sandboxPlatformCarrierMap = {
     CARRIERS.DPD,
     CARRIERS.UPS,
   ],
-  [PLATFORMS.SENDMYPARCEL]: [
-    CARRIERS.BPOST,
-    CARRIERS.DPD,
-    CARRIERS.POSTNL,
-  ],
+  [PLATFORMS.SENDMYPARCEL]: [CARRIERS.BPOST, CARRIERS.DPD, CARRIERS.POSTNL],
 };

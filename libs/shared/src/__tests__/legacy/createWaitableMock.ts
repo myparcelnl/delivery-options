@@ -11,10 +11,11 @@ export const createWaitableMock = (original = null) => {
   let resolve;
   let times;
   let calledCount = 0;
-  const mock = jest.fn();
+  const mock = vi.fn();
 
   mock.mockImplementation(() => {
     calledCount += 1;
+
     if (resolve && calledCount >= times) {
       resolve();
     }

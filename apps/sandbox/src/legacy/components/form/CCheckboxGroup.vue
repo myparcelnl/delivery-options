@@ -1,23 +1,19 @@
 <template>
   <CInput
     v-model="selected"
-    v-bind="filteredProps"
-    component="BFormCheckboxGroup"
+    :options="translatedOptions"
     :stacked="options.length >= 3"
-    :options="translatedOptions" />
+    component="BFormCheckboxGroup"
+    v-bind="filteredProps" />
 </template>
 
-<script>
-import { BFormCheckboxGroup } from 'bootstrap-vue/src/components/form-checkbox/form-checkbox-group';
-import CInput from '@/sandbox/components/form/CInput';
-import { formCheckboxGroup } from '@/sandbox/services/mixins/formCheckboxGroup';
+<script lang="ts">
+import CInput from './CInput.vue';
 
 export default {
   name: 'CCheckboxGroup',
-  components: { CInput },
+  components: {CInput},
   extends: BFormCheckboxGroup,
-  mixins: [
-    formCheckboxGroup,
-  ],
+  mixins: [formCheckboxGroup],
 };
 </script>

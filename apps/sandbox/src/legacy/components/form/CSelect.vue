@@ -5,18 +5,13 @@
     component="BFormSelect" />
 </template>
 
-<script>
-import CInput from '@/sandbox/components/form/CInput';
-import { formSelect } from '@/sandbox/services/mixins/formSelect';
-import { hasOptions } from '@/sandbox/services/mixins/hasOptions';
+<script lang="ts">
+import CInput from './CInput.vue';
 
 export default {
   name: 'CSelect',
-  components: { CInput },
+  components: {CInput},
 
-  mixins: [
-    formSelect,
-    hasOptions,
-  ],
+  mixins: [formSelect, hasOptions],
 };
 </script>

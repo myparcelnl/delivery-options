@@ -1,6 +1,4 @@
 /* eslint-disable no-magic-numbers */
-import MarkerSvg from '!raw-loader!@/assets/images/marker.svg';
-import { configBus } from '@/delivery-options/config/configBus';
 
 /**
  * Create icons for carriers and the default and loading states.
@@ -27,7 +25,7 @@ export const createIcons = (className = null) => {
             height="${iconHeight * 0.5}"
             alt="${carrier.label} logo" />
         `,
-        iconSize: iconSize,
+        iconSize,
         iconAnchor: iconSize,
         popupAnchor: [-iconHalfWidth, -iconWidth],
       },

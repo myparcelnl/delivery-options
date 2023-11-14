@@ -1,20 +1,18 @@
 <template>
   <pre
-    class="card code code--block"
     :class="{
       [`code--${language}`]: language,
       'code--loading': loading,
     }"
+    class="card code code--block"
     @click="handleClick"
-    @mouseover="listeners.mouseOver"
     @mouseout="listeners.mouseOut"
+    @mouseover="listeners.mouseOver"
     v-html="codeHtml" />
 </template>
 
-<script>
-import { CODE_FORMAT_JAVASCRIPT } from '@/sandbox/config/forms/codeFormats';
-import debounce from 'lodash-es/debounce';
-import { hljs } from '@/sandbox/services/highlightjs';
+<script lang="ts">
+import {CODE_FORMAT_JAVASCRIPT} from '../config/forms/codeFormats';
 
 export default {
   name: 'CCodeDisplay',
@@ -51,14 +49,14 @@ export default {
   computed: {
     codeHtml() {
       const language = hljs.getLanguage(this.language) ? this.language : 'javascript';
-      const content = hljs.highlight(this.code, { language }).value;
+      const content = hljs.highlight(this.code, {language}).value;
 
       return `<div class="code__wrapper">${content}</div>`;
     },
   },
 
   methods: {
-    handleClick({ target }) {
+    handleClick({target}) {
       if (target.tagName !== 'SPAN') {
         return;
       }
@@ -66,7 +64,7 @@ export default {
       this.$emit('click', target);
     },
 
-    handleMouseOver({ target }) {
+    handleMouseOver({target}) {
       const hoverAllowed = this.allowHover && this.allowHover.includes(target.innerText);
 
       if (!hoverAllowed || target.tagName !== 'SPAN' || target.classList.contains('code--hover')) {

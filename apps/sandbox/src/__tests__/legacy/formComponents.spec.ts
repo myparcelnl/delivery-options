@@ -1,33 +1,34 @@
-import { mockSandbox, shallowMockSandbox } from './mockSandbox';
-import CCodeEditor from '@/sandbox/components/form/CCodeEditor';
-import CCountrySelect from '@/sandbox/components/form/CCountrySelect';
-import CCurrency from '@/sandbox/components/form/CCurrency';
-import { i18n } from '@/sandbox/services/vue-i18n';
+import {describe, expect, test} from 'vitest';
+import {mockSandbox, shallowMockSandbox} from './mockSandbox';
 
 // Test options.
 const options = [
-  { text: 'Option A', value: 'a' },
-  { text: 'Option B', value: 'b' },
+  {
+    text: 'Option A',
+    value: 'a',
+  },
+  {
+    text: 'Option B',
+    value: 'b',
+  },
 ];
 
 describe('Sandbox form components', () => {
-  test('CCodeEditor', async() => {
+  test('CCodeEditor', async () => {
     expect.assertions(9);
 
     /** @type {Wrapper<CCodeEditor>} */
     const wrapper = mockSandbox(null, null, CCodeEditor);
     const textarea = wrapper.find('textarea');
 
-    const value = JSON.stringify({ data: { code: ['test code'] } });
+    const value = JSON.stringify({data: {code: ['test code']}});
 
     textarea.setValue(value);
     await wrapper.vm.$nextTick();
     expect(wrapper.emitted().input[0]).toEqual([value]);
 
     await wrapper.vm.$nextTick();
-    expect(wrapper.find('textarea').element).toHaveValue(
-      '{"data":{"code":["test code"]}}',
-    );
+    expect(wrapper.find('textarea').element).toHaveValue('{"data":{"code":["test code"]}}');
 
     const codeWrapper = wrapper.findByTestId('code');
     const textWrapper = wrapper.findByTestId('text');
@@ -52,7 +53,7 @@ describe('Sandbox form components', () => {
     expect(wrapper.vm.valid).toBe(false);
   });
 
-  test('CCountrySelect', async() => {
+  test('CCountrySelect', async () => {
     expect.assertions(1);
     const wrapper = shallowMockSandbox(null, null, CCountrySelect);
 
@@ -81,18 +82,18 @@ describe('Sandbox form components', () => {
   });
 
   test.each([
-    ['@/sandbox/components/form/CCheckboxGroup', { options }],
+    ['@/sandbox/components/form/CCheckboxGroup', {options}],
     ['@/sandbox/components/form/CNumber'],
-    ['@/sandbox/components/form/CRadioGroup', { options }],
-    ['@/sandbox/components/form/CSelect', { options }],
+    ['@/sandbox/components/form/CRadioGroup', {options}],
+    ['@/sandbox/components/form/CSelect', {options}],
     ['@/sandbox/components/form/CTextInput'],
     ['@/sandbox/components/form/CTextarea'],
     ['@/sandbox/components/form/CTimepicker'],
     ['@/sandbox/components/form/CToggle'],
-  ])('%s', async(componentPath, propsData = {}) => {
+  ])('%s', async (componentPath, propsData = {}) => {
     expect.assertions(1);
     const component = (await import(componentPath)).default;
-    const wrapper = mockSandbox(null, { propsData }, component);
+    const wrapper = mockSandbox(null, {propsData}, component);
 
     expect(wrapper.vm.$el).toMatchSnapshot();
   });

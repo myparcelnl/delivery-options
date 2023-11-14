@@ -3,7 +3,6 @@
   "compilerOptions": {
     "declaration": true,
     "lib": ["ESNext", "DOM", "DOM.Iterable"],
-    "moduleResolution": "Node",
     "noEmitOnError": false,
     "types": ["node", "vite/client"]
   },

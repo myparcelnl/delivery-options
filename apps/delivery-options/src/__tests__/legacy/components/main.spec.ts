@@ -1,13 +1,13 @@
-import { RENDER_DELIVERY_OPTIONS, UPDATED_DELIVERY_OPTIONS, UPDATE_DELIVERY_OPTIONS } from '@/config/eventConfig';
-import { MYPARCEL } from '@/data/keys/platformKeys';
-import Vue from 'vue';
-import { dataTest } from '@Tests/unit/selectors';
-import { defaultAddress } from '@/data/defaultAddress';
-import { defaultConfiguration } from '@/config/defaultConfiguration';
-import { getDefaultCarrierSettings } from '@Tests/unit/delivery-options/defaultCarrierSettings';
-import { merge } from 'lodash-es';
-import { showDeveloperInfo } from '@/delivery-options/showDeveloperInfo';
-import { waitForEvent } from '@Tests/waitForEvent';
+import {beforeAll, describe, expect, it, vi} from 'vitest';
+import {merge} from 'radash';
+import {
+  defaultAddress,
+  defaultConfiguration,
+  MYPARCEL,
+  UPDATE_DELIVERY_OPTIONS,
+  UPDATED_DELIVERY_OPTIONS,
+} from '@myparcel-do/shared';
+import {getDefaultCarrierSettings} from '../defaultCarrierSettings';
 
 const classBase = process.env.VUE_APP_CLASS_BASE;
 
@@ -18,7 +18,7 @@ const createHtml = (id = classBase) => {
 };
 
 describe('main.js', () => {
-  beforeAll(async() => {
+  beforeAll(async () => {
     createHtml();
 
     Vue.config.productionTip = false;
@@ -28,13 +28,13 @@ describe('main.js', () => {
   });
 
   it('can show information to developers', () => {
-    const consoleSpy = jest.spyOn(console, 'log');
-    consoleSpy.mockImplementation(jest.fn());
+    const consoleSpy = vi.spyOn(console, 'log');
+    consoleSpy.mockImplementation(vi.fn());
     showDeveloperInfo();
     expect(consoleSpy).toHaveBeenCalled();
   });
 
-  it('renders the delivery options after the first update event', async() => {
+  it('renders the delivery options after the first update event', async () => {
     expect.assertions(5);
 
     const carrierPostNl = dataTest('carrier') + dataTest('postnl', 'choice');
@@ -43,12 +43,9 @@ describe('main.js', () => {
 
     document.dispatchEvent(
       new CustomEvent(UPDATE_DELIVERY_OPTIONS, {
-        detail: merge(
-          {},
-          defaultConfiguration(MYPARCEL),
-          getDefaultCarrierSettings(),
-          { address: defaultAddress[MYPARCEL] },
-        ),
+        detail: merge({}, defaultConfiguration(MYPARCEL), getDefaultCarrierSettings(), {
+          address: defaultAddress[MYPARCEL],
+        }),
       }),
     );
 
@@ -63,7 +60,7 @@ describe('main.js', () => {
     expect(document.querySelector(deliveryPickup)).toBeVisible();
   });
 
-  it('rerenders the delivery options', async() => {
+  it('rerenders the delivery options', async () => {
     expect.assertions(3);
     const alternativeId = 'my-element';
 

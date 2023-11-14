@@ -1,20 +1,25 @@
-import * as CONFIG from '@/data/keys/configKeys';
-import { PACKAGE_TYPE_DIGITAL_STAMP, PACKAGE_TYPE_MAILBOX, PACKAGE_TYPE_PACKAGE } from '@/data/keys/settingsConsts';
-import { UPDATED_DELIVERY_OPTIONS } from '@/config/eventConfig';
-import { mockDeliveryOptions } from '@Tests/unit/delivery-options/mockDeliveryOptions';
-import { waitForEvent } from '@Tests/waitForEvent';
+import {describe, expect, it} from 'vitest';
+import {
+  CONFIG,
+  KEY_CONFIG,
+  PACKAGE_TYPE_DIGITAL_STAMP,
+  PACKAGE_TYPE_MAILBOX,
+  PACKAGE_TYPE_PACKAGE,
+  UPDATED_DELIVERY_OPTIONS,
+} from '@myparcel-do/shared';
+import {mockDeliveryOptions} from '../mockDeliveryOptions';
 
 describe('package type', () => {
   it.each`
-   packageType
-   ${PACKAGE_TYPE_PACKAGE}
-   ${PACKAGE_TYPE_MAILBOX}
-   ${PACKAGE_TYPE_DIGITAL_STAMP}
-  `('can use $packageType', async({ packageType }) => {
+    packageType
+    ${PACKAGE_TYPE_PACKAGE}
+    ${PACKAGE_TYPE_MAILBOX}
+    ${PACKAGE_TYPE_DIGITAL_STAMP}
+  `('can use $packageType', async ({packageType}) => {
     expect.assertions(1);
 
     mockDeliveryOptions({
-      [CONFIG.KEY]: {
+      [KEY_CONFIG]: {
         [CONFIG.PACKAGE_TYPE]: packageType,
       },
     });

@@ -1,4 +1,4 @@
-import { settingsWithCarrierOverride } from '@/data/keys/configKeys';
+import {settingsWithCarrierOverride} from '@myparcel-do/shared';
 
 /**
  * Returns whether given setting can be overridden by carrier settings.
