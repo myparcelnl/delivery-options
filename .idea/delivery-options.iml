@@ -8,6 +8,10 @@
       <excludeFolder url="file://$MODULE_DIR$/artifact" />
       <excludeFolder url="file://$MODULE_DIR$/.husky" />
       <excludeFolder url="file://$MODULE_DIR$/.nx" />
+      <excludePattern pattern="dist" />
+      <excludePattern pattern="cache" />
+      <excludePattern pattern="lib" />
+      <excludePattern pattern="coverage" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
