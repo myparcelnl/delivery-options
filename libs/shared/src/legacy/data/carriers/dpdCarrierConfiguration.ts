@@ -26,8 +26,7 @@ import {
   SWEDEN,
   UNITED_KINGDOM,
 } from '@myparcel/constants/countries';
-import {type CarrierName} from '@myparcel/constants';
-import {ADDRESS_CITY, ADDRESS_POSTAL_CODE, ADDRESS_STREET, DPD, MYPARCEL, SENDMYPARCEL} from '../keys';
+import {type CarrierName, PlatformName} from '@myparcel/constants';
 import {
   FEATURES_CUTOFF_TIME,
   FEATURES_DELIVERY,
@@ -94,19 +93,19 @@ export class DpdCarrierConfiguration extends AbstractCarrierConfiguration {
   }
 
   public getDefaultRequestParameters(): AddressField[] {
-    return [ADDRESS_POSTAL_CODE, ADDRESS_STREET, ADDRESS_CITY];
+    return [AddressField.PostalCode, AddressField.Street, AddressField.City];
   }
 
   public getFeatures(): PlatformCarrierFeatures {
     return {
-      [MYPARCEL]: [
+      [PlatformName.MyParcel as const]: [
         FEATURES_DELIVERY,
         FEATURES_PICKUP,
         FEATURES_DROP_OFF_DAYS,
         FEATURES_DROP_OFF_DELAY,
         FEATURES_CUTOFF_TIME,
       ],
-      [SENDMYPARCEL]: [
+      [PlatformName.SendMyParcel as const]: [
         FEATURES_DELIVERY,
         FEATURES_PICKUP,
         FEATURES_DROP_OFF_DAYS,
@@ -117,6 +116,6 @@ export class DpdCarrierConfiguration extends AbstractCarrierConfiguration {
   }
 
   public getName(): CarrierName {
-    return DPD;
+    return CarrierName.Dpd as const;
   }
 }

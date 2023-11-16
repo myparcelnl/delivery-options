@@ -1,6 +1,6 @@
-import {type DeliveryOptionsAddress} from '@myparcel-do/shared';
-import {type CarrierName, type PackageTypeName, type PlatformName} from '@myparcel/constants';
-import {type CARRIERS_MYPARCELNL, type CARRIERS_SENDMYPARCEL} from '../data/carriers';
+import {type CarrierName, type DeliveryTypeName, type PackageTypeName, type PlatformName} from '@myparcel/constants';
+import {type CARRIERS_MYPARCELNL, type CARRIERS_SENDMYPARCEL} from '../data';
+import {type DeliveryOptionsAddress} from './address.types';
 
 interface MapTileLayerData {
   attribution: string;
@@ -86,5 +86,40 @@ export type DeliveryOptionsConfig = MyParcelNlConfig | SendMyParcelConfig;
 export interface DeliveryOptionsConfiguration {
   address: DeliveryOptionsAddress;
   config: DeliveryOptionsConfig;
+  initial?: DeliveryOptionsOutput;
   strings: DeliveryOptionsStrings;
 }
+
+interface BaseOutput {
+  carrier: CarrierIdentifier;
+  date: string;
+  deliveryType: DeliveryTypeName;
+  isPickup: boolean;
+  packageType: PackageTypeName;
+  shipmentOptions: Record<string, boolean>;
+}
+
+interface DeliveryOutput extends BaseOutput {
+  deliveryType: DeliveryTypeName.Standard | DeliveryTypeName.Evening | DeliveryTypeName.Morning;
+  isPickup: false;
+}
+
+interface PickupOutput extends BaseOutput {
+  deliveryType: DeliveryTypeName.Pickup;
+  isPickup: true;
+  pickupLocation: {
+    location: {
+      latitude: number;
+      longitude: number;
+    };
+    name: string;
+    openingHours: string;
+    pickupLocationCode: string;
+    street: string;
+    streetAdditionalInfo: string;
+    city: string;
+    postalCode: string;
+  };
+}
+
+export type DeliveryOptionsOutput = DeliveryOutput | PickupOutput;

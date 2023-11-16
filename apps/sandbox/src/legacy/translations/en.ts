@@ -1,9 +1,4 @@
-import {
-  ADDRESS_CC,
-  ADDRESS_NUMBER,
-  ADDRESS_STREET,
-  KEY_ADDRESS,
-} from '@myparcel-do/shared/src/legacy/data/keys/addressKeys';
+import {CONFIG, FORM, KEY_ADDRESS, KEY_STRINGS, STRINGS} from '@myparcel-do/shared';
 
 export const englishTranslations = {
   'code.description':
@@ -34,12 +29,12 @@ export const englishTranslations = {
   'tab.delivery_options': 'Delivery Options',
   default_placeholder: '<Default>',
 
-  [`field.${ADDRESS_CC}`]: 'Country',
-  [`field.${ADDRESS_CITY}`]: 'City',
+  [`field.${AddressField.Cc}`]: 'Country',
+  [`field.${AddressField.City}`]: 'City',
   [`field.${KEY_ADDRESS}`]: 'Address',
-  [`field.${ADDRESS_NUMBER}`]: 'Number',
-  [`field.${ADDRESS_STREET}`]: 'Street',
-  [`field.${ADDRESS_POSTAL_CODE}`]: 'Postal code',
+  [`field.${AddressField.Number}`]: 'Number',
+  [`field.${AddressField.Street}`]: 'Street',
+  [`field.${AddressField.PostalCode}`]: 'Postal code',
   [`field.${CONFIG.ALLOW_DELIVERY_OPTIONS}`]: 'Allow delivery options',
   [`field.${CONFIG.ALLOW_EVENING_DELIVERY}`]: 'Allow evening delivery',
   [`field.${CONFIG.ALLOW_MONDAY_DELIVERY}.description`]: `Monday delivery is only possible if the package is delivered before <code>15:00</code> on Saturday at the post office. Note: To activate Monday delivery, Saturday must be present in "@:field.${CONFIG.DROP_OFF_DAYS}". On Saturday the cutoff time must be before <code>15:00</code> (<code>14:30</code> recommended) to allow Monday to be shown in the delivery options. <a href="https://blog.myparcel.nl/maandagbezorging/" target="_blank">More information about this free service</a>`,

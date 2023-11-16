@@ -1,8 +1,8 @@
-import {PLATFORMS} from '@myparcel-do/shared';
+import {PlatformName} from '@myparcel/constants';
 
 export const platformTabs = [
   {
-    name: PLATFORMS.MYPARCEL,
+    name: PlatformName.MyParcel as const,
     human: 'platform.myparcel',
     links: [
       {
@@ -16,7 +16,7 @@ export const platformTabs = [
     ],
   },
   {
-    name: PLATFORMS.SENDMYPARCEL,
+    name: PlatformName.SendMyParcel as const,
     human: 'platform.myparcel',
     links: [
       {

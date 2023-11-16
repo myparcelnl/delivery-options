@@ -24,8 +24,7 @@ import {
   SWEDEN,
   UNITED_KINGDOM,
 } from '@myparcel/constants/countries';
-import {type CarrierName} from '@myparcel/constants';
-import {ADDRESS_CITY, ADDRESS_POSTAL_CODE, DHL, MYPARCEL} from '../keys';
+import {type CarrierName, PlatformName} from '@myparcel/constants';
 import {FEATURES_DELIVERY, FEATURES_PICKUP, FEATURES_SHOW_DELIVERY_DATE} from '../carrierFeatures';
 import {type AddressField} from '../../../types';
 import {AbstractCarrierConfiguration, type PlatformCarrierFeatures} from './abstractCarrierConfiguration';
@@ -63,16 +62,16 @@ export class DhlCarrierConfiguration extends AbstractCarrierConfiguration {
   }
 
   public getDefaultRequestParameters(): AddressField[] {
-    return [ADDRESS_CITY, ADDRESS_POSTAL_CODE];
+    return [AddressField.City, AddressField.PostalCode];
   }
 
   public getFeatures(): PlatformCarrierFeatures {
     return {
-      [MYPARCEL]: [FEATURES_DELIVERY, FEATURES_PICKUP, FEATURES_SHOW_DELIVERY_DATE],
+      [PlatformName.MyParcel as const]: [FEATURES_DELIVERY, FEATURES_PICKUP, FEATURES_SHOW_DELIVERY_DATE],
     };
   }
 
   public getName(): CarrierName {
-    return DHL;
+    return CarrierName.Dhl as const;
   }
 }

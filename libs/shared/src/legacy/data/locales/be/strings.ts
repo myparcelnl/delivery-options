@@ -1,4 +1,4 @@
-import {SATURDAY_DELIVERY_TITLE, WRONG_POSTAL_CODE_CITY} from '@myparcel-do/shared';
+import {SATURDAY_DELIVERY_TITLE, WRONG_POSTAL_CODE_CITY} from '../../keys';
 
 export const strings = {
   [SATURDAY_DELIVERY_TITLE]: 'Zaterdaglevering',

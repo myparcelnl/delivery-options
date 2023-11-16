@@ -1,10 +1,9 @@
 import {useMemoize} from '@vueuse/core';
-import {type CarrierName} from '@myparcel/constants';
+import {CarrierName} from '@myparcel/constants';
 import {type CarrierIdentifier, type SupportedPlatformName} from '../types';
 import {
   type AbstractCarrierConfiguration,
   BpostCarrierConfiguration,
-  CARRIERS,
   DhlCarrierConfiguration,
   DhlEuroplusCarrierConfiguration,
   DhlForYouCarrierConfiguration,
@@ -15,14 +14,14 @@ import {
 } from '../legacy';
 
 const carrierClassMap = Object.freeze({
-  [CARRIERS.BPOST]: BpostCarrierConfiguration,
-  [CARRIERS.DHL]: DhlCarrierConfiguration,
-  [CARRIERS.DHL_EUROPLUS]: DhlEuroplusCarrierConfiguration,
-  [CARRIERS.DHL_FOR_YOU]: DhlForYouCarrierConfiguration,
-  [CARRIERS.DHL_PARCEL_CONNECT]: DhlParcelConnectCarrierConfiguration,
-  [CARRIERS.DPD]: DpdCarrierConfiguration,
-  [CARRIERS.POSTNL]: PostNlCarrierConfiguration,
-  [CARRIERS.UPS]: UpsCarrierConfiguration,
+  [CarrierName.Bpost as const]: BpostCarrierConfiguration,
+  [CarrierName.Dhl as const]: DhlCarrierConfiguration,
+  [CarrierName.DhlEuroPlus as const]: DhlEuroplusCarrierConfiguration,
+  [CarrierName.DhlForYou as const]: DhlForYouCarrierConfiguration,
+  [CarrierName.DhlParcelConnect as const]: DhlParcelConnectCarrierConfiguration,
+  [CarrierName.Dpd as const]: DpdCarrierConfiguration,
+  [CarrierName.PostNl as const]: PostNlCarrierConfiguration,
+  [CarrierName.Ups as const]: UpsCarrierConfiguration,
 }) satisfies Readonly<Partial<Record<CarrierName, typeof AbstractCarrierConfiguration>>>;
 
 export const getCarrierConfiguration = useMemoize(

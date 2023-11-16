@@ -1,6 +1,5 @@
 import {BELGIUM, NETHERLANDS} from '@myparcel/constants/countries';
-import {type CarrierName} from '@myparcel/constants';
-import {ADDRESS_CITY, ADDRESS_POSTAL_CODE, BPOST, SENDMYPARCEL} from '../keys';
+import {type CarrierName, PlatformName} from '@myparcel/constants';
 import {
   FEATURES_CUTOFF_TIME,
   FEATURES_DELIVERY,
@@ -25,12 +24,12 @@ export class BpostCarrierConfiguration extends AbstractCarrierConfiguration {
   }
 
   public getDefaultRequestParameters(): AddressField[] {
-    return [ADDRESS_CITY, ADDRESS_POSTAL_CODE];
+    return [AddressField.City, AddressField.PostalCode];
   }
 
   public getFeatures(): PlatformCarrierFeatures {
     return {
-      [SENDMYPARCEL]: [
+      [PlatformName.SendMyParcel as const]: [
         FEATURES_DELIVERY,
         FEATURES_PICKUP,
         FEATURES_SATURDAY_DELIVERY,
@@ -45,6 +44,6 @@ export class BpostCarrierConfiguration extends AbstractCarrierConfiguration {
   }
 
   public getName(): CarrierName {
-    return BPOST;
+    return CarrierName.Bpost as const;
   }
 }

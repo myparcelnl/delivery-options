@@ -1,6 +1,5 @@
 import {BELGIUM, NETHERLANDS} from '@myparcel/constants/countries';
-import {type CarrierName} from '@myparcel/constants';
-import {ADDRESS_CITY, ADDRESS_POSTAL_CODE, ADDRESS_STREET, MYPARCEL, POSTNL, SENDMYPARCEL} from '../keys';
+import {CarrierName, PlatformName} from '@myparcel/constants';
 import {
   FEATURES_CUTOFF_TIME,
   FEATURES_DELIVERY,
@@ -17,7 +16,7 @@ import {
   FEATURES_SHOW_DELIVERY_DATE,
   FEATURES_SIGNATURE,
 } from '../carrierFeatures';
-import {type AddressField} from '../../../types';
+import {AddressField} from '../../../types';
 import {AbstractCarrierConfiguration, type PlatformCarrierFeatures} from './abstractCarrierConfiguration';
 
 export class PostNlCarrierConfiguration extends AbstractCarrierConfiguration {
@@ -30,12 +29,12 @@ export class PostNlCarrierConfiguration extends AbstractCarrierConfiguration {
   }
 
   public getDefaultRequestParameters(): AddressField[] {
-    return [ADDRESS_POSTAL_CODE, ADDRESS_STREET, ADDRESS_CITY];
+    return [AddressField.PostalCode, AddressField.Street, AddressField.City];
   }
 
   public getFeatures(): PlatformCarrierFeatures {
     return {
-      [MYPARCEL]: [
+      [PlatformName.MyParcel as const]: [
         FEATURES_DELIVERY,
         FEATURES_EVENING_DELIVERY,
         FEATURES_MORNING_DELIVERY,
@@ -51,7 +50,7 @@ export class PostNlCarrierConfiguration extends AbstractCarrierConfiguration {
         FEATURES_DROP_OFF_DELAY,
         FEATURES_CUTOFF_TIME,
       ],
-      [SENDMYPARCEL]: [
+      [PlatformName.SendMyParcel as const]: [
         FEATURES_DELIVERY,
         FEATURES_ONLY_RECIPIENT,
         FEATURES_PICKUP,
@@ -66,7 +65,7 @@ export class PostNlCarrierConfiguration extends AbstractCarrierConfiguration {
   }
 
   public getName(): CarrierName {
-    return POSTNL;
+    return CarrierName.PostNl as const;
   }
 
   public hasFakeDelivery(): boolean {

@@ -24,8 +24,7 @@ import {
   SWEDEN,
   UNITED_KINGDOM,
 } from '@myparcel/constants/countries';
-import {type CarrierName} from '@myparcel/constants';
-import {DHL_PARCEL_CONNECT, MYPARCEL} from '../keys';
+import {type CarrierName, PlatformName} from '@myparcel/constants';
 import {FEATURES_DELIVERY, FEATURES_PICKUP} from '../carrierFeatures';
 import {AbstractCarrierConfiguration, type PlatformCarrierFeatures} from './abstractCarrierConfiguration';
 
@@ -86,11 +85,11 @@ export class DhlParcelConnectCarrierConfiguration extends AbstractCarrierConfigu
 
   public getFeatures(): PlatformCarrierFeatures {
     return {
-      [MYPARCEL]: [FEATURES_DELIVERY, FEATURES_PICKUP],
+      [PlatformName.MyParcel as const]: [FEATURES_DELIVERY, FEATURES_PICKUP],
     };
   }
 
   public getName(): CarrierName {
-    return DHL_PARCEL_CONNECT;
+    return CarrierName.DhlParcelConnect as const;
   }
 }

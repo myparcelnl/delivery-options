@@ -1,4 +1,4 @@
-import {CARRIERS, PLATFORMS} from '@myparcel-do/shared';
+import {CarrierName, PlatformName} from '@myparcel/constants';
 
 /**
  * Sandbox override of platformCarrierMap, to be able to hide certain carriers in the settings using feature toggles,
@@ -7,14 +7,18 @@ import {CARRIERS, PLATFORMS} from '@myparcel-do/shared';
  * @see platformCarrierMap
  */
 export const sandboxPlatformCarrierMap = {
-  [PLATFORMS.MYPARCEL]: [
-    CARRIERS.POSTNL,
-    CARRIERS.DHL,
-    CARRIERS.DHL_FOR_YOU,
-    CARRIERS.DHL_PARCEL_CONNECT,
-    CARRIERS.DHL_EUROPLUS,
-    CARRIERS.DPD,
-    CARRIERS.UPS,
+  [PlatformName.MyParcel as const]: [
+    CarrierName.PostNl as const,
+    CarrierName.Dhl as const,
+    CarrierName.DhlForYou as const,
+    CarrierName.DhlParcelConnect as const,
+    CarrierName.DhlEuroPlus as const,
+    CarrierName.Dpd as const,
+    CarrierName.Ups as const,
   ],
-  [PLATFORMS.SENDMYPARCEL]: [CARRIERS.BPOST, CARRIERS.DPD, CARRIERS.POSTNL],
+  [PlatformName.SendMyParcel as const]: [
+    CarrierName.Bpost as const,
+    CarrierName.Dpd as const,
+    CarrierName.PostNl as const,
+  ],
 };

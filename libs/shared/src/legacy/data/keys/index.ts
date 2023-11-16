@@ -1,15 +1,18 @@
-export * as ADDRESS from './addressKeys';
-export * from './addressKeys';
-export * as CARRIERS from './carrierKeys';
-export * from './carrierKeys';
-export * as CONFIG from './configKeys';
-export * from './configKeys';
-export * from './countryCodes';
-export * from './packageTypeConfig';
-export * as PLATFORMS from './platformKeys';
-export * from './platformKeys';
-export * as SETTINGS from './settingsConsts';
-export * as CONSTS from './settingsConsts';
-export * from './settingsConsts';
-export * as STRINGS from './stringsKeys';
-export * from './stringsKeys';
+export * as ADDRESS from '../../../data/addressKeys';
+export * from '../../../data/addressKeys';
+export * as CONFIG from '../../../data/configKeys';
+export * from '../../../data/configKeys';
+export * from '../../../data/countryCodes';
+export * from '../../../data/packageTypeConfig';
+export * as PLATFORMS from '../../../data/platformKeys';
+export * from '../../../data/platformKeys';
+export * as SETTINGS from '../../../data/settingsConsts';
+export * as CONSTS from '../../../data/settingsConsts';
+export * from '../../../data/settingsConsts';
+export * as STRINGS from '../../../data/stringsKeys';
+export * from '../../../data/stringsKeys';
+export {KEY_ADDRESS} from '../../../data/config';
+
+export {KEY_CONFIG} from '../../../data/config';
+
+export {KEY_STRINGS} from '../../../data/config';

@@ -28,6 +28,7 @@
     "lint:fix": "nx affected -t lint:fix --output-style=stream",
     "prepare": "echo 'prepare' && (is-ci || husky install)",
     "serve": "nx run-many -t serve --parallel=99",
+    "watch": "nx run-many -t build:dev --parallel=99 -- --watch",
     "test": "nx run-many -t test --parallel=99 --output-style=stream",
     "test:affected": "nx affected -t test:run --output-style=stream",
     "test:coverage": "nx run-many -t test:coverage --output-style=stream",
@@ -84,6 +85,7 @@
     "prettier": "^2.0.0",
     "rimraf": "^5.0.0",
     "semantic-release": "^22.0.7",
+    "ts-node": "^10.9.1",
     "typescript": "^5.2.0"
   },
   "packageManager": "yarn@4.0.1",

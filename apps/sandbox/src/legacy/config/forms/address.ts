@@ -1,4 +1,4 @@
-import {ADDRESS_CC, ADDRESS_POSTAL_CODE, ADDRESS_STREET, KEY_ADDRESS, STRINGS} from '@myparcel-do/shared';
+import {KEY_ADDRESS, STRINGS} from '@myparcel-do/shared';
 
 /**
  * @param {MyParcel.Platform} platform
@@ -16,7 +16,7 @@ function getForm(platform) {
     settings: [
       {
         key: KEY_ADDRESS,
-        name: ADDRESS_CC,
+        name: AddressField.Cc,
         component: CCountrySelect,
         props: {
           label: STRINGS.CC,
@@ -25,7 +25,7 @@ function getForm(platform) {
       },
       {
         key: KEY_ADDRESS,
-        name: ADDRESS_POSTAL_CODE,
+        name: AddressField.PostalCode,
         props: {
           label: STRINGS.POSTAL_CODE,
           autocomplete: 'postal-code',
@@ -33,7 +33,7 @@ function getForm(platform) {
       },
       {
         key: KEY_ADDRESS,
-        name: ADDRESS_STREET,
+        name: AddressField.Street,
         component: CTextInput,
         props: {
           label: STRINGS.STREET,

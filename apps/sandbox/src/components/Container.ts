@@ -1,27 +1,35 @@
-import {type Component, h} from 'vue';
+import {type FunctionalComponent, h} from 'vue';
+import {gridClasses} from '../constants';
 
-interface Props {
-  columns?: number;
+interface ContainerProps {
+  flowCol?: boolean;
+  fluid?: boolean;
 }
 
-export const Container: Component<Props> = (props, ctx) => {
-  const additionalClasses = [];
-
-  if (props.columns) {
-    additionalClasses.push('grid', 'gap-4', 'grid-flow-col');
-
-    switch (props.columns) {
-      case 2:
-        additionalClasses.push('grid-cols-2');
-        break;
-    }
-  }
+// eslint-disable-next-line @typescript-eslint/naming-convention
+export const Container: FunctionalComponent<ContainerProps> = (props, ctx) => {
+  const classes = [
+    ...gridClasses,
+    props.fluid ? 'max-w-full' : 'max-w-screen-2xl',
+    props.flowCol ? 'grid-flow-col' : 'grid-flow-row',
+  ];
 
   return h(
     'div',
     {
-      class: ['mt-4 mb-3 px-4 py-4 bg-white border border-gray-300 rounded-lg shadow-sm', ...additionalClasses],
+      class: ['mx-auto', 'w-[98%]', ...classes],
     },
     ctx.slots,
   );
+};
+
+Container.props = {
+  flowCol: {
+    type: Boolean,
+    default: false,
+  },
+  fluid: {
+    type: Boolean,
+    default: false,
+  },
 };

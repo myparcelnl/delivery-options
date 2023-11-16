@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "vite build",
+    "clean": "run ws:clean \"$(pwd)\"",
     "preview": "vite preview",
     "serve": "vite",
     "typecheck": "vue-tsc --project tsconfig.base.json --noEmit"
@@ -19,6 +20,7 @@
   "devDependencies": {
     "@myparcel-do/build-vite": "workspace:*",
     "@myparcel-do/shared": "workspace:*",
+    "@myparcel/ts-utils": "^1.12.0",
     "@vitejs/plugin-vue": "^4.4.1",
     "@vueuse/core": "^10.5.0",
     "autoprefixer": "^10.4.16",

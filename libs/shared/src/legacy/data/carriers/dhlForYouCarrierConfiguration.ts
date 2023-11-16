@@ -1,6 +1,5 @@
 import {BELGIUM, NETHERLANDS} from '@myparcel/constants/countries';
-import {type CarrierName} from '@myparcel/constants';
-import {ADDRESS_CITY, ADDRESS_POSTAL_CODE, DHL_FOR_YOU, MYPARCEL} from '../keys';
+import {type CarrierName, PlatformName} from '@myparcel/constants';
 import {
   FEATURES_CUTOFF_TIME,
   FEATURES_DELIVERY,
@@ -25,12 +24,12 @@ export class DhlForYouCarrierConfiguration extends AbstractCarrierConfiguration 
   }
 
   public getDefaultRequestParameters(): AddressField[] {
-    return [ADDRESS_CITY, ADDRESS_POSTAL_CODE];
+    return [AddressField.City, AddressField.PostalCode];
   }
 
   public getFeatures(): PlatformCarrierFeatures {
     return {
-      [MYPARCEL]: [
+      [PlatformName.MyParcel as const]: [
         FEATURES_CUTOFF_TIME,
         FEATURES_DELIVERY,
         FEATURES_DELIVERY_DAYS_WINDOW,
@@ -46,6 +45,6 @@ export class DhlForYouCarrierConfiguration extends AbstractCarrierConfiguration 
   }
 
   public getName(): CarrierName {
-    return DHL_FOR_YOU;
+    return CarrierName.DhlForYou as const;
   }
 }

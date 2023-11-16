@@ -30,7 +30,7 @@ export const DELIVER = 'deliver';
 // (Also used for pickup carrier)
 export const CARRIER = 'carrier';
 
-export const PACKAGE_TYPE = 'packageType';
+export const FORM_PACKAGE_TYPE = 'packageType';
 
 // Delivery > Deliver (> Carrier) > Delivery date
 export const DELIVERY_DATE = 'deliveryDate';

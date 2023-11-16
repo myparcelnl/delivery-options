@@ -25,6 +25,7 @@
   },
   "scripts": {
     "build": "run ws:vue:build \"$(pwd)\"",
+    "build:dev": "run ws:vue:build \"$(pwd)\"",
     "clean": "run ws:clean \"$(pwd)\"",
     "lint": "run ws:lint \"$(pwd)\"",
     "lint:fix": "run ws:lint:fix \"$(pwd)\"",
@@ -40,6 +41,8 @@
   "devDependencies": {
     "@myparcel/sdk": "^3.3.1",
     "@myparcel/ts-utils": "^1.12.0",
+    "@vitest/coverage-v8": "^0.34.6",
+    "@vitest/ui": "0.34.6",
     "dayjs": "^1.11.10",
     "pinia": "^2.1.7"
   }

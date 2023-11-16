@@ -3,9 +3,6 @@ import {type OneOrMore, type ReadonlyOr} from '@myparcel/ts-utils';
 import {NETHERLANDS} from '@myparcel/constants/countries';
 import {type CarrierName, type PackageTypeName, type PlatformName} from '@myparcel/constants';
 import {
-  ADDRESS_CITY,
-  ADDRESS_POSTAL_CODE,
-  ADDRESS_STREET,
   ALLOW_PACKAGE_TYPE_DIGITAL_STAMP,
   ALLOW_PACKAGE_TYPE_MAILBOX,
   PACKAGE_TYPE_DIGITAL_STAMP,
@@ -14,7 +11,7 @@ import {
 } from '../keys';
 import {type AddressField, type SubscriptionId, type SupportedPlatformName} from '../../../types';
 
-type FeatureOption = string;
+export type FeatureOption = string;
 
 export type CarrierFeatures = FeatureOption[] | FeatureOption[][];
 
@@ -87,7 +84,7 @@ export abstract class AbstractCarrierConfiguration {
    *
    */
   public getDefaultRequestParameters(): AddressField[] {
-    return [ADDRESS_CITY, ADDRESS_POSTAL_CODE, ADDRESS_STREET];
+    return [AddressField.City, AddressField.PostalCode, AddressField.Street];
   }
 
   /**

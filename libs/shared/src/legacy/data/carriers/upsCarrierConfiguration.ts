@@ -20,8 +20,7 @@ import {
   SLOVENIA,
   SPAIN,
 } from '@myparcel/constants/countries';
-import {type CarrierName} from '@myparcel/constants';
-import {ADDRESS_CITY, ADDRESS_POSTAL_CODE, ADDRESS_STREET, MYPARCEL, UPS} from '../keys';
+import {type CarrierName, PlatformName} from '@myparcel/constants';
 import {FEATURES_DELIVERY} from '../carrierFeatures';
 import {type AddressField} from '../../../types';
 import {AbstractCarrierConfiguration, type PlatformCarrierFeatures} from './abstractCarrierConfiguration';
@@ -57,17 +56,17 @@ export class UpsCarrierConfiguration extends AbstractCarrierConfiguration {
   }
 
   public getDefaultRequestParameters(): AddressField[] {
-    return [ADDRESS_POSTAL_CODE, ADDRESS_STREET, ADDRESS_CITY];
+    return [AddressField.PostalCode, AddressField.Street, AddressField.City];
   }
 
   public getFeatures(): PlatformCarrierFeatures {
     return {
-      [MYPARCEL]: [FEATURES_DELIVERY],
+      [PlatformName.MyParcel as const]: [FEATURES_DELIVERY],
     };
   }
 
   public getName(): CarrierName {
-    return UPS;
+    return CarrierName.Ups as const;
   }
 
   public hasFakeDelivery(): boolean {

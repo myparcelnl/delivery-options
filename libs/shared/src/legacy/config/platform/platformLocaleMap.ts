@@ -1,5 +1,5 @@
 import {BELGIUM, NETHERLANDS} from '@myparcel/constants/countries';
-import {MYPARCEL, SENDMYPARCEL} from '../../data';
+import {PlatformName} from '@myparcel/constants';
 
 /**
  * Map platforms to locales.
@@ -7,6 +7,6 @@ import {MYPARCEL, SENDMYPARCEL} from '../../data';
  * @type {Object<MyParcel.Platform, String>}
  */
 export const platformLocaleMap = {
-  [MYPARCEL]: NETHERLANDS,
-  [SENDMYPARCEL]: BELGIUM,
+  [PlatformName.MyParcel as const]: NETHERLANDS,
+  [PlatformName.SendMyParcel as const]: BELGIUM,
 };

@@ -1,12 +1,7 @@
 /* eslint-disable max-lines-per-function */
 
 import {merge} from 'radash';
-import {
-  type DeliveryOptionsConfiguration,
-  getDefaultStrings,
-  platformConfig,
-  type SupportedPlatformName,
-} from '@myparcel-do/shared';
+import {DEFAULT_PLATFORM} from '@myparcel-do/shared';
 import {
   ALLOW_DELIVERY_OPTIONS,
   ALLOW_EVENING_DELIVERY,
@@ -21,7 +16,6 @@ import {
   CUTOFF_TIME_SAME_DAY,
   DEFAULT_DELIVERY_DAYS_WINDOW,
   DEFAULT_PACKAGE_TYPE,
-  DEFAULT_PLATFORM,
   DEFAULT_PRICE,
   DELIVERY_DAYS_WINDOW,
   DROP_OFF_DAYS,
@@ -49,6 +43,9 @@ import {
   SHOW_PRICE_SURCHARGE,
   SHOW_PRICES,
 } from '../data';
+import {type DeliveryOptionsConfiguration, type SupportedPlatformName} from '../../types';
+import {platformConfig} from './platform';
+import {getDefaultStrings} from './defaultStrings';
 
 /**
  * Get the default config for given platform. Gets the base config, sets platform and appends platform specific
@@ -73,7 +70,7 @@ export const defaultConfiguration = (
      * @type {MyParcelDeliveryOptions.Config}
      */
     [KEY_CONFIG]: {
-      [PLATFORM]: DEFAULT_PLATFORM,
+      [PLATFORM]: platform,
       [CURRENCY]: 'EUR',
       [SHOW_PRICES]: true,
       [SHOW_PRICE_SURCHARGE]: false,
@@ -132,8 +129,6 @@ export const defaultConfiguration = (
      */
     [KEY_STRINGS]: getDefaultStrings(),
   };
-
-  baseConfig[KEY_CONFIG][PLATFORM] = platform;
 
   return merge({}, baseConfig, platformConfig(platform));
 };

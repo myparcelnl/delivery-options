@@ -1,5 +1,4 @@
 import {defaultAddress, platforms} from '@myparcel-do/shared';
-import {CONFIG} from './settings';
 import {sandboxPlatformCarrierMap} from './config/sandboxPlatformCarrierMap';
 import {demoConfiguration} from './config/demoConfiguration';
 
