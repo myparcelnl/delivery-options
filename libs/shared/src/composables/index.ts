@@ -3,5 +3,6 @@ export * from './getCarrierConfiguration';
 export * from './useDeliveryOptionsConfig';
 export * from './useElementContext';
 export * from './useLanguage';
+export * from './useOutput';
 export * from './useSdk';
-export {validateDeliveryOptionsConfig} from './validateDeliveryOptionsConfig';
+export * from './validateDeliveryOptionsConfig';

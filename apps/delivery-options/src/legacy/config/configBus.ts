@@ -339,7 +339,7 @@ export const createConfigBus = (eventCallee = null) => {
         this.values[name] = value;
         this.updateCurrentCarrier({
           name,
-          value,
+          value: data,
         });
 
         let values;

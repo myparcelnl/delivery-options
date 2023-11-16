@@ -1,7 +1,6 @@
 /* eslint-disable max-lines-per-function */
 
-import {merge} from 'radash';
-import {DEFAULT_PLATFORM} from '@myparcel-do/shared';
+import {DEFAULT_PLATFORM, getDefaultStrings} from '@myparcel-do/shared';
 import {
   ALLOW_DELIVERY_OPTIONS,
   ALLOW_EVENING_DELIVERY,
@@ -20,7 +19,6 @@ import {
   DELIVERY_DAYS_WINDOW,
   DROP_OFF_DAYS,
   DROP_OFF_DELAY,
-  FEATURE_ALLOW_RETRY,
   FEATURE_MAX_PAGE_ITEMS,
   FEATURE_PICKUP_LOCATIONS_DEFAULT_VIEW,
   FEATURE_PICKUP_SHOW_DISTANCE,
@@ -42,20 +40,14 @@ import {
   PRICE_STANDARD_DELIVERY,
   SHOW_PRICE_SURCHARGE,
   SHOW_PRICES,
-} from '../data';
-import {type DeliveryOptionsConfiguration, type SupportedPlatformName} from '../../types';
-import {platformConfig} from './platform';
-import {getDefaultStrings} from './defaultStrings';
+} from '../legacy/data';
+import {type DeliveryOptionsConfiguration, type SupportedPlatformName} from '../types';
 
 /**
  * Get the default config for given platform. Gets the base config, sets platform and appends platform specific
  * variables, if any.
- *
- * @param {MyParcel.Platform} platform - Platform name.
- *
- * @returns {MyParcelDeliveryOptions.Configuration}
  */
-export const defaultConfiguration = (
+export const getDefaultConfiguration = (
   platform: SupportedPlatformName = DEFAULT_PLATFORM,
 ): DeliveryOptionsConfiguration => {
   /**
@@ -102,7 +94,6 @@ export const defaultConfiguration = (
       [PRICE_SIGNATURE]: DEFAULT_PRICE,
       [PRICE_STANDARD_DELIVERY]: DEFAULT_PRICE,
 
-      [FEATURE_ALLOW_RETRY]: true,
       [FEATURE_MAX_PAGE_ITEMS]: 5,
       [FEATURE_PICKUP_LOCATIONS_DEFAULT_VIEW]: 'map',
       [FEATURE_PICKUP_SHOW_DISTANCE]: true,
@@ -130,5 +121,6 @@ export const defaultConfiguration = (
     [KEY_STRINGS]: getDefaultStrings(),
   };
 
-  return merge({}, baseConfig, platformConfig(platform));
+
+  return obj;
 };

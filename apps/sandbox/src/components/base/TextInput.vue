@@ -1,7 +1,7 @@
 <template>
   <input
     :id="id"
-    v-model="model"
+    v-model.lazy.trim="model"
     :class="classes"
     type="text"
     v-bind="$props" />

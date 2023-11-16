@@ -7,3 +7,5 @@ export enum SubscriptionType {
 }
 
 export const DEFAULT_PLATFORM = PlatformName.MyParcel;
+
+export const FORM_NAME_DELIVERY_OPTIONS = 'deliveryOptions';

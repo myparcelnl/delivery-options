@@ -1,6 +1,5 @@
 import {type ComputedRef, type DeepReadonly, type Ref} from 'vue';
 import {type PromiseOr} from '@myparcel/ts-utils';
-import {type Keyable} from './common.types';
 
 export interface Query<T = unknown> {
   data: DeepReadonly<Ref<T | null>>;
@@ -15,7 +14,7 @@ export interface UseQueryOptions<Cb extends QueryCallback> {
 
 export type QueryCallback<T = unknown> = () => PromiseOr<T>;
 
-export type QueryKey = Record<string, Keyable> | string | string[];
+export type QueryKey = (string | object | QueryKey)[];
 
 export type UseQuery = <Cb extends QueryCallback>(
   queryKey: QueryKey,

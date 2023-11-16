@@ -2,7 +2,7 @@ import {beforeAll, describe, expect, it, vi} from 'vitest';
 import {merge} from 'radash';
 import {
   defaultAddress,
-  defaultConfiguration,
+  getDefaultConfiguration,
   UPDATE_DELIVERY_OPTIONS,
   UPDATED_DELIVERY_OPTIONS,
 } from '@myparcel-do/shared';
@@ -43,7 +43,7 @@ describe.skip('main.js', () => {
 
     document.dispatchEvent(
       new CustomEvent(UPDATE_DELIVERY_OPTIONS, {
-        detail: merge({}, defaultConfiguration(PlatformName.MyParcel), getDefaultCarrierSettings(), {
+        detail: merge({}, getDefaultConfiguration(PlatformName.MyParcel), getDefaultCarrierSettings(), {
           address: defaultAddress[PlatformName.MyParcel],
         }),
       }),

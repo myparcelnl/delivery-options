@@ -7,7 +7,7 @@
     </span>
 
     <NumberInput
-      v-model="model"
+      v-model.number="model"
       v-bind="{
         step: 0.05,
         min: undefined,

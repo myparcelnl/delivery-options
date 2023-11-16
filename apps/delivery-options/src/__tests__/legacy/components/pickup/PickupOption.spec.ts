@@ -1,6 +1,6 @@
 import {beforeAll, describe, expect, it} from 'vitest';
 import {mount} from '@vue/test-utils';
-import {defaultAddress, defaultConfiguration} from '@myparcel-do/shared';
+import {defaultAddress, getDefaultConfiguration} from '@myparcel-do/shared';
 import {CarrierName, PlatformName} from '@myparcel/constants';
 
 describe.skip('PickupOption.vue', () => {
@@ -8,7 +8,7 @@ describe.skip('PickupOption.vue', () => {
 
   beforeAll(() => {
     component = mount(PickupOption, {
-      localVue: mockVue(defaultConfiguration(PlatformName.SendMyParcel)),
+      localVue: mockVue(getDefaultConfiguration(PlatformName.SendMyParcel)),
       propsData: {
         // Required prop
         data: {

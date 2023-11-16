@@ -8,26 +8,21 @@
 
 <script lang="ts" setup>
 import {computed, watch} from 'vue';
-import {type DeliveryOptionsOutput, useDeliveryOptionsConfig} from '@myparcel-do/shared';
-import {createForm} from '@myparcel/vue-form-builder';
+import {type DeliveryOptionsOutput} from '@myparcel-do/shared';
+import {createDeliveryOptionsForm} from '../form/createDeliveryOptionsForm';
 import PickupLocations from './PickupLocations.vue';
 import HomeDelivery from './HomeDelivery.vue';
 
 const emit = defineEmits<(event: 'update', values: DeliveryOptionsOutput) => void>();
 
-const config = useDeliveryOptionsConfig();
-
 // eslint-disable-next-line @typescript-eslint/naming-convention
-const Form = createForm('DeliveryOptions', {
-  initialValues: config.value.initial ?? {},
-});
+const Form = createDeliveryOptionsForm();
 
 const values = computed<DeliveryOptionsOutput>(() => {
   return Form.instance?.getValues();
 });
 
 watch(values, (values) => {
-  console.log('emit');
   emit('update', values);
 });
 </script>

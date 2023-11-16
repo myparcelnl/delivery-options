@@ -1,6 +1,6 @@
 import {describe, expect, it} from 'vitest';
 import {merge} from 'radash';
-import {CONFIG, defaultConfiguration, KEY_CONFIG} from '@myparcel-do/shared';
+import {CONFIG, getDefaultConfiguration, KEY_CONFIG} from '@myparcel-do/shared';
 import {CarrierName} from '@myparcel/constants';
 import {mockDeliveryOptions} from './mockDeliveryOptions';
 
@@ -20,7 +20,7 @@ describe.skip('app mocking', () => {
       strings,
       address: {},
     }).toEqual(
-      merge({}, defaultConfiguration(), {
+      merge({}, getDefaultConfiguration(), {
         [KEY_CONFIG]: {
           [CONFIG.CARRIER_SETTINGS]: {
             [CarrierName.PostNl]: {

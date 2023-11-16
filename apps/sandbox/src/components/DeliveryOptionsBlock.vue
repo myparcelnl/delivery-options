@@ -1,7 +1,8 @@
 <template>
   <div>
     <MyParcelDeliveryOptions
-      :config="deliveryOptionsConfig"
+      v-if="store.configuration"
+      :config="parsedConfiguration"
       @update="output = $event" />
 
     <h2>Output</h2>
@@ -13,13 +14,16 @@
 
 <script lang="ts" setup>
 import {computed, ref} from 'vue';
-import {type DeliveryOptionsOutput} from '@myparcel-do/shared';
+import {construct} from 'radash';
+import {type DeliveryOptionsConfiguration, type DeliveryOptionsOutput} from '@myparcel-do/shared';
 import {MyParcelDeliveryOptions} from '@myparcel/delivery-options/ts';
-import {useSandboxConfig} from '../composables/useSandboxConfig';
+import {useSandboxStore} from '../stores';
 
 const output = ref<DeliveryOptionsOutput | null>(null);
 
-const config = useSandboxConfig();
+const store = useSandboxStore();
 
-const deliveryOptionsConfig = computed(() => config.value);
+const parsedConfiguration = computed<DeliveryOptionsConfiguration>(
+  () => construct(store.configuration) as DeliveryOptionsConfiguration,
+);
 </script>

@@ -1,6 +1,6 @@
 export * from './appConfig';
-export * from './defaultConfiguration';
-export * from './defaultStrings';
+export * from '../../config/getDefaultConfiguration';
+export * from '../../config/getDefaultStrings';
 export * from './errorConfig';
 export * as EVENTS from './eventConfig';
 export * from './eventConfig';

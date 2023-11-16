@@ -1,6 +1,6 @@
 <template>
   <TextInput
-    v-model="model"
+    v-model.number="model"
     type="number"
     v-bind="{
       min: 0,

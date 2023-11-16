@@ -1,7 +1,7 @@
 /* eslint-disable no-magic-numbers */
 
 import {
-  defaultConfiguration,
+  getDefaultConfiguration,
   KEY_CONFIG,
   PRICE_EVENING_DELIVERY,
   PRICE_MORNING_DELIVERY,
@@ -12,7 +12,7 @@ import {
 } from '@myparcel-do/shared';
 
 export const demoConfiguration = (platform) => {
-  return merge({}, defaultConfiguration(platform), {
+  return merge({}, getDefaultConfiguration(platform), {
     [KEY_CONFIG]: {
       [PRICE_EVENING_DELIVERY]: 2.49,
       [PRICE_MORNING_DELIVERY]: 4.95,

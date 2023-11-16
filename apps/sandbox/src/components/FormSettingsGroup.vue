@@ -21,12 +21,12 @@
       v-text="translate(field.description)" />
 
     <div class="grid grid-cols-2">
+      <slot />
+
       <component
         :is="subField.Component"
         v-for="subField in resolvedFields"
         :key="subField.name" />
-
-      <slot />
     </div>
   </div>
 </template>
@@ -37,7 +37,9 @@ import {get} from '@vueuse/core';
 import {useLanguage} from '@myparcel-do/shared';
 import {createField, useForm} from '@myparcel/vue-form-builder';
 import {CarrierName} from '@myparcel/constants';
-import {type SettingsGroup} from '../types/form.types';
+import {getCarrierSettingsKey} from '../utils/getCarrierSettingsKey';
+import {type SettingsGroup} from '../types';
+import {useSandboxStore} from '../stores';
 import ToggleInput from './base/ToggleInput.vue';
 
 const props = defineProps<{
@@ -47,7 +49,21 @@ const props = defineProps<{
 
 const form = useForm();
 
-const perCarrier = ref(false);
+const store = useSandboxStore();
+
+const perCarrier = computed({
+  get() {
+    return store.perCarrier.includes(props.field.label);
+  },
+
+  set(value) {
+    store.$patch({
+      perCarrier: value
+        ? [...store.perCarrier, props.field.label]
+        : store.perCarrier.filter((label) => label !== props.field.label),
+    });
+  },
+});
 
 const additionalFields = ref([]);
 
@@ -69,17 +85,11 @@ const resolvedFields = computed(() => {
   if (!additionalFields.value.length) {
     fields.forEach((item) => {
       Object.values(CarrierName).forEach((carrier) => {
-        const nameParts = item.field.name.split('.');
-
-        if (nameParts.length > 1) {
-          nameParts.splice(nameParts.length - 1, 0, `carrierSettings.${carrier}`);
-        }
-
         const newField = markRaw(
           createField({
             ...item.field,
             ref: ref(get(item.field.ref)),
-            name: nameParts.join('.'),
+            name: getCarrierSettingsKey(item.field.name, carrier),
             props: {
               ...item.field.props,
               carrier,

@@ -2,7 +2,7 @@ import {expect, it, test} from 'vitest';
 import {
   CONFIG,
   defaultAddress,
-  defaultConfiguration,
+  getDefaultConfiguration,
   formConfigPickup,
   KEY_ADDRESS,
   KEY_CONFIG,
@@ -82,12 +82,12 @@ const settingCases = [
 
     configBus.$data.currentCarrier = CarrierName.Dpd;
     expect(configBus.get(CONFIG.ALLOW_SIGNATURE)).toBe(
-      defaultConfiguration(DEFAULT_PLATFORM).config[CONFIG.ALLOW_SIGNATURE],
+      getDefaultConfiguration(DEFAULT_PLATFORM).config[CONFIG.ALLOW_SIGNATURE],
     );
 
     configBus.$data.currentCarrier = CarrierName.Bpost;
     expect(configBus.get(CONFIG.PRICE_ONLY_RECIPIENT)).toBe(
-      defaultConfiguration(DEFAULT_PLATFORM).config[CONFIG.PRICE_ONLY_RECIPIENT],
+      getDefaultConfiguration(DEFAULT_PLATFORM).config[CONFIG.PRICE_ONLY_RECIPIENT],
     );
   });
 

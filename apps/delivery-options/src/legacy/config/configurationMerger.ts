@@ -1,4 +1,4 @@
-import {carrierFeatures, defaultConfiguration, DROP_OFF_DAYS, getCarrierConfiguration} from '@myparcel-do/shared';
+import {carrierFeatures, DROP_OFF_DAYS, getCarrierConfiguration, getDefaultConfiguration} from '@myparcel-do/shared';
 import {validatePlatform} from './validatePlatform';
 
 export class ConfigurationMerger {
@@ -37,7 +37,7 @@ export class ConfigurationMerger {
   getMerged() {
     return mergeWith(
       {},
-      defaultConfiguration(this.platform),
+      getDefaultConfiguration(this.platform),
       this.input,
       // Without bind() the function loses its scope :(
       this.mergeConfigurations.bind(this),

@@ -1,6 +1,6 @@
 import {beforeAll, describe, expect, it} from 'vitest';
 import {mount} from '@vue/test-utils';
-import {CONFIG, defaultConfiguration, formConfigDelivery, KEY_CONFIG} from '@myparcel-do/shared';
+import {CONFIG, formConfigDelivery, getDefaultConfiguration, KEY_CONFIG} from '@myparcel-do/shared';
 import {CarrierName, PlatformName} from '@myparcel/constants';
 import {mockDeliveryOptions} from '../../mockDeliveryOptions';
 
@@ -9,7 +9,7 @@ describe.skip('RecursiveForm.vue', () => {
 
   beforeAll(() => {
     component = mount(RecursiveForm, {
-      localVue: mockVue(defaultConfiguration(PlatformName.SendMyParcel)),
+      localVue: mockVue(getDefaultConfiguration(PlatformName.SendMyParcel)),
       propsData: {
         option: {
           name: 'carrier',

@@ -54,6 +54,7 @@
     "@myparcel-do/shared": "workspace:*",
     "@vue/test-utils": "^2.4.0",
     "@vue/tsconfig": "^0.1.0",
+    "pinia": "^2.1.7",
     "typescript": "^5.2.0",
     "vite-plugin-custom-tsconfig": "^1.0.0"
   },

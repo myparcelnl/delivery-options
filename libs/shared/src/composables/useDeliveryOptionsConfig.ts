@@ -6,7 +6,7 @@ import {validateDeliveryOptionsConfig} from './validateDeliveryOptionsConfig';
 const storage = useCached<DeliveryOptionsConfiguration>(ref({}));
 
 interface UseDeliveryOptionsConfig {
-  value: DeliveryOptionsConfiguration;
+  data: DeliveryOptionsConfiguration;
 
   update(config: DeliveryOptionsConfiguration): void;
 }
@@ -17,6 +17,6 @@ export const useDeliveryOptionsConfig = (): UseDeliveryOptionsConfig => {
       storage.value = validateDeliveryOptionsConfig(config);
     },
 
-    value: storage.value,
+    data: storage.value,
   };
 };

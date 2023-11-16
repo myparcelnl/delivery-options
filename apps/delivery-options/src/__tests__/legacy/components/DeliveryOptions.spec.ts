@@ -1,7 +1,7 @@
 import {describe, expect, it} from 'vitest';
 import {
   defaultAddress,
-  defaultConfiguration,
+  getDefaultConfiguration,
   KEY_ADDRESS,
   UPDATE_DELIVERY_OPTIONS,
   UPDATED_DELIVERY_OPTIONS,
@@ -10,7 +10,7 @@ import {PlatformName} from '@myparcel/constants';
 import {mockDeliveryOptions} from '../mockDeliveryOptions';
 
 const configWithInvalidAddress = {
-  ...defaultConfiguration(PlatformName.SendMyParcel),
+  ...getDefaultConfiguration(PlatformName.SendMyParcel),
   [KEY_ADDRESS]: {
     // Invalid because cc is missing
     postalCode: '1234AB',

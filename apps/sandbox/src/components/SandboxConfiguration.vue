@@ -9,33 +9,36 @@
 </template>
 
 <script lang="ts" setup>
-import {computed, watch} from 'vue';
+import {computed, markRaw, watch} from 'vue';
+import {construct} from 'radash';
+import {type DeliveryOptionsConfiguration, useDeliveryOptionsConfig} from '@myparcel-do/shared';
 import {createForm} from '@myparcel/vue-form-builder';
-import {dot} from '../utils/dot';
 import {type SettingsSection} from '../types';
+import {useSandboxStore} from '../stores';
 import {getSandboxSettingsSections} from '../form/getSandboxSettingsSections';
-import {useSandboxConfig} from '../composables/useSandboxConfig';
 import FormSection from './FormSection.vue';
 import FieldWrapper from './FieldWrapper.vue';
 
-const config = useSandboxConfig();
-
-const initial = dot(config.value);
+const sandboxStore = useSandboxStore();
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const Form = createForm('configuration', {
   field: {
-    wrapper: FieldWrapper,
+    wrapper: markRaw(FieldWrapper),
   },
 
-  initialValues: initial,
+  initialValues: {...sandboxStore.configuration},
 });
 
 const sections: SettingsSection[] = getSandboxSettingsSections();
 
 const values = computed(() => Form.instance.getValues());
 
-watch(values, (newSettings) => {
-  config.storage.value = JSON.stringify(newSettings);
+watch(values, (newConfiguration) => {
+  sandboxStore.$patch({
+    configuration: newConfiguration,
+  });
+
+  useDeliveryOptionsConfig().update(construct(newConfiguration) as DeliveryOptionsConfiguration);
 });
 </script>

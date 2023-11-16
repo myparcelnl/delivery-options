@@ -1,3 +1,4 @@
+import {type SupportedPlatformName} from '@myparcel-do/shared';
 import {type CarrierName, type DeliveryTypeName, type PackageTypeName, type PlatformName} from '@myparcel/constants';
 import {type CARRIERS_MYPARCELNL, type CARRIERS_SENDMYPARCEL} from '../data';
 import {type DeliveryOptionsAddress} from './address.types';
@@ -81,11 +82,16 @@ interface SendMyParcelConfig extends BaseConfig<PlatformName.SendMyParcel> {
   platform: PlatformName.SendMyParcel;
 }
 
-export type DeliveryOptionsConfig = MyParcelNlConfig | SendMyParcelConfig;
+export type DeliveryOptionsConfig<P extends SupportedPlatformName = SupportedPlatformName> =
+  P extends PlatformName.MyParcel
+    ? MyParcelNlConfig
+    : P extends PlatformName.SendMyParcel
+    ? SendMyParcelConfig
+    : MyParcelNlConfig | SendMyParcelConfig;
 
-export interface DeliveryOptionsConfiguration {
+export interface DeliveryOptionsConfiguration<P extends SupportedPlatformName = SupportedPlatformName> {
   address: DeliveryOptionsAddress;
-  config: DeliveryOptionsConfig;
+  config: DeliveryOptionsConfig<P>;
   initial?: DeliveryOptionsOutput;
   strings: DeliveryOptionsStrings;
 }
