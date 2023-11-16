@@ -85,11 +85,11 @@ export class DhlParcelConnectCarrierConfiguration extends AbstractCarrierConfigu
 
   public getFeatures(): PlatformCarrierFeatures {
     return {
-      [PlatformName.MyParcel as const]: [FEATURES_DELIVERY, FEATURES_PICKUP],
+      [PlatformName.MyParcel]: [FEATURES_DELIVERY, FEATURES_PICKUP],
     };
   }
 
   public getName(): CarrierName {
-    return CarrierName.DhlParcelConnect as const;
+    return CarrierName.DhlParcelConnect;
   }
 }

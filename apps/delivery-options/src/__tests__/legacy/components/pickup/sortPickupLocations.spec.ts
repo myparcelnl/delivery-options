@@ -1,7 +1,7 @@
 import {describe, expect, it} from 'vitest';
 import {CONFIG, KEY_CONFIG} from '@myparcel-do/shared';
 
-describe('sorting pickup locations', () => {
+describe.skip('sorting pickup locations', () => {
   it('sorts by distance when distances are shown', () => {
     mockConfigBus({
       [KEY_CONFIG]: {

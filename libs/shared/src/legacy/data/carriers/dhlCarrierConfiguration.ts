@@ -67,11 +67,11 @@ export class DhlCarrierConfiguration extends AbstractCarrierConfiguration {
 
   public getFeatures(): PlatformCarrierFeatures {
     return {
-      [PlatformName.MyParcel as const]: [FEATURES_DELIVERY, FEATURES_PICKUP, FEATURES_SHOW_DELIVERY_DATE],
+      [PlatformName.MyParcel]: [FEATURES_DELIVERY, FEATURES_PICKUP, FEATURES_SHOW_DELIVERY_DATE],
     };
   }
 
   public getName(): CarrierName {
-    return CarrierName.Dhl as const;
+    return CarrierName.Dhl;
   }
 }

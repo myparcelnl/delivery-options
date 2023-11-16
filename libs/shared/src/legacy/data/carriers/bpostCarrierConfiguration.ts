@@ -29,7 +29,7 @@ export class BpostCarrierConfiguration extends AbstractCarrierConfiguration {
 
   public getFeatures(): PlatformCarrierFeatures {
     return {
-      [PlatformName.SendMyParcel as const]: [
+      [PlatformName.SendMyParcel]: [
         FEATURES_DELIVERY,
         FEATURES_PICKUP,
         FEATURES_SATURDAY_DELIVERY,
@@ -44,6 +44,6 @@ export class BpostCarrierConfiguration extends AbstractCarrierConfiguration {
   }
 
   public getName(): CarrierName {
-    return CarrierName.Bpost as const;
+    return CarrierName.Bpost;
   }
 }

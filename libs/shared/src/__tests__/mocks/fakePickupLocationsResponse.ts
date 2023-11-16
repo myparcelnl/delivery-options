@@ -1,4 +1,7 @@
-export const fakePickupLocationsResponse = vi.fn(() => [
+import {type PickupLocation} from '@myparcel/sdk';
+import {DeliveryTypeId, DeliveryTypeName} from '@myparcel/constants';
+
+export const fakePickupLocationsResponse = (): PickupLocation[] => [
   {
     address: {
       cc: 'BE',
@@ -6,12 +9,12 @@ export const fakePickupLocationsResponse = vi.fn(() => [
       street: 'HOOGSTRAAT',
       postal_code: '2000',
       number: '75',
-      number_suffix: null,
+      number_suffix: '',
     },
     possibilities: [
       {
-        delivery_type_id: 4,
-        delivery_type_name: 'pickup',
+        delivery_type_id: DeliveryTypeId.Pickup,
+        delivery_type_name: DeliveryTypeName.Pickup,
         moment: {
           start: {
             date: '2020-04-07 17:00:00.000000',
@@ -138,12 +141,12 @@ export const fakePickupLocationsResponse = vi.fn(() => [
       street: 'KLAPDORP',
       postal_code: '2000',
       number: '15',
-      number_suffix: null,
+      number_suffix: '',
     },
     possibilities: [
       {
-        delivery_type_id: 4,
-        delivery_type_name: 'pickup',
+        delivery_type_id: DeliveryTypeId.Pickup,
+        delivery_type_name: DeliveryTypeName.Pickup,
         moment: {
           start: {
             date: '2020-04-07 17:00:00.000000',
@@ -257,12 +260,12 @@ export const fakePickupLocationsResponse = vi.fn(() => [
       street: 'NASSAUSTRAAT',
       postal_code: '2000',
       number: '18',
-      number_suffix: null,
+      number_suffix: '',
     },
     possibilities: [
       {
-        delivery_type_id: 4,
-        delivery_type_name: 'pickup',
+        delivery_type_id: DeliveryTypeId.Pickup,
+        delivery_type_name: DeliveryTypeName.Pickup,
         moment: {
           start: {
             date: '2020-04-07 17:00:00.000000',
@@ -389,12 +392,12 @@ export const fakePickupLocationsResponse = vi.fn(() => [
       street: 'MECHELSEPLEIN',
       postal_code: '2000',
       number: '9-11',
-      number_suffix: null,
+      number_suffix: '',
     },
     possibilities: [
       {
-        delivery_type_id: 4,
-        delivery_type_name: 'pickup',
+        delivery_type_id: DeliveryTypeId.Pickup,
+        delivery_type_name: DeliveryTypeName.Pickup,
         moment: {
           start: {
             date: '2020-04-07 17:00:00.000000',
@@ -508,12 +511,12 @@ export const fakePickupLocationsResponse = vi.fn(() => [
       street: 'PAARDENMARKT',
       postal_code: '2000',
       number: '108',
-      number_suffix: null,
+      number_suffix: '',
     },
     possibilities: [
       {
-        delivery_type_id: 4,
-        delivery_type_name: 'pickup',
+        delivery_type_id: DeliveryTypeId.Pickup,
+        delivery_type_name: DeliveryTypeName.Pickup,
         moment: {
           start: {
             date: '2020-04-07 17:00:00.000000',
@@ -627,12 +630,12 @@ export const fakePickupLocationsResponse = vi.fn(() => [
       street: 'FRANKRIJKLEI 42',
       postal_code: '2000',
       number: '42',
-      number_suffix: null,
+      number_suffix: '',
     },
     possibilities: [
       {
-        delivery_type_id: 4,
-        delivery_type_name: 'pickup',
+        delivery_type_id: DeliveryTypeId.Pickup,
+        delivery_type_name: DeliveryTypeName.Pickup,
         moment: {
           start: {
             date: '2020-04-07 17:00:00.000000',
@@ -746,12 +749,12 @@ export const fakePickupLocationsResponse = vi.fn(() => [
       street: 'CASSIERSSTRAAT',
       postal_code: '2060',
       number: '26',
-      number_suffix: null,
+      number_suffix: '',
     },
     possibilities: [
       {
-        delivery_type_id: 4,
-        delivery_type_name: 'pickup',
+        delivery_type_id: DeliveryTypeId.Pickup,
+        delivery_type_name: DeliveryTypeName.Pickup,
         moment: {
           start: {
             date: '2020-04-07 17:00:00.000000',
@@ -865,12 +868,12 @@ export const fakePickupLocationsResponse = vi.fn(() => [
       street: 'JULIUS VUYLSTEKELAAN',
       postal_code: '2050',
       number: '9/A',
-      number_suffix: null,
+      number_suffix: '',
     },
     possibilities: [
       {
-        delivery_type_id: 4,
-        delivery_type_name: 'pickup',
+        delivery_type_id: DeliveryTypeId.Pickup,
+        delivery_type_name: DeliveryTypeName.Pickup,
         moment: {
           start: {
             date: '2020-04-07 17:00:00.000000',
@@ -984,12 +987,12 @@ export const fakePickupLocationsResponse = vi.fn(() => [
       street: 'MECHELSESTEENWEG',
       postal_code: '2018',
       number: '140',
-      number_suffix: null,
+      number_suffix: '',
     },
     possibilities: [
       {
-        delivery_type_id: 4,
-        delivery_type_name: 'pickup',
+        delivery_type_id: DeliveryTypeId.Pickup,
+        delivery_type_name: DeliveryTypeName.Pickup,
         moment: {
           start: {
             date: '2020-04-07 17:00:00.000000',
@@ -1116,12 +1119,12 @@ export const fakePickupLocationsResponse = vi.fn(() => [
       street: 'BROEDERMINSTRAAT',
       postal_code: '2018',
       number: '6',
-      number_suffix: null,
+      number_suffix: '',
     },
     possibilities: [
       {
-        delivery_type_id: 4,
-        delivery_type_name: 'pickup',
+        delivery_type_id: DeliveryTypeId.Pickup,
+        delivery_type_name: DeliveryTypeName.Pickup,
         moment: {
           start: {
             date: '2020-04-07 17:00:00.000000',
@@ -1228,4 +1231,4 @@ export const fakePickupLocationsResponse = vi.fn(() => [
       },
     },
   },
-]);
+];

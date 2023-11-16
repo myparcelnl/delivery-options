@@ -61,12 +61,12 @@ export class UpsCarrierConfiguration extends AbstractCarrierConfiguration {
 
   public getFeatures(): PlatformCarrierFeatures {
     return {
-      [PlatformName.MyParcel as const]: [FEATURES_DELIVERY],
+      [PlatformName.MyParcel]: [FEATURES_DELIVERY],
     };
   }
 
   public getName(): CarrierName {
-    return CarrierName.Ups as const;
+    return CarrierName.Ups;
   }
 
   public hasFakeDelivery(): boolean {

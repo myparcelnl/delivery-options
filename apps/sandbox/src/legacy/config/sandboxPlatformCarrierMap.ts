@@ -7,18 +7,14 @@ import {CarrierName, PlatformName} from '@myparcel/constants';
  * @see platformCarrierMap
  */
 export const sandboxPlatformCarrierMap = {
-  [PlatformName.MyParcel as const]: [
-    CarrierName.PostNl as const,
-    CarrierName.Dhl as const,
-    CarrierName.DhlForYou as const,
-    CarrierName.DhlParcelConnect as const,
-    CarrierName.DhlEuroPlus as const,
-    CarrierName.Dpd as const,
-    CarrierName.Ups as const,
+  [PlatformName.MyParcel]: [
+    CarrierName.PostNl,
+    CarrierName.Dhl,
+    CarrierName.DhlForYou,
+    CarrierName.DhlParcelConnect,
+    CarrierName.DhlEuroPlus,
+    CarrierName.Dpd,
+    CarrierName.Ups,
   ],
-  [PlatformName.SendMyParcel as const]: [
-    CarrierName.Bpost as const,
-    CarrierName.Dpd as const,
-    CarrierName.PostNl as const,
-  ],
+  [PlatformName.SendMyParcel]: [CarrierName.Bpost, CarrierName.Dpd, CarrierName.PostNl],
 };

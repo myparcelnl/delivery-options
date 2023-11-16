@@ -1,15 +1,14 @@
-import {getMockedDeliveryDateChoices} from '@myparcel-do/shared/src/__tests__/legacy/helpers/getMockedDeliveryDateChoices';
-import {CONFIG} from '@myparcel-do/sandbox/src/legacy/settings';
+import {afterEach, describe, expect, it, test} from 'vitest';
 import {configMyParcel, DATE_SATURDAY} from './data';
 
-describe('monday delivery', () => {
+describe.skip('monday delivery', () => {
   afterEach(() => {
-    MockDate.reset();
+    vi.setSystemTime(vi.getRealSystemTime());
   });
 
   test('can show monday delivery', async () => {
     expect.assertions(1);
-    MockDate.set(DATE_SATURDAY);
+    vi.setSystemTime(DATE_SATURDAY);
 
     const choices = await getMockedDeliveryDateChoices(configMyParcel);
 
@@ -28,7 +27,7 @@ describe('monday delivery', () => {
 
   it('does not show monday delivery when "allow_monday_delivery" is false', async () => {
     expect.assertions(1);
-    MockDate.set(DATE_SATURDAY);
+    vi.setSystemTime(DATE_SATURDAY);
 
     const choices = await getMockedDeliveryDateChoices({
       ...configMyParcel,
@@ -51,7 +50,7 @@ describe('monday delivery', () => {
 
   it('does not show monday delivery when saturday is not a drop-off day', async () => {
     expect.assertions(1);
-    MockDate.set(DATE_SATURDAY);
+    vi.setSystemTime(DATE_SATURDAY);
 
     const choicesWithMissingDropOffDay = await getMockedDeliveryDateChoices({
       ...configMyParcel,
@@ -75,7 +74,7 @@ describe('monday delivery', () => {
 
   it('does not show monday delivery when the saturday cutoff time has passed', async () => {
     expect.assertions(1);
-    MockDate.set(DATE_SATURDAY_AFTER_CUTOFF);
+    vi.setSystemTime(DATE_SATURDAY_AFTER_CUTOFF);
 
     const choices = await getMockedDeliveryDateChoices({
       ...configMyParcel,

@@ -98,14 +98,14 @@ export class DpdCarrierConfiguration extends AbstractCarrierConfiguration {
 
   public getFeatures(): PlatformCarrierFeatures {
     return {
-      [PlatformName.MyParcel as const]: [
+      [PlatformName.MyParcel]: [
         FEATURES_DELIVERY,
         FEATURES_PICKUP,
         FEATURES_DROP_OFF_DAYS,
         FEATURES_DROP_OFF_DELAY,
         FEATURES_CUTOFF_TIME,
       ],
-      [PlatformName.SendMyParcel as const]: [
+      [PlatformName.SendMyParcel]: [
         FEATURES_DELIVERY,
         FEATURES_PICKUP,
         FEATURES_DROP_OFF_DAYS,
@@ -116,6 +116,6 @@ export class DpdCarrierConfiguration extends AbstractCarrierConfiguration {
   }
 
   public getName(): CarrierName {
-    return CarrierName.Dpd as const;
+    return CarrierName.Dpd;
   }
 }

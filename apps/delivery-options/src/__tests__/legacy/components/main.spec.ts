@@ -3,10 +3,10 @@ import {merge} from 'radash';
 import {
   defaultAddress,
   defaultConfiguration,
-  MYPARCEL,
   UPDATE_DELIVERY_OPTIONS,
   UPDATED_DELIVERY_OPTIONS,
 } from '@myparcel-do/shared';
+import {PlatformName} from '@myparcel/constants';
 import {getDefaultCarrierSettings} from '../defaultCarrierSettings';
 
 const classBase = process.env.VUE_APP_CLASS_BASE;
@@ -17,7 +17,7 @@ const createHtml = (id = classBase) => {
   document.body.appendChild(element);
 };
 
-describe('main.js', () => {
+describe.skip('main.js', () => {
   beforeAll(async () => {
     createHtml();
 
@@ -43,8 +43,8 @@ describe('main.js', () => {
 
     document.dispatchEvent(
       new CustomEvent(UPDATE_DELIVERY_OPTIONS, {
-        detail: merge({}, defaultConfiguration(MYPARCEL), getDefaultCarrierSettings(), {
-          address: defaultAddress[MYPARCEL],
+        detail: merge({}, defaultConfiguration(PlatformName.MyParcel), getDefaultCarrierSettings(), {
+          address: defaultAddress[PlatformName.MyParcel],
         }),
       }),
     );

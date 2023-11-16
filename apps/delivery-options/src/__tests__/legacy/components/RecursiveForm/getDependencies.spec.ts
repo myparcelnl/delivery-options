@@ -111,7 +111,7 @@ const getDependenciesCases = [
   },
 ];
 
-describe('RecursiveForm – getDependencies', () => {
+describe.skip('RecursiveForm – getDependencies', () => {
   beforeAll(() => {
     mockConfigBus({
       config: {

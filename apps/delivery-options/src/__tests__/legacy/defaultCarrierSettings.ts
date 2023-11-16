@@ -1,6 +1,7 @@
-import {CONFIG, KEY_CONFIG, POSTNL} from '@myparcel-do/shared';
+import {CONFIG, KEY_CONFIG} from '@myparcel-do/shared';
+import {CarrierName} from '@myparcel/constants';
 
-export const getDefaultCarrierSettings = (carrier = POSTNL) => ({
+export const getDefaultCarrierSettings = (carrier = CarrierName.PostNl) => ({
   [KEY_CONFIG]: {
     [CONFIG.CARRIER_SETTINGS]: {
       [carrier]: {

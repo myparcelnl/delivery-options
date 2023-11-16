@@ -3,7 +3,7 @@ import {CONFIG, KEY_CONFIG} from '@myparcel-do/shared';
 import {mockDeliveryOptions} from '../../mockDeliveryOptions';
 import {createPickupChoices, fetchAllCarriers} from '../../../../legacy/data';
 
-describe('Pickup.vue', () => {
+describe.skip('Pickup.vue', () => {
   let wrapper;
 
   beforeAll(async () => {

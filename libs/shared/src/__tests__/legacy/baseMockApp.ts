@@ -1,7 +1,7 @@
 /* eslint-disable max-params */
 import {mount, shallowMount} from '@vue/test-utils';
-import {MYPARCEL} from '../../legacy';
 import {addWrapperExtensions} from './wrapperExtensions';
+import {PlatformName} from '@myparcel/constants';
 
 export const baseMockApp = (
   app,
@@ -10,7 +10,7 @@ export const baseMockApp = (
   wrapperData = null,
   shallow = false,
 ) => {
-  configBusData = configBusData || MYPARCEL;
+  configBusData = configBusData || PlatformName.MyParcel;
   wrapperData = wrapperData || {};
 
   const isSandbox = app === 'sandbox';

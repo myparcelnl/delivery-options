@@ -1,7 +1,10 @@
-const allCarrierData = [
+import {type Carrier} from '@myparcel/sdk';
+import {CarrierId, CarrierName, type CarrierNameOrId} from '@myparcel/constants';
+
+const allCarrierData: Carrier[] = [
   {
-    id: 1,
-    name: 'postnl',
+    id: CarrierId.PostNl,
+    name: CarrierName.PostNl,
     human: 'PostNL',
     meta: {
       logo_svg: '/skin/general-images/carrier-logos/svg/postnl.svg',
@@ -9,8 +12,8 @@ const allCarrierData = [
     },
   },
   {
-    id: 2,
-    name: 'bpost',
+    id: CarrierId.Bpost,
+    name: CarrierName.Bpost,
     human: 'bpost',
     meta: {
       logo_svg: '/skin/general-images/carrier-logos/svg/bpost.svg',
@@ -18,8 +21,8 @@ const allCarrierData = [
     },
   },
   {
-    id: 3,
-    name: 'cheapcargo',
+    id: CarrierId.CheapCargo,
+    name: CarrierName.CheapCargo,
     human: 'Cheap Cargo',
     meta: {
       logo_svg: '/skin/general-images/carrier-logos/svg/cheapcargo.svg',
@@ -27,8 +30,8 @@ const allCarrierData = [
     },
   },
   {
-    id: 4,
-    name: 'dpd',
+    id: CarrierId.Dpd,
+    name: CarrierName.Dpd,
     human: 'DPD',
     meta: {
       logo_svg: '/skin/general-images/carrier-logos/svg/dpd.svg',
@@ -36,8 +39,8 @@ const allCarrierData = [
     },
   },
   {
-    id: 6,
-    name: 'dhl',
+    id: CarrierId.Dhl,
+    name: CarrierName.Dhl,
     human: 'DHL',
     meta: {
       logo_svg: '/skin/general-images/carrier-logos/svg/dhl.svg',
@@ -45,8 +48,8 @@ const allCarrierData = [
     },
   },
   {
-    id: 8,
-    name: 'ups',
+    id: CarrierId.Ups,
+    name: CarrierName.Ups,
     human: 'UPS',
     meta: {
       logo_svg: '/skin/general-images/carrier-logos/svg/ups.svg',
@@ -54,8 +57,8 @@ const allCarrierData = [
     },
   },
   {
-    id: 7,
-    name: 'bol.com',
+    id: CarrierId.Bol,
+    name: CarrierName.Bol,
     human: 'Bol.com',
     meta: {
       logo_svg: '/skin/general-images/carrier-logos/svg/bol.com.svg',
@@ -63,8 +66,8 @@ const allCarrierData = [
     },
   },
   {
-    id: 5,
-    name: 'instabox',
+    id: CarrierId.Instabox,
+    name: CarrierName.Instabox,
     human: 'Instabox',
     meta: {
       logo_svg: '/skin/general-images/carrier-logos/svg/instabox.svg',
@@ -72,8 +75,8 @@ const allCarrierData = [
     },
   },
   {
-    id: 9,
-    name: 'dhlforyou',
+    id: CarrierId.DhlForYou,
+    name: CarrierName.DhlForYou,
     human: 'DHL For You',
     meta: {
       logo_svg: '/skin/general-images/carrier-logos/svg/dhlforyou.svg',
@@ -81,8 +84,8 @@ const allCarrierData = [
     },
   },
   {
-    id: 10,
-    name: 'dhlparcelconnect',
+    id: CarrierId.DhlParcelConnect,
+    name: CarrierName.DhlParcelConnect,
     human: 'DHL Parcel Connect',
     meta: {
       logo_svg: '/skin/general-images/carrier-logos/svg/dhlparcelconnect.svg',
@@ -90,8 +93,8 @@ const allCarrierData = [
     },
   },
   {
-    id: 11,
-    name: 'dhleuroplus',
+    id: CarrierId.DhlEuroPlus,
+    name: CarrierName.DhlEuroPlus,
     human: 'DHL Europlus',
     meta: {
       logo_svg: '/skin/general-images/carrier-logos/svg/dhleuroplus.svg',
@@ -100,16 +103,16 @@ const allCarrierData = [
   },
 ];
 
-/**
- * @param {Object} args
- * @param {MyParcel.CarrierName} args.carrier
- *
- * @returns {Object[]}
- */
-export const fakeCarriersResponse = (args = {}) => {
-  if (!args?.carrier) {
+export const fakeCarriersResponse = (carrier?: CarrierNameOrId): Carrier[] => {
+  if (!carrier) {
     return allCarrierData;
   }
 
-  return allCarrierData.filter(({name}) => name === args?.carrier);
+  const found = allCarrierData.find(({name, id}) => name === carrier || id === carrier);
+
+  if (!found) {
+    throw new Error(`Carrier ${carrier} not found`);
+  }
+
+  return [found];
 };

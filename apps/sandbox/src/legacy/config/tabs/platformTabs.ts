@@ -2,7 +2,7 @@ import {PlatformName} from '@myparcel/constants';
 
 export const platformTabs = [
   {
-    name: PlatformName.MyParcel as const,
+    name: PlatformName.MyParcel,
     human: 'platform.myparcel',
     links: [
       {
@@ -16,7 +16,7 @@ export const platformTabs = [
     ],
   },
   {
-    name: PlatformName.SendMyParcel as const,
+    name: PlatformName.SendMyParcel,
     human: 'platform.myparcel',
     links: [
       {

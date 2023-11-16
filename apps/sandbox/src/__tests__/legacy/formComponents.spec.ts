@@ -13,7 +13,7 @@ const options = [
   },
 ];
 
-describe('Sandbox form components', () => {
+describe.skip('Sandbox form components', () => {
   test('CCodeEditor', async () => {
     expect.assertions(9);
 

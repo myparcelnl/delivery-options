@@ -10,7 +10,16 @@
   "license": "MIT",
   "sideEffects": false,
   "type": "module",
-  "exports": "./src/index.ts",
+  "exports": {
+    ".": {
+      "import": "./src/index.ts",
+      "require": "./src/index.tss"
+    },
+    "./testing": {
+      "import": "./src/__tests__/index.ts",
+      "require": "./src/__tests__/index.tss"
+    }
+  },
   "main": "./src/index.ts",
   "module": "./src/index.ts",
   "types": "./dist/index.d.ts",

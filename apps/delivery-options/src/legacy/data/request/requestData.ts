@@ -18,8 +18,8 @@ const getParametersForBE = (configBus) => ({
 });
 
 const parametersByPlatform = {
-  [PlatformName.MyParcel as const]: getParametersForNL,
-  [PlatformName.SendMyParcel as const]: getParametersForBE,
+  [PlatformName.MyParcel]: getParametersForNL,
+  [PlatformName.SendMyParcel]: getParametersForBE,
 };
 
 /** .................................................

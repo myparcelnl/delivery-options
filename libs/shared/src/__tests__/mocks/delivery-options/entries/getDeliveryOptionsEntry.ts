@@ -1,14 +1,14 @@
+import {type Dayjs} from 'dayjs';
+import {type DeliveryOption} from '@myparcel/sdk';
+import {DeliveryTypeName, PackageTypeName, ShipmentOptionName} from '@myparcel/constants';
 import {getTimeframe} from './getTimeframe';
 import {getShipmentOptions} from './getShipmentOptions';
 
-/**
- * @param {import('dayjs').Dayjs} today
- * @param {boolean} isExtraDropOffDay
- * @param {boolean} isSameDay
- *
- * @returns {Object}
- */
-export function getDeliveryOptionsEntry(today, isExtraDropOffDay, isSameDay = false) {
+export const getDeliveryOptionsEntry = (
+  today: Dayjs,
+  isExtraDropOffDay: boolean,
+  isSameDay = false,
+): DeliveryOption => {
   const formattedDate = today.format('YYYY-MM-DD');
 
   return {
@@ -22,37 +22,39 @@ export function getDeliveryOptionsEntry(today, isExtraDropOffDay, isSameDay = fa
         ? []
         : [
             {
-              type: 'morning',
-              package_type: 'package',
+              type: DeliveryTypeName.Morning,
+              package_type: PackageTypeName.Package,
               delivery_time_frames: [
                 getTimeframe(`${formattedDate} 8:00:00.000000`, 'start'),
                 getTimeframe(`${formattedDate} 12:00:00.000000`, 'end'),
               ],
-              shipment_options: getShipmentOptions(['only_recipient']),
+              shipment_options: getShipmentOptions([ShipmentOptionName.OnlyRecipient]),
             },
           ]),
+
       ...(isExtraDropOffDay
         ? []
         : [
             {
-              type: 'evening',
-              package_type: 'package',
+              type: DeliveryTypeName.Evening,
+              package_type: PackageTypeName.Package,
               delivery_time_frames: [
                 getTimeframe(`${formattedDate} 18:00:00.000000`, 'start'),
                 getTimeframe(`${formattedDate} 22:00:00.000000`, 'end'),
               ],
-              shipment_options: getShipmentOptions(['only_recipient']),
+              shipment_options: getShipmentOptions([ShipmentOptionName.OnlyRecipient]),
             },
           ]),
+
       {
-        type: 'standard',
-        package_type: 'package',
+        type: DeliveryTypeName.Standard,
+        package_type: PackageTypeName.Package,
         delivery_time_frames: [
           getTimeframe(`${formattedDate} 08:30:00.000000`, 'start'),
           getTimeframe(`${formattedDate} 21:30:00.000000`, 'end'),
         ],
-        shipment_options: getShipmentOptions(isSameDay ? ['same_day_delivery'] : []),
+        shipment_options: getShipmentOptions(isSameDay ? [ShipmentOptionName.SameDayDelivery] : []),
       },
     ],
   };
-}
+};

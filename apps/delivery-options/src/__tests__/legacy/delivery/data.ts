@@ -1,17 +1,7 @@
 // Timestamps are before all cutoff times
 
-import {
-  BPOST,
-  CONFIG,
-  FRIDAY,
-  MONDAY,
-  MYPARCEL,
-  SATURDAY,
-  SENDMYPARCEL,
-  THURSDAY,
-  TUESDAY,
-  WEDNESDAY,
-} from '@myparcel-do/shared';
+import {CONFIG, FRIDAY, MONDAY, SATURDAY, THURSDAY, TUESDAY, WEDNESDAY} from '@myparcel-do/shared';
+import {CarrierName, PlatformName} from '@myparcel/constants';
 
 export const DATE_FRIDAY = '2020-03-13T10:00:00Z';
 
@@ -23,7 +13,7 @@ export const DATE_FRIDAY_AFTER_CUTOFF = '2020-03-13T18:00:00Z';
 export const DATE_SATURDAY_AFTER_CUTOFF = '2020-03-14T18:00:00Z';
 
 export const configMyParcel = {
-  [CONFIG.PLATFORM]: MYPARCEL,
+  [CONFIG.PLATFORM]: PlatformName.MyParcel,
   [CONFIG.DELIVERY_DAYS_WINDOW]: 7,
   // Includes Saturday
   [CONFIG.DROP_OFF_DAYS]: [MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY],
@@ -38,7 +28,7 @@ export const configMyParcel = {
  * @see @/delivery-options/data/request/requestData:9
  */
 export const configSendMyParcel = {
-  [CONFIG.PLATFORM]: SENDMYPARCEL,
+  [CONFIG.PLATFORM]: PlatformName.SendMyParcel,
 
   // Includes Friday
   [CONFIG.DROP_OFF_DAYS]: [MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY],
@@ -47,7 +37,7 @@ export const configSendMyParcel = {
   [CONFIG.ALLOW_SATURDAY_DELIVERY]: true,
 
   [CONFIG.CARRIER_SETTINGS]: {
-    [BPOST]: {
+    [CarrierName.Bpost]: {
       [CONFIG.ALLOW_DELIVERY_OPTIONS]: true,
     },
   },

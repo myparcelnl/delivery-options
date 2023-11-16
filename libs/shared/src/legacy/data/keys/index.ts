@@ -4,8 +4,6 @@ export * as CONFIG from '../../../data/configKeys';
 export * from '../../../data/configKeys';
 export * from '../../../data/countryCodes';
 export * from '../../../data/packageTypeConfig';
-export * as PLATFORMS from '../../../data/platformKeys';
-export * from '../../../data/platformKeys';
 export * as SETTINGS from '../../../data/settingsConsts';
 export * as CONSTS from '../../../data/settingsConsts';
 export * from '../../../data/settingsConsts';

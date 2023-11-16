@@ -2,7 +2,6 @@ import {merge} from 'radash';
 import {get} from '@vueuse/core';
 import {
   CONFIG,
-  DEFAULT_PLATFORM,
   defaultAddress,
   type DeliveryOptionsConfiguration,
   KEY_ADDRESS,

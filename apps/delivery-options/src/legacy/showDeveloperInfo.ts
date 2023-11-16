@@ -32,15 +32,15 @@ export const showDeveloperInfo = () => {
 
   const demoConfig = {
     config: {
-      [CONFIG.PLATFORM]: PlatformName.MyParcel as const,
+      [CONFIG.PLATFORM]: PlatformName.MyParcel,
       [CONFIG.CARRIER_SETTINGS]: {
-        [CarrierName.PostNl as const]: {
+        [CarrierName.PostNl]: {
           [CONFIG.ALLOW_DELIVERY_OPTIONS]: true,
           [CONFIG.ALLOW_PICKUP_LOCATIONS]: true,
         },
       },
     },
-    address: defaultAddress[PlatformName.MyParcel as const],
+    address: defaultAddress[PlatformName.MyParcel],
   };
 
   console.log('%cWelcome to the MyParcel delivery options!', styleHeader1.join(';'));

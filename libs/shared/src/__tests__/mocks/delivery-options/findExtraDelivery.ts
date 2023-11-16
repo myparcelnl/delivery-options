@@ -1,4 +1,5 @@
-import {extraDeliveryConfig, getCarrierConfiguration, platformCarrierMap} from '@myparcel-do/shared';
+import {extraDeliveryConfig, platformCarrierMap} from '../../../legacy';
+import {getCarrierConfiguration} from '../../../composables';
 
 /**
  * Use passed args to find a valid extra delivery day.

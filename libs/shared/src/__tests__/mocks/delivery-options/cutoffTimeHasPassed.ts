@@ -1,4 +1,4 @@
-import {createCutoffTimeDate} from '../../helpers/createCutoffTimeDate';
+import {createCutoffTimeDate} from '../../legacy';
 
 /**
  * @param {string} cutoffTime - Timestamp in HH:mm format.
@@ -6,8 +6,8 @@ import {createCutoffTimeDate} from '../../helpers/createCutoffTimeDate';
  *
  * @returns {import('dayjs').Dayjs}
  */
-export function cutoffTimeHasPassed(cutoffTime, date) {
+export const cutoffTimeHasPassed = (cutoffTime, date) => {
   const cutOffTimeDate = createCutoffTimeDate(cutoffTime, date);
 
   return !date.isBefore(cutOffTimeDate);
-}
+};

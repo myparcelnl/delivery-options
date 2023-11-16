@@ -1,4 +1,6 @@
-import {fakeCarriersResponse, fakeDeliveryOptionsResponse, fakePickupLocationsResponse} from '../mocks';
+import {fakePickupLocationsResponse} from '../../mocks/fakePickupLocationsResponse';
+import {fakeDeliveryOptionsResponse} from '../../mocks/fakeDeliveryOptionsResponse';
+import {fakeCarriersResponse} from '../../mocks/fakeCarriersResponse';
 
 global.fetch = vi.fn((url) => {
   const urlInstance = new URL(url);

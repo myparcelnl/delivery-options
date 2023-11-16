@@ -1,10 +1,11 @@
-import {MONDAY, MYPARCEL, SATURDAY, SENDMYPARCEL, SUNDAY} from '../../../../legacy';
+import {PlatformName} from '@myparcel/constants';
+import {MONDAY, SATURDAY, SUNDAY} from '../../../legacy';
 import {getDropOffDay} from './getDropOffDay';
 import {cutoffTimeHasPassed} from './cutoffTimeHasPassed';
 
 const daysWithoutDelivery = {
-  [MYPARCEL]: [MONDAY, SUNDAY],
-  [SENDMYPARCEL]: [SATURDAY, SUNDAY],
+  [PlatformName.MyParcel]: [MONDAY, SUNDAY],
+  [PlatformName.SendMyParcel]: [SATURDAY, SUNDAY],
 };
 
 /**
@@ -21,7 +22,8 @@ export function shouldSkipToNextDeliveryDate(date, currentDeliveryDate, args, ex
 
   // Skip Saturday or Monday if its setting is not enabled.
   if (extraDelivery) {
-    const extraDeliveryEnabled = Number(args[`${args.platform === MYPARCEL ? 'monday' : 'saturday'}_delivery`]) === 1;
+    const extraDeliveryEnabled =
+      Number(args[`${args.platform === PlatformName.MyParcel ? 'monday' : 'saturday'}_delivery`]) === 1;
     const isExtraDropOffDay = dropOffDay.weekday() === extraDelivery.dropOffDay;
 
     if (!extraDeliveryEnabled || !isExtraDropOffDay) {

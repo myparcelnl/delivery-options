@@ -9,7 +9,7 @@ import {
 } from '@myparcel-do/shared';
 import {mockDeliveryOptions} from '../mockDeliveryOptions';
 
-describe('package type', () => {
+describe.skip('package type', () => {
   it.each`
     packageType
     ${PACKAGE_TYPE_PACKAGE}

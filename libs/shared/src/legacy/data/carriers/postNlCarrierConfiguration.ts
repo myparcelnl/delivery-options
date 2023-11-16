@@ -34,7 +34,7 @@ export class PostNlCarrierConfiguration extends AbstractCarrierConfiguration {
 
   public getFeatures(): PlatformCarrierFeatures {
     return {
-      [PlatformName.MyParcel as const]: [
+      [PlatformName.MyParcel]: [
         FEATURES_DELIVERY,
         FEATURES_EVENING_DELIVERY,
         FEATURES_MORNING_DELIVERY,
@@ -50,7 +50,7 @@ export class PostNlCarrierConfiguration extends AbstractCarrierConfiguration {
         FEATURES_DROP_OFF_DELAY,
         FEATURES_CUTOFF_TIME,
       ],
-      [PlatformName.SendMyParcel as const]: [
+      [PlatformName.SendMyParcel]: [
         FEATURES_DELIVERY,
         FEATURES_ONLY_RECIPIENT,
         FEATURES_PICKUP,
@@ -65,7 +65,7 @@ export class PostNlCarrierConfiguration extends AbstractCarrierConfiguration {
   }
 
   public getName(): CarrierName {
-    return CarrierName.PostNl as const;
+    return CarrierName.PostNl;
   }
 
   public hasFakeDelivery(): boolean {

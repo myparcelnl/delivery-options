@@ -14,14 +14,14 @@ import {
 } from '../legacy';
 
 const carrierClassMap = Object.freeze({
-  [CarrierName.Bpost as const]: BpostCarrierConfiguration,
-  [CarrierName.Dhl as const]: DhlCarrierConfiguration,
-  [CarrierName.DhlEuroPlus as const]: DhlEuroplusCarrierConfiguration,
-  [CarrierName.DhlForYou as const]: DhlForYouCarrierConfiguration,
-  [CarrierName.DhlParcelConnect as const]: DhlParcelConnectCarrierConfiguration,
-  [CarrierName.Dpd as const]: DpdCarrierConfiguration,
-  [CarrierName.PostNl as const]: PostNlCarrierConfiguration,
-  [CarrierName.Ups as const]: UpsCarrierConfiguration,
+  [CarrierName.Bpost]: BpostCarrierConfiguration,
+  [CarrierName.Dhl]: DhlCarrierConfiguration,
+  [CarrierName.DhlEuroPlus]: DhlEuroplusCarrierConfiguration,
+  [CarrierName.DhlForYou]: DhlForYouCarrierConfiguration,
+  [CarrierName.DhlParcelConnect]: DhlParcelConnectCarrierConfiguration,
+  [CarrierName.Dpd]: DpdCarrierConfiguration,
+  [CarrierName.PostNl]: PostNlCarrierConfiguration,
+  [CarrierName.Ups]: UpsCarrierConfiguration,
 }) satisfies Readonly<Partial<Record<CarrierName, typeof AbstractCarrierConfiguration>>>;
 
 export const getCarrierConfiguration = useMemoize(

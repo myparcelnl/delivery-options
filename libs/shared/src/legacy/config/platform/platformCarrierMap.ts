@@ -7,16 +7,12 @@ import {type SupportedPlatformName} from '../../../types';
  * @type {Object<MyParcel.Platform, MyParcel.CarrierName[]>}
  */
 export const platformCarrierMap: Record<SupportedPlatformName, CarrierName[]> = {
-  [PlatformName.MyParcel as const]: [
-    CarrierName.PostNl as const,
-    CarrierName.Dhl as const,
-    CarrierName.DhlForYou as const,
-    CarrierName.DhlParcelConnect as const,
-    CarrierName.DhlEuroPlus as const,
+  [PlatformName.MyParcel]: [
+    CarrierName.PostNl,
+    CarrierName.Dhl,
+    CarrierName.DhlForYou,
+    CarrierName.DhlParcelConnect,
+    CarrierName.DhlEuroPlus,
   ],
-  [PlatformName.SendMyParcel as const]: [
-    CarrierName.Bpost as const,
-    CarrierName.Dpd as const,
-    CarrierName.PostNl as const,
-  ],
+  [PlatformName.SendMyParcel]: [CarrierName.Bpost, CarrierName.Dpd, CarrierName.PostNl],
 };

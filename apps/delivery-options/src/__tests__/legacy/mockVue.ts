@@ -1,8 +1,8 @@
 import {createLocalVue} from '@vue/test-utils';
-import {MYPARCEL} from '@myparcel-do/shared';
+import {PlatformName} from '@myparcel/constants';
 import {mockConfigBus} from './mockConfigBus';
 
-export const mockVue = (data = MYPARCEL) => {
+export const mockVue = (data = PlatformName.MyParcel) => {
   const localVue = createLocalVue();
 
   localVue.config.productionTip = false;

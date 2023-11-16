@@ -7,6 +7,6 @@ import {PlatformName} from '@myparcel/constants';
  * @type {Object<MyParcel.Platform, String>}
  */
 export const platformLocaleMap = {
-  [PlatformName.MyParcel as const]: NETHERLANDS,
-  [PlatformName.SendMyParcel as const]: BELGIUM,
+  [PlatformName.MyParcel]: NETHERLANDS,
+  [PlatformName.SendMyParcel]: BELGIUM,
 };

@@ -29,7 +29,7 @@ export class DhlForYouCarrierConfiguration extends AbstractCarrierConfiguration 
 
   public getFeatures(): PlatformCarrierFeatures {
     return {
-      [PlatformName.MyParcel as const]: [
+      [PlatformName.MyParcel]: [
         FEATURES_CUTOFF_TIME,
         FEATURES_DELIVERY,
         FEATURES_DELIVERY_DAYS_WINDOW,
@@ -45,6 +45,6 @@ export class DhlForYouCarrierConfiguration extends AbstractCarrierConfiguration 
   }
 
   public getName(): CarrierName {
-    return CarrierName.DhlForYou as const;
+    return CarrierName.DhlForYou;
   }
 }
