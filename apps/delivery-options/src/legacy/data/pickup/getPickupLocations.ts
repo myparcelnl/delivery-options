@@ -1,4 +1,4 @@
-import {formConfigPickup, PACKAGE_TYPE, PACKAGE_TYPE_PACKAGE, PICKUP, STRINGS} from '@myparcel-do/shared';
+import {FORM_PACKAGE_TYPE, formConfigPickup, PACKAGE_TYPE_PACKAGE, PICKUP, STRINGS} from '@myparcel-do/shared';
 import {getPriceLabelFromFormConfig} from '../prices';
 import {createPickupOptions} from './createPickupOptions';
 
@@ -8,7 +8,7 @@ import {createPickupOptions} from './createPickupOptions';
  * @returns {Object|undefined}
  */
 export function getPickupLocations() {
-  if (!configBus.carrierDataWithPickupLocations.length || configBus.get(PACKAGE_TYPE) !== PACKAGE_TYPE_PACKAGE) {
+  if (!configBus.carrierDataWithPickupLocations.length || configBus.get(FORM_PACKAGE_TYPE) !== PACKAGE_TYPE_PACKAGE) {
     return;
   }
 

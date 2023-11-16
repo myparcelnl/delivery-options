@@ -4,7 +4,7 @@ import {
   DELIVERY_DATE,
   DELIVERY_MOMENT,
   FEATURE_SHOW_DELIVERY_DATE,
-  PACKAGE_TYPE,
+  FORM_PACKAGE_TYPE,
   PICKUP_STANDARD,
 } from '@myparcel-do/shared';
 import {BELGIUM, NETHERLANDS} from '@myparcel/constants/countries';
@@ -82,7 +82,7 @@ export class DeliveryExportValues extends ExportValues {
   update(values) {
     this.setCarrier(values[CARRIER]);
     this.setDeliveryType(values[DELIVERY_MOMENT]);
-    this.switchPackageType(values[PACKAGE_TYPE] || this.packageType);
+    this.switchPackageType(values[FORM_PACKAGE_TYPE] || this.packageType);
     this.setShipmentOptions(values);
     this.setDeliveryDate(values);
   }

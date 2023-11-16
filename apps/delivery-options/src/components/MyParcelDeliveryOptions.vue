@@ -1,68 +1,43 @@
 <template>
-  <div>
-    <Form.Component>
-      <DeliveryType.Component />
-      <DeliveryDate.Component />
-      <DeliveryMoment.Component />
-    </Form.Component>
-  </div>
+  <DeliveryOptionsForm
+    v-if="config"
+    :config="mutableConfig"
+    @update="update" />
 </template>
 
 <script lang="ts" setup>
-import {createField, createForm} from '@myparcel/vue-form-builder';
-import SelectInput from './form/SelectInput.vue';
-import RadioGroupInput from './form/RadioGroupInput.vue';
+import {ref} from 'vue';
+import {useEventListener} from '@vueuse/core';
+import {
+  type DeliveryOptionsConfiguration,
+  type DeliveryOptionsOutput,
+  UPDATE_CONFIG_IN,
+  UPDATE_DELIVERY_OPTIONS,
+  UPDATED_DELIVERY_OPTIONS,
+  useDeliveryOptionsConfig,
+} from '@myparcel-do/shared';
+import {isOfType} from '@myparcel/ts-utils';
+import DeliveryOptionsForm from './DeliveryOptionsForm.vue';
 
-const Form = createForm('DeliveryOptions', {});
+const props = defineProps<{config?: DeliveryOptionsConfiguration}>();
+const emit = defineEmits<(event: 'update', values: DeliveryOptionsOutput) => void>();
 
-const DeliveryType = createField({
-  name: 'DeliveryType',
-  components: RadioGroupInput,
-  props: {
-    options: [
-      {
-        label: 'Home',
-        value: 'home',
-      },
-      {
-        label: 'Pickup',
-        value: 'pickup',
-      },
-    ],
-  },
-});
+const mutableConfig = ref({...props.config});
+const deliveryOptionsConfig = useDeliveryOptionsConfig();
 
-const DeliveryDate = createField({
-  name: 'DeliveryDate',
-  component: SelectInput,
-  props: {
-    options: [
-      {
-        label: 'Today',
-        value: 'today',
-      },
-      {
-        label: 'Tomorrow',
-        value: 'tomorrow',
-      },
-    ],
-  },
-});
+const updateConfig = (event: Event | CustomEvent) => {
+  const newConfig: DeliveryOptionsConfiguration = isOfType<CustomEvent>(event, 'detail')
+    ? event.detail
+    : window.MyParcelConfig;
 
-const DeliveryMoment = createField({
-  name: 'DeliveryMoment',
-  component: RadioGroupInput,
-  props: {
-    options: [
-      {
-        label: 'Morning',
-        value: 'morning',
-      },
-      {
-        label: 'Afternoon',
-        value: 'afternoon',
-      },
-    ],
-  },
-});
+  deliveryOptionsConfig.update(newConfig);
+};
+
+useEventListener(document, UPDATE_DELIVERY_OPTIONS, updateConfig);
+useEventListener(document, UPDATE_CONFIG_IN, updateConfig);
+
+const update = (values: DeliveryOptionsOutput) => {
+  document.dispatchEvent(new CustomEvent(UPDATED_DELIVERY_OPTIONS, {detail: values}));
+  emit('update', values);
+};
 </script>

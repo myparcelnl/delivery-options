@@ -1,6 +1,7 @@
 /* eslint-disable max-lines-per-function,no-console,no-magic-numbers */
 
-import {CONFIG, defaultAddress, MYPARCEL, POSTNL, UPDATE_DELIVERY_OPTIONS} from '@myparcel-do/shared';
+import {CONFIG, defaultAddress, UPDATE_DELIVERY_OPTIONS} from '@myparcel-do/shared';
+import {CarrierName, PlatformName} from '@myparcel/constants';
 
 /**
  * Output some information in the console to help a developer get started quickly.
@@ -31,15 +32,15 @@ export const showDeveloperInfo = () => {
 
   const demoConfig = {
     config: {
-      [CONFIG.PLATFORM]: MYPARCEL,
+      [CONFIG.PLATFORM]: PlatformName.MyParcel as const,
       [CONFIG.CARRIER_SETTINGS]: {
-        [POSTNL]: {
+        [CarrierName.PostNl as const]: {
           [CONFIG.ALLOW_DELIVERY_OPTIONS]: true,
           [CONFIG.ALLOW_PICKUP_LOCATIONS]: true,
         },
       },
     },
-    address: defaultAddress[MYPARCEL],
+    address: defaultAddress[PlatformName.MyParcel as const],
   };
 
   console.log('%cWelcome to the MyParcel delivery options!', styleHeader1.join(';'));

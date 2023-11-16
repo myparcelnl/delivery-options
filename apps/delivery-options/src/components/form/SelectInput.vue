@@ -1,29 +1,27 @@
 <template>
-  <select v-model="model">
+  <select
+    :id="id"
+    v-model="model">
     <option
-      v-for="option in element.options"
+      v-for="option in options"
       :key="option.value"
-      :value="option.value">
+      :disabled="elementProps.disabled || option.disabled"
+      :value="option.value"
+      v-bind="elementProps">
       {{ option.label }}
     </option>
   </select>
 </template>
 
 <script lang="ts" setup>
-import {toRefs} from 'vue';
-import {useVModel} from '@vueuse/core';
-import {type InteractiveElementInstance} from '@myparcel/vue-form-builder';
+import {computed} from 'vue';
+import {type ElementEmits, type ElementProps, useElementContext} from '@myparcel-do/shared';
 
-const props = defineProps<{
-  element: InteractiveElementInstance;
-  modelValue: string;
-}>();
+// eslint-disable-next-line vue/no-unused-properties
+const props = defineProps<ElementProps<string>>();
+const emit = defineEmits<ElementEmits<string>>();
 
-const propRefs = toRefs(props);
+const {id, model, elementProps} = useElementContext(props, emit);
 
-const emit = defineEmits<{
-  'update:modelValue': (value: string) => void;
-}>();
-
-const model = useVModel(propRefs.modelValue, undefined, emit);
+const options = computed(() => props.element.props.options);
 </script>

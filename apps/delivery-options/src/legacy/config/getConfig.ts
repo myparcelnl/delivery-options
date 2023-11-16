@@ -1,4 +1,3 @@
-import {DEFAULT_PLATFORM} from '@myparcel-do/shared';
 import {getWindowObject} from './getWindowObject';
 import {ConfigurationMerger} from './configurationMerger';
 

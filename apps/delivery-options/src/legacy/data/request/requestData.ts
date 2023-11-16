@@ -1,4 +1,5 @@
-import {CONFIG, MYPARCEL, SENDMYPARCEL} from '@myparcel-do/shared';
+import {CONFIG} from '@myparcel-do/shared';
+import {PlatformName} from '@myparcel/constants';
 
 const getParametersForNL = (configBus) => ({
   monday_delivery: Number(configBus.get(CONFIG.ALLOW_MONDAY_DELIVERY, null, configBus.currentCarrier)),
@@ -17,8 +18,8 @@ const getParametersForBE = (configBus) => ({
 });
 
 const parametersByPlatform = {
-  [MYPARCEL]: getParametersForNL,
-  [SENDMYPARCEL]: getParametersForBE,
+  [PlatformName.MyParcel as const]: getParametersForNL,
+  [PlatformName.SendMyParcel as const]: getParametersForBE,
 };
 
 /** .................................................

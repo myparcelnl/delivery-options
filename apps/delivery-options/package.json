@@ -28,8 +28,11 @@
   ],
   "scripts": {
     "build": "run build:default && run build:lib",
+    "build:dev": "run build:default:dev && run build:lib:dev",
     "build:default": "vite build",
+    "build:default:dev": "run build:default -- --mode development",
     "build:lib": "vite build -c vite-lib.config.ts",
+    "build:lib:dev": "run build:lib -- --mode development",
     "clean": "run ws:clean \"$(pwd)\"",
     "lint": "run ws:lint \"$(pwd)\"",
     "lint:fix": "run ws:lint:fix \"$(pwd)\"",

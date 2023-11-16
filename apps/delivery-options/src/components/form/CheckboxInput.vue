@@ -1,18 +1,25 @@
 <template>
   <input
+    :id="id"
     v-model="model"
+    :disabled="element.isDisabled || element.isSuspended || element.isReadOnly"
+    :readonly="element.isReadOnly"
     :value="element.props.value"
     type="checkbox" />
 </template>
 
-<script lang="ts" setup>
-import {toRefs} from 'vue';
-import {useVModel} from '@vueuse/core';
-import {type ElementEmits, type ElementProps} from '@myparcel-do/shared';
+<script generic="T extends CheckboxGroupModelValue" lang="ts" setup>
+import {
+  type CheckboxGroupEmits,
+  type CheckboxGroupModelValue,
+  type CheckboxGroupProps,
+  type ElProps,
+  useElementContext,
+} from '@myparcel-do/shared';
 
-const props = defineProps<ElementProps<boolean>>();
-const emit = defineEmits<ElementEmits<boolean>>();
+// eslint-disable-next-line vue/no-unused-properties
+const props = defineProps<ElProps<CheckboxGroupProps<T>>>();
+const emit = defineEmits<CheckboxGroupEmits<T>>();
 
-const propRefs = toRefs(props);
-const model = useVModel(propRefs.modelValue, undefined, emit);
+const {id, model} = useElementContext(props, emit);
 </script>
