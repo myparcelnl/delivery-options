@@ -2,14 +2,12 @@
   "extends": "@vue/tsconfig/tsconfig.dom.json",
   "compilerOptions": {
     "declaration": true,
-    "lib": ["ESNext", "DOM", "DOM.Iterable"],
     "noEmitOnError": false,
     "skipLibCheck": true,
     "types": ["node", "vite/client"]
   },
   "include": [],
   "exclude": [
-    "../**/*",
     "**/node_modules/**/*",
     "**/dist",
     "**/cypress/**/*",
