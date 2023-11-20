@@ -2,28 +2,28 @@
   <label :for="id">
     <span
       :class="{
-        'opacity-50': disabled,
+        'mp-opacity-50': disabled,
       }"
-      class="cursor-pointer inline-flex relative">
+      class="mp-cursor-pointer mp-inline-flex mp-relative">
       <input
         v-model="model"
-        class="sr-only"
+        class="mp-sr-only"
         type="checkbox"
         v-bind="$props" />
 
       <span
         :class="{
-          'bg-green-400 dark:bg-green-600': model,
-          'bg-gray-600': !model,
+          'mp-bg-green-400 dark:mp-bg-green-600': model,
+          'mp-bg-gray-600': !model,
         }"
-        class="h-6 rounded-full transition-colors w-10" />
+        class="mp-h-6 mp-rounded-full mp-transition-colors mp-w-10" />
 
       <span
         :class="{
-          'translate-x-4': model,
-          'translate-x-0': !model,
+          'mp-translate-x-4': model,
+          'mp-translate-x-0': !model,
         }"
-        class="absolute bg-white h-4 left-1 rounded-full top-1 transition w-4" />
+        class="mp-absolute mp-bg-white mp-h-4 mp-left-1 mp-rounded-full mp-top-1 mp-transition mp-w-4" />
     </span>
   </label>
 </template>

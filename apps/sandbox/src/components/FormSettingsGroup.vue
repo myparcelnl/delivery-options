@@ -1,26 +1,28 @@
 <template>
-  <div class="border col-span-2 gap-4 grid p-4 rounded-lg">
-    <div class="flex">
+  <div class="mp-border mp-col-span-2 mp-gap-4 mp-grid mp-p-4 mp-rounded-lg">
+    <div class="mp-flex">
       <component :is="`h${level}`">
-        {{ translate(field.label) }}
+        {{ translate(field.key) }}
       </component>
 
-      <label class="align-middle flex ml-auto my-auto">
+      <label
+        v-if="hasCarrierToggle"
+        class="mp-align-middle mp-flex mp-ml-auto mp-my-auto">
         <span>per carrier</span>
 
         <ToggleInput
-          :id="`per_carrier_${field.label}`"
-          v-model="perCarrier"
+          :id="`per_carrier_${field.key}`"
+          v-model="carrierToggle"
           title="Per carrier" />
       </label>
     </div>
 
     <p
       v-if="field.description"
-      class="mb-4 text-gray-600 text-sm"
+      class="mp-mb-4 mp-text-gray-600 mp-text-sm"
       v-text="translate(field.description)" />
 
-    <div class="grid grid-cols-2">
+    <div class="mp-gap-2 mp-grid mp-grid-cols-[1fr,1fr]">
       <slot />
 
       <component
@@ -35,11 +37,12 @@
 import {computed, markRaw, ref} from 'vue';
 import {get} from '@vueuse/core';
 import {useLanguage} from '@myparcel-do/shared';
-import {createField, useForm} from '@myparcel/vue-form-builder';
-import {CarrierName} from '@myparcel/constants';
-import {getCarrierSettingsKey} from '../utils/getCarrierSettingsKey';
-import {type SettingsGroup} from '../types';
+import {useForm} from '@myparcel/vue-form-builder';
+import {isOfType} from '@myparcel/ts-utils';
+import {type SettingsField, type SettingsGroup} from '../types';
 import {useSandboxStore} from '../stores';
+import {generateConfigItemField} from '../form/generateConfigItemField';
+import {usePlatformConfig} from '../composables/usePlatformConfig';
 import ToggleInput from './base/ToggleInput.vue';
 
 const props = defineProps<{
@@ -48,19 +51,21 @@ const props = defineProps<{
 }>();
 
 const form = useForm();
-
 const store = useSandboxStore();
+const platformConfig = usePlatformConfig();
 
-const perCarrier = computed({
+const hasCarrierToggle = computed(() => props.field.hasCarrierToggle === undefined);
+
+const carrierToggle = computed({
   get() {
-    return store.perCarrier.includes(props.field.label);
+    return props.field.hasCarrierToggle || store.carrierToggle.includes(props.field.key);
   },
 
   set(value) {
     store.$patch({
-      perCarrier: value
-        ? [...store.perCarrier, props.field.label]
-        : store.perCarrier.filter((label) => label !== props.field.label),
+      carrierToggle: value
+        ? [...store.carrierToggle, props.field.key]
+        : store.carrierToggle.filter((label) => label !== props.field.key),
     });
   },
 });
@@ -70,9 +75,9 @@ const additionalFields = ref([]);
 const {translate} = useLanguage();
 
 const resolvedFields = computed(() => {
-  const fields = props.field.fields ?? [];
+  const fields = props.field.fields.filter((field) => isOfType<SettingsField>(field, 'field')) ?? [];
 
-  if (!perCarrier.value) {
+  if (!carrierToggle.value) {
     additionalFields.value.forEach((field) => {
       const {name} = field.field;
 
@@ -84,19 +89,8 @@ const resolvedFields = computed(() => {
 
   if (!additionalFields.value.length) {
     fields.forEach((item) => {
-      Object.values(CarrierName).forEach((carrier) => {
-        const newField = markRaw(
-          createField({
-            ...item.field,
-            ref: ref(get(item.field.ref)),
-            name: getCarrierSettingsKey(item.field.name, carrier),
-            props: {
-              ...item.field.props,
-              carrier,
-              parentField: item.field.name,
-            },
-          }),
-        );
+      platformConfig.carriers.forEach((carrier) => {
+        const newField = markRaw(generateConfigItemField(item, carrier));
 
         additionalFields.value.push(newField);
       });

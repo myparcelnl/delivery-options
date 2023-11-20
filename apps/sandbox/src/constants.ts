@@ -1,4 +1,4 @@
-export const gridClasses = ['grid', 'gap-4'];
+export const gridClasses = ['mp-grid', 'mp-gap-4'];
 
 export enum StyleVariant {
   Primary = 'primary',

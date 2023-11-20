@@ -1,3 +1,3 @@
 export const useBaseInputClasses = (): string[] => {
-  return ['bg-white', 'border', 'dark:bg-gray-800', 'p-2', 'rounded-md', 'w-full'];
+  return ['mp-bg-white', 'mp-border', 'dark:mp-bg-gray-800', 'mp-p-2', 'mp-rounded-md', 'mp-w-full'];
 };

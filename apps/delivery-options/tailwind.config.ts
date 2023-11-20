@@ -3,7 +3,7 @@ import {type Config} from 'tailwindcss';
 
 const config: Config = {
   content: [`${__dirname}/src/**/*.{js,ts,vue,scss}`],
-  prefix: 'mypa-',
+  prefix: 'mp-',
 };
 
 export default config;

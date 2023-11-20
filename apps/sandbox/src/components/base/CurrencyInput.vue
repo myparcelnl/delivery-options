@@ -1,13 +1,14 @@
 <template>
-  <div class="grid grid-flow-col">
+  <div class="mp-grid mp-grid-flow-col">
     <span
-      :class="[...useBaseInputClasses(), '!rounded-r-none']"
-      class="align-middle bg-gray-100 dark:bg-gray-600 flex px-4">
+      :class="[...useBaseInputClasses(), 'rounded-r-none']"
+      class="dark:mp-bg-gray-600 mp-align-middle mp-bg-gray-100 mp-flex mp-px-4">
       <span>€</span>
     </span>
 
     <NumberInput
       v-model.number="model"
+      class="mp-border-l-0 mp-rounded-l-none"
       v-bind="{
         step: 0.05,
         min: undefined,

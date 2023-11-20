@@ -1,12 +1,15 @@
 <template>
-  <div class="gap-4 grid grid-cols-2">
+  <div
+    :class="{
+      'mp-gap-4 mp-grid mp-grid-cols-[1fr,1fr]': !nested,
+    }">
     <component
       :is="`h${level}`"
-      class="col-span-2">
+      class="mp-col-span-2">
       {{ translate(section.label) }}
     </component>
 
-    <FieldOrGroup
+    <RecursiveFields
       v-for="field in section.fields"
       :key="field.name"
       :field="field"
@@ -17,9 +20,24 @@
 <script lang="ts" setup>
 import {useLanguage} from '@myparcel-do/shared';
 import {type SettingsSection} from '../types';
-import FieldOrGroup from './FieldOrGroup.vue';
+import RecursiveFields from './RecursiveFields.vue';
 
-withDefaults(defineProps<{section: SettingsSection; level?: number | string}>(), {level: 1});
+withDefaults(
+  defineProps<{
+    section: SettingsSection;
+
+    /**
+     * Current level.
+     */
+    level?: number | string;
+
+    /**
+     * Whether this is a nested section.
+     */
+    nested?: boolean;
+  }>(),
+  {level: 1},
+);
 
 const {translate} = useLanguage();
 </script>

@@ -14,7 +14,7 @@ export const Box: FunctionalComponent<Props> = (props, ctx) => {
 
     switch (Number(props.columns)) {
       case 2:
-        additionalClasses.push('grid-cols-[1fr,1fr]');
+        additionalClasses.push('mp-grid-cols-[1fr,1fr]');
         break;
     }
   }
@@ -22,7 +22,16 @@ export const Box: FunctionalComponent<Props> = (props, ctx) => {
   return h(
     'div',
     {
-      class: ['mt-4', 'mb-3', 'px-4', 'py-4', 'border', 'rounded-lg', 'shadow-sm', ...additionalClasses],
+      class: [
+        'mp-mt-4',
+        'mp-mb-3',
+        'mp-px-4',
+        'mp-py-4',
+        'mp-border',
+        'mp-rounded-lg',
+        'mp-shadow-sm',
+        ...additionalClasses,
+      ],
     },
     ctx.slots,
   );

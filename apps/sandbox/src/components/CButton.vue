@@ -1,10 +1,10 @@
 <template>
   <button
     :class="classes"
-    class="dark:text-white inline-flex rounded-full"
+    class="dark:mp-text-white mp-inline-flex mp-rounded-full"
     type="button"
     @click="$emit('click')">
-    <span class="m-auto">
+    <span class="mp-m-auto">
       <slot />
     </span>
   </button>
@@ -24,36 +24,36 @@ const classes = computed(() => {
 
   switch (props.size) {
     case StyleSize.Small:
-      array.push('px-2', 'py-1', 'text-sm');
+      array.push('mp-px-2', 'mp-py-1', 'mp-text-sm');
       break;
 
     case StyleSize.Large:
-      array.push('px-6', 'py-3', 'text-lg');
+      array.push('mp-px-6', 'mp-py-3', 'mp-text-lg');
       break;
 
     default:
-      array.push('px-4', 'py-2', 'text-base');
+      array.push('mp-px-4', 'mp-py-2', 'mp-text-base');
       break;
   }
 
   switch (props.variant) {
     case StyleVariant.Secondary:
       array.push(
-        'bg-goldfish-200',
-        'hover:bg-goldfish-300',
-        'text-goldfish-700',
-        'dark:bg-goldfish-700',
-        'dark:hover:bg-goldfish-600',
+        'mp-bg-goldfish-200',
+        'hover:mp-bg-goldfish-300',
+        'mp-text-goldfish-700',
+        'dark:mp-bg-goldfish-700',
+        'dark:hover:mp-bg-goldfish-600',
       );
       break;
 
     default:
       array.push(
-        'bg-monstera-200',
-        'hover:bg-monstera-300',
-        'text-monstera-700',
-        'dark:bg-monstera-700',
-        'dark:hover:bg-monstera-600',
+        'mp-bg-monstera-200',
+        'hover:mp-bg-monstera-300',
+        'mp-text-monstera-700',
+        'dark:mp-bg-monstera-700',
+        'dark:hover:mp-bg-monstera-600',
       );
       break;
   }

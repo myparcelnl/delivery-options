@@ -13,7 +13,7 @@
         <h2>Delivery Options</h2>
         <DeliveryOptionsBlock />
 
-        <div class="bg-opacity-30 bg-red-950 border-t-red-950 p-4 rounded-xl">
+        <div class="mp-bg-opacity-30 mp-bg-red-950 mp-border-t-red-950 mp-p-4 mp-rounded-xl">
           <h2>Sandbox form</h2>
 
           <div>

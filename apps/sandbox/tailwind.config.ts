@@ -4,6 +4,7 @@ import {type Config} from 'tailwindcss';
 const config: Config = {
   content: ['index.html', 'src/**/*.{js,ts,vue,scss}'],
   darkMode: 'class',
+  prefix: 'mp-',
   theme: {
     fontFamily: {
       sans: ['Proxima Nova', 'sans-serif'],

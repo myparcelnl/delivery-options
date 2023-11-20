@@ -1,25 +1,25 @@
 <template>
-  <header class="bg-monstera-500 text-white">
+  <header class="mp-bg-monstera-500 mp-text-white">
     <Container
-      class="align-middle py-2"
+      class="mp-align-middle mp-py-2"
       flow-col
       fluid>
-      <div class="flex gap-4 my-auto">
+      <div class="mp-flex mp-gap-4 mp-my-auto">
         <img
           alt="Logo"
-          class="my-auto"
+          class="mp-my-auto"
           src="https://assets.myparcel.nl/skin/images/logo-inverse.svg" />
 
         <span
-          class="my-auto"
+          class="mp-my-auto"
           v-text="translate('title.main')" />
       </div>
 
       <Container
-        class="align-middle"
+        class="mp-align-middle"
         flow-col
         fluid>
-        <ul class="align-middle flex gap-4">
+        <ul class="mp-align-middle mp-flex mp-gap-4">
           <li
             v-for="link in links"
             :key="`link_${link.text}`">

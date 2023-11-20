@@ -10,14 +10,14 @@ interface ContainerProps {
 export const Container: FunctionalComponent<ContainerProps> = (props, ctx) => {
   const classes = [
     ...gridClasses,
-    props.fluid ? 'max-w-full' : 'max-w-screen-2xl',
-    props.flowCol ? 'grid-flow-col' : 'grid-flow-row',
+    props.fluid ? 'mp-max-w-full' : 'mp-max-w-screen-2xl',
+    props.flowCol ? 'mp-grid-flow-col' : 'mp-grid-flow-row',
   ];
 
   return h(
     'div',
     {
-      class: ['mx-auto', 'w-[98%]', ...classes],
+      class: ['mp-mx-auto', 'mp-w-[98%]', ...classes],
     },
     ctx.slots,
   );

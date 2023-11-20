@@ -1,7 +1,8 @@
 <template>
   <label
+    v-show="element.isVisible"
     :for="id"
-    class="align-middle gap-2 grid-flow-col inline-grid justify-start py-2">
+    class="mp-gap-2 mp-grid-flow-col mp-inline-grid mp-items-center mp-justify-start mp-overflow-x-scroll mp-whitespace-nowrap">
     <CarrierLogo
       v-if="element.props.carrier"
       :carrier="element.props.carrier" />
@@ -9,7 +10,9 @@
     <span v-text="element.label" />
   </label>
 
-  <div class="flex">
+  <div
+    v-show="element.isVisible"
+    class="mp-flex mp-items-center mp-justify-start">
     <slot v-bind="$attrs" />
   </div>
 </template>

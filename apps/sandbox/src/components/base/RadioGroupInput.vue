@@ -3,7 +3,7 @@
     <li
       v-for="option in options"
       :key="option.value">
-      <label class="gap-4 grid grid-flow-col">
+      <label class="mp-gap-4 mp-grid mp-grid-flow-col">
         <input
           v-model="model"
           :disabled="disabled"

@@ -6,7 +6,7 @@ export const useElInputClasses = (element?: ElementInstance): string[] => {
   const resolvedElement = element ?? useElement();
 
   return [
-    get(resolvedElement.isValid) ? 'border-gray-300' : 'border-red-500',
-    get(resolvedElement.isDisabled) ? 'opacity-50 cursor-not-allowed' : undefined,
+    get(resolvedElement.isValid) ? 'mp-border-gray-300' : 'mp-border-red-500',
+    get(resolvedElement.isDisabled) ? 'mp-opacity-50 mp-cursor-not-allowed' : undefined,
   ].filter(isDefined) as string[];
 };

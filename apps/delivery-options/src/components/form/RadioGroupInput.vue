@@ -3,7 +3,7 @@
     <label
       v-for="option in options"
       :key="`${id}-${option.value}`"
-      class="mypa-flex">
+      class="mp-flex mp-flex-col">
       <input
         :id="`${id}-${option.value}`"
         v-model="model"
@@ -26,7 +26,7 @@
       <CarrierLogo
         v-if="elementProps.carrier"
         :carrier="elementProps.carrier"
-        class="mypa-ml-auto" />
+        class="mp-ml-auto" />
     </label>
   </div>
 </template>
