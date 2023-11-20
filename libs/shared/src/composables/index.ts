@@ -1,5 +1,6 @@
 export * from './generateFieldId';
 export * from './getCarrierConfiguration';
+export * from './useActiveCarriers';
 export * from './useDeliveryOptionsConfig';
 export * from './useElementContext';
 export * from './useLanguage';

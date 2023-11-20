@@ -1,4 +1,4 @@
-import {CONFIG, FORM, KEY_ADDRESS, KEY_STRINGS, STRINGS} from '@myparcel-do/shared';
+import {AddressField, CONFIG, FORM, KEY_ADDRESS, KEY_STRINGS, STRINGS} from '@myparcel-do/shared';
 
 export const englishTranslations = {
   'code.description':
@@ -63,11 +63,6 @@ export const englishTranslations = {
   [`field.${CONFIG.DROP_OFF_DELAY}.description`]:
     'The number of days it takes you to pick, pack and hand in your parcel at the post office (if ordered before the cutoff time). By default this is <code>0</code> and the maximum is <code>14</code>.',
   [`field.${CONFIG.DROP_OFF_DELAY}`]: 'Drop-off delay',
-  [`field.${CONFIG.FEATURE_ALLOW_RETRY}.description`]:
-    'When the address is invalid, show a "retry" prompt where users can update their address.',
-  [`field.${CONFIG.FEATURE_ALLOW_RETRY}`]: 'Enable retry button',
-  [`field.${CONFIG.FEATURE_MAX_PAGE_ITEMS}.description`]: `Amount of items shown in the pickup locations list view. There will be a "@:field.${STRINGS.LOAD_MORE}" button, this does not impact the actual amount loaded.`,
-  [`field.${CONFIG.FEATURE_MAX_PAGE_ITEMS}`]: 'Pickup items per page',
   [`field.${CONFIG.FEATURE_PICKUP_LOCATIONS_DEFAULT_VIEW}`]: 'Default pickup view',
   [`field.${CONFIG.FEATURE_PICKUP_SHOW_DISTANCE}`]: 'Show distances',
   [`field.${CONFIG.FEATURE_SHOW_DELIVERY_DATE}`]: 'Show delivery date',
@@ -131,8 +126,6 @@ export const englishTranslations = {
   [`field.${STRINGS.PICK_UP}`]: 'Pick up',
   [`field.${STRINGS.PICK_UP_FROM}`]: 'Pick up from',
   [`field.${STRINGS.POSTAL_CODE}`]: 'Postal code',
-  [`field.${STRINGS.RETRY}.description`]: `String to use with "@:field.${CONFIG.FEATURE_ALLOW_RETRY}"`,
-  [`field.${STRINGS.RETRY}`]: 'Retry',
   [`field.${STRINGS.SIGNATURE_TITLE}.description`]: `String to use with "@:field.${CONFIG.ALLOW_SIGNATURE}"`,
   [`field.${STRINGS.SIGNATURE_TITLE}`]: 'Signature title',
   [`field.${STRINGS.WRONG_NUMBER_POSTAL_CODE}`]: 'Wrong number & postal code',

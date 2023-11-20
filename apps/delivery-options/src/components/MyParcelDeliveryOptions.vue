@@ -1,13 +1,13 @@
 <template>
   <DeliveryOptionsForm
-    v-if="config"
-    :config="config"
+    v-if="store.configuration"
+    :config="store.configuration"
     @update="update" />
 </template>
 
 <script lang="ts" setup>
-import {computed, watch} from 'vue';
-import {get, type MaybeRef, toRefs, useEventListener} from '@vueuse/core';
+import {toRef, watchEffect} from 'vue';
+import {get, type MaybeRef, useEventListener} from '@vueuse/core';
 import {
   type DeliveryOptionsConfiguration,
   type DeliveryOptionsOutput,
@@ -19,39 +19,26 @@ import {
 import {isOfType} from '@myparcel/ts-utils';
 import DeliveryOptionsForm from './DeliveryOptionsForm.vue';
 
-const props = defineProps<{config?: MaybeRef<DeliveryOptionsConfiguration>}>();
+const props = defineProps<{
+  config?: MaybeRef<DeliveryOptionsConfiguration>;
+}>();
 const emit = defineEmits<(event: 'update', values: DeliveryOptionsOutput) => void>();
 
-const propRefs = toRefs(props);
+const configRef = toRef(props, 'config');
 
 const store = useDeliveryOptionsStore();
 
-const resolvedConfig = computed(() => {
-  if (propRefs.config) {
-    return propRefs.config.value;
+watchEffect(() => {
+  const value = get(get(configRef.value));
+
+  if (!value) {
+    return;
   }
 
-  return window.MyParcelConfig;
+  store.updateConfiguration(value);
 });
 
-console.log('sneet', store.configuration);
-
-watch(
-  propRefs.config,
-  (configuration) => {
-    const value = get(get(configuration));
-
-    if (!value) {
-      return;
-    }
-
-    console.log('config', value);
-    store.updateConfiguration(value);
-  },
-  {deep: true},
-);
-
-const updateConfig = (event: Event | CustomEvent) => {
+const updateConfigFromEvent = (event: Event | CustomEvent) => {
   const newConfig: DeliveryOptionsConfiguration = isOfType<CustomEvent>(event, 'detail')
     ? event.detail
     : window.MyParcelConfig;
@@ -59,8 +46,8 @@ const updateConfig = (event: Event | CustomEvent) => {
   store.updateConfiguration(newConfig);
 };
 
-useEventListener(document, UPDATE_DELIVERY_OPTIONS, updateConfig);
-useEventListener(document, UPDATE_CONFIG_IN, updateConfig);
+useEventListener(document, UPDATE_DELIVERY_OPTIONS, updateConfigFromEvent);
+useEventListener(document, UPDATE_CONFIG_IN, updateConfigFromEvent);
 
 const update = (values: DeliveryOptionsOutput) => {
   document.dispatchEvent(new CustomEvent(UPDATED_DELIVERY_OPTIONS, {detail: values}));

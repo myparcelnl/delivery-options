@@ -1,5 +1,5 @@
 <template>
-  <div v-if="values.data">
+  <div v-if="DeliveryDate">
     <DeliveryDate.Label />
 
     <DeliveryDate.Component />
@@ -7,36 +7,35 @@
 </template>
 
 <script lang="ts" setup>
-import {computed, markRaw} from 'vue';
-import {get} from '@vueuse/core';
-import {type SelectOption} from '@myparcel-do/shared';
-import {createField} from '@myparcel/vue-form-builder';
-import {useResolvedDeliveryOptions} from '../composables/useResolvedDeliveryOptions';
-import SelectInput from './form/SelectInput.vue';
-
-const values = useResolvedDeliveryOptions();
-
-const options = computed<SelectOption[]>(() => {
-  const data = get(values.data) ?? [];
-
-  console.log(data);
-
-  return data.map((option) => {
-    return {
-      label: option.date,
-      value: option.date,
-    };
-  });
-});
+import {ref, toRaw, watchEffect} from 'vue';
+import {ComponentName} from '@myparcel-do/shared';
+import {createField, type ModularCreatedField} from '@myparcel/vue-form-builder';
+import {getComponent} from '../utils/getComponent';
+import {useResolvedDeliveryDates} from '../composables/useResolvedDeliveryDates';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-const DeliveryDate = createField({
-  name: 'deliveryDate',
-  label: 'deliveryDate',
-  wrapper: false,
-  component: markRaw(SelectInput),
-  props: {
-    options,
-  },
+const DeliveryDate = ref<ModularCreatedField | null>(null);
+
+const deliveryDates = useResolvedDeliveryDates();
+
+watchEffect(() => {
+  if (!deliveryDates.value) {
+    return;
+  }
+
+  DeliveryDate.value = toRaw(
+    createField({
+      name: 'deliveryDate',
+      label: 'deliveryDate',
+      wrapper: false,
+      component: getComponent(ComponentName.Select),
+      props: {
+        options: deliveryDates.value.map((option) => ({
+          label: option.date,
+          value: option.date,
+        })),
+      },
+    }),
+  );
 });
 </script>

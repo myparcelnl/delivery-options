@@ -9,3 +9,66 @@ export enum SubscriptionType {
 export const DEFAULT_PLATFORM = PlatformName.MyParcel;
 
 export const FORM_NAME_DELIVERY_OPTIONS = 'deliveryOptions';
+
+export enum CarrierSetting {
+  AllowDeliveryOptions = 'allowDeliveryOptions',
+  AllowEveningDelivery = 'allowEveningDelivery',
+  AllowMondayDelivery = 'allowMondayDelivery',
+  AllowMorningDelivery = 'allowMorningDelivery',
+  AllowOnlyRecipient = 'allowOnlyRecipient',
+  AllowPackageTypeDigitalStamp = 'allowPackageTypeDigitalStamp',
+  AllowPackageTypeMailbox = 'allowPackageTypeMailbox',
+  AllowPickupLocations = 'allowPickupLocations',
+  AllowSameDayDelivery = 'allowSameDayDelivery',
+  AllowSaturdayDelivery = 'allowSaturdayDelivery',
+  /** @deprecated use ShowDeliveryDate instead */
+  AllowShowDeliveryDate = 'allowShowDeliveryDate',
+  AllowSignature = 'allowSignature',
+  CutoffTime = 'cutoffTime',
+  CutoffTimeSameDay = 'cutoffTimeSameDay',
+  DeliveryDaysWindow = 'deliveryDaysWindow',
+  DropOffDays = 'dropOffDays',
+  DropOffDelay = 'dropOffDelay',
+  FridayCutoffTime = 'fridayCutoffTime',
+  PackageType = 'packageType',
+  PriceEveningDelivery = 'priceEveningDelivery',
+  PriceMondayDelivery = 'priceMondayDelivery',
+  PriceMorningDelivery = 'priceMorningDelivery',
+  PriceOnlyRecipient = 'priceOnlyRecipient',
+  PricePackageTypeDigitalStamp = 'pricePackageTypeDigitalStamp',
+  PricePackageTypeMailbox = 'pricePackageTypeMailbox',
+  PricePickup = 'pricePickup',
+  PriceSameDayDelivery = 'priceSameDayDelivery',
+  PriceSaturdayDelivery = 'priceSaturdayDelivery',
+  PriceSignature = 'priceSignature',
+  PriceStandardDelivery = 'priceStandardDelivery',
+  SaturdayCutoffTime = 'saturdayCutoffTime',
+  ShowDeliveryDate = 'showDeliveryDate',
+}
+
+export enum ConfigSetting {
+  ApiBaseUrl = 'apiBaseUrl',
+  CarrierSettings = 'carrierSettings',
+  Currency = 'currency',
+  Locale = 'locale',
+  PickupLocationsDefaultView = 'pickupLocationsDefaultView',
+  PickupLocationsMapTileLayerData = 'pickupLocationsMapTileLayerData',
+  PickupShowDistance = 'pickupShowDistance',
+  Platform = 'platform',
+  ShowDeliveryDate = 'showDeliveryDate',
+  ShowPriceSurcharge = 'showPriceSurcharge',
+  ShowPrices = 'showPrices',
+}
+
+export enum PickupLocationsView {
+  Map = 'map',
+  List = 'list',
+}
+
+export enum ComponentName {
+  Select = 'Select',
+  Text = 'Text',
+  Button = 'Button',
+  CheckboxGroup = 'CheckboxGroup',
+  Radio = 'Radio',
+}

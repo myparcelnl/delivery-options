@@ -1,31 +1,72 @@
-import {get} from '@vueuse/core';
-import {AddressField, useDeliveryOptions, useDeliveryOptionsConfig, useOutput} from '@myparcel-do/shared';
+import {asyncComputed, get} from '@vueuse/core';
+import {
+  AddressField,
+  type DeliveryOptionsCarrier,
+  useActiveCarriers,
+  useDeliveryOptions,
+  useDeliveryOptionsStore,
+} from '@myparcel-do/shared';
+import {type DeliveryOption} from '@myparcel/sdk';
+import {type DeliveryTypeName, type PackageTypeName} from '@myparcel/constants';
+
+export interface ResolvedDeliveryOptions {
+  carrier: DeliveryOptionsCarrier;
+  date: string;
+  deliveryType: DeliveryTypeName;
+  packageType: PackageTypeName;
+  shipmentOptions: DeliveryOption['possibilities'][number]['shipment_options'];
+  time: string;
+}
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const useResolvedDeliveryOptions = () => {
-  const config = useDeliveryOptionsConfig();
-  const output = useOutput();
+  const carriers = useActiveCarriers();
+  const store = useDeliveryOptionsStore();
 
-  const values = get(output.values);
+  const {configuration} = store;
 
-  const {address} = config.data;
+  return asyncComputed(async () => {
+    const allCarrierPossibilities: ResolvedDeliveryOptions[] = [];
 
-  const configuration = config?.data?.config ?? {};
+    await Promise.all(
+      get(carriers.data).map(async (carrier) => {
+        const query = useDeliveryOptions({
+          platform: configuration.config.platform,
+          carrier: carrier.name,
+          package_type: configuration.config.packageType,
 
-  // todo
-  return {};
+          dropoff_days: configuration.config.dropOffDays?.join(','),
+          dropoff_delay: Number(configuration.config.dropOffDelay),
 
-  return useDeliveryOptions({
-    platform: configuration.platform,
-    carrier: values.carrier,
-    package_type: configuration.packageType,
+          cc: configuration.address?.[AddressField.Cc] ?? '',
+          city: configuration.address?.[AddressField.City] ?? '',
+          postal_code: configuration.address?.[AddressField.PostalCode] ?? '',
+          street: configuration.address?.[AddressField.Street] ?? '',
+        });
 
-    dropoff_days: configuration.dropOffDays,
-    dropoff_delay: Number(configuration.dropOffDelay),
+        await query.suspense();
 
-    cc: address?.[AddressField.Cc] ?? '',
-    city: address?.[AddressField.City] ?? '',
-    postal_code: address?.[AddressField.PostalCode] ?? '',
-    street: address?.[AddressField.Street] ?? '',
+        const carrierDates = get(query.data);
+
+        carrierDates?.forEach((dateOption) => {
+          dateOption.possibilities.forEach((datePossibility) => {
+            const [start, end] = datePossibility.delivery_time_frames;
+
+            allCarrierPossibilities.push({
+              carrier,
+              date: dateOption.date.date,
+              time: `${start.date_time.date} – ${end.date_time.date}`,
+              deliveryType: datePossibility.type,
+              packageType: datePossibility.package_type,
+              shipmentOptions: datePossibility.shipment_options,
+            });
+          });
+        });
+      }),
+    );
+
+    console.log({allCarrierPossibilities});
+
+    return allCarrierPossibilities;
   });
 };

@@ -6,8 +6,7 @@
       v-for="option in options"
       :key="option.value"
       :disabled="elementProps.disabled || option.disabled"
-      :value="option.value"
-      v-bind="elementProps">
+      :value="option.value">
       {{ option.label }}
     </option>
   </select>

@@ -1,6 +1,7 @@
-import {type SupportedPlatformName} from '@myparcel-do/shared';
+import {type Component} from 'vue';
+import {type ComponentName, type PickupLocationsView, type SupportedPlatformName} from '@myparcel-do/shared';
+import {type RecursiveRequired} from '@myparcel/ts-utils';
 import {type CarrierName, type DeliveryTypeName, type PackageTypeName, type PlatformName} from '@myparcel/constants';
-import {type CARRIERS_MYPARCELNL, type CARRIERS_SENDMYPARCEL} from '../data';
 import {type DeliveryOptionsAddress} from './address.types';
 
 interface MapTileLayerData {
@@ -25,75 +26,102 @@ export type CarriersByPlatform<Platform extends PlatformName> = Platform extends
 
 export type CarrierIdentifier<Platform extends PlatformName = PlatformName> = CarriersByPlatform<Platform>[number];
 
+export type TimestampString = `${number}:${number}`;
+
+export type Price = number | null;
+
 interface BaseCarrierSettings {
+  allowDeliveryOptions?: boolean | FilterableOption;
   allowEveningDelivery?: boolean | FilterableOption;
   allowMorningDelivery?: boolean | FilterableOption;
   allowOnlyRecipient?: boolean;
+  allowPackageTypeDigitalStamp?: boolean;
+  allowPackageTypeMailbox?: boolean;
+  allowPickupLocations?: boolean | FilterableOption;
+  /** @deprecated use ShowDeliveryDate instead */
   allowShowDeliveryDate?: boolean;
   allowSignature?: boolean;
-  priceEveningDelivery?: number;
-  priceMorningDelivery?: number;
-  priceOnlyRecipient?: number;
-  pricePickup?: number;
-  priceSameDayDelivery?: number;
-  priceSignature?: number;
-  priceStandardDelivery?: number;
+  cutoffTime?: TimestampString;
+  cutoffTimeSameDay?: TimestampString;
+  deliveryDaysWindow?: number;
+  dropOffDays?: number[];
+  dropOffDelay?: number;
+  packageType?: PackageTypeName;
+  priceEveningDelivery?: Price;
+  priceMondayDelivery?: Price;
+  priceMorningDelivery?: Price;
+  priceOnlyRecipient?: Price;
+  pricePackageTypeDigitalStamp?: Price;
+  pricePackageTypeMailbox?: Price;
+  pricePickup?: Price;
+  priceSameDayDelivery?: Price;
+  priceSaturdayDelivery?: Price;
+  priceSignature?: Price;
+  priceStandardDelivery?: Price;
+  showDeliveryDate?: boolean;
 }
 
 interface BeCarrierSettings extends BaseCarrierSettings {
-  allowMondayDelivery?: boolean;
+  allowSaturdayDelivery?: boolean;
+  fridayCutoffTime?: TimestampString;
 }
 
 interface NlCarrierSettings extends BaseCarrierSettings {
-  allowSaturdayDelivery?: boolean;
+  allowMondayDelivery?: boolean;
+  saturdayCutoffTime?: TimestampString;
 }
 
 export type CarrierSettings<Platform extends PlatformName = PlatformName> = Platform extends PlatformName.MyParcel
   ? NlCarrierSettings
   : Platform extends PlatformName.SendMyParcel
   ? BeCarrierSettings
-  : BaseCarrierSettings;
+  : NlCarrierSettings | BeCarrierSettings;
 
 type BaseConfig<Platform extends PlatformName = PlatformName> = CarrierSettings<Platform> & {
-  allowShowDeliveryDate?: boolean;
+  // allowShowDeliveryDate?: boolean;
+  // cutoffTime?: string;
+  // deliveryDaysWindow?: string | number;
+  // dropOffDays?: string;
+  // dropOffDelay?: string | number;
+  // packageType?: PackageTypeName;
+
   apiBaseUrl?: string;
   carrierSettings?: Record<CarrierIdentifier<Platform>, CarrierSettings<Platform>>;
   currency?: string;
-  cutoffTime?: string;
-  deliveryDaysWindow?: string | number;
-  dropOffDays?: string;
-  dropOffDelay?: string | number;
   locale?: string;
-  packageType?: PackageTypeName;
-  pickupLocationsDefaultView?: 'map' | 'list';
-
-  /**
-   * JSON string or object.
-   */
+  pickupLocationsDefaultView?: PickupLocationsView;
   pickupLocationsMapTileLayerData?: string | MapTileLayerData;
   pickupShowDistance?: boolean;
+  platform?: PlatformName;
+  showDeliveryDate?: boolean;
+  showPriceSurcharge?: boolean;
+  showPrices?: boolean;
 };
 
-interface MyParcelNlConfig extends BaseConfig<PlatformName.MyParcel> {
-  platform: PlatformName.MyParcel;
-}
-
-interface SendMyParcelConfig extends BaseConfig<PlatformName.SendMyParcel> {
-  platform: PlatformName.SendMyParcel;
-}
-
-export type DeliveryOptionsConfig<P extends SupportedPlatformName = SupportedPlatformName> =
-  P extends PlatformName.MyParcel
-    ? MyParcelNlConfig
-    : P extends PlatformName.SendMyParcel
-    ? SendMyParcelConfig
-    : MyParcelNlConfig | SendMyParcelConfig;
+export type DeliveryOptionsConfig<P extends SupportedPlatformName = SupportedPlatformName> = BaseConfig<P> & {
+  platform: P;
+};
 
 export interface DeliveryOptionsConfiguration<P extends SupportedPlatformName = SupportedPlatformName> {
   address: DeliveryOptionsAddress;
+  components: Record<ComponentName, Component>;
   config: DeliveryOptionsConfig<P>;
-  initial?: DeliveryOptionsOutput;
+  initial?: Partial<DeliveryOptionsOutput>;
   strings: DeliveryOptionsStrings;
+}
+
+export interface InputDeliveryOptionsConfiguration<P extends SupportedPlatformName = SupportedPlatformName> {
+  address: DeliveryOptionsAddress;
+  components: Record<ComponentName, Component>;
+  config: DeliveryOptionsConfig<P>;
+  initial?: Partial<DeliveryOptionsOutput>;
+  strings?: DeliveryOptionsStrings;
+}
+
+export interface ResolvedDeliveryOptionsConfiguration<P extends SupportedPlatformName = SupportedPlatformName> {
+  address: RecursiveRequired<DeliveryOptionsAddress>;
+  config: RecursiveRequired<DeliveryOptionsConfig<P>>;
+  strings: RecursiveRequired<DeliveryOptionsStrings>;
 }
 
 interface BaseOutput {

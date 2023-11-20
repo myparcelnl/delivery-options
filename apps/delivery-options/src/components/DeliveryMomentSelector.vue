@@ -1,23 +1,38 @@
 <template>
-  <DeliveryMoment.Component />
+  <DeliveryMoment.Component v-if="DeliveryMoment" />
 </template>
 
 <script lang="ts" setup>
-import {ref} from 'vue';
+import {ref, watchEffect} from 'vue';
 import {type SelectOption} from '@myparcel-do/shared';
-import {createField} from '@myparcel/vue-form-builder';
+import {createField, type ModularCreatedField} from '@myparcel/vue-form-builder';
+import {useResolvedDeliveryOptions} from '../composables/useResolvedDeliveryOptions';
 import RadioGroupInput from './form/RadioGroupInput.vue';
 
-const options = ref<SelectOption[]>([]);
-
 // eslint-disable-next-line @typescript-eslint/naming-convention
-const DeliveryMoment = createField({
-  name: 'deliveryMoment',
-  component: RadioGroupInput,
-  props: {
-    // carrier: 'postnl',
-    // price: 6.59,
-    options,
-  },
+const DeliveryMoment = ref<ModularCreatedField | null>(null);
+
+const deliveryMoments = useResolvedDeliveryOptions();
+
+watchEffect(() => {
+  if (!deliveryMoments.value) {
+    return;
+  }
+
+  const options = deliveryMoments.value.map((option) => {
+    return {
+      carrier: option.carrier.identifier,
+      label: option.time,
+      value: option.time,
+    };
+  }) satisfies SelectOption[];
+
+  DeliveryMoment.value = createField({
+    name: 'deliveryMoment',
+    component: RadioGroupInput,
+    props: {
+      options,
+    },
+  });
 });
 </script>

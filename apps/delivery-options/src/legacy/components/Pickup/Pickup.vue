@@ -59,7 +59,7 @@ export default {
         name: PICKUP_LOCATION,
         type: 'radio',
         component: PickupOption,
-        pagination: this.$configBus.get(CONFIG.FEATURE_MAX_PAGE_ITEMS),
+        pagination: 20,
         choices: this.data.choices,
       },
 

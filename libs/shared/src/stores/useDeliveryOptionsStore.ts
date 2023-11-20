@@ -3,13 +3,12 @@ import {type DeliveryOptionsConfiguration, type DeliveryOptionsOutput} from '@my
 
 export const useDeliveryOptionsStore = defineStore('deliveryOptions', {
   state: () => ({
-    configuration: (window.MyParcelConfig ?? {}) as DeliveryOptionsConfiguration,
+    configuration: window.MyParcelConfig ?? {},
     output: {} as DeliveryOptionsOutput,
   }),
 
   actions: {
     updateConfiguration(configuration: DeliveryOptionsConfiguration): void {
-      console.log('update config');
       this.configuration = configuration;
 
       window.MyParcelConfig = this.configuration;

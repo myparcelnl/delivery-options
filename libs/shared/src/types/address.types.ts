@@ -19,3 +19,7 @@ export interface DeliveryOptionsOldAddress extends BaseAddress {
 export interface DeliveryOptionsAddress extends BaseAddress {
   [AddressField.Street]: string;
 }
+
+export interface ResolvedDeliveryOptionsAddress extends BaseAddress {
+  [AddressField.Street]: string;
+}

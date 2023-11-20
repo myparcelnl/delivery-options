@@ -1,5 +1,5 @@
 import {beforeAll, describe, expect, it} from 'vitest';
-import {CONFIG, KEY_CONFIG} from '@myparcel-do/shared';
+import {KEY_CONFIG} from '@myparcel-do/shared';
 import {mockDeliveryOptions} from '../../mockDeliveryOptions';
 import {createPickupChoices, fetchAllCarriers} from '../../../../legacy/data';
 
@@ -8,9 +8,7 @@ describe.skip('Pickup.vue', () => {
 
   beforeAll(async () => {
     const localVue = mockVue({
-      [KEY_CONFIG]: {
-        [CONFIG.FEATURE_MAX_PAGE_ITEMS]: 5,
-      },
+      [KEY_CONFIG]: {},
     });
 
     await fetchAllCarriers();

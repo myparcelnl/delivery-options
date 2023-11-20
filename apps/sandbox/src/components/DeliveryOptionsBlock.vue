@@ -13,17 +13,29 @@
 </template>
 
 <script lang="ts" setup>
-import {computed, ref} from 'vue';
+import {computed, reactive, ref, toRaw} from 'vue';
 import {construct} from 'radash';
-import {type DeliveryOptionsConfiguration, type DeliveryOptionsOutput} from '@myparcel-do/shared';
+import {ComponentName, type DeliveryOptionsConfiguration, type DeliveryOptionsOutput} from '@myparcel-do/shared';
 import {MyParcelDeliveryOptions} from '@myparcel/delivery-options/ts';
 import {useSandboxStore} from '../stores';
+import FormTextInput from './form/FormTextInput.vue';
+import FormSelectInput from './form/FormSelectInput.vue';
+import FormCheckboxGroupInput from './form/FormCheckboxGroupInput.vue';
+import CButton from './CButton.vue';
 
 const output = ref<DeliveryOptionsOutput | null>(null);
 
 const store = useSandboxStore();
 
-const parsedConfiguration = computed<DeliveryOptionsConfiguration>(
-  () => construct(store.configuration) as DeliveryOptionsConfiguration,
-);
+const parsedConfiguration = computed(() => {
+  return reactive({
+    ...construct(store.configuration),
+    components: toRaw({
+      [ComponentName.Select]: FormSelectInput,
+      [ComponentName.Text]: FormTextInput,
+      [ComponentName.CheckboxGroup]: FormCheckboxGroupInput,
+      [ComponentName.Button]: CButton,
+    }),
+  }) as DeliveryOptionsConfiguration;
+});
 </script>

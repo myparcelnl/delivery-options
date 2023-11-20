@@ -94,7 +94,7 @@ export default {
       form: {},
 
       /**
-       * The object that will be converted to a JSON string and put in `#mypa-input`.
+       * The object that will be converted to a JSON string and put in `#mp-input`.
        *
        * @type {string}
        */

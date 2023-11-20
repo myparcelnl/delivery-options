@@ -8,3 +8,6 @@ export * from './platformKeys';
 export * from './platforms';
 export * from './settingsConsts';
 export * from './stringsKeys';
+export {defineOption} from './defineOption';
+export {defineOptionWithPrice} from './defineOptionWithPrice';
+export {defineDeliveryOption} from './defineDeliveryOption';
