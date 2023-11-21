@@ -19,15 +19,15 @@
       <EcoFriendlyLabel v-if="elementProps.ecoFriendly" />
 
       <span
-        v-if="elementProps.price || elementProps.carrier"
+        v-if="option.price || option.carrier"
         class="mp-ml-auto">
         <PriceTag
-          v-if="elementProps.price"
-          :price="elementProps.price" />
+          v-if="option.price"
+          :price="option.price" />
 
         <CarrierLogo
-          v-if="elementProps.carrier"
-          :carrier="elementProps.carrier" />
+          v-if="option.carrier"
+          :carrier="option.carrier" />
       </span>
     </label>
   </div>

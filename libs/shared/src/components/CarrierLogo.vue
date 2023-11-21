@@ -17,11 +17,11 @@
 
 <script lang="ts" setup>
 import {ref} from 'vue';
-import {type CarrierName} from '@myparcel/constants';
+import {type CarrierIdentifier} from '../types';
 import {useCarrier} from '../sdk';
 import {useAssetUrl} from '../composables/useAssetUrl';
 
-const props = defineProps<{carrier: CarrierName}>();
+const props = defineProps<{carrier: CarrierIdentifier}>();
 
 const query = useCarrier(props.carrier);
 
