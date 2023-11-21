@@ -6,12 +6,12 @@
 </template>
 
 <script lang="ts" setup>
-import {type ElProps, type TextInputEmits, type TextInputProps, useElementContext} from '@myparcel-do/shared';
+import {type TextInputEmits, type TextInputProps, useElementContext, type WithElement} from '@myparcel-do/shared';
 import TextInput from '../base/TextInput.vue';
-import {useElInputClasses} from '../../composables/useElInputClasses';
+import {useElInputClasses} from '../../composables';
 
 // eslint-disable-next-line vue/no-unused-properties
-const props = defineProps<ElProps<TextInputProps>>();
+const props = defineProps<WithElement<TextInputProps>>();
 const emit = defineEmits<TextInputEmits>();
 
 const {model, elementProps} = useElementContext(props, emit);

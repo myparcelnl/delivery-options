@@ -6,12 +6,17 @@
 </template>
 
 <script lang="ts" setup>
-import {type CurrencyInputEmits, type CurrencyInputProps, type ElProps, useElementContext} from '@myparcel-do/shared';
+import {
+  type CurrencyInputEmits,
+  type CurrencyInputProps,
+  useElementContext,
+  type WithElement,
+} from '@myparcel-do/shared';
 import CurrencyInput from '../base/CurrencyInput.vue';
-import {useElInputClasses} from '../../composables/useElInputClasses';
+import {useElInputClasses} from '../../composables';
 
 // eslint-disable-next-line vue/no-unused-properties
-const props = defineProps<ElProps<CurrencyInputProps>>();
+const props = defineProps<WithElement<CurrencyInputProps>>();
 const emit = defineEmits<CurrencyInputEmits>();
 
 const {model, elementProps} = useElementContext(props, emit);

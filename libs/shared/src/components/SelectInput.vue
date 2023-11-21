@@ -1,7 +1,7 @@
 <template>
   <select
     v-model="model"
-    :class="classes">
+    v-bind="elementProps">
     <option
       v-for="option in options"
       :key="`${id}_${option.value}`"
@@ -11,15 +11,12 @@
 </template>
 
 <script generic="T extends SelectInputModelValue" lang="ts" setup>
-import {useVModel} from '@vueuse/core';
-import {type SelectInputEmits, type SelectInputModelValue, type SelectInputProps} from '@myparcel-do/shared';
-import {useElInputClasses} from '../../composables';
+import {type SelectInputEmits, type SelectInputModelValue, type SelectInputProps, type WithElement} from '../types';
+import {useSelectInputContext} from '../composables';
 
 // eslint-disable-next-line vue/no-unused-properties
-const props = defineProps<SelectInputProps<T>>();
+const props = defineProps<WithElement<SelectInputProps<T>>>();
 const emit = defineEmits<SelectInputEmits<T>>();
 
-const model = useVModel(props, undefined, emit);
-
-const classes = useElInputClasses();
+const {id, model, options, elementProps} = useSelectInputContext(props, emit);
 </script>

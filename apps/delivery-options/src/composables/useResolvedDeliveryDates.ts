@@ -1,7 +1,8 @@
+import {type Ref} from 'vue';
 import {asyncComputed, get} from '@vueuse/core';
 import {type ResolvedDeliveryOptions, useResolvedDeliveryOptions} from './useResolvedDeliveryOptions';
 
-export const useResolvedDeliveryDates = () => {
+export const useResolvedDeliveryDates = (): Ref<ResolvedDeliveryOptions[]> => {
   const deliveryOptions = useResolvedDeliveryOptions();
 
   return asyncComputed(async () => {

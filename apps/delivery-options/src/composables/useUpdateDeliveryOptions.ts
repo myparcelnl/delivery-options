@@ -1,7 +1,7 @@
 import {ref} from 'vue';
 import {useDebounceFn, useRefHistory} from '@vueuse/core';
 import {type DeliveryOptionsOutput, UPDATED_DELIVERY_OPTIONS} from '@myparcel-do/shared';
-import {type DeliveryOptionsEmits} from '../types/components.types';
+import {type DeliveryOptionsEmits} from '../types';
 
 const UPDATE_DELIVERY_OPTIONS_DEBOUNCE = 300;
 

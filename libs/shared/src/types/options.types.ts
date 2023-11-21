@@ -1,8 +1,8 @@
 import {type Keyable, type Translation} from './common.types';
 
-export type OptionsProps<T extends SelectOptionValue> = {
+export interface OptionsProps<T extends SelectOptionValue> {
   options: SelectOption<T>[];
-};
+}
 
 interface BaseSelectOption<Value extends SelectOptionValue = SelectOptionValue> {
   carrier?: string;
@@ -26,7 +26,7 @@ export interface SelectOptionWithPlainLabel<
   plainLabel: T;
 }
 
-export type SelectOptionValue = Keyable | boolean;
+export type SelectOptionValue = Keyable | object | boolean;
 
 export type SelectOption<Value extends SelectOptionValue = SelectOptionValue> =
   | SelectOptionWithLabel<Value>

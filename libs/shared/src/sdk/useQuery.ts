@@ -1,6 +1,6 @@
 import {computed, ref} from 'vue';
 import {useMemoize} from '@vueuse/core';
-import {type UseQuery} from '@myparcel-do/shared';
+import {type UseQuery} from '../types';
 import {useQueryClient} from './useQueryClient';
 
 export const useQuery: UseQuery = useMemoize((queryKey, callback, options) => {

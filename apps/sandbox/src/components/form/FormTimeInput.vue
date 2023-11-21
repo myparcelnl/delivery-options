@@ -6,12 +6,12 @@
 </template>
 
 <script lang="ts" setup>
-import {type ElProps, type TimeInputEmits, type TimeInputProps, useElementContext} from '@myparcel-do/shared';
+import {type TimeInputEmits, type TimeInputProps, useElementContext, type WithElement} from '@myparcel-do/shared';
 import TimeInput from '../base/TimeInput.vue';
-import {useElInputClasses} from '../../composables/useElInputClasses';
+import {useElInputClasses} from '../../composables';
 
 // eslint-disable-next-line vue/no-unused-properties
-const props = defineProps<ElProps<TimeInputProps>>();
+const props = defineProps<WithElement<TimeInputProps>>();
 const emit = defineEmits<TimeInputEmits>();
 
 const {model, elementProps} = useElementContext(props, emit);

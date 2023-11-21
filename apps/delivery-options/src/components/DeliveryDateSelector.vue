@@ -10,8 +10,8 @@
 import {ref, toRaw, watchEffect} from 'vue';
 import {ComponentName} from '@myparcel-do/shared';
 import {createField, type ModularCreatedField} from '@myparcel/vue-form-builder';
-import {getComponent} from '../utils/getComponent';
-import {useResolvedDeliveryDates} from '../composables/useResolvedDeliveryDates';
+import {getComponent} from '../utils';
+import {useResolvedDeliveryDates} from '../composables';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const DeliveryDate = ref<ModularCreatedField | null>(null);

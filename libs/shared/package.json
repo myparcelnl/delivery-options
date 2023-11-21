@@ -30,7 +30,8 @@
   "dependencies": {
     "@myparcel/constants": "^1.1.1",
     "@vueuse/core": "^10.6.0",
-    "radash": "^11.0.0"
+    "radash": "^11.0.0",
+    "vue": "^3.3.0"
   },
   "scripts": {
     "build": "run ws:vue:build \"$(pwd)\"",

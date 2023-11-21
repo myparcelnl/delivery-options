@@ -3,35 +3,44 @@
 </template>
 
 <script lang="ts" setup>
-import {ref, watchEffect} from 'vue';
-import {type SelectOption} from '@myparcel-do/shared';
-import {createField, type ModularCreatedField} from '@myparcel/vue-form-builder';
-import {useResolvedDeliveryOptions} from '../composables/useResolvedDeliveryOptions';
-import RadioGroupInput from './form/RadioGroupInput.vue';
+import {computed, ref, watch} from 'vue';
+import {ComponentName, type SelectOption} from '@myparcel-do/shared';
+import {createField, type ModularCreatedField, useForm} from '@myparcel/vue-form-builder';
+import {getComponent} from '../utils';
+import {useResolvedDeliveryOptions} from '../composables';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const DeliveryMoment = ref<ModularCreatedField | null>(null);
 
+const form = useForm();
+
 const deliveryMoments = useResolvedDeliveryOptions();
 
-watchEffect(() => {
-  if (!deliveryMoments.value) {
+const deliveryDate = computed(() => form.getValues()?.deliveryDate);
+
+watch(deliveryDate, () => {
+  if (!deliveryDate.value || !deliveryMoments.value) {
     return;
   }
 
-  const options = deliveryMoments.value.map((option) => {
-    return {
-      carrier: option.carrier.identifier,
-      label: option.time,
-      value: option.time,
-    };
-  }) satisfies SelectOption[];
-
   DeliveryMoment.value = createField({
     name: 'deliveryMoment',
-    component: RadioGroupInput,
+    component: getComponent(ComponentName.RadioGroup),
     props: {
-      options,
+      options: deliveryMoments.value
+        .filter((option) => option.date === deliveryDate.value)
+        .map((option) => {
+          return {
+            carrier: option.carrier.identifier,
+            label: option.time,
+            value: {
+              carrier: option.carrier.identifier,
+              date: option.date,
+              deliveryType: option.deliveryType,
+              packageType: option.packageType,
+            },
+          };
+        }) satisfies SelectOption[],
     },
   });
 });

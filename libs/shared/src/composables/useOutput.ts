@@ -1,7 +1,8 @@
 import {computed} from 'vue';
 import {type ComputedRef} from '@vue/reactivity';
-import {type DeliveryOptionsOutput, FORM_NAME_DELIVERY_OPTIONS} from '@myparcel-do/shared';
 import {useFormBuilder} from '@myparcel/vue-form-builder';
+import {type DeliveryOptionsOutput} from '../types';
+import {FORM_NAME_DELIVERY_OPTIONS} from '../constants';
 
 interface Output {
   values: ComputedRef<DeliveryOptionsOutput>;

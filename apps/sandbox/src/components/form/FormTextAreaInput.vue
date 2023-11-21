@@ -6,13 +6,13 @@
 </template>
 
 <script lang="ts" setup>
-import {type ElProps, type TextAreaEmits, type TextAreaProps, useElementContext} from '@myparcel-do/shared';
+import {type TextAreaEmits, type TextAreaProps, useElementContext, type WithElement} from '@myparcel-do/shared';
 import TextAreaInput from '../base/TextAreaInput.vue';
-import {useElInputClasses} from '../../composables/useElInputClasses';
+import {useElInputClasses} from '../../composables';
 
 // eslint-disable-next-line vue/no-unused-properties
-const props = defineProps<ElProps<TextAreaProps>>();
-const emit = defineEmits<ElProps<TextAreaEmits>>();
+const props = defineProps<WithElement<TextAreaProps>>();
+const emit = defineEmits<TextAreaEmits>();
 
 const {model, elementProps} = useElementContext(props, emit);
 

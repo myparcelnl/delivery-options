@@ -1,13 +1,12 @@
-import {computed} from 'vue';
-import {get, toRefs, useVModel} from '@vueuse/core';
-import {type WritableComputedRef} from '@vue/reactivity';
-import {type ElementContext, type ElementEmits, type ElementProps} from '../types';
+import {computed, toRefs, type WritableComputedRef} from 'vue';
+import {get, useVModel} from '@vueuse/core';
+import {type ElementContext, type ElementEmits, type ElementProps, type WithElement} from '../../types';
 import {generateFieldId} from './generateFieldId';
 
 export const useElementContext = <
   T1 = unknown,
   T2 = T1,
-  Props extends ElementProps<T1> = ElementProps<T1>,
+  Props extends WithElement<ElementProps<T1>> = WithElement<ElementProps<T1>>,
   Emits extends ElementEmits<T2> = ElementEmits<T2>,
 >(
   props: Props,

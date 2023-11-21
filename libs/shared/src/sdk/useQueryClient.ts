@@ -1,5 +1,5 @@
 import {useLocalStorage} from '@vueuse/core';
-import {type QueryKey} from '@myparcel-do/shared';
+import {type QueryKey} from '../types';
 
 const localStorage = useLocalStorage('queryCache', new Map());
 

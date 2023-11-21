@@ -20,7 +20,7 @@
 <script lang="ts" setup>
 import {useVModel} from '@vueuse/core';
 import {type CurrencyInputEmits, type CurrencyInputProps} from '@myparcel-do/shared';
-import {useBaseInputClasses} from '../../composables/useBaseInputClasses';
+import {useBaseInputClasses} from '../../composables';
 import NumberInput from './NumberInput.vue';
 
 // eslint-disable-next-line vue/no-unused-properties

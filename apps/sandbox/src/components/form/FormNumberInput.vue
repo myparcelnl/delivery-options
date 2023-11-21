@@ -6,14 +6,15 @@
 </template>
 
 <script lang="ts" setup>
-import {type ElProps, type NumberInputEmits, type NumberInputProps, useElementContext} from '@myparcel-do/shared';
+import {type NumberInputEmits, type NumberInputProps, useElementContext, type WithElement} from '@myparcel-do/shared';
 import NumberInput from '../base/NumberInput.vue';
-import {useElInputClasses} from '../../composables/useElInputClasses';
+import {useElInputClasses} from '../../composables';
 
 // eslint-disable-next-line vue/no-unused-properties
-const props = defineProps<ElProps<NumberInputProps>>();
+const props = defineProps<WithElement<NumberInputProps>>();
 const emit = defineEmits<NumberInputEmits>();
 
 const {model, elementProps} = useElementContext(props, emit);
+
 const classes = useElInputClasses();
 </script>

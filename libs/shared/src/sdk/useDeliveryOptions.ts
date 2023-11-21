@@ -1,5 +1,5 @@
-import {type Query} from '@myparcel-do/shared';
 import {type EndpointParameters, type EndpointResponse, GetDeliveryOptions} from '@myparcel/sdk';
+import {type Query} from '../types';
 import {useSdk} from '../composables';
 import {useQuery} from './useQuery';
 

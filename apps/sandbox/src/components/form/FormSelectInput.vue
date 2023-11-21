@@ -1,31 +1,25 @@
 <template>
   <SelectInput
-    :id="id"
     v-model="model"
     :class="classes"
-    :options="options"
-    v-bind="allElementProps" />
+    :element="element" />
 </template>
 
-<script lang="ts" setup>
-import {computed} from 'vue';
-import {type ElementEmits, type ElementProps, type SelectOption, useElementContext} from '@myparcel-do/shared';
-import SelectInput from '../base/SelectInput.vue';
-import {useElInputClasses} from '../../composables/useElInputClasses';
+<script generic="T extends SelectInputModelValue" lang="ts" setup>
+import {useVModel} from '@vueuse/core';
+import {
+  SelectInput,
+  type SelectInputEmits,
+  type SelectInputModelValue,
+  type SelectInputProps,
+  type WithElement,
+} from '@myparcel-do/shared';
+import {useElInputClasses} from '../../composables';
 
 // eslint-disable-next-line vue/no-unused-properties
-const props = defineProps<ElementProps<string>>();
-const emit = defineEmits<ElementEmits<string>>();
+const props = defineProps<WithElement<SelectInputProps<T>>>();
+const emit = defineEmits<SelectInputEmits<T>>();
 
-const {id, model, elementProps} = useElementContext(props, emit);
-
+const model = useVModel(props, undefined, emit);
 const classes = useElInputClasses();
-
-const options = computed(() => (props.element.props.options ?? []) as SelectOption[]);
-
-const allElementProps = computed(() => {
-  const {options, ...rest} = elementProps.value;
-
-  return rest;
-});
 </script>

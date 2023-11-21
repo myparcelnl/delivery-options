@@ -3,14 +3,14 @@
     <label
       v-for="option in options"
       :key="`${id}-${option.value}`">
-      <input
+      <CheckboxInput
         :id="`${id}-${option.value}`"
         v-model="model"
         :disabled="elementProps.disabled || option.disabled"
         :name="id"
+        :option="option"
         :readonly="elementProps.readonly"
-        :value="option.value"
-        type="checkbox" />
+        :value="option.value" />
 
       <span>
         {{ option.label }}
@@ -21,11 +21,13 @@
 
 <script lang="ts" setup>
 import {computed} from 'vue';
-import {type ElementEmits, type ElementProps, useElementContext} from '@myparcel-do/shared';
+import {type CheckboxGroupEmits, type CheckboxGroupProps, type WithElement} from '../types';
+import {useElementContext} from '../composables';
+import CheckboxInput from './CheckboxInput.vue';
 
 // eslint-disable-next-line vue/no-unused-properties
-const props = defineProps<ElementProps<string>>();
-const emit = defineEmits<ElementEmits<string>>();
+const props = defineProps<WithElement<CheckboxGroupProps<string>>>();
+const emit = defineEmits<CheckboxGroupEmits<string>>();
 
 const {id, model, elementProps} = useElementContext(props, emit);
 

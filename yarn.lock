@@ -735,6 +735,7 @@ __metadata:
     dayjs: "npm:^1.11.10"
     pinia: "npm:^2.1.7"
     radash: "npm:^11.0.0"
+    vue: "npm:^3.3.0"
   languageName: unknown
   linkType: soft
 

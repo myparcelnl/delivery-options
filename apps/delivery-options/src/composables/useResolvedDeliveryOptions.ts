@@ -8,6 +8,7 @@ import {
 } from '@myparcel-do/shared';
 import {type DeliveryOption} from '@myparcel/sdk';
 import {type DeliveryTypeName, type PackageTypeName} from '@myparcel/constants';
+import {createTimeRangeString} from '../utils';
 
 export interface ResolvedDeliveryOptions {
   carrier: DeliveryOptionsCarrier;
@@ -55,7 +56,7 @@ export const useResolvedDeliveryOptions = () => {
             allCarrierPossibilities.push({
               carrier,
               date: dateOption.date.date,
-              time: `${start.date_time.date} – ${end.date_time.date}`,
+              time: createTimeRangeString(start.date_time.date, end.date_time.date),
               deliveryType: datePossibility.type,
               packageType: datePossibility.package_type,
               shipmentOptions: datePossibility.shipment_options,

@@ -1,13 +1,9 @@
 import {type Component} from 'vue';
-import {
-  type ComponentName,
-  type CustomValidator,
-  type OptionType,
-  type PickupLocationsView,
-  type SupportedPlatformName,
-} from '@myparcel-do/shared';
 import {type RecursiveRequired} from '@myparcel/ts-utils';
 import {type CarrierName, type DeliveryTypeName, type PackageTypeName, type PlatformName} from '@myparcel/constants';
+import {type ComponentName, type OptionType, type PickupLocationsView} from '../constants';
+import {type CustomValidator} from './validator.types';
+import {type SupportedPlatformName} from './platform.types';
 import {type DeliveryOptionsAddress} from './address.types';
 
 interface MapTileLayerData {
@@ -105,7 +101,6 @@ export type DeliveryOptionsConfig<P extends SupportedPlatformName = SupportedPla
 
 export interface DeliveryOptionsConfiguration<P extends SupportedPlatformName = SupportedPlatformName> {
   address: DeliveryOptionsAddress;
-  components: Record<ComponentName, Component>;
   config: DeliveryOptionsConfig<P>;
   initial?: Partial<DeliveryOptionsOutput>;
   strings: DeliveryOptionsStrings;
@@ -113,7 +108,7 @@ export interface DeliveryOptionsConfiguration<P extends SupportedPlatformName = 
 
 export interface InputDeliveryOptionsConfiguration<P extends SupportedPlatformName = SupportedPlatformName> {
   address: DeliveryOptionsAddress;
-  components: Record<ComponentName, Component>;
+  components: Partial<Record<ComponentName, Component>>;
   config: DeliveryOptionsConfig<P>;
   initial?: Partial<DeliveryOptionsOutput>;
   strings?: DeliveryOptionsStrings;

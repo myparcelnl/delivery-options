@@ -6,21 +6,18 @@
 </template>
 
 <script generic="T extends CheckboxGroupModelValue" lang="ts" setup>
-import {computed} from 'vue';
 import {
   type CheckboxGroupEmits,
   type CheckboxGroupModelValue,
   type CheckboxGroupProps,
-  type ElProps,
-  useElementContext,
+  useCheckboxGroupContext,
+  type WithElement,
 } from '@myparcel-do/shared';
 import CheckboxGroupInput from '../base/CheckboxGroupInput.vue';
 
 // eslint-disable-next-line vue/no-unused-properties
-const props = defineProps<ElProps<CheckboxGroupProps<T>>>();
+const props = defineProps<WithElement<CheckboxGroupProps<T>>>();
 const emit = defineEmits<CheckboxGroupEmits<T>>();
 
-const {model, elementProps} = useElementContext(props, emit);
-
-const options = computed(() => props.element.props.options ?? []);
+const {id, model, options, elementProps} = useCheckboxGroupContext(props, emit);
 </script>

@@ -1,7 +1,7 @@
 <template>
   <DeliveryOptionsForm
-    v-if="store.configuration"
-    :config="store.configuration"
+    v-if="store.resolvedConfiguration"
+    :config="store.resolvedConfiguration"
     @update="onUpdate" />
 </template>
 
@@ -9,9 +9,8 @@
 import {toRef, watchEffect} from 'vue';
 import {get} from '@vueuse/core';
 import {useDeliveryOptionsStore} from '@myparcel-do/shared';
-import {type DeliveryOptionsEmits, type DeliveryOptionsProps} from '../types/components.types';
-import {useUpdateDeliveryOptions} from '../composables/useUpdateDeliveryOptions';
-import {useEmitDeliveryOptionsEvents} from '../composables/useEmitDeliveryOptionsEvents';
+import {type DeliveryOptionsEmits, type DeliveryOptionsProps} from '../types';
+import {useEmitDeliveryOptionsEvents, useUpdateDeliveryOptions} from '../composables';
 import DeliveryOptionsForm from './DeliveryOptionsForm.vue';
 
 const props = defineProps<DeliveryOptionsProps>();

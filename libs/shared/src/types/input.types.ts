@@ -4,7 +4,9 @@ import {type ArrayItem, type Keyable} from './common.types';
 
 export type CheckboxGroupModelValue = (string | boolean)[];
 
-export type CheckboxGroupProps<T extends CheckboxGroupModelValue> = InputProps<T> & OptionsProps<ArrayItem<T>>;
+export interface CheckboxGroupProps<T extends CheckboxGroupModelValue>
+  extends InputProps<T>,
+    OptionsProps<ArrayItem<T>> {}
 
 export type CheckboxGroupEmits<T extends CheckboxGroupModelValue> = InputEmits<T>;
 
@@ -24,15 +26,11 @@ export type CodeEditorEmits = InputEmits<CodeEditorModelValue>;
 
 export type SelectInputModelValue = SelectOptionValue;
 
-export type SelectInputProps<T extends SelectInputModelValue> = InputProps<T> & OptionsProps<T>;
+export interface SelectInputProps<T extends SelectInputModelValue> extends InputProps<T>, OptionsProps<T> {}
 
 export type SelectInputEmits<T extends SelectInputModelValue> = InputEmits<T>;
 
 export type MultiSelectInputModelValue = SelectOptionValue[];
-
-export type MultiSelectInputProps<T extends MultiSelectInputModelValue> = SelectInputProps<ArrayItem<T>>;
-
-export type MultiSelectInputEmits<T extends MultiSelectInputModelValue> = SelectInputEmits<ArrayItem<T>>;
 
 export type NumberInputModelValue = string | number;
 
