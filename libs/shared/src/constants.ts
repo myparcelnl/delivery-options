@@ -66,9 +66,9 @@ export enum PickupLocationsView {
 }
 
 export enum ComponentName {
+  Button = 'Button',
+  RadioGroup = 'RadioGroup',
   Select = 'Select',
   Text = 'Text',
-  Button = 'Button',
   CheckboxGroup = 'CheckboxGroup',
-  Radio = 'Radio',
 }

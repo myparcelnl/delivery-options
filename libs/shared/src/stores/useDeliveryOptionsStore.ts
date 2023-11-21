@@ -1,14 +1,14 @@
 import {defineStore} from 'pinia';
-import {type DeliveryOptionsConfiguration, type DeliveryOptionsOutput} from '@myparcel-do/shared';
+import {type DeliveryOptionsOutput, type InputDeliveryOptionsConfiguration} from '@myparcel-do/shared';
 
 export const useDeliveryOptionsStore = defineStore('deliveryOptions', {
   state: () => ({
-    configuration: window.MyParcelConfig ?? {},
+    configuration: (window.MyParcelConfig ?? {}) as InputDeliveryOptionsConfiguration,
     output: {} as DeliveryOptionsOutput,
   }),
 
   actions: {
-    updateConfiguration(configuration: DeliveryOptionsConfiguration): void {
+    updateConfiguration(configuration: InputDeliveryOptionsConfiguration): void {
       this.configuration = configuration;
 
       window.MyParcelConfig = this.configuration;
