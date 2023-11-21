@@ -1,8 +1,7 @@
 <template>
   <select
     v-model="model"
-    :class="classes"
-    v-bind="$props">
+    :class="classes">
     <option
       v-for="option in options"
       :key="`${id}_${option.value}`"
