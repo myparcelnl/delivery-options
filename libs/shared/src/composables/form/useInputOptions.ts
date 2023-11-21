@@ -18,9 +18,7 @@ export const useInputOptions = <T extends SelectInputModelValue>(
           return;
         }
 
-        console.log(model.value, '->', newOptions[0].value);
         model.value = newOptions[0].value;
-        console.log(model.value);
       },
       {
         immediate: Number(get(options)?.length) > 0,

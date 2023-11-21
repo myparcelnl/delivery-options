@@ -66,8 +66,6 @@ export const useResolvedDeliveryOptions = () => {
       }),
     );
 
-    console.log({allCarrierPossibilities});
-
     return allCarrierPossibilities;
   });
 };
