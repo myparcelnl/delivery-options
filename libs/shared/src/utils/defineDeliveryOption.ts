@@ -1,4 +1,5 @@
-import {type ConfigOption, OptionType} from '../data';
+import {type ConfigOption} from '../types';
+import {OptionType} from '../constants';
 import {defineOptionWithPrice} from './defineOptionWithPrice';
 import {defineOption} from './defineOption';
 

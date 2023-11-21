@@ -1,4 +1,4 @@
-import {BE_DELIVERY_STANDARD_TITLE, BE_DELIVERY_TITLE, WRONG_NUMBER_POSTAL_CODE} from '../../keys';
+import {BE_DELIVERY_STANDARD_TITLE, BE_DELIVERY_TITLE, WRONG_NUMBER_POSTAL_CODE} from '../../../../data';
 
 export const strings = {
   [BE_DELIVERY_STANDARD_TITLE]: 'Standaardlevering',

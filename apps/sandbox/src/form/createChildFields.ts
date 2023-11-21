@@ -1,5 +1,5 @@
 import {isDefined} from '@vueuse/core';
-import {ALL_OPTIONS, type ConfigOption} from '@myparcel-do/shared';
+import {ALL_OPTIONS} from '@myparcel-do/shared';
 import {type SandboxOptionGroup, type SettingsField} from '../types';
 import {createField} from './createField';
 

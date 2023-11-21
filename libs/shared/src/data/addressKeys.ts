@@ -1,5 +1,5 @@
 /* eslint-disable no-magic-numbers */
-import {AddressField} from '../types';
+import {AddressField} from '../constants';
 
 export const ADDRESS_CASE_MAP = {
   postal_code: AddressField.PostalCode,

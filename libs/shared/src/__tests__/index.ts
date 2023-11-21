@@ -1,2 +1,2 @@
 export * from './mocks';
-export {waitForEvent} from './waitForEvent';
+export * from './waitForEvent';

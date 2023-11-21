@@ -27,7 +27,6 @@ import {
   UNITED_KINGDOM,
 } from '@myparcel/constants/countries';
 import {type CarrierName, PlatformName} from '@myparcel/constants';
-import {type AddressField} from '../../../types';
 import {
   FEATURES_CUTOFF_TIME,
   FEATURES_DELIVERY,
@@ -35,6 +34,7 @@ import {
   FEATURES_DROP_OFF_DELAY,
   FEATURES_PICKUP,
 } from '../../../data/carrierFeatures';
+import {AddressField} from '../../../constants';
 import {AbstractCarrierConfiguration, type PlatformCarrierFeatures} from './abstractCarrierConfiguration';
 
 export class DpdCarrierConfiguration extends AbstractCarrierConfiguration {

@@ -1,6 +1,5 @@
 import {reactive, ref} from 'vue';
 import {get} from '@vueuse/core';
-import {type CarrierOptions} from '@myparcel-do/shared';
 import {createField} from '@myparcel/vue-form-builder';
 import {getCarrierSettingsKey} from '../utils';
 import {type SettingsField} from '../types';

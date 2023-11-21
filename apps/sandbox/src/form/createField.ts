@@ -1,4 +1,4 @@
-import {type ConfigOption, KEY_CONFIG} from '@myparcel-do/shared';
+import {KEY_CONFIG} from '@myparcel-do/shared';
 import {type SettingsField} from '../types';
 import {getComponent} from './getComponent';
 import {formField} from './formField';

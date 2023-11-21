@@ -1,4 +1,5 @@
-import {type ConfigOption, OptionType} from '../data';
+import {type ConfigOption} from '../types';
+import {OptionType} from '../constants';
 import {defineOption} from './defineOption';
 
 export const defineOptionWithPrice = <O extends ConfigOption>(option: O, priceKey: string): [O, ConfigOption] => {

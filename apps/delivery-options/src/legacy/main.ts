@@ -1,6 +1,6 @@
 // This is not present in the compiled code.
 import {UPDATE_DELIVERY_OPTIONS} from '@myparcel-do/shared';
-import {showDeveloperInfo} from './showDeveloperInfo';
+import {showDeveloperInfo} from '../utils/showDeveloperInfo';
 import {checkSelector} from './checkSelector';
 
 if (process.env.NODE_ENV === 'development' && !window.hasOwnProperty('MyParcelConfig')) {

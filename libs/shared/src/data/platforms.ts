@@ -1,21 +1,6 @@
 import {CarrierName} from '@myparcel/constants';
+import {type PlatformOptions} from '../types';
 import {SubscriptionType} from '../constants';
-
-export interface CarrierOptions {
-  deliveryCountries?: string[];
-  deliveryTypes?: string[];
-  features?: string[];
-  name: CarrierName;
-  packageTypes?: string[];
-  pickupCountries?: string[];
-  shipmentOptions?: string[];
-  subscription: SubscriptionType;
-}
-
-export interface PlatformOptions {
-  carriers: CarrierOptions[];
-  features?: string[];
-}
 
 export const configMyParcel = (): PlatformOptions => {
   return {

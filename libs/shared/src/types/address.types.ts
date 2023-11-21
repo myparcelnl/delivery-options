@@ -1,10 +1,4 @@
-export enum AddressField {
-  Cc = 'cc',
-  City = 'city',
-  Number = 'number',
-  PostalCode = 'postalCode',
-  Street = 'street',
-}
+import {type AddressField} from '../constants';
 
 interface BaseAddress {
   [AddressField.Cc]: string;
@@ -13,7 +7,7 @@ interface BaseAddress {
 }
 
 export interface DeliveryOptionsOldAddress extends BaseAddress {
-  [AddressField.Number]: string;
+  [AddressField.Number]: string | number;
 }
 
 export interface DeliveryOptionsAddress extends BaseAddress {

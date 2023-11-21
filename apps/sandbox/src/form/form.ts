@@ -14,7 +14,6 @@ import {
   FEATURE_PICKUP_LOCATIONS_DEFAULT_VIEW,
   FEATURE_PICKUP_SHOW_DISTANCE,
   FEATURE_SHOW_DELIVERY_DATE,
-  OptionGroup,
 } from '@myparcel-do/shared';
 import {type SandboxOptionGroup} from '../types';
 

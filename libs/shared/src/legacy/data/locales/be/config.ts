@@ -4,7 +4,7 @@ import {
   FEATURE_PICKUP_SHOW_DISTANCE,
   FRIDAY_CUTOFF_TIME,
   LOCALE,
-} from '../../keys';
+} from '../../../../data';
 
 export const config = {
   [LOCALE]: 'nl-BE',

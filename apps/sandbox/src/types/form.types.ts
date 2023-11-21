@@ -1,4 +1,4 @@
-import {type CarrierSetting, type ConfigSetting, type OptionGroup} from '@myparcel-do/shared';
+import {type CarrierSetting, type ConfigSetting} from '@myparcel-do/shared';
 import {type AnyElementConfiguration, type ModularCreatedField} from '@myparcel/vue-form-builder';
 
 export interface SettingsSection {

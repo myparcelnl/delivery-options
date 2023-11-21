@@ -72,3 +72,29 @@ export enum ComponentName {
   Text = 'Text',
   CheckboxGroup = 'CheckboxGroup',
 }
+
+export enum AddressField {
+  Cc = 'cc',
+  City = 'city',
+  Number = 'number',
+  PostalCode = 'postalCode',
+  Street = 'street',
+}
+
+export enum OptionGroup {
+  PackageType = 'packageType',
+  Delivery = 'delivery',
+  ShipmentOption = 'shipmentOption',
+  Feature = 'feature',
+  DropOff = 'dropOff',
+}
+
+export enum OptionType {
+  String = 'string',
+  Boolean = 'boolean',
+  Number = 'number',
+  Currency = 'currency',
+  Date = 'date',
+  Time = 'time',
+  Select = 'select',
+}

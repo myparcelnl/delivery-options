@@ -1,5 +1,6 @@
 import {booleanValidator, numberValidator, stringValidator} from '../validator';
-import {type ConfigOption, OptionType} from '../data';
+import {type ConfigOption} from '../types';
+import {OptionType} from '../constants';
 
 export const defineOption = <O extends ConfigOption>(option: O): O => {
   const resolvedOption = {

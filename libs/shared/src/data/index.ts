@@ -4,7 +4,6 @@ export * from './config';
 export * from './configKeys';
 export * from './countryCodes';
 export * from './events';
-export * from './options';
 export * from './packageTypeConfig';
 export * from './platforms';
 export * from './settingsConsts';

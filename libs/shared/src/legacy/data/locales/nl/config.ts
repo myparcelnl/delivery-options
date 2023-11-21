@@ -1,4 +1,4 @@
-import {ALLOW_MONDAY_DELIVERY, LOCALE, SATURDAY_CUTOFF_TIME} from '../../keys';
+import {ALLOW_MONDAY_DELIVERY, LOCALE, SATURDAY_CUTOFF_TIME} from '../../../../data';
 
 export const DEFAULT_LOCALE = 'nl-NL';
 

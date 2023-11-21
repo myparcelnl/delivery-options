@@ -21,8 +21,8 @@ import {
   SPAIN,
 } from '@myparcel/constants/countries';
 import {type CarrierName, PlatformName} from '@myparcel/constants';
-import {type AddressField} from '../../../types';
 import {FEATURES_DELIVERY} from '../../../data/carrierFeatures';
+import {AddressField} from '../../../constants';
 import {AbstractCarrierConfiguration, type PlatformCarrierFeatures} from './abstractCarrierConfiguration';
 
 export class UpsCarrierConfiguration extends AbstractCarrierConfiguration {

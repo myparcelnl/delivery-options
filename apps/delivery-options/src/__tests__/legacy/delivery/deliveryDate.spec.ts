@@ -1,5 +1,14 @@
 import {describe, expect, it} from 'vitest';
-import {CONFIG, KEY_CONFIG, UPDATED_DELIVERY_OPTIONS} from '@myparcel-do/shared';
+import {waitForEvent} from '@myparcel-do/shared/testing';
+import {
+  ALLOW_DELIVERY_OPTIONS,
+  CARRIER_SETTINGS,
+  DELIVERY_DAYS_WINDOW,
+  FEATURE_SHOW_DELIVERY_DATE,
+  KEY_CONFIG,
+  PLATFORM,
+  UPDATED_DELIVERY_OPTIONS,
+} from '@myparcel-do/shared';
 import {CarrierName, PlatformName} from '@myparcel/constants';
 import {mockDeliveryOptions} from '../mockDeliveryOptions';
 
@@ -9,10 +18,10 @@ describe.skip('delivery date', () => {
 
     mockDeliveryOptions({
       [KEY_CONFIG]: {
-        [CONFIG.PLATFORM]: PlatformName.MyParcel,
-        [CONFIG.CARRIER_SETTINGS]: {
+        [PLATFORM]: PlatformName.MyParcel,
+        [CARRIER_SETTINGS]: {
           [CarrierName.PostNl]: {
-            [CONFIG.ALLOW_DELIVERY_OPTIONS]: true,
+            [ALLOW_DELIVERY_OPTIONS]: true,
           },
         },
       },
@@ -27,11 +36,11 @@ describe.skip('delivery date', () => {
 
     mockDeliveryOptions({
       [KEY_CONFIG]: {
-        [CONFIG.PLATFORM]: PlatformName.MyParcel,
-        [CONFIG.FEATURE_SHOW_DELIVERY_DATE]: false,
-        [CONFIG.CARRIER_SETTINGS]: {
+        [PLATFORM]: PlatformName.MyParcel,
+        [FEATURE_SHOW_DELIVERY_DATE]: false,
+        [CARRIER_SETTINGS]: {
           [CarrierName.PostNl]: {
-            [CONFIG.ALLOW_DELIVERY_OPTIONS]: true,
+            [ALLOW_DELIVERY_OPTIONS]: true,
           },
         },
       },
@@ -46,20 +55,20 @@ describe.skip('delivery date', () => {
 
     const wrapper = mockDeliveryOptions({
       [KEY_CONFIG]: {
-        [CONFIG.PLATFORM]: PlatformName.SendMyParcel,
-        [CONFIG.DELIVERY_DAYS_WINDOW]: 1,
-        [CONFIG.FEATURE_SHOW_DELIVERY_DATE]: true,
-        [CONFIG.CARRIER_SETTINGS]: {
+        [PLATFORM]: PlatformName.SendMyParcel,
+        [DELIVERY_DAYS_WINDOW]: 1,
+        [FEATURE_SHOW_DELIVERY_DATE]: true,
+        [CARRIER_SETTINGS]: {
           [CarrierName.PostNl]: {
-            [CONFIG.ALLOW_DELIVERY_OPTIONS]: true,
-            [CONFIG.FEATURE_SHOW_DELIVERY_DATE]: true,
+            [ALLOW_DELIVERY_OPTIONS]: true,
+            [FEATURE_SHOW_DELIVERY_DATE]: true,
           },
           [CarrierName.Bpost]: {
-            [CONFIG.ALLOW_DELIVERY_OPTIONS]: true,
-            [CONFIG.FEATURE_SHOW_DELIVERY_DATE]: false,
+            [ALLOW_DELIVERY_OPTIONS]: true,
+            [FEATURE_SHOW_DELIVERY_DATE]: false,
           },
           [CarrierName.Dpd]: {
-            [CONFIG.ALLOW_DELIVERY_OPTIONS]: true,
+            [ALLOW_DELIVERY_OPTIONS]: true,
           },
         },
       },

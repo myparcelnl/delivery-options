@@ -1,5 +1,11 @@
 import {type Component} from 'vue';
-import {type ComponentName, type PickupLocationsView, type SupportedPlatformName} from '@myparcel-do/shared';
+import {
+  type ComponentName,
+  type CustomValidator,
+  type OptionType,
+  type PickupLocationsView,
+  type SupportedPlatformName,
+} from '@myparcel-do/shared';
 import {type RecursiveRequired} from '@myparcel/ts-utils';
 import {type CarrierName, type DeliveryTypeName, type PackageTypeName, type PlatformName} from '@myparcel/constants';
 import {type DeliveryOptionsAddress} from './address.types';
@@ -18,13 +24,7 @@ export interface FilterableOption {
 
 export type DeliveryOptionsStrings = Record<string, string>;
 
-export type CarriersByPlatform<Platform extends PlatformName> = Platform extends PlatformName.MyParcel
-  ? typeof CARRIERS_MYPARCELNL
-  : Platform extends PlatformName.SendMyParcel
-  ? typeof CARRIERS_SENDMYPARCEL
-  : CarrierName[];
-
-export type CarrierIdentifier<Platform extends PlatformName = PlatformName> = CarriersByPlatform<Platform>[number];
+export type CarrierIdentifier = `${CarrierName}:${number}` | CarrierName;
 
 export type TimestampString = `${number}:${number}`;
 
@@ -87,7 +87,7 @@ type BaseConfig<Platform extends PlatformName = PlatformName> = CarrierSettings<
   // packageType?: PackageTypeName;
 
   apiBaseUrl?: string;
-  carrierSettings?: Record<CarrierIdentifier<Platform>, CarrierSettings<Platform>>;
+  carrierSettings?: Record<CarrierIdentifier, CarrierSettings<Platform>>;
   currency?: string;
   locale?: string;
   pickupLocationsDefaultView?: PickupLocationsView;
@@ -158,3 +158,11 @@ interface PickupOutput extends BaseOutput {
 }
 
 export type DeliveryOptionsOutput = DeliveryOutput | PickupOutput;
+
+export interface ConfigOption<T extends OptionType = OptionType> {
+  hasCarrierToggle?: boolean;
+  key: string;
+  parents?: string[];
+  type?: T;
+  validators?: CustomValidator[];
+}

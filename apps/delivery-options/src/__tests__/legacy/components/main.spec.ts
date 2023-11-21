@@ -8,7 +8,7 @@ import {
 } from '@myparcel-do/shared';
 import {PlatformName} from '@myparcel/constants';
 import {getDefaultCarrierSettings} from '../defaultCarrierSettings';
-import {showDeveloperInfo} from '../../../legacy/showDeveloperInfo';
+import {showDeveloperInfo} from '../../../utils/showDeveloperInfo';
 
 describe.skip('main.js', () => {
   const classBase = process.env.VUE_APP_CLASS_BASE;

@@ -1,5 +1,6 @@
 import {rangeValidator} from '../validator';
 import {defineDeliveryOption, defineOption, defineOptionWithPrice} from '../utils';
+import {type ConfigOption} from '../types';
 import {
   ALLOW_DELIVERY_OPTIONS,
   ALLOW_EVENING_DELIVERY,
@@ -12,7 +13,6 @@ import {
   ALLOW_SAME_DAY_DELIVERY,
   ALLOW_SATURDAY_DELIVERY,
   ALLOW_SIGNATURE,
-  type ConfigOption,
   CUTOFF_TIME_SAME_DAY,
   DROP_OFF_DELAY,
   DROP_OFF_DELAY_MAX,
@@ -21,7 +21,6 @@ import {
   FEATURE_PICKUP_SHOW_DISTANCE,
   FEATURE_SHOW_DELIVERY_DATE,
   FRIDAY_CUTOFF_TIME,
-  OptionType,
   PRICE_EVENING_DELIVERY,
   PRICE_MONDAY_DELIVERY,
   PRICE_MORNING_DELIVERY,
@@ -35,6 +34,7 @@ import {
   PRICE_STANDARD_DELIVERY,
   SATURDAY_CUTOFF_TIME,
 } from '../data';
+import {OptionType} from '../constants';
 
 export const ALL_OPTIONS: ConfigOption[] = [
   ...defineOptionWithPrice(

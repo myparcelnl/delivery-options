@@ -1,3 +1,5 @@
+import {FEATURE_SHOW_DELIVERY_DATE, PACKAGE_TYPE, PLATFORM} from '@myparcel-do/shared';
+import {configBus} from '../../config/configBus';
 import {transformDeliveryMoments} from './transformDeliveryMoments';
 import {getPackageTypeOptions} from './getPackageTypeOptions';
 import {getDeliveryDates} from './getDeliveryDates';
@@ -12,15 +14,12 @@ import {createDeliveryDependencies} from './dependencies/createDeliveryDependenc
  * @param {MyParcel.Platform} platform - Platform name.
  * @returns {Promise.<MyParcelDeliveryOptions.FormEntry[]>}
  */
-export async function createDeliveryOptions(
-  carrier = configBus.currentCarrier,
-  platform = configBus.get(CONFIG.PLATFORM),
-) {
+export async function createDeliveryOptions(carrier = configBus.currentCarrier, platform = configBus.get(PLATFORM)) {
   const deliveryOptions = await fetchDeliveryOptions(carrier, platform);
 
   configBus.dependencies[carrier] = createDeliveryDependencies(deliveryOptions);
 
-  const packageType = configBus.get(CONFIG.PACKAGE_TYPE);
+  const packageType = configBus.get(PACKAGE_TYPE);
   const isDefaultPackageType = packageType === CONSTS.DEFAULT_PACKAGE_TYPE;
 
   const packageTypeOrDeliveryDateOptions = [
@@ -28,7 +27,7 @@ export async function createDeliveryOptions(
       ? {
           name: DELIVERY_DATE,
           type: 'select',
-          hidden: !configBus.get(CONFIG.FEATURE_SHOW_DELIVERY_DATE),
+          hidden: !configBus.get(FEATURE_SHOW_DELIVERY_DATE),
           choices: getDeliveryDates(deliveryOptions),
         }
       : getPackageTypeOptions(packageType),
