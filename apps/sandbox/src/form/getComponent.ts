@@ -1,4 +1,5 @@
 import {type Component} from 'vue';
+import {type ConfigOption, OptionType} from '@myparcel-do/shared';
 import FormToggleInput from '../components/form/FormToggleInput.vue';
 import FormTextInput from '../components/form/FormTextInput.vue';
 import FormNumberInput from '../components/form/FormNumberInput.vue';
