@@ -965,6 +965,7 @@ __metadata:
     "@vue/test-utils": "npm:^2.4.0"
     "@vue/tsconfig": "npm:^0.1.0"
     "@vueuse/core": "npm:^10.0.0"
+    happy-dom: "npm:^12.10.3"
     pinia: "npm:^2.1.7"
     typescript: "npm:^5.2.0"
     vite-plugin-custom-tsconfig: "npm:^1.0.0"
@@ -5904,7 +5905,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"happy-dom@npm:^12.9.0":
+"happy-dom@npm:^12.10.3, happy-dom@npm:^12.9.0":
   version: 12.10.3
   resolution: "happy-dom@npm:12.10.3"
   dependencies:

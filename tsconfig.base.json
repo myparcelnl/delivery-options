@@ -7,11 +7,5 @@
     "types": ["node", "vite/client"]
   },
   "include": [],
-  "exclude": [
-    "**/node_modules/**/*",
-    "**/dist",
-    "**/cypress/**/*",
-    "**/__tests__/*",
-    "**/*.spec.*"
-  ]
+  "exclude": ["**/node_modules/**/*", "**/dist"]
 }
