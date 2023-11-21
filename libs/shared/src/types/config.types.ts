@@ -154,6 +154,16 @@ interface PickupOutput extends BaseOutput {
 
 export type DeliveryOptionsOutput = DeliveryOutput | PickupOutput;
 
+export type InternalOutput = {
+  deliveryDate: string;
+  deliveryMoment: {
+    carrier: CarrierIdentifier;
+    date: string;
+    deliveryType: DeliveryTypeName;
+    packageType: PackageTypeName;
+  };
+};
+
 export interface ConfigOption<T extends OptionType = OptionType> {
   hasCarrierToggle?: boolean;
   key: string;

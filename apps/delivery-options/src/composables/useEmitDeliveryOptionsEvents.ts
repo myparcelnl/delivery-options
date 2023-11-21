@@ -1,23 +1,40 @@
-import {useEventListener} from '@vueuse/core';
-import {
-  type DeliveryOptionsConfiguration,
-  UPDATE_CONFIG_IN,
-  UPDATE_DELIVERY_OPTIONS,
-  useDeliveryOptionsStore,
-} from '@myparcel-do/shared';
-import {isOfType} from '@myparcel/ts-utils';
+import {ref} from 'vue';
+import {useDebounceFn, useRefHistory} from '@vueuse/core';
+import {type DeliveryOptionsOutput, type InternalOutput, UPDATED_DELIVERY_OPTIONS} from '@myparcel-do/shared';
+import {type DeliveryOptionsEmits} from '../types';
 
-export function useEmitDeliveryOptionsEvents(): void {
-  const store = useDeliveryOptionsStore();
+const UPDATE_DELIVERY_OPTIONS_DEBOUNCE = 300;
 
-  const updateConfigFromEvent = (event: Event | CustomEvent) => {
-    const newConfig: DeliveryOptionsConfiguration = isOfType<CustomEvent>(event, 'detail')
-      ? event.detail
-      : window.MyParcelConfig;
+let callbackFn: (values: InternalOutput) => void;
 
-    store.updateConfiguration(newConfig);
-  };
+const history = useRefHistory<Partial<DeliveryOptionsOutput>>(ref({}), {deep: true});
 
-  useEventListener(document, UPDATE_DELIVERY_OPTIONS, updateConfigFromEvent);
-  useEventListener(document, UPDATE_CONFIG_IN, updateConfigFromEvent);
+export function useEmitDeliveryOptionsEvents(emit: DeliveryOptionsEmits): (values: InternalOutput) => void {
+  let last;
+
+  if (!callbackFn) {
+    callbackFn = useDebounceFn((values: InternalOutput) => {
+      const externalOutput: DeliveryOptionsOutput = {
+        deliveryType: values.deliveryMoment?.deliveryType,
+        packageType: values.deliveryMoment?.packageType,
+        date: values.deliveryMoment?.date,
+        carrier: values.deliveryMoment?.carrier,
+        isPickup: false,
+      };
+
+      last = history.last.value.snapshot ?? null;
+
+      // If unchanged, don't emit.
+      if (last && JSON.stringify(last) === JSON.stringify(externalOutput)) {
+        return;
+      }
+
+      history.source.value = externalOutput;
+
+      document.dispatchEvent(new CustomEvent(UPDATED_DELIVERY_OPTIONS, {detail: externalOutput}));
+      emit('update', externalOutput);
+    }, UPDATE_DELIVERY_OPTIONS_DEBOUNCE);
+  }
+
+  return callbackFn;
 }

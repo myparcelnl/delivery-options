@@ -1,7 +1,7 @@
 import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest';
 import {waitForEvent} from '@myparcel-do/shared/testing';
 import {type DeliveryOptionsOutput, UPDATED_DELIVERY_OPTIONS} from '@myparcel-do/shared';
-import {useUpdateDeliveryOptions} from './useUpdateDeliveryOptions';
+import {useEmitDeliveryOptionsEvents} from './useEmitDeliveryOptionsEvents';
 
 /**
  * @vitest-environment happy-dom
@@ -25,7 +25,7 @@ describe('useUpdateDeliveryOptions', () => {
     expect.assertions(2);
     const wait = waitForEvent(UPDATED_DELIVERY_OPTIONS);
 
-    const update = useUpdateDeliveryOptions(emitSpy);
+    const update = useEmitDeliveryOptionsEvents(emitSpy);
     const values = {carrier: 'postnl', delivery: 'deliver', pickup: 'pickup'} as unknown as DeliveryOptionsOutput;
 
     update(values);
@@ -38,7 +38,7 @@ describe('useUpdateDeliveryOptions', () => {
   });
 
   it('should not emit an event if the values are the same', () => {
-    const update = useUpdateDeliveryOptions(emitSpy);
+    const update = useEmitDeliveryOptionsEvents(emitSpy);
 
     const values = {carrier: 'postnl', delivery: 'deliver', pickup: 'pickup'} as unknown as DeliveryOptionsOutput;
 
@@ -52,7 +52,7 @@ describe('useUpdateDeliveryOptions', () => {
   });
 
   it('should emit an event if the values are different', () => {
-    const update = useUpdateDeliveryOptions(emitSpy);
+    const update = useEmitDeliveryOptionsEvents(emitSpy);
 
     const values = {carrier: 'postnl', delivery: 'deliver', pickup: 'pickup'} as unknown as DeliveryOptionsOutput;
     const differentValues = {carrier: 'dhl', delivery: 'deliver', pickup: 'pickup'} as unknown as DeliveryOptionsOutput;
@@ -68,7 +68,7 @@ describe('useUpdateDeliveryOptions', () => {
     expect.assertions(2);
 
     const wait = waitForEvent(UPDATED_DELIVERY_OPTIONS);
-    const update = useUpdateDeliveryOptions(emitSpy);
+    const update = useEmitDeliveryOptionsEvents(emitSpy);
 
     const values = {carrier: 'postnl', delivery: 'deliver', pickup: 'pickup'} as unknown as DeliveryOptionsOutput;
 

@@ -10,7 +10,7 @@ import {toRef, watchEffect} from 'vue';
 import {get} from '@vueuse/core';
 import {useDeliveryOptionsStore} from '@myparcel-do/shared';
 import {type DeliveryOptionsEmits, type DeliveryOptionsProps} from '../types';
-import {useEmitDeliveryOptionsEvents, useUpdateDeliveryOptions} from '../composables';
+import {useDeliveryOptionsIncomingEvents, useEmitDeliveryOptionsEvents} from '../composables';
 import DeliveryOptionsForm from './DeliveryOptionsForm.vue';
 
 const props = defineProps<DeliveryOptionsProps>();
@@ -30,7 +30,7 @@ watchEffect(() => {
   store.updateConfiguration(value);
 });
 
-const onUpdate = useUpdateDeliveryOptions(emit);
+const onUpdate = useEmitDeliveryOptionsEvents(emit);
 
-useEmitDeliveryOptionsEvents();
+useDeliveryOptionsIncomingEvents();
 </script>
