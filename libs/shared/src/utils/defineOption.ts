@@ -1,4 +1,4 @@
-import {booleanValidator, numberValidator, stringValidator} from '../validator';
+import {booleanValidator, numberValidator, stringValidator, timeValidator} from '../validator';
 import {type ConfigOption} from '../types';
 import {OptionType} from '../constants';
 
@@ -20,6 +20,10 @@ export const defineOption = <O extends ConfigOption>(option: O): O => {
 
     case OptionType.Boolean:
       resolvedOption.validators.push(booleanValidator());
+      break;
+
+    case OptionType.Time:
+      resolvedOption.validators.push(timeValidator());
       break;
   }
 
