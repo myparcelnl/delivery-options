@@ -1,17 +1,27 @@
-import {beforeAll, describe, expect, it} from 'vitest';
-import {CONFIG, defaultAddress, getCarrierConfiguration} from '@myparcel-do/shared';
+import {beforeAll, describe, expect, it, vi} from 'vitest';
+import {
+  ALLOW_DELIVERY_OPTIONS,
+  CARRIER_SETTINGS,
+  CONFIG,
+  DEFAULT_PLATFORM,
+  defaultAddress,
+  getCarrierConfiguration,
+  KEY_ADDRESS,
+  KEY_CONFIG,
+  PLATFORM,
+} from '@myparcel-do/shared';
 import {CarrierName, PlatformName} from '@myparcel/constants';
-import {mockConfigBus} from './mockConfigBus';
-
-const tuesday = '2020-03-10T00:00:00';
-const friday = '2020-03-13T00:00:00';
-const saturday = '2020-03-14T00:00:00';
-
-let configBus;
-
-const getFirstCarrier = (configBus) => Object.keys(configBus.get(CONFIG.CARRIER_SETTINGS))[0];
+import {getDefaultRequestParameters, getParametersByPlatform} from '../../legacy/data';
 
 describe.skip('Request parameters', () => {
+  const tuesday = '2020-03-10T00:00:00';
+  const friday = '2020-03-13T00:00:00';
+  const saturday = '2020-03-14T00:00:00';
+
+  let configBus;
+
+  const getFirstCarrier = (configBus) => Object.keys(configBus.get(CONFIG.CARRIER_SETTINGS))[0];
+
   beforeAll(() => {
     configBus = mockConfigBus();
   });
@@ -111,25 +121,25 @@ describe.skip('Request parameters', () => {
   });
 
   it.each`
-    carrier               | platform                     | expected
-    ${POSTNL}             | ${PlatformName.MyParcel}     | ${['postal_code', 'city', 'street']}
-    ${POSTNL}             | ${PlatformName.SendMyParcel} | ${['postal_code', 'city', 'street']}
-    ${BPOST}              | ${PlatformName.SendMyParcel} | ${['postal_code', 'city']}
-    ${DPD}                | ${PlatformName.SendMyParcel} | ${['postal_code', 'city', 'street']}
-    ${DHL}                | ${PlatformName.MyParcel}     | ${['postal_code', 'city']}
-    ${DHL_FOR_YOU}        | ${PlatformName.MyParcel}     | ${['postal_code', 'city']}
-    ${DHL_EUROPLUS}       | ${PlatformName.MyParcel}     | ${['postal_code', 'city', 'street']}
-    ${DHL_PARCEL_CONNECT} | ${PlatformName.MyParcel}     | ${['postal_code', 'city', 'street']}
+    carrier                         | platform                     | expected
+    ${CarrierName.PostNl}           | ${PlatformName.MyParcel}     | ${['postal_code', 'city', 'street']}
+    ${CarrierName.PostNl}           | ${PlatformName.SendMyParcel} | ${['postal_code', 'city', 'street']}
+    ${CarrierName.Bpost}            | ${PlatformName.SendMyParcel} | ${['postal_code', 'city']}
+    ${CarrierName.Dpd}              | ${PlatformName.SendMyParcel} | ${['postal_code', 'city', 'street']}
+    ${CarrierName.Dhl}              | ${PlatformName.MyParcel}     | ${['postal_code', 'city']}
+    ${CarrierName.DhlForYou}        | ${PlatformName.MyParcel}     | ${['postal_code', 'city']}
+    ${CarrierName.DhlEuroPlus}      | ${PlatformName.MyParcel}     | ${['postal_code', 'city', 'street']}
+    ${CarrierName.DhlParcelConnect} | ${PlatformName.MyParcel}     | ${['postal_code', 'city', 'street']}
   `(
     'gets address parts $expected when using carrier $carrier on platform $platform',
     ({carrier, platform, expected}) => {
       const configBus = mockConfigBus({
         [KEY_ADDRESS]: defaultAddress[platform],
         [KEY_CONFIG]: {
-          [CONFIG.PLATFORM]: platform,
-          [CONFIG.CARRIER_SETTINGS]: {
+          [PLATFORM]: platform,
+          [CARRIER_SETTINGS]: {
             [carrier]: {
-              [CONFIG.ALLOW_DELIVERY_OPTIONS]: true,
+              [ALLOW_DELIVERY_OPTIONS]: true,
             },
           },
         },

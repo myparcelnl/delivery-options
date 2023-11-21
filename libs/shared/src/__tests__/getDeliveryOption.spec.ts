@@ -3,15 +3,15 @@ import {describe, expect, it, vi} from 'vitest';
 import {PlatformName} from '@myparcel/constants';
 import {getNextDeliveryOption} from './mocks/delivery-options/getNextDeliveryOption';
 
-const tuesday = '2020-03-10';
-const thursday = '2020-03-12';
-const friday = '2020-03-13';
-const saturday = '2020-03-14';
-
-const monday2 = '2020-03-16';
-const tuesday2 = '2020-03-17';
-
 describe.skip('Mocking delivery options request', () => {
+  const tuesday = '2020-03-10';
+  const thursday = '2020-03-12';
+  const friday = '2020-03-13';
+  const saturday = '2020-03-14';
+
+  const monday2 = '2020-03-16';
+  const tuesday2 = '2020-03-17';
+
   it.each`
     day         | result      | dropOffDelay | cutoff_time | deliverydays_window | dropoff_days     | monday_delivery
     ${friday}   | ${saturday} | ${0}         | ${'12:30'}  | ${7}                | ${'1;2;3;4;5;6'} | ${0}

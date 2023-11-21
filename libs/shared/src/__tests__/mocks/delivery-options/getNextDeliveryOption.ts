@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import {type DeliveryOption} from '@myparcel/sdk';
-import {FEATURES_SAME_DAY_DELIVERY} from '../../../legacy';
+import {FEATURES_SAME_DAY_DELIVERY} from '../../../data';
 import {shouldSkipToNextDeliveryDate} from './shouldSkipToNextDeliveryDate';
 import {getCarrierConfiguration} from './getCarrierConfiguration';
 import {findExtraDelivery} from './findExtraDelivery';

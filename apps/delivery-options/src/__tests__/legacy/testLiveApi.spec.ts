@@ -5,14 +5,14 @@
  * As long as this test passes, the results of all tests using mocked delivery options can be trusted.
  */
 import {afterAll, beforeAll, describe, expect, test, vi} from 'vitest';
+import dayjs from 'dayjs';
 import {CONFIG, getCarrierConfiguration, KEY_CONFIG} from '@myparcel-do/shared';
 import {CarrierName, PlatformName} from '@myparcel/constants';
 import {fetchDeliveryOptions, getRequestParameters} from '../../legacy/data';
-import {mockConfigBus} from './mockConfigBus';
-
-const formatDates = ({date}) => dayjs(date.date).format('dddd, DD-MM-YYYY');
 
 describe.skip('test settings on the live API', () => {
+  const formatDates = ({date}) => dayjs(date.date).format('dddd, DD-MM-YYYY');
+
   beforeAll(() => {
     // Disable mocks, so the test can use the real API instead of mocked responses.
     vi.clearAllMocks();

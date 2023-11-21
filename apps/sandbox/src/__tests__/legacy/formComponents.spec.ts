@@ -1,19 +1,19 @@
 import {describe, expect, test} from 'vitest';
 import {mockSandbox, shallowMockSandbox} from './mockSandbox';
 
-// Test options.
-const options = [
-  {
-    text: 'Option A',
-    value: 'a',
-  },
-  {
-    text: 'Option B',
-    value: 'b',
-  },
-];
-
 describe.skip('Sandbox form components', () => {
+  // Test options.
+  const options = [
+    {
+      text: 'Option A',
+      value: 'a',
+    },
+    {
+      text: 'Option B',
+      value: 'b',
+    },
+  ];
+
   test('CCodeEditor', async () => {
     expect.assertions(9);
 

@@ -1,6 +1,7 @@
-import {describe, expect} from 'vitest';
+import {describe, expect, it} from 'vitest';
 import {CONFIG, defaultAddress, KEY_ADDRESS, KEY_CONFIG} from '@myparcel-do/shared';
 import {CarrierName, PlatformName} from '@myparcel/constants';
+import {ConfigurationMerger} from '../../legacy/config/configurationMerger';
 
 describe.skip('ConfigurationMerger', () => {
   it('should merge configurations correctly', () => {

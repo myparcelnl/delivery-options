@@ -8,23 +8,19 @@ import {
 } from '@myparcel-do/shared';
 import {PlatformName} from '@myparcel/constants';
 import {getDefaultCarrierSettings} from '../defaultCarrierSettings';
-
-const classBase = process.env.VUE_APP_CLASS_BASE;
-
-const createHtml = (id = classBase) => {
-  const element = document.createElement('div');
-  element.setAttribute('id', id);
-  document.body.appendChild(element);
-};
+import {showDeveloperInfo} from '../../../legacy/showDeveloperInfo';
 
 describe.skip('main.js', () => {
+  const classBase = process.env.VUE_APP_CLASS_BASE;
+
+  const createHtml = (id = classBase) => {
+    const element = document.createElement('div');
+    element.setAttribute('id', id);
+    document.body.appendChild(element);
+  };
+
   beforeAll(async () => {
     createHtml();
-
-    Vue.config.productionTip = false;
-    Vue.config.devtools = false;
-
-    await import('@/delivery-options/main');
   });
 
   it('can show information to developers', () => {

@@ -1,7 +1,7 @@
 /* eslint-disable no-continue */
 
 import {type EndpointParameters, type EndpointResponse, type GetDeliveryOptions} from '@myparcel/sdk';
-import {ERROR_INVALID_POSTAL_CODE} from '../../legacy';
+import {ERROR_INVALID_POSTAL_CODE} from '../../legacy/config/errorConfig';
 import {getNextDeliveryOption} from './delivery-options/getNextDeliveryOption';
 
 /**

@@ -2,7 +2,6 @@ import {afterEach, describe, expect, test} from 'vitest';
 import dayjs from 'dayjs';
 import {CONFIG, FRIDAY, KEY_CONFIG, MONDAY, SATURDAY, SUNDAY, THURSDAY, TUESDAY, WEDNESDAY} from '@myparcel-do/shared';
 import {CarrierName, PlatformName} from '@myparcel/constants';
-import {mockConfigBus} from '../mockConfigBus';
 import {getExtraDropOffDay} from '../../../legacy/data';
 
 describe.skip('Delivery moments', () => {

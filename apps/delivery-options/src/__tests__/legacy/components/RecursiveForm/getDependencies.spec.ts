@@ -1,117 +1,116 @@
 import {beforeAll, describe, expect, test} from 'vitest';
-import {mockConfigBus} from '../../mockConfigBus';
 import {getDependencies} from '../../../../legacy/components/RecursiveForm/getDependencies';
 
-const getDependenciesCases = [
-  {
-    dependencies: {
-      deliveryDate: {
-        '2019-12-03T00:00:00.000Z': {
-          deliveryMoment: {
-            standard: {
-              moments: {
-                start: '09:00',
-                end: '17:00',
-              },
-              shipmentOptions: {},
-            },
-          },
-        },
-      },
-    },
-    dependencyName: 'deliveryDate',
-    deps: {
-      deliveryMoment: {
-        standard: {
-          moments: {
-            start: '09:00',
-            end: '17:00',
-          },
-          shipmentOptions: {},
-        },
-      },
-    },
-  },
-  //
-  {
-    dependencies: {
-      deliveryDate: {
-        '2019-12-03T00:00:00.000Z': {
-          deliveryMoment: {
-            standard: {
-              moments: {
-                start: '09:00',
-                end: '17:00',
-              },
-              shipmentOptions: {},
-            },
-          },
-        },
-      },
-    },
-    dependencyName: ['deliveryDate', 'deliveryMoment'],
-    deps: {
-      moments: {
-        start: '09:00',
-        end: '17:00',
-      },
-      shipmentOptions: {},
-    },
-  },
-  //
-  {
-    dependencies: {
-      deliveryDate: {
-        '2019-12-03T00:00:00.000Z': {
-          deliveryMoment: {
-            standard: {
-              moments: {
-                start: '09:00',
-                end: '17:00',
-              },
-              shipmentOptions: {},
-            },
-          },
-        },
-      },
-    },
-    dependencyName: ['deliveryDate', 'deliveryMoment'],
-    deps: {
-      moments: {
-        start: '09:00',
-        end: '17:00',
-      },
-      shipmentOptions: {},
-    },
-  },
-  {
-    dependencies: {
-      deliveryDate: {
-        '2019-12-03T00:00:00.000Z': {
-          deliveryMoment: {
-            standard: {
-              moments: {
-                start: '09:00',
-                end: '17:00',
-              },
-              shipmentOptions: {},
-            },
-          },
-        },
-      },
-    },
-    dependencyName: ['deliveryDate', 'deliveryMoment'],
-    deps: {
-      moments: {
-        start: '09:00',
-        end: '17:00',
-      },
-      shipmentOptions: {},
-    },
-  },
-];
-
 describe.skip('RecursiveForm – getDependencies', () => {
+  const getDependenciesCases = [
+    {
+      dependencies: {
+        deliveryDate: {
+          '2019-12-03T00:00:00.000Z': {
+            deliveryMoment: {
+              standard: {
+                moments: {
+                  start: '09:00',
+                  end: '17:00',
+                },
+                shipmentOptions: {},
+              },
+            },
+          },
+        },
+      },
+      dependencyName: 'deliveryDate',
+      deps: {
+        deliveryMoment: {
+          standard: {
+            moments: {
+              start: '09:00',
+              end: '17:00',
+            },
+            shipmentOptions: {},
+          },
+        },
+      },
+    },
+    //
+    {
+      dependencies: {
+        deliveryDate: {
+          '2019-12-03T00:00:00.000Z': {
+            deliveryMoment: {
+              standard: {
+                moments: {
+                  start: '09:00',
+                  end: '17:00',
+                },
+                shipmentOptions: {},
+              },
+            },
+          },
+        },
+      },
+      dependencyName: ['deliveryDate', 'deliveryMoment'],
+      deps: {
+        moments: {
+          start: '09:00',
+          end: '17:00',
+        },
+        shipmentOptions: {},
+      },
+    },
+    //
+    {
+      dependencies: {
+        deliveryDate: {
+          '2019-12-03T00:00:00.000Z': {
+            deliveryMoment: {
+              standard: {
+                moments: {
+                  start: '09:00',
+                  end: '17:00',
+                },
+                shipmentOptions: {},
+              },
+            },
+          },
+        },
+      },
+      dependencyName: ['deliveryDate', 'deliveryMoment'],
+      deps: {
+        moments: {
+          start: '09:00',
+          end: '17:00',
+        },
+        shipmentOptions: {},
+      },
+    },
+    {
+      dependencies: {
+        deliveryDate: {
+          '2019-12-03T00:00:00.000Z': {
+            deliveryMoment: {
+              standard: {
+                moments: {
+                  start: '09:00',
+                  end: '17:00',
+                },
+                shipmentOptions: {},
+              },
+            },
+          },
+        },
+      },
+      dependencyName: ['deliveryDate', 'deliveryMoment'],
+      deps: {
+        moments: {
+          start: '09:00',
+          end: '17:00',
+        },
+        shipmentOptions: {},
+      },
+    },
+  ];
+
   beforeAll(() => {
     mockConfigBus({
       config: {

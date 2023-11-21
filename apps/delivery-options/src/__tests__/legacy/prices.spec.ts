@@ -2,12 +2,11 @@ import {beforeAll, describe, expect, it} from 'vitest';
 import {CONFIG, formConfigDelivery, formConfigPickup, KEY_CONFIG} from '@myparcel-do/shared';
 import {CarrierName, PlatformName} from '@myparcel/constants';
 import {getLowestPriceFromFormConfig, getPriceLabelFromFormConfig} from '../../legacy/data';
-import {mockConfigBus} from './mockConfigBus';
-
-let beConfigBus;
-let nlConfigBus;
 
 describe.skip('price logic', () => {
+  let beConfigBus;
+  let nlConfigBus;
+
   beforeAll(() => {
     beConfigBus = mockConfigBus({
       [KEY_CONFIG]: {

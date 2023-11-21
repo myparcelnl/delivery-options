@@ -1,6 +1,5 @@
 import {createLocalVue} from '@vue/test-utils';
 import {PlatformName} from '@myparcel/constants';
-import {mockConfigBus} from './mockConfigBus';
 
 export const mockVue = (data = PlatformName.MyParcel) => {
   const localVue = createLocalVue();

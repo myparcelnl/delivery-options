@@ -1,9 +1,5 @@
 import {describe, expect, it} from 'vitest';
 import {createIsoString, createLocaleString} from '../../legacy/data';
-import {createConfigBus} from '../../legacy/config/configBus';
-
-// Initialize the configBus
-createConfigBus();
 
 describe.skip('date formatting', () => {
   it('displays dates and times correctly', () => {

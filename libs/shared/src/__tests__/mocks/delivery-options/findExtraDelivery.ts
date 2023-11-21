@@ -9,7 +9,7 @@ import {getCarrierConfiguration} from '../../../composables';
  *
  * @returns {Object}
  */
-export function findExtraDelivery(args, dayOfWeek) {
+export const findExtraDelivery = (args, dayOfWeek) => {
   // Falls back to the first carrier for current platform.
   const carrier = args.carrier ?? platformCarrierMap[args.platform][0];
   const carrierConfiguration = getCarrierConfiguration(carrier, args.platform);
@@ -21,4 +21,4 @@ export function findExtraDelivery(args, dayOfWeek) {
 
     return isToday && hasDropOffDay && allowedForCarrierAndPlatform;
   });
-}
+};

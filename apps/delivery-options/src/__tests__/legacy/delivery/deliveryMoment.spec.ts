@@ -1,50 +1,57 @@
-import {afterEach, describe, expect, it} from 'vitest';
+import {afterEach, describe, expect, it, vi} from 'vitest';
 import dayjs from 'dayjs';
 import {
-  CONFIG,
+  ALLOW_DELIVERY_OPTIONS,
+  ALLOW_EVENING_DELIVERY,
+  ALLOW_MORNING_DELIVERY,
+  ALLOW_SAME_DAY_DELIVERY,
+  CARRIER_SETTINGS,
   DELIVERY_EVENING,
   DELIVERY_MORNING,
   DELIVERY_SAME_DAY,
   DELIVERY_STANDARD,
+  DROP_OFF_DAYS,
+  FEATURE_SHOW_DELIVERY_DATE,
   KEY_CONFIG,
+  PLATFORM,
   TUESDAY,
   UPDATED_DELIVERY_OPTIONS,
 } from '@myparcel-do/shared';
 import {CarrierName, PlatformName} from '@myparcel/constants';
 import {mockDeliveryOptions} from '../mockDeliveryOptions';
 
-/**
- * @param {dayjs.Dayjs} date
- * @param {Partial<MyParcelDeliveryOptions.Config>} config
- * @returns {Promise<Object[]>}
- */
-async function getDeliveryMoments(date, config) {
-  vi.setSystemTime(date.toDate());
-
-  const wrapper = mockDeliveryOptions({
-    [KEY_CONFIG]: {
-      [CONFIG.PLATFORM]: PlatformName.MyParcel,
-      ...config,
-    },
-  });
-  await waitForEvent(UPDATED_DELIVERY_OPTIONS);
-
-  const deliveryMomentsWrappers = wrapper.findAll('[data-test-id="deliveryMoment"]');
-  return deliveryMomentsWrappers.wrappers.map((wrapper) => {
-    return wrapper.element.getAttribute('data-test-choice');
-  });
-}
-
-const sameDayConfig = {
-  [CONFIG.CARRIER_SETTINGS]: {
-    [CarrierName.DhlForYou]: {
-      [CONFIG.ALLOW_DELIVERY_OPTIONS]: true,
-      [CONFIG.ALLOW_SAME_DAY_DELIVERY]: true,
-    },
-  },
-};
-
 describe.skip('Delivery moments', () => {
+  /**
+   * @param {dayjs.Dayjs} date
+   * @param {Partial<MyParcelDeliveryOptions.Config>} config
+   * @returns {Promise<Object[]>}
+   */
+  async function getDeliveryMoments(date, config) {
+    vi.setSystemTime(date.toDate());
+
+    const wrapper = mockDeliveryOptions({
+      [KEY_CONFIG]: {
+        [PLATFORM]: PlatformName.MyParcel,
+        ...config,
+      },
+    });
+    await waitForEvent(UPDATED_DELIVERY_OPTIONS);
+
+    const deliveryMomentsWrappers = wrapper.findAll('[data-test-id="deliveryMoment"]');
+    return deliveryMomentsWrappers.wrappers.map((wrapper) => {
+      return wrapper.element.getAttribute('data-test-choice');
+    });
+  }
+
+  const sameDayConfig = {
+    [CARRIER_SETTINGS]: {
+      [CarrierName.DhlForYou]: {
+        [ALLOW_DELIVERY_OPTIONS]: true,
+        [ALLOW_SAME_DAY_DELIVERY]: true,
+      },
+    },
+  };
+
   afterEach(() => {
     vi.setSystemTime(vi.getRealSystemTime());
   });
@@ -61,12 +68,12 @@ describe.skip('Delivery moments', () => {
       expect.assertions(1);
       const date = dayjs().weekday(TUESDAY).set('h', 10).set('m', 0);
       const deliveryMoments = await getDeliveryMoments(date, {
-        [CONFIG.DROP_OFF_DAYS]: [0, 1, 2, 3, 4, 5, 6],
-        [CONFIG.CARRIER_SETTINGS]: {
+        [DROP_OFF_DAYS]: [0, 1, 2, 3, 4, 5, 6],
+        [CARRIER_SETTINGS]: {
           [CarrierName.PostNl]: {
-            [CONFIG.ALLOW_DELIVERY_OPTIONS]: true,
-            [CONFIG.ALLOW_MORNING_DELIVERY]: allowMorning,
-            [CONFIG.ALLOW_EVENING_DELIVERY]: allowEvening,
+            [ALLOW_DELIVERY_OPTIONS]: true,
+            [ALLOW_MORNING_DELIVERY]: allowMorning,
+            [ALLOW_EVENING_DELIVERY]: allowEvening,
           },
         },
       });
@@ -83,13 +90,13 @@ describe.skip('Delivery moments', () => {
     expect.assertions(1);
     const date = dayjs().weekday(TUESDAY).set('h', 10).set('m', 0);
     const deliveryMoments = await getDeliveryMoments(date, {
-      [CONFIG.DROP_OFF_DAYS]: [0, 1, 2, 3, 4, 5, 6],
-      [CONFIG.CARRIER_SETTINGS]: {
+      [DROP_OFF_DAYS]: [0, 1, 2, 3, 4, 5, 6],
+      [CARRIER_SETTINGS]: {
         [CarrierName.PostNl]: {
-          [CONFIG.ALLOW_DELIVERY_OPTIONS]: true,
-          [CONFIG.ALLOW_MORNING_DELIVERY]: true,
-          [CONFIG.ALLOW_EVENING_DELIVERY]: true,
-          [CONFIG.FEATURE_SHOW_DELIVERY_DATE]: false,
+          [ALLOW_DELIVERY_OPTIONS]: true,
+          [ALLOW_MORNING_DELIVERY]: true,
+          [ALLOW_EVENING_DELIVERY]: true,
+          [FEATURE_SHOW_DELIVERY_DATE]: false,
         },
       },
     });

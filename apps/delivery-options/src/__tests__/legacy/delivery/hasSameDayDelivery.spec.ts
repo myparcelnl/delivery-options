@@ -1,7 +1,6 @@
 import {beforeAll, describe, expect, it} from 'vitest';
 import {CONFIG, KEY_CONFIG} from '@myparcel-do/shared';
 import {CarrierName} from '@myparcel/constants';
-import {mockConfigBus} from '../mockConfigBus';
 
 const tuesdayBeforeNormalCutoffTime = '2020-03-10T14:30:00';
 const tuesdayPastNormalCutoffTime = '2020-03-10T17:30:00';
