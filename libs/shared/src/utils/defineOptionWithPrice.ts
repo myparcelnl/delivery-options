@@ -1,4 +1,5 @@
-import {type ConfigOption, defineOption, OptionType} from '@myparcel-do/shared';
+import {type ConfigOption, OptionType} from '../data';
+import {defineOption} from './defineOption';
 
 export const defineOptionWithPrice = <O extends ConfigOption>(option: O, priceKey: string): [O, ConfigOption] => {
   const resolvedOption = defineOption(option);

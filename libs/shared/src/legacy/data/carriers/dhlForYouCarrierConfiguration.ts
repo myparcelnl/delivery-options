@@ -1,5 +1,6 @@
 import {BELGIUM, NETHERLANDS} from '@myparcel/constants/countries';
 import {type CarrierName, PlatformName} from '@myparcel/constants';
+import {type AddressField} from '../../../types';
 import {
   FEATURES_CUTOFF_TIME,
   FEATURES_DELIVERY,
@@ -10,8 +11,7 @@ import {
   FEATURES_PICKUP,
   FEATURES_SAME_DAY_DELIVERY,
   FEATURES_SIGNATURE,
-} from '../carrierFeatures';
-import {type AddressField} from '../../../types';
+} from '../../../data/carrierFeatures';
 import {AbstractCarrierConfiguration, type PlatformCarrierFeatures} from './abstractCarrierConfiguration';
 
 export class DhlForYouCarrierConfiguration extends AbstractCarrierConfiguration {

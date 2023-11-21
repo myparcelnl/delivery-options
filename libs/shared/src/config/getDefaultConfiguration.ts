@@ -1,13 +1,5 @@
 /* eslint-disable max-lines-per-function */
 
-import {
-  API_BASE_URL,
-  type DeliveryOptionsAddress,
-  getDefaultStrings,
-  LOCALE,
-  PickupLocationsView,
-} from '@myparcel-do/shared';
-import {type Replace} from '@myparcel/ts-utils';
 import {type InputDeliveryOptionsConfiguration, type SupportedPlatformName} from '../types';
 import {
   ALLOW_DELIVERY_OPTIONS,
@@ -17,6 +9,7 @@ import {
   ALLOW_PICKUP_LOCATIONS,
   ALLOW_SAME_DAY_DELIVERY,
   ALLOW_SIGNATURE,
+  API_BASE_URL,
   CURRENCY,
   CUTOFF_TIME,
   CUTOFF_TIME_SAME_DAY,
@@ -30,12 +23,15 @@ import {
   FEATURE_SHOW_DELIVERY_DATE,
   KEY_CONFIG,
   KEY_STRINGS,
+  LOCALE,
   PACKAGE_TYPE,
   PICKUP_LOCATIONS_MAP_TILE_LAYER_DATA,
   PLATFORM,
   SHOW_PRICE_SURCHARGE,
   SHOW_PRICES,
-} from '../legacy/data';
+} from '../data';
+import {PickupLocationsView} from '../constants';
+import {getDefaultStrings} from './getDefaultStrings';
 
 /**
  * Get the default config for given platform. Gets the base config, sets platform and appends platform specific
@@ -43,7 +39,7 @@ import {
  */
 export const getDefaultConfiguration = <P extends SupportedPlatformName = SupportedPlatformName>(
   platform: P,
-): Omit<InputDeliveryOptionsConfiguration, 'address'> => {
+): Omit<InputDeliveryOptionsConfiguration, 'address' | 'components'> => {
   return {
     [KEY_CONFIG]: {
       [API_BASE_URL]: 'https://api.myparcel.nl',
@@ -100,5 +96,5 @@ export const getDefaultConfiguration = <P extends SupportedPlatformName = Suppor
     },
 
     [KEY_STRINGS]: getDefaultStrings(),
-  } satisfies Replace<InputDeliveryOptionsConfiguration<P>, 'address', Partial<DeliveryOptionsAddress>>;
+  };
 };

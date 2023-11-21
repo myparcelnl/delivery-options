@@ -1,9 +1,5 @@
 export * from './appConfig';
-export * from '../../config/getDefaultConfiguration';
-export * from '../../config/getDefaultStrings';
 export * from './errorConfig';
-export * as EVENTS from './eventConfig';
-export * from './eventConfig';
 export * from './extraDeliveryConfig';
 export * from './formConfig';
 export * from './localeConfig';

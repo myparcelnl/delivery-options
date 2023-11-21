@@ -25,7 +25,7 @@ import {
   PRICE_SIGNATURE,
   PRICE_STANDARD_DELIVERY,
   SATURDAY_CUTOFF_TIME,
-} from './keys';
+} from './configKeys';
 
 export const FEATURES_DELIVERY = [ALLOW_DELIVERY_OPTIONS, PRICE_STANDARD_DELIVERY] as const;
 

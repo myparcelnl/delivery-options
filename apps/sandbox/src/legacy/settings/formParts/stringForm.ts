@@ -1,38 +1,54 @@
-import {CONFIG, DELIVERY, KEY_STRINGS, PICKUP, STRINGS} from '@myparcel-do/shared';
+import {
+  ADDRESS_NOT_FOUND,
+  ALLOW_DELIVERY_OPTIONS,
+  ALLOW_PICKUP_LOCATIONS,
+  CLOSED,
+  DELIVERY_TITLE,
+  FROM,
+  HEADER_DELIVERY_OPTIONS,
+  KEY_STRINGS,
+  LOAD_MORE,
+  PICKUP_LOCATIONS_LIST_BUTTON,
+  PICKUP_LOCATIONS_MAP_BUTTON,
+  RETRY,
+  SHOW_PRICES,
+  WRONG_NUMBER_POSTAL_CODE,
+  WRONG_POSTAL_CODE_CITY,
+} from '@myparcel-do/shared';
 import {inAnyCarrier} from '../conditions/inAnyCarrier';
 
 export const stringsForm = [
   {
-    title: DELIVERY,
+    title: 'delivery',
     settings: [
       {
         key: KEY_STRINGS,
-        name: STRINGS.HEADER_DELIVERY_OPTIONS,
+        name: HEADER_DELIVERY_OPTIONS,
       },
       {
         key: KEY_STRINGS,
-        name: STRINGS.DELIVERY_TITLE,
-        conditions: [inAnyCarrier(CONFIG.ALLOW_DELIVERY_OPTIONS)],
+        name: DELIVERY_TITLE,
+        conditions: [inAnyCarrier(ALLOW_DELIVERY_OPTIONS)],
       },
     ],
   },
   {
-    title: PICKUP,
+    title: 'pickup',
     settings: [
       {
         key: KEY_STRINGS,
-        name: STRINGS.LOAD_MORE,
-        conditions: [inAnyCarrier(CONFIG.ALLOW_PICKUP_LOCATIONS)],
+        name: LOAD_MORE,
+        conditions: [inAnyCarrier(ALLOW_PICKUP_LOCATIONS)],
       },
       {
         key: KEY_STRINGS,
-        name: STRINGS.PICKUP_LOCATIONS_LIST_BUTTON,
-        conditions: [inAnyCarrier(CONFIG.ALLOW_PICKUP_LOCATIONS)],
+        name: PICKUP_LOCATIONS_LIST_BUTTON,
+        conditions: [inAnyCarrier(ALLOW_PICKUP_LOCATIONS)],
       },
       {
         key: KEY_STRINGS,
-        name: STRINGS.PICKUP_LOCATIONS_MAP_BUTTON,
-        conditions: [inAnyCarrier(CONFIG.ALLOW_PICKUP_LOCATIONS)],
+        name: PICKUP_LOCATIONS_MAP_BUTTON,
+        conditions: [inAnyCarrier(ALLOW_PICKUP_LOCATIONS)],
       },
     ],
   },
@@ -41,29 +57,29 @@ export const stringsForm = [
     settings: [
       {
         key: KEY_STRINGS,
-        name: STRINGS.FROM,
-        conditions: [CONFIG.SHOW_PRICES],
+        name: FROM,
+        conditions: [SHOW_PRICES],
       },
       {
         key: KEY_STRINGS,
-        name: STRINGS.RETRY,
+        name: RETRY,
       },
       {
         key: KEY_STRINGS,
-        name: STRINGS.ADDRESS_NOT_FOUND,
+        name: ADDRESS_NOT_FOUND,
       },
       {
         key: KEY_STRINGS,
-        name: STRINGS.CLOSED,
-        conditions: [inAnyCarrier(CONFIG.ALLOW_PICKUP_LOCATIONS)],
+        name: CLOSED,
+        conditions: [inAnyCarrier(ALLOW_PICKUP_LOCATIONS)],
       },
       {
         key: KEY_STRINGS,
-        name: STRINGS.WRONG_NUMBER_POSTAL_CODE,
+        name: WRONG_NUMBER_POSTAL_CODE,
       },
       {
         key: KEY_STRINGS,
-        name: STRINGS.WRONG_POSTAL_CODE_CITY,
+        name: WRONG_POSTAL_CODE_CITY,
       },
     ],
   },

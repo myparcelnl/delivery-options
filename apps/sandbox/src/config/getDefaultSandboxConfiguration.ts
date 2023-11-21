@@ -1,10 +1,11 @@
 import {getDefaultConfiguration, type InputDeliveryOptionsConfiguration} from '@myparcel-do/shared';
 import {CarrierName, PlatformName} from '@myparcel/constants';
 
-export const getDefaultSandboxConfiguration = (): InputDeliveryOptionsConfiguration => {
+export const getDefaultSandboxConfiguration = (): Omit<InputDeliveryOptionsConfiguration, 'components'> => {
   const defaults = getDefaultConfiguration(PlatformName.MyParcel);
   return {
     ...defaults,
+
     config: {
       ...defaults.config,
       carrierSettings: {

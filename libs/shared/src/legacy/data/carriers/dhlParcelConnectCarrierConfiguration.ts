@@ -25,7 +25,7 @@ import {
   UNITED_KINGDOM,
 } from '@myparcel/constants/countries';
 import {type CarrierName, PlatformName} from '@myparcel/constants';
-import {FEATURES_DELIVERY, FEATURES_PICKUP} from '../carrierFeatures';
+import {FEATURES_DELIVERY, FEATURES_PICKUP} from '../../../data/carrierFeatures';
 import {AbstractCarrierConfiguration, type PlatformCarrierFeatures} from './abstractCarrierConfiguration';
 
 export class DhlParcelConnectCarrierConfiguration extends AbstractCarrierConfiguration {

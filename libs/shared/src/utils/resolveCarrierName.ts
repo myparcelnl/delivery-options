@@ -1,5 +1,5 @@
-import {type CarrierIdentifier} from '@myparcel-do/shared';
 import {type CarrierName} from '@myparcel/constants';
+import {type CarrierIdentifier} from '../types';
 
 const CARRIER_IDENTIFIER_SEPARATOR = ':';
 

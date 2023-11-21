@@ -1,4 +1,7 @@
+import {useLocalStorage} from '@vueuse/core';
 import {type QueryKey} from '@myparcel-do/shared';
+
+const localStorage = useLocalStorage('queryCache', new Map());
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const cache = new Map<string, any>();
@@ -8,13 +11,13 @@ const toStringKey = (queryKey: QueryKey): string => JSON.stringify(queryKey);
 const set: UseQueryClient['set'] = (queryKey, data) => {
   const stringKey = toStringKey(queryKey);
 
-  cache.set(stringKey, data);
+  localStorage.value.set(stringKey, data);
 };
 
 const get: UseQueryClient['get'] = (queryKey) => {
   const stringKey = toStringKey(queryKey);
 
-  return cache.get(stringKey);
+  return localStorage.value.get(stringKey);
 };
 
 interface UseQueryClient {
@@ -30,7 +33,7 @@ export const useQueryClient = (): UseQueryClient => {
     set,
     get,
     reset() {
-      cache.clear();
+      localStorage.value.clear();
     },
   };
 };

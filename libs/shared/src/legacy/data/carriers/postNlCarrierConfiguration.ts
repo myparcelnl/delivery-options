@@ -1,5 +1,6 @@
 import {BELGIUM, NETHERLANDS} from '@myparcel/constants/countries';
 import {CarrierName, PlatformName} from '@myparcel/constants';
+import {AddressField} from '../../../types';
 import {
   FEATURES_CUTOFF_TIME,
   FEATURES_DELIVERY,
@@ -15,8 +16,7 @@ import {
   FEATURES_PICKUP,
   FEATURES_SHOW_DELIVERY_DATE,
   FEATURES_SIGNATURE,
-} from '../carrierFeatures';
-import {AddressField} from '../../../types';
+} from '../../../data/carrierFeatures';
 import {AbstractCarrierConfiguration, type PlatformCarrierFeatures} from './abstractCarrierConfiguration';
 
 export class PostNlCarrierConfiguration extends AbstractCarrierConfiguration {

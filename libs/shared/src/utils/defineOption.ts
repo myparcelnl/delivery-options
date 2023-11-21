@@ -1,4 +1,5 @@
-import {booleanValidator, type ConfigOption, numberValidator, OptionType, stringValidator} from '@myparcel-do/shared';
+import {booleanValidator, numberValidator, stringValidator} from '../validator';
+import {type ConfigOption, OptionType} from '../data';
 
 export const defineOption = <O extends ConfigOption>(option: O): O => {
   const resolvedOption = {

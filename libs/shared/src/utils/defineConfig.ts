@@ -1,3 +1,3 @@
-import {type DeliveryOptionsConfiguration} from '@myparcel-do/shared';
+import {type DeliveryOptionsConfiguration} from '../types';
 
 export const defineConfig = (config: DeliveryOptionsConfiguration): DeliveryOptionsConfiguration => config;

@@ -38,6 +38,7 @@ interface BaseCarrierSettings {
   allowPackageTypeDigitalStamp?: boolean;
   allowPackageTypeMailbox?: boolean;
   allowPickupLocations?: boolean | FilterableOption;
+  allowSameDayDelivery?: boolean;
   /** @deprecated use ShowDeliveryDate instead */
   allowShowDeliveryDate?: boolean;
   allowSignature?: boolean;
