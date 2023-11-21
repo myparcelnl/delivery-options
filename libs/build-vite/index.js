@@ -24,6 +24,11 @@ const createCommonViteConfig = (env) => {
       },
     },
 
+    optimizeDeps: {
+      // Optimizing this dependency causes the element and form injection keys to be mismatched.
+      exclude: ['@myparcel/vue-form-builder'],
+    },
+
     test: {
       coverage: {
         all: true,
