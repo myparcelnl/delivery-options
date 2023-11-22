@@ -1,14 +1,14 @@
-import {GetCarrier} from '@myparcel/sdk';
+import {type EndpointResponse, type GetCarrier} from '@myparcel/sdk';
 import {resolveCarrierName} from '../utils';
-import {type CarrierIdentifier} from '../types';
+import {type CarrierIdentifier, type RequestHandler} from '../types';
+import {QUERY_KEY_CARRIERS} from '../constants';
 import {useSdk} from '../composables';
-import {useQuery} from './useQuery';
+import {useRequest} from './useRequest';
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const useCarrier = (carrier: CarrierIdentifier) => {
+export const useCarrier = (carrier: CarrierIdentifier): RequestHandler<EndpointResponse<GetCarrier>[number]> => {
   const carrierName = resolveCarrierName(carrier);
 
-  return useQuery([GetCarrier.name, carrierName], async () => {
+  return useRequest([QUERY_KEY_CARRIERS, carrierName], async () => {
     const sdk = useSdk();
 
     return (await sdk.getCarrier({path: {carrier: carrierName}}))?.[0];

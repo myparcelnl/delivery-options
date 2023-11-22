@@ -10,6 +10,7 @@ export const createDeliveryOptionsForm = () => {
       console.log('render label', string);
       return string;
     },
+
     initialValues: store.configuration.initial ?? {},
   });
 };

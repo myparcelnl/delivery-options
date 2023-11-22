@@ -1,24 +1,29 @@
 /* eslint-disable no-continue */
 
 import {type EndpointParameters, type EndpointResponse, type GetDeliveryOptions} from '@myparcel/sdk';
-import {ERROR_INVALID_POSTAL_CODE} from '../../legacy/config/errorConfig';
+import {type FakeDeliveryOptionsParameters} from '../types';
+import {type CarrierIdentifier, type SupportedPlatformName} from '../../types';
+import {ERROR_INVALID_POSTAL_CODE} from '../../legacy';
 import {getNextDeliveryOption} from './delivery-options/getNextDeliveryOption';
 
 /**
  * Generate an array of delivery options much like the actual API response.
  */
-export const fakeDeliveryOptionsResponse = <E extends GetDeliveryOptions>(
-  args: EndpointParameters<E>,
-): EndpointResponse<E> => {
-  const resolvedArgs = {
-    ...args,
-    deliverydays_window: Number(args.deliverydays_window ?? 1),
-    dropoff_delay: Number(args.dropoff_delay ?? 0),
-    dropoff_days: args.dropoff_days ? args.dropoff_days.split(';').map(Number) : [0, 1, 2, 3, 4, 5, 6],
+export const fakeDeliveryOptionsResponse = (
+  args: EndpointParameters<GetDeliveryOptions>,
+): EndpointResponse<GetDeliveryOptions> => {
+  const resolvedArgs: FakeDeliveryOptionsParameters = {
+    carrier: args.carrier as CarrierIdentifier,
+    cutoffTime: args.cutoff_time ?? '16:00',
+    deliveryDaysWindow: Number(args.deliverydays_window ?? 1),
+    dropOffDays: args.dropoff_days ? args.dropoff_days.split(';').map(Number) : [0, 1, 2, 3, 4, 5, 6],
+    dropOffDelay: Number(args.dropoff_delay ?? 0),
+    mondayDelivery: args.monday_delivery === undefined ? undefined : Boolean(args.monday_delivery),
+    platform: args.platform as SupportedPlatformName,
+    saturdayDelivery: args.monday_delivery === undefined ? undefined : Boolean(args.saturday_delivery),
   };
 
-  const deliveryDaysWindow = resolvedArgs.deliverydays_window;
-  const dropOffDelay = resolvedArgs.dropoff_delay;
+  const {deliveryDaysWindow, dropOffDelay} = resolvedArgs;
 
   let startIndex = Number(dropOffDelay);
 

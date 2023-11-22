@@ -10,6 +10,7 @@ import {
   ALLOW_SATURDAY_DELIVERY,
   ALLOW_SIGNATURE,
   CUTOFF_TIME_SAME_DAY,
+  DELIVERY_DAYS_WINDOW,
   DROP_OFF_DELAY,
   FEATURE_PICKUP_LOCATIONS_DEFAULT_VIEW,
   FEATURE_PICKUP_SHOW_DISTANCE,
@@ -55,7 +56,7 @@ export const optionGroupMap = [
   },
   {
     name: OptionGroup.DropOff,
-    items: [DROP_OFF_DELAY, CUTOFF_TIME_SAME_DAY],
+    items: [DROP_OFF_DELAY, DELIVERY_DAYS_WINDOW, CUTOFF_TIME_SAME_DAY],
   },
   {
     name: OptionGroup.Feature,

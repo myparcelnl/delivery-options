@@ -6,10 +6,12 @@
 
     <Box columns="2">
       <Box>
-        <SandboxConfiguration />
+        <Suspense @resolve="ready = true">
+          <SandboxConfiguration />
+        </Suspense>
       </Box>
 
-      <Box>
+      <Box v-if="ready">
         <h2>Delivery Options</h2>
         <DeliveryOptionsBlock />
 
@@ -36,7 +38,7 @@
 </template>
 
 <script lang="ts" setup>
-import {computed} from 'vue';
+import {computed, ref} from 'vue';
 import {useFormBuilder} from '@myparcel/vue-form-builder';
 import SandboxHeader from './components/SandboxHeader.vue';
 import SandboxFooter from './components/SandboxFooter.vue';
@@ -47,6 +49,9 @@ import {Box} from './components/Box';
 import DebugEventLog from './DebugEventLog.vue';
 
 const formBuilder = useFormBuilder();
+
+// Use this to wait for all carriers to have been loaded. This avoids unnecessary calls to the individual carriers.
+const ready = ref(false);
 
 const form = computed(() => {
   return formBuilder.getForm('configuration');

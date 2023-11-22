@@ -1,18 +1,12 @@
-import {getDefaultConfiguration, type InputDeliveryOptionsConfiguration} from '@myparcel-do/shared';
-import {CarrierName, PlatformName} from '@myparcel/constants';
+import {crush} from 'radash';
+import {getDefaultConfiguration} from '@myparcel-do/shared';
+import {PlatformName} from '@myparcel/constants';
 
-export const getDefaultSandboxConfiguration = (): Omit<InputDeliveryOptionsConfiguration, 'components'> => {
+export const getDefaultSandboxConfiguration = (): Record<string, unknown> => {
   const defaults = getDefaultConfiguration(PlatformName.MyParcel);
-  return {
-    ...defaults,
 
-    config: {
-      ...defaults.config,
-      carrierSettings: {
-        [CarrierName.PostNl]: defaults.config,
-        [CarrierName.DhlForYou]: defaults.config,
-      },
-    },
+  const configuration = {
+    ...defaults,
 
     address: {
       cc: 'NL',
@@ -21,4 +15,6 @@ export const getDefaultSandboxConfiguration = (): Omit<InputDeliveryOptionsConfi
       postalCode: '2132 JE',
     },
   };
+
+  return crush(configuration) as Record<string, unknown>;
 };

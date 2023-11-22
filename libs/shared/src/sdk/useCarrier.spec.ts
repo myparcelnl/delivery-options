@@ -9,7 +9,7 @@ describe('useCarrier', () => {
     expect.assertions(7);
     const query = useCarrier(carrierName);
 
-    await query.suspense();
+    await query.load();
 
     const carrier = get(query.data) as Carrier | undefined;
 

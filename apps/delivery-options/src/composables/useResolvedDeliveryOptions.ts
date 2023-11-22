@@ -1,13 +1,9 @@
+import {type DeepReadonly} from 'vue';
 import {asyncComputed, get} from '@vueuse/core';
-import {
-  AddressField,
-  type DeliveryOptionsCarrier,
-  useActiveCarriers,
-  useDeliveryOptions,
-  useDeliveryOptionsStore,
-} from '@myparcel-do/shared';
+import {type DeliveryOptionsCarrier, useActiveCarriers, useDeliveryOptions} from '@myparcel-do/shared';
 import {type DeliveryOption} from '@myparcel/sdk';
 import {type DeliveryTypeName, type PackageTypeName} from '@myparcel/constants';
+import {createGetDeliveryOptionsParameters} from '../utils/createGetDeliveryOptionsParameters';
 import {createTimeRangeString} from '../utils';
 
 export interface ResolvedDeliveryOptions {
@@ -15,39 +11,25 @@ export interface ResolvedDeliveryOptions {
   date: string;
   deliveryType: DeliveryTypeName;
   packageType: PackageTypeName;
-  shipmentOptions: DeliveryOption['possibilities'][number]['shipment_options'];
+  shipmentOptions: DeepReadonly<DeliveryOption['possibilities'][number]['shipment_options']>;
   time: string;
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const useResolvedDeliveryOptions = () => {
   const carriers = useActiveCarriers();
-  const store = useDeliveryOptionsStore();
-
-  const {configuration} = store;
 
   return asyncComputed(async () => {
     const allCarrierPossibilities: ResolvedDeliveryOptions[] = [];
 
     await Promise.all(
-      get(carriers.data).map(async (carrier) => {
-        const query = useDeliveryOptions({
-          platform: configuration.config.platform,
-          carrier: carrier.name,
-          package_type: configuration.config.packageType,
+      carriers.data.value.map(async (carrier) => {
+        const params = createGetDeliveryOptionsParameters(carrier);
+        const query = useDeliveryOptions(params);
 
-          dropoff_days: configuration.config.dropOffDays?.join(','),
-          dropoff_delay: Number(configuration.config.dropOffDelay),
+        await query.load();
 
-          cc: configuration.address?.[AddressField.Cc] ?? '',
-          city: configuration.address?.[AddressField.City] ?? '',
-          postal_code: configuration.address?.[AddressField.PostalCode] ?? '',
-          street: configuration.address?.[AddressField.Street] ?? '',
-        });
-
-        await query.suspense();
-
-        const carrierDates = get(query.data);
+        const carrierDates = get(query.data) ?? [];
 
         carrierDates?.forEach((dateOption) => {
           dateOption.possibilities.forEach((datePossibility) => {

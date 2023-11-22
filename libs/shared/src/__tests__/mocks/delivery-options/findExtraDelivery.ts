@@ -1,23 +1,17 @@
-import {extraDeliveryConfig, platformCarrierMap} from '../../../legacy';
-import {getCarrierConfiguration} from '../../../composables';
+import {type ExtraDelivery, type FakeDeliveryOptionsParameters} from '../../types';
+import {extraDeliveryConfig} from '../../constants';
+import {useCarrierConfiguration} from '../../../composables';
 
-/**
- * Use passed args to find a valid extra delivery day.
- *
- * @param {Object} args
- * @param {number} dayOfWeek
- *
- * @returns {Object}
- */
-export const findExtraDelivery = (args, dayOfWeek) => {
-  // Falls back to the first carrier for current platform.
-  const carrier = args.carrier ?? platformCarrierMap[args.platform][0];
-  const carrierConfiguration = getCarrierConfiguration(carrier, args.platform);
+export const findExtraDelivery = (
+  {carrier, dropOffDays, platform}: FakeDeliveryOptionsParameters,
+  dayOfWeek: number,
+): ExtraDelivery | undefined => {
+  const carrierConfiguration = useCarrierConfiguration(carrier, platform);
 
   return extraDeliveryConfig.find((setting) => {
     const isToday = setting.deliveryDay === dayOfWeek;
-    const hasDropOffDay = args.dropoff_days.includes(setting.dropOffDay);
-    const allowedForCarrierAndPlatform = carrierConfiguration.hasFeature(setting.requires);
+    const hasDropOffDay = dropOffDays.includes(setting.dropOffDay);
+    const allowedForCarrierAndPlatform = carrierConfiguration.hasFeature(setting.feature);
 
     return isToday && hasDropOffDay && allowedForCarrierAndPlatform;
   });

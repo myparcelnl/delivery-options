@@ -1,13 +1,13 @@
 import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest';
 import {get} from '@vueuse/core';
-import {useQueryClient} from './useQueryClient';
-import {useQuery} from './useQuery';
+import {useRequestClient} from './useRequestClient';
+import {useRequest} from './useRequest';
 
 describe('useQuery', () => {
   const mock = vi.fn().mockReturnValueOnce('tada');
 
   const useTestQuery = () => {
-    return useQuery('test', async () => {
+    return useRequest('test', async () => {
       return new Promise((resolve) => {
         setTimeout((): void => {
           resolve(mock());
@@ -21,7 +21,7 @@ describe('useQuery', () => {
   });
 
   afterEach(() => {
-    useQueryClient().reset();
+    useRequestClient().clear();
   });
 
   it('waits for async result', () => {
@@ -30,7 +30,7 @@ describe('useQuery', () => {
     expect(get(query.data)).toBe(null);
     expect(get(query.loading)).toBe(true);
 
-    expect(query.suspense()).toBeInstanceOf(Promise);
+    expect(query.load()).toBeInstanceOf(Promise);
   });
 
   it('gets async result', async () => {
@@ -41,7 +41,7 @@ describe('useQuery', () => {
 
     expect(get(query.data)).toBe('tada');
     expect(get(query.loading)).toBe(false);
-    await expect(query.suspense()).resolves.toBe(undefined);
+    await expect(query.load()).resolves.toBe(undefined);
 
     // Ensure that the result is cached:
     const query2 = useTestQuery();
@@ -52,7 +52,7 @@ describe('useQuery', () => {
     expect.assertions(2);
 
     const onSuccess = vi.fn();
-    useQuery('test', () => 'beep', {onSuccess});
+    useRequest('test', () => 'beep', {onSuccess});
 
     expect(onSuccess).not.toHaveBeenCalled();
 

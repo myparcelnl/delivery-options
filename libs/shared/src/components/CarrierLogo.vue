@@ -19,7 +19,7 @@
 import {ref} from 'vue';
 import {type CarrierIdentifier} from '../types';
 import {useCarrier} from '../sdk';
-import {useAssetUrl} from '../composables/useAssetUrl';
+import {useAssetUrl} from '../composables';
 
 const props = defineProps<{carrier: CarrierIdentifier}>();
 

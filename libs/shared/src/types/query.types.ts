@@ -1,23 +1,31 @@
 import {type ComputedRef, type DeepReadonly, type Ref} from 'vue';
 import {type PromiseOr} from '@myparcel/ts-utils';
 
-export interface Query<T = unknown> {
+export interface StorableMap<T, K> {
+  storage: Ref<Map<string, T>>;
+
+  clear(): void;
+
+  get<T1 extends T>(key: K): T1;
+
+  has(key: K): boolean;
+
+  set<T1 extends T>(key: K, value: T1): T1;
+}
+
+export interface RequestHandler<T> {
   data: DeepReadonly<Ref<T | null>>;
   loading: ComputedRef<boolean>;
 
-  suspense(): Promise<void>;
+  load(): Promise<void>;
 }
 
-export interface UseQueryOptions<Cb extends QueryCallback> {
-  onSuccess(data: Awaited<ReturnType<Cb>>): PromiseOr<void>;
+export interface UseRequestOptions<T> {
+  onSuccess(data: T): PromiseOr<void>;
 }
 
-export type QueryCallback<T = unknown> = () => PromiseOr<T>;
+export type RequestKey = (string | object | RequestKey)[];
 
-export type QueryKey = (string | object | QueryKey)[];
-
-export type UseQuery = <Cb extends QueryCallback>(
-  queryKey: QueryKey,
-  callback: Cb,
-  options?: UseQueryOptions<Cb>,
-) => Query<Awaited<ReturnType<Cb>>>;
+export interface RequestClient<T> extends StorableMap<RequestHandler<T>, RequestKey> {
+  values: StorableMap<unknown, RequestKey>;
+}

@@ -1,12 +1,13 @@
-import {GetCarrier, GetCarriers} from '@myparcel/sdk';
+import {type EndpointResponse, type GetCarriers} from '@myparcel/sdk';
+import {type RequestHandler} from '../types';
+import {QUERY_KEY_CARRIERS} from '../constants';
 import {useSdk} from '../composables';
-import {useQueryClient} from './useQueryClient';
-import {useQuery} from './useQuery';
+import {useRequestClient} from './useRequestClient';
+import {useRequest} from './useRequest';
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const useCarriers = () => {
-  return useQuery(
-    [GetCarriers.name],
+export const useCarriers = (): RequestHandler<EndpointResponse<GetCarriers>> => {
+  return useRequest(
+    [QUERY_KEY_CARRIERS],
     async () => {
       const sdk = useSdk();
 
@@ -14,13 +15,13 @@ export const useCarriers = () => {
     },
     {
       onSuccess(carriers) {
-        const client = useQueryClient();
+        const client = useRequestClient();
 
         /**
          * Update the cache for each carrier.
          */
         carriers.forEach((carrier) => {
-          client.set([GetCarrier.name, carrier.name], carrier);
+          client.values.set([QUERY_KEY_CARRIERS, carrier.name], carrier);
         });
       },
     },

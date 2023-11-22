@@ -1,13 +1,8 @@
-import dayjs from 'dayjs';
+import dayjs, {type Dayjs} from 'dayjs';
+import {type TimestampString} from '../../../types';
 
-/**
- * @param {string} cutoffTime - String in HH:mm format.
- * @param {import('dayjs').Dayjs} date
- *
- * @returns {import('dayjs').Dayjs}
- */
-export function createCutoffTimeDate(cutoffTime, date = dayjs()) {
+export const createCutoffTimeDate = (cutoffTime: TimestampString, date: Dayjs = dayjs()): Dayjs => {
   const [hour, minute] = cutoffTime.split(':');
 
   return date.set('h', parseInt(hour)).set('m', parseInt(minute));
-}
+};

@@ -1,11 +1,13 @@
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-import {type EndpointParameters, GetPickupLocations} from '@myparcel/sdk';
+import {type EndpointParameters, type EndpointResponse, type GetPickupLocations} from '@myparcel/sdk';
+import {type RequestHandler} from '../types';
+import {QUERY_KEY_PICKUP_LOCATIONS} from '../constants';
 import {useSdk} from '../composables';
-import {useQuery} from './useQuery';
+import {useRequest} from './useRequest';
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const usePickupLocations = (parameters: EndpointParameters<GetPickupLocations>) => {
-  return useQuery([GetPickupLocations.name, parameters], () => {
+export const usePickupLocations = (
+  parameters: EndpointParameters<GetPickupLocations>,
+): RequestHandler<EndpointResponse<GetPickupLocations>> => {
+  return useRequest([QUERY_KEY_PICKUP_LOCATIONS, parameters], () => {
     const sdk = useSdk();
 
     return sdk.getPickupLocations({parameters});

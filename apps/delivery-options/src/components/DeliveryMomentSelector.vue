@@ -3,23 +3,22 @@
 </template>
 
 <script lang="ts" setup>
-import {computed, ref, watch} from 'vue';
+import {ref, watch} from 'vue';
 import {ComponentName, type SelectOption} from '@myparcel-do/shared';
-import {createField, type ModularCreatedField, useForm} from '@myparcel/vue-form-builder';
+import {createField, type ModularCreatedField} from '@myparcel/vue-form-builder';
+import {ShipmentOptionName} from '@myparcel/constants';
 import {getComponent} from '../utils';
-import {useResolvedDeliveryOptions} from '../composables';
+import {useSelectedDeliveryDate} from '../composables/useSelectedDeliveryDate';
+import {useResolvedDeliveryMoments} from '../composables/useResolvedDeliveryMoments';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const DeliveryMoment = ref<ModularCreatedField | null>(null);
 
-const form = useForm();
-
-const deliveryMoments = useResolvedDeliveryOptions();
-
-const deliveryDate = computed(() => form.getValues()?.deliveryDate);
+const deliveryMoments = useResolvedDeliveryMoments();
+const deliveryDate = useSelectedDeliveryDate();
 
 watch(deliveryDate, () => {
-  if (!deliveryDate.value || !deliveryMoments.value) {
+  if (!deliveryMoments.value.length) {
     return;
   }
 
@@ -27,20 +26,23 @@ watch(deliveryDate, () => {
     name: 'deliveryMoment',
     component: getComponent(ComponentName.RadioGroup),
     props: {
-      options: deliveryMoments.value
-        .filter((option) => option.date === deliveryDate.value)
-        .map((option) => {
-          return {
+      options: deliveryMoments.value.map((option) => {
+        const shipmentOptions = option.shipmentOptions.filter((option) => {
+          return ([ShipmentOptionName.Signature, ShipmentOptionName.OnlyRecipient] as const).includes(option.name);
+        });
+
+        return {
+          carrier: option.carrier.identifier,
+          label: option.time,
+          value: {
             carrier: option.carrier.identifier,
-            label: option.time,
-            value: {
-              carrier: option.carrier.identifier,
-              date: option.date,
-              deliveryType: option.deliveryType,
-              packageType: option.packageType,
-            },
-          };
-        }) satisfies SelectOption[],
+            date: option.date,
+            deliveryType: option.deliveryType,
+            packageType: option.packageType,
+            shipmentOptions,
+          },
+        };
+      }) satisfies SelectOption[],
     },
   });
 });

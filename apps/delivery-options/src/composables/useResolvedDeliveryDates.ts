@@ -1,16 +1,15 @@
-import {type Ref} from 'vue';
-import {asyncComputed, get} from '@vueuse/core';
+import {computed, type ComputedRef} from 'vue';
 import {type ResolvedDeliveryOptions, useResolvedDeliveryOptions} from './useResolvedDeliveryOptions';
 
-export const useResolvedDeliveryDates = (): Ref<ResolvedDeliveryOptions[]> => {
+export const useResolvedDeliveryDates = (): ComputedRef<ResolvedDeliveryOptions[]> => {
   const deliveryOptions = useResolvedDeliveryOptions();
 
-  return asyncComputed(async () => {
-    if (!get(deliveryOptions)) {
+  return computed(() => {
+    if (!deliveryOptions.value) {
       return [];
     }
 
-    return get(deliveryOptions).reduce((acc, option) => {
+    return deliveryOptions.value.reduce((acc, option) => {
       if (!acc.some((item) => item.date === option.date)) {
         acc.push(option);
       }

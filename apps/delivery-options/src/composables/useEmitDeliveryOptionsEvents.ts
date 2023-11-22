@@ -5,11 +5,13 @@ import {type DeliveryOptionsEmits} from '../types';
 
 const UPDATE_DELIVERY_OPTIONS_DEBOUNCE = 300;
 
-let callbackFn: (values: InternalOutput) => void;
+type EmitDeliveryOptionsCb = (values: InternalOutput) => void;
+
+let callbackFn: EmitDeliveryOptionsCb;
 
 const history = useRefHistory<Partial<DeliveryOptionsOutput>>(ref({}), {deep: true});
 
-export function useEmitDeliveryOptionsEvents(emit: DeliveryOptionsEmits): (values: InternalOutput) => void {
+export const useEmitDeliveryOptionsEvents = (emit: DeliveryOptionsEmits): EmitDeliveryOptionsCb => {
   let last;
 
   if (!callbackFn) {
@@ -37,4 +39,4 @@ export function useEmitDeliveryOptionsEvents(emit: DeliveryOptionsEmits): (value
   }
 
   return callbackFn;
-}
+};

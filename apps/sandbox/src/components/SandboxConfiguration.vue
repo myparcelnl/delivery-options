@@ -16,7 +16,7 @@
 
 <script lang="ts" setup>
 import {computed, markRaw, watch} from 'vue';
-import {crush} from 'radash';
+import {useCarriers} from '@myparcel-do/shared';
 import {createForm} from '@myparcel/vue-form-builder';
 import {type SettingsSection} from '../types';
 import {useSandboxStore} from '../stores';
@@ -25,6 +25,7 @@ import FormSection from './FormSection.vue';
 import FieldWrapper from './FieldWrapper.vue';
 import CButton from './CButton.vue';
 
+const carriers = useCarriers();
 const sandboxStore = useSandboxStore();
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -33,7 +34,7 @@ const Form = createForm('configuration', {
     wrapper: markRaw(FieldWrapper),
   },
 
-  initialValues: {...crush(sandboxStore.configuration)},
+  initialValues: {...sandboxStore.configuration},
 });
 
 const sections: SettingsSection[] = getSandboxSettingsSections();
@@ -49,4 +50,6 @@ const clearConfig = () => {
     configuration: undefined,
   });
 };
+
+await carriers.load();
 </script>

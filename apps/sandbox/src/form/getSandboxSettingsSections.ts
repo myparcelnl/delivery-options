@@ -1,6 +1,7 @@
-import {AddressField, KEY_ADDRESS} from '@myparcel-do/shared';
+import {AddressField, KEY_ADDRESS, type SelectOption} from '@myparcel-do/shared';
 import {type SettingsSection} from '../types';
 import FormTextInput from '../components/form/FormTextInput.vue';
+import FormSelectInput from '../components/form/FormSelectInput.vue';
 import {getConfigurationSections} from './getConfigurationSections';
 import {formSection} from './formSection';
 import {formField} from './formField';
@@ -10,6 +11,20 @@ export const getSandboxSettingsSections = (): SettingsSection[] => {
     formSection({
       label: 'address',
       fields: [
+        formField({
+          name: AddressField.Cc,
+          key: KEY_ADDRESS,
+          component: FormSelectInput,
+          props: {
+            options: [
+              {
+                label: 'Netherlands',
+                value: 'NL',
+              },
+            ] satisfies SelectOption[],
+          },
+        }),
+
         formField({
           name: AddressField.Street,
           key: KEY_ADDRESS,

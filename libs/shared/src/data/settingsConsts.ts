@@ -16,6 +16,10 @@ export const DROP_OFF_DELAY_MAX = 14;
 
 export const DROP_OFF_DELAY_MIN = 0;
 
+export const DELIVERY_DAYS_WINDOW_MIN = 0;
+
+export const DELIVERY_DAYS_WINDOW_MAX = 14;
+
 export const PICKUP_MAX_PAGE_ITEMS_LIMIT = 20;
 
 export const PICKUP_MIN_PAGE_ITEMS_LIMIT = 0;

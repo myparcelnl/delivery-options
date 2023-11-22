@@ -1,6 +1,6 @@
 import {useEventListener} from '@vueuse/core';
 import {
-  type DeliveryOptionsConfiguration,
+  type InputDeliveryOptionsConfiguration,
   UPDATE_CONFIG_IN,
   UPDATE_DELIVERY_OPTIONS,
   useDeliveryOptionsStore,
@@ -11,7 +11,7 @@ export function useDeliveryOptionsIncomingEvents(): void {
   const store = useDeliveryOptionsStore();
 
   const updateConfigFromEvent = (event: Event | CustomEvent) => {
-    const newConfig: DeliveryOptionsConfiguration = isOfType<CustomEvent>(event, 'detail')
+    const newConfig: InputDeliveryOptionsConfiguration = isOfType<CustomEvent>(event, 'detail')
       ? event.detail
       : window.MyParcelConfig;
 

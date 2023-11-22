@@ -100,3 +100,9 @@ export enum OptionType {
   Time = 'time',
   Select = 'select',
 }
+
+export const QUERY_KEY_CARRIERS = 'carriers';
+
+export const QUERY_KEY_DELIVERY_OPTIONS = 'deliveryOptions';
+
+export const QUERY_KEY_PICKUP_LOCATIONS = 'pickupLocations';

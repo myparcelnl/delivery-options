@@ -36,13 +36,12 @@
 <script lang="ts" setup>
 import {computed, markRaw, ref} from 'vue';
 import {get} from '@vueuse/core';
-import {useLanguage} from '@myparcel-do/shared';
+import {useCurrentPlatform, useLanguage} from '@myparcel-do/shared';
 import {useForm} from '@myparcel/vue-form-builder';
 import {isOfType} from '@myparcel/ts-utils';
 import {type SettingsField, type SettingsGroup} from '../types';
 import {useSandboxStore} from '../stores';
 import {generateConfigItemField} from '../form/generateConfigItemField';
-import {usePlatformConfig} from '../composables/usePlatformConfig';
 import ToggleInput from './base/ToggleInput.vue';
 
 const props = defineProps<{
@@ -52,7 +51,7 @@ const props = defineProps<{
 
 const form = useForm();
 const store = useSandboxStore();
-const platformConfig = usePlatformConfig();
+const platform = useCurrentPlatform();
 
 const hasCarrierToggle = computed(() => props.field.hasCarrierToggle === undefined);
 
@@ -89,7 +88,7 @@ const resolvedFields = computed(() => {
 
   if (!additionalFields.value.length) {
     fields.forEach((item) => {
-      platformConfig.carriers.forEach((carrier) => {
+      platform.config.value.carriers.forEach((carrier) => {
         const newField = markRaw(generateConfigItemField(item, carrier));
 
         additionalFields.value.push(newField);

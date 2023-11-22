@@ -19,7 +19,7 @@ import {
   PRICE_SIGNATURE,
   PRICE_STANDARD_DELIVERY,
   SIGNATURE_TITLE,
-} from '../data';
+} from '../../data';
 
 export const DELIVERY = 'delivery';
 

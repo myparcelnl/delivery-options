@@ -1,4 +1,5 @@
-import {FEATURES_MONDAY_DELIVERY, FEATURES_SATURDAY_DELIVERY, FRIDAY_CUTOFF_TIME, SATURDAY_CUTOFF_TIME} from '../data';
+import {ALLOW_MONDAY_DELIVERY, ALLOW_SATURDAY_DELIVERY, FRIDAY_CUTOFF_TIME, SATURDAY_CUTOFF_TIME} from '../data';
+import {type ExtraDelivery} from './types';
 
 export const MONDAY = 1;
 
@@ -16,20 +17,18 @@ export const SUNDAY = 0;
 
 /**
  * Settings for extra delivery days.
- *
- * @type {Object[]}
  */
 export const extraDeliveryConfig = [
   {
     cutoffTime: SATURDAY_CUTOFF_TIME,
     deliveryDay: MONDAY,
     dropOffDay: SATURDAY,
-    requires: FEATURES_MONDAY_DELIVERY,
+    feature: ALLOW_MONDAY_DELIVERY,
   },
   {
     cutoffTime: FRIDAY_CUTOFF_TIME,
     deliveryDay: SATURDAY,
     dropOffDay: FRIDAY,
-    requires: FEATURES_SATURDAY_DELIVERY,
+    feature: ALLOW_SATURDAY_DELIVERY,
   },
-];
+] satisfies ExtraDelivery[];

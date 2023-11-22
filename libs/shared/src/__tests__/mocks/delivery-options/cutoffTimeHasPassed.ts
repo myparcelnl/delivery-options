@@ -1,12 +1,8 @@
+import {type Dayjs} from 'dayjs';
 import {createCutoffTimeDate} from '../../legacy';
+import {type TimestampString} from '../../../types';
 
-/**
- * @param {string} cutoffTime - Timestamp in HH:mm format.
- * @param {import('dayjs').Dayjs} date
- *
- * @returns {import('dayjs').Dayjs}
- */
-export const cutoffTimeHasPassed = (cutoffTime, date) => {
+export const cutoffTimeHasPassed = (cutoffTime: TimestampString, date: Dayjs): boolean => {
   const cutOffTimeDate = createCutoffTimeDate(cutoffTime, date);
 
   return !date.isBefore(cutOffTimeDate);

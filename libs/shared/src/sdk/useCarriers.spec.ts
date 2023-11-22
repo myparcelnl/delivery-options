@@ -2,7 +2,7 @@ import {describe, expect, it} from 'vitest';
 import {get} from '@vueuse/core';
 import {GetCarrier} from '@myparcel/sdk';
 import {fakeCarriersResponse} from '../__tests__/mocks/fakeCarriersResponse';
-import {useQueryClient} from './useQueryClient';
+import {useRequestClient} from './useRequestClient';
 import {useCarriers} from './useCarriers';
 
 describe('useCarriers', () => {
@@ -12,7 +12,7 @@ describe('useCarriers', () => {
     expect.assertions(1 + amountOfCarriers * 5);
 
     const query = useCarriers();
-    await query.suspense();
+    await query.load();
     const result = get(query.data);
 
     expect(result).toHaveLength(amountOfCarriers);
@@ -30,10 +30,10 @@ describe('useCarriers', () => {
     expect.assertions(1 + amountOfCarriers);
 
     const query = useCarriers();
-    await query.suspense();
+    await query.load();
     const carriers = get(query.data);
 
-    const queryClient = useQueryClient();
+    const queryClient = useRequestClient();
 
     expect(carriers).toHaveLength(amountOfCarriers);
 

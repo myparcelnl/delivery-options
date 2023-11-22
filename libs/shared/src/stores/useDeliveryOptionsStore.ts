@@ -5,7 +5,7 @@ import {ComponentName} from '../constants';
 
 export const useDeliveryOptionsStore = defineStore('deliveryOptions', {
   state: () => ({
-    configuration: (window.MyParcelConfig ?? {}) as InputDeliveryOptionsConfiguration,
+    configuration: window.MyParcelConfig ?? {},
     output: {} as DeliveryOptionsOutput,
   }),
 

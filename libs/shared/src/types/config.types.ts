@@ -22,7 +22,7 @@ export type DeliveryOptionsStrings = Record<string, string>;
 
 export type CarrierIdentifier = `${CarrierName}:${number}` | CarrierName;
 
-export type TimestampString = `${number}:${number}`;
+export type TimestampString = `${number}:${number}` | string;
 
 export type Price = number | null;
 
@@ -161,6 +161,7 @@ export type InternalOutput = {
     date: string;
     deliveryType: DeliveryTypeName;
     packageType: PackageTypeName;
+    shipmentOptions: unknown[];
   };
 };
 

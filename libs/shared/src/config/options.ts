@@ -14,6 +14,9 @@ import {
   ALLOW_SATURDAY_DELIVERY,
   ALLOW_SIGNATURE,
   CUTOFF_TIME_SAME_DAY,
+  DELIVERY_DAYS_WINDOW,
+  DELIVERY_DAYS_WINDOW_MAX,
+  DELIVERY_DAYS_WINDOW_MIN,
   DROP_OFF_DELAY,
   DROP_OFF_DELAY_MAX,
   DROP_OFF_DELAY_MIN,
@@ -132,6 +135,13 @@ export const ALL_OPTIONS: ConfigOption[] = [
     type: OptionType.Number,
     validators: [rangeValidator(DROP_OFF_DELAY_MIN, DROP_OFF_DELAY_MAX)],
     parents: [ALLOW_DELIVERY_OPTIONS],
+  }),
+
+  defineOption({
+    key: DELIVERY_DAYS_WINDOW,
+    type: OptionType.Number,
+    validators: [rangeValidator(DELIVERY_DAYS_WINDOW_MIN, DELIVERY_DAYS_WINDOW_MAX)],
+    parents: [ALLOW_DELIVERY_OPTIONS, FEATURE_SHOW_DELIVERY_DATE],
   }),
 
   defineOption({
