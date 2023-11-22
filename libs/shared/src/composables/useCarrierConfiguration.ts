@@ -54,7 +54,9 @@ export const useCarrierConfiguration = (
     },
 
     hasFeature(feature: string) {
-      return config.features?.includes(feature) ?? false;
+      const allFeatures = config.features?.flat();
+
+      return allFeatures?.includes(feature) ?? false;
     },
 
     hasDeliveryInCountry(countryCode?: string): boolean {

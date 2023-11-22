@@ -6,11 +6,17 @@ export type SupportedPlatformName = PlatformName.MyParcel | PlatformName.SendMyP
 export type SubscriptionId = string | undefined;
 
 export interface CarrierOptions {
+  addressFields?: string[];
   deliveryCountries?: string[];
-  deliveryTypes?: string[];
-  features?: string[];
+  deliveryTypes: string[];
+  /**
+   * Enable to use empty delivery options (without fetching) for this carrier in all countries that are not in
+   * getCountriesForDelivery.
+   */
+  fakeDelivery?: boolean;
+  features?: string[][];
   name: CarrierName;
-  packageTypes?: string[];
+  packageTypes: string[];
   pickupCountries?: string[];
   shipmentOptions?: string[];
   subscription: SubscriptionType;
