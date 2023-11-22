@@ -1,7 +1,15 @@
+/* eslint-disable max-nested-callbacks */
 import {describe, expect, it} from 'vitest';
 import {get} from '@vueuse/core';
-import {useCarrier} from '@myparcel-do/shared';
-import {CarrierName, PlatformName} from '@myparcel/constants';
+import {FEATURE_SHOW_DELIVERY_DATE, useCarrier} from '@myparcel-do/shared';
+import {
+  CarrierId,
+  CarrierName,
+  DeliveryTypeName,
+  PackageTypeName,
+  PlatformName,
+  ShipmentOptionName,
+} from '@myparcel/constants';
 import {type CarrierIdentifier, type SupportedPlatformName} from '../types';
 import {type UseCarrierConfiguration, useCarrierConfiguration} from './useCarrierConfiguration';
 
@@ -33,11 +41,82 @@ describe('useCarrierConfiguration', () => {
   });
 
   it('resolves carrier by identifier', async () => {
+    expect.assertions(1);
+
     const configuration = useCarrierConfiguration(`${CarrierName.PostNl}:12345`);
 
     // Wait for the carrier to load its data
     await useCarrier(CarrierName.PostNl).load();
 
     expect(get(configuration.carrier.data)?.name).toBe(CarrierName.PostNl);
+  });
+
+  it('returns carrier data', async () => {
+    expect.assertions(1);
+
+    const configuration = useCarrierConfiguration(CarrierName.PostNl);
+
+    // Wait for the carrier to load its data
+    await useCarrier(CarrierName.PostNl).load();
+
+    expect(get(configuration.carrier.data)).toEqual({
+      id: CarrierId.PostNl,
+      name: CarrierName.PostNl,
+      human: 'PostNL',
+      meta: {
+        logo_png: '/skin/general-images/carrier-logos/postnl.png',
+        logo_svg: '/skin/general-images/carrier-logos/svg/postnl.svg',
+      },
+    });
+  });
+
+  describe('exposes utility methods', () => {
+    it('can use hasPackageType', () => {
+      const postNl = useCarrierConfiguration(CarrierName.PostNl);
+      const dhlForYou = useCarrierConfiguration(CarrierName.DhlForYou);
+
+      expect(postNl.hasPackageType(PackageTypeName.DigitalStamp)).toBe(true);
+      expect(dhlForYou.hasPackageType(PackageTypeName.DigitalStamp)).toBe(false);
+    });
+
+    it('can use hasDeliveryType', () => {
+      const postNl = useCarrierConfiguration(CarrierName.PostNl);
+      const dhlForYou = useCarrierConfiguration(CarrierName.DhlForYou);
+
+      expect(postNl.hasDeliveryType(DeliveryTypeName.Morning)).toBe(true);
+      expect(dhlForYou.hasDeliveryType(DeliveryTypeName.Morning)).toBe(false);
+    });
+
+    it('can use hasShipmentOption', () => {
+      const postNl = useCarrierConfiguration(CarrierName.PostNl);
+      const dhlForYou = useCarrierConfiguration(CarrierName.DhlForYou);
+
+      expect(postNl.hasShipmentOption(ShipmentOptionName.SameDayDelivery)).toBe(false);
+      expect(dhlForYou.hasShipmentOption(ShipmentOptionName.SameDayDelivery)).toBe(true);
+    });
+
+    it('can use hasFeature', () => {
+      const postNl = useCarrierConfiguration(CarrierName.PostNl);
+      const dhlForYou = useCarrierConfiguration(CarrierName.DhlForYou);
+
+      expect(postNl.hasFeature(FEATURE_SHOW_DELIVERY_DATE)).toBe(true);
+      expect(dhlForYou.hasFeature(FEATURE_SHOW_DELIVERY_DATE)).toBe(false);
+    });
+
+    it('can use hasDeliveryInCountry', () => {
+      const postNl = useCarrierConfiguration(CarrierName.PostNl);
+      const dhlForYou = useCarrierConfiguration(CarrierName.DhlForYou);
+
+      expect(postNl.hasDeliveryInCountry('NL')).toBe(true);
+      expect(dhlForYou.hasDeliveryInCountry('NL')).toBe(true);
+    });
+
+    it('can use hasPickupInCountry', () => {
+      const postNl = useCarrierConfiguration(CarrierName.PostNl);
+      const dhlForYou = useCarrierConfiguration(CarrierName.DhlForYou);
+
+      expect(postNl.hasPickupInCountry('BE')).toBe(true);
+      expect(dhlForYou.hasPickupInCountry('BE')).toBe(false);
+    });
   });
 });
