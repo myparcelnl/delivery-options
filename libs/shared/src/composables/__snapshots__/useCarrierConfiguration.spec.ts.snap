@@ -1,0 +1,520 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`useCarrierConfiguration > returns the carrier configuration for "bol.com" on "belgie" 1`] = `"❌"`;
+
+exports[`useCarrierConfiguration > returns the carrier configuration for "bol.com" on "belgie" 2`] = `"❌"`;
+
+exports[`useCarrierConfiguration > returns the carrier configuration for "bol.com" on "myparcel" 1`] = `"❌"`;
+
+exports[`useCarrierConfiguration > returns the carrier configuration for "bol.com" on "myparcel" 2`] = `"❌"`;
+
+exports[`useCarrierConfiguration > returns the carrier configuration for "bpost" on "belgie" 1`] = `
+{
+  "addressFields": [
+    "postalCode",
+    "street",
+    "city",
+  ],
+  "deliveryCountries": [
+    "BE",
+    "NL",
+  ],
+  "deliveryTypes": [
+    "standard",
+  ],
+  "features": [
+    [
+      "showDeliveryDate",
+    ],
+    [
+      "deliveryDaysWindow",
+    ],
+    [
+      "dropOffDays",
+    ],
+    [
+      "dropOffDelay",
+    ],
+    [
+      "cutoffTime",
+    ],
+  ],
+  "name": "bpost",
+  "packageTypes": [
+    "package",
+  ],
+  "pickupCountries": [
+    "BE",
+    "NL",
+  ],
+  "shipmentOptions": [
+    "only_recipient",
+    "signature",
+  ],
+  "subscription": 0,
+}
+`;
+
+exports[`useCarrierConfiguration > returns the carrier configuration for "bpost" on "myparcel" 1`] = `"❌"`;
+
+exports[`useCarrierConfiguration > returns the carrier configuration for "cheapcargo" on "belgie" 1`] = `"❌"`;
+
+exports[`useCarrierConfiguration > returns the carrier configuration for "cheapcargo" on "myparcel" 1`] = `"❌"`;
+
+exports[`useCarrierConfiguration > returns the carrier configuration for "dhl" on "belgie" 1`] = `"❌"`;
+
+exports[`useCarrierConfiguration > returns the carrier configuration for "dhl" on "myparcel" 1`] = `"❌"`;
+
+exports[`useCarrierConfiguration > returns the carrier configuration for "dhleuroplus" on "belgie" 1`] = `"❌"`;
+
+exports[`useCarrierConfiguration > returns the carrier configuration for "dhleuroplus" on "myparcel" 1`] = `
+{
+  "deliveryCountries": [
+    "BE",
+    "BG",
+    "DK",
+    "DE",
+    "EE",
+    "FI",
+    "FR",
+    "GR",
+    "HU",
+    "IE",
+    "IT",
+    "HR",
+    "LV",
+    "LT",
+    "LU",
+    "NL",
+    "AT",
+    "PL",
+    "PT",
+    "RO",
+    "SI",
+    "SK",
+    "ES",
+    "CZ",
+    "SE",
+    "GB",
+  ],
+  "deliveryTypes": [
+    "standard",
+  ],
+  "features": [],
+  "name": "dhleuroplus",
+  "packageTypes": [
+    "package",
+  ],
+  "subscription": -1,
+}
+`;
+
+exports[`useCarrierConfiguration > returns the carrier configuration for "dhlforyou" on "belgie" 1`] = `"❌"`;
+
+exports[`useCarrierConfiguration > returns the carrier configuration for "dhlforyou" on "myparcel" 1`] = `
+{
+  "addressFields": [
+    "city",
+    "postalCode",
+  ],
+  "deliveryCountries": [
+    "NL",
+    "BE",
+  ],
+  "deliveryTypes": [
+    "standard",
+  ],
+  "features": [
+    [
+      "cutoffTime",
+    ],
+    [
+      "deliveryDaysWindow",
+    ],
+    [
+      "dropOffDays",
+    ],
+    [
+      "dropOffDelay",
+    ],
+  ],
+  "name": "dhlforyou",
+  "packageTypes": [
+    "package",
+  ],
+  "pickupCountries": [
+    "NL",
+  ],
+  "shipmentOptions": [
+    "only_recipient",
+    "same_day_delivery",
+    "signature",
+  ],
+  "subscription": -1,
+}
+`;
+
+exports[`useCarrierConfiguration > returns the carrier configuration for "dhlparcelconnect" on "belgie" 1`] = `"❌"`;
+
+exports[`useCarrierConfiguration > returns the carrier configuration for "dhlparcelconnect" on "myparcel" 1`] = `
+{
+  "deliveryCountries": [
+    "BG",
+    "DE",
+    "EE",
+    "FI",
+    "GR",
+    "HU",
+    "IE",
+    "IT",
+    "HR",
+    "LV",
+    "LT",
+    "LU",
+    "AT",
+    "PL",
+    "PT",
+    "RO",
+    "SI",
+    "SK",
+    "ES",
+    "CZ",
+  ],
+  "deliveryTypes": [
+    "standard",
+    "pickup",
+  ],
+  "features": [],
+  "name": "dhlparcelconnect",
+  "packageTypes": [
+    "package",
+  ],
+  "pickupCountries": [
+    "BG",
+    "DK",
+    "DE",
+    "EE",
+    "FI",
+    "FR",
+    "GR",
+    "HU",
+    "IE",
+    "IT",
+    "HR",
+    "LV",
+    "LT",
+    "LU",
+    "AT",
+    "PL",
+    "PT",
+    "RO",
+    "SI",
+    "SK",
+    "ES",
+    "CZ",
+    "SE",
+    "GB",
+  ],
+  "subscription": -1,
+}
+`;
+
+exports[`useCarrierConfiguration > returns the carrier configuration for "dpd" on "belgie" 1`] = `
+{
+  "addressFields": [
+    "postalCode",
+    "street",
+    "city",
+  ],
+  "deliveryCountries": [
+    "AT",
+    "BE",
+    "BG",
+    "CZ",
+    "DK",
+    "EE",
+    "FI",
+    "FR",
+    "DE",
+    "GR",
+    "HU",
+    "IE",
+    "IT",
+    "LV",
+    "LI",
+    "LT",
+    "LU",
+    "NL",
+    "PL",
+    "PT",
+    "RO",
+    "SK",
+    "SI",
+    "ES",
+    "SE",
+  ],
+  "deliveryTypes": [
+    "standard",
+    "pickup",
+  ],
+  "features": [
+    [
+      "dropOffDays",
+    ],
+    [
+      "dropOffDelay",
+    ],
+    [
+      "cutoffTime",
+    ],
+  ],
+  "name": "dpd",
+  "packageTypes": [
+    "package",
+  ],
+  "pickupCountries": [
+    "AT",
+    "BE",
+    "CZ",
+    "DK",
+    "EE",
+    "FI",
+    "FR",
+    "DE",
+    "HU",
+    "LV",
+    "LT",
+    "LU",
+    "NL",
+    "PL",
+    "PT",
+    "SK",
+    "SI",
+    "ES",
+    "GB",
+  ],
+  "subscription": 0,
+}
+`;
+
+exports[`useCarrierConfiguration > returns the carrier configuration for "dpd" on "myparcel" 1`] = `
+{
+  "addressFields": [
+    "postalCode",
+    "street",
+    "city",
+  ],
+  "deliveryCountries": [
+    "AT",
+    "BE",
+    "BG",
+    "CZ",
+    "DK",
+    "EE",
+    "FI",
+    "FR",
+    "DE",
+    "GR",
+    "HU",
+    "IE",
+    "IT",
+    "LV",
+    "LI",
+    "LT",
+    "LU",
+    "NL",
+    "PL",
+    "PT",
+    "RO",
+    "SK",
+    "SI",
+    "ES",
+    "SE",
+  ],
+  "deliveryTypes": [
+    "standard",
+    "pickup",
+  ],
+  "features": [
+    [
+      "dropOffDays",
+    ],
+    [
+      "dropOffDelay",
+    ],
+    [
+      "cutoffTime",
+    ],
+  ],
+  "name": "dpd",
+  "packageTypes": [
+    "package",
+  ],
+  "pickupCountries": [
+    "AT",
+    "BE",
+    "CZ",
+    "DK",
+    "EE",
+    "FI",
+    "FR",
+    "DE",
+    "HU",
+    "LV",
+    "LT",
+    "LU",
+    "NL",
+    "PL",
+    "PT",
+    "SK",
+    "SI",
+    "ES",
+    "GB",
+  ],
+  "subscription": 1,
+}
+`;
+
+exports[`useCarrierConfiguration > returns the carrier configuration for "instabox" on "belgie" 1`] = `"❌"`;
+
+exports[`useCarrierConfiguration > returns the carrier configuration for "instabox" on "myparcel" 1`] = `"❌"`;
+
+exports[`useCarrierConfiguration > returns the carrier configuration for "postnl" on "belgie" 1`] = `
+{
+  "deliveryCountries": [
+    "BE",
+    "NL",
+  ],
+  "deliveryTypes": [
+    "standard",
+  ],
+  "features": [
+    [
+      "showDeliveryDate",
+    ],
+    [
+      "deliveryDaysWindow",
+    ],
+    [
+      "dropOffDays",
+    ],
+    [
+      "dropOffDelay",
+    ],
+    [
+      "cutoffTime",
+    ],
+  ],
+  "name": "postnl",
+  "packageTypes": [
+    "package",
+  ],
+  "pickupCountries": [
+    "BE",
+    "NL",
+  ],
+  "shipmentOptions": [
+    "signature",
+  ],
+  "subscription": 0,
+}
+`;
+
+exports[`useCarrierConfiguration > returns the carrier configuration for "postnl" on "myparcel" 1`] = `
+{
+  "addressFields": [
+    "postalCode",
+    "street",
+    "city",
+  ],
+  "deliveryCountries": [
+    "NL",
+    "BE",
+  ],
+  "deliveryTypes": [
+    "standard",
+    "morning",
+    "evening",
+    "pickup",
+  ],
+  "features": [
+    [
+      "showDeliveryDate",
+    ],
+    [
+      "deliveryDaysWindow",
+    ],
+    [
+      "dropOffDays",
+    ],
+    [
+      "dropOffDelay",
+    ],
+    [
+      "cutoffTime",
+    ],
+  ],
+  "name": "postnl",
+  "packageTypes": [
+    "package",
+    "mailbox",
+    "digital_stamp",
+    "letter",
+  ],
+  "pickupCountries": [
+    "NL",
+    "BE",
+  ],
+  "shipmentOptions": [
+    "only_recipient",
+    "signature",
+  ],
+  "subscription": -1,
+}
+`;
+
+exports[`useCarrierConfiguration > returns the carrier configuration for "ups" on "belgie" 1`] = `"❌"`;
+
+exports[`useCarrierConfiguration > returns the carrier configuration for "ups" on "myparcel" 1`] = `
+{
+  "addressFields": [
+    "postalCode",
+    "street",
+    "city",
+  ],
+  "deliveryCountries": [
+    "BG",
+    "DE",
+    "EE",
+    "FI",
+    "GR",
+    "HU",
+    "IE",
+    "IT",
+    "HR",
+    "LV",
+    "LT",
+    "LU",
+    "AT",
+    "PL",
+    "PT",
+    "RO",
+    "SI",
+    "SK",
+    "ES",
+    "CZ",
+  ],
+  "deliveryTypes": [
+    "standard",
+  ],
+  "fakeDelivery": true,
+  "name": "ups",
+  "packageTypes": [
+    "package",
+  ],
+  "pickupCountries": [
+    "DE",
+  ],
+  "subscription": 1,
+}
+`;
