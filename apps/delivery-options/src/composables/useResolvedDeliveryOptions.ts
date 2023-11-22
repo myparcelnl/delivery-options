@@ -1,6 +1,11 @@
 import {type DeepReadonly} from 'vue';
 import {asyncComputed, get} from '@vueuse/core';
-import {type DeliveryOptionsCarrier, useActiveCarriers, useDeliveryOptions} from '@myparcel-do/shared';
+import {
+  type DeliveryOptionsCarrier,
+  useActiveCarriers,
+  useCarrierConfiguration,
+  useDeliveryOptions,
+} from '@myparcel-do/shared';
 import {type DeliveryOption} from '@myparcel/sdk';
 import {type DeliveryTypeName, type PackageTypeName} from '@myparcel/constants';
 import {createGetDeliveryOptionsParameters} from '../utils/createGetDeliveryOptionsParameters';
@@ -23,29 +28,35 @@ export const useResolvedDeliveryOptions = () => {
     const allCarrierPossibilities: ResolvedDeliveryOptions[] = [];
 
     await Promise.all(
-      carriers.data.value.map(async (carrier) => {
-        const params = createGetDeliveryOptionsParameters(carrier);
-        const query = useDeliveryOptions(params);
+      carriers.data.value
+        .filter((carrier) => {
+          const carrierConfig = useCarrierConfiguration(carrier.identifier);
 
-        await query.load();
+          return carrierConfig.hasDeliveryInCountry();
+        })
+        .map(async (carrier) => {
+          const params = createGetDeliveryOptionsParameters(carrier);
+          const query = useDeliveryOptions(params);
 
-        const carrierDates = get(query.data) ?? [];
+          await query.load();
 
-        carrierDates?.forEach((dateOption) => {
-          dateOption.possibilities.forEach((datePossibility) => {
-            const [start, end] = datePossibility.delivery_time_frames;
+          const carrierDates = get(query.data) ?? [];
 
-            allCarrierPossibilities.push({
-              carrier,
-              date: dateOption.date.date,
-              time: createTimeRangeString(start.date_time.date, end.date_time.date),
-              deliveryType: datePossibility.type,
-              packageType: datePossibility.package_type,
-              shipmentOptions: datePossibility.shipment_options,
+          carrierDates?.forEach((dateOption) => {
+            dateOption.possibilities.forEach((datePossibility) => {
+              const [start, end] = datePossibility.delivery_time_frames;
+
+              allCarrierPossibilities.push({
+                carrier,
+                date: dateOption.date.date,
+                time: createTimeRangeString(start.date_time.date, end.date_time.date),
+                deliveryType: datePossibility.type,
+                packageType: datePossibility.package_type,
+                shipmentOptions: datePossibility.shipment_options,
+              });
             });
           });
-        });
-      }),
+        }),
     );
 
     return allCarrierPossibilities;
