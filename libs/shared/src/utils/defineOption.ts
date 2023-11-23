@@ -1,6 +1,6 @@
 import {booleanValidator, numberValidator, stringValidator, timeValidator} from '../validator';
 import {type ConfigOption} from '../types';
-import {OptionType} from '../constants';
+import {OptionType} from '../enums';
 
 export const defineOption = <O extends ConfigOption>(option: O): O => {
   const resolvedOption = {

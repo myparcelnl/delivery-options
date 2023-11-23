@@ -1,7 +1,19 @@
-import {type CarrierName, type PlatformName} from '@myparcel/constants';
-import {type SubscriptionType} from '../constants';
+import {type CarrierName} from '@myparcel/constants';
+import {type SubscriptionType} from '../enums';
+import {
+  type SUPPORTED_DELIVERY_TYPES,
+  type SUPPORTED_PACKAGE_TYPES,
+  type SUPPORTED_PLATFORMS,
+  type SUPPORTED_SHIPMENT_OPTIONS,
+} from '../constants';
 
-export type SupportedPlatformName = PlatformName.MyParcel | PlatformName.SendMyParcel;
+export type SupportedPlatformName = (typeof SUPPORTED_PLATFORMS)[number];
+
+export type SupportedDeliveryTypeName = (typeof SUPPORTED_DELIVERY_TYPES)[number];
+
+export type SupportedShipmentOptionName = (typeof SUPPORTED_SHIPMENT_OPTIONS)[number];
+
+export type SupportedPackageTypeName = (typeof SUPPORTED_PACKAGE_TYPES)[number];
 
 export type SubscriptionId = string | undefined;
 

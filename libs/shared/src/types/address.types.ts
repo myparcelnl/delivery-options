@@ -1,4 +1,4 @@
-import {type AddressField} from '../constants';
+import {type AddressField} from '../enums';
 
 interface BaseAddress {
   [AddressField.Cc]: string;

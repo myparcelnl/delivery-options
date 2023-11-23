@@ -1,5 +1,6 @@
 /* eslint-disable no-magic-numbers */
-import {AddressField} from '../constants';
+
+import {AddressField} from '../enums';
 
 export const ADDRESS_CASE_MAP = {
   postal_code: AddressField.PostalCode,

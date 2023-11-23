@@ -25,5 +25,5 @@ export interface SandboxOptionGroup {
   children?: SandboxOptionGroup[];
   items?: (CarrierSetting | ConfigSetting)[];
   label?: string;
-  name: OptionGroup | string;
+  name: string;
 }

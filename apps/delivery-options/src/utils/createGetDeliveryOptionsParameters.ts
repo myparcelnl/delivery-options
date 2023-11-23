@@ -1,8 +1,8 @@
 import {
   AddressField,
   CarrierSetting,
+  type CarrierWithIdentifier,
   DELIVERY_DAYS_WINDOW_MIN,
-  type DeliveryOptionsCarrier,
   DROP_OFF_DELAY_MIN,
   useDeliveryOptionsStore,
 } from '@myparcel-do/shared';
@@ -12,7 +12,7 @@ import {isEnabledForCarrier} from './isEnabledForCarrier';
 import {calculateCutoffTime} from './calculateCutoffTime';
 
 export const createGetDeliveryOptionsParameters = (
-  carrier: DeliveryOptionsCarrier,
+  carrier: CarrierWithIdentifier,
 ): EndpointParameters<GetDeliveryOptions> => {
   const store = useDeliveryOptionsStore();
 

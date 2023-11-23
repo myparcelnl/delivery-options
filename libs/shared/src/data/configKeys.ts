@@ -2,7 +2,7 @@
 
 import {type PlatformName} from '@myparcel/constants';
 import {type DeliveryOptionsConfig} from '../types';
-import {CarrierSetting, ConfigSetting} from '../constants';
+import {CarrierSetting, ConfigSetting} from '../enums';
 
 export const API_BASE_URL = ConfigSetting.ApiBaseUrl satisfies keyof DeliveryOptionsConfig;
 

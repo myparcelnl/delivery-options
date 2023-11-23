@@ -1,6 +1,6 @@
-import {type CarrierSetting, type DeliveryOptionsCarrier, useDeliveryOptionsConfig} from '@myparcel-do/shared';
+import {type CarrierSetting, type CarrierWithIdentifier, useDeliveryOptionsConfig} from '@myparcel-do/shared';
 
-export const isEnabledForCarrier = (carrier: DeliveryOptionsCarrier, option: CarrierSetting): boolean => {
+export const isEnabledForCarrier = (carrier: CarrierWithIdentifier, option: CarrierSetting): boolean => {
   const config = useDeliveryOptionsConfig();
 
   const globalValue = config.data.config?.[option] ?? false;

@@ -1,11 +1,11 @@
 import {type Ref} from 'vue';
 import {asyncComputed, get} from '@vueuse/core';
 import {getConfigCarriers} from '../utils';
-import {type DeliveryOptionsCarrier} from '../types';
+import {type CarrierWithIdentifier} from '../types';
 import {useCarriers} from '../sdk';
 
 interface UseActiveCarriers {
-  data: Ref<DeliveryOptionsCarrier[]>;
+  data: Ref<CarrierWithIdentifier[]>;
 }
 
 export const useActiveCarriers = (): UseActiveCarriers => {

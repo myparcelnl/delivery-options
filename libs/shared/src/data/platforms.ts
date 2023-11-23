@@ -29,7 +29,7 @@ import {
 } from '@myparcel/constants/countries';
 import {CarrierName, DeliveryTypeName, PackageTypeName, ShipmentOptionName} from '@myparcel/constants';
 import {type PlatformOptions} from '../types';
-import {AddressField, SubscriptionType} from '../constants';
+import {AddressField, SubscriptionType} from '../enums';
 import {
   FEATURES_CUTOFF_TIME,
   FEATURES_DELIVERY_DAYS_WINDOW,

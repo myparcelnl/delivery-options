@@ -3,8 +3,8 @@ import {createPinia, setActivePinia} from 'pinia';
 import {mockDeliveryOptionsConfig} from '@myparcel-do/shared/testing';
 import {ALLOW_ONLY_RECIPIENT, ALLOW_SIGNATURE, KEY_CONFIG, useCarrierSettings} from '@myparcel-do/shared';
 import {type ShipmentOptionName} from '@myparcel/constants';
-import {SHIPMENT_OPTION_CONFIG_MAP} from '../constants';
 import {mockDeliveryOption} from '../__tests__/utils/mockDeliveryOption';
+import {getShipmentOptionConfigMap} from './getShipmentOptionConfigMap';
 import {createShipmentOptionsFromDeliveryMoment} from './createShipmentOptionsFromDeliveryMoment';
 
 describe('createShipmentOptionsFromDeliveryMoment', () => {
@@ -16,7 +16,7 @@ describe('createShipmentOptionsFromDeliveryMoment', () => {
     useCarrierSettings.clear();
   });
 
-  it.each(Object.entries(SHIPMENT_OPTION_CONFIG_MAP))(
+  it.each(Object.entries(getShipmentOptionConfigMap()))(
     'should filter %s by whether it is enabled via the config',
     (shipmentOption, configKey) => {
       mockDeliveryOptionsConfig({
@@ -29,7 +29,7 @@ describe('createShipmentOptionsFromDeliveryMoment', () => {
 
       const result = createShipmentOptionsFromDeliveryMoment(mockDeliveryOption());
 
-      expect(result).toHaveLength(Object.keys(SHIPMENT_OPTION_CONFIG_MAP).length - 1);
+      expect(result).toHaveLength(Object.keys(getShipmentOptionConfigMap()).length - 1);
       expect(result).not.toContainEqual({
         label: shipmentOption,
         value: shipmentOption,
@@ -39,7 +39,7 @@ describe('createShipmentOptionsFromDeliveryMoment', () => {
     },
   );
 
-  it.each(Object.entries(SHIPMENT_OPTION_CONFIG_MAP))(
+  it.each(Object.entries(getShipmentOptionConfigMap()))(
     'should set %s to disabled based on delivery options',
     (shipmentOption, configKey) => {
       mockDeliveryOptionsConfig({
@@ -71,7 +71,7 @@ describe('createShipmentOptionsFromDeliveryMoment', () => {
     },
   );
 
-  it.each(Object.entries(SHIPMENT_OPTION_CONFIG_MAP))(
+  it.each(Object.entries(getShipmentOptionConfigMap()))(
     'should set %s to selected and disabled based on delivery options',
     (shipmentOption, configKey) => {
       mockDeliveryOptionsConfig({

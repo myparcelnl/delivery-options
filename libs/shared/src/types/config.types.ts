@@ -7,7 +7,7 @@ import {
   type PlatformName,
   type ShipmentOptionName,
 } from '@myparcel/constants';
-import {type ComponentName, type OptionType, type PickupLocationsView} from '../constants';
+import {type ComponentName, type OptionType, type PickupLocationsView} from '../enums';
 import {type CustomValidator} from './validator.types';
 import {type SupportedPlatformName} from './platform.types';
 import {type DeliveryOptionsAddress} from './address.types';
@@ -177,10 +177,22 @@ export type InternalOutput = {
   shipmentOptions?: ShipmentOptionName[];
 };
 
+export enum RelatedConfigOptionType {
+  Allow = 'allow',
+  Price = 'price',
+  CutoffTime = 'cutoffTime',
+}
+
+export type RelatedConfigOption = {
+  type: RelatedConfigOptionType;
+  key: string;
+};
+
 export interface ConfigOption<T extends OptionType = OptionType> {
   hasCarrierToggle?: boolean;
   key: string;
   parents?: string[];
+  related?: RelatedConfigOption[];
   type?: T;
   validators?: CustomValidator[];
 }

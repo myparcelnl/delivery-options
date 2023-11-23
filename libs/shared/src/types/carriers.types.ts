@@ -7,6 +7,6 @@ export interface CarrierObject {
   name: CarrierName;
 }
 
-export interface DeliveryOptionsCarrier extends Carrier {
+export interface CarrierWithIdentifier extends Carrier {
   identifier: CarrierIdentifier;
 }

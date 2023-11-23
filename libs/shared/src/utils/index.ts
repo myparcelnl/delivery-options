@@ -5,3 +5,4 @@ export * from './defineOptionWithPrice';
 export * from './getConfigCarriers';
 export * from './getPlatformConfig';
 export * from './resolveCarrierName';
+export {getAllOptions} from './getAllOptions';

@@ -1,7 +1,7 @@
 import {defineAsyncComponent} from 'vue';
 import {defineStore} from 'pinia';
 import {type InputDeliveryOptionsConfiguration, type InternalOutput} from '../types';
-import {ComponentName} from '../constants';
+import {ComponentName} from '../enums';
 
 export const useDeliveryOptionsStore = defineStore('deliveryOptions', {
   state: () => ({

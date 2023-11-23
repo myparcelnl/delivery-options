@@ -1,6 +1,7 @@
 /* eslint-disable max-lines-per-function */
 
 import {type InputDeliveryOptionsConfiguration, type SupportedPlatformName} from '../types';
+import {PickupLocationsView} from '../enums';
 import {
   ALLOW_DELIVERY_OPTIONS,
   ALLOW_EVENING_DELIVERY,
@@ -30,7 +31,6 @@ import {
   SHOW_PRICE_SURCHARGE,
   SHOW_PRICES,
 } from '../data';
-import {PickupLocationsView} from '../constants';
 import {getDefaultStrings} from './getDefaultStrings';
 
 /**

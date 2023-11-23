@@ -7,6 +7,7 @@ import {ref, watch} from 'vue';
 import {ComponentName, type SelectOption} from '@myparcel-do/shared';
 import {createField, type ModularCreatedField} from '@myparcel/vue-form-builder';
 import {ShipmentOptionName} from '@myparcel/constants';
+import {getDeliveryTypePrice} from '../utils/getDeliveryTypePrice';
 import {getComponent} from '../utils';
 import {type ResolvedDeliveryOptions} from '../types';
 import {FIELD_DELIVERY_MOMENT} from '../constants';
@@ -36,6 +37,7 @@ watch(deliveryDate, () => {
         return {
           carrier: option.carrier.identifier,
           label: option.time,
+          price: getDeliveryTypePrice(option),
           value: {
             time: option.time,
             carrier: option.carrier.identifier,

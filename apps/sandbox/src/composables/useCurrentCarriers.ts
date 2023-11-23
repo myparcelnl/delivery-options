@@ -1,14 +1,14 @@
 import {computed} from 'vue';
 import {get} from '@vueuse/core';
 import {type ComputedRef} from '@vue/reactivity';
-import {type CarrierIdentifier, resolveCarrierName, useCarriers, useDeliveryOptionsStore} from '@myparcel-do/shared';
-import {type Carrier} from '@myparcel/sdk';
+import {
+  type CarrierWithIdentifier,
+  resolveCarrierName,
+  useCarriers,
+  useDeliveryOptionsStore,
+} from '@myparcel-do/shared';
 
-interface CarrierInstance extends Carrier {
-  identifier: CarrierIdentifier;
-}
-
-export const useCurrentCarriers = (): ComputedRef<CarrierInstance[]> => {
+export const useCurrentCarriers = (): ComputedRef<CarrierWithIdentifier[]> => {
   const deliveryOptionsStore = useDeliveryOptionsStore();
   const carrierQuery = useCarriers();
 

@@ -1,5 +1,5 @@
 import {type ConfigOption} from '../types';
-import {OptionType} from '../constants';
+import {OptionType} from '../enums';
 import {defineOptionWithPrice} from './defineOptionWithPrice';
 import {defineOption} from './defineOption';
 

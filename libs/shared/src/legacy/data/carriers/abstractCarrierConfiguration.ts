@@ -3,6 +3,7 @@ import {type OneOrMore, type ReadonlyOr} from '@myparcel/ts-utils';
 import {NETHERLANDS} from '@myparcel/constants/countries';
 import {type CarrierName, type PackageTypeName, type PlatformName} from '@myparcel/constants';
 import {type SubscriptionId, type SupportedPlatformName} from '../../../types';
+import {AddressField} from '../../../enums';
 import {
   ALLOW_PACKAGE_TYPE_DIGITAL_STAMP,
   ALLOW_PACKAGE_TYPE_MAILBOX,
@@ -10,7 +11,6 @@ import {
   PACKAGE_TYPE_MAILBOX,
   PACKAGE_TYPE_PACKAGE,
 } from '../../../data';
-import {AddressField} from '../../../constants';
 
 export type FeatureOption = string;
 

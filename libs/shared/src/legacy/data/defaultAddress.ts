@@ -3,7 +3,7 @@
 import {BELGIUM, NETHERLANDS} from '@myparcel/constants/countries';
 import {PlatformName} from '@myparcel/constants';
 import {type DeliveryOptionsAddress, type SupportedPlatformName} from '../../types';
-import {AddressField} from '../../constants';
+import {AddressField} from '../../enums';
 
 export const defaultAddress: Record<SupportedPlatformName, DeliveryOptionsAddress> = {
   [PlatformName.MyParcel]: {
