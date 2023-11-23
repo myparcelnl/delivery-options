@@ -13,8 +13,8 @@
 
       <span
         :class="{
-          'mp-bg-green-400 dark:mp-bg-green-600': model,
-          'mp-bg-gray-600': !model,
+          'mp-bg-goldfish-500 dark:mp-bg-goldfish-600': model,
+          'mp-bg-gray-300 dark:mp-bg-gray-600': !model,
         }"
         class="mp-h-6 mp-rounded-full mp-transition-colors mp-w-10" />
 
