@@ -2,7 +2,12 @@
 import {type Config} from 'tailwindcss';
 
 const config: Config = {
-  content: ['index.html', 'src/**/*.{js,ts,vue,scss}'],
+  content: [
+    'index.html',
+    'src/**/*.{js,ts,vue,scss}',
+    '../delivery-options/src/**/*.{js,ts,vue,scss}',
+    '../../libs/shared/src/**/*.{js,ts,vue,scss}',
+  ],
   darkMode: 'class',
   prefix: 'mp-',
   theme: {
@@ -50,8 +55,15 @@ const config: Config = {
           900: '#331C00',
         },
       },
+
+      maxHeight: ({theme}) => theme('height'),
+      maxWidth: ({theme}) => theme('width'),
+      minHeight: ({theme}) => theme('height'),
+      minWidth: ({theme}) => theme('width'),
     },
   },
 };
+
+console.log(config);
 
 export default config;

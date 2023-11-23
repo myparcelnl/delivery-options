@@ -8,7 +8,7 @@ export const useElInputClasses = (element?: ElementInstance): string[] => {
 
   return [
     ...useBaseInputClasses(),
-    get(resolvedElement.isValid) ? 'mp-border-gray-300' : 'mp-border-red-500',
+    get(resolvedElement.isValid) ? '' : 'mp-border-red-500',
     get(resolvedElement.isDisabled) ? 'mp-opacity-50 mp-cursor-not-allowed' : undefined,
   ].filter(isDefined) as string[];
 };

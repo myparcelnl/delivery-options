@@ -1,7 +1,7 @@
 <template>
   <div
     :class="{
-      'mp-gap-4 mp-grid mp-grid-cols-[1fr,1fr]': !nested,
+      'mp-gap-4 mp-grid mp-grid-cols-2': !nested,
     }">
     <component
       :is="`h${level}`"

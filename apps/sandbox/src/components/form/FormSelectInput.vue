@@ -4,6 +4,7 @@
     v-model="model"
     :class="classes"
     :options="options"
+    class="pr-8"
     v-bind="elementProps" />
 </template>
 
@@ -16,7 +17,7 @@ import {
   type WithElement,
 } from '@myparcel-do/shared';
 import SandboxSelectInput from '../base/SandboxSelectInput.vue';
-import {useElInputClasses} from '../../composables'; // eslint-disable-next-line vue/no-unused-properties
+import {useElInputClasses} from '../../composables';
 
 // eslint-disable-next-line vue/no-unused-properties
 const props = defineProps<WithElement<SelectInputProps<T>>>();

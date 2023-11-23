@@ -22,7 +22,7 @@
       class="mp-mb-4 mp-text-gray-600 mp-text-sm"
       v-text="translate(field.description)" />
 
-    <div class="mp-gap-2 mp-grid mp-grid-cols-[1fr,1fr]">
+    <div class="mp-gap-2 mp-grid mp-grid-cols-2">
       <slot />
 
       <component
