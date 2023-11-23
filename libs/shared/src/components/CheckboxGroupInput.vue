@@ -2,10 +2,11 @@
   <div>
     <label
       v-for="option in options"
-      :key="`${id}-${option.value}`">
+      :key="`${id}-${option.value}`"
+      class="mp-block">
       <CheckboxInput
         :id="`${id}-${option.value}`"
-        :disabled="elementProps.disabled || option.disabled"
+        :disabled="option.disabled || elementProps.disabled"
         :model-value="model?.includes(option.value)"
         :name="id"
         :option="option"
@@ -35,10 +36,7 @@ import CheckboxInput from './CheckboxInput.vue';
 const props = defineProps<WithElement<CheckboxGroupProps<T>>>();
 const emit = defineEmits<CheckboxGroupEmits<T>>();
 
-console.log(props);
 const {id, model, elementProps} = useCheckboxGroupContext(props, emit);
-
-console.log(model.value);
 
 const options = computed(() => props.element.props.options);
 

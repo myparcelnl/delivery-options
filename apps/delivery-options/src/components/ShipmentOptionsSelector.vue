@@ -3,13 +3,14 @@
 </template>
 
 <script lang="ts" setup>
-import {reactive, ref, toRaw, watch} from 'vue';
+import {reactive, ref, watch} from 'vue';
 import {get, watchOnce} from '@vueuse/core';
 import {ComponentName} from '@myparcel-do/shared';
 import {createField, type ModularCreatedField} from '@myparcel/vue-form-builder';
+import {objectIsEqual} from '@myparcel/ts-utils';
 import {createShipmentOptionsFromDeliveryMoment} from '../utils/createShipmentOptionsFromDeliveryMoment';
 import {getComponent} from '../utils';
-import {FIELD_DELIVERY_MOMENT, FIELD_SHIPMENT_OPTIONS} from '../constants';
+import {FIELD_SHIPMENT_OPTIONS} from '../constants';
 import {useSelectedDeliveryMoment} from '../composables';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -29,21 +30,21 @@ watchOnce(deliveryMoment, () => {
 
   watch(
     deliveryMoment,
-    (moment) => {
-      console.log(FIELD_DELIVERY_MOMENT, toRaw(moment));
-      const newOptions = createShipmentOptionsFromDeliveryMoment(moment);
+    (newMoment, oldMoment) => {
+      if (objectIsEqual(newMoment, oldMoment)) {
+        return;
+      }
 
+      const newOptions = createShipmentOptionsFromDeliveryMoment(newMoment);
       const field = get(ShipmentOptions.value)?.field;
 
       if (!field) {
         return;
       }
 
-      console.log('newOptions', newOptions);
-
       field.props.options = newOptions;
     },
-    {deep: true},
+    {deep: true, immediate: true},
   );
 });
 </script>

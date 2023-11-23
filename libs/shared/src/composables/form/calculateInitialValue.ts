@@ -7,22 +7,34 @@ export const calculateInitialValue = <T extends OneOrMore<SelectInputModelValue>
   model: WritableComputedRef<T>,
   options: SelectOption<ArrayItem<T>>[],
 ): T | null => {
-  const value = get(model);
+  const allowedValues = options.map((option) => option.value);
+  const currentValue = get(model);
 
-  const multiple = Array.isArray(value);
-  const currentValues = toArray(value);
-  const hasExistingValue = currentValues.length && options.some((option) => currentValues.includes(option.value));
+  const disabled = options.filter((option) => option.disabled);
 
-  if (hasExistingValue || options.length === 0) {
+  if (!disabled.length && (options.length === 0 || options.some((option) => option.value === currentValue))) {
     return null;
   }
 
-  const selected = options.filter((option) => option.selected);
-  const selectable = selected.length ? selected : options.slice(0, 1);
+  if (!Array.isArray(currentValue)) {
+    const selected = options.filter((option) => option.selected);
+    const selectable = selected.length ? selected : options.slice(0, 1);
 
-  if (!multiple) {
     return selectable[0].value as T;
   }
 
-  return selectable.map((item) => item.value) as T;
+  const existingValues = toArray(currentValue).filter((value) => allowedValues.includes(value));
+  const newOptions = new Set(existingValues);
+
+  options.forEach((option) => {
+    if (option.selected && (option.disabled || !existingValues.length)) {
+      newOptions.add(option.value);
+    }
+
+    if (!option.selected && option.disabled) {
+      newOptions.delete(option.value);
+    }
+  });
+
+  return Array.from(newOptions) as T;
 };

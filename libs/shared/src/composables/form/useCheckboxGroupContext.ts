@@ -12,4 +12,4 @@ export const useCheckboxGroupContext = <
 >(
   props: P,
   emit: CheckboxGroupEmits<T>,
-): InputWithOptionsContext<T, true> => useInputWithOptionsContext(props, emit, true);
+): InputWithOptionsContext<T> => useInputWithOptionsContext(props, emit);
