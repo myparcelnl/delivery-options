@@ -10,7 +10,7 @@
 <script generic="T" lang="ts" setup>
 import {useVModel} from '@vueuse/core';
 import {type TextInputEmits, type TextInputProps} from '@myparcel-do/shared';
-import {useBaseInputClasses} from '../../composables/useBaseInputClasses';
+import {useBaseInputClasses} from '../../composables';
 
 // eslint-disable-next-line vue/no-unused-properties
 const props = defineProps<TextInputProps>();

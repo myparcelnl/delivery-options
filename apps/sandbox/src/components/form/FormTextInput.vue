@@ -1,5 +1,5 @@
 <template>
-  <TextInput
+  <SandboxTextInput
     v-model="model"
     :class="classes"
     v-bind="elementProps" />
@@ -7,7 +7,7 @@
 
 <script lang="ts" setup>
 import {type TextInputEmits, type TextInputProps, useElementContext, type WithElement} from '@myparcel-do/shared';
-import TextInput from '../base/TextInput.vue';
+import SandboxTextInput from '../base/SandboxTextInput.vue';
 import {useElInputClasses} from '../../composables';
 
 // eslint-disable-next-line vue/no-unused-properties

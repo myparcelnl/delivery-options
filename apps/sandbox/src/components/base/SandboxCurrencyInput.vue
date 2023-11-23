@@ -21,7 +21,7 @@
 import {useVModel} from '@vueuse/core';
 import {type CurrencyInputEmits, type CurrencyInputProps} from '@myparcel-do/shared';
 import {useBaseInputClasses} from '../../composables';
-import NumberInput from './NumberInput.vue';
+import NumberInput from './SandboxNumberInput.vue';
 
 // eslint-disable-next-line vue/no-unused-properties
 const props = defineProps<CurrencyInputProps>();

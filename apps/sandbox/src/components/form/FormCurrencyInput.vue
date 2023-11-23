@@ -1,5 +1,5 @@
 <template>
-  <CurrencyInput
+  <SandboxCurrencyInput
     v-model="model"
     :class="classes"
     v-bind="elementProps" />
@@ -12,7 +12,7 @@ import {
   useElementContext,
   type WithElement,
 } from '@myparcel-do/shared';
-import CurrencyInput from '../base/CurrencyInput.vue';
+import SandboxCurrencyInput from '../base/SandboxCurrencyInput.vue';
 import {useElInputClasses} from '../../composables';
 
 // eslint-disable-next-line vue/no-unused-properties

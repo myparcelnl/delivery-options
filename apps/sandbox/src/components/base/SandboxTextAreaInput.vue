@@ -8,7 +8,7 @@
 <script lang="ts" setup>
 import {useVModel} from '@vueuse/core';
 import {type TextAreaEmits, type TextAreaProps} from '@myparcel-do/shared';
-import {useBaseInputClasses} from '../../composables/useBaseInputClasses';
+import {useBaseInputClasses} from '../../composables';
 
 // eslint-disable-next-line vue/no-unused-properties
 const props = defineProps<TextAreaProps>();

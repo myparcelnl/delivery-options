@@ -42,7 +42,7 @@ import {isOfType} from '@myparcel/ts-utils';
 import {type SettingsField, type SettingsGroup} from '../types';
 import {useSandboxStore} from '../stores';
 import {generateConfigItemField} from '../form/generateConfigItemField';
-import ToggleInput from './base/ToggleInput.vue';
+import ToggleInput from './base/SandboxToggleInput.vue';
 
 const props = defineProps<{
   field: SettingsGroup;

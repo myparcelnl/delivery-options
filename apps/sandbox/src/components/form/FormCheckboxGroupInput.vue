@@ -1,5 +1,6 @@
 <template>
-  <CheckboxGroupInput
+  <SandboxCheckboxGroupInput
+    :id="id"
     v-model="model"
     :options="options"
     v-bind="elementProps" />
@@ -13,11 +14,11 @@ import {
   useCheckboxGroupContext,
   type WithElement,
 } from '@myparcel-do/shared';
-import CheckboxGroupInput from '../base/CheckboxGroupInput.vue';
+import SandboxCheckboxGroupInput from '../base/SandboxCheckboxGroupInput.vue';
 
 // eslint-disable-next-line vue/no-unused-properties
 const props = defineProps<WithElement<CheckboxGroupProps<T>>>();
 const emit = defineEmits<CheckboxGroupEmits<T>>();
 
-const {id, model, options, elementProps} = useCheckboxGroupContext(props, emit);
+const {id, model, elementProps, options} = useCheckboxGroupContext(props, emit);
 </script>

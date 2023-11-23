@@ -8,7 +8,7 @@
 <script lang="ts" setup>
 import {useVModel} from '@vueuse/core';
 import {type TimeInputEmits, type TimeInputProps} from '@myparcel-do/shared';
-import TextInput from './TextInput.vue';
+import TextInput from './SandboxTextInput.vue';
 
 // eslint-disable-next-line vue/no-unused-properties
 const props = defineProps<TimeInputProps>();

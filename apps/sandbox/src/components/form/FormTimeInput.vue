@@ -1,5 +1,5 @@
 <template>
-  <TimeInput
+  <SandboxTimeInput
     v-model="model"
     :class="classes"
     v-bind="elementProps" />
@@ -7,7 +7,7 @@
 
 <script lang="ts" setup>
 import {type TimeInputEmits, type TimeInputProps, useElementContext, type WithElement} from '@myparcel-do/shared';
-import TimeInput from '../base/TimeInput.vue';
+import SandboxTimeInput from '../base/SandboxTimeInput.vue';
 import {useElInputClasses} from '../../composables';
 
 // eslint-disable-next-line vue/no-unused-properties

@@ -1,22 +1,24 @@
 <template>
-  <RadioGroupInput
+  <SandboxRadioGroupInput
+    :id="id"
     v-model="model"
-    :element="element" />
+    :options="options"
+    v-bind="elementProps" />
 </template>
 
 <script generic="T extends RadioGroupModelValue" lang="ts" setup>
-import {useVModel} from '@vueuse/core';
 import {
   type RadioGroupEmits,
-  RadioGroupInput,
   type RadioGroupModelValue,
   type RadioGroupProps,
+  useRadioGroupContext,
   type WithElement,
 } from '@myparcel-do/shared';
+import SandboxRadioGroupInput from '../base/SandboxRadioGroupInput.vue';
 
 // eslint-disable-next-line vue/no-unused-properties
 const props = defineProps<WithElement<RadioGroupProps<T>>>();
 const emit = defineEmits<RadioGroupEmits<T>>();
 
-const {model} = useVModel(props, emit);
+const {id, model, elementProps, options} = useRadioGroupContext(props, emit);
 </script>

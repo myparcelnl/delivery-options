@@ -1,5 +1,5 @@
 <template>
-  <NumberInput
+  <SandboxNumberInput
     v-model="model"
     :class="classes"
     v-bind="elementProps" />
@@ -7,7 +7,7 @@
 
 <script lang="ts" setup>
 import {type NumberInputEmits, type NumberInputProps, useElementContext, type WithElement} from '@myparcel-do/shared';
-import NumberInput from '../base/NumberInput.vue';
+import SandboxNumberInput from '../base/SandboxNumberInput.vue';
 import {useElInputClasses} from '../../composables';
 
 // eslint-disable-next-line vue/no-unused-properties
