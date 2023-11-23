@@ -1,15 +1,15 @@
 <template>
   <Form.Component>
-    <HomeDelivery />
-
-    <PickupLocations />
+    <HomeOrPickup.Component />
   </Form.Component>
 </template>
 
 <script lang="ts" setup>
-import {computed, watch} from 'vue';
-import {type InternalOutput} from '@myparcel-do/shared';
+import {computed, markRaw, reactive, watch} from 'vue';
+import {type InternalOutput, useLanguage} from '@myparcel-do/shared';
+import {createField} from '@myparcel/vue-form-builder';
 import {createDeliveryOptionsForm} from '../form/createDeliveryOptionsForm';
+import RadioGroupTabs from './RadioGroupTabs.vue';
 import PickupLocations from './PickupLocations.vue';
 import HomeDelivery from './HomeDelivery.vue';
 
@@ -22,5 +22,26 @@ const values = computed<InternalOutput>(() => Form.instance?.getValues());
 
 watch(values, (values) => {
   emit('update', values);
+});
+
+const {translate} = useLanguage();
+
+const HomeOrPickup = createField({
+  name: 'homeOrPickup',
+  component: RadioGroupTabs,
+  props: reactive({
+    options: [
+      {
+        label: translate('homeDelivery'),
+        value: 'home',
+        content: markRaw(HomeDelivery),
+      },
+      {
+        label: translate('pickup'),
+        value: 'pickup',
+        content: markRaw(PickupLocations),
+      },
+    ],
+  }),
 });
 </script>

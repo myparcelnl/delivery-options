@@ -1,3 +1,4 @@
+import {type Component} from 'vue';
 import {type CarrierIdentifier} from './config.types';
 import {type Keyable, type Translation} from './common.types';
 
@@ -7,9 +8,12 @@ export type OptionsProps<T extends SelectOptionValue> = {
 
 interface BaseSelectOption<Value extends SelectOptionValue = SelectOptionValue> {
   carrier?: CarrierIdentifier;
+  content?: Component;
   disabled?: boolean;
+  ecoFriendly?: boolean;
   icon?: string;
   image?: string;
+  label?: string;
   price?: number;
   selected?: boolean;
   value: Value;

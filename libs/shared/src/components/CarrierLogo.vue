@@ -1,11 +1,11 @@
 <template>
-  <div>
+  <div class="after:mp-block after:mp-content-[''] after:mp-pb-[100%] mp-inline-flex mp-w-8">
     <img
       v-if="query.data"
       v-show="loaded && !hasError"
       :alt="carrier"
       :src="useAssetUrl(query.data.meta.logo_svg)"
-      width="30"
+      class="mp-m-auto"
       @error="hasError = true"
       @load="loaded = true" />
 
