@@ -10,7 +10,11 @@ import CButton from './CButton.vue';
 
 const options = ['auto', 'dark', 'light'] as const;
 
-const {store} = useColorMode();
+const {store} = useColorMode({
+  modes: {
+    dark: 'mp-dark',
+  },
+});
 
 const cycle = () => {
   const index = options.indexOf(store.value) + 1;
