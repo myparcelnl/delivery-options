@@ -13,7 +13,7 @@
   <div
     v-show="element.isVisible"
     class="mp-flex mp-items-center mp-justify-start">
-    <slot v-bind="$attrs" />
+    <slot />
   </div>
 </template>
 
