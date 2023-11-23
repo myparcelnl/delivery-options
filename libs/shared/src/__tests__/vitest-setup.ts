@@ -1,6 +1,5 @@
 /* eslint-disable */
-import {beforeEach, vi} from 'vitest';
-import {createTestingPinia} from '@pinia/testing';
+import {vi} from 'vitest';
 import {mockGetCarrier} from './mocks/mockGetCarrier';
 import {mockGetCarriers} from './mocks/mockGetCarriers';
 import {mockGetDeliveryOptions} from './mocks/mockGetDeliveryOptions';
@@ -42,8 +41,4 @@ vi.mock('@myparcel/sdk', async (importOriginal) => {
       }
     },
   };
-});
-
-beforeEach(() => {
-  createTestingPinia({ createSpy: vi.fn });
 });

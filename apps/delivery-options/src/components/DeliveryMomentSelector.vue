@@ -8,6 +8,8 @@ import {ComponentName, type SelectOption} from '@myparcel-do/shared';
 import {createField, type ModularCreatedField} from '@myparcel/vue-form-builder';
 import {ShipmentOptionName} from '@myparcel/constants';
 import {getComponent} from '../utils';
+import {type ResolvedDeliveryOptions} from '../types';
+import {FIELD_DELIVERY_MOMENT} from '../constants';
 import {useSelectedDeliveryDate} from '../composables/useSelectedDeliveryDate';
 import {useResolvedDeliveryMoments} from '../composables/useResolvedDeliveryMoments';
 
@@ -23,7 +25,7 @@ watch(deliveryDate, () => {
   }
 
   DeliveryMoment.value = createField({
-    name: 'deliveryMoment',
+    name: FIELD_DELIVERY_MOMENT,
     component: getComponent(ComponentName.RadioGroup),
     props: {
       options: deliveryMoments.value.map((option) => {
@@ -35,12 +37,13 @@ watch(deliveryDate, () => {
           carrier: option.carrier.identifier,
           label: option.time,
           value: {
+            time: option.time,
             carrier: option.carrier.identifier,
             date: option.date,
             deliveryType: option.deliveryType,
             packageType: option.packageType,
             shipmentOptions,
-          },
+          } satisfies ResolvedDeliveryOptions,
         };
       }) satisfies SelectOption[],
     },

@@ -22,6 +22,7 @@ const getCarrierConfiguration = useMemoize((carrierIdentifier: CarrierIdentifier
 export interface UseCarrierConfiguration {
   carrier: ReturnType<typeof useCarrier>;
   config: ReturnType<typeof getCarrierConfiguration>;
+
   hasDeliveryInCountry(countryCode?: string): boolean;
   hasDeliveryType(deliveryType: DeliveryTypeName): boolean;
   hasFeature(feature: string): boolean;

@@ -1,5 +1,6 @@
 import {computed, type ComputedRef} from 'vue';
-import {type ResolvedDeliveryOptions, useResolvedDeliveryOptions} from './useResolvedDeliveryOptions';
+import {type ResolvedDeliveryOptions} from '../types';
+import {useResolvedDeliveryOptions} from './useResolvedDeliveryOptions';
 
 export const useResolvedDeliveryDates = (): ComputedRef<ResolvedDeliveryOptions[]> => {
   const deliveryOptions = useResolvedDeliveryOptions();

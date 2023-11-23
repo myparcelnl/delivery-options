@@ -1,24 +1,8 @@
-import {type DeepReadonly} from 'vue';
 import {asyncComputed, get} from '@vueuse/core';
-import {
-  type DeliveryOptionsCarrier,
-  useActiveCarriers,
-  useCarrierConfiguration,
-  useDeliveryOptions,
-} from '@myparcel-do/shared';
-import {type DeliveryOption} from '@myparcel/sdk';
-import {type DeliveryTypeName, type PackageTypeName} from '@myparcel/constants';
+import {useActiveCarriers, useCarrierConfiguration, useDeliveryOptions} from '@myparcel-do/shared';
 import {createGetDeliveryOptionsParameters} from '../utils/createGetDeliveryOptionsParameters';
 import {createTimeRangeString} from '../utils';
-
-export interface ResolvedDeliveryOptions {
-  carrier: DeliveryOptionsCarrier;
-  date: string;
-  deliveryType: DeliveryTypeName;
-  packageType: PackageTypeName;
-  shipmentOptions: DeepReadonly<DeliveryOption['possibilities'][number]['shipment_options']>;
-  time: string;
-}
+import {type ResolvedDeliveryOptions} from '../types';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const useResolvedDeliveryOptions = () => {

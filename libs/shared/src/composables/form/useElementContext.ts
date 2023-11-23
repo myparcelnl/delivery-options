@@ -1,12 +1,13 @@
 import {computed, toRefs, type WritableComputedRef} from 'vue';
 import {get, useVModel} from '@vueuse/core';
-import {type ElementContext, type ElementEmits, type ElementProps, type WithElement} from '../../types';
+import {type ElementContext, type ElementEmits, type ElementProps} from '../../types';
 import {generateFieldId} from './generateFieldId';
 
 export const useElementContext = <
-  T1 = unknown,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  T1 = any,
   T2 = T1,
-  Props extends WithElement<ElementProps<T1>> = WithElement<ElementProps<T1>>,
+  Props extends ElementProps<T1> = ElementProps<T1>,
   Emits extends ElementEmits<T2> = ElementEmits<T2>,
 >(
   props: Props,

@@ -1,37 +1,49 @@
-import {computed, type ComputedRef, type WritableComputedRef} from 'vue';
+import {computed, type ComputedRef, onMounted, watch, type WritableComputedRef} from 'vue';
+import {get} from '@vueuse/core';
 import {
+  type ArrayItem,
+  type ElementProps,
+  type OptionsProps,
   type SelectInputEmits,
-  type SelectInputProps,
-  type SelectOptionValue,
-  type SelectOptionWithLabel,
-  type WithElement,
+  type SelectInputModelValue,
+  type SelectOption,
 } from '../../types';
-import {useInputOptions} from './useInputOptions';
 import {useElementContext} from './useElementContext';
+import {calculateInitialValue} from './calculateInitialValue';
 
-export interface InputWithOptionsContext<T extends SelectOptionValue = SelectOptionValue> {
-  elementProps: ComputedRef<Omit<SelectInputProps<T>, 'options'>>;
+export interface InputWithOptionsContext<T extends SelectInputModelValue> {
+  elementProps: ComputedRef<ElementProps<T, OptionsProps<T>>>;
   id: string;
-  model: WritableComputedRef<T>;
-  options: ComputedRef<SelectOptionWithLabel<T>[]>;
+  model: WritableComputedRef<ArrayItem<T>>;
+  options: ComputedRef<SelectOption<T>[]>;
 }
 
 export const useInputWithOptionsContext = <
-  T extends SelectOptionValue = SelectOptionValue,
-  Props extends WithElement<SelectInputProps<T>> = WithElement<SelectInputProps<T>>,
-  Multiple extends boolean = false,
+  T extends SelectInputModelValue = SelectInputModelValue,
+  Props extends ElementProps<T, OptionsProps<T>> = ElementProps<T, OptionsProps<T>>,
 >(
   props: Props,
   emit: SelectInputEmits<T>,
-  multiple?: Multiple,
 ): InputWithOptionsContext<T> => {
-  const {id, model, elementProps} = useElementContext<T, unknown, Props, SelectInputEmits<T>>(props, emit);
+  const {id, model, elementProps} = useElementContext(props, emit);
 
-  const options = computed(() => (props.element.props.options ?? []) as SelectOptionWithLabel<T>[]);
+  const options = computed<SelectOption<T>[]>(() => props.element.props.options ?? []);
 
-  console.log({options: options.value});
+  onMounted(() => {
+    watch(
+      options,
+      (newOptions) => {
+        const value = calculateInitialValue(model, newOptions);
 
-  useInputOptions(model, options);
+        if (value === null) {
+          return;
+        }
+
+        model.value = value;
+      },
+      {immediate: Number(get(options)?.length) > 0},
+    );
+  });
 
   return {
     id,

@@ -8,5 +8,5 @@ export interface CarrierObject {
 }
 
 export interface DeliveryOptionsCarrier extends Carrier {
-  identifier: string;
+  identifier: CarrierIdentifier;
 }

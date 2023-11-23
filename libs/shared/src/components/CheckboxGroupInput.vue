@@ -5,12 +5,13 @@
       :key="`${id}-${option.value}`">
       <CheckboxInput
         :id="`${id}-${option.value}`"
-        v-model="model"
         :disabled="elementProps.disabled || option.disabled"
+        :model-value="model?.includes(option.value)"
         :name="id"
         :option="option"
         :readonly="elementProps.readonly"
-        :value="option.value" />
+        :value="option.value"
+        @update:modelValue="(value) => createUpdateHandler(option.value)(value)" />
 
       <span>
         {{ option.label }}
@@ -19,17 +20,39 @@
   </div>
 </template>
 
-<script lang="ts" setup>
+<script generic="T extends CheckboxGroupModelValue" lang="ts" setup>
 import {computed} from 'vue';
-import {type CheckboxGroupEmits, type CheckboxGroupProps, type WithElement} from '../types';
-import {useElementContext} from '../composables';
+import {
+  type CheckboxGroupEmits,
+  type CheckboxGroupModelValue,
+  type CheckboxGroupProps,
+  type WithElement,
+} from '../types';
+import {useCheckboxGroupContext} from '../composables';
 import CheckboxInput from './CheckboxInput.vue';
 
 // eslint-disable-next-line vue/no-unused-properties
-const props = defineProps<WithElement<CheckboxGroupProps<string>>>();
-const emit = defineEmits<CheckboxGroupEmits<string>>();
+const props = defineProps<WithElement<CheckboxGroupProps<T>>>();
+const emit = defineEmits<CheckboxGroupEmits<T>>();
 
-const {id, model, elementProps} = useElementContext(props, emit);
+console.log(props);
+const {id, model, elementProps} = useCheckboxGroupContext(props, emit);
+
+console.log(model.value);
 
 const options = computed(() => props.element.props.options);
+
+const createUpdateHandler = (optionValue: T) => {
+  return (toggle: boolean) => {
+    const newModel = [...model.value];
+
+    if (toggle) {
+      newModel.push(optionValue);
+    } else {
+      newModel.splice(newModel.indexOf(optionValue), 1);
+    }
+
+    emit('update:modelValue', newModel);
+  };
+};
 </script>

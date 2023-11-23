@@ -5,3 +5,4 @@ export * from './useInputOptions';
 export * from './useInputWithOptionsContext';
 export * from './useRadioGroupContext';
 export * from './useSelectInputContext';
+export {calculateInitialValue} from './calculateInitialValue';

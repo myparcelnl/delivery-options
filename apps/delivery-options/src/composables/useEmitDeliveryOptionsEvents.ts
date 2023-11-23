@@ -1,6 +1,7 @@
 import {ref} from 'vue';
 import {useDebounceFn, useRefHistory} from '@vueuse/core';
 import {type DeliveryOptionsOutput, type InternalOutput, UPDATED_DELIVERY_OPTIONS} from '@myparcel-do/shared';
+import {ShipmentOptionName} from '@myparcel/constants';
 import {type DeliveryOptionsEmits} from '../types';
 
 const UPDATE_DELIVERY_OPTIONS_DEBOUNCE = 300;
@@ -16,13 +17,17 @@ export const useEmitDeliveryOptionsEvents = (emit: DeliveryOptionsEmits): EmitDe
 
   if (!callbackFn) {
     callbackFn = useDebounceFn((values: InternalOutput) => {
-      const externalOutput: DeliveryOptionsOutput = {
+      const externalOutput = {
         deliveryType: values.deliveryMoment?.deliveryType,
         packageType: values.deliveryMoment?.packageType,
         date: values.deliveryMoment?.date,
         carrier: values.deliveryMoment?.carrier,
         isPickup: false,
-      };
+        shipmentOptions: {
+          signature: values.shipmentOptions?.[ShipmentOptionName.Signature] ?? false,
+          onlyRecipient: values.shipmentOptions?.[ShipmentOptionName.OnlyRecipient] ?? false,
+        },
+      } as DeliveryOptionsOutput;
 
       last = history.last.value.snapshot ?? null;
 

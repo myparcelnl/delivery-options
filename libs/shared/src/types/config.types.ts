@@ -1,6 +1,12 @@
 import {type Component} from 'vue';
 import {type RecursiveRequired} from '@myparcel/ts-utils';
-import {type CarrierName, type DeliveryTypeName, type PackageTypeName, type PlatformName} from '@myparcel/constants';
+import {
+  type CarrierName,
+  type DeliveryTypeName,
+  type PackageTypeName,
+  type PlatformName,
+  type ShipmentOptionName,
+} from '@myparcel/constants';
 import {type ComponentName, type OptionType, type PickupLocationsView} from '../constants';
 import {type CustomValidator} from './validator.types';
 import {type SupportedPlatformName} from './platform.types';
@@ -120,13 +126,18 @@ export interface ResolvedDeliveryOptionsConfiguration<P extends SupportedPlatfor
   strings: RecursiveRequired<DeliveryOptionsStrings>;
 }
 
+interface ShipmentOptionsOutput {
+  onlyRecipient?: boolean;
+  signature?: boolean;
+}
+
 interface BaseOutput {
   carrier: CarrierIdentifier;
   date: string;
   deliveryType: DeliveryTypeName;
   isPickup: boolean;
   packageType: PackageTypeName;
-  shipmentOptions: Record<string, boolean>;
+  shipmentOptions: ShipmentOptionsOutput;
 }
 
 interface DeliveryOutput extends BaseOutput {
@@ -163,6 +174,7 @@ export type InternalOutput = {
     packageType: PackageTypeName;
     shipmentOptions: unknown[];
   };
+  shipmentOptions?: ShipmentOptionName[];
 };
 
 export interface ConfigOption<T extends OptionType = OptionType> {

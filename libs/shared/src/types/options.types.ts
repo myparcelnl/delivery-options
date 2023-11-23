@@ -1,9 +1,9 @@
 import {type CarrierIdentifier} from './config.types';
 import {type Keyable, type Translation} from './common.types';
 
-export interface OptionsProps<T extends SelectOptionValue> {
+export type OptionsProps<T extends SelectOptionValue> = {
   options: SelectOption<T>[];
-}
+};
 
 interface BaseSelectOption<Value extends SelectOptionValue = SelectOptionValue> {
   carrier?: CarrierIdentifier;
@@ -11,6 +11,7 @@ interface BaseSelectOption<Value extends SelectOptionValue = SelectOptionValue> 
   icon?: string;
   image?: string;
   price?: number;
+  selected?: boolean;
   value: Value;
 }
 

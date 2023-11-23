@@ -1,12 +1,12 @@
 import {defineAsyncComponent} from 'vue';
 import {defineStore} from 'pinia';
-import {type DeliveryOptionsOutput, type InputDeliveryOptionsConfiguration} from '../types';
+import {type InputDeliveryOptionsConfiguration, type InternalOutput} from '../types';
 import {ComponentName} from '../constants';
 
 export const useDeliveryOptionsStore = defineStore('deliveryOptions', {
   state: () => ({
     configuration: window.MyParcelConfig ?? {},
-    output: {} as DeliveryOptionsOutput,
+    internalOutput: {} as InternalOutput,
   }),
 
   actions: {
@@ -15,7 +15,12 @@ export const useDeliveryOptionsStore = defineStore('deliveryOptions', {
 
       window.MyParcelConfig = this.configuration;
     },
+
+    updateOutput(output: InternalOutput): void {
+      this.internalOutput = output;
+    },
   },
+
   getters: {
     resolvedConfiguration(): InputDeliveryOptionsConfiguration {
       return {
