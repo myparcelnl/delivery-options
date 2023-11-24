@@ -40,7 +40,7 @@
 <script generic="T extends CheckboxModelValue" lang="ts" setup>
 import {computed} from 'vue';
 import {useVModel} from '@vueuse/core';
-import {type CheckboxEmits, type CheckboxModelValue, type CheckboxProps} from '@myparcel-do/shared'; // eslint-disable-next-line vue/no-unused-properties
+import {type CheckboxEmits, type CheckboxModelValue, type CheckboxProps} from '@myparcel-do/shared';
 
 // eslint-disable-next-line vue/no-unused-properties
 const props = defineProps<CheckboxProps<T>>();

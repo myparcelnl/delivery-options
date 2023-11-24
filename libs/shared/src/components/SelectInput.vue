@@ -1,8 +1,12 @@
 <template>
   <div
     ref="selectWrapper"
+    :class="{
+      'mp-rounded-full': !isOpen,
+      'mp-rounded-t-[28px]': isOpen,
+    }"
     :tabindex="loading || element.isDisabled ? -1 : 0"
-    class="mp-relative"
+    class="focus:mp-outline-2 focus:mp-ring-0 mp-outline-goldfish-500 mp-relative mp-select-none mp-w-full"
     role="listbox"
     @focus="open"
     @focusout="close"
@@ -25,7 +29,7 @@
         'mp-opacity-100': !element.isDisabled,
         'mp-invisible': loading,
       }"
-      class="mp-bg-white mp-border mp-items-center mp-justify-between mp-px-4 mp-select-none mp-w-full"
+      class="mp-bg-white mp-border mp-px-4"
       @mousedown.stop="toggle">
       <div class="mp-flex">
         <div class="mp-flex mp-flex-col mp-relative">
@@ -90,7 +94,7 @@ import {useCursor} from '../composables/useCursor';
 import {useLanguage, useSelectInputContext} from '../composables';
 
 // eslint-disable-next-line vue/no-unused-properties
-const props = defineProps<WithElement<SelectInputProps<T>> & {options: any; loading?: boolean}>();
+const props = defineProps<WithElement<SelectInputProps<T>> & {options?: any; loading?: boolean}>();
 const emit = defineEmits<SelectInputEmits<T>>();
 
 const {model, options} = useSelectInputContext(props, emit);

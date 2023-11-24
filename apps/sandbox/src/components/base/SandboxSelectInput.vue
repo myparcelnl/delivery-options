@@ -13,7 +13,7 @@
 <script generic="T extends SelectInputModelValue" lang="ts" setup>
 import {useVModel} from '@vueuse/core';
 import {type SelectInputEmits, type SelectInputModelValue, type SelectInputProps} from '@myparcel-do/shared';
-import {useElInputClasses} from '../../composables';
+import {useBaseInputClasses} from '../../composables';
 
 // eslint-disable-next-line vue/no-unused-properties
 const props = defineProps<SelectInputProps<T>>();
@@ -21,5 +21,5 @@ const emit = defineEmits<SelectInputEmits<T>>();
 
 const model = useVModel(props, undefined, emit);
 
-const classes = useElInputClasses();
+const classes = useBaseInputClasses();
 </script>
