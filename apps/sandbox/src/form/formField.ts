@@ -1,15 +1,14 @@
-import {ref, toRaw} from 'vue';
-import {type AnyElementConfiguration, createField} from '@myparcel/vue-form-builder';
-import {type SettingsField} from '../types';
+import {markRaw, ref} from 'vue';
+import {type AnyElementConfiguration, createField, type ModularCreatedField} from '@myparcel/vue-form-builder';
 
-export const formField = (
-  input: AnyElementConfiguration & {
-    key?: string;
-  },
-): SettingsField => {
+type FormFieldInput = AnyElementConfiguration & {
+  key?: string;
+};
+
+export const formField = (input: FormFieldInput): ModularCreatedField => {
   const fullName: string = [input.key, input.name].filter(Boolean).join('.');
 
-  return toRaw(
+  return markRaw(
     createField({
       label: input.name,
       ref: ref(),

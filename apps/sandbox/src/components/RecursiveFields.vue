@@ -1,10 +1,10 @@
 <template>
-  <FormSettingsGroup
+  <SandboxSettingsGroup
     v-if="isGroup"
     :field="field as SettingsGroup"
     :level="level" />
 
-  <FormSection
+  <SandboxFormSection
     v-else-if="isSection"
     :level="level"
     :section="field as SettingsSection"
@@ -19,13 +19,14 @@
 import {computed} from 'vue';
 import {isOfType} from '@myparcel/ts-utils';
 import {type SettingsField, type SettingsGroup, type SettingsSection} from '../types';
-import FormSettingsGroup from './FormSettingsGroup.vue';
-import FormSection from './FormSection.vue';
+import SandboxSettingsGroup from './SandboxSettingsGroup.vue';
+import SandboxFormSection from './SandboxFormSection.vue';
 
 const props = withDefaults(
   defineProps<{
     field: SettingsGroup | SettingsField | SettingsSection;
     level?: number | string;
+    prefix?: string;
   }>(),
   {level: 1},
 );

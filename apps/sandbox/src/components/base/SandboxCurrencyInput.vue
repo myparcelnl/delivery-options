@@ -1,7 +1,7 @@
 <template>
   <div class="mp-grid mp-grid-flow-col">
     <span
-      :class="[...useBaseInputClasses(), 'rounded-r-none']"
+      :class="[...useBaseInputClasses(), 'mp-rounded-r-none']"
       class="dark:mp-bg-gray-600 mp-align-middle mp-bg-gray-100 mp-flex mp-px-4">
       <span>€</span>
     </span>

@@ -77,6 +77,7 @@ export enum OptionGroup {
   ShipmentOption = 'shipmentOption',
   Feature = 'feature',
   DropOff = 'dropOff',
+  Pickup = 'pickup',
 }
 
 export enum OptionType {

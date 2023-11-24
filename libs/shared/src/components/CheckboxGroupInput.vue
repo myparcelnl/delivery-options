@@ -7,12 +7,10 @@
       <CheckboxInput
         :id="`${id}-${option.value}`"
         :disabled="option.disabled || elementProps.disabled"
-        :model-value="model?.includes(option.value)"
         :name="id"
         :option="option"
         :readonly="elementProps.readonly"
-        :value="option.value"
-        @update:modelValue="(value) => createUpdateHandler(option.value)(value)" />
+        v-bind="createProps(option)" />
 
       <span>
         {{ option.label }}
@@ -36,21 +34,7 @@ import CheckboxInput from './CheckboxInput.vue';
 const props = defineProps<WithElement<CheckboxGroupProps<T>>>();
 const emit = defineEmits<CheckboxGroupEmits<T>>();
 
-const {id, model, elementProps} = useCheckboxGroupContext(props, emit);
+const {id, model, elementProps, createProps} = useCheckboxGroupContext(props, emit);
 
 const options = computed(() => props.element.props.options);
-
-const createUpdateHandler = (optionValue: T) => {
-  return (toggle: boolean) => {
-    const newModel = [...model.value];
-
-    if (toggle) {
-      newModel.push(optionValue);
-    } else {
-      newModel.splice(newModel.indexOf(optionValue), 1);
-    }
-
-    emit('update:modelValue', newModel);
-  };
-};
 </script>

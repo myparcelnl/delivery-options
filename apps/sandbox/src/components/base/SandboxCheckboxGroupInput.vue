@@ -1,13 +1,11 @@
 <template>
   <div>
-    <input
+    <SandboxCheckboxInput
       v-for="option in options"
       :key="option.value"
-      v-model="model"
-      :disabled="disabled"
-      :name="`${id}[${option.value}]`"
+      :model-value="model?.includes(option.value)"
       :value="option.value"
-      type="checkbox" />
+      @update:modelValue="(value) => createUpdateHandler(option.value)(value)" />
   </div>
 </template>
 
@@ -18,10 +16,11 @@ import {
   type CheckboxGroupProps,
   useCheckboxGroupContext,
 } from '@myparcel-do/shared';
+import SandboxCheckboxInput from './SandboxCheckboxInput.vue';
 
 // eslint-disable-next-line vue/no-unused-properties
 const props = defineProps<CheckboxGroupProps<T>>();
 const emit = defineEmits<CheckboxGroupEmits<T>>();
 
-const model = useCheckboxGroupContext(props, emit);
+const {id, model, elementProps, createUpdateHandler} = useCheckboxGroupContext(props, emit);
 </script>

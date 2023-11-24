@@ -1,22 +1,10 @@
+import {KEY_CONFIG} from '@myparcel-do/shared';
 import {type SettingsSection} from '../types';
-import {optionGroupMap} from './form';
-import {createChildSections} from './createChildSections';
-import {createChildFields} from './createChildFields';
+import {resolveSandboxGroup} from './resolveSandboxGroup';
+import {getSandboxOptionGroups} from './getSandboxOptionGroups';
 
-export const getConfigurationSections = (): SettingsSection[] => {
-  return optionGroupMap.map((group) => {
-    const childFields = createChildFields(group);
-    const childSections = createChildSections(group);
+export const getConfigurationSections = (prefix?: string): SettingsSection[] => {
+  const groups = getSandboxOptionGroups();
 
-    return {
-      label: group.name,
-      fields: [
-        {
-          key: group.name,
-          description: group.name,
-          fields: [...childFields, ...childSections],
-        },
-      ],
-    };
-  });
+  return groups.map((group) => resolveSandboxGroup(group, KEY_CONFIG + (prefix ? `.${prefix}` : '')));
 };

@@ -7,7 +7,9 @@
       v-if="element.props.carrier"
       :carrier="element.props.carrier" />
 
-    <span v-text="element.label" />
+    <slot name="label">
+      <span v-text="element.label" />
+    </slot>
   </label>
 
   <div

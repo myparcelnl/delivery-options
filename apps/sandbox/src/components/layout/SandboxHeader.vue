@@ -39,8 +39,8 @@
 
 <script lang="ts" setup>
 import {useLanguage} from '@myparcel-do/shared';
-import {Container} from './Container';
-import ColorModeSwitcher from './ColorModeSwitcher.vue';
+import {Container} from '../Container';
+import ColorModeSwitcher from '../ColorModeSwitcher.vue';
 
 const links = [
   {

@@ -11,7 +11,7 @@ import {ref} from 'vue';
 import {useEventListener} from '@vueuse/core';
 import {UPDATED_DELIVERY_OPTIONS} from '@myparcel-do/shared';
 import {isOfType} from '@myparcel/ts-utils';
-import CTable from './components/CTable.vue';
+import CTable from './components/legacy/CTable.vue';
 
 const eventLog = ref<string[][]>([]);
 

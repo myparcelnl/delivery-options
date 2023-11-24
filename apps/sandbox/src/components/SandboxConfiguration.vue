@@ -1,43 +1,53 @@
 <template>
   <Form.Component @reset="clearConfig">
-    <FormSection
-      v-for="section in sections"
-      :key="section.label"
-      :section="section"
-      level="2" />
+    <SandboxAddressBox />
 
-    <CButton
-      type="reset"
-      @click="() => Form.instance.reset()">
-      Reset
-    </CButton>
+    <Box>
+      <SandboxFormSection
+        v-for="section in configSections"
+        :key="section.label"
+        :section="section" />
+    </Box>
+
+    <Suspense>
+      <template #default>
+        <SandboxCarrierFormSections />
+      </template>
+
+      <template #fallback>
+        <SandboxLoadingIndicator />
+      </template>
+    </Suspense>
+
+    <SandboxStringsBox />
   </Form.Component>
 </template>
 
 <script lang="ts" setup>
-import {computed, markRaw, watch} from 'vue';
-import {useCarriers} from '@myparcel-do/shared';
+import {computed, watch} from 'vue';
 import {createForm} from '@myparcel/vue-form-builder';
-import {type SettingsSection} from '../types';
 import {useSandboxStore} from '../stores';
-import {getSandboxSettingsSections} from '../form/getSandboxSettingsSections';
-import FormSection from './FormSection.vue';
+import {getConfigurationSections} from '../form/getConfigurationSections';
+import SandboxStringsBox from './SandboxStringsBox.vue';
+import SandboxLoadingIndicator from './SandboxLoadingIndicator.vue';
+import SandboxFormSection from './SandboxFormSection.vue';
+import SandboxCarrierFormSections from './SandboxCarrierFormSections.vue';
+import SandboxAddressBox from './SandboxAddressBox.vue';
 import FieldWrapper from './FieldWrapper.vue';
-import CButton from './CButton.vue';
+import {Box} from './Box';
 
-const carriers = useCarriers();
 const sandboxStore = useSandboxStore();
+
+const configSections = getConfigurationSections();
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const Form = createForm('configuration', {
   field: {
-    wrapper: markRaw(FieldWrapper),
+    wrapper: FieldWrapper,
   },
 
   initialValues: {...sandboxStore.configuration},
 });
-
-const sections: SettingsSection[] = getSandboxSettingsSections();
 
 const values = computed(() => Form.instance.getValues());
 
@@ -50,6 +60,4 @@ const clearConfig = () => {
     configuration: undefined,
   });
 };
-
-await carriers.load();
 </script>

@@ -7,5 +7,5 @@
 </template>
 
 <script lang="ts" setup>
-import {Container} from './Container';
+import {Container} from '../Container';
 </script>
