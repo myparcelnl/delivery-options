@@ -6,3 +6,4 @@ export * from './getAllOptions';
 export * from './getConfigCarriers';
 export * from './getPlatformConfig';
 export * from './resolveCarrierName';
+export {getFullCarriers} from './getFullCarriers';

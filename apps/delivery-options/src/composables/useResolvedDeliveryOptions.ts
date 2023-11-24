@@ -1,5 +1,5 @@
 import {asyncComputed, get} from '@vueuse/core';
-import {useActiveCarriers, useCarrierConfiguration, useDeliveryOptionsRequest} from '@myparcel-do/shared';
+import {useActiveCarriers, useDeliveryOptionsRequest} from '@myparcel-do/shared';
 import {createGetDeliveryOptionsParameters} from '../utils/createGetDeliveryOptionsParameters';
 import {createTimeRangeString} from '../utils';
 import {type ResolvedDeliveryOptions} from '../types';
@@ -12,12 +12,8 @@ export const useResolvedDeliveryOptions = () => {
     const allCarrierPossibilities: ResolvedDeliveryOptions[] = [];
 
     await Promise.all(
-      carriers.data.value
-        .filter((carrier) => {
-          const carrierConfig = useCarrierConfiguration(carrier.identifier);
-
-          return carrierConfig.hasDeliveryInCountry();
-        })
+      get(carriers)
+        .filter((carrier) => carrier.hasDeliveryInCountry())
         .map(async (carrier) => {
           const params = createGetDeliveryOptionsParameters(carrier);
           const query = useDeliveryOptionsRequest(params);
