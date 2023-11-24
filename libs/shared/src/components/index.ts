@@ -1,3 +1,5 @@
+export * from './Loader';
+
 export {default as CarrierLogo} from './CarrierLogo.vue';
 
 export {default as CheckboxGroupInput} from './CheckboxGroupInput.vue';

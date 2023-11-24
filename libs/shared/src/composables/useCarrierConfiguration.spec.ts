@@ -1,5 +1,6 @@
 /* eslint-disable max-nested-callbacks */
-import {describe, expect, it} from 'vitest';
+import {beforeEach, describe, expect, it} from 'vitest';
+import {createPinia, setActivePinia} from 'pinia';
 import {get} from '@vueuse/core';
 import {FEATURE_SHOW_DELIVERY_DATE, useCarrier} from '@myparcel-do/shared';
 import {
@@ -21,6 +22,10 @@ const matrix = allPlatforms.flatMap((platform) => {
 }) as [CarrierName, SupportedPlatformName][];
 
 describe('useCarrierConfiguration', () => {
+  beforeEach(() => {
+    setActivePinia(createPinia());
+  });
+
   it.each(matrix)('returns the carrier configuration for "%s" on "%s"', (carrierName, platformName) => {
     let result: string | UseCarrierConfiguration['config'];
 

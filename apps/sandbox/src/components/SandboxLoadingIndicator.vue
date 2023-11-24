@@ -14,5 +14,5 @@
 </template>
 
 <script lang="ts" setup>
-import {Loader} from './loader/SandboxTextLoader';
+import {Loader} from '@myparcel-do/shared';
 </script>
