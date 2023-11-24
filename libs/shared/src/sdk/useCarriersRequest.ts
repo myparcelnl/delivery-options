@@ -5,7 +5,7 @@ import {useSdk} from '../composables';
 import {useRequestClient} from './useRequestClient';
 import {useRequest} from './useRequest';
 
-export const useCarriers = (): RequestHandler<EndpointResponse<GetCarriers>> => {
+export const useCarriersRequest = (): RequestHandler<EndpointResponse<GetCarriers>> => {
   return useRequest(
     [QUERY_KEY_CARRIERS],
     async () => {

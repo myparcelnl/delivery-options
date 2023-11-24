@@ -1,6 +1,7 @@
 <template>
   <Box
     v-for="carrier in allCarriers"
+    :key="carrier.name"
     class="mp-pt-0 mp-px-0">
     <Expandable
       :open="enabledCarriers.includes(carrier.name)"
@@ -36,7 +37,7 @@
 <script lang="ts" setup>
 import {computed} from 'vue';
 import {get, useLocalStorage} from '@vueuse/core';
-import {CARRIER_SETTINGS, CarrierLogo, useCarriers, useCurrentPlatform} from '@myparcel-do/shared';
+import {CARRIER_SETTINGS, CarrierLogo, useCarriersRequest, useCurrentPlatform} from '@myparcel-do/shared';
 import {type CarrierName} from '@myparcel/constants';
 import {type SettingsSection} from '../types';
 import {getConfigurationSections} from '../form/getConfigurationSections';
@@ -45,7 +46,7 @@ import SandboxFormSection from './SandboxFormSection.vue';
 import Expandable from './Expandable.vue';
 import {Box} from './Box';
 
-const carriers = useCarriers();
+const carriers = useCarriersRequest();
 
 await carriers.load();
 

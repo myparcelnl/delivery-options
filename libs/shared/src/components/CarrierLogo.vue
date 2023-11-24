@@ -18,12 +18,12 @@
 <script lang="ts" setup>
 import {ref} from 'vue';
 import {type CarrierIdentifier} from '../types';
-import {useCarrier} from '../sdk';
+import {useCarrierRequest} from '../sdk';
 import {useAssetUrl} from '../composables';
 
 const props = defineProps<{carrier: CarrierIdentifier}>();
 
-const query = useCarrier(props.carrier);
+const query = useCarrierRequest(props.carrier);
 
 const loaded = ref(false);
 

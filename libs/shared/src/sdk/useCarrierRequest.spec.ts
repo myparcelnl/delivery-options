@@ -2,12 +2,12 @@ import {describe, expect, it} from 'vitest';
 import {get} from '@vueuse/core';
 import {type Carrier} from '@myparcel/sdk';
 import {CarrierName} from '@myparcel/constants';
-import {useCarrier} from './useCarrier';
+import {useCarrierRequest} from './useCarrierRequest';
 
-describe('useCarrier', () => {
+describe('useCarrierRequest', () => {
   it.each(Array.from(Object.values(CarrierName)))('fetches carrier %s', async (carrierName: CarrierName) => {
     expect.assertions(7);
-    const query = useCarrier(carrierName);
+    const query = useCarrierRequest(carrierName);
 
     await query.load();
 

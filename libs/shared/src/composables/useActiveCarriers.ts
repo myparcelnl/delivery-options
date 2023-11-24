@@ -2,14 +2,14 @@ import {type Ref} from 'vue';
 import {asyncComputed, get} from '@vueuse/core';
 import {getConfigCarriers} from '../utils';
 import {type CarrierWithIdentifier} from '../types';
-import {useCarriers} from '../sdk';
+import {useCarriersRequest} from '../sdk';
 
 interface UseActiveCarriers {
   data: Ref<CarrierWithIdentifier[]>;
 }
 
 export const useActiveCarriers = (): UseActiveCarriers => {
-  const carriers = useCarriers();
+  const carriers = useCarriersRequest();
   const configCarriers = getConfigCarriers();
 
   return {

@@ -4,7 +4,7 @@ import {QUERY_KEY_DELIVERY_OPTIONS} from '../constants';
 import {useSdk} from '../composables';
 import {useRequest} from './useRequest';
 
-export const useDeliveryOptions = (
+export const useDeliveryOptionsRequest = (
   parameters: EndpointParameters<GetDeliveryOptions>,
 ): RequestHandler<EndpointResponse<GetDeliveryOptions>> => {
   return useRequest([QUERY_KEY_DELIVERY_OPTIONS, parameters], async () => {

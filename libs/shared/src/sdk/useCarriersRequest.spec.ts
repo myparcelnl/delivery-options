@@ -3,15 +3,15 @@ import {get} from '@vueuse/core';
 import {GetCarrier} from '@myparcel/sdk';
 import {fakeCarriersResponse} from '../__tests__/mocks/fakeCarriersResponse';
 import {useRequestClient} from './useRequestClient';
-import {useCarriers} from './useCarriers';
+import {useCarriersRequest} from './useCarriersRequest';
 
-describe('useCarriers', () => {
+describe('useCarriersRequest', () => {
   const amountOfCarriers = fakeCarriersResponse().length;
 
   it('fetches carriers', async () => {
     expect.assertions(1 + amountOfCarriers * 5);
 
-    const query = useCarriers();
+    const query = useCarriersRequest();
     await query.load();
     const result = get(query.data);
 
@@ -29,7 +29,7 @@ describe('useCarriers', () => {
   it('updates every single carrier query when all carriers are fetched', async () => {
     expect.assertions(1 + amountOfCarriers);
 
-    const query = useCarriers();
+    const query = useCarriersRequest();
     await query.load();
     const carriers = get(query.data);
 

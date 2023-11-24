@@ -5,7 +5,7 @@ import {QUERY_KEY_CARRIERS} from '../constants';
 import {useSdk} from '../composables';
 import {useRequest} from './useRequest';
 
-export const useCarrier = (carrier: CarrierIdentifier): RequestHandler<EndpointResponse<GetCarrier>[number]> => {
+export const useCarrierRequest = (carrier: CarrierIdentifier): RequestHandler<EndpointResponse<GetCarrier>[number]> => {
   const carrierName = resolveCarrierName(carrier);
 
   return useRequest([QUERY_KEY_CARRIERS, carrierName], async () => {

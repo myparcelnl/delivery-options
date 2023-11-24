@@ -2,7 +2,7 @@
 import {beforeEach, describe, expect, it} from 'vitest';
 import {createPinia, setActivePinia} from 'pinia';
 import {get} from '@vueuse/core';
-import {FEATURE_SHOW_DELIVERY_DATE, useCarrier} from '@myparcel-do/shared';
+import {FEATURE_SHOW_DELIVERY_DATE, useCarrierRequest} from '@myparcel-do/shared';
 import {
   CarrierId,
   CarrierName,
@@ -51,9 +51,9 @@ describe('useCarrierConfiguration', () => {
     const configuration = useCarrierConfiguration(`${CarrierName.PostNl}:12345`);
 
     // Wait for the carrier to load its data
-    await useCarrier(CarrierName.PostNl).load();
+    await useCarrierRequest(CarrierName.PostNl).load();
 
-    expect(get(configuration.carrier.data)?.name).toBe(CarrierName.PostNl);
+    expect(get(configuration.carrier)?.name).toBe(CarrierName.PostNl);
   });
 
   it('returns carrier data', async () => {
@@ -62,9 +62,9 @@ describe('useCarrierConfiguration', () => {
     const configuration = useCarrierConfiguration(CarrierName.PostNl);
 
     // Wait for the carrier to load its data
-    await useCarrier(CarrierName.PostNl).load();
+    await useCarrierRequest(CarrierName.PostNl).load();
 
-    expect(get(configuration.carrier.data)).toEqual({
+    expect(get(configuration.carrier)).toEqual({
       id: CarrierId.PostNl,
       name: CarrierName.PostNl,
       human: 'PostNL',

@@ -3,7 +3,7 @@ import {get} from '@vueuse/core';
 import {useRequestClient} from './useRequestClient';
 import {useRequest} from './useRequest';
 
-describe('useQuery', () => {
+describe('useRequest', () => {
   const mock = vi.fn().mockReturnValueOnce('tada');
 
   const useTestQuery = () => {

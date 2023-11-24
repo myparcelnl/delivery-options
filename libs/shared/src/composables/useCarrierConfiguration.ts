@@ -2,7 +2,7 @@ import {useMemoize} from '@vueuse/core';
 import {type DeliveryTypeName, type PackageTypeName, type ShipmentOptionName} from '@myparcel/constants';
 import {getPlatformConfig, resolveCarrierName} from '../utils';
 import {type CarrierIdentifier, type SupportedPlatformName} from '../types';
-import {useCarrier} from '../sdk';
+import {useCarrierRequest} from '../sdk';
 import {useCurrentPlatform} from './useCurrentPlatform';
 import {useCurrentCountry} from './useCurrentCountry';
 
@@ -20,7 +20,7 @@ const getCarrierConfiguration = useMemoize((carrierIdentifier: CarrierIdentifier
 });
 
 export interface UseCarrierConfiguration {
-  carrier: ReturnType<typeof useCarrier>;
+  carrier: ReturnType<typeof useCarrierRequest>;
   config: ReturnType<typeof getCarrierConfiguration>;
 
   hasDeliveryInCountry(countryCode?: string): boolean;
@@ -36,7 +36,7 @@ export const useCarrierConfiguration = (
   platform?: SupportedPlatformName,
 ): UseCarrierConfiguration => {
   const config = getCarrierConfiguration(carrierIdentifier, platform);
-  const carrier = useCarrier(carrierIdentifier);
+  const carrier = useCarrierRequest(carrierIdentifier);
 
   return {
     carrier,

@@ -4,7 +4,7 @@ import {QUERY_KEY_PICKUP_LOCATIONS} from '../constants';
 import {useSdk} from '../composables';
 import {useRequest} from './useRequest';
 
-export const usePickupLocations = (
+export const usePickupLocationsRequest = (
   parameters: EndpointParameters<GetPickupLocations>,
 ): RequestHandler<EndpointResponse<GetPickupLocations>> => {
   return useRequest([QUERY_KEY_PICKUP_LOCATIONS, parameters], () => {
