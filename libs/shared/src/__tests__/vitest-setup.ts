@@ -20,7 +20,7 @@ vi.mock('@myparcel/sdk', async (importOriginal) => {
   return {
     ...original,
     FetchClient: class FetchClient extends original.FetchClient {
-      public doRequest<E extends AbstractPublicEndpoint>(endpoint: E, options: Options<E>): Promise<EndpointResponse<E>> {
+      public doRequest<E extends AbstractPublicEndpoint<any>>(endpoint: E, options: Options<E>): Promise<EndpointResponse<E>> {
         if (endpoint instanceof GetCarrier) {
           return Promise.resolve(mockGetCarrier(endpoint, options));
         }

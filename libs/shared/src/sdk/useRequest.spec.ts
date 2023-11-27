@@ -7,7 +7,7 @@ describe('useRequest', () => {
   const mock = vi.fn().mockReturnValueOnce('tada');
 
   const useTestQuery = () => {
-    return useRequest('test', async () => {
+    return useRequest(['test'], async () => {
       return new Promise((resolve) => {
         setTimeout((): void => {
           resolve(mock());
@@ -52,7 +52,7 @@ describe('useRequest', () => {
     expect.assertions(2);
 
     const onSuccess = vi.fn();
-    useRequest('test', () => 'beep', {onSuccess});
+    useRequest(['test'], () => 'beep', {onSuccess});
 
     expect(onSuccess).not.toHaveBeenCalled();
 

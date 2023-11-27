@@ -13,7 +13,7 @@ export function getDropOffDay(today, deliveryDay, dropOffDays) {
 
   let dropOffDay = deliveryDay.subtract(1, 'day');
 
-  while (!dropOffDays.includes(dropOffDay.weekday())) {
+  while (!dropOffDays.includes(dropOffDay.day())) {
     dropOffDay = dropOffDay.subtract(1, 'day');
   }
 

@@ -16,13 +16,13 @@ export const shouldSkipToNextDeliveryDate = (
   currentDeliveryDate: Dayjs,
   extraDelivery?: ExtraDelivery,
 ): boolean => {
-  const todayIsDisallowed = daysWithoutDelivery[args.platform].includes(currentDeliveryDate.weekday());
+  const todayIsDisallowed = daysWithoutDelivery[args.platform].includes(currentDeliveryDate.day());
   const dropOffDay = getDropOffDay(date, currentDeliveryDate, args.dropOffDays);
 
   // Skip Saturday or Monday if its setting is not enabled.
   if (extraDelivery) {
     const extraDeliveryEnabled = Boolean(args.mondayDelivery) || Boolean(args.saturdayDelivery);
-    const isExtraDropOffDay = dropOffDay.weekday() === extraDelivery.dropOffDay;
+    const isExtraDropOffDay = dropOffDay.day() === extraDelivery.dropOffDay;
 
     if (!extraDeliveryEnabled || !isExtraDropOffDay) {
       return true;

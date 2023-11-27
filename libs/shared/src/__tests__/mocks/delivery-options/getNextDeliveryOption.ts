@@ -28,7 +28,7 @@ export const getNextDeliveryOption = (
 
   const hasSameDayDelivery = daysOffset === 0 && canHaveSameDay;
   const currentDeliveryDate = currentDate.add(daysOffset, 'day');
-  const extraDelivery = hasSameDayDelivery ? undefined : findExtraDelivery(args, currentDeliveryDate.weekday());
+  const extraDelivery = hasSameDayDelivery ? undefined : findExtraDelivery(args, currentDeliveryDate.day());
 
   if (
     (daysOffset === 0 && !canHaveSameDay) ||
