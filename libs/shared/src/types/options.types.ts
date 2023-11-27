@@ -10,7 +10,7 @@ interface BaseSelectOption<Value extends SelectOptionValue = SelectOptionValue> 
   carrier?: CarrierIdentifier;
   content?: Component;
   disabled?: boolean;
-  ecoFriendly?: boolean;
+  ecoFriendly?: number;
   icon?: string;
   image?: string;
   label?: string;

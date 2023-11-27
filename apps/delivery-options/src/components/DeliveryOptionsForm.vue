@@ -6,7 +6,7 @@
 
 <script lang="ts" setup>
 import {computed, markRaw, reactive, watch} from 'vue';
-import {type InternalOutput, useLanguage} from '@myparcel-do/shared';
+import {type InternalOutput, type SelectOption, useLanguage} from '@myparcel-do/shared';
 import {createField} from '@myparcel/vue-form-builder';
 import {createDeliveryOptionsForm} from '../form/createDeliveryOptionsForm';
 import RadioGroupTabs from './RadioGroupTabs.vue';
@@ -26,6 +26,7 @@ watch(values, (values) => {
 
 const {translate} = useLanguage();
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
 const HomeOrPickup = createField({
   name: 'homeOrPickup',
   component: RadioGroupTabs,
@@ -41,7 +42,7 @@ const HomeOrPickup = createField({
         value: 'pickup',
         content: markRaw(PickupLocations),
       },
-    ],
+    ] satisfies SelectOption[],
   }),
 });
 </script>

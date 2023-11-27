@@ -13,7 +13,9 @@
       </span>
     </slot>
 
-    <EcoFriendlyLabel v-if="option.ecoFriendly" />
+    <EcoFriendlyLabel
+      v-if="option.ecoFriendly"
+      :amount="option.ecoFriendly" />
 
     <span
       v-if="option.price || option.carrier"
