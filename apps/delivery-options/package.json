@@ -45,7 +45,7 @@
   "dependencies": {
     "@myparcel/constants": "^1.1.0",
     "@myparcel/sdk": "^3.0.0",
-    "@myparcel/vue-form-builder": "^1.0.0-beta.17",
+    "@myparcel/vue-form-builder": "^1.0.0-beta.1",
     "@vueuse/core": "^10.0.0",
     "vue": "^3.3.0"
   },
