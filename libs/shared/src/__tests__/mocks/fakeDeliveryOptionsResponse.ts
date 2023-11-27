@@ -3,7 +3,6 @@
 import {type EndpointParameters, type EndpointResponse, type GetDeliveryOptions} from '@myparcel/sdk';
 import {type FakeDeliveryOptionsParameters} from '../types';
 import {type CarrierIdentifier, type SupportedPlatformName} from '../../types';
-import {ERROR_INVALID_POSTAL_CODE} from '../../legacy';
 import {getNextDeliveryOption} from './delivery-options/getNextDeliveryOption';
 
 /**
