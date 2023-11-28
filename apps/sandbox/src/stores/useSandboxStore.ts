@@ -13,6 +13,7 @@ export const useSandboxStore = defineStore('sandbox', {
   actions: {
     updateConfiguration(configuration: Record<string, unknown>): void {
       this.configuration = configuration;
+      console.log('%cconfiguration', 'color: #00e600', configuration);
     },
   },
 });

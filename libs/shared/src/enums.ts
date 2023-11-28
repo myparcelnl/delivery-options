@@ -6,6 +6,7 @@ export enum CarrierSetting {
   AllowOnlyRecipient = 'allowOnlyRecipient',
   AllowPackageTypeDigitalStamp = 'allowPackageTypeDigitalStamp',
   AllowPackageTypeMailbox = 'allowPackageTypeMailbox',
+  AllowPackageTypePackage = 'allowPackageTypePackage',
   AllowPickupLocations = 'allowPickupLocations',
   AllowSameDayDelivery = 'allowSameDayDelivery',
   AllowSaturdayDelivery = 'allowSaturdayDelivery',

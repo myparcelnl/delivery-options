@@ -2,7 +2,6 @@
   <div>
     <MyParcelDeliveryOptions
       v-if="store.configuration"
-      :key="JSON.stringify(store.configuration)"
       :config="parsedConfiguration"
       @update="output = $event" />
 

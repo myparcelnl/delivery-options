@@ -1,27 +1,9 @@
 import {get, useMemoize} from '@vueuse/core';
-import {type DeliveryTypeName, type PackageTypeName, type ShipmentOptionName} from '@myparcel/constants';
-import {type CarrierIdentifier, type CarrierOptions, type SupportedPlatformName} from '../types';
+import {type CarrierIdentifier, type FullCarrier, type SupportedPlatformName} from '../types';
 import {useCarrierRequest} from '../sdk';
-import {useCurrentCountry, useCurrentPlatform} from '../composables';
+import {useCurrentCountry} from '../composables';
 import {resolveCarrierName} from './resolveCarrierName';
-import {getPlatformConfig} from './getPlatformConfig';
-import {type FullCarrier} from './getFullCarriers';
-
-const getCarrierConfiguration = (
-  carrierIdentifier: CarrierIdentifier,
-  platform?: SupportedPlatformName,
-): CarrierOptions => {
-  const platformConfig = getPlatformConfig(platform ?? useCurrentPlatform().name.value);
-  const carrierName = resolveCarrierName(carrierIdentifier);
-
-  const foundCarrier = platformConfig?.carriers.find((carrier) => carrier.name === carrierName);
-
-  if (!foundCarrier) {
-    throw new Error(`No configuration found for carrier ${carrierIdentifier}`);
-  }
-
-  return foundCarrier;
-};
+import {getCarrierConfiguration} from './getCarrierConfiguration';
 
 export const getFullCarrier = useMemoize(
   async (carrierIdentifier: CarrierIdentifier, platformName?: SupportedPlatformName): Promise<FullCarrier> => {
@@ -38,33 +20,32 @@ export const getFullCarrier = useMemoize(
     return {
       identifier: carrierIdentifier,
       ...apiCarrier,
-      ...config,
 
-      hasPackageType(packageType: PackageTypeName) {
+      hasPackageType(packageType) {
         return config.packageTypes?.includes(packageType) ?? false;
       },
 
-      hasDeliveryType(deliveryType: DeliveryTypeName) {
+      hasDeliveryType(deliveryType) {
         return config.deliveryTypes?.includes(deliveryType) ?? false;
       },
 
-      hasShipmentOption(shipmentOption: ShipmentOptionName) {
+      hasShipmentOption(shipmentOption) {
         return config.shipmentOptions?.includes(shipmentOption) ?? false;
       },
 
-      hasFeature(feature: string) {
+      hasFeature(feature) {
         const allFeatures = config.features?.flat();
 
         return allFeatures?.includes(feature) ?? false;
       },
 
-      hasDeliveryInCountry(countryCode?: string): boolean {
+      hasDeliveryInCountry(countryCode) {
         const resolvedCountryCode = countryCode ?? useCurrentCountry().value;
 
         return config.deliveryCountries?.includes(resolvedCountryCode) ?? false;
       },
 
-      hasPickupInCountry(countryCode?: string): boolean {
+      hasPickupInCountry(countryCode) {
         const resolvedCountryCode = countryCode ?? useCurrentCountry().value;
 
         return config.pickupCountries?.includes(resolvedCountryCode) ?? false;

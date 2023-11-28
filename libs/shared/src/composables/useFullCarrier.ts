@@ -1,8 +1,7 @@
 import {type Ref} from 'vue';
 import {asyncComputed} from '@vueuse/core';
-import {type FullCarrier} from '../utils/getFullCarriers';
-import {getFullCarrier} from '../utils/getFullCarrier';
-import {type CarrierIdentifier, type SupportedPlatformName} from '../types';
+import {getFullCarrier} from '../utils';
+import {type CarrierIdentifier, type FullCarrier, type SupportedPlatformName} from '../types';
 
 export const useFullCarrier = (
   carrierIdentifier: CarrierIdentifier,

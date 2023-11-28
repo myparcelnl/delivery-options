@@ -1,7 +1,6 @@
 <template>
   <DeliveryOptionsForm
     v-if="store.resolvedConfiguration"
-    :config="store.resolvedConfiguration"
     @update="onUpdate" />
 </template>
 

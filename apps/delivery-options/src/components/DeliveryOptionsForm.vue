@@ -1,14 +1,18 @@
 <template>
   <Form.Component>
     <HomeOrPickup.Component />
+
+    <pre v-text="carriers" />
   </Form.Component>
 </template>
 
 <script lang="ts" setup>
-import {computed, markRaw, reactive, watch} from 'vue';
-import {type InternalOutput, type SelectOption, useLanguage} from '@myparcel-do/shared';
+import {computed, markRaw, watch} from 'vue';
+import {get} from '@vueuse/core';
+import {type InternalOutput, useLanguage} from '@myparcel-do/shared';
 import {createField} from '@myparcel/vue-form-builder';
 import {createDeliveryOptionsForm} from '../form/createDeliveryOptionsForm';
+import {useActiveCarriers} from '../composables';
 import RadioGroupTabs from './RadioGroupTabs.vue';
 import PickupLocations from './PickupLocations.vue';
 import HomeDelivery from './HomeDelivery.vue';
@@ -26,23 +30,35 @@ watch(values, (values) => {
 
 const {translate} = useLanguage();
 
+const carriers = useActiveCarriers();
+
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const HomeOrPickup = createField({
   name: 'homeOrPickup',
   component: RadioGroupTabs,
-  props: reactive({
-    options: [
-      {
-        label: translate('homeDelivery'),
-        value: 'home',
-        content: markRaw(HomeDelivery),
-      },
-      {
-        label: translate('pickup'),
-        value: 'pickup',
-        content: markRaw(PickupLocations),
-      },
-    ] satisfies SelectOption[],
-  }),
+  props: {
+    options: computed(() => {
+      const options = [];
+      const resolvedCarriers = get(carriers) ?? [];
+
+      if (resolvedCarriers.some((carrier) => get(carrier.hasDelivery))) {
+        options.push({
+          label: translate('homeDelivery'),
+          value: 'home',
+          content: markRaw(HomeDelivery),
+        });
+      }
+
+      if (resolvedCarriers.some((carrier) => get(carrier.hasPickup))) {
+        options.push({
+          label: translate('pickup'),
+          value: 'pickup',
+          content: markRaw(PickupLocations),
+        });
+      }
+
+      return options;
+    }),
+  },
 });
 </script>

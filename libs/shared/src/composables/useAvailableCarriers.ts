@@ -1,5 +1,5 @@
 import {type Ref} from 'vue';
-import {type FullCarrier} from '../utils/getFullCarriers';
+import {type FullCarrier} from '../types';
 import {useFullCarriers} from './useFullCarriers';
 import {useCurrentPlatform} from './useCurrentPlatform';
 

@@ -11,8 +11,7 @@ import {
   PlatformName,
   ShipmentOptionName,
 } from '@myparcel/constants';
-import {type FullCarrier} from '../utils/getFullCarriers';
-import {type CarrierIdentifier, type SupportedPlatformName} from '../types';
+import {type CarrierIdentifier, type FullCarrier, type SupportedPlatformName} from '../types';
 import {useFullCarrier} from './useFullCarrier';
 
 const allPlatforms = [PlatformName.MyParcel, PlatformName.SendMyParcel] satisfies SupportedPlatformName[];

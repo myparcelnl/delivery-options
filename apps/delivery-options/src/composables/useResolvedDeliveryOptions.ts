@@ -1,11 +1,11 @@
-import {asyncComputed, get} from '@vueuse/core';
-import {useActiveCarriers, useDeliveryOptionsRequest} from '@myparcel-do/shared';
-import {createGetDeliveryOptionsParameters} from '../utils/createGetDeliveryOptionsParameters';
-import {createTimeRangeString} from '../utils';
+import {asyncComputed, get, useMemoize} from '@vueuse/core';
+import {useDeliveryOptionsRequest} from '@myparcel-do/shared';
+import {createGetDeliveryOptionsParameters, createTimeRangeString} from '../utils';
 import {type ResolvedDeliveryOptions} from '../types';
+import {useActiveCarriers} from './useActiveCarriers';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const useResolvedDeliveryOptions = () => {
+export const useResolvedDeliveryOptions = useMemoize(() => {
   const carriers = useActiveCarriers();
 
   return asyncComputed(async () => {
@@ -13,7 +13,7 @@ export const useResolvedDeliveryOptions = () => {
 
     await Promise.all(
       get(carriers)
-        .filter((carrier) => carrier.hasDeliveryInCountry())
+        .filter((carrier) => get(carrier.hasDelivery))
         .map(async (carrier) => {
           const params = createGetDeliveryOptionsParameters(carrier);
           const query = useDeliveryOptionsRequest(params);
@@ -41,4 +41,4 @@ export const useResolvedDeliveryOptions = () => {
 
     return allCarrierPossibilities;
   });
-};
+});

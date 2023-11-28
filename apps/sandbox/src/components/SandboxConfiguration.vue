@@ -24,7 +24,8 @@
 </template>
 
 <script lang="ts" setup>
-import {computed, watch} from 'vue';
+import {computed} from 'vue';
+import {debouncedWatch} from '@vueuse/core';
 import {createForm} from '@myparcel/vue-form-builder';
 import {useSandboxStore} from '../stores';
 import {getConfigurationSections} from '../form/getConfigurationSections';
@@ -51,9 +52,13 @@ const Form = createForm('configuration', {
 
 const values = computed(() => Form.instance.getValues());
 
-watch(values, (newConfiguration) => {
-  sandboxStore.updateConfiguration(newConfiguration);
-});
+debouncedWatch(
+  values,
+  (newConfiguration) => {
+    sandboxStore.updateConfiguration(newConfiguration);
+  },
+  {debounce: 200},
+);
 
 const clearConfig = () => {
   sandboxStore.$patch({

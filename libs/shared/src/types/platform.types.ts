@@ -20,7 +20,7 @@ export type SubscriptionId = string | undefined;
 export interface CarrierOptions {
   addressFields?: string[];
   deliveryCountries?: string[];
-  deliveryTypes: string[];
+  deliveryTypes: SupportedDeliveryTypeName[];
   /**
    * Enable to use empty delivery options (without fetching) for this carrier in all countries that are not in
    * getCountriesForDelivery.
@@ -28,9 +28,9 @@ export interface CarrierOptions {
   fakeDelivery?: boolean;
   features?: string[][];
   name: CarrierName;
-  packageTypes: string[];
+  packageTypes: SupportedPackageTypeName[];
   pickupCountries?: string[];
-  shipmentOptions?: string[];
+  shipmentOptions?: SupportedShipmentOptionName[];
   subscription: SubscriptionType;
 }
 
