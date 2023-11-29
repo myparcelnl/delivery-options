@@ -1,12 +1,15 @@
 import {type DeliveryOptionsOutput, type InternalOutput} from '@myparcel-do/shared';
 import {ShipmentOptionName} from '@myparcel/constants';
+import {type SelectedDeliveryMoment} from '../types';
 
 export const convertOutput = (output: InternalOutput): DeliveryOptionsOutput => {
+  const deliveryMoment = JSON.parse(output.deliveryMoment) as SelectedDeliveryMoment;
+
   return {
-    deliveryType: output.deliveryMoment?.deliveryType,
-    packageType: output.deliveryMoment?.packageType,
+    deliveryType: deliveryMoment.deliveryType,
+    packageType: deliveryMoment.packageType,
     date: output.deliveryDate,
-    carrier: output.deliveryMoment?.carrier,
+    carrier: deliveryMoment.carrier,
     isPickup: false,
     shipmentOptions: {
       signature: output.shipmentOptions?.includes(ShipmentOptionName.Signature) ?? false,
