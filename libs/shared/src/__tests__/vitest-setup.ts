@@ -1,5 +1,5 @@
 /* eslint-disable */
-import {vi} from 'vitest';
+import {afterEach, vi} from 'vitest';
 import {mockGetCarrier} from './mocks/mockGetCarrier';
 import {mockGetCarriers} from './mocks/mockGetCarriers';
 import {mockGetDeliveryOptions} from './mocks/mockGetDeliveryOptions';
@@ -13,6 +13,7 @@ import {
   GetPickupLocations,
   type Options,
 } from '@myparcel/sdk';
+import {cleanup} from '@testing-library/vue';
 
 vi.mock('@myparcel/sdk', async (importOriginal) => {
   const original = await importOriginal<typeof import('@myparcel/sdk')>();
@@ -42,3 +43,7 @@ vi.mock('@myparcel/sdk', async (importOriginal) => {
     },
   };
 });
+
+afterEach(() => {
+  cleanup()
+})
