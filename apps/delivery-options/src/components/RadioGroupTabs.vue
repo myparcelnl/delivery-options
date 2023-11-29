@@ -24,7 +24,6 @@
 </template>
 
 <script generic="T extends RadioGroupModelValue" lang="ts" setup>
-import {type Component} from 'vue';
 import {
   type RadioGroupEmits,
   type RadioGroupModelValue,
@@ -38,5 +37,5 @@ import {
 const props = defineProps<WithElement<RadioGroupProps<T>>>();
 const emit = defineEmits<RadioGroupEmits<T>>();
 
-const {id, model, options, elementProps} = useRadioGroupContext(props, emit);
+const {id, model, options} = useRadioGroupContext(props, emit);
 </script>

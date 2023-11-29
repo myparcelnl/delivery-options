@@ -11,8 +11,24 @@ export const resolveSandboxGroup = (group: SandboxOptionGroup, prefix: string): 
   return formSection({
     label: group.name,
     fields: [
-      ...(finalFields.length ? [{key: group.name, description: group.name, fields: finalFields}] : []),
-      ...(children.length ? [{key: group.name, fields: children}] : []),
+      ...(finalFields.length
+        ? [
+            {
+              key: group.name,
+              description: group.name,
+              fields: finalFields,
+            },
+          ]
+        : []),
+
+      ...(children.length
+        ? [
+            formSection({
+              label: group.name,
+              fields: children,
+            }),
+          ]
+        : []),
     ],
   });
 };

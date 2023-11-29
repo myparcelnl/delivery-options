@@ -43,22 +43,22 @@ export const getResolvedCarrier = async (
   const allowedCountriesDelivery = computed(() => config.deliveryCountries ?? []);
 
   const allowedPackageTypes = computed(() => {
-    return config.packageTypes?.filter((option) => resolveOption(option, carrierIdentifier)) ?? [];
+    return new Set(config.packageTypes?.filter((option) => resolveOption(option, carrierIdentifier)) ?? []);
   });
 
   const allowedDeliveryTypes = computed(() => {
-    return config.deliveryTypes?.filter((option) => resolveOption(option, carrierIdentifier)) ?? [];
+    return new Set(config.deliveryTypes?.filter((option) => resolveOption(option, carrierIdentifier)) ?? []);
   });
 
   const allowedShipmentOptions = computed(() => {
-    return config.shipmentOptions?.filter((option) => resolveOption(option, carrierIdentifier)) ?? [];
+    return new Set(config.shipmentOptions?.filter((option) => resolveOption(option, carrierIdentifier)) ?? []);
   });
 
   const hasDelivery = computed(() => {
     const currentCountry = useCurrentCountry();
 
     return (
-      allowedDeliveryTypes.value.includes(DeliveryTypeName.Standard) &&
+      allowedDeliveryTypes.value.has(DeliveryTypeName.Standard) &&
       allowedCountriesDelivery.value.includes(currentCountry.value)
     );
   });
@@ -67,7 +67,7 @@ export const getResolvedCarrier = async (
     const currentCountry = useCurrentCountry();
 
     return (
-      allowedDeliveryTypes.value.includes(DeliveryTypeName.Pickup) &&
+      allowedDeliveryTypes.value.has(DeliveryTypeName.Pickup) &&
       allowedCountriesPickup.value.includes(currentCountry.value)
     );
   });

@@ -1,13 +1,13 @@
 import {get} from '@vueuse/core';
 import {type SelectOption} from '@myparcel-do/shared';
-import {type ResolvedDeliveryOptions} from '../types';
+import {type SelectedDeliveryMoment} from '../types';
 import {SHOWN_SHIPMENT_OPTIONS} from '../constants';
 import {useActiveCarrier} from '../composables/useActiveCarrier';
 
 export const createShipmentOptionsFromDeliveryMoment = (
-  deliveryOption: ResolvedDeliveryOptions | undefined,
+  deliveryOption: SelectedDeliveryMoment | undefined,
 ): SelectOption[] => {
-  const carrier = deliveryOption?.carrier.identifier;
+  const carrier = deliveryOption?.carrier;
 
   if (!carrier) {
     return [];
@@ -16,7 +16,7 @@ export const createShipmentOptionsFromDeliveryMoment = (
   const resolvedCarrier = useActiveCarrier(carrier);
 
   return SHOWN_SHIPMENT_OPTIONS.filter((option) => {
-    return resolvedCarrier.value.allowedShipmentOptions.value.includes(option);
+    return get(get(resolvedCarrier)?.allowedShipmentOptions)?.has(option);
   }).map((name) => {
     const match = get(deliveryOption)?.shipmentOptions?.find((option) => option.name === name);
 

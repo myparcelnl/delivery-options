@@ -1,54 +1,45 @@
 <template>
-  <DeliveryMoment.Component v-if="DeliveryMoment" />
+  <DeliveryMoment.Component />
 </template>
 
 <script lang="ts" setup>
-import {ref, watch} from 'vue';
-import {ComponentName, type SelectOption} from '@myparcel-do/shared';
-import {createField, type ModularCreatedField} from '@myparcel/vue-form-builder';
-import {ShipmentOptionName} from '@myparcel/constants';
+import {computed, ref} from 'vue';
+import {ComponentName, type SelectOption, type SupportedShipmentOptionName} from '@myparcel-do/shared';
+import {createField} from '@myparcel/vue-form-builder';
 import {getDeliveryTypePrice} from '../utils/getDeliveryTypePrice';
 import {getComponent} from '../utils';
-import {type ResolvedDeliveryOptions} from '../types';
-import {FIELD_DELIVERY_MOMENT} from '../constants';
-import {useSelectedDeliveryDate} from '../composables/useSelectedDeliveryDate';
+import {FIELD_DELIVERY_MOMENT, SHOWN_SHIPMENT_OPTIONS} from '../constants';
 import {useResolvedDeliveryMoments} from '../composables/useResolvedDeliveryMoments';
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
-const DeliveryMoment = ref<ModularCreatedField | null>(null);
-
 const deliveryMoments = useResolvedDeliveryMoments();
-const deliveryDate = useSelectedDeliveryDate();
 
-watch(deliveryDate, () => {
-  if (!deliveryMoments.value.length) {
-    return;
-  }
+const options = computed(() => {
+  return deliveryMoments.value.map((option) => {
+    return {
+      carrier: option.carrier.identifier,
+      label: option.time,
+      price: getDeliveryTypePrice(option),
+      value: {
+        time: option.time,
+        carrier: option.carrier.identifier,
+        date: option.date,
+        deliveryType: option.deliveryType,
+        packageType: option.packageType,
+        shipmentOptions: option.shipmentOptions.filter((option) =>
+          SHOWN_SHIPMENT_OPTIONS.includes(option.name as SupportedShipmentOptionName),
+        ),
+      },
+    };
+  }) satisfies SelectOption[];
+});
 
-  DeliveryMoment.value = createField({
-    name: FIELD_DELIVERY_MOMENT,
-    component: getComponent(ComponentName.RadioGroup),
-    props: {
-      options: deliveryMoments.value.map((option) => {
-        const shipmentOptions = option.shipmentOptions.filter((option) => {
-          return ([ShipmentOptionName.Signature, ShipmentOptionName.OnlyRecipient] as const).includes(option.name);
-        });
-
-        return {
-          carrier: option.carrier.identifier,
-          label: option.time,
-          price: getDeliveryTypePrice(option),
-          value: {
-            time: option.time,
-            carrier: option.carrier.identifier,
-            date: option.date,
-            deliveryType: option.deliveryType,
-            packageType: option.packageType,
-            shipmentOptions,
-          } satisfies ResolvedDeliveryOptions,
-        };
-      }) satisfies SelectOption[],
-    },
-  });
+// eslint-disable-next-line @typescript-eslint/naming-convention
+const DeliveryMoment = createField({
+  name: FIELD_DELIVERY_MOMENT,
+  component: getComponent(ComponentName.RadioGroup),
+  ref: ref(),
+  props: {
+    options,
+  },
 });
 </script>

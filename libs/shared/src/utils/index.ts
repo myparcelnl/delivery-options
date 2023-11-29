@@ -4,7 +4,6 @@ export * from './defineOption';
 export * from './defineOptionWithPrice';
 export * from './getAllOptions';
 export * from './getCarrierConfiguration';
-export * from './getConfigCarriers';
 export * from './getFullCarrier';
 export * from './getFullCarriers';
 export * from './getPlatformConfig';

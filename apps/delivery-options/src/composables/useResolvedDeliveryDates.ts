@@ -1,8 +1,9 @@
 import {computed, type ComputedRef} from 'vue';
+import {useMemoize} from '@vueuse/core';
 import {type ResolvedDeliveryOptions} from '../types';
 import {useResolvedDeliveryOptions} from './useResolvedDeliveryOptions';
 
-export const useResolvedDeliveryDates = (): ComputedRef<ResolvedDeliveryOptions[]> => {
+export const useResolvedDeliveryDates = useMemoize((): ComputedRef<ResolvedDeliveryOptions[]> => {
   const deliveryOptions = useResolvedDeliveryOptions();
 
   return computed(() => {
@@ -18,4 +19,4 @@ export const useResolvedDeliveryDates = (): ComputedRef<ResolvedDeliveryOptions[
       return acc;
     }, [] as ResolvedDeliveryOptions[]);
   });
-};
+});

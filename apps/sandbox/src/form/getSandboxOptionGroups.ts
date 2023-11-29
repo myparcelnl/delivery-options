@@ -22,6 +22,7 @@ export const getSandboxOptionGroups = useMemoize((): SandboxOptionGroup[] => [
   {
     name: OptionGroup.Delivery,
     items: [ALLOW_DELIVERY_OPTIONS],
+    hasExpand: true,
     children: [
       {
         name: 'homeDelivery',

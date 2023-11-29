@@ -9,7 +9,7 @@
         :section="section" />
     </Box>
 
-    <Suspense>
+    <Suspense @resolve="startListening">
       <template #default>
         <SandboxCarrierFormSections />
       </template>
@@ -24,11 +24,10 @@
 </template>
 
 <script lang="ts" setup>
-import {computed} from 'vue';
-import {debouncedWatch} from '@vueuse/core';
+import {watch} from 'vue';
 import {createForm} from '@myparcel/vue-form-builder';
 import {useSandboxStore} from '../stores';
-import {getConfigurationSections} from '../form/getConfigurationSections';
+import {getConfigurationSections} from '../form';
 import SandboxStringsBox from './SandboxStringsBox.vue';
 import SandboxLoadingIndicator from './SandboxLoadingIndicator.vue';
 import SandboxFormSection from './SandboxFormSection.vue';
@@ -50,19 +49,19 @@ const Form = createForm('configuration', {
   initialValues: {...sandboxStore.configuration},
 });
 
-const values = computed(() => Form.instance.getValues());
-
-debouncedWatch(
-  values,
-  (newConfiguration) => {
-    sandboxStore.updateConfiguration(newConfiguration);
-  },
-  {debounce: 200},
-);
-
 const clearConfig = () => {
   sandboxStore.$patch({
     configuration: undefined,
+  });
+};
+
+/**
+ * Start listening to changes in the configuration when the carrier fields have loaded. This is so the configuration is
+ * not saved to storage before all fields are loaded.
+ */
+const startListening = () => {
+  watch(Form.instance.values, (newConfiguration) => {
+    sandboxStore.updateConfiguration(newConfiguration);
   });
 };
 </script>

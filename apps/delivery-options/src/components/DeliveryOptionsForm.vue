@@ -1,8 +1,6 @@
 <template>
   <Form.Component>
     <HomeOrPickup.Component />
-
-    <pre v-text="carriers" />
   </Form.Component>
 </template>
 
@@ -22,10 +20,8 @@ const emit = defineEmits<(event: 'update', values: InternalOutput) => void>();
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const Form = createDeliveryOptionsForm();
 
-const values = computed<InternalOutput>(() => Form.instance?.getValues());
-
-watch(values, (values) => {
-  emit('update', values);
+watch(Form.instance.values, (value) => {
+  emit('update', value);
 });
 
 const {translate} = useLanguage();

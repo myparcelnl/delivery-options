@@ -13,6 +13,7 @@ export enum CarrierSetting {
   /** @deprecated use ShowDeliveryDate instead */
   AllowShowDeliveryDate = 'allowShowDeliveryDate',
   AllowSignature = 'allowSignature',
+  AllowStandardDelivery = 'allowStandardDelivery',
   CutoffTime = 'cutoffTime',
   CutoffTimeSameDay = 'cutoffTimeSameDay',
   DeliveryDaysWindow = 'deliveryDaysWindow',

@@ -11,9 +11,9 @@ export type ResolvedCarrier = Carrier & {
   identifier: CarrierIdentifier;
   allowedCountriesDelivery: ComputedRef<string[]>;
   allowedCountriesPickup: ComputedRef<string[]>;
-  allowedDeliveryTypes: ComputedRef<SupportedDeliveryTypeName[]>;
-  allowedPackageTypes: ComputedRef<SupportedPackageTypeName[]>;
-  allowedShipmentOptions: ComputedRef<SupportedShipmentOptionName[]>;
+  allowedDeliveryTypes: ComputedRef<Set<SupportedDeliveryTypeName>>;
+  allowedPackageTypes: ComputedRef<Set<SupportedPackageTypeName>>;
+  allowedShipmentOptions: ComputedRef<Set<SupportedShipmentOptionName>>;
   hasDelivery: ComputedRef<boolean>;
   hasPickup: ComputedRef<boolean>;
 };

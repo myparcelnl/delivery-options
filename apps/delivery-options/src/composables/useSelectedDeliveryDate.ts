@@ -5,5 +5,5 @@ import {FIELD_DELIVERY_DATE} from '../constants';
 export const useSelectedDeliveryDate = (): ComputedRef<string | undefined> => {
   const form = useForm();
 
-  return computed(() => form.getValues()?.[FIELD_DELIVERY_DATE] as string | undefined);
+  return computed(() => form.values[FIELD_DELIVERY_DATE] ?? undefined);
 };

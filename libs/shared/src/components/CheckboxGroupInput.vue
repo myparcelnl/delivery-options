@@ -6,11 +6,13 @@
       class="mp-block">
       <CheckboxInput
         :id="`${id}-${option.value}`"
+        v-model="model"
         :disabled="option.disabled || elementProps.disabled"
         :name="id"
         :option="option"
         :readonly="elementProps.readonly"
-        v-bind="createProps(option)" />
+        :value="option.value"
+        @update:modelValue="createUpdateHandler(option)" />
 
       <span>
         {{ option.label }}
@@ -20,7 +22,6 @@
 </template>
 
 <script generic="T extends CheckboxGroupModelValue" lang="ts" setup>
-import {computed} from 'vue';
 import {
   type CheckboxGroupEmits,
   type CheckboxGroupModelValue,
@@ -34,7 +35,5 @@ import CheckboxInput from './CheckboxInput.vue';
 const props = defineProps<WithElement<CheckboxGroupProps<T>>>();
 const emit = defineEmits<CheckboxGroupEmits<T>>();
 
-const {id, model, elementProps, createProps} = useCheckboxGroupContext(props, emit);
-
-const options = computed(() => props.element.props.options);
+const {id, model, options, elementProps, createUpdateHandler} = useCheckboxGroupContext(props, emit);
 </script>

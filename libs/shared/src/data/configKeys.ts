@@ -24,6 +24,8 @@ export const ALLOW_EVENING_DELIVERY = CarrierSetting.AllowEveningDelivery satisf
 
 export const ALLOW_MORNING_DELIVERY = CarrierSetting.AllowMorningDelivery satisfies keyof DeliveryOptionsConfig;
 
+export const ALLOW_STANDARD_DELIVERY = CarrierSetting.AllowStandardDelivery satisfies keyof DeliveryOptionsConfig;
+
 export const ALLOW_ONLY_RECIPIENT = CarrierSetting.AllowOnlyRecipient satisfies keyof DeliveryOptionsConfig;
 
 export const ALLOW_PICKUP_LOCATIONS = CarrierSetting.AllowPickupLocations satisfies keyof DeliveryOptionsConfig;

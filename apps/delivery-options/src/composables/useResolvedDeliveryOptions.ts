@@ -1,3 +1,4 @@
+/* eslint-disable max-nested-callbacks */
 import {asyncComputed, get, useMemoize} from '@vueuse/core';
 import {useDeliveryOptionsRequest} from '@myparcel-do/shared';
 import {createGetDeliveryOptionsParameters, createTimeRangeString} from '../utils';
@@ -8,10 +9,8 @@ import {useActiveCarriers} from './useActiveCarriers';
 export const useResolvedDeliveryOptions = useMemoize(() => {
   const carriers = useActiveCarriers();
 
-  return asyncComputed(async () => {
-    const allCarrierPossibilities: ResolvedDeliveryOptions[] = [];
-
-    await Promise.all(
+  const resolvedDates = asyncComputed(async () => {
+    return Promise.all(
       get(carriers)
         .filter((carrier) => get(carrier.hasDelivery))
         .map(async (carrier) => {
@@ -20,25 +19,32 @@ export const useResolvedDeliveryOptions = useMemoize(() => {
 
           await query.load();
 
-          const carrierDates = get(query.data) ?? [];
-
-          carrierDates?.forEach((dateOption) => {
-            dateOption.possibilities.forEach((datePossibility) => {
-              const [start, end] = datePossibility.delivery_time_frames;
-
-              allCarrierPossibilities.push({
-                carrier,
-                date: dateOption.date.date,
-                time: createTimeRangeString(start.date_time.date, end.date_time.date),
-                deliveryType: datePossibility.type,
-                packageType: datePossibility.package_type,
-                shipmentOptions: datePossibility.shipment_options,
-              });
-            });
-          });
+          return {
+            carrier,
+            dates: get(query.data) ?? [],
+          };
         }),
     );
+  });
 
-    return allCarrierPossibilities;
+  return asyncComputed(() => {
+    return resolvedDates.value.reduce((acc, {carrier, dates}) => {
+      dates?.forEach((dateOption) => {
+        dateOption.possibilities.forEach((datePossibility) => {
+          const [start, end] = datePossibility.delivery_time_frames;
+
+          acc.push({
+            carrier,
+            date: dateOption.date.date,
+            time: createTimeRangeString(start.date_time.date, end.date_time.date),
+            deliveryType: datePossibility.type,
+            packageType: datePossibility.package_type,
+            shipmentOptions: datePossibility.shipment_options,
+          });
+        });
+      });
+
+      return acc;
+    }, [] as ResolvedDeliveryOptions[]);
   });
 });

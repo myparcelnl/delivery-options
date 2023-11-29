@@ -1,50 +1,32 @@
 <template>
-  <ShipmentOptions.Component v-if="ShipmentOptions" />
+  <ShipmentOptions.Component />
 </template>
 
 <script lang="ts" setup>
-import {reactive, ref, watch} from 'vue';
-import {get, watchOnce} from '@vueuse/core';
+import {computed, ref} from 'vue';
 import {ComponentName} from '@myparcel-do/shared';
-import {createField, type ModularCreatedField} from '@myparcel/vue-form-builder';
-import {objectIsEqual} from '@myparcel/ts-utils';
-import {createShipmentOptionsFromDeliveryMoment} from '../utils/createShipmentOptionsFromDeliveryMoment';
-import {getComponent} from '../utils';
+import {createField, useForm} from '@myparcel/vue-form-builder';
+import {createShipmentOptionsFromDeliveryMoment, getComponent} from '../utils';
 import {FIELD_SHIPMENT_OPTIONS} from '../constants';
 import {useSelectedDeliveryMoment} from '../composables';
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
-const ShipmentOptions = ref<ModularCreatedField | null>(null);
-
 const deliveryMoment = useSelectedDeliveryMoment();
 
-watchOnce(deliveryMoment, () => {
-  ShipmentOptions.value = createField({
-    name: FIELD_SHIPMENT_OPTIONS,
-    component: getComponent(ComponentName.CheckboxGroup),
-    ref: ref([]),
-    props: reactive({
-      options: [],
+const form = useForm();
+
+// eslint-disable-next-line @typescript-eslint/naming-convention
+const ShipmentOptions = createField({
+  name: FIELD_SHIPMENT_OPTIONS,
+  component: getComponent(ComponentName.CheckboxGroup),
+  ref: ref([]),
+  props: {
+    options: computed(() => {
+      if (!deliveryMoment.value) {
+        return [];
+      }
+
+      return createShipmentOptionsFromDeliveryMoment(deliveryMoment.value);
     }),
-  });
-
-  watch(
-    deliveryMoment,
-    (newMoment, oldMoment) => {
-      if (objectIsEqual(newMoment, oldMoment)) {
-        return;
-      }
-
-      const newOptions = createShipmentOptionsFromDeliveryMoment(newMoment);
-      const field = get(ShipmentOptions.value)?.field;
-
-      if (!field) {
-        return;
-      }
-
-      field.props.options = newOptions;
-    },
-    {deep: true, immediate: true},
-  );
+  },
 });
 </script>

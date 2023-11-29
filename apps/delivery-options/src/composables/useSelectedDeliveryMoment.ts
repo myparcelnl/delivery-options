@@ -1,10 +1,13 @@
 import {computed, type ComputedRef} from 'vue';
+import {useMemoize} from '@vueuse/core';
 import {useForm} from '@myparcel/vue-form-builder';
-import {type ResolvedDeliveryOptions} from '../types';
+import {type SelectedDeliveryMoment} from '../types';
 import {FIELD_DELIVERY_MOMENT} from '../constants';
 
-export const useSelectedDeliveryMoment = (): ComputedRef<ResolvedDeliveryOptions | undefined> => {
+export const useSelectedDeliveryMoment = useMemoize((): ComputedRef<SelectedDeliveryMoment | undefined> => {
   const form = useForm();
 
-  return computed(() => form.getValues()?.[FIELD_DELIVERY_MOMENT] as ResolvedDeliveryOptions | undefined);
-};
+  return computed(() => {
+    return form.values?.[FIELD_DELIVERY_MOMENT] ?? undefined;
+  });
+});
