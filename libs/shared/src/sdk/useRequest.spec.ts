@@ -4,13 +4,11 @@ import {useRequestClient} from './useRequestClient';
 import {useRequest} from './useRequest';
 
 describe('useRequest', () => {
-  const mock = vi.fn().mockReturnValueOnce('tada');
-
   const useTestQuery = () => {
     return useRequest(['test'], async () => {
       return new Promise((resolve) => {
         setTimeout((): void => {
-          resolve(mock());
+          resolve('tada');
         }, 1000);
       });
     });
@@ -21,7 +19,9 @@ describe('useRequest', () => {
   });
 
   afterEach(() => {
+    vi.resetAllMocks();
     useRequestClient().clear();
+    useRequestClient().values.clear();
   });
 
   it('waits for async result', () => {
