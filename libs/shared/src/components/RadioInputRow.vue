@@ -1,5 +1,5 @@
 <template>
-  <label class="mp-flex mp-gap-2 mp-items-center">
+  <label class="mp-flex mp-gap-2 mp-items-center mp-py-1">
     <RadioInput
       v-model="model"
       :disabled="disabled"
@@ -17,17 +17,17 @@
       v-if="option.ecoFriendly"
       :amount="option.ecoFriendly" />
 
-    <span
-      v-if="option.price || option.carrier"
-      class="mp-ml-auto">
-      <PriceTag
-        v-if="option.price"
-        :price="option.price" />
+    <PriceTag
+      v-if="option.price"
+      :price="option.price"
+      class="mp-ml-auto" />
 
-      <CarrierLogo
-        v-if="option.carrier"
-        :carrier="option.carrier" />
-    </span>
+    <CarrierLogo
+      v-if="option.carrier"
+      :carrier="option.carrier"
+      :class="{
+        'mp-ml-auto': !option.price,
+      }" />
   </label>
 </template>
 
