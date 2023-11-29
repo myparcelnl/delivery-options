@@ -18,7 +18,7 @@ const options = computed(() => {
     return {
       carrier: option.carrier.identifier,
       label: option.time,
-      price: getDeliveryTypePrice(option),
+      price: getDeliveryTypePrice(option, option.carrier.identifier),
       value: {
         time: option.time,
         carrier: option.carrier.identifier,
