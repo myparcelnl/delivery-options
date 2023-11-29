@@ -8,6 +8,8 @@ export const useSelectedDeliveryMoment = useMemoize((): ComputedRef<SelectedDeli
   const form = useForm();
 
   return computed(() => {
-    return form.values?.[FIELD_DELIVERY_MOMENT] ?? undefined;
+    const value = form.values?.[FIELD_DELIVERY_MOMENT] ?? undefined;
+
+    return value ? JSON.parse(value) : undefined;
   });
 });

@@ -1,19 +1,30 @@
+import {nextTick} from 'vue';
 import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest';
-import {waitForEvent} from '@myparcel-do/shared/testing';
-import {type DeliveryOptionsOutput, UPDATED_DELIVERY_OPTIONS} from '@myparcel-do/shared';
-import {useEmitDeliveryOptionsEvents} from './useEmitDeliveryOptionsEvents';
+import {createPinia, setActivePinia} from 'pinia';
+import {type InternalOutput, useDeliveryOptionsStore} from '@myparcel-do/shared';
+import {convertOutput} from '../utils';
+import {useDeliveryOptionsOutgoingEvents} from './useDeliveryOptionsOutgoingEvents';
 
 /**
  * @vitest-environment happy-dom
  */
 
-describe('useUpdateDeliveryOptions', () => {
-  const dispatchEventSpy = vi.fn();
+describe('useDeliveryOptionsOutgoingEvents', () => {
+  const dispatchEventSpy = vi.spyOn(global.document, 'dispatchEvent');
   const emitSpy = vi.fn();
+
+  const DEFAULT_VALUES: InternalOutput = Object.freeze({
+    deliveryDate: '2023-01-01',
+    deliveryMoment: '',
+    shipmentOptions: [],
+  });
+
+  const DIFFERENT_VALUES: InternalOutput = Object.freeze({...DEFAULT_VALUES, deliveryDate: '2023-01-02'});
 
   beforeEach(() => {
     vi.useFakeTimers();
-    global.document.dispatchEvent = dispatchEventSpy;
+    setActivePinia(createPinia());
+    dispatchEventSpy.mockImplementation(() => true);
   });
 
   afterEach(() => {
@@ -22,62 +33,72 @@ describe('useUpdateDeliveryOptions', () => {
   });
 
   it('should emit an event with the values', async () => {
-    expect.assertions(2);
-    const wait = waitForEvent(UPDATED_DELIVERY_OPTIONS);
+    expect.assertions(4);
+    const store = useDeliveryOptionsStore();
 
-    const update = useEmitDeliveryOptionsEvents(emitSpy);
-    const values = {carrier: 'postnl', delivery: 'deliver', pickup: 'pickup'} as unknown as DeliveryOptionsOutput;
+    useDeliveryOptionsOutgoingEvents(emitSpy);
 
-    update(values);
+    store.updateOutput(DEFAULT_VALUES);
     vi.runAllTimers();
+    await nextTick();
 
-    await wait;
-
-    expect(global.document.dispatchEvent.mock.calls).toEqual([values]);
-    expect(emitSpy).toHaveBeenCalledWith('update', values);
-  });
-
-  it('should not emit an event if the values are the same', () => {
-    const update = useEmitDeliveryOptionsEvents(emitSpy);
-
-    const values = {carrier: 'postnl', delivery: 'deliver', pickup: 'pickup'} as unknown as DeliveryOptionsOutput;
-
-    update(values);
-    vi.runAllTimers();
-    update(values);
-    vi.runAllTimers();
-
-    expect(global.document.dispatchEvent.mock.call).toEqual([values]);
     expect(emitSpy).toHaveBeenCalledTimes(1);
+    expect(emitSpy).toHaveBeenCalledWith('update', convertOutput(DEFAULT_VALUES));
+
+    expect(dispatchEventSpy).toHaveBeenCalledTimes(1);
+    expect(dispatchEventSpy.mock.calls[0][0].detail).toEqual(convertOutput(DEFAULT_VALUES));
   });
 
-  it('should emit an event if the values are different', () => {
-    const update = useEmitDeliveryOptionsEvents(emitSpy);
+  it('should not emit an event if the values are the same', async () => {
+    expect.assertions(3);
+    const store = useDeliveryOptionsStore();
+    useDeliveryOptionsOutgoingEvents(emitSpy);
 
-    const values = {carrier: 'postnl', delivery: 'deliver', pickup: 'pickup'} as unknown as DeliveryOptionsOutput;
-    const differentValues = {carrier: 'dhl', delivery: 'deliver', pickup: 'pickup'} as unknown as DeliveryOptionsOutput;
+    store.updateOutput(DEFAULT_VALUES);
+    vi.runAllTimers();
+    await nextTick();
 
-    update(values);
-    update(differentValues);
+    store.updateOutput(DEFAULT_VALUES);
+    vi.runAllTimers();
+    await nextTick();
 
-    expect(global.document.dispatchEvent.mock.calls).toEqual([values, differentValues]);
+    expect(emitSpy).toHaveBeenCalledTimes(1);
+    expect(dispatchEventSpy).toHaveBeenCalledTimes(1);
+    expect(dispatchEventSpy.mock.calls[0][0].detail).toEqual(convertOutput(DEFAULT_VALUES));
+  });
+
+  it('should emit an event if the values are different', async () => {
+    expect.assertions(4);
+    const store = useDeliveryOptionsStore();
+    useDeliveryOptionsOutgoingEvents(emitSpy);
+
+    store.updateOutput(DEFAULT_VALUES);
+    vi.runAllTimers();
+    await nextTick();
+
+    store.updateOutput(DIFFERENT_VALUES);
+    vi.runAllTimers();
+    await nextTick();
+
     expect(emitSpy).toHaveBeenCalledTimes(2);
+    expect(dispatchEventSpy).toHaveBeenCalledTimes(2);
+    expect(dispatchEventSpy.mock.calls[0][0].detail).toEqual(convertOutput(DEFAULT_VALUES));
+    expect(dispatchEventSpy.mock.calls[1][0].detail).toEqual(convertOutput(DIFFERENT_VALUES));
   });
 
   it('debounces the emit', async () => {
-    expect.assertions(2);
+    expect.assertions(3);
+    const store = useDeliveryOptionsStore();
 
-    const wait = waitForEvent(UPDATED_DELIVERY_OPTIONS);
-    const update = useEmitDeliveryOptionsEvents(emitSpy);
+    useDeliveryOptionsOutgoingEvents(emitSpy);
 
-    const values = {carrier: 'postnl', delivery: 'deliver', pickup: 'pickup'} as unknown as DeliveryOptionsOutput;
-
-    update(values);
-    update({...values, carrier: 'dhl'});
+    store.updateOutput(DEFAULT_VALUES);
+    store.updateOutput(DIFFERENT_VALUES);
     vi.runAllTimers();
+    await nextTick();
 
-    await wait;
-    expect(global.document.dispatchEvent.mock.calls).toEqual([values]);
     expect(emitSpy).toHaveBeenCalledTimes(1);
+    expect(dispatchEventSpy).toHaveBeenCalledTimes(1);
+    expect(dispatchEventSpy.mock.calls[0][0].detail).toEqual(convertOutput(DIFFERENT_VALUES));
   });
 });

@@ -3,6 +3,11 @@ import {defineStore} from 'pinia';
 import {type InputDeliveryOptionsConfiguration, type InternalOutput} from '../types';
 import {ComponentName} from '../enums';
 
+export enum DeliveryOptionsStoreAction {
+  UpdateConfiguration = 'updateConfiguration',
+  UpdateOutput = 'updateOutput',
+}
+
 export const useDeliveryOptionsStore = defineStore('deliveryOptions', {
   state: () => ({
     configuration: window.MyParcelConfig ?? {},
@@ -10,13 +15,13 @@ export const useDeliveryOptionsStore = defineStore('deliveryOptions', {
   }),
 
   actions: {
-    updateConfiguration(configuration: InputDeliveryOptionsConfiguration): void {
+    [DeliveryOptionsStoreAction.UpdateConfiguration](configuration: InputDeliveryOptionsConfiguration): void {
       this.configuration = configuration;
 
       window.MyParcelConfig = this.configuration;
     },
 
-    updateOutput(output: InternalOutput): void {
+    [DeliveryOptionsStoreAction.UpdateOutput](output: InternalOutput): void {
       this.internalOutput = output;
     },
   },

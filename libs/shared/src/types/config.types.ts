@@ -167,13 +167,11 @@ export type DeliveryOptionsOutput = DeliveryOutput | PickupOutput;
 
 export type InternalOutput = {
   deliveryDate: string;
-  deliveryMoment: {
-    carrier: CarrierIdentifier;
-    date: string;
-    deliveryType: DeliveryTypeName;
-    packageType: PackageTypeName;
-    shipmentOptions: unknown[];
-  };
+  /**
+   * JSON encoded SelectedDeliveryMoment
+   * @see SelectedDeliveryMoment
+   */
+  deliveryMoment: string;
   shipmentOptions?: ShipmentOptionName[];
 };
 

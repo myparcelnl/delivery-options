@@ -21,12 +21,12 @@ export const createDeliveryOptionsForm = (): CreatedForm<InternalOutput> => {
     renderLabel: translate,
     initialValues: {
       deliveryDate: initialConfiguration?.date,
-      deliveryMoment: {
+      deliveryMoment: JSON.stringify({
         carrier: initialConfiguration?.carrier,
         date: initialConfiguration?.date,
         deliveryType: initialConfiguration?.deliveryType,
         packageType: initialConfiguration?.packageType,
-      },
+      }),
       shipmentOptions: [],
     },
   });

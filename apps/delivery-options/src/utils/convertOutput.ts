@@ -5,7 +5,7 @@ export const convertOutput = (output: InternalOutput): DeliveryOptionsOutput => 
   return {
     deliveryType: output.deliveryMoment?.deliveryType,
     packageType: output.deliveryMoment?.packageType,
-    date: output.deliveryMoment?.date,
+    date: output.deliveryDate,
     carrier: output.deliveryMoment?.carrier,
     isPickup: false,
     shipmentOptions: {

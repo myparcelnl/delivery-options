@@ -19,7 +19,7 @@ const options = computed(() => {
       carrier: option.carrier.identifier,
       label: option.time,
       price: getDeliveryTypePrice(option, option.carrier.identifier),
-      value: {
+      value: JSON.stringify({
         time: option.time,
         carrier: option.carrier.identifier,
         date: option.date,
@@ -28,7 +28,7 @@ const options = computed(() => {
         shipmentOptions: option.shipmentOptions.filter((option) =>
           SHOWN_SHIPMENT_OPTIONS.includes(option.name as SupportedShipmentOptionName),
         ),
-      },
+      }),
     };
   }) satisfies SelectOption[];
 });
