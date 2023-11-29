@@ -32,6 +32,7 @@
         </ul>
 
         <ColorModeSwitcher />
+        <LanguageSwitcher />
       </Container>
     </Container>
   </header>
@@ -39,6 +40,7 @@
 
 <script lang="ts" setup>
 import {useLanguage} from '@myparcel-do/shared';
+import LanguageSwitcher from '../LanguageSwitcher.vue';
 import {Container} from '../Container';
 import ColorModeSwitcher from '../ColorModeSwitcher.vue';
 
