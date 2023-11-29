@@ -1,13 +1,4 @@
 <template>
-  <select v-model="model">
-    <option
-      v-for="option in options"
-      :key="option.value"
-      :value="option.value">
-      {{ option.label }}
-    </option>
-  </select>
-
   <div
     ref="selectWrapper"
     :class="{
