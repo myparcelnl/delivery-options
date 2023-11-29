@@ -1,7 +1,7 @@
 import {type WritableComputedRef} from 'vue';
 import {get} from '@vueuse/core';
-import {type ArrayItem, type SelectInputModelValue, type SelectOption} from '@myparcel-do/shared';
 import {type OneOrMore, toArray} from '@myparcel/ts-utils';
+import {type ArrayItem, type SelectInputModelValue, type SelectOption} from '../../types';
 
 export const calculateInitialValue = <T extends OneOrMore<SelectInputModelValue>>(
   model: WritableComputedRef<T>,

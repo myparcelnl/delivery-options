@@ -1,9 +1,10 @@
 import {computed} from 'vue';
 import {get} from '@vueuse/core';
 import {type ComputedRef} from '@vue/reactivity';
-import {type SupportedPlatformName, useDeliveryOptionsStore} from '@myparcel-do/shared';
 import {PlatformName} from '@myparcel/constants';
 import {getPlatformConfig} from '../utils';
+import {type SupportedPlatformName} from '../types';
+import {useDeliveryOptionsStore} from '../stores';
 
 interface UseCurrentPlatform {
   config: ComputedRef<ReturnType<typeof getPlatformConfig>>;

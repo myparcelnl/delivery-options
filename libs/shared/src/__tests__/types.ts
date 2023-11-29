@@ -1,5 +1,4 @@
-import {type SupportedPlatformName} from '@myparcel-do/shared';
-import {type CarrierIdentifier} from '../types';
+import {type CarrierIdentifier, type SupportedPlatformName} from '../types';
 
 export interface FakeDeliveryOptionsParameters {
   carrier: CarrierIdentifier;

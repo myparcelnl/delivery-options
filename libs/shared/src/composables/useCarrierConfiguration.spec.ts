@@ -2,7 +2,6 @@
 import {beforeEach, describe, expect, it} from 'vitest';
 import {createPinia, setActivePinia} from 'pinia';
 import {get} from '@vueuse/core';
-import {FEATURE_SHOW_DELIVERY_DATE, useCarrierRequest} from '@myparcel-do/shared';
 import {
   CarrierId,
   CarrierName,
@@ -12,6 +11,8 @@ import {
   ShipmentOptionName,
 } from '@myparcel/constants';
 import {type CarrierIdentifier, type FullCarrier, type SupportedPlatformName} from '../types';
+import {useCarrierRequest} from '../sdk';
+import {FEATURE_SHOW_DELIVERY_DATE} from '../data';
 import {useFullCarrier} from './useFullCarrier';
 
 const allPlatforms = [PlatformName.MyParcel, PlatformName.SendMyParcel] satisfies SupportedPlatformName[];

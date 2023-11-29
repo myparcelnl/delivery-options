@@ -1,6 +1,7 @@
 import {describe, expect, it, vi} from 'vitest';
 import {useVModel} from '@vueuse/core';
-import {calculateInitialValue, type SelectOption} from '@myparcel-do/shared';
+import {type SelectOption} from '../../types';
+import {calculateInitialValue} from './calculateInitialValue';
 
 describe('calculateInitialValue', () => {
   it('should return null if no options are available', () => {

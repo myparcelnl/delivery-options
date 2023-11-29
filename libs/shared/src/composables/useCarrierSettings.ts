@@ -1,12 +1,9 @@
 import {computed} from 'vue';
 import {useMemoize} from '@vueuse/core';
 import {type ComputedRef} from '@vue/reactivity';
-import {
-  CARRIER_SETTINGS,
-  type CarrierIdentifier,
-  type CarrierSettings,
-  useDeliveryOptionsStore,
-} from '@myparcel-do/shared';
+import {type CarrierIdentifier, type CarrierSettings} from '../types';
+import {useDeliveryOptionsStore} from '../stores';
+import {CARRIER_SETTINGS} from '../data';
 
 export const useCarrierSettings = useMemoize((carrier: CarrierIdentifier): ComputedRef<CarrierSettings | null> => {
   const store = useDeliveryOptionsStore();
