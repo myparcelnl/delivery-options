@@ -3,6 +3,8 @@ import {get} from '@vueuse/core';
 
 interface UseCursorOptions {
   items: MaybeRef<unknown[]>;
+
+  onChange?(cursor: number): void;
 }
 
 interface UseCursor {
@@ -16,7 +18,7 @@ interface UseCursor {
 }
 
 const CURSOR_NONE = -1;
-export const useCursor = ({items}: UseCursorOptions): UseCursor => {
+export const useCursor = ({items, onChange}: UseCursorOptions): UseCursor => {
   const cursor = ref<number>(CURSOR_NONE);
 
   const previous = () => {
@@ -25,14 +27,17 @@ export const useCursor = ({items}: UseCursorOptions): UseCursor => {
     }
 
     cursor.value = (cursor.value - 1 + get(items).length) % get(items).length;
+    onChange?.(cursor.value);
   };
 
   const next = () => {
     cursor.value = (cursor.value + 1) % get(items).length;
+    onChange?.(cursor.value);
   };
 
   const reset = () => {
     cursor.value = CURSOR_NONE;
+    onChange?.(cursor.value);
   };
 
   return {

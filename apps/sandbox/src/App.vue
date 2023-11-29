@@ -10,28 +10,28 @@
       </Suspense>
 
       <div class="mp-relative">
-        <Box
-          v-if="ready"
-          class="mp-sticky mp-top-0">
-          <h2>Delivery Options</h2>
-          <DeliveryOptionsBlock />
+        <!--        <Box -->
+        <!--          v-if="ready" -->
+        <!--          class="mp-sticky mp-top-0"> -->
+        <!--          <h2>Delivery Options</h2> -->
+        <!--          <DeliveryOptionsBlock /> -->
 
-          <div class="mp-bg-opacity-30 mp-bg-red-950 mp-border-t-red-950 mp-p-4 mp-rounded-xl">
-            <h2>Sandbox form</h2>
+        <!--          <div class="mp-bg-opacity-30 mp-bg-red-950 mp-border-t-red-950 mp-p-4 mp-rounded-xl"> -->
+        <!--            <h2>Sandbox form</h2> -->
 
-            <div>
-              <pre v-text="form?.getValues()"></pre>
-            </div>
+        <!--            <div> -->
+        <!--              <pre v-text="form?.getValues()"></pre> -->
+        <!--            </div> -->
 
-            <h2>Delivery options form</h2>
+        <!--            <h2>Delivery options form</h2> -->
 
-            <div>
-              <pre v-text="doValues"></pre>
-            </div>
+        <!--            <div> -->
+        <!--              <pre v-text="doValues"></pre> -->
+        <!--            </div> -->
 
-            <DebugEventLog />
-          </div>
-        </Box>
+        <!--            <DebugEventLog /> -->
+        <!--          </div> -->
+        <!--        </Box> -->
       </div>
     </Box>
   </Container>
@@ -45,10 +45,8 @@ import {useFormBuilder} from '@myparcel/vue-form-builder';
 import SandboxHeader from './components/layout/SandboxHeader.vue';
 import SandboxFooter from './components/layout/SandboxFooter.vue';
 import SandboxConfiguration from './components/SandboxConfiguration.vue';
-import DeliveryOptionsBlock from './components/DeliveryOptionsBlock.vue';
 import {Container} from './components/Container';
 import {Box} from './components/Box';
-import DebugEventLog from './DebugEventLog.vue';
 
 const formBuilder = useFormBuilder();
 
