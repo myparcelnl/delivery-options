@@ -1,25 +1,27 @@
 <template>
-  <div
-    v-for="option in options"
-    :key="`${id}-${option.value}`"
-    :class="`myparcel-${option.value}`">
-    <RadioInputRow
-      v-model="model"
-      :option="option"
-      class="mp-py-2">
-      <template #label>
-        <h3
-          class="mp-my-auto"
-          v-text="option.label" />
-      </template>
-    </RadioInputRow>
+  <div>
+    <div
+      v-for="option in options"
+      :key="`${id}-${option.value}`"
+      :class="`myparcel-${option.value}`">
+      <RadioInputRow
+        v-model="model"
+        :option="option"
+        class="mp-py-2">
+        <template #label>
+          <h3
+            class="mp-my-auto"
+            v-text="option.label" />
+        </template>
+      </RadioInputRow>
 
-    <KeepAlive>
-      <component
-        :is="option.content"
-        v-if="model === option.value && option.content"
-        class="mp-p-4" />
-    </KeepAlive>
+      <KeepAlive>
+        <component
+          :is="option.content"
+          v-if="model === option.value && option.content"
+          class="mp-p-4" />
+      </KeepAlive>
+    </div>
   </div>
 </template>
 

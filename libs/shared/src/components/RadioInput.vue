@@ -1,7 +1,8 @@
 <template>
   <input
     v-model="model"
-    type="radio" />
+    type="radio"
+    v-bind="$props" />
 </template>
 
 <script generic="T extends Keyable" lang="ts" setup>

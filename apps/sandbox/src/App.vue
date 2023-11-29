@@ -14,23 +14,12 @@
           v-if="ready"
           class="mp-sticky mp-top-0">
           <h2>Delivery Options</h2>
+
           <DeliveryOptionsBlock />
+        </Box>
 
-          <div class="mp-bg-opacity-30 mp-bg-red-950 mp-border-t-red-950 mp-p-4 mp-rounded-xl">
-            <h2>Sandbox form</h2>
-
-            <div>
-              <pre v-text="form?.getValues()"></pre>
-            </div>
-
-            <h2>Delivery options form</h2>
-
-            <div>
-              <pre v-text="doValues"></pre>
-            </div>
-
-            <DebugEventLog />
-          </div>
+        <Box>
+          <DebugEventLog />
         </Box>
       </div>
     </Box>
@@ -57,9 +46,5 @@ const ready = ref(false);
 
 const form = computed(() => {
   return formBuilder.getForm('configuration');
-});
-
-const doValues = computed(() => {
-  return formBuilder.getForm('DeliveryOptions')?.getValues();
 });
 </script>
