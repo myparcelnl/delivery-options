@@ -3,6 +3,8 @@ import {type SelectOption} from '@myparcel-do/shared';
 import {type SelectedDeliveryMoment} from '../types';
 import {SHOWN_SHIPMENT_OPTIONS} from '../constants';
 import {useActiveCarrier} from '../composables/useActiveCarrier';
+import {getResolvedValue} from './getResolvedValue';
+import {getConfigPriceKey} from './getConfigPriceKey';
 
 export const createShipmentOptionsFromDeliveryMoment = (
   deliveryOption: SelectedDeliveryMoment | undefined,
@@ -22,11 +24,14 @@ export const createShipmentOptionsFromDeliveryMoment = (
 
     const hasOnlyOneOption = match?.schema.enum.length === 1;
 
+    const priceKey = getConfigPriceKey(name);
+
     return {
       label: name,
       value: name,
       disabled: hasOnlyOneOption,
       selected: hasOnlyOneOption ? match?.schema.enum[0] : false,
+      price: getResolvedValue(priceKey, carrier),
     };
   });
 };

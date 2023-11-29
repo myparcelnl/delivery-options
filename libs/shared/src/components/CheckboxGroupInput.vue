@@ -1,9 +1,10 @@
 <template>
   <div>
-    <label
+    <OptionRow
       v-for="option in options"
       :key="`${id}-${option.value}`"
-      class="mp-block">
+      v-model="model"
+      :option="option">
       <CheckboxInput
         :id="`${id}-${option.value}`"
         v-model="model"
@@ -13,11 +14,7 @@
         :readonly="elementProps.readonly"
         :value="option.value"
         @update:modelValue="createUpdateHandler(option)" />
-
-      <span>
-        {{ option.label }}
-      </span>
-    </label>
+    </OptionRow>
   </div>
 </template>
 
@@ -29,6 +26,7 @@ import {
   type WithElement,
 } from '../types';
 import {useCheckboxGroupContext} from '../composables';
+import OptionRow from './OptionRow.vue';
 import CheckboxInput from './CheckboxInput.vue';
 
 // eslint-disable-next-line vue/no-unused-properties
