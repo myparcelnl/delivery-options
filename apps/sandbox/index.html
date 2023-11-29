@@ -10,8 +10,25 @@
       content="width=device-width, initial-scale=1.0"
       name="viewport" />
     <title>MyParcel Delivery Options Sandbox</title>
+    <script>
+      (function () {
+        var DARK = 'dark';
+        var LIGHT = 'light';
+        var colorScheme =
+          localStorage.getItem('vueuse-color-scheme') ||
+          (window.matchMedia('(prefers-color-scheme: dark)').matches
+            ? DARK
+            : LIGHT);
+
+        document.documentElement.setAttribute(
+          'class',
+          colorScheme === DARK ? 'mp-dark' : LIGHT,
+        );
+      })();
+    </script>
   </head>
-  <body class="mp-bg-white dark:mp-bg-gray-900 mp-text-gray-950 dark:mp-text-gray-200">
+  <body
+    class="mp-bg-white dark:mp-bg-gray-900 mp-text-gray-950 dark:mp-text-gray-200">
     <script type="importmap">
       {
         "imports": {
