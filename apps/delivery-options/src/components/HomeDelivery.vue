@@ -1,9 +1,11 @@
 <template>
-  <DeliveryDateSelector />
+  <div>
+    <DeliveryDateSelector />
 
-  <DeliveryMomentSelector />
+    <DeliveryMomentSelector />
 
-  <ShipmentOptionsSelector />
+    <ShipmentOptionsSelector />
+  </div>
 </template>
 
 <script lang="ts" setup>
