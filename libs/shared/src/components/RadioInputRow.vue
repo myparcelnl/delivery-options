@@ -33,10 +33,11 @@
 
 <script generic="T extends SelectInputModelValue" lang="ts" setup>
 import {useVModel} from '@vueuse/core';
-import type {InputEmits, InputProps, SelectInputModelValue, SelectOption} from '../types';
-import CarrierLogo from './CarrierLogo.vue';
-import EcoFriendlyLabel from './EcoFriendlyLabel.vue';
+import {type InputEmits, type InputProps, type SelectInputModelValue, type SelectOption} from '../types';
+import RadioInput from './RadioInput.vue';
 import PriceTag from './PriceTag.vue';
+import EcoFriendlyLabel from './EcoFriendlyLabel.vue';
+import CarrierLogo from './CarrierLogo.vue';
 
 const props = defineProps<InputProps<T> & {option: SelectOption}>();
 const emit = defineEmits<InputEmits<T>>();

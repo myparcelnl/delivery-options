@@ -29,7 +29,6 @@ export const useOpenState = (options: UseOpensManuallyOptions): UseOpensManually
   };
 
   const open = () => {
-    console.log('open');
     isOpen.value = true;
     void options?.onOpen?.();
   };

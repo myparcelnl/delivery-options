@@ -55,8 +55,6 @@ const formBuilder = useFormBuilder();
 // Use this to wait for all carriers to have been loaded. This avoids unnecessary calls to the individual carriers.
 const ready = ref(false);
 
-const checkbox = ref([]);
-
 const form = computed(() => {
   return formBuilder.getForm('configuration');
 });
