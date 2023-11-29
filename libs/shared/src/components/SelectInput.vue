@@ -1,18 +1,41 @@
 <template>
+  <select v-model="model">
+    <option
+      v-for="option in options"
+      :key="option.value"
+      :value="option.value">
+      {{ option.label }}
+    </option>
+  </select>
+
   <div
     ref="selectWrapper"
     :class="{
       'mp-rounded-full': !isOpen,
       'mp-rounded-t-[28px]': isOpen,
     }"
-    :tabindex="loading || element.isDisabled ? -1 : 0"
-    class="focus:mp-outline-2 focus:mp-ring-0 mp-outline-goldfish-500 mp-relative mp-select-none mp-w-full"
-    role="listbox">
+    class="dark:mp-text-white mp-relative mp-select-none mp-w-full"
+    v-bind="$attrs"
+    @click="() => searchRef?.focus()"
+    @keydown.space.prevent="() => selectOptionAtCursor()"
+    @keydown.enter.prevent="() => selectOptionAtCursor()"
+    @keydown.esc.prevent="close"
+    @keydown.up.prevent="onPressUp"
+    @keydown.tab="onPressTab"
+    @keydown.down.prevent="onPressDown">
     <Loader.Wrapper
       v-if="loading"
       class="mp-absolute mp-inset-0">
       <Loader.Circle class="mp-h-full mp-w-full" />
     </Loader.Wrapper>
+
+    <input
+      ref="searchRef"
+      v-model="searchText"
+      :tabindex="loading || element.isDisabled ? -1 : 0"
+      class="mp-peer mp-sr-only"
+      role="listbox"
+      @focusout="onPressTab" />
 
     <div
       :class="{
@@ -22,21 +45,8 @@
         'mp-opacity-100': !element.isDisabled,
         'mp-invisible': loading,
       }"
-      class="mp-bg-white mp-border mp-px-4"
-      @click="() => search.focus()"
+      class="dark:mp-bg-gray-800 mp-bg-white mp-border mp-outline-goldfish-500 mp-px-4 peer-focus:mp-outline-2 peer-focus:mp-ring-0"
       @mousedown.stop="toggle">
-      <input
-        ref="search"
-        v-model="searchText"
-        class="mp-sr-only"
-        @focus="open"
-        @focusout="close"
-        @keydown.enter.prevent="() => (isOpen ? selectOptionAtCursor() : null)"
-        @keydown.esc.prevent="close"
-        @keydown.space.prevent="toggle"
-        @keydown.up.prevent="() => (isOpen ? previous() : null)"
-        @keydown.down.prevent="() => (isOpen ? next() : null)" />
-
       <span class="mp-flex">
         <span class="mp-flex mp-flex-col mp-relative">
           <span
@@ -72,19 +82,20 @@
 
     <div
       v-show="isOpen"
-      class="mp-absolute mp-bg-white mp-border mp-border-t-0 mp-overflow-y-scroll mp-rounded-b-[28px] mp-w-full mp-z-10">
+      class="dark:mp-bg-gray-800 mp-absolute mp-bg-white mp-border mp-border-t-0 mp-overflow-y-scroll mp-rounded-b-[28px] mp-w-full mp-z-10">
       <div
         ref="optionsWrapper"
         class="mp-max-h-72">
         <div
           v-for="(option, index) in filteredOptions"
           :key="option.value"
+          :aria-selected="option.value === model"
           :class="{
-            'mp-bg-gray-300': cursor === index,
+            'mp-bg-gray-300 dark:mp-bg-gray-700': cursor === index,
           }"
           class="mp-cursor-pointer mp-px-4 mp-py-2"
-          role="listitem"
-          @click="() => selectOption(option)"
+          role="option"
+          @mouseup.stop="() => selectOption(option)"
           @mouseover.stop="cursor = index">
           <span v-text="option.label" />
         </div>
@@ -93,21 +104,33 @@
   </div>
 </template>
 
+<script lang="ts">
+export default {inheritAttrs: false};
+</script>
+
 <script generic="T extends SelectInputModelValue" lang="ts" setup>
-import {computed, ref, watch} from 'vue';
-import {useScroll} from '@vueuse/core';
-import {Loader, type SelectOption} from '@myparcel-do/shared';
-import {type SelectInputEmits, type SelectInputModelValue, type SelectInputProps, type WithElement} from '../types';
-import {useClickOutside} from '../compsables/useClickOutside';
-import {useOpenState} from '../composables/useOpenState';
-import {useCursor} from '../composables/useCursor';
-import {useLanguage, useSelectInputContext} from '../composables'; // eslint-disable-next-line vue/no-unused-properties
+import {computed, nextTick, ref, watch} from 'vue';
+import {
+  type SelectInputEmits,
+  type SelectInputModelValue,
+  type SelectInputProps,
+  type SelectOption,
+  type WithElement,
+} from '../types';
+import {useClickOutside, useCursor, useLanguage, useOpenState, useSelectInputContext} from '../composables';
+import {Loader} from './Loader';
 
 // eslint-disable-next-line vue/no-unused-properties
 const props = defineProps<WithElement<SelectInputProps<T>> & {options?: any; loading?: boolean}>();
 const emit = defineEmits<SelectInputEmits<T>>();
 
 const {model, options} = useSelectInputContext(props, emit);
+const {translate} = useLanguage();
+
+const selectWrapper = ref<HTMLElement | null>(null);
+const optionsWrapper = ref<HTMLElement | null>(null);
+const searchRef = ref<HTMLElement | null>(null);
+const searchText = ref<string | null>(null);
 
 const currentOption = computed(() => options.value.find((option) => option.value === model.value));
 const filteredOptions = computed(() =>
@@ -116,49 +139,33 @@ const filteredOptions = computed(() =>
   }),
 );
 
-const selectWrapper = ref<HTMLElement | null>(null);
-const optionsWrapper = ref<HTMLElement | null>(null);
+const scrollToCursor = (cursor: number): void => {
+  const option = optionsWrapper.value?.children[cursor] as HTMLElement | undefined;
+
+  option?.scrollIntoView({
+    block: 'nearest',
+    inline: 'nearest',
+  });
+};
 
 const {cursor, next, previous, reset} = useCursor({
   items: filteredOptions,
-  onChange(cursor: number): void {
-    const option = optionsWrapper.value?.children[cursor] as HTMLElement | undefined;
-
-    option?.scrollIntoView({
-      behavior: 'smooth',
-      block: 'nearest',
-      inline: 'nearest',
-    });
-  },
+  onChange: scrollToCursor,
 });
 
-const searchText = ref<string | null>(null);
-
 const {isOpen, open, close, toggle} = useOpenState({
+  async onOpen() {
+    cursor.value = filteredOptions.value.findIndex((option) => option.value === model.value);
+
+    await nextTick();
+    scrollToCursor(cursor.value);
+  },
+
   onClose() {
     searchText.value = null;
     reset();
   },
 });
-
-const search = ref<HTMLInputElement | null>(null);
-
-const selectOption = <T1 extends T>(option: SelectOption<T1>) => {
-  model.value = option.value;
-  close();
-};
-
-const selectOptionAtCursor = () => {
-  if (cursor.value === -1) {
-    return;
-  }
-
-  selectOption(filteredOptions.value[cursor.value]);
-};
-
-useClickOutside(selectWrapper, close);
-
-const {translate} = useLanguage();
 
 watch(searchText, (value) => {
   if (!value) {
@@ -168,5 +175,43 @@ watch(searchText, (value) => {
   cursor.value = 0;
 });
 
-const {y} = useScroll(selectWrapper);
+useClickOutside(selectWrapper, close);
+
+const selectOption = <T1 extends T>(option: SelectOption<T1>) => {
+  model.value = option.value;
+  close();
+};
+
+const selectOptionAtCursor = () => {
+  if (!isOpen.value) {
+    open();
+    return;
+  }
+
+  selectOption(filteredOptions.value[cursor.value]);
+};
+
+const onPressUp = () => {
+  if (isOpen.value) {
+    previous();
+  } else {
+    open();
+  }
+};
+
+const onPressDown = () => {
+  if (isOpen.value) {
+    next();
+  } else {
+    open();
+  }
+};
+
+const onPressTab = (event: FocusEvent) => {
+  if (!isOpen.value) {
+    return;
+  }
+
+  event.preventDefault();
+};
 </script>
