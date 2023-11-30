@@ -18,7 +18,7 @@
 <script lang="ts" setup>
 import {computed} from 'vue';
 import {type SelectOption} from '@myparcel-do/shared';
-import {useLanguage} from '../composables/useLanguage';
+import {useLanguage} from '../composables';
 import CButton from './CButton.vue';
 
 const {availableLanguages, language, setLanguage} = useLanguage();
