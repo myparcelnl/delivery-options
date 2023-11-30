@@ -1,3 +1,5 @@
+// eslint-disable-next-line max-lines-per-function
+import {AddressField, CarrierSetting, type PlatformOptions, SubscriptionType} from '@myparcel-do/shared';
 import {
   AUSTRIA,
   BELGIUM,
@@ -28,29 +30,14 @@ import {
   UNITED_KINGDOM,
 } from '@myparcel/constants/countries';
 import {CarrierName, DeliveryTypeName, PackageTypeName, ShipmentOptionName} from '@myparcel/constants';
-import {type PlatformOptions} from '../types';
-import {AddressField, SubscriptionType} from '../enums';
-import {
-  FEATURES_CUTOFF_TIME,
-  FEATURES_DELIVERY_DAYS_WINDOW,
-  FEATURES_DROP_OFF_DAYS,
-  FEATURES_DROP_OFF_DELAY,
-  FEATURES_SHOW_DELIVERY_DATE,
-} from './carrierFeatures';
 
-// eslint-disable-next-line max-lines-per-function
 export const configMyParcel = (): PlatformOptions => {
   return {
     carriers: [
       {
         name: CarrierName.PostNl,
         subscription: SubscriptionType.Optional,
-        packageTypes: [
-          PackageTypeName.Package,
-          PackageTypeName.Mailbox,
-          PackageTypeName.DigitalStamp,
-          PackageTypeName.Letter,
-        ],
+        packageTypes: [PackageTypeName.Package, PackageTypeName.Mailbox, PackageTypeName.DigitalStamp],
         deliveryTypes: [
           DeliveryTypeName.Standard,
           DeliveryTypeName.Morning,
@@ -61,11 +48,11 @@ export const configMyParcel = (): PlatformOptions => {
         pickupCountries: [NETHERLANDS, BELGIUM],
         shipmentOptions: [ShipmentOptionName.OnlyRecipient, ShipmentOptionName.Signature],
         features: [
-          FEATURES_SHOW_DELIVERY_DATE,
-          FEATURES_DELIVERY_DAYS_WINDOW,
-          FEATURES_DROP_OFF_DAYS,
-          FEATURES_DROP_OFF_DELAY,
-          FEATURES_CUTOFF_TIME,
+          CarrierSetting.ShowDeliveryDate,
+          CarrierSetting.DeliveryDaysWindow,
+          CarrierSetting.DropOffDays,
+          CarrierSetting.DropOffDelay,
+          CarrierSetting.CutoffTime,
         ],
         addressFields: [AddressField.PostalCode, AddressField.Street, AddressField.City],
       },
@@ -76,16 +63,13 @@ export const configMyParcel = (): PlatformOptions => {
         deliveryTypes: [DeliveryTypeName.Standard],
         deliveryCountries: [NETHERLANDS, BELGIUM],
         pickupCountries: [NETHERLANDS],
-        shipmentOptions: [
-          ShipmentOptionName.OnlyRecipient,
-          ShipmentOptionName.SameDayDelivery,
-          ShipmentOptionName.Signature,
-        ],
+        shipmentOptions: [ShipmentOptionName.OnlyRecipient, ShipmentOptionName.Signature],
         features: [
-          FEATURES_CUTOFF_TIME,
-          FEATURES_DELIVERY_DAYS_WINDOW,
-          FEATURES_DROP_OFF_DAYS,
-          FEATURES_DROP_OFF_DELAY,
+          CarrierSetting.AllowSameDayDelivery,
+          CarrierSetting.CutoffTime,
+          CarrierSetting.DeliveryDaysWindow,
+          CarrierSetting.DropOffDays,
+          CarrierSetting.DropOffDelay,
         ],
         addressFields: [AddressField.City, AddressField.PostalCode],
       },
@@ -263,103 +247,7 @@ export const configMyParcel = (): PlatformOptions => {
           SPAIN,
           UNITED_KINGDOM,
         ],
-        features: [FEATURES_DROP_OFF_DAYS, FEATURES_DROP_OFF_DELAY, FEATURES_CUTOFF_TIME],
-        addressFields: [AddressField.PostalCode, AddressField.Street, AddressField.City],
-      },
-    ],
-  };
-};
-
-export const configSendMyParcel = (): PlatformOptions => {
-  return {
-    carriers: [
-      {
-        name: CarrierName.Bpost,
-        subscription: SubscriptionType.Never,
-        packageTypes: [PackageTypeName.Package],
-        deliveryTypes: [DeliveryTypeName.Standard],
-        deliveryCountries: [BELGIUM, NETHERLANDS],
-        pickupCountries: [BELGIUM, NETHERLANDS],
-        features: [
-          FEATURES_SHOW_DELIVERY_DATE,
-          FEATURES_DELIVERY_DAYS_WINDOW,
-          FEATURES_DROP_OFF_DAYS,
-          FEATURES_DROP_OFF_DELAY,
-          FEATURES_CUTOFF_TIME,
-        ],
-        addressFields: [AddressField.PostalCode, AddressField.Street, AddressField.City],
-        shipmentOptions: [ShipmentOptionName.OnlyRecipient, ShipmentOptionName.Signature],
-      },
-      {
-        name: CarrierName.PostNl,
-        subscription: SubscriptionType.Never,
-        packageTypes: [PackageTypeName.Package],
-        deliveryTypes: [DeliveryTypeName.Standard],
-        deliveryCountries: [BELGIUM, NETHERLANDS],
-        pickupCountries: [BELGIUM, NETHERLANDS],
-        shipmentOptions: [ShipmentOptionName.Signature],
-        features: [
-          FEATURES_SHOW_DELIVERY_DATE,
-          FEATURES_DELIVERY_DAYS_WINDOW,
-          FEATURES_DROP_OFF_DAYS,
-          FEATURES_DROP_OFF_DELAY,
-          FEATURES_CUTOFF_TIME,
-        ],
-      },
-      {
-        name: CarrierName.Dpd,
-        subscription: SubscriptionType.Never,
-        packageTypes: [PackageTypeName.Package],
-        deliveryTypes: [DeliveryTypeName.Standard, DeliveryTypeName.Pickup],
-        deliveryCountries: [
-          AUSTRIA,
-          BELGIUM,
-          BULGARIA,
-          CZECH_REPUBLIC,
-          DENMARK,
-          ESTONIA,
-          FINLAND,
-          FRANCE,
-          GERMANY,
-          GREECE,
-          HUNGARY,
-          IRELAND,
-          ITALY,
-          LATVIA,
-          LIECHTENSTEIN,
-          LITHUANIA,
-          LUXEMBOURG,
-          NETHERLANDS,
-          POLAND,
-          PORTUGAL,
-          ROMANIA,
-          SLOVAKIA,
-          SLOVENIA,
-          SPAIN,
-          SWEDEN,
-        ],
-        pickupCountries: [
-          AUSTRIA,
-          BELGIUM,
-          CZECH_REPUBLIC,
-          DENMARK,
-          ESTONIA,
-          FINLAND,
-          FRANCE,
-          GERMANY,
-          HUNGARY,
-          LATVIA,
-          LITHUANIA,
-          LUXEMBOURG,
-          NETHERLANDS,
-          POLAND,
-          PORTUGAL,
-          SLOVAKIA,
-          SLOVENIA,
-          SPAIN,
-          UNITED_KINGDOM,
-        ],
-        features: [FEATURES_DROP_OFF_DAYS, FEATURES_DROP_OFF_DELAY, FEATURES_CUTOFF_TIME],
+        features: [CarrierSetting.DropOffDays, CarrierSetting.DropOffDelay, CarrierSetting.CutoffTime],
         addressFields: [AddressField.PostalCode, AddressField.Street, AddressField.City],
       },
     ],

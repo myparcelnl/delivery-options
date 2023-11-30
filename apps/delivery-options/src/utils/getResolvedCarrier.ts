@@ -54,6 +54,10 @@ export const getResolvedCarrier = async (
     return new Set(config.shipmentOptions?.filter((option) => resolveOption(option, carrierIdentifier)) ?? []);
   });
 
+  const features = computed(() => {
+    return new Set(config.features?.filter((option) => getResolvedValue(option, carrierIdentifier)) ?? []);
+  });
+
   const hasDelivery = computed(() => {
     const currentCountry = useCurrentCountry();
 
@@ -81,7 +85,13 @@ export const getResolvedCarrier = async (
     allowedDeliveryTypes,
     allowedPackageTypes,
     allowedShipmentOptions,
+    features,
+
     hasDelivery,
     hasPickup,
+
+    get(key, defaultValue) {
+      return getResolvedValue(key, carrierIdentifier, defaultValue);
+    },
   };
 };

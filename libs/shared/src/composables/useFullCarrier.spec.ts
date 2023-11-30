@@ -28,7 +28,7 @@ describe('useFullCarrier', () => {
   });
 
   it.each(matrix)('returns the carrier configuration for "%s" on "%s"', (carrierName, platformName) => {
-    let result: string | FullCarrier['config'];
+    let result: string | FullCarrier;
 
     try {
       const configuration = useFullCarrier(carrierName, platformName);
@@ -97,8 +97,8 @@ describe('useFullCarrier', () => {
       const postNl = useFullCarrier(CarrierName.PostNl);
       const dhlForYou = useFullCarrier(CarrierName.DhlForYou);
 
-      expect(postNl.value.hasShipmentOption(ShipmentOptionName.SameDayDelivery)).toBe(false);
-      expect(dhlForYou.value.hasShipmentOption(ShipmentOptionName.SameDayDelivery)).toBe(true);
+      expect(postNl.value.hasShipmentOption(ShipmentOptionName.OnlyRecipient)).toBe(true);
+      expect(dhlForYou.value.hasShipmentOption(ShipmentOptionName.OnlyRecipient)).toBe(true);
     });
 
     it('can use hasFeature', () => {

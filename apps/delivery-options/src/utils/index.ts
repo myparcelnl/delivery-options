@@ -13,6 +13,5 @@ export * from './getResolvedCarrier';
 export * from './getResolvedValue';
 export * from './getShipmentOptionConfigMap';
 export * from './hasShipmentOption';
-export * from './isEnabledForCarrier';
 export * from './showDeveloperInfo';
 export * from './toTime';

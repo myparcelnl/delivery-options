@@ -1,3 +1,3 @@
-import {type CarrierWithIdentifier} from '@myparcel-do/shared';
+import {type ResolvedCarrier} from '../types';
 
-export const calculateCutoffTime = (carrier: CarrierWithIdentifier): string => '16:00';
+export const calculateCutoffTime = (carrier: ResolvedCarrier): string => '16:00';

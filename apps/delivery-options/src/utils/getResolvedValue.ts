@@ -8,10 +8,11 @@ import {
 export const getResolvedValue = <T extends keyof CarrierSettings>(
   key: T,
   carrier?: CarrierIdentifier,
+  defaultValue?: NonNullable<CarrierSettings[T]>,
 ): CarrierSettings[T] => {
   const store = useDeliveryOptionsStore();
 
-  const generalValue = store.configuration?.config?.[key];
+  const generalValue = store.configuration?.config?.[key] ?? defaultValue;
 
   if (!carrier) {
     return generalValue;

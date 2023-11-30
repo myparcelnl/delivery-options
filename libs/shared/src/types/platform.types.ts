@@ -1,3 +1,4 @@
+import {type CarrierSettings} from '@myparcel-do/shared';
 import {type CarrierName} from '@myparcel/constants';
 import {type SubscriptionType} from '../enums';
 import {
@@ -9,7 +10,11 @@ import {
 
 export type SupportedPlatformName = (typeof SUPPORTED_PLATFORMS)[number];
 
-export type SupportedDeliveryTypeName = (typeof SUPPORTED_DELIVERY_TYPES)[number];
+export enum CustomDeliveryType {
+  SameDay = 'same_day',
+}
+
+export type SupportedDeliveryTypeName = (typeof SUPPORTED_DELIVERY_TYPES)[number] | CustomDeliveryType;
 
 export type SupportedShipmentOptionName = (typeof SUPPORTED_SHIPMENT_OPTIONS)[number];
 
@@ -26,7 +31,7 @@ export interface CarrierOptions {
    * getCountriesForDelivery.
    */
   fakeDelivery?: boolean;
-  features?: string[][];
+  features?: (keyof CarrierSettings)[];
   name: CarrierName;
   packageTypes: SupportedPackageTypeName[];
   pickupCountries?: string[];
