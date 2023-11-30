@@ -1,29 +1,33 @@
 <template>
   <SandboxHeader />
 
-  <Container>
-    <h1>Sandbox</h1>
+  <div class="mp-flex">
+    <SandboxSidebar />
 
-    <Box columns="2">
-      <Suspense @resolve="ready = true">
-        <SandboxConfiguration />
-      </Suspense>
+    <Container>
+      <h1>Sandbox</h1>
 
-      <div class="mp-relative">
-        <Box
-          v-if="ready"
-          class="mp-sticky mp-top-0">
-          <h2>Delivery Options</h2>
+      <Box columns="2">
+        <Suspense @resolve="ready = true">
+          <SandboxConfiguration />
+        </Suspense>
 
-          <DeliveryOptionsBlock />
-        </Box>
+        <div class="mp-relative">
+          <div class="mp-sticky mp-top-4">
+            <Box v-if="ready">
+              <h2>Delivery Options</h2>
 
-        <Box>
-          <DebugEventLog />
-        </Box>
-      </div>
-    </Box>
-  </Container>
+              <DeliveryOptionsBlock />
+            </Box>
+
+            <Box>
+              <DebugEventLog />
+            </Box>
+          </div>
+        </div>
+      </Box>
+    </Container>
+  </div>
 
   <SandboxFooter />
 </template>
@@ -37,6 +41,7 @@ import SandboxConfiguration from './components/SandboxConfiguration.vue';
 import DeliveryOptionsBlock from './components/DeliveryOptionsBlock.vue';
 import {Container} from './components/Container';
 import {Box} from './components/Box';
+import SandboxSidebar from './SandboxSidebar.vue';
 import DebugEventLog from './DebugEventLog.vue';
 
 const formBuilder = useFormBuilder();

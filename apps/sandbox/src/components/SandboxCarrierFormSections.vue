@@ -7,23 +7,25 @@
       :open="enabledCarriers.includes(carrier.name)"
       manual>
       <template #title>
-        <h3 class="mp-pt-2 mp-w-full">
-          <label class="mp-flex mp-gap-2 mp-items-center">
-            <span>
-              <SandboxCheckboxInput
-                is="div"
-                v-model="enabledCarriers"
-                :name="carrier.name"
-                :value="carrier.name" />
-            </span>
+        <AutoAnchor :name="carrier.name">
+          <h3 class="mp-pt-2 mp-w-full">
+            <label class="mp-flex mp-gap-2 mp-items-center">
+              <span>
+                <SandboxCheckboxInput
+                  is="div"
+                  v-model="enabledCarriers"
+                  :name="carrier.name"
+                  :value="carrier.name" />
+              </span>
 
-            <CarrierLogo :carrier="carrier.name" />
+              <CarrierLogo :carrier="carrier.name" />
 
-            <span>
-              {{ carrier.human }}
-            </span>
-          </label>
-        </h3>
+              <span>
+                {{ carrier.human }}
+              </span>
+            </label>
+          </h3>
+        </AutoAnchor>
       </template>
 
       <SandboxFormSection
@@ -45,6 +47,7 @@ import SandboxCheckboxInput from './base/SandboxCheckboxInput.vue';
 import SandboxFormSection from './SandboxFormSection.vue';
 import Expandable from './Expandable.vue';
 import {Box} from './Box';
+import AutoAnchor from './AutoAnchor.vue';
 
 const carriers = useCarriersRequest();
 

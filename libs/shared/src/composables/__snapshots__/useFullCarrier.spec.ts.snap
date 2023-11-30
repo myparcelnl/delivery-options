@@ -1,0 +1,49 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`useFullCarrier > returns the carrier configuration for "bol.com" on "belgie" 1`] = `"❌"`;
+
+exports[`useFullCarrier > returns the carrier configuration for "bol.com" on "belgie" 2`] = `"❌"`;
+
+exports[`useFullCarrier > returns the carrier configuration for "bol.com" on "myparcel" 1`] = `"❌"`;
+
+exports[`useFullCarrier > returns the carrier configuration for "bol.com" on "myparcel" 2`] = `"❌"`;
+
+exports[`useFullCarrier > returns the carrier configuration for "bpost" on "belgie" 1`] = `"❌"`;
+
+exports[`useFullCarrier > returns the carrier configuration for "bpost" on "myparcel" 1`] = `"❌"`;
+
+exports[`useFullCarrier > returns the carrier configuration for "cheapcargo" on "belgie" 1`] = `"❌"`;
+
+exports[`useFullCarrier > returns the carrier configuration for "cheapcargo" on "myparcel" 1`] = `"❌"`;
+
+exports[`useFullCarrier > returns the carrier configuration for "dhl" on "belgie" 1`] = `"❌"`;
+
+exports[`useFullCarrier > returns the carrier configuration for "dhl" on "myparcel" 1`] = `"❌"`;
+
+exports[`useFullCarrier > returns the carrier configuration for "dhleuroplus" on "belgie" 1`] = `"❌"`;
+
+exports[`useFullCarrier > returns the carrier configuration for "dhleuroplus" on "myparcel" 1`] = `"❌"`;
+
+exports[`useFullCarrier > returns the carrier configuration for "dhlforyou" on "belgie" 1`] = `"❌"`;
+
+exports[`useFullCarrier > returns the carrier configuration for "dhlforyou" on "myparcel" 1`] = `"❌"`;
+
+exports[`useFullCarrier > returns the carrier configuration for "dhlparcelconnect" on "belgie" 1`] = `"❌"`;
+
+exports[`useFullCarrier > returns the carrier configuration for "dhlparcelconnect" on "myparcel" 1`] = `"❌"`;
+
+exports[`useFullCarrier > returns the carrier configuration for "dpd" on "belgie" 1`] = `"❌"`;
+
+exports[`useFullCarrier > returns the carrier configuration for "dpd" on "myparcel" 1`] = `"❌"`;
+
+exports[`useFullCarrier > returns the carrier configuration for "instabox" on "belgie" 1`] = `"❌"`;
+
+exports[`useFullCarrier > returns the carrier configuration for "instabox" on "myparcel" 1`] = `"❌"`;
+
+exports[`useFullCarrier > returns the carrier configuration for "postnl" on "belgie" 1`] = `"❌"`;
+
+exports[`useFullCarrier > returns the carrier configuration for "postnl" on "myparcel" 1`] = `"❌"`;
+
+exports[`useFullCarrier > returns the carrier configuration for "ups" on "belgie" 1`] = `"❌"`;
+
+exports[`useFullCarrier > returns the carrier configuration for "ups" on "myparcel" 1`] = `"❌"`;
