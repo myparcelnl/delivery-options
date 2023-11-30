@@ -1,7 +1,7 @@
 import {type Ref} from 'vue';
 import {type FullCarrier} from '../types';
 import {useFullCarriers} from './useFullCarriers';
-import {useCurrentPlatform} from './useCurrentPlatform';
+import {useCurrentPlatform} from './platformInstance';
 
 /**
  * Get the carriers that are available in the current platform.

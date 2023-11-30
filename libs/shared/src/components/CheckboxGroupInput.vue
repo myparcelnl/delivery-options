@@ -26,7 +26,7 @@ import {
   type WithElement,
 } from '../types';
 import {useCheckboxGroupContext} from '../composables';
-import OptionRow from './OptionRow.vue';
+import OptionRow from '../../../../apps/delivery-options/src/components/OptionRow.vue';
 import CheckboxInput from './CheckboxInput.vue';
 
 // eslint-disable-next-line vue/no-unused-properties

@@ -33,7 +33,7 @@ export const useDeliveryOptionsStore = defineStore('deliveryOptions', {
 
         components: {
           [ComponentName.Checkbox]: defineAsyncComponent(() => import('../components/CheckboxInput.vue')),
-          [ComponentName.Select]: defineAsyncComponent(() => import('../components/SelectInput.vue')),
+          [ComponentName.Select]: defineAsyncComponent(() => import('../components/SelectInputOrSingle.vue')),
           [ComponentName.Radio]: defineAsyncComponent(() => import('../components/RadioInput.vue')),
           [ComponentName.RadioGroup]: defineAsyncComponent(() => import('../components/RadioGroupInput.vue')),
           [ComponentName.CheckboxGroup]: defineAsyncComponent(() => import('../components/CheckboxGroupInput.vue')),

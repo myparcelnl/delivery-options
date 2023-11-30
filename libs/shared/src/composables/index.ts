@@ -5,7 +5,7 @@ export * from './useCarrierSettings';
 export * from './useClickOutside';
 export * from './useConfigCarriers';
 export * from './useCurrentCountry';
-export * from './useCurrentPlatform';
+export * from './platformInstance';
 export * from './useCursor';
 export * from './useDeliveryOptionsConfig';
 export * from './useFullCarrier';

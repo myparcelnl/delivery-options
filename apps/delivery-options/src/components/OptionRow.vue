@@ -27,10 +27,7 @@
 </template>
 
 <script lang="ts" setup>
-import {type SelectOption} from '../types';
-import PriceTag from './PriceTag.vue';
-import EcoFriendlyLabel from './EcoFriendlyLabel.vue';
-import CarrierLogo from './CarrierLogo.vue';
+import {CarrierLogo, EcoFriendlyLabel, PriceTag, type SelectOption} from '@myparcel-do/shared';
 
-const props = defineProps<{option: SelectOption}>();
+defineProps<{option: SelectOption}>();
 </script>

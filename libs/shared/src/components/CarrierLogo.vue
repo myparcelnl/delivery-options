@@ -1,5 +1,5 @@
 <template>
-  <div class="after:mp-block after:mp-content-[''] after:mp-pb-[100%] mp-inline-flex mp-select-none mp-w-8">
+  <div class="after:mp-block after:mp-content-[''] after:mp-pb-[100%] mp-h-8 mp-inline-flex mp-select-none mp-w-8">
     <img
       v-if="query.data"
       v-show="loaded && !hasError"
