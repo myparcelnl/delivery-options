@@ -1,5 +1,11 @@
 <template>
   <Box>
+    <AutoAnchor
+      label="Address"
+      name="address">
+      <h2>Address</h2>
+    </AutoAnchor>
+
     <Cc.Component />
 
     <Street.Component />
@@ -17,6 +23,7 @@ import {createField} from '@myparcel/vue-form-builder';
 import {ALL_COUNTRIES} from '@myparcel/constants/countries';
 import FormTextInput from './form/FormTextInput.vue';
 import {Box} from './Box';
+import AutoAnchor from './AutoAnchor.vue';
 
 // todo filter by carrier countries
 const countries = computed(() => {

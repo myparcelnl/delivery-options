@@ -1,6 +1,6 @@
 <template>
   <Form.Component @reset="clearConfig">
-    <Platform.Component />
+    <SandboxPlatformBox />
 
     <SandboxAddressBox />
 
@@ -26,13 +26,12 @@
 </template>
 
 <script lang="ts" setup>
-import {ref, watch} from 'vue';
-import {ConfigSetting, KEY_CONFIG, RadioGroupInput, type SelectOption} from '@myparcel-do/shared';
-import {createField, createForm} from '@myparcel/vue-form-builder';
-import {PlatformName} from '@myparcel/constants';
+import {watch} from 'vue';
+import {createForm} from '@myparcel/vue-form-builder';
 import {useSandboxStore} from '../stores';
 import {getConfigurationSections} from '../form';
 import SandboxStringsBox from './SandboxStringsBox.vue';
+import SandboxPlatformBox from './SandboxPlatformBox.vue';
 import SandboxLoadingIndicator from './SandboxLoadingIndicator.vue';
 import SandboxFormSection from './SandboxFormSection.vue';
 import SandboxCarrierFormSections from './SandboxCarrierFormSections.vue';
@@ -58,24 +57,6 @@ const clearConfig = () => {
     configuration: undefined,
   });
 };
-
-const Platform = createField({
-  name: `${KEY_CONFIG}.${ConfigSetting.Platform}`,
-  component: RadioGroupInput,
-  ref: ref(),
-  props: {
-    options: [
-      {
-        label: PlatformName.MyParcel,
-        value: PlatformName.MyParcel,
-      },
-      {
-        label: PlatformName.SendMyParcel,
-        value: PlatformName.SendMyParcel,
-      },
-    ] satisfies SelectOption[],
-  },
-});
 
 /**
  * Start listening to changes in the configuration when the carrier fields have loaded. This is so the configuration is

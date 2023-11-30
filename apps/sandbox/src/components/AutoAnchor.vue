@@ -10,10 +10,10 @@
 import {toRefs} from 'vue';
 import {useAnchorLink} from '../composables/useAnchorLink';
 
-const props = defineProps<{name: string}>();
+const props = defineProps<{name: string; label?: string}>();
 const propRefs = toRefs(props);
 
 const {register} = useAnchorLink();
 
-const anchor = register(propRefs.name);
+const anchor = register(propRefs.name, propRefs.label);
 </script>

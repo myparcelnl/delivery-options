@@ -1,10 +1,29 @@
 import {isDefined} from '@vueuse/core';
-import {type ConfigOption, getAllOptions} from '@myparcel-do/shared';
+import {type ConfigOption, getAllOptions, type PlatformInstance, useCurrentPlatform} from '@myparcel-do/shared';
+import {type FormInstance, type InteractiveElementInstance} from '@myparcel/vue-form-builder';
 import {type SandboxOptionGroup, type SettingsField} from '../types';
 import {createField} from './createField';
 
+const allParentsHave = (parents: undefined | string[], form: FormInstance, prefix: string): boolean => {
+  const parent = parents?.every((parent) => {
+    const value = form.getValue(prefix ? `${prefix}.${parent}` : parent);
+
+    return Boolean(value);
+  });
+
+  return Boolean(parent);
+};
+
+const availableInPlatform = (field: InteractiveElementInstance, platform: PlatformInstance): boolean => {
+  const baseField = field.name?.split('.').pop();
+
+  return Boolean(baseField && platform.features.value.has(baseField));
+};
+
 export const createChildFields = (group: SandboxOptionGroup, prefix: string): SettingsField[] => {
   const allOptions = getAllOptions();
+
+  const platform = useCurrentPlatform();
 
   const resolvedItems = (group.items ?? [])
     .map((item) => allOptions.find((option) => option.key === item))
@@ -22,14 +41,12 @@ export const createChildFields = (group: SandboxOptionGroup, prefix: string): Se
 
       acc.push(
         createField(match, prefix, {
-          visibleWhen({form}) {
-            const parent = match?.parents?.every((parent) => {
-              const value = form.getValue(prefix ? `${prefix}.${parent}` : parent);
+          visibleWhen(field: InteractiveElementInstance) {
+            return availableInPlatform(field, platform) && allParentsHave(match.parents, field.form, prefix);
+          },
 
-              return Boolean(value);
-            });
-
-            return Boolean(parent);
+          disabledWhen(field: InteractiveElementInstance) {
+            return !availableInPlatform(field, platform) || !allParentsHave(match.parents, field.form, prefix);
           },
         }),
       );

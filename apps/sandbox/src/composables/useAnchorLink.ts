@@ -6,7 +6,7 @@ const links = ref(new Map<string, string>());
 
 interface UseAnchorLink {
   links: Ref<Map<string, string>>;
-  register(key: MaybeRef<string>, label?: string): string;
+  register(key: MaybeRef<string>, label?: MaybeRef<string | undefined>): string;
   remove(key: MaybeRef<string>): void;
 }
 
@@ -16,7 +16,7 @@ export const useAnchorLink = (): UseAnchorLink => {
   const register = (key: MaybeRef<string>, label?: string): string => {
     const anchor = toAnchor(key);
 
-    links.value.set(anchor, label ?? get(key));
+    links.value.set(anchor, get(label) ?? get(key));
 
     onUnmounted(() => {
       if (!links.value.has(get(key))) {
