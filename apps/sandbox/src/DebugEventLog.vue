@@ -1,9 +1,15 @@
 <template>
-  <h2>Events</h2>
+  <div>
+    <CButton
+      v-show="eventLog.length"
+      @click="eventLog = []">
+      Clear
+    </CButton>
 
-  <CTable
-    :content="eventLog.toReversed()"
-    :header="['timestamp', 'detail']" />
+    <CTable
+      :content="eventLog.toReversed()"
+      :header="['timestamp', 'detail']" />
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -12,6 +18,7 @@ import {useEventListener} from '@vueuse/core';
 import {UPDATED_DELIVERY_OPTIONS} from '@myparcel-do/shared';
 import {isOfType} from '@myparcel/ts-utils';
 import CTable from './components/legacy/CTable.vue';
+import {CButton} from './components';
 
 const eventLog = ref<string[][]>([]);
 

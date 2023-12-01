@@ -1,8 +1,7 @@
 import {type OptionsProps, type SelectOptionValue} from './options.types';
 import {type ElementEmits, type InputProps} from './form.types';
-import {type ArrayItem, type Keyable} from './common.types';
 
-export type CheckboxModelValue = Keyable | boolean;
+export type CheckboxModelValue = string | boolean;
 
 export type CheckboxGroupEmits<T extends CheckboxGroupModelValue> = ElementEmits<T>;
 
@@ -10,9 +9,9 @@ export type CheckboxProps<T extends CheckboxModelValue> = InputProps<T> & {value
 
 export type CheckboxEmits<T extends CheckboxModelValue> = ElementEmits<T>;
 
-export type CheckboxGroupModelValue = Keyable[];
+export type CheckboxGroupModelValue = string;
 
-export type CheckboxGroupProps<T extends CheckboxGroupModelValue> = InputProps<T> & OptionsProps<ArrayItem<T>>;
+export type CheckboxGroupProps<T extends CheckboxGroupModelValue> = InputProps<T> & OptionsProps<T>;
 
 export type CurrencyInputModelValue = string | number;
 
@@ -40,7 +39,7 @@ export type NumberInputProps = InputProps<NumberInputModelValue>;
 
 export type NumberInputEmits = ElementEmits<number>;
 
-export type RadioGroupModelValue = Keyable;
+export type RadioGroupModelValue = string;
 
 export type RadioGroupProps<T extends RadioGroupModelValue> = InputProps<T> & OptionsProps<T>;
 

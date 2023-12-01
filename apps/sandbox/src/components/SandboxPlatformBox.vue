@@ -7,8 +7,9 @@
 
 <script lang="ts" setup>
 import {ref} from 'vue';
-import {ConfigSetting, KEY_CONFIG, RadioGroupInput, type SelectOption, SUPPORTED_PLATFORMS} from '@myparcel-do/shared';
+import {ConfigSetting, KEY_CONFIG, type SelectOption, SUPPORTED_PLATFORMS} from '@myparcel-do/shared';
 import {createField} from '@myparcel/vue-form-builder';
+import RadioGroupInput from './RadioGroupInput.vue';
 import {Box} from './Box';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention

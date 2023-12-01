@@ -15,3 +15,6 @@ export * from './getShipmentOptionConfigMap';
 export * from './hasShipmentOption';
 export * from './showDeveloperInfo';
 export * from './toTime';
+export {getConfigFromWindow} from './getConfigFromWindow';
+
+export {getInitialConfiguration} from './getInitialConfiguration';

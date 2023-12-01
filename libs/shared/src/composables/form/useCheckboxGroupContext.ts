@@ -1,6 +1,5 @@
 import {get} from '@vueuse/core';
 import {
-  type ArrayItem,
   type CheckboxGroupEmits,
   type CheckboxGroupModelValue,
   type CheckboxGroupProps,
@@ -11,19 +10,16 @@ import {type InputWithOptionsContext, useInputWithOptionsContext} from './useInp
 
 export type CheckboxGroupContext<T extends CheckboxGroupModelValue = CheckboxGroupModelValue> =
   InputWithOptionsContext<T> & {
-    createUpdateHandler(option: SelectOption<ArrayItem<T>>): (toggle: boolean) => void;
+    createUpdateHandler(option: SelectOption<T>): (toggle: boolean) => void;
   };
 
-export const useCheckboxGroupContext = <
-  T extends CheckboxGroupModelValue = CheckboxGroupModelValue,
-  P extends WithElement<CheckboxGroupProps<T>> = WithElement<CheckboxGroupProps<T>>,
->(
-  props: P,
+export const useCheckboxGroupContext = <T extends CheckboxGroupModelValue = CheckboxGroupModelValue>(
+  props: WithElement<CheckboxGroupProps<T>>,
   emit: CheckboxGroupEmits<T>,
 ): CheckboxGroupContext<T> => {
-  const context = useInputWithOptionsContext<T>(props, emit);
+  const context = useInputWithOptionsContext(props, emit);
 
-  const createUpdateHandler = (option: SelectOption<ArrayItem<T>>) => {
+  const createUpdateHandler = (option: SelectOption<T>) => {
     return (toggle: boolean) => {
       const newModel = [...get(context.model)];
 

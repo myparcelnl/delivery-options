@@ -1,7 +1,8 @@
-import {isDefined} from '@vueuse/core';
-import {type ConfigOption, getAllOptions, type PlatformInstance, useCurrentPlatform} from '@myparcel-do/shared';
+import {get, isDefined} from '@vueuse/core';
+import {type ConfigOption, getAllOptions} from '@myparcel-do/shared';
 import {type FormInstance, type InteractiveElementInstance} from '@myparcel/vue-form-builder';
 import {type SandboxOptionGroup, type SettingsField} from '../types';
+import {type SandboxPlatformInstance, useCurrentPlatform} from '../composables';
 import {createField} from './createField';
 
 const allParentsHave = (parents: undefined | string[], form: FormInstance, prefix: string): boolean => {
@@ -14,10 +15,10 @@ const allParentsHave = (parents: undefined | string[], form: FormInstance, prefi
   return Boolean(parent);
 };
 
-const availableInPlatform = (field: InteractiveElementInstance, platform: PlatformInstance): boolean => {
+const availableInPlatform = (field: InteractiveElementInstance, platform: SandboxPlatformInstance): boolean => {
   const baseField = field.name?.split('.').pop();
 
-  return Boolean(baseField && platform.features.value.has(baseField));
+  return Boolean(baseField && get(platform.features).has(baseField));
 };
 
 export const createChildFields = (group: SandboxOptionGroup, prefix: string): SettingsField[] => {

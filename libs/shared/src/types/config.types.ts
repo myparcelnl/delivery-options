@@ -4,7 +4,6 @@ import {
   type CarrierName,
   type DeliveryTypeName,
   type PackageTypeName,
-  type PlatformName,
   type ShipmentOptionName,
 } from '@myparcel/constants';
 import {type ComponentName, type OptionType, type PickupLocationsView} from '../enums';
@@ -32,23 +31,38 @@ export type TimestampString = `${number}:${number}` | string;
 
 export type Price = number | null;
 
-interface BaseCarrierSettings {
+// interface BeCarrierSettings extends BaseCarrierSettings {
+//   allowSaturdayDelivery?: boolean;
+//   fridayCutoffTime?: TimestampString;
+// }
+//
+// interface NlCarrierSettings extends BaseCarrierSettings {
+//   allowMondayDelivery?: boolean;
+//   saturdayCutoffTime?: TimestampString;
+// }
+
+export interface CarrierSettings {
   allowDeliveryOptions?: boolean | FilterableOption;
   allowEveningDelivery?: boolean | FilterableOption;
+  allowMondayDelivery?: boolean;
   allowMorningDelivery?: boolean | FilterableOption;
   allowOnlyRecipient?: boolean;
   allowPackageTypeDigitalStamp?: boolean;
   allowPackageTypeMailbox?: boolean;
+  allowPackageTypePackage?: boolean;
   allowPickupLocations?: boolean | FilterableOption;
   allowSameDayDelivery?: boolean;
+  allowSaturdayDelivery?: boolean;
   /** @deprecated use ShowDeliveryDate instead */
   allowShowDeliveryDate?: boolean;
   allowSignature?: boolean;
+  allowStandardDelivery?: boolean | FilterableOption;
   cutoffTime?: TimestampString;
   cutoffTimeSameDay?: TimestampString;
   deliveryDaysWindow?: number;
   dropOffDays?: number[];
   dropOffDelay?: number;
+  fridayCutoffTime?: TimestampString;
   packageType?: PackageTypeName;
   priceEveningDelivery?: Price;
   priceMondayDelivery?: Price;
@@ -61,68 +75,45 @@ interface BaseCarrierSettings {
   priceSaturdayDelivery?: Price;
   priceSignature?: Price;
   priceStandardDelivery?: Price;
+  saturdayCutoffTime?: TimestampString;
   showDeliveryDate?: boolean;
 }
 
-interface BeCarrierSettings extends BaseCarrierSettings {
-  allowSaturdayDelivery?: boolean;
-  fridayCutoffTime?: TimestampString;
-}
+export type CarrierSettingsObject = Partial<Record<CarrierIdentifier, CarrierSettings>>;
 
-interface NlCarrierSettings extends BaseCarrierSettings {
-  allowMondayDelivery?: boolean;
-  saturdayCutoffTime?: TimestampString;
-}
-
-export type CarrierSettings<Platform extends PlatformName = PlatformName> = Platform extends PlatformName.MyParcel
-  ? NlCarrierSettings
-  : Platform extends PlatformName.SendMyParcel
-  ? BeCarrierSettings
-  : NlCarrierSettings | BeCarrierSettings;
-
-type BaseConfig<Platform extends PlatformName = PlatformName> = CarrierSettings<Platform> & {
-  // allowShowDeliveryDate?: boolean;
-  // cutoffTime?: string;
-  // deliveryDaysWindow?: string | number;
-  // dropOffDays?: string;
-  // dropOffDelay?: string | number;
-  // packageType?: PackageTypeName;
-
+export interface DeliveryOptionsConfig extends CarrierSettings {
   apiBaseUrl?: string;
-  carrierSettings?: Record<CarrierIdentifier, CarrierSettings<Platform>>;
+  carrierSettings?: CarrierSettingsObject;
   currency?: string;
+  initial?: Partial<DeliveryOptionsOutput>;
   locale?: string;
   pickupLocationsDefaultView?: PickupLocationsView;
   pickupLocationsMapTileLayerData?: string | MapTileLayerData;
   pickupShowDistance?: boolean;
-  platform?: PlatformName;
+  platform?: SupportedPlatformName;
   showDeliveryDate?: boolean;
   showPriceSurcharge?: boolean;
   showPrices?: boolean;
-};
+}
 
-export type DeliveryOptionsConfig<P extends SupportedPlatformName = SupportedPlatformName> = BaseConfig<P> & {
-  platform: P;
-};
-
-export interface DeliveryOptionsConfiguration<P extends SupportedPlatformName = SupportedPlatformName> {
+export interface DeliveryOptionsConfiguration {
   address: DeliveryOptionsAddress;
-  config: DeliveryOptionsConfig<P>;
+  config: DeliveryOptionsConfig;
   initial?: Partial<DeliveryOptionsOutput>;
   strings: DeliveryOptionsStrings;
 }
 
-export interface InputDeliveryOptionsConfiguration<P extends SupportedPlatformName = SupportedPlatformName> {
+export interface InputDeliveryOptionsConfiguration {
   address: DeliveryOptionsAddress;
   components: Partial<Record<ComponentName, Component>>;
-  config: DeliveryOptionsConfig<P>;
+  config: DeliveryOptionsConfig;
   initial?: Partial<DeliveryOptionsOutput>;
   strings?: DeliveryOptionsStrings;
 }
 
-export interface ResolvedDeliveryOptionsConfiguration<P extends SupportedPlatformName = SupportedPlatformName> {
+export interface ResolvedDeliveryOptionsConfiguration {
   address: RecursiveRequired<DeliveryOptionsAddress>;
-  config: RecursiveRequired<DeliveryOptionsConfig<P>>;
+  config: RecursiveRequired<DeliveryOptionsConfig>;
   strings: RecursiveRequired<DeliveryOptionsStrings>;
 }
 

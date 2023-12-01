@@ -22,20 +22,14 @@
 
 <script lang="ts" setup>
 import {computed} from 'vue';
-import {useCurrentPlatform, useLanguage} from '@myparcel-do/shared';
-import {useForm} from '@myparcel/vue-form-builder';
 import {type SettingsField, type SettingsGroup, type SettingsSection} from '../types';
-import {useSandboxStore} from '../stores';
+import {useLanguage} from '../composables';
 import AutoAnchor from './AutoAnchor.vue';
 
 const props = defineProps<{
   field: SettingsGroup | SettingsField | SettingsSection;
   level?: number | string;
 }>();
-
-const form = useForm();
-const store = useSandboxStore();
-const platform = useCurrentPlatform();
 
 const {translate} = useLanguage();
 

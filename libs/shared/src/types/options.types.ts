@@ -1,6 +1,6 @@
 import {type Component} from 'vue';
 import {type CarrierIdentifier} from './config.types';
-import {type Keyable, type Translation} from './common.types';
+import {type Translation} from './common.types';
 
 export type OptionsProps<T extends SelectOptionValue> = {
   options: SelectOption<T>[];
@@ -33,7 +33,7 @@ export interface SelectOptionWithPlainLabel<
   plainLabel: T;
 }
 
-export type SelectOptionValue = Keyable | object | boolean;
+export type SelectOptionValue = string | object | boolean;
 
 export type SelectOption<Value extends SelectOptionValue = SelectOptionValue> =
   | SelectOptionWithLabel<Value>

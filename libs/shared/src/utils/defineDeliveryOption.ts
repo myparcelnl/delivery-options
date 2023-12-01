@@ -21,5 +21,5 @@ export const defineDeliveryOption = <O extends ConfigOption, C extends undefined
           }),
         ]
       : []),
-  ];
+  ] as C extends string ? [O, ConfigOption, ConfigOption] : [O, ConfigOption];
 };

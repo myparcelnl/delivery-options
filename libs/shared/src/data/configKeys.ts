@@ -1,8 +1,9 @@
 // Properties
 
-import {type PlatformName} from '@myparcel/constants';
 import {type DeliveryOptionsConfig} from '../types';
 import {CarrierSetting, ConfigSetting} from '../enums';
+
+export const INITIAL = 'initial' satisfies keyof DeliveryOptionsConfig;
 
 export const API_BASE_URL = ConfigSetting.ApiBaseUrl satisfies keyof DeliveryOptionsConfig;
 
@@ -78,25 +79,21 @@ export const PRICE_PACKAGE_TYPE_MAILBOX = CarrierSetting.PricePackageTypeMailbox
 /*
  * For use with Monday delivery.
  */
-export const ALLOW_MONDAY_DELIVERY =
-  CarrierSetting.AllowMondayDelivery satisfies keyof DeliveryOptionsConfig<PlatformName.MyParcel>;
+export const ALLOW_MONDAY_DELIVERY = CarrierSetting.AllowMondayDelivery satisfies keyof DeliveryOptionsConfig;
 
-export const SATURDAY_CUTOFF_TIME =
-  CarrierSetting.SaturdayCutoffTime satisfies keyof DeliveryOptionsConfig<PlatformName.MyParcel>;
+export const SATURDAY_CUTOFF_TIME = CarrierSetting.SaturdayCutoffTime satisfies keyof DeliveryOptionsConfig;
 
 /*
  * For use with Saturday delivery.
  */
-export const ALLOW_SATURDAY_DELIVERY =
-  CarrierSetting.AllowSaturdayDelivery satisfies keyof DeliveryOptionsConfig<PlatformName.SendMyParcel>;
+export const ALLOW_SATURDAY_DELIVERY = CarrierSetting.AllowSaturdayDelivery satisfies keyof DeliveryOptionsConfig;
 
-export const FRIDAY_CUTOFF_TIME =
-  CarrierSetting.FridayCutoffTime satisfies keyof DeliveryOptionsConfig<PlatformName.SendMyParcel>;
+export const FRIDAY_CUTOFF_TIME = CarrierSetting.FridayCutoffTime satisfies keyof DeliveryOptionsConfig;
 
 /*
  * Carrier settings object
  */
-export const CARRIER_SETTINGS = ConfigSetting.CarrierSettings satisfies keyof DeliveryOptionsConfig;
+export const CARRIER_SETTINGS = 'carrierSettings' satisfies keyof DeliveryOptionsConfig;
 
 // Extra features
 

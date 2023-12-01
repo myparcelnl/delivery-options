@@ -12,7 +12,7 @@
 
     <span
       v-show="options.length > 0"
-      v-text="options[0].label" />
+      v-text="options[0]?.label" />
   </b>
 </template>
 

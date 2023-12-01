@@ -1,6 +1,5 @@
-import {type CarrierSettings} from '@myparcel-do/shared';
 import {type CarrierName} from '@myparcel/constants';
-import {type SubscriptionType} from '../enums';
+import {type CarrierSetting, type ConfigSetting, type SubscriptionType} from '../enums';
 import {
   type SUPPORTED_DELIVERY_TYPES,
   type SUPPORTED_PACKAGE_TYPES,
@@ -31,7 +30,7 @@ export interface CarrierOptions {
    * getCountriesForDelivery.
    */
   fakeDelivery?: boolean;
-  features?: (keyof CarrierSettings)[];
+  features?: (CarrierSetting | ConfigSetting)[];
   name: CarrierName;
   packageTypes: SupportedPackageTypeName[];
   pickupCountries?: string[];

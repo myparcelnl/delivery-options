@@ -1,5 +1,5 @@
 import {
-  type CarrierSettings,
+  type CarrierSetting,
   getAllOptions,
   RelatedConfigOptionType,
   type SupportedDeliveryTypeName,
@@ -7,7 +7,7 @@ import {
 } from '@myparcel-do/shared';
 import {getConfigKey} from './getConfigKey';
 
-type CarrierSettingPriceKey = Extract<keyof CarrierSettings, `price${string}`>;
+type CarrierSettingPriceKey = Extract<CarrierSetting, `price${string}`>;
 
 export const getConfigPriceKey = (
   input: SupportedDeliveryTypeName | SupportedShipmentOptionName,

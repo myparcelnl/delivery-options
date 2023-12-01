@@ -7,23 +7,15 @@
       class="mp-cursor-pointer mp-inline-flex mp-relative">
       <input
         v-model="model"
-        class="mp-sr-only"
+        class="mp-peer mp-sr-only"
         type="checkbox"
         v-bind="$props" />
 
       <span
-        :class="{
-          'mp-bg-goldfish-500 dark:mp-bg-goldfish-600': model,
-          'mp-bg-gray-300 dark:mp-bg-gray-600': !model,
-        }"
-        class="mp-h-6 mp-rounded-full mp-transition-colors mp-w-10" />
+        class="dark:mp-bg-gray-600 mp-bg-gray-300 mp-h-6 mp-rounded-full mp-transition-colors mp-w-10 peer-checked:dark:mp-bg-goldfish-600 peer-checked:mp-bg-goldfish-500" />
 
       <span
-        :class="{
-          'mp-translate-x-4': model,
-          'mp-translate-x-0': !model,
-        }"
-        class="mp-absolute mp-bg-white mp-h-4 mp-left-1 mp-rounded-full mp-top-1 mp-transition mp-w-4" />
+        class="mp-absolute mp-bg-white mp-h-4 mp-left-1 mp-rounded-full mp-top-1 mp-transition mp-translate-x-0 mp-w-4 peer-checked:mp-translate-x-4" />
     </span>
   </label>
 </template>

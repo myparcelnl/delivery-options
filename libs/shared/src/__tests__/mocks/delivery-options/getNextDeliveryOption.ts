@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
+import {CarrierSetting} from '@myparcel-do/shared';
 import {type DeliveryOption} from '@myparcel/sdk';
-import {ShipmentOptionName} from '@myparcel/constants';
 import {type FakeDeliveryOptionsParameters} from '../../types';
 import {useFullCarrier} from '../../../composables';
 import {shouldSkipToNextDeliveryDate} from './shouldSkipToNextDeliveryDate';
@@ -24,7 +24,7 @@ export const getNextDeliveryOption = (
   const next = () => getNextDeliveryOption(args, daysOffset + 1, currentDate);
 
   const fullCarrier = useFullCarrier(args.carrier, args.platform);
-  const canHaveSameDay = fullCarrier.value.hasShipmentOption(ShipmentOptionName.SameDayDelivery);
+  const canHaveSameDay = fullCarrier.value.hasFeature(CarrierSetting.AllowSameDayDelivery);
 
   const hasSameDayDelivery = daysOffset === 0 && canHaveSameDay;
   const currentDeliveryDate = currentDate.add(daysOffset, 'day');

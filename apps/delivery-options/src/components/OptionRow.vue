@@ -27,7 +27,8 @@
 </template>
 
 <script lang="ts" setup>
-import {CarrierLogo, EcoFriendlyLabel, PriceTag, type SelectOption} from '@myparcel-do/shared';
+import {CarrierLogo, type SelectOption} from '@myparcel-do/shared';
+import {EcoFriendlyLabel, PriceTag} from '../components';
 
 defineProps<{option: SelectOption}>();
 </script>

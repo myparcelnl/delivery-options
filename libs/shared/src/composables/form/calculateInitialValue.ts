@@ -1,11 +1,11 @@
 import {type WritableComputedRef} from 'vue';
 import {get} from '@vueuse/core';
 import {type OneOrMore, toArray} from '@myparcel/ts-utils';
-import {type ArrayItem, type SelectInputModelValue, type SelectOption} from '../../types';
+import {type SelectInputModelValue, type SelectOption} from '../../types';
 
 export const calculateInitialValue = <T extends OneOrMore<SelectInputModelValue>>(
   model: WritableComputedRef<T>,
-  options: SelectOption<ArrayItem<T>>[],
+  options: SelectOption<T>[],
 ): T | null => {
   const allowedValues = options.map((option) => option.value);
   const currentValue = get(model);
@@ -20,7 +20,7 @@ export const calculateInitialValue = <T extends OneOrMore<SelectInputModelValue>
     const selected = options.filter((option) => option.selected);
     const selectable = selected.length ? selected : options.slice(0, 1);
 
-    return selectable[0].value as T;
+    return selectable[0].value;
   }
 
   const existingValues = toArray(currentValue).filter((value) => allowedValues.includes(value));

@@ -1,38 +1,66 @@
 <template>
   <DeliveryOptionsForm
-    v-if="store.resolvedConfiguration"
-    @update="onUpdate" />
+    v-if="ready"
+    @update="emitChange" />
 </template>
 
 <script lang="ts" setup>
-import {toRef, watchEffect} from 'vue';
+import {computed, onMounted, toRefs, watch} from 'vue';
 import {get} from '@vueuse/core';
-import {type InternalOutput, useDeliveryOptionsStore} from '@myparcel-do/shared';
+import {setConfiguration} from '../utils/setConfiguration';
+import {getConfigFromWindow} from '../utils';
 import {type DeliveryOptionsEmits, type DeliveryOptionsProps} from '../types';
-import {useDeliveryOptionsIncomingEvents, useDeliveryOptionsOutgoingEvents} from '../composables';
+import {useAddressStore, useConfigStore} from '../stores';
+import {useDeliveryOptionsIncomingEvents, useDeliveryOptionsOutgoingEvents, useLogger} from '../composables';
 import DeliveryOptionsForm from './DeliveryOptionsForm.vue';
 
 const props = defineProps<DeliveryOptionsProps>();
 const emit = defineEmits<DeliveryOptionsEmits>();
 
-const configRef = toRef(props, 'config');
+const propRefs = toRefs(props);
 
-const store = useDeliveryOptionsStore();
+const logger = useLogger();
+const config = useConfigStore();
+const address = useAddressStore();
 
-watchEffect(() => {
-  const value = get(get(configRef.value));
+const ready = computed(() => {
+  const isReady = Boolean(config.platform && address.cc);
 
-  if (!value) {
+  logger.debug(`Ready: ${isReady}`);
+  return isReady;
+});
+
+onMounted(() => {
+  if (propRefs.configuration?.value) {
+    logger.debug('Using config from props');
     return;
   }
 
-  store.updateConfiguration(value);
+  if (!window.MyParcelConfig) {
+    logger.error('No config found :(');
+    return;
+  }
+
+  logger.debug('Using config from window');
+
+  setConfiguration(getConfigFromWindow());
 });
 
-const onUpdate = (values: InternalOutput) => {
-  store.updateOutput(values);
-};
+watch(
+  propRefs.configuration,
+  (value) => {
+    const resolvedValue = get(value);
+
+    if (!resolvedValue) {
+      return;
+    }
+
+    setConfiguration(resolvedValue);
+  },
+  {immediate: true},
+);
 
 useDeliveryOptionsIncomingEvents();
-useDeliveryOptionsOutgoingEvents(emit);
+
+const emitChange = useDeliveryOptionsOutgoingEvents(emit);
 </script>

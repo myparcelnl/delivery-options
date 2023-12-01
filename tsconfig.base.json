@@ -1,11 +1,10 @@
 {
   "extends": "@vue/tsconfig/tsconfig.dom.json",
   "compilerOptions": {
-    "declaration": true,
     "noEmitOnError": false,
     "skipLibCheck": true,
     "types": ["node", "vite/client"]
   },
   "include": [],
-  "exclude": ["**/node_modules/**/*", "**/dist"]
+  "exclude": ["**/__mocks__", "**/__tests__", "**/dist", "**/node_modules"]
 }

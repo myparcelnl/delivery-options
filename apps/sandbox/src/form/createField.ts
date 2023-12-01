@@ -1,3 +1,4 @@
+import {markRaw} from 'vue';
 import {type ConfigOption} from '@myparcel-do/shared';
 import {type AnyElementConfiguration} from '@myparcel/vue-form-builder';
 import {type SettingsField} from '../types';
@@ -12,7 +13,7 @@ export const createField = (
   return formField({
     name: option.key,
     key: prefix,
-    component: getComponent(option),
+    component: markRaw(getComponent(option)),
     validators: option.validators ?? [],
     props: {
       parents: option.parents ?? [],

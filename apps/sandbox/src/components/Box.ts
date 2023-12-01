@@ -28,7 +28,7 @@ export const Box: FunctionalComponent<Props> = (props, ctx) => {
         'mp-px-4',
         'mp-py-4',
         'mp-border',
-        'mp-rounded-lg',
+        'mp-rounded-xl',
         'mp-shadow-sm',
         ...additionalClasses,
       ],

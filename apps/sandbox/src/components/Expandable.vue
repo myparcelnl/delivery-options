@@ -15,10 +15,16 @@
     </div>
   </div>
 
-  <div v-show="open">
+  <div
+    v-show="mutableOpen"
+    v-bind="$attrs">
     <slot />
   </div>
 </template>
+
+<script lang="ts">
+export default {inheritAttrs: false};
+</script>
 
 <script lang="ts" setup>
 import {ref} from 'vue';

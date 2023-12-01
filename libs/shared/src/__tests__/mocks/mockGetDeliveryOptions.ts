@@ -4,5 +4,5 @@ import {type SdkMock} from '../mocks';
 import {fakeDeliveryOptionsResponse} from './fakeDeliveryOptionsResponse';
 
 export const mockGetDeliveryOptions = vi.fn((endpoint, options) => {
-  return fakeDeliveryOptionsResponse(options.parameters);
+  return fakeDeliveryOptionsResponse(options.parameters!);
 }) satisfies SdkMock<GetDeliveryOptions>;

@@ -4,7 +4,6 @@ export * from './common.types';
 export * from './config.types';
 export * from './element.types';
 export * from './form.types';
-export * from './global.types';
 export * from './input.types';
 export * from './options.types';
 export * from './platform.types';

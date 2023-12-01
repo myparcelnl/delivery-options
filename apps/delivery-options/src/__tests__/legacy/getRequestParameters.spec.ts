@@ -1,17 +1,6 @@
 import {beforeAll, describe, expect, it, vi} from 'vitest';
-import {
-  ALLOW_DELIVERY_OPTIONS,
-  CARRIER_SETTINGS,
-  CONFIG,
-  DEFAULT_PLATFORM,
-  defaultAddress,
-  getCarrierConfiguration,
-  KEY_ADDRESS,
-  KEY_CONFIG,
-  PLATFORM,
-} from '@myparcel-do/shared';
+import {CARRIER_SETTINGS, DEFAULT_PLATFORM, getCarrierConfiguration} from '@myparcel-do/shared';
 import {CarrierName, PlatformName} from '@myparcel/constants';
-import {getDefaultRequestParameters, getParametersByPlatform} from '../../legacy/data';
 
 describe.skip('Request parameters', () => {
   const tuesday = '2020-03-10T00:00:00';
@@ -20,7 +9,7 @@ describe.skip('Request parameters', () => {
 
   let configBus;
 
-  const getFirstCarrier = (configBus) => Object.keys(configBus.get(CONFIG.CARRIER_SETTINGS))[0];
+  const getFirstCarrier = (configBus) => Object.keys(configBus.get(CARRIER_SETTINGS))[0];
 
   beforeAll(() => {
     configBus = mockConfigBus();
@@ -69,10 +58,10 @@ describe.skip('Request parameters', () => {
   it('gets the correct cutoff time for sendmyparcel when using saturday delivery', () => {
     const sendMyParcelConfigBus = mockConfigBus({
       [KEY_CONFIG]: {
-        [CONFIG.PLATFORM]: PlatformName.SendMyParcel,
-        [CONFIG.DROP_OFF_DAYS]: [4, 5],
-        [CONFIG.CUTOFF_TIME]: '15:00',
-        [CONFIG.FRIDAY_CUTOFF_TIME]: '12:00',
+        [PLATFORM]: PlatformName.SendMyParcel,
+        [DROP_OFF_DAYS]: [4, 5],
+        [CUTOFF_TIME]: '15:00',
+        [FRIDAY_CUTOFF_TIME]: '12:00',
       },
     });
 
@@ -97,10 +86,10 @@ describe.skip('Request parameters', () => {
   it('gets the correct cutoff time for myparcel when using monday delivery', () => {
     const myParcelConfigBus = mockConfigBus({
       [KEY_CONFIG]: {
-        [CONFIG.PLATFORM]: PlatformName.MyParcel,
-        [CONFIG.DROP_OFF_DAYS]: [4, 5, 6],
-        [CONFIG.CUTOFF_TIME]: '15:00',
-        [CONFIG.SATURDAY_CUTOFF_TIME]: '12:00',
+        [PLATFORM]: PlatformName.MyParcel,
+        [DROP_OFF_DAYS]: [4, 5, 6],
+        [CUTOFF_TIME]: '15:00',
+        [SATURDAY_CUTOFF_TIME]: '12:00',
       },
     });
 

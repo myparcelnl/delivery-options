@@ -40,7 +40,7 @@ export const deliveryOptionsResponseInvalidPostalCode = (): void => {
   throw {
     errors: [
       {
-        code: ERROR_INVALID_POSTAL_CODE,
+        code: 3505,
         message: 'Invalid postal code',
       },
     ],

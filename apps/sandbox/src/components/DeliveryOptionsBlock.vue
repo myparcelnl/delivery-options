@@ -1,19 +1,25 @@
 <template>
   <MyParcelDeliveryOptions
-    v-if="store.configuration"
-    :config="parsedConfiguration" />
+    v-if="parsedConfiguration"
+    :configuration="parsedConfiguration" />
 </template>
 
 <script lang="ts" setup>
-import {computed, reactive} from 'vue';
-import {construct} from 'radash';
-import {type DeliveryOptionsConfiguration} from '@myparcel-do/shared';
-import {MyParcelDeliveryOptions} from '@myparcel/delivery-options/ts';
+import {computed, markRaw, reactive} from 'vue';
+import {ComponentName} from '@myparcel-do/shared';
+import {CheckboxGroupInput, MyParcelDeliveryOptions} from '@myparcel/delivery-options/ts';
 import {useSandboxStore} from '../stores';
+import RadioGroupInput from './RadioGroupInput.vue';
 
 const store = useSandboxStore();
 
 const parsedConfiguration = computed(() => {
-  return reactive(construct(store.configuration)) as DeliveryOptionsConfiguration;
+  return reactive({
+    ...store.resolvedConfiguration,
+    components: {
+      [ComponentName.RadioGroup]: markRaw(RadioGroupInput),
+      [ComponentName.CheckboxGroup]: markRaw(CheckboxGroupInput),
+    },
+  });
 });
 </script>

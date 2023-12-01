@@ -1,8 +1,9 @@
 import {afterEach, beforeEach, describe, expect, it} from 'vitest';
 import {createPinia, setActivePinia} from 'pinia';
-import {mockDeliveryOptionsConfig} from '@myparcel-do/shared/testing';
-import {ALLOW_SIGNATURE, CARRIER_SETTINGS, KEY_CONFIG, useCarrierSettings} from '@myparcel-do/shared';
+import {ALLOW_SIGNATURE, CARRIER_SETTINGS, KEY_CONFIG} from '@myparcel-do/shared';
 import {CarrierName} from '@myparcel/constants';
+import {useCarrierSettings} from '../composables';
+import {mockDeliveryOptionsConfig} from '../__tests__';
 import {getResolvedValue} from './getResolvedValue';
 
 describe('getResolvedValue', () => {

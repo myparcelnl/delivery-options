@@ -1,9 +1,9 @@
 import {afterEach, beforeEach, describe, expect, it} from 'vitest';
 import {createPinia, setActivePinia} from 'pinia';
-import {mockDeliveryOptionsConfig} from '@myparcel-do/shared/testing';
-import {ALLOW_ONLY_RECIPIENT, ALLOW_SIGNATURE, KEY_CONFIG, useCarrierSettings} from '@myparcel-do/shared';
+import {ALLOW_ONLY_RECIPIENT, ALLOW_SIGNATURE, KEY_CONFIG} from '@myparcel-do/shared';
 import {type ShipmentOptionName} from '@myparcel/constants';
-import {mockDeliveryOption} from '../__tests__/utils/mockDeliveryOption';
+import {useCarrierSettings} from '../composables';
+import {mockDeliveryOption, mockDeliveryOptionsConfig} from '../__tests__';
 import {getShipmentOptionConfigMap} from './getShipmentOptionConfigMap';
 import {createShipmentOptionsFromDeliveryMoment} from './createShipmentOptionsFromDeliveryMoment';
 

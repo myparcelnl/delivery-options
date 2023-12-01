@@ -1,7 +1,9 @@
-import {type DeliveryOptionsConfiguration} from '../types';
+import {type DeliveryOptionsConfiguration, type InputDeliveryOptionsConfiguration} from '../types';
 
-export const validateDeliveryOptionsConfig = (config: DeliveryOptionsConfiguration): DeliveryOptionsConfiguration => {
+export const validateDeliveryOptionsConfig = (
+  config: InputDeliveryOptionsConfiguration,
+): DeliveryOptionsConfiguration => {
   // todo validate config
 
-  return config;
+  return config as DeliveryOptionsConfiguration;
 };

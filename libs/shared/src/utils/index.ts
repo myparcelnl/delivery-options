@@ -1,3 +1,4 @@
+export * from './createStorableMap';
 export * from './defineConfig';
 export * from './defineDeliveryOption';
 export * from './defineOption';
@@ -5,6 +6,5 @@ export * from './defineOptionWithPrice';
 export * from './getAllOptions';
 export * from './getCarrierConfiguration';
 export * from './getFullCarrier';
-export * from './getFullCarriers';
 export * from './getPlatformConfig';
 export * from './resolveCarrierName';

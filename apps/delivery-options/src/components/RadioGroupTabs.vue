@@ -1,10 +1,10 @@
 <template>
   <div>
     <div
-      v-for="option in options"
+      v-for="(option, index) in options"
       :key="`${id}-${option.value}`"
       :class="`myparcel-${option.value}`">
-      <RadioInputRow
+      <OptionRow
         v-model="model"
         :option="option"
         class="mp-py-2">
@@ -13,7 +13,12 @@
             class="mp-my-auto"
             v-text="option.label" />
         </template>
-      </RadioInputRow>
+
+        <RadioInput
+          v-model="model"
+          :value="option.value"
+          type="radio" />
+      </OptionRow>
 
       <KeepAlive>
         <component
@@ -21,6 +26,8 @@
           v-if="model === option.value && option.content"
           class="mp-p-4" />
       </KeepAlive>
+
+      <hr v-if="index < options.length - 1" />
     </div>
   </div>
 </template>
@@ -30,10 +37,11 @@ import {
   type RadioGroupEmits,
   type RadioGroupModelValue,
   type RadioGroupProps,
-  RadioInputRow,
+  RadioInput,
   useRadioGroupContext,
   type WithElement,
 } from '@myparcel-do/shared';
+import OptionRow from './OptionRow.vue';
 
 // eslint-disable-next-line vue/no-unused-properties
 const props = defineProps<WithElement<RadioGroupProps<T>>>();

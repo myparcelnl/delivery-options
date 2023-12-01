@@ -9,7 +9,8 @@ import {computed, markRaw, watch} from 'vue';
 import {get} from '@vueuse/core';
 import {type InternalOutput, useLanguage} from '@myparcel-do/shared';
 import {createField} from '@myparcel/vue-form-builder';
-import {createDeliveryOptionsForm} from '../form/createDeliveryOptionsForm';
+import {useConfigStore} from '../stores';
+import {createDeliveryOptionsForm} from '../form';
 import {useActiveCarriers} from '../composables';
 import RadioGroupTabs from './RadioGroupTabs.vue';
 import PickupLocations from './PickupLocations.vue';
@@ -21,10 +22,12 @@ const emit = defineEmits<(event: 'update', values: InternalOutput) => void>();
 const Form = createDeliveryOptionsForm();
 
 watch(Form.instance.values, (value) => {
-  emit('update', value);
+  emit('update', value as InternalOutput);
 });
 
 const {translate} = useLanguage();
+
+const config = useConfigStore();
 
 const carriers = useActiveCarriers();
 

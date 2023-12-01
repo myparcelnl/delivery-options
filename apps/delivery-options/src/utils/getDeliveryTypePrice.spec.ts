@@ -1,15 +1,9 @@
 import {beforeEach, describe, expect, it} from 'vitest';
 import {createPinia, setActivePinia} from 'pinia';
-import {
-  CARRIER_DHL_FOR_YOU,
-  CARRIER_POST_NL,
-  CARRIER_UPS,
-  mockDeliveryOptionsConfig,
-} from '@myparcel-do/shared/testing';
+import {CARRIER_DHL_FOR_YOU, CARRIER_POST_NL, CARRIER_UPS} from '@myparcel-do/shared/testing';
 import {type CarrierWithIdentifier} from '@myparcel-do/shared';
 import {CarrierName, DeliveryTypeName} from '@myparcel/constants';
-import {mockDeliveryOption} from '../__tests__/utils/mockDeliveryOption';
-import {defineCarrier} from '../__tests__/defineCarrier';
+import {defineCarrier, mockDeliveryOption, mockDeliveryOptionsConfig} from '../__tests__';
 import {getDeliveryTypePrice} from './getDeliveryTypePrice';
 
 type TestInput = {

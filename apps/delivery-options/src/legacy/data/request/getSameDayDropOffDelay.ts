@@ -1,4 +1,4 @@
-import {CONFIG} from '@myparcel-do/shared';
+import {DROP_OFF_DELAY} from '@myparcel-do/shared';
 
 /**
  * DropOff delay when same-day delivery is disabled should never be 0 and when enabled, dropOff delay will vary between
@@ -9,7 +9,7 @@ import {CONFIG} from '@myparcel-do/shared';
  * @returns {Partial<MyParcelDeliveryOptions.DeliveryOptionsRequestParameters>}
  */
 export function getSameDayDropOffDelay(carrier) {
-  let dropOffDelay = configBus.get(CONFIG.DROP_OFF_DELAY, null, carrier);
+  let dropOffDelay = configBus.get(DROP_OFF_DELAY, null, carrier);
 
   // Don't allow drop-off delay to be 0 to prevent showing same-day delivery when it's not possible.
   if (dropOffDelay === 0) {

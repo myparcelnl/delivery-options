@@ -1,7 +1,6 @@
 import {get, useMemoize} from '@vueuse/core';
 import {type CarrierIdentifier, type FullCarrier, type SupportedPlatformName} from '../types';
 import {useCarrierRequest} from '../sdk';
-import {useCurrentCountry} from '../composables';
 import {resolveCarrierName} from './resolveCarrierName';
 import {getCarrierConfiguration} from './getCarrierConfiguration';
 
@@ -40,15 +39,11 @@ export const getFullCarrier = useMemoize(
       },
 
       hasDeliveryInCountry(countryCode) {
-        const resolvedCountryCode = countryCode ?? useCurrentCountry().value;
-
-        return config.deliveryCountries?.includes(resolvedCountryCode) ?? false;
+        return config.deliveryCountries?.includes(countryCode) ?? false;
       },
 
       hasPickupInCountry(countryCode) {
-        const resolvedCountryCode = countryCode ?? useCurrentCountry().value;
-
-        return config.pickupCountries?.includes(resolvedCountryCode) ?? false;
+        return config.pickupCountries?.includes(countryCode) ?? false;
       },
     };
   },

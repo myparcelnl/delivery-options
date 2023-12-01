@@ -46,15 +46,10 @@
 <script lang="ts" setup>
 import {computed} from 'vue';
 import {get, useLocalStorage} from '@vueuse/core';
-import {
-  CARRIER_SETTINGS,
-  CarrierLogo,
-  type FullCarrier,
-  useAvailableCarriers,
-  useCarriersRequest,
-} from '@myparcel-do/shared';
+import {CARRIER_SETTINGS, CarrierLogo, type FullCarrier, useCarriersRequest} from '@myparcel-do/shared';
 import {type SettingsSection} from '../types';
 import {getConfigurationSections} from '../form';
+import {useAvailableCarriers} from '../composables';
 import SandboxCheckboxInput from './base/SandboxCheckboxInput.vue';
 import SandboxFormSection from './SandboxFormSection.vue';
 import Expandable from './Expandable.vue';

@@ -9,10 +9,10 @@ import {
   type SupportedPlatformName,
   type SupportedShipmentOptionName,
   useCarrierRequest,
-  useCurrentCountry,
 } from '@myparcel-do/shared';
 import {DeliveryTypeName} from '@myparcel/constants';
 import {type ResolvedCarrier} from '../types';
+import {useAddressStore} from '../stores';
 import {getResolvedValue} from './getResolvedValue';
 import {getConfigKey} from './getConfigKey';
 
@@ -25,6 +25,7 @@ const resolveOption = (
   return Boolean(key && getResolvedValue(key, carrierIdentifier));
 };
 
+// eslint-disable-next-line max-lines-per-function
 export const getResolvedCarrier = async (
   carrierIdentifier: CarrierIdentifier,
   platformName?: SupportedPlatformName,
@@ -59,21 +60,17 @@ export const getResolvedCarrier = async (
   });
 
   const hasDelivery = computed(() => {
-    const currentCountry = useCurrentCountry();
+    const address = useAddressStore();
 
     return (
-      allowedDeliveryTypes.value.has(DeliveryTypeName.Standard) &&
-      allowedCountriesDelivery.value.includes(currentCountry.value)
+      allowedDeliveryTypes.value.has(DeliveryTypeName.Standard) && allowedCountriesDelivery.value.includes(address.cc)
     );
   });
 
   const hasPickup = computed(() => {
-    const currentCountry = useCurrentCountry();
+    const address = useAddressStore();
 
-    return (
-      allowedDeliveryTypes.value.has(DeliveryTypeName.Pickup) &&
-      allowedCountriesPickup.value.includes(currentCountry.value)
-    );
+    return allowedDeliveryTypes.value.has(DeliveryTypeName.Pickup) && allowedCountriesPickup.value.includes(address.cc);
   });
 
   return {

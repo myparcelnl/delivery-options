@@ -1,5 +1,6 @@
 import {
-  type CarrierSettings,
+  type CarrierSetting,
+  type ConfigSetting,
   type SupportedDeliveryTypeName,
   type SupportedPackageTypeName,
   type SupportedShipmentOptionName,
@@ -12,7 +13,7 @@ import {getDeliveryTypeConfigMap} from './getDeliveryTypeConfigMap';
 
 export const getConfigKey = (
   input: SupportedDeliveryTypeName | SupportedShipmentOptionName | SupportedPackageTypeName,
-): keyof CarrierSettings | null => {
+): CarrierSetting | ConfigSetting | null => {
   let key: string | null = null;
 
   if (isEnumValue(input, PackageTypeName)) {
@@ -33,5 +34,5 @@ export const getConfigKey = (
     key = map[input] ?? null;
   }
 
-  return key as keyof CarrierSettings | null;
+  return key as CarrierSetting | ConfigSetting | null;
 };

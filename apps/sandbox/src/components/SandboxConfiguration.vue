@@ -1,35 +1,42 @@
 <template>
-  <Form.Component @reset="clearConfig">
-    <SandboxPlatformBox />
+  <KeepAlive>
+    <component
+      :is="Form?.Component"
+      v-if="Form?.Component">
+      <SandboxPlatformBox />
 
-    <SandboxAddressBox />
+      <SandboxAddressBox />
 
-    <Box>
-      <SandboxFormSection
-        v-for="section in configSections"
-        :key="section.label"
-        :section="section" />
-    </Box>
+      <Box>
+        <SandboxFormSection
+          v-for="section in configSections"
+          :key="section.label"
+          :section="section" />
+      </Box>
 
-    <Suspense @resolve="startListening">
-      <template #default>
-        <SandboxCarrierFormSections />
-      </template>
+      <Suspense @resolve="startListening">
+        <template #default>
+          <SandboxCarrierFormSections />
+        </template>
 
-      <template #fallback>
-        <SandboxLoadingIndicator />
-      </template>
-    </Suspense>
+        <template #fallback>
+          <SandboxLoadingIndicator />
+        </template>
+      </Suspense>
 
-    <SandboxStringsBox />
-  </Form.Component>
+      <SandboxStringsBox />
+    </component>
+  </KeepAlive>
 </template>
 
 <script lang="ts" setup>
-import {watch} from 'vue';
-import {createForm} from '@myparcel/vue-form-builder';
+import {computed, markRaw, reactive, toRef, watch} from 'vue';
+import {crush} from 'radash';
+import {type SupportedPlatformName} from '@myparcel-do/shared';
+import {type CreatedForm, createForm} from '@myparcel/vue-form-builder';
 import {useSandboxStore} from '../stores';
 import {getConfigurationSections} from '../form';
+import {useCurrentPlatform} from '../composables';
 import SandboxStringsBox from './SandboxStringsBox.vue';
 import SandboxPlatformBox from './SandboxPlatformBox.vue';
 import SandboxLoadingIndicator from './SandboxLoadingIndicator.vue';
@@ -43,27 +50,49 @@ const sandboxStore = useSandboxStore();
 
 const configSections = getConfigurationSections();
 
+const platform = useCurrentPlatform();
+
 // eslint-disable-next-line @typescript-eslint/naming-convention
-const Form = createForm('configuration', {
-  field: {
-    wrapper: FieldWrapper,
-  },
 
-  initialValues: {...sandboxStore.configuration},
-});
+const renderForPlatform = (platform: SupportedPlatformName): CreatedForm => {
+  console.log('renderForPlatform', platform);
 
-const clearConfig = () => {
-  sandboxStore.$patch({
-    configuration: undefined,
-  });
+  return markRaw(
+    createForm(`configuration.${platform}`, {
+      field: {
+        wrapper: FieldWrapper,
+      },
+
+      initialValues: {...crush(sandboxStore.resolvedConfiguration)},
+    }),
+  );
 };
+
+const nameRef = toRef(platform, 'name');
+
+const forms = reactive({});
+
+watch(
+  nameRef,
+  (newVal) => {
+    if (forms[newVal]) {
+      return;
+    }
+
+    forms[newVal] = renderForPlatform(newVal);
+  },
+  {immediate: true},
+);
+
+// eslint-disable-next-line @typescript-eslint/naming-convention
+const Form = computed<CreatedForm>(() => forms[nameRef.value]);
 
 /**
  * Start listening to changes in the configuration when the carrier fields have loaded. This is so the configuration is
  * not saved to storage before all fields are loaded.
  */
 const startListening = () => {
-  watch(Form.instance.values, (newConfiguration) => {
+  watch(Form.value.instance.values, (newConfiguration) => {
     sandboxStore.updateConfiguration(newConfiguration);
   });
 };
