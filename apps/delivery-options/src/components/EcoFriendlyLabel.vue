@@ -14,8 +14,7 @@
 
 <script lang="ts" setup>
 import {toRefs} from 'vue';
-import {useLanguage} from '@myparcel-do/shared';
-import {useMostEcoFriendly} from '../composables';
+import {useLanguage, useMostEcoFriendly} from '../composables';
 
 const props = defineProps<{amount: number; id: string}>();
 

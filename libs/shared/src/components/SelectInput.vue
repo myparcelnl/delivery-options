@@ -46,7 +46,7 @@
               'mp-text-md mp-top-1/2 mp-transform mp--translate-y-1/2': !currentOption,
             }"
             class="mp-absolute mp-top-0 mp-transition-all"
-            v-text="translate('option_placeholder')" />
+            v-text="element.props.placeholder" />
 
           <span class="mp-pb-3 mp-pt-5">
             <span v-text="currentOption?.label ?? '&nbsp;'" />
@@ -108,7 +108,7 @@ import {
   type SelectOption,
   type WithElement,
 } from '../types';
-import {useClickOutside, useCursor, useLanguage, useOpenState, useSelectInputContext} from '../composables';
+import {useClickOutside, useCursor, useOpenState, useSelectInputContext} from '../composables';
 import {Loader} from './Loader';
 
 // eslint-disable-next-line vue/no-unused-properties
@@ -116,7 +116,6 @@ const props = defineProps<WithElement<SelectInputProps<T>> & {options?: any; loa
 const emit = defineEmits<SelectInputEmits<T>>();
 
 const {model, options} = useSelectInputContext(props, emit);
-const {translate} = useLanguage();
 
 const selectWrapper = ref<HTMLElement | null>(null);
 const optionsWrapper = ref<HTMLElement | null>(null);

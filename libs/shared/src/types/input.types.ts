@@ -27,7 +27,7 @@ export type CodeEditorEmits = ElementEmits<CodeEditorModelValue>;
 
 export type SelectInputModelValue = SelectOptionValue;
 
-export type SelectInputProps<T extends SelectInputModelValue> = InputProps<T> & OptionsProps<T>;
+export type SelectInputProps<T extends SelectInputModelValue> = InputProps<T> & OptionsProps<T> & {placeholder: string};
 
 export type SelectInputEmits<T extends SelectInputModelValue> = ElementEmits<T>;
 

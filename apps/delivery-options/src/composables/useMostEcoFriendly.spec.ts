@@ -1,5 +1,5 @@
 import {describe, expect, it} from 'vitest';
-import {useMostEcoFriendly} from '@myparcel/delivery-options/ts';
+import {useMostEcoFriendly} from '..';
 
 describe('useMostEcoFriendly', () => {
   it('should return true on the most eco friendly item in a group', () => {

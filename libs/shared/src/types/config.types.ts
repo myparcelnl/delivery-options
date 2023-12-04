@@ -84,9 +84,17 @@ export type CarrierSettingsObject = Partial<Record<CarrierIdentifier, CarrierSet
 export interface DeliveryOptionsConfig extends CarrierSettings {
   apiBaseUrl?: string;
   carrierSettings?: CarrierSettingsObject;
-  currency?: string;
+  /**
+   * Currency. Defaults to format of the browser.
+   */
+  currency?: string | undefined;
   initial?: Partial<DeliveryOptionsOutput>;
-  locale?: string;
+
+  /**
+   * Locale. Defaults to the language of the browser.
+   */
+  locale?: string | undefined;
+
   pickupLocationsDefaultView?: PickupLocationsView;
   pickupLocationsMapTileLayerData?: string | MapTileLayerData;
   pickupShowDistance?: boolean;

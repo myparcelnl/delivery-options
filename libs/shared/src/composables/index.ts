@@ -3,7 +3,6 @@ export * from './useAssetUrl';
 export * from './useClickOutside';
 export * from './useCursor';
 export * from './useFullCarrier';
-export * from './useLanguage';
 export * from './useOpenState';
 export * from './useResolvedPlatform';
 export * from './useSdk';

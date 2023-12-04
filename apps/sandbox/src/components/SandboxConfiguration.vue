@@ -36,7 +36,7 @@ import {type SupportedPlatformName} from '@myparcel-do/shared';
 import {type CreatedForm, createForm} from '@myparcel/vue-form-builder';
 import {useSandboxStore} from '../stores';
 import {getConfigurationSections} from '../form';
-import {useCurrentPlatform} from '../composables';
+import {useCurrentPlatform, useLanguage} from '../composables';
 import SandboxStringsBox from './SandboxStringsBox.vue';
 import SandboxPlatformBox from './SandboxPlatformBox.vue';
 import SandboxLoadingIndicator from './SandboxLoadingIndicator.vue';
@@ -55,10 +55,12 @@ const platform = useCurrentPlatform();
 // eslint-disable-next-line @typescript-eslint/naming-convention
 
 const renderForPlatform = (platform: SupportedPlatformName): CreatedForm => {
-  console.log('renderForPlatform', platform);
+  const {translate} = useLanguage();
 
   return markRaw(
     createForm(`configuration.${platform}`, {
+      renderLabel: translate,
+
       field: {
         wrapper: FieldWrapper,
       },

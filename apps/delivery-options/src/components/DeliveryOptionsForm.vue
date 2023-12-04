@@ -7,11 +7,11 @@
 <script lang="ts" setup>
 import {computed, markRaw, watch} from 'vue';
 import {get} from '@vueuse/core';
-import {type InternalOutput, useLanguage} from '@myparcel-do/shared';
+import {type InternalOutput} from '@myparcel-do/shared';
 import {createField} from '@myparcel/vue-form-builder';
 import {useConfigStore} from '../stores';
 import {createDeliveryOptionsForm} from '../form';
-import {useActiveCarriers} from '../composables';
+import {useActiveCarriers, useLanguage} from '../composables';
 import RadioGroupTabs from './RadioGroupTabs.vue';
 import PickupLocations from './PickupLocations.vue';
 import HomeDelivery from './HomeDelivery.vue';
