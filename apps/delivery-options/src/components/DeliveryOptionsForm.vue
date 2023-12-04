@@ -9,7 +9,6 @@ import {computed, markRaw, watch} from 'vue';
 import {get} from '@vueuse/core';
 import {type InternalOutput} from '@myparcel-do/shared';
 import {createField} from '@myparcel/vue-form-builder';
-import {useConfigStore} from '../stores';
 import {createDeliveryOptionsForm} from '../form';
 import {useActiveCarriers, useLanguage} from '../composables';
 import RadioGroupTabs from './RadioGroupTabs.vue';
@@ -26,8 +25,6 @@ watch(Form.instance.values, (value) => {
 });
 
 const {translate} = useLanguage();
-
-const config = useConfigStore();
 
 const carriers = useActiveCarriers();
 
