@@ -7,11 +7,11 @@
 <script lang="ts" setup>
 import {computed, onMounted, toRefs, watch} from 'vue';
 import {get} from '@vueuse/core';
-import {setConfiguration} from '../utils/setConfiguration';
-import {getConfigFromWindow} from '../utils';
+import {useLogger} from '@myparcel-do/shared';
+import {getConfigFromWindow, setConfiguration} from '../utils';
 import {type DeliveryOptionsEmits, type DeliveryOptionsProps} from '../types';
 import {useAddressStore, useConfigStore} from '../stores';
-import {useDeliveryOptionsIncomingEvents, useDeliveryOptionsOutgoingEvents, useLogger} from '../composables';
+import {useDeliveryOptionsIncomingEvents, useDeliveryOptionsOutgoingEvents} from '../composables';
 import DeliveryOptionsForm from './DeliveryOptionsForm.vue';
 
 const props = defineProps<DeliveryOptionsProps>();

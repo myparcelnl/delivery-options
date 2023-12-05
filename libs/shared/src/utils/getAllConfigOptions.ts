@@ -1,5 +1,5 @@
 import {useMemoize} from '@vueuse/core';
-import {rangeValidator} from '../validator';
+import {validateDropOffDays, validateIsInRange} from '../validator';
 import {type ConfigOption} from '../types';
 import {OptionType} from '../enums';
 import {
@@ -18,6 +18,7 @@ import {
   DELIVERY_DAYS_WINDOW,
   DELIVERY_DAYS_WINDOW_MAX,
   DELIVERY_DAYS_WINDOW_MIN,
+  DROP_OFF_DAYS,
   DROP_OFF_DELAY,
   DROP_OFF_DELAY_MAX,
   DROP_OFF_DELAY_MIN,
@@ -42,11 +43,11 @@ import {defineOptionWithPrice} from './defineOptionWithPrice';
 import {defineOption} from './defineOption';
 import {defineDeliveryOption} from './defineDeliveryOption';
 
-export const getAllOptions = useMemoize((): ConfigOption[] => [
+export const getAllConfigOptions = useMemoize((): ConfigOption[] => [
   ...defineOptionWithPrice(
     {
       key: ALLOW_DELIVERY_OPTIONS,
-      hasCarrierToggle: true,
+      perCarrier: true,
     },
     PRICE_STANDARD_DELIVERY,
   ),
@@ -134,16 +135,23 @@ export const getAllOptions = useMemoize((): ConfigOption[] => [
   ),
 
   defineOption({
+    key: DROP_OFF_DAYS,
+    type: OptionType.Select,
+    validators: [validateDropOffDays()],
+    parents: [ALLOW_DELIVERY_OPTIONS],
+  }),
+
+  defineOption({
     key: DROP_OFF_DELAY,
     type: OptionType.Number,
-    validators: [rangeValidator(DROP_OFF_DELAY_MIN, DROP_OFF_DELAY_MAX)],
+    validators: [validateIsInRange(DROP_OFF_DELAY_MIN, DROP_OFF_DELAY_MAX)],
     parents: [ALLOW_DELIVERY_OPTIONS],
   }),
 
   defineOption({
     key: DELIVERY_DAYS_WINDOW,
     type: OptionType.Number,
-    validators: [rangeValidator(DELIVERY_DAYS_WINDOW_MIN, DELIVERY_DAYS_WINDOW_MAX)],
+    validators: [validateIsInRange(DELIVERY_DAYS_WINDOW_MIN, DELIVERY_DAYS_WINDOW_MAX)],
     parents: [ALLOW_DELIVERY_OPTIONS, FEATURE_SHOW_DELIVERY_DATE],
   }),
 
@@ -155,17 +163,17 @@ export const getAllOptions = useMemoize((): ConfigOption[] => [
 
   defineOption({
     key: FEATURE_SHOW_DELIVERY_DATE,
-    hasCarrierToggle: false,
+    perCarrier: false,
   }),
 
   defineOption({
     key: FEATURE_PICKUP_LOCATIONS_DEFAULT_VIEW,
-    hasCarrierToggle: false,
+    perCarrier: false,
     type: OptionType.Select,
   }),
 
   defineOption({
     key: FEATURE_PICKUP_SHOW_DISTANCE,
-    hasCarrierToggle: false,
+    perCarrier: false,
   }),
 ]);

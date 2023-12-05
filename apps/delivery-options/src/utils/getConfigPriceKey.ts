@@ -1,6 +1,6 @@
 import {
   type CarrierSetting,
-  getAllOptions,
+  getAllConfigOptions,
   RelatedConfigOptionType,
   type SupportedDeliveryTypeName,
   type SupportedShipmentOptionName,
@@ -13,7 +13,7 @@ export const getConfigPriceKey = (
   input: SupportedDeliveryTypeName | SupportedShipmentOptionName,
 ): CarrierSettingPriceKey => {
   const key = getConfigKey(input);
-  const options = getAllOptions();
+  const options = getAllConfigOptions();
 
   const match = options.find((option) => option.key === key);
   const relatedPrice = match?.related?.find((related) => related.type === RelatedConfigOptionType.Price);

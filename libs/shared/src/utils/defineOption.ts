@@ -1,4 +1,4 @@
-import {booleanValidator, numberValidator, stringValidator, timeValidator} from '../validator';
+import {validateIsBoolean, validateIsNumeric, validateIsString, validateIsTime} from '../validator';
 import {type ConfigOption} from '../types';
 import {OptionType} from '../enums';
 
@@ -11,19 +11,19 @@ export const defineOption = <O extends ConfigOption>(option: O): O => {
 
   switch (option.type) {
     case OptionType.Number:
-      resolvedOption.validators.push(numberValidator());
+      resolvedOption.validators.push(validateIsNumeric());
       break;
 
     case OptionType.String:
-      resolvedOption.validators.push(stringValidator());
+      resolvedOption.validators.push(validateIsString());
       break;
 
     case OptionType.Boolean:
-      resolvedOption.validators.push(booleanValidator());
+      resolvedOption.validators.push(validateIsBoolean());
       break;
 
     case OptionType.Time:
-      resolvedOption.validators.push(timeValidator());
+      resolvedOption.validators.push(validateIsTime());
       break;
   }
 

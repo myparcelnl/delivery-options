@@ -48,7 +48,7 @@ export const showDeveloperInfo = () => {
       },
     },
     address: {
-      [AddressField.Cc]: '',
+      [AddressField.Country]: '',
       [AddressField.City]: '',
       [AddressField.PostalCode]: '',
       [AddressField.Street]: '',

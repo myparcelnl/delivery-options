@@ -37,8 +37,8 @@ const countries = computed(() => {
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const Cc = createField({
-  label: AddressField.Cc,
-  name: `${KEY_ADDRESS}.${AddressField.Cc}`,
+  label: AddressField.Country,
+  name: `${KEY_ADDRESS}.${AddressField.Country}`,
   ref: ref(),
   component: SelectInput,
   props: {

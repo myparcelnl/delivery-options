@@ -1,7 +1,7 @@
 import {type AddressField} from '../enums';
 
 interface BaseAddress {
-  [AddressField.Cc]: string;
+  [AddressField.Country]: string;
   [AddressField.City]: string;
   [AddressField.PostalCode]: string;
 }

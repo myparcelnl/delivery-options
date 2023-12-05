@@ -10,9 +10,9 @@ export interface SettingsSection {
 export interface SettingsGroup {
   description?: string;
   fields: SettingsField[];
-  hasCarrierToggle?: boolean;
   key: string;
   needs?: string[];
+  perCarrier?: boolean;
 }
 
 export type SettingsField = ModularCreatedField;
@@ -23,9 +23,9 @@ export type ResolvedFieldOrSection<T extends FieldOrSection> = T extends AnyElem
 
 export interface SandboxOptionGroup {
   children?: SandboxOptionGroup[];
-  hasCarrierToggle?: boolean;
   hasExpand?: boolean;
   items?: (CarrierSetting | ConfigSetting)[];
   label?: string;
   name: string;
+  perCarrier?: boolean;
 }

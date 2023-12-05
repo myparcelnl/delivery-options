@@ -5,7 +5,6 @@ export * from './useCurrentPlatform';
 export * from './useDeliveryOptionsIncomingEvents';
 export * from './useDeliveryOptionsOutgoingEvents';
 export * from './useLanguage';
-export * from './useLogger';
 export * from './useMostEcoFriendly';
 export * from './useResolvedDeliveryDates';
 export * from './useResolvedDeliveryMoments';

@@ -8,4 +8,3 @@ export * from './input.types';
 export * from './options.types';
 export * from './platform.types';
 export * from './query.types';
-export * from './validator.types';

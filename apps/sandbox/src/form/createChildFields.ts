@@ -1,5 +1,5 @@
 import {get, isDefined} from '@vueuse/core';
-import {type ConfigOption, getAllOptions} from '@myparcel-do/shared';
+import {type ConfigOption, getAllConfigOptions} from '@myparcel-do/shared';
 import {type FormInstance, type InteractiveElementInstance} from '@myparcel/vue-form-builder';
 import {type SandboxOptionGroup, type SettingsField} from '../types';
 import {type SandboxPlatformInstance, useCurrentPlatform} from '../composables';
@@ -22,7 +22,7 @@ const availableInPlatform = (field: InteractiveElementInstance, platform: Sandbo
 };
 
 export const createChildFields = (group: SandboxOptionGroup, prefix: string): SettingsField[] => {
-  const allOptions = getAllOptions();
+  const allOptions = getAllConfigOptions();
 
   const platform = useCurrentPlatform();
 

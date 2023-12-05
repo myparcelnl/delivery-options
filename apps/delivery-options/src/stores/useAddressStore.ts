@@ -6,12 +6,12 @@ export const useAddressStore = defineStore('address', {
   state: (): DeliveryOptionsAddress => {
     return assign(
       {
-        [AddressField.Cc]: '',
+        [AddressField.Country]: '',
         [AddressField.City]: '',
         [AddressField.Street]: '',
         [AddressField.PostalCode]: '',
       },
       window.MyParcelConfig?.address ?? {},
-    ) as DeliveryOptionsAddress;
+    );
   },
 });

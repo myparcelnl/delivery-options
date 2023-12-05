@@ -65,7 +65,7 @@ export enum ComponentName {
 }
 
 export enum AddressField {
-  Cc = 'cc',
+  Country = 'cc',
   City = 'city',
   Number = 'number',
   PostalCode = 'postalCode',

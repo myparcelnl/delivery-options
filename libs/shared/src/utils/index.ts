@@ -3,7 +3,7 @@ export * from './defineConfig';
 export * from './defineDeliveryOption';
 export * from './defineOption';
 export * from './defineOptionWithPrice';
-export * from './getAllOptions';
+export * from './getAllConfigOptions';
 export * from './getCarrierConfiguration';
 export * from './getFullCarrier';
 export * from './getPlatformConfig';

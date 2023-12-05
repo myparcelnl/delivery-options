@@ -7,7 +7,6 @@ import {
   type ShipmentOptionName,
 } from '@myparcel/constants';
 import {type ComponentName, type OptionType, type PickupLocationsView} from '../enums';
-import {type CustomValidator} from './validator.types';
 import {type SupportedPlatformName} from './platform.types';
 import {type DeliveryOptionsAddress} from './address.types';
 
@@ -186,10 +185,25 @@ export type RelatedConfigOption = {
 };
 
 export interface ConfigOption<T extends OptionType = OptionType> {
-  hasCarrierToggle?: boolean;
   key: string;
   parents?: string[];
+  perCarrier?: boolean;
   related?: RelatedConfigOption[];
   type?: T;
   validators?: CustomValidator[];
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export interface CustomValidator<T1 = any, T2 = T1> {
+  error: string;
+
+  /**
+   * Parse the input value.
+   */
+  parse?(value: T1): T2;
+
+  /**
+   * Validate the input value.
+   */
+  validate(value: T1): boolean;
 }

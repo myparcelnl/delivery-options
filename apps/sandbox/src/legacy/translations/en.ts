@@ -88,7 +88,7 @@ export const englishTranslations = {
   'tab.delivery_options': 'Delivery Options',
   default_placeholder: '<Default>',
 
-  [`field.${AddressField.Cc}`]: 'Country',
+  [`field.${AddressField.Country}`]: 'Country',
   [`field.${AddressField.City}`]: 'City',
   [`field.${KEY_ADDRESS}`]: 'Address',
   [`field.${AddressField.Number}`]: 'Number',

@@ -33,7 +33,7 @@ export const createGetDeliveryOptionsParameters = (
     monday_delivery: get(carrier.features).has(CarrierSetting.AllowMondayDelivery),
     saturday_delivery: get(carrier.features).has(CarrierSetting.AllowSaturdayDelivery),
 
-    cc: address?.[AddressField.Cc] ?? '',
+    cc: address?.[AddressField.Country] ?? '',
     city: address?.[AddressField.City] ?? '',
     postal_code: address?.[AddressField.PostalCode] ?? '',
     street: address?.[AddressField.Street] ?? '',
