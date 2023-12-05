@@ -33,7 +33,7 @@
             </AutoAnchor>
           </template>
 
-          <SandboxFormSection
+          <SandboxSettingsSection
             v-for="section in carrier.sections"
             :key="section.label"
             :section="section" />
@@ -48,10 +48,10 @@ import {computed} from 'vue';
 import {get, useLocalStorage} from '@vueuse/core';
 import {CARRIER_SETTINGS, CarrierLogo, type FullCarrier, useCarriersRequest} from '@myparcel-do/shared';
 import {type SettingsSection} from '../types';
-import {getConfigurationSections} from '../form';
+import {getConfigSandboxSections} from '../form';
 import {useAvailableCarriers} from '../composables';
-import SandboxCheckboxInput from './base/SandboxCheckboxInput.vue';
-import SandboxFormSection from './SandboxFormSection.vue';
+import {SandboxSettingsSection} from './form';
+import {SandboxCheckboxInput} from './base';
 import Expandable from './Expandable.vue';
 import {Box} from './Box';
 import AutoAnchor from './AutoAnchor.vue';
@@ -68,7 +68,7 @@ const allCarriers = computed<(FullCarrier & {sections: SettingsSection[]})[]>(()
   return (
     get(availableCarriers)?.map((carrier) => ({
       ...carrier,
-      sections: getConfigurationSections(`${CARRIER_SETTINGS}.${carrier.name}`),
+      sections: getConfigSandboxSections(`${CARRIER_SETTINGS}.${carrier.name}`),
     })) ?? []
   );
 });

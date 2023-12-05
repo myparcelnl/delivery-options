@@ -1,5 +1,8 @@
 export * from './Box';
 export * from './Container';
+export * from './base';
+export * from './form';
+export * from './layout';
 
 export {default as AutoAnchor} from './AutoAnchor.vue';
 
@@ -17,20 +20,14 @@ export {default as LanguageSwitcher} from './LanguageSwitcher.vue';
 
 export {default as RadioGroupInput} from './RadioGroupInput.vue';
 
-export {default as RecursiveFields} from './RecursiveFields.vue';
-
 export {default as SandboxAddressBox} from './SandboxAddressBox.vue';
 
 export {default as SandboxCarrierFormSections} from './SandboxCarrierFormSections.vue';
 
 export {default as SandboxConfiguration} from './SandboxConfiguration.vue';
 
-export {default as SandboxFormSection} from './SandboxFormSection.vue';
-
 export {default as SandboxLoadingIndicator} from './SandboxLoadingIndicator.vue';
 
 export {default as SandboxPlatformBox} from './SandboxPlatformBox.vue';
-
-export {default as SandboxSettingsGroup} from './SandboxSettingsGroup.vue';
 
 export {default as SandboxStringsBox} from './SandboxStringsBox.vue';

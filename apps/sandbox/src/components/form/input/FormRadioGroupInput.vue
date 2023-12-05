@@ -14,7 +14,7 @@ import {
   useRadioGroupContext,
   type WithElement,
 } from '@myparcel-do/shared';
-import SandboxRadioGroupInput from '../base/SandboxRadioGroupInput.vue';
+import SandboxRadioGroupInput from '../../base/SandboxRadioGroupInput.vue';
 
 // eslint-disable-next-line vue/no-unused-properties
 const props = defineProps<WithElement<RadioGroupProps<T>>>();

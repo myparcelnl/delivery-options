@@ -1,8 +1,7 @@
 import {type ComputedRef} from '@vue/reactivity';
 import {
+  type AnyConfigKey,
   type CarrierIdentifier,
-  type CarrierSetting,
-  type ConfigSetting,
   type DeliveryOptionsConfig,
   type SupportedDeliveryTypeName,
   type SupportedPackageTypeName,
@@ -17,11 +16,8 @@ export type ResolvedCarrier = Carrier & {
   allowedDeliveryTypes: ComputedRef<Set<SupportedDeliveryTypeName>>;
   allowedPackageTypes: ComputedRef<Set<SupportedPackageTypeName>>;
   allowedShipmentOptions: ComputedRef<Set<SupportedShipmentOptionName>>;
-  features: ComputedRef<Set<CarrierSetting | ConfigSetting>>;
+  features: ComputedRef<Set<AnyConfigKey>>;
   hasDelivery: ComputedRef<boolean>;
   hasPickup: ComputedRef<boolean>;
-  get<K extends CarrierSetting | ConfigSetting>(
-    key: K,
-    defaultValue?: NonNullable<DeliveryOptionsConfig[K]>,
-  ): DeliveryOptionsConfig[K];
+  get<K extends AnyConfigKey>(key: K, defaultValue?: NonNullable<DeliveryOptionsConfig[K]>): DeliveryOptionsConfig[K];
 };

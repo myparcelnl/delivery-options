@@ -21,6 +21,8 @@ export type SupportedPackageTypeName = (typeof SUPPORTED_PACKAGE_TYPES)[number];
 
 export type SubscriptionId = string | undefined;
 
+export type AnyConfigKey = CarrierSetting | ConfigSetting;
+
 export interface CarrierOptions {
   addressFields?: string[];
   deliveryCountries?: string[];
@@ -30,7 +32,7 @@ export interface CarrierOptions {
    * getCountriesForDelivery.
    */
   fakeDelivery?: boolean;
-  features?: (CarrierSetting | ConfigSetting)[];
+  features?: AnyConfigKey[];
   name: CarrierName;
   packageTypes: SupportedPackageTypeName[];
   pickupCountries?: string[];

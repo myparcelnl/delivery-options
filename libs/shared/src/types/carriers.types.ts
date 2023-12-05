@@ -1,7 +1,7 @@
 import {type Carrier} from '@myparcel/sdk';
 import {type CarrierName} from '@myparcel/constants';
-import {type CarrierSetting, type ConfigSetting} from '../enums';
 import {
+  type AnyConfigKey,
   type SupportedDeliveryTypeName,
   type SupportedPackageTypeName,
   type SupportedShipmentOptionName,
@@ -20,7 +20,7 @@ export interface CarrierWithIdentifier extends Carrier {
 export type FullCarrier = CarrierWithIdentifier & {
   hasDeliveryInCountry(countryCode: string): boolean;
   hasDeliveryType(deliveryType: SupportedDeliveryTypeName): boolean;
-  hasFeature(feature: CarrierSetting | ConfigSetting): boolean;
+  hasFeature(feature: AnyConfigKey): boolean;
   hasPackageType(packageType: SupportedPackageTypeName): boolean;
   hasPickupInCountry(countryCode: string): boolean;
   hasShipmentOption(shipmentOption: SupportedShipmentOptionName): boolean;

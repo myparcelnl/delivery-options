@@ -14,7 +14,7 @@ import {
   useCheckboxGroupContext,
   type WithElement,
 } from '@myparcel-do/shared';
-import SandboxCheckboxGroupInput from '../base/SandboxCheckboxGroupInput.vue';
+import SandboxCheckboxGroupInput from '../../base/SandboxCheckboxGroupInput.vue';
 
 // eslint-disable-next-line vue/no-unused-properties
 const props = defineProps<WithElement<CheckboxGroupProps<T>>>();

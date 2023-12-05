@@ -26,7 +26,11 @@
                   <h3>Resolved configuration</h3>
                 </template>
 
-                <pre v-text="sandboxStore.resolvedConfiguration.config" />
+                <pre
+                  v-text="{
+                    address: sandboxStore.resolvedConfiguration.address ?? {},
+                    config: sandboxStore.resolvedConfiguration.config ?? {},
+                  }" />
               </Expandable>
             </Box>
 

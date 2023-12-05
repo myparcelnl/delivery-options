@@ -7,8 +7,8 @@
 
 <script lang="ts" setup>
 import {type TimeInputEmits, type TimeInputProps, useElementContext, type WithElement} from '@myparcel-do/shared';
-import SandboxTimeInput from '../base/SandboxTimeInput.vue';
-import {useElInputClasses} from '../../composables';
+import SandboxTimeInput from '../../base/SandboxTimeInput.vue';
+import {useElInputClasses} from '../../../composables';
 
 // eslint-disable-next-line vue/no-unused-properties
 const props = defineProps<WithElement<TimeInputProps>>();

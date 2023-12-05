@@ -79,6 +79,7 @@ export enum OptionGroup {
   Feature = 'feature',
   DropOff = 'dropOff',
   Pickup = 'pickup',
+  Strings = 'strings',
 }
 
 export enum OptionType {

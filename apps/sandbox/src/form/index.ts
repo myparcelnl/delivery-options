@@ -4,6 +4,10 @@ export * from './formField';
 export * from './formSection';
 export * from './generateConfigItemField';
 export * from './getComponent';
-export * from './getConfigurationSections';
-export * from './getSandboxOptionGroups';
-export * from './resolveSandboxGroup';
+export * from './getConfigSandboxSections';
+export * from './getSandboxConfigurationGroups';
+export * from './getStringsSandboxSections';
+export * from './resolveSandboxSection';
+export {allParentsHave} from './allParentsHave';
+
+export {availableInPlatform} from './availableInPlatform';

@@ -1,9 +1,9 @@
 import {describe, expect, it} from 'vitest';
-import {getConfigurationSections} from './getConfigurationSections';
+import {getConfigSandboxSections} from './getConfigSandboxSections';
 
 describe('getConfigurationSections', () => {
   it('gets sandbox option groups', () => {
-    const sections = getConfigurationSections();
+    const sections = getConfigSandboxSections();
 
     expect(sections).toMatchSnapshot();
   });

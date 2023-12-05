@@ -72,8 +72,6 @@ const filterConfig = <T>(input: object, allOptions: ConfigOption[]): T => {
     if (errors.length) {
       logger.error(`❌ [${key}]`, errors.join(', '), {value});
     } else {
-      logger.debug(`✅ [${key}]`, {value});
-
       acc[key as keyof T] = validators.reduce((acc, item) => item.parse?.(acc) ?? acc, value);
     }
 

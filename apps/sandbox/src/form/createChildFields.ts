@@ -1,25 +1,11 @@
-import {get, isDefined} from '@vueuse/core';
+import {isDefined} from '@vueuse/core';
 import {type ConfigOption, getAllConfigOptions} from '@myparcel-do/shared';
-import {type FormInstance, type InteractiveElementInstance} from '@myparcel/vue-form-builder';
+import {type InteractiveElementInstance} from '@myparcel/vue-form-builder';
 import {type SandboxOptionGroup, type SettingsField} from '../types';
-import {type SandboxPlatformInstance, useCurrentPlatform} from '../composables';
+import {useCurrentPlatform} from '../composables';
 import {createField} from './createField';
-
-const allParentsHave = (parents: undefined | string[], form: FormInstance, prefix: string): boolean => {
-  const parent = parents?.every((parent) => {
-    const value = form.getValue(prefix ? `${prefix}.${parent}` : parent);
-
-    return Boolean(value);
-  });
-
-  return Boolean(parent);
-};
-
-const availableInPlatform = (field: InteractiveElementInstance, platform: SandboxPlatformInstance): boolean => {
-  const baseField = field.name?.split('.').pop();
-
-  return Boolean(baseField && get(platform.features).has(baseField));
-};
+import {availableInPlatform} from './availableInPlatform';
+import {allParentsHave} from './allParentsHave';
 
 export const createChildFields = (group: SandboxOptionGroup, prefix: string): SettingsField[] => {
   const allOptions = getAllConfigOptions();
@@ -31,7 +17,13 @@ export const createChildFields = (group: SandboxOptionGroup, prefix: string): Se
     .filter(isDefined) as ConfigOption[];
 
   return resolvedItems.reduce((acc, item) => {
-    acc.push(createField(item, prefix));
+    acc.push(
+      createField(item, prefix, {
+        visibleWhen(field: InteractiveElementInstance) {
+          return availableInPlatform(field, platform) && allParentsHave(item.parents, field.form, prefix);
+        },
+      }),
+    );
 
     item.related?.forEach((relatedItem) => {
       const match = allOptions.find((option) => option.key === relatedItem.key);

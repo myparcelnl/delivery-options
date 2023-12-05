@@ -1,10 +1,10 @@
 import {type Component} from 'vue';
 import {type ConfigOption, OptionType} from '@myparcel-do/shared';
-import FormToggleInput from '../components/form/FormToggleInput.vue';
-import FormTimeInput from '../components/form/FormTimeInput.vue';
-import FormTextInput from '../components/form/FormTextInput.vue';
-import FormNumberInput from '../components/form/FormNumberInput.vue';
-import FormCurrencyInput from '../components/form/FormCurrencyInput.vue';
+import FormToggleInput from '../components/form/input/FormToggleInput.vue';
+import FormTimeInput from '../components/form/input/FormTimeInput.vue';
+import FormTextInput from '../components/form/input/FormTextInput.vue';
+import FormNumberInput from '../components/form/input/FormNumberInput.vue';
+import FormCurrencyInput from '../components/form/input/FormCurrencyInput.vue';
 
 export const getComponent = (option: ConfigOption): Component => {
   switch (option.type) {

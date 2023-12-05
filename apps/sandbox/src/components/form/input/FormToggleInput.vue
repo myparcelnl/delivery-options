@@ -6,7 +6,7 @@
 
 <script lang="ts" setup>
 import {type ToggleInputEmits, type ToggleInputProps, useElementContext, type WithElement} from '@myparcel-do/shared';
-import SandboxToggleInput from '../base/SandboxToggleInput.vue';
+import SandboxToggleInput from '../../base/SandboxToggleInput.vue';
 
 // eslint-disable-next-line vue/no-unused-properties
 const props = defineProps<WithElement<ToggleInputProps>>();

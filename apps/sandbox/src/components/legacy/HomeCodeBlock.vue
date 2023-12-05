@@ -17,7 +17,7 @@
 
 <script lang="ts">
 import {sandboxConfigBus} from '../sandboxConfigBus';
-import CRadioGroup from '../form/FormRadioGroupInput.vue';
+import CRadioGroup from '../form/input/FormRadioGroupInput.vue';
 
 export default {
   name: 'HomeCodeBlock',

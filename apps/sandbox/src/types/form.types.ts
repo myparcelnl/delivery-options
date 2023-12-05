@@ -1,5 +1,6 @@
-import {type CarrierSetting, type ConfigSetting} from '@myparcel-do/shared';
+import {type AnyConfigKey} from '@myparcel-do/shared';
 import {type AnyElementConfiguration, type ModularCreatedField} from '@myparcel/vue-form-builder';
+import {type ReadonlyOr} from '@myparcel/ts-utils';
 
 export interface SettingsSection {
   description?: string;
@@ -9,7 +10,7 @@ export interface SettingsSection {
 
 export interface SettingsGroup {
   description?: string;
-  fields: SettingsField[];
+  fields?: SettingsField[];
   key: string;
   needs?: string[];
   perCarrier?: boolean;
@@ -24,7 +25,7 @@ export type ResolvedFieldOrSection<T extends FieldOrSection> = T extends AnyElem
 export interface SandboxOptionGroup {
   children?: SandboxOptionGroup[];
   hasExpand?: boolean;
-  items?: (CarrierSetting | ConfigSetting)[];
+  items?: ReadonlyOr<(AnyConfigKey | string)[]>;
   label?: string;
   name: string;
   perCarrier?: boolean;

@@ -7,8 +7,8 @@
 
 <script lang="ts" setup>
 import {type NumberInputEmits, type NumberInputProps, useElementContext, type WithElement} from '@myparcel-do/shared';
-import SandboxNumberInput from '../base/SandboxNumberInput.vue';
-import {useElInputClasses} from '../../composables';
+import SandboxNumberInput from '../../base/SandboxNumberInput.vue';
+import {useElInputClasses} from '../../../composables';
 
 // eslint-disable-next-line vue/no-unused-properties
 const props = defineProps<WithElement<NumberInputProps>>();

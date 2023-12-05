@@ -11,7 +11,7 @@ import {
   useElementContext,
   type WithElement,
 } from '@myparcel-do/shared';
-import SandboxCurrencyInput from '../base/SandboxCurrencyInput.vue';
+import SandboxCurrencyInput from '../../base/SandboxCurrencyInput.vue';
 
 // eslint-disable-next-line vue/no-unused-properties
 const props = defineProps<WithElement<CurrencyInputProps>>();
