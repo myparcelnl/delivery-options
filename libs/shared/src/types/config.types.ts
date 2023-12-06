@@ -7,7 +7,8 @@ import {
   type ShipmentOptionName,
 } from '@myparcel/constants';
 import {type ComponentName, type OptionType, type PickupLocationsView} from '../enums';
-import {type SupportedPlatformName} from './platform.types';
+import {type AnyConfigKey, type SupportedPlatformName} from './platform.types';
+import {type SelectOption} from './options.types';
 import {type DeliveryOptionsAddress} from './address.types';
 
 interface MapTileLayerData {

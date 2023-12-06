@@ -8,13 +8,14 @@ import {
 } from '../validator';
 import {getAllConfigOptions} from '../utils';
 import {
+  type CarrierSettingsObject,
   type ConfigOption,
   type DeliveryOptionsConfig,
   type DeliveryOptionsConfiguration,
   type InputDeliveryOptionsConfiguration,
 } from '../types';
 import {AddressField} from '../enums';
-import {CARRIER_SETTINGS, PLATFORM} from '../data';
+import {CARRIER_SETTINGS, LOCALE, PLATFORM} from '../data';
 import {SUPPORTED_PLATFORMS} from '../constants';
 import {useLogger} from './useLogger';
 
@@ -43,10 +44,17 @@ const addressOptions: ConfigOption[] = [
 
 const additionalOptions: ConfigOption[] = [
   {
+    key: LOCALE,
+    perCarrier: false,
+    validators: [validateIsString()],
+  },
+
+  {
     key: PLATFORM,
     perCarrier: false,
     validators: [validateIsValue(SUPPORTED_PLATFORMS)],
   },
+
   {
     key: CARRIER_SETTINGS,
     perCarrier: false,
@@ -89,11 +97,14 @@ export const validateDeliveryOptionsConfig = (
 
   filteredConfig[CARRIER_SETTINGS] = Object.entries(filteredConfig[CARRIER_SETTINGS] ?? {}).reduce(
     (acc, [identifier, carrierSettings]) => {
-      acc[identifier] = filterConfig(carrierSettings as Record<string, unknown>, configOptionsPerCarrier);
+      acc[identifier as keyof CarrierSettingsObject] = filterConfig(
+        carrierSettings as Record<string, unknown>,
+        configOptionsPerCarrier,
+      );
 
       return acc;
     },
-    {} as Record<string, unknown>,
+    {} as CarrierSettingsObject,
   );
 
   return {

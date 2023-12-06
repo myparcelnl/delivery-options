@@ -3,14 +3,19 @@ import {construct} from 'radash';
 import {defineStore} from 'pinia';
 import {useLocalStorage} from '@vueuse/core';
 import {
+  CARRIER_SETTINGS,
   type DeliveryOptionsAddress,
+  type DeliveryOptionsConfig,
   type InputDeliveryOptionsConfiguration,
+  KEY_ADDRESS,
   KEY_CONFIG,
+  LOCALE,
   PLATFORM,
   type SupportedPlatformName,
 } from '@myparcel-do/shared';
 import {PlatformName} from '@myparcel/constants';
 import {getDefaultSandboxAddress, getDefaultSandboxCarrierSettings, getDefaultSandboxConfig} from '../config';
+import {useLanguage} from '../composables';
 
 const sandboxCarrierSettings = useLocalStorage<Record<string, unknown>>(
   'carrierSettings',
@@ -46,9 +51,16 @@ export const useSandboxStore = defineStore('sandbox', {
 
   getters: {
     resolvedConfiguration(): InputDeliveryOptionsConfiguration {
+      const {language} = useLanguage();
+
       const resolved = toRaw({
-        config: construct({...this.config, carrierSettings: construct(this.carrierSettings)}),
-        address: toRaw(this.address),
+        [KEY_CONFIG]: {
+          ...this.config,
+          [CARRIER_SETTINGS]: construct(this.carrierSettings),
+          [LOCALE]: language.value.code,
+          [PLATFORM]: this.platform,
+        } satisfies DeliveryOptionsConfig,
+        [KEY_ADDRESS]: toRaw(this.address),
       });
 
       return resolved as InputDeliveryOptionsConfiguration;
