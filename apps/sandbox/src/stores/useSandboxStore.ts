@@ -9,6 +9,7 @@ import {
   type InputDeliveryOptionsConfiguration,
   KEY_ADDRESS,
   KEY_CONFIG,
+  KEY_STRINGS,
   LOCALE,
   PLATFORM,
   type SupportedPlatformName,
@@ -51,7 +52,7 @@ export const useSandboxStore = defineStore('sandbox', {
 
   getters: {
     resolvedConfiguration(): InputDeliveryOptionsConfiguration {
-      const {language} = useLanguage();
+      const {language, translations} = useLanguage();
 
       const resolved = toRaw({
         [KEY_CONFIG]: {
@@ -61,6 +62,7 @@ export const useSandboxStore = defineStore('sandbox', {
           [PLATFORM]: this.platform,
         } satisfies DeliveryOptionsConfig,
         [KEY_ADDRESS]: toRaw(this.address),
+        [KEY_STRINGS]: translations.value,
       });
 
       return resolved as InputDeliveryOptionsConfiguration;
