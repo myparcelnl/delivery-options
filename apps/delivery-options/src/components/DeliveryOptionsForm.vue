@@ -7,7 +7,7 @@
 <script lang="ts" setup>
 import {computed, markRaw, watch} from 'vue';
 import {get} from '@vueuse/core';
-import {type InternalOutput} from '@myparcel-do/shared';
+import {DELIVERY_TITLE, type InternalOutput, PICKUP_TITLE} from '@myparcel-do/shared';
 import {createField} from '@myparcel/vue-form-builder';
 import {createDeliveryOptionsForm} from '../form';
 import {useActiveCarriers, useLanguage} from '../composables';
@@ -39,7 +39,7 @@ const HomeOrPickup = createField({
 
       if (resolvedCarriers.some((carrier) => get(carrier.hasDelivery))) {
         options.push({
-          label: translate('homeDelivery'),
+          label: translate(DELIVERY_TITLE),
           value: 'home',
           content: markRaw(HomeDelivery),
         });
@@ -47,7 +47,7 @@ const HomeOrPickup = createField({
 
       if (resolvedCarriers.some((carrier) => get(carrier.hasPickup))) {
         options.push({
-          label: translate('pickup'),
+          label: translate(PICKUP_TITLE),
           value: 'pickup',
           content: markRaw(PickupLocations),
         });

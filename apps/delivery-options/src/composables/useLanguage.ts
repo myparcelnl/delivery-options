@@ -7,7 +7,7 @@ interface UseLanguage {
   locale: Ref<string>;
 
   setStrings(strings: Record<string, string>): void;
-  translate(key: string): string;
+  translate(key: string): undefined | string;
 }
 
 const state = reactive<{
@@ -16,7 +16,11 @@ const state = reactive<{
   strings: {},
 });
 
-const translate = (key: string): string => {
+const translate = (key: string): string | undefined => {
+  if (Object.keys(state.strings).length === 0) {
+    return undefined;
+  }
+
   const translation = get(state.strings, key, undefined);
 
   if (!translation) {
@@ -24,7 +28,7 @@ const translate = (key: string): string => {
     logger.error(`Missing translation: "${key}"`);
   }
 
-  return translation ?? key;
+  return translation;
 };
 
 export const useLanguage = (): UseLanguage => {

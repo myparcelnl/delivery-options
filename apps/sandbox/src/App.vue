@@ -74,4 +74,16 @@ const ready = ref(false);
 const form = computed(() => {
   return formBuilder.getForm('configuration');
 });
+
+// const translations =Object.entries(englishTranslations as Record<string, string>).map(([key, value]) => {
+//   return {
+//     key: (key.replace('field.', 'string_')).replace('.description', '_description'),
+//     value: value.replace('field.', 'string_'),
+//   };
+// });
+//
+// // to csv, escape double quotes
+// console.log(translations.map(({key, value}) => `${key};"${value.replace(/"/g, '""')}"`).join('\n'));
+
+
 </script>

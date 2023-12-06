@@ -19,8 +19,6 @@ export const FROM = 'from';
 
 export const LOAD_MORE = 'loadMore';
 
-export const RETRY = 'retry';
-
 export const PICK_UP = 'pickUp';
 
 export const PICK_UP_FROM = 'pickUpFrom';
@@ -86,7 +84,6 @@ export const ALL_STRINGS = [
   DISCOUNT,
   FROM,
   LOAD_MORE,
-  RETRY,
   PICK_UP,
   PICK_UP_FROM,
   OPENING_HOURS,

@@ -10,7 +10,6 @@ import {
   LOAD_MORE,
   PICKUP_LOCATIONS_LIST_BUTTON,
   PICKUP_LOCATIONS_MAP_BUTTON,
-  RETRY,
   SHOW_PRICES,
   WRONG_NUMBER_POSTAL_CODE,
   WRONG_POSTAL_CODE_CITY,
@@ -59,10 +58,6 @@ export const stringsForm = [
         key: KEY_STRINGS,
         name: FROM,
         conditions: [SHOW_PRICES],
-      },
-      {
-        key: KEY_STRINGS,
-        name: RETRY,
       },
       {
         key: KEY_STRINGS,

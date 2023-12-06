@@ -1,8 +1,9 @@
+import {camel} from 'radash';
 import {get} from '@vueuse/core';
 import {type SelectOption} from '@myparcel-do/shared';
 import {type SelectedDeliveryMoment} from '../types';
 import {SHOWN_SHIPMENT_OPTIONS} from '../constants';
-import {useActiveCarrier} from '../composables';
+import {useActiveCarrier, useLanguage} from '../composables';
 import {getResolvedValue} from './getResolvedValue';
 import {getConfigPriceKey} from './getConfigPriceKey';
 
@@ -15,6 +16,7 @@ export const createShipmentOptionsFromDeliveryMoment = (
     return [];
   }
 
+  const {translate} = useLanguage();
   const resolvedCarrier = useActiveCarrier(carrier);
 
   return SHOWN_SHIPMENT_OPTIONS.filter((option) => {
@@ -27,7 +29,7 @@ export const createShipmentOptionsFromDeliveryMoment = (
     const priceKey = getConfigPriceKey(name);
 
     return {
-      label: name,
+      label: translate(camel(name)),
       value: name,
       disabled: hasOnlyOneOption,
       selected: hasOnlyOneOption ? match?.schema.enum[0] : false,
