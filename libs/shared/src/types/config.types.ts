@@ -23,8 +23,10 @@ export interface FilterableOption {
   items: string[];
 }
 
+type Weekday = 0 | 1 | 2 | 3 | 4 | 5 | 6;
+
 export interface DropOffEntry {
-  day: number;
+  day: `${Weekday}`;
   [CarrierSetting.CutoffTime]: string;
   [CarrierSetting.CutoffTimeSameDay]: string;
 }

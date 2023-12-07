@@ -1,4 +1,5 @@
 export * from './createStorableMap';
+export * from './crushObject';
 export * from './declareDeliveryOption';
 export * from './declareOption';
 export * from './declareOptionWithPrice';

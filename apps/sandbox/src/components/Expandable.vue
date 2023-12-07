@@ -27,18 +27,28 @@ export default {inheritAttrs: false};
 </script>
 
 <script lang="ts" setup>
-import {useVModel} from '@vueuse/core';
+import {computed, ref} from 'vue';
 
 // eslint-disable-next-line vue/no-unused-properties
 const props = defineProps<{title?: string; open?: boolean; manual?: boolean}>();
 
-const isOpen = useVModel(props, 'open');
+const mutableOpen = ref(props.open ?? false);
+
+const isOpen = computed<boolean>({
+  get() {
+    return props.manual ? props.open ?? false : mutableOpen.value;
+  },
+
+  set(value) {
+    mutableOpen.value = value;
+  },
+});
 
 const onClick = () => {
   if (props.manual) {
     return;
   }
 
-  isOpen.value = !isOpen.value;
+  mutableOpen.value = !mutableOpen.value;
 };
 </script>

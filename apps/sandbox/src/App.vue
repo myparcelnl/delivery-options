@@ -21,12 +21,13 @@
             </Box>
 
             <Box>
-              <Expandable class="mp-p-4 mp-text-xs">
+              <Expandable>
                 <template #title>
                   <h3>Resolved configuration</h3>
                 </template>
 
                 <pre
+                  class="mp-text-xs"
                   v-text="{
                     address: sandboxStore.resolvedConfiguration.address ?? {},
                     config: sandboxStore.resolvedConfiguration.config ?? {},
@@ -84,6 +85,4 @@ const form = computed(() => {
 //
 // // to csv, escape double quotes
 // console.log(translations.map(({key, value}) => `${key};"${value.replace(/"/g, '""')}"`).join('\n'));
-
-
 </script>

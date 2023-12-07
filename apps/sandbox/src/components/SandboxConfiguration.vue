@@ -18,8 +18,7 @@
 
 <script lang="ts" setup>
 import {computed, markRaw, reactive, toRef, watch} from 'vue';
-import {crush} from 'radash';
-import {type SupportedPlatformName} from '@myparcel-do/shared';
+import {crushObject, type SupportedPlatformName} from '@myparcel-do/shared';
 import {type CreatedForm, createForm} from '@myparcel/vue-form-builder';
 import {useSandboxStore} from '../stores';
 import {useCurrentPlatform, useLanguage} from '../composables';
@@ -47,7 +46,7 @@ const renderForPlatform = (platform: SupportedPlatformName): CreatedForm => {
         wrapper: FieldWrapper,
       },
 
-      initialValues: {...crush(sandboxStore.resolvedConfiguration)},
+      initialValues: {...crushObject(sandboxStore.resolvedConfiguration)},
     }),
   );
 };

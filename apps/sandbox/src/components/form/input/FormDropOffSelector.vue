@@ -46,28 +46,27 @@ const model = computed<InternalEntryObject>({
     }, {});
   },
 
-  set(value: InternalEntryObject) {
-    const entries = Object.entries(value).map(([day, entry]) => ({...(entry as DropOffEntry), day: Number(day)}));
-
+  set(entries: DropOffEntry[]) {
     emit('update:modelValue', entries);
   },
 });
 
 const weekdays = useWeekdays();
 
-const days = ref(props.modelValue.map((entry) => String(entry.day)));
-
-const createWeekdaysObject = (defaultValue: string) => {
+const createWeekdaysObject = (key: string, defaultValue: string) => {
   return reactive(
-    weekdays.value.reduce((acc, _, index) => {
-      acc[index] = ref(defaultValue);
+    weekdays.value.reduce((acc, _, weekday) => {
+      const value = props.modelValue.find((entry) => entry.day === String(weekday))?.[key];
+
+      acc[weekday] = ref(value ?? defaultValue);
       return acc;
     }, {}),
   );
 };
 
-const cutoffTimes = toRefs(createWeekdaysObject('16:00'));
-const sameDayCutoffTimes = toRefs(createWeekdaysObject('09:00'));
+const days = ref(props.modelValue.map((entry) => String(entry.day)));
+const cutoffTimes = toRefs(createWeekdaysObject(CarrierSetting.CutoffTime, '16:00'));
+const sameDayCutoffTimes = toRefs(createWeekdaysObject(CarrierSetting.CutoffTimeSameDay, '09:00'));
 
 const weekdayOptions = computed<SelectOption[]>(() =>
   weekdays.value.map((weekday, index) => ({
