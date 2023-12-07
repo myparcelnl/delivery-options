@@ -22,6 +22,9 @@ const section = formSection({
       key: KEY_STRINGS,
       name: key,
       component: FormTextInput,
+      attributes: {
+        autocomplete: 'off',
+      },
     }),
   ),
 });
