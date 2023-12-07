@@ -3,6 +3,7 @@ import {get} from '@vueuse/core';
 import {
   type CarrierIdentifier,
   getCarrierConfiguration,
+  getConfigKey,
   resolveCarrierName,
   type SupportedDeliveryTypeName,
   type SupportedPackageTypeName,
@@ -14,7 +15,6 @@ import {DeliveryTypeName} from '@myparcel/constants';
 import {type ResolvedCarrier} from '../types';
 import {useAddressStore} from '../stores';
 import {getResolvedValue} from './getResolvedValue';
-import {getConfigKey} from './getConfigKey';
 
 const resolveOption = (
   packageType: SupportedPackageTypeName | SupportedDeliveryTypeName | SupportedShipmentOptionName,

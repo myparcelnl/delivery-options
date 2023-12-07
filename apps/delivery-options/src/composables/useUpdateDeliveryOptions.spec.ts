@@ -3,7 +3,6 @@ import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest';
 import {createPinia, setActivePinia} from 'pinia';
 import {type InternalOutput} from '@myparcel-do/shared';
 import {convertOutput} from '../utils';
-import {useDeliveryOptionsStore} from '../stores';
 import {useDeliveryOptionsOutgoingEvents} from './useDeliveryOptionsOutgoingEvents';
 
 /**

@@ -1,5 +1,5 @@
 import {useMemoize} from '@vueuse/core';
-import {validateDropOffDays, validateIsInRange} from '../validator';
+import {validateIsInRange} from '../validator';
 import {type ConfigOption} from '../types';
 import {OptionType} from '../enums';
 import {
@@ -14,18 +14,15 @@ import {
   ALLOW_SAME_DAY_DELIVERY,
   ALLOW_SATURDAY_DELIVERY,
   ALLOW_SIGNATURE,
-  CUTOFF_TIME_SAME_DAY,
   DELIVERY_DAYS_WINDOW,
   DELIVERY_DAYS_WINDOW_MAX,
   DELIVERY_DAYS_WINDOW_MIN,
-  DROP_OFF_DAYS,
   DROP_OFF_DELAY,
   DROP_OFF_DELAY_MAX,
   DROP_OFF_DELAY_MIN,
   FEATURE_PICKUP_LOCATIONS_DEFAULT_VIEW,
   FEATURE_PICKUP_SHOW_DISTANCE,
   FEATURE_SHOW_DELIVERY_DATE,
-  FRIDAY_CUTOFF_TIME,
   PICKUP_LOCATIONS_MAP_TILE_LAYER_DATA,
   PRICE_EVENING_DELIVERY,
   PRICE_MONDAY_DELIVERY,
@@ -38,17 +35,15 @@ import {
   PRICE_SATURDAY_DELIVERY,
   PRICE_SIGNATURE,
   PRICE_STANDARD_DELIVERY,
-  SATURDAY_CUTOFF_TIME,
 } from '../data';
 import {declareOptionWithPrice} from './declareOptionWithPrice';
 import {declareOption} from './declareOption';
-import {declareDeliveryOption} from './declareDeliveryOption';
 
 // eslint-disable-next-line max-lines-per-function
 export const getAllConfigOptions = useMemoize((): ConfigOption[] => [
-  ...declareDeliveryOption(ALLOW_SAME_DAY_DELIVERY, PRICE_SAME_DAY_DELIVERY, CUTOFF_TIME_SAME_DAY),
-  ...declareDeliveryOption(ALLOW_MONDAY_DELIVERY, PRICE_MONDAY_DELIVERY, SATURDAY_CUTOFF_TIME),
-  ...declareDeliveryOption(ALLOW_SATURDAY_DELIVERY, PRICE_SATURDAY_DELIVERY, FRIDAY_CUTOFF_TIME),
+  ...declareOptionWithPrice(ALLOW_SAME_DAY_DELIVERY, PRICE_SAME_DAY_DELIVERY),
+  ...declareOptionWithPrice(ALLOW_MONDAY_DELIVERY, PRICE_MONDAY_DELIVERY),
+  ...declareOptionWithPrice(ALLOW_SATURDAY_DELIVERY, PRICE_SATURDAY_DELIVERY),
 
   ...declareOptionWithPrice({key: ALLOW_DELIVERY_OPTIONS, perCarrier: true}, PRICE_STANDARD_DELIVERY),
 
@@ -61,12 +56,6 @@ export const getAllConfigOptions = useMemoize((): ConfigOption[] => [
   ...declareOptionWithPrice(ALLOW_SIGNATURE, PRICE_SIGNATURE),
 
   declareOption({
-    key: DROP_OFF_DAYS,
-    type: OptionType.MultiSelect,
-    validators: [validateDropOffDays()],
-  }),
-
-  declareOption({
     key: DROP_OFF_DELAY,
     type: OptionType.Number,
     validators: [validateIsInRange(DROP_OFF_DELAY_MIN, DROP_OFF_DELAY_MAX)],
@@ -76,11 +65,6 @@ export const getAllConfigOptions = useMemoize((): ConfigOption[] => [
     key: DELIVERY_DAYS_WINDOW,
     type: OptionType.Number,
     validators: [validateIsInRange(DELIVERY_DAYS_WINDOW_MIN, DELIVERY_DAYS_WINDOW_MAX)],
-  }),
-
-  declareOption({
-    key: CUTOFF_TIME_SAME_DAY,
-    type: OptionType.Time,
   }),
 
   declareOption({

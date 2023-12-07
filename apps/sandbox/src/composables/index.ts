@@ -5,3 +5,4 @@ export * from './useCurrentCountry';
 export * from './useCurrentPlatform';
 export * from './useElInputClasses';
 export * from './useLanguage';
+export * from './useWeekdays';

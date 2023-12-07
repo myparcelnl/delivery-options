@@ -1,12 +1,11 @@
 import {type Component} from 'vue';
-import {type RecursiveRequired} from '@myparcel/ts-utils';
 import {
   type CarrierName,
   type DeliveryTypeName,
   type PackageTypeName,
   type ShipmentOptionName,
 } from '@myparcel/constants';
-import {type CarrierSetting, type ComponentName, type OptionType, type PickupLocationsView} from '../enums';
+import {type ComponentName, type OptionType, type PickupLocationsView} from '../enums';
 import {type AnyConfigKey, type SupportedPlatformName} from './platform.types';
 import {type SelectOption} from './options.types';
 import {type DeliveryOptionsAddress} from './address.types';
@@ -23,12 +22,12 @@ export interface FilterableOption {
   items: string[];
 }
 
-type Weekday = 0 | 1 | 2 | 3 | 4 | 5 | 6;
+export type Weekday = 0 | 1 | 2 | 3 | 4 | 5 | 6;
 
 export interface DropOffEntry {
+  cutoffTime?: string;
+  cutoffTimeSameDay?: string;
   day: `${Weekday}`;
-  [CarrierSetting.CutoffTime]: string;
-  [CarrierSetting.CutoffTimeSameDay]: string;
 }
 
 export type DeliveryOptionsStrings = Record<string, string>;
@@ -39,15 +38,7 @@ export type TimestampString = `${number}:${number}` | string;
 
 export type Price = number | null;
 
-// interface BeCarrierSettings extends BaseCarrierSettings {
-//   allowSaturdayDelivery?: boolean;
-//   fridayCutoffTime?: TimestampString;
-// }
-//
-// interface NlCarrierSettings extends BaseCarrierSettings {
-//   allowMondayDelivery?: boolean;
-//   saturdayCutoffTime?: TimestampString;
-// }
+export interface InputCarrierSettings extends CarrierSettings, DeprecatedConfigOptions {}
 
 export interface CarrierSettings {
   allowDeliveryOptions?: boolean | FilterableOption;
@@ -61,17 +52,11 @@ export interface CarrierSettings {
   allowPickupLocations?: boolean | FilterableOption;
   allowSameDayDelivery?: boolean;
   allowSaturdayDelivery?: boolean;
-  /** @deprecated use ShowDeliveryDate instead */
-  allowShowDeliveryDate?: boolean;
   allowSignature?: boolean;
   allowStandardDelivery?: boolean | FilterableOption;
-  cutoffTime?: TimestampString;
-  cutoffTimeSameDay?: TimestampString;
   deliveryDaysWindow?: number;
-  dropOffDays?: number[];
   dropOffDelay?: number;
   dropOffPossibilities?: DropOffEntry[];
-  fridayCutoffTime?: TimestampString;
   packageType?: PackageTypeName;
   priceEveningDelivery?: Price;
   priceMondayDelivery?: Price;
@@ -84,9 +69,10 @@ export interface CarrierSettings {
   priceSaturdayDelivery?: Price;
   priceSignature?: Price;
   priceStandardDelivery?: Price;
-  saturdayCutoffTime?: TimestampString;
   showDeliveryDate?: boolean;
 }
+
+export type InputCarrierSettingsObject = Partial<Record<CarrierIdentifier, InputCarrierSettings>>;
 
 export type CarrierSettingsObject = Partial<Record<CarrierIdentifier, CarrierSettings>>;
 
@@ -113,25 +99,41 @@ export interface DeliveryOptionsConfig extends CarrierSettings {
   showPrices?: boolean;
 }
 
+export interface DeprecatedConfigOptions {
+  /** @deprecated use ShowDeliveryDate instead */
+  allowShowDeliveryDate?: boolean;
+  /** @deprecated use dropOffPossibilities instead */
+  cutoffTime?: TimestampString;
+  /** @deprecated use dropOffPossibilities instead */
+  cutoffTimeSameDay?: TimestampString;
+  /** @deprecated use dropOffPossibilities instead */
+  dropOffDays?: Weekday[] | string;
+  /** @deprecated use dropOffPossibilities instead */
+  fridayCutoffTime?: TimestampString;
+  /** @deprecated use dropOffPossibilities instead */
+  saturdayCutoffTime?: TimestampString;
+}
+
+/**
+ * Includes deprecated options which will be filtered out.
+ */
+export interface InputDeliveryOptionsConfig extends DeliveryOptionsConfig, DeprecatedConfigOptions {
+  carrierSettings?: InputCarrierSettingsObject;
+}
+
 export interface DeliveryOptionsConfiguration {
   address: DeliveryOptionsAddress;
   config: DeliveryOptionsConfig;
-  initial?: Partial<DeliveryOptionsOutput>;
+  initial: Partial<DeliveryOptionsOutput>;
   strings: DeliveryOptionsStrings;
 }
 
 export interface InputDeliveryOptionsConfiguration {
   address: DeliveryOptionsAddress;
   components: Partial<Record<ComponentName, Component>>;
-  config: DeliveryOptionsConfig;
+  config: InputDeliveryOptionsConfig;
   initial?: Partial<DeliveryOptionsOutput>;
   strings?: DeliveryOptionsStrings;
-}
-
-export interface ResolvedDeliveryOptionsConfiguration {
-  address: RecursiveRequired<DeliveryOptionsAddress>;
-  config: RecursiveRequired<DeliveryOptionsConfig>;
-  strings: RecursiveRequired<DeliveryOptionsStrings>;
 }
 
 interface ShipmentOptionsOutput {

@@ -1,8 +1,7 @@
 import {computed, type MaybeRef} from 'vue';
 import {get} from '@vueuse/core';
 import {type ComputedRef} from '@vue/reactivity';
-import {getConfigKey} from '@myparcel/delivery-options/ts';
-import {getPlatformConfig} from '../utils';
+import {getConfigKey, getPlatformConfig} from '../utils';
 import {type PlatformOptions, type SupportedPlatformName} from '../types';
 
 export interface ResolvedPlatform {

@@ -1,4 +1,16 @@
 import {
+  AddressField,
+  CARRIER_SETTINGS,
+  type CarrierSettingsObject,
+  type ConfigOption,
+  type DeliveryOptionsConfig,
+  type DeliveryOptionsConfiguration,
+  DROP_OFF_POSSIBILITIES,
+  getAllConfigOptions,
+  type InputDeliveryOptionsConfiguration,
+  LOCALE,
+  PLATFORM,
+  SUPPORTED_PLATFORMS,
   validateDropOffPossibilities,
   validateHasMinKeys,
   validateIsCountryCode,
@@ -6,19 +18,9 @@ import {
   validateIsObject,
   validateIsString,
   validateIsValue,
-} from '../validator';
-import {getAllConfigOptions} from '../utils';
-import {
-  type CarrierSettingsObject,
-  type ConfigOption,
-  type DeliveryOptionsConfig,
-  type DeliveryOptionsConfiguration,
-  type InputDeliveryOptionsConfiguration,
-} from '../types';
-import {AddressField} from '../enums';
-import {CARRIER_SETTINGS, DROP_OFF_POSSIBILITIES, LOCALE, PLATFORM} from '../data';
-import {SUPPORTED_PLATFORMS} from '../constants';
-import {useLogger} from './useLogger';
+} from '@myparcel-do/shared';
+import {handleDeprecatedOptions} from './handleDeprecatedOptions';
+import {filterConfig} from './filterConfig';
 
 const addressOptions: ConfigOption[] = [
   {
@@ -68,45 +70,17 @@ const additionalOptions: ConfigOption[] = [
   },
 ];
 
-const filterConfig = <T>(input: object, allOptions: ConfigOption[]): T => {
-  const logger = useLogger();
-
-  return Object.entries(input).reduce((acc, [key, value]) => {
-    const option = allOptions.find((option) => option.key === key);
-
-    if (!option) {
-      logger.error(`⚠️ Unknown config option: ${key}`);
-      return acc;
-    }
-
-    const validators = option?.validators ?? [];
-
-    const errors = validators.filter((entry) => !entry.validate(value)).map((entry) => entry.error);
-
-    if (errors.length) {
-      logger.error(`❌ [${key}]`, errors.join(', '), {value});
-    } else {
-      acc[key as keyof T] = validators.reduce((acc, item) => item.parse?.(acc) ?? acc, value);
-    }
-
-    return acc;
-  }, {} as T);
-};
-
-export const validateDeliveryOptionsConfig = (
-  input: InputDeliveryOptionsConfiguration,
-): DeliveryOptionsConfiguration => {
+export const validateConfig = (input: InputDeliveryOptionsConfiguration): DeliveryOptionsConfiguration => {
   const configOptions: ConfigOption[] = [...getAllConfigOptions(), ...additionalOptions];
   const configOptionsPerCarrier = configOptions.filter((option) => option.perCarrier !== false);
 
-  const filteredConfig = filterConfig<DeliveryOptionsConfig>(input.config, configOptions);
+  const filteredConfig = filterConfig<DeliveryOptionsConfig>(handleDeprecatedOptions(input.config), configOptions);
 
   filteredConfig[CARRIER_SETTINGS] = Object.entries(filteredConfig[CARRIER_SETTINGS] ?? {}).reduce(
     (acc, [identifier, carrierSettings]) => {
-      acc[identifier as keyof CarrierSettingsObject] = filterConfig(
-        carrierSettings as Record<string, unknown>,
-        configOptionsPerCarrier,
-      );
+      const resolved = handleDeprecatedOptions(carrierSettings ?? {});
+
+      acc[identifier as keyof CarrierSettingsObject] = filterConfig(resolved, configOptionsPerCarrier);
 
       return acc;
     },

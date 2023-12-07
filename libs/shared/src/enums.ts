@@ -10,17 +10,11 @@ export enum CarrierSetting {
   AllowPickupLocations = 'allowPickupLocations',
   AllowSameDayDelivery = 'allowSameDayDelivery',
   AllowSaturdayDelivery = 'allowSaturdayDelivery',
-  /** @deprecated use ShowDeliveryDate instead */
-  AllowShowDeliveryDate = 'allowShowDeliveryDate',
   AllowSignature = 'allowSignature',
   AllowStandardDelivery = 'allowStandardDelivery',
-  CutoffTime = 'cutoffTime',
-  CutoffTimeSameDay = 'cutoffTimeSameDay',
   DeliveryDaysWindow = 'deliveryDaysWindow',
-  DropOffDays = 'dropOffDays',
   DropOffDelay = 'dropOffDelay',
   DropOffPossibilities = 'dropOffPossibilities',
-  FridayCutoffTime = 'fridayCutoffTime',
   PackageType = 'packageType',
   PriceEveningDelivery = 'priceEveningDelivery',
   PriceMondayDelivery = 'priceMondayDelivery',
@@ -33,8 +27,21 @@ export enum CarrierSetting {
   PriceSaturdayDelivery = 'priceSaturdayDelivery',
   PriceSignature = 'priceSignature',
   PriceStandardDelivery = 'priceStandardDelivery',
-  SaturdayCutoffTime = 'saturdayCutoffTime',
   ShowDeliveryDate = 'showDeliveryDate',
+
+  /** @deprecated use ShowDeliveryDate instead */
+  AllowShowDeliveryDate = 'allowShowDeliveryDate',
+
+  /** @deprecated use DropOffPossibilities instead */
+  CutoffTime = 'cutoffTime',
+  /** @deprecated use DropOffPossibilities instead */
+  CutoffTimeSameDay = 'cutoffTimeSameDay',
+  /** @deprecated use DropOffPossibilities instead */
+  DropOffDays = 'dropOffDays',
+  /** @deprecated use DropOffPossibilities instead */
+  FridayCutoffTime = 'fridayCutoffTime',
+  /** @deprecated use DropOffPossibilities instead */
+  SaturdayCutoffTime = 'saturdayCutoffTime',
 }
 
 export enum ConfigSetting {

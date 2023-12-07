@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
-import {CarrierSetting} from '@myparcel-do/shared';
 import {type DeliveryOption} from '@myparcel/sdk';
 import {type FakeDeliveryOptionsParameters} from '../../types';
+import {CarrierSetting} from '../../../enums';
 import {useFullCarrier} from '../../../composables';
 import {shouldSkipToNextDeliveryDate} from './shouldSkipToNextDeliveryDate';
 import {findExtraDelivery} from './findExtraDelivery';

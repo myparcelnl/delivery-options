@@ -1,15 +1,12 @@
-import {useConfigStore} from '@myparcel/delivery-options/ts';
 import {type CarrierIdentifier, type CarrierOptions, type SupportedPlatformName} from '../types';
 import {resolveCarrierName} from './resolveCarrierName';
 import {getPlatformConfig} from './getPlatformConfig';
 
 export const getCarrierConfiguration = (
   carrierIdentifier: CarrierIdentifier,
-  platform?: SupportedPlatformName,
+  platform: SupportedPlatformName,
 ): CarrierOptions => {
-  const config = useConfigStore();
-
-  const platformConfig = getPlatformConfig(platform ?? config.platform);
+  const platformConfig = getPlatformConfig(platform);
   const carrierName = resolveCarrierName(carrierIdentifier);
 
   const foundCarrier = platformConfig?.carriers.find((carrier) => carrier.name === carrierName);

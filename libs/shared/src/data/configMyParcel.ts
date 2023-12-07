@@ -1,5 +1,4 @@
 // eslint-disable-next-line max-lines-per-function
-import {AddressField, CarrierSetting, type PlatformOptions, SubscriptionType} from '@myparcel-do/shared';
 import {
   AUSTRIA,
   BELGIUM,
@@ -30,6 +29,8 @@ import {
   UNITED_KINGDOM,
 } from '@myparcel/constants/countries';
 import {CarrierName, DeliveryTypeName, PackageTypeName, ShipmentOptionName} from '@myparcel/constants';
+import {type PlatformOptions} from '../types';
+import {AddressField, CarrierSetting, SubscriptionType} from '../enums';
 
 export const configMyParcel = (): PlatformOptions => {
   return {
@@ -48,11 +49,10 @@ export const configMyParcel = (): PlatformOptions => {
         pickupCountries: [NETHERLANDS, BELGIUM],
         shipmentOptions: [ShipmentOptionName.OnlyRecipient, ShipmentOptionName.Signature],
         features: [
-          CarrierSetting.ShowDeliveryDate,
           CarrierSetting.DeliveryDaysWindow,
-          CarrierSetting.DropOffDays,
           CarrierSetting.DropOffDelay,
-          CarrierSetting.CutoffTime,
+          CarrierSetting.DropOffPossibilities,
+          CarrierSetting.ShowDeliveryDate,
         ],
         addressFields: [AddressField.PostalCode, AddressField.Street, AddressField.City],
       },
@@ -66,10 +66,9 @@ export const configMyParcel = (): PlatformOptions => {
         shipmentOptions: [ShipmentOptionName.OnlyRecipient, ShipmentOptionName.Signature],
         features: [
           CarrierSetting.AllowSameDayDelivery,
-          CarrierSetting.CutoffTime,
           CarrierSetting.DeliveryDaysWindow,
-          CarrierSetting.DropOffDays,
           CarrierSetting.DropOffDelay,
+          CarrierSetting.DropOffPossibilities,
         ],
         addressFields: [AddressField.City, AddressField.PostalCode],
       },
@@ -247,7 +246,7 @@ export const configMyParcel = (): PlatformOptions => {
           SPAIN,
           UNITED_KINGDOM,
         ],
-        features: [CarrierSetting.DropOffDays, CarrierSetting.DropOffDelay, CarrierSetting.CutoffTime],
+        features: [CarrierSetting.DropOffPossibilities, CarrierSetting.DropOffDelay],
         addressFields: [AddressField.PostalCode, AddressField.Street, AddressField.City],
       },
     ],

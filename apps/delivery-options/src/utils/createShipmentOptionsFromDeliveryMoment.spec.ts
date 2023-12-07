@@ -4,7 +4,7 @@ import {ALLOW_ONLY_RECIPIENT, ALLOW_SIGNATURE, KEY_CONFIG} from '@myparcel-do/sh
 import {type ShipmentOptionName} from '@myparcel/constants';
 import {useCarrierSettings} from '../composables';
 import {mockDeliveryOption, mockDeliveryOptionsConfig} from '../__tests__';
-import {getShipmentOptionConfigMap} from './getShipmentOptionConfigMap';
+import {getShipmentOptionConfigMap} from '../../../../libs/shared/src/utils/getShipmentOptionConfigMap';
 import {createShipmentOptionsFromDeliveryMoment} from './createShipmentOptionsFromDeliveryMoment';
 
 describe('createShipmentOptionsFromDeliveryMoment', () => {

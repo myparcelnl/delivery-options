@@ -1,5 +1,6 @@
 export * from './defineValidator';
 export * from './strings';
+export * from './validateDropOffPossibilities';
 export * from './validateHasMinKeys';
 export * from './validateIsBoolean';
 export * from './validateIsCountryCode';
@@ -11,6 +12,3 @@ export * from './validateIsString';
 export * from './validateIsTime';
 export * from './validateIsValue';
 export * from './validateMatch';
-export {validateDropOffDays} from './validateDropOffDays';
-
-export {validateDropOffPossibilities} from './validateDropOffPossibilities';

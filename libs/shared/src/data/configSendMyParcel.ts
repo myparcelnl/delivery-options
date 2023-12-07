@@ -1,4 +1,3 @@
-import {AddressField, CarrierSetting, type PlatformOptions, SubscriptionType} from '@myparcel-do/shared';
 import {
   AUSTRIA,
   BELGIUM,
@@ -28,6 +27,8 @@ import {
   UNITED_KINGDOM,
 } from '@myparcel/constants/countries';
 import {CarrierName, DeliveryTypeName, PackageTypeName, ShipmentOptionName} from '@myparcel/constants';
+import {type PlatformOptions} from '../types';
+import {AddressField, CarrierSetting, SubscriptionType} from '../enums';
 
 export const configSendMyParcel = (): PlatformOptions => {
   return {
@@ -42,9 +43,8 @@ export const configSendMyParcel = (): PlatformOptions => {
         features: [
           CarrierSetting.ShowDeliveryDate,
           CarrierSetting.DeliveryDaysWindow,
-          CarrierSetting.DropOffDays,
+          CarrierSetting.DropOffPossibilities,
           CarrierSetting.DropOffDelay,
-          CarrierSetting.CutoffTime,
         ],
         addressFields: [AddressField.PostalCode, AddressField.Street, AddressField.City],
         shipmentOptions: [ShipmentOptionName.OnlyRecipient, ShipmentOptionName.Signature],
@@ -60,9 +60,8 @@ export const configSendMyParcel = (): PlatformOptions => {
         features: [
           CarrierSetting.ShowDeliveryDate,
           CarrierSetting.DeliveryDaysWindow,
-          CarrierSetting.DropOffDays,
+          CarrierSetting.DropOffPossibilities,
           CarrierSetting.DropOffDelay,
-          CarrierSetting.CutoffTime,
         ],
       },
       {

@@ -1,6 +1,6 @@
 import {type CarrierIdentifier} from '@myparcel-do/shared';
 import {type ShipmentOptionName} from '@myparcel/constants';
-import {getShipmentOptionConfigMap} from './getShipmentOptionConfigMap';
+import {getShipmentOptionConfigMap} from '../../../../libs/shared/src/utils/getShipmentOptionConfigMap';
 import {getResolvedValue} from './getResolvedValue';
 
 export const hasShipmentOption = (name: ShipmentOptionName, carrier?: CarrierIdentifier): boolean => {

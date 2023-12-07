@@ -1,6 +1,6 @@
 import {computed} from 'vue';
 import {type ComputedRef} from '@vue/reactivity';
-import {useLanguage} from '@myparcel/delivery-options/ts';
+import {useLanguage} from './useLanguage';
 
 export const useWeekdays = (): ComputedRef<string[]> => {
   const language = useLanguage();
@@ -10,7 +10,7 @@ export const useWeekdays = (): ComputedRef<string[]> => {
       const date = new Date(0);
       date.setDate(i + 5);
 
-      return date.toLocaleDateString(language.locale.value, {weekday: 'long'});
+      return date.toLocaleDateString(language.language.value.code, {weekday: 'long'});
     });
   });
 };

@@ -21,6 +21,7 @@ export enum LogLevel {
 const logLevel = useLocalStorage('logLevel', import.meta.env.PROD ? LogLevel.Off : LogLevel.Debug, {
   writeDefaults: false,
 });
+
 export const useLogger = useMemoize((): LoggerInstance => {
   const debug = (...messages: ConsoleMessages): void => {
     if (logLevel.value < LogLevel.Debug) {

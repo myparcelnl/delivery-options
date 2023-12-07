@@ -6,7 +6,8 @@ import {
   useLogger,
 } from '@myparcel-do/shared';
 import {isOfType} from '@myparcel/ts-utils';
-import {getConfigFromWindow, setConfiguration} from '../utils';
+import {getConfigFromWindow} from '../utils';
+import {setConfiguration} from '../config';
 
 export const useDeliveryOptionsIncomingEvents = (): void => {
   const logger = useLogger();
