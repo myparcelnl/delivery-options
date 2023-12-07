@@ -12,3 +12,5 @@ export * from './validateIsTime';
 export * from './validateIsValue';
 export * from './validateMatch';
 export {validateDropOffDays} from './validateDropOffDays';
+
+export {validateDropOffPossibilities} from './validateDropOffPossibilities';

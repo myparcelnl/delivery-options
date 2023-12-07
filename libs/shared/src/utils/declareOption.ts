@@ -1,15 +1,18 @@
 import {validateIsBoolean, validateIsNumeric, validateIsString, validateIsTime} from '../validator';
-import {type ConfigOption} from '../types';
+import {type AnyConfigKey, type ConfigOption, type ResolvedConfigOption} from '../types';
 import {OptionType} from '../enums';
+import {resolveConfigOption} from './resolveConfigOption';
 
-export const defineOption = <O extends ConfigOption>(option: O): O => {
+export const declareOption = <O extends AnyConfigKey | ConfigOption>(option: O): ResolvedConfigOption<O> => {
+  const configOption = resolveConfigOption(option);
+
   const resolvedOption = {
     validators: [],
     type: OptionType.Boolean,
-    ...option,
+    ...configOption,
   };
 
-  switch (option.type) {
+  switch (configOption.type) {
     case OptionType.Number:
       resolvedOption.validators.push(validateIsNumeric());
       break;

@@ -1,6 +1,6 @@
 <template>
   <SandboxTextInput
-    v-model="model"
+    v-model.lazy.trim="model"
     :class="classes"
     v-bind="elementProps" />
 </template>

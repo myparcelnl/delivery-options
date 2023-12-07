@@ -51,12 +51,10 @@ export const useSandboxStore = defineStore('sandbox', {
   },
 
   getters: {
-    resolvedConfiguration(): InputDeliveryOptionsConfiguration {
+    resolvedConfiguration(): Omit<InputDeliveryOptionsConfiguration, 'components'> {
       const {language, strings} = useLanguage();
 
-      console.log({strings});
-
-      const resolved = toRaw({
+      return toRaw({
         [KEY_CONFIG]: {
           ...this.config,
           [CARRIER_SETTINGS]: construct(this.carrierSettings),
@@ -64,10 +62,8 @@ export const useSandboxStore = defineStore('sandbox', {
           [PLATFORM]: this.platform,
         } satisfies DeliveryOptionsConfig,
         [KEY_ADDRESS]: toRaw(this.address),
-        [KEY_STRINGS]: strings,
+        [KEY_STRINGS]: strings.value,
       });
-
-      return resolved as InputDeliveryOptionsConfiguration;
     },
   },
 });

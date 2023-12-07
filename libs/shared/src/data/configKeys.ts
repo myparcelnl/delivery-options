@@ -45,6 +45,8 @@ export const DROP_OFF_DAYS = CarrierSetting.DropOffDays satisfies keyof Delivery
 
 export const DROP_OFF_DELAY = CarrierSetting.DropOffDelay satisfies keyof DeliveryOptionsConfig;
 
+export const DROP_OFF_POSSIBILITIES = CarrierSetting.DropOffPossibilities satisfies keyof DeliveryOptionsConfig;
+
 export const PRICE_EVENING_DELIVERY = CarrierSetting.PriceEveningDelivery satisfies keyof DeliveryOptionsConfig;
 
 export const PRICE_MORNING_DELIVERY = CarrierSetting.PriceMorningDelivery satisfies keyof DeliveryOptionsConfig;

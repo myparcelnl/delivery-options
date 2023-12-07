@@ -6,7 +6,7 @@ import {
   type PackageTypeName,
   type ShipmentOptionName,
 } from '@myparcel/constants';
-import {type ComponentName, type OptionType, type PickupLocationsView} from '../enums';
+import {type CarrierSetting, type ComponentName, type OptionType, type PickupLocationsView} from '../enums';
 import {type AnyConfigKey, type SupportedPlatformName} from './platform.types';
 import {type SelectOption} from './options.types';
 import {type DeliveryOptionsAddress} from './address.types';
@@ -21,6 +21,12 @@ interface MapTileLayerData {
 export interface FilterableOption {
   allow: boolean;
   items: string[];
+}
+
+export interface DropOffEntry {
+  day: number;
+  [CarrierSetting.CutoffTime]: string;
+  [CarrierSetting.CutoffTimeSameDay]: string;
 }
 
 export type DeliveryOptionsStrings = Record<string, string>;
@@ -62,6 +68,7 @@ export interface CarrierSettings {
   deliveryDaysWindow?: number;
   dropOffDays?: number[];
   dropOffDelay?: number;
+  dropOffPossibilities?: DropOffEntry[];
   fridayCutoffTime?: TimestampString;
   packageType?: PackageTypeName;
   priceEveningDelivery?: Price;
@@ -185,14 +192,21 @@ export type RelatedConfigOption = {
   key: string;
 };
 
-export interface ConfigOption<T extends OptionType = OptionType> {
-  key: string;
-  parents?: string[];
+export interface BaseConfigOption<T extends OptionType = OptionType> {
+  key: AnyConfigKey | string;
+  parents?: AnyConfigKey[];
   perCarrier?: boolean;
   related?: RelatedConfigOption[];
   type?: T;
   validators?: CustomValidator[];
 }
+
+export interface SelectConfigOption extends BaseConfigOption {
+  options: SelectOption[];
+  type: OptionType.Select | OptionType.MultiSelect;
+}
+
+export type ConfigOption = BaseConfigOption | SelectConfigOption;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface CustomValidator<T1 = any, T2 = T1> {
@@ -208,3 +222,5 @@ export interface CustomValidator<T1 = any, T2 = T1> {
    */
   validate(value: T1): boolean;
 }
+
+export type ResolvedConfigOption<O extends AnyConfigKey | ConfigOption> = O extends ConfigOption ? O : ConfigOption;

@@ -10,14 +10,10 @@ import {
   ALLOW_SAME_DAY_DELIVERY,
   ALLOW_SATURDAY_DELIVERY,
   ALLOW_SIGNATURE,
-  CUTOFF_TIME_SAME_DAY,
-  DELIVERY_DAYS_WINDOW,
-  DROP_OFF_DAYS,
-  DROP_OFF_DELAY,
   KEY_CONFIG,
   OptionGroup,
 } from '@myparcel-do/shared';
-import {type SettingsSection} from '../types';
+import {type SandboxOptionGroup, type SettingsSection} from '../types';
 import {resolveSandboxSection} from './resolveSandboxSection';
 
 const CONFIG_GROUPS = Object.freeze([
@@ -45,12 +41,7 @@ const CONFIG_GROUPS = Object.freeze([
     name: OptionGroup.Pickup,
     items: [ALLOW_PICKUP_LOCATIONS],
   },
-
-  {
-    name: OptionGroup.DropOff,
-    items: [DROP_OFF_DAYS, DROP_OFF_DELAY, DELIVERY_DAYS_WINDOW, CUTOFF_TIME_SAME_DAY],
-  },
-]);
+] satisfies SandboxOptionGroup[]);
 
 export const getConfigSandboxSections = (prefix?: string): SettingsSection[] => {
   return CONFIG_GROUPS.map((group) => resolveSandboxSection(group, KEY_CONFIG + (prefix ? `.${prefix}` : '')));

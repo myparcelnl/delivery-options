@@ -1,6 +1,6 @@
 <template>
   <TextInput
-    v-model="model"
+    v-model.lazy="model"
     type="time"
     v-bind="$props" />
 </template>

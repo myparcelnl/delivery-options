@@ -1,6 +1,6 @@
 <template>
   <SandboxNumberInput
-    v-model="model"
+    v-model.lazy.number="model"
     :class="classes"
     v-bind="elementProps" />
 </template>

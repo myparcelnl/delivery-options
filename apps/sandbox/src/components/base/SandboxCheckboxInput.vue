@@ -1,5 +1,6 @@
 <template>
-  <label
+  <component
+    :is="wrapper"
     :class="{
       'mp-opacity-50': disabled,
     }"
@@ -34,7 +35,7 @@
     <span class="mp-ml-2">
       <slot />
     </span>
-  </label>
+  </component>
 </template>
 
 <script generic="T extends CheckboxModelValue" lang="ts" setup>
@@ -43,7 +44,7 @@ import {useVModel} from '@vueuse/core';
 import {type CheckboxEmits, type CheckboxModelValue, type CheckboxProps} from '@myparcel-do/shared';
 
 // eslint-disable-next-line vue/no-unused-properties
-const props = defineProps<CheckboxProps<T>>();
+const props = withDefaults(defineProps<CheckboxProps<T> & {wrapper?: string}>(), {wrapper: 'label'});
 const emit = defineEmits<CheckboxEmits<T>>();
 
 const model = useVModel(props, undefined, emit);

@@ -23,6 +23,8 @@ export type SubscriptionId = string | undefined;
 
 export type AnyConfigKey = CarrierSetting | ConfigSetting;
 
+export type ConfigPriceKey = Extract<AnyConfigKey, `price${string}`>;
+
 export interface CarrierOptions {
   addressFields?: string[];
   deliveryCountries?: string[];

@@ -7,4 +7,5 @@ export * from './useLogger';
 export * from './useOpenState';
 export * from './useResolvedPlatform';
 export * from './useSdk';
+export * from './useWeekdays';
 export * from './validateDeliveryOptionsConfig';

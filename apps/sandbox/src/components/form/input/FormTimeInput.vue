@@ -1,6 +1,6 @@
 <template>
   <SandboxTimeInput
-    v-model="model"
+    v-model.lazy="model"
     :class="classes"
     v-bind="elementProps" />
 </template>

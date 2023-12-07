@@ -1,4 +1,5 @@
 import {
+  validateDropOffPossibilities,
   validateHasMinKeys,
   validateIsCountryCode,
   validateIsNumeric,
@@ -15,7 +16,7 @@ import {
   type InputDeliveryOptionsConfiguration,
 } from '../types';
 import {AddressField} from '../enums';
-import {CARRIER_SETTINGS, LOCALE, PLATFORM} from '../data';
+import {CARRIER_SETTINGS, DROP_OFF_POSSIBILITIES, LOCALE, PLATFORM} from '../data';
 import {SUPPORTED_PLATFORMS} from '../constants';
 import {useLogger} from './useLogger';
 
@@ -59,6 +60,11 @@ const additionalOptions: ConfigOption[] = [
     key: CARRIER_SETTINGS,
     perCarrier: false,
     validators: [validateIsObject(), validateHasMinKeys(1)],
+  },
+
+  {
+    key: DROP_OFF_POSSIBILITIES,
+    validators: [validateDropOffPossibilities()],
   },
 ];
 

@@ -2,6 +2,7 @@ import {computed, reactive, type Ref, ref} from 'vue';
 import {useLocalStorage, useMemoize, usePreferredLanguages} from '@vueuse/core';
 import {type LanguageDefinition} from '../types';
 import {AVAILABLE_LANGUAGES} from '../constants';
+import type {DeliveryOptionsStrings} from '@myparcel-do/shared';
 
 export type TranslationsObject = Record<string, string>;
 
@@ -9,7 +10,7 @@ interface UseLanguage {
   availableLanguages: LanguageDefinition[];
   language: Ref<LanguageDefinition>;
   loading: Ref<boolean>;
-  strings: Ref<TranslationsObject>;
+  strings: Ref<DeliveryOptionsStrings>;
 
   setLanguage(languageCode: string): Promise<void>;
   translate(key: string): string;

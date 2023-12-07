@@ -9,7 +9,6 @@ import {allParentsHave} from './allParentsHave';
 
 export const createChildFields = (group: SandboxOptionGroup, prefix: string): SettingsField[] => {
   const allOptions = getAllConfigOptions();
-
   const platform = useCurrentPlatform();
 
   const resolvedItems = (group.items ?? [])

@@ -19,6 +19,7 @@ export enum CarrierSetting {
   DeliveryDaysWindow = 'deliveryDaysWindow',
   DropOffDays = 'dropOffDays',
   DropOffDelay = 'dropOffDelay',
+  DropOffPossibilities = 'dropOffPossibilities',
   FridayCutoffTime = 'fridayCutoffTime',
   PackageType = 'packageType',
   PriceEveningDelivery = 'priceEveningDelivery',
@@ -90,6 +91,7 @@ export enum OptionType {
   Date = 'date',
   Time = 'time',
   Select = 'select',
+  MultiSelect = 'multiSelect',
 }
 
 export enum SubscriptionType {

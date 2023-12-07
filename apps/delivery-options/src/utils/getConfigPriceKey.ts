@@ -1,5 +1,5 @@
 import {
-  type CarrierSetting,
+  type ConfigPriceKey,
   getAllConfigOptions,
   RelatedConfigOptionType,
   type SupportedDeliveryTypeName,
@@ -7,11 +7,7 @@ import {
 } from '@myparcel-do/shared';
 import {getConfigKey} from './getConfigKey';
 
-type CarrierSettingPriceKey = Extract<CarrierSetting, `price${string}`>;
-
-export const getConfigPriceKey = (
-  input: SupportedDeliveryTypeName | SupportedShipmentOptionName,
-): CarrierSettingPriceKey => {
+export const getConfigPriceKey = (input: SupportedDeliveryTypeName | SupportedShipmentOptionName): ConfigPriceKey => {
   const key = getConfigKey(input);
   const options = getAllConfigOptions();
 
@@ -22,5 +18,5 @@ export const getConfigPriceKey = (
     throw new Error(`No price found for option: ${input}`);
   }
 
-  return relatedPrice.key as CarrierSettingPriceKey;
+  return relatedPrice.key as ConfigPriceKey;
 };

@@ -9,7 +9,7 @@ export type CheckboxProps<T extends CheckboxModelValue> = InputProps<T> & {value
 
 export type CheckboxEmits<T extends CheckboxModelValue> = ElementEmits<T>;
 
-export type CheckboxGroupModelValue = string;
+export type CheckboxGroupModelValue = string[];
 
 export type CheckboxGroupProps<T extends CheckboxGroupModelValue> = InputProps<T> & OptionsProps<T>;
 

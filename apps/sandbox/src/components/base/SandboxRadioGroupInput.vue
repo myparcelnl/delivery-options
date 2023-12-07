@@ -7,7 +7,6 @@
         <RadioInput
           v-model="model"
           :disabled="disabled"
-          :name="`${id}[${option.value}]`"
           :readonly="readonly"
           :value="option.value"
           type="radio" />
