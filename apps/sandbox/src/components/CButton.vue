@@ -1,7 +1,7 @@
 <template>
   <button
     :class="classes"
-    class="dark:mp-text-white mp-inline-flex mp-rounded-full"
+    class="dark:mp-text-white mp-inline-flex mp-rounded-[20px] mp-whitespace-nowrap"
     type="button"
     @click="$emit('click')">
     <span class="mp-m-auto">
@@ -44,6 +44,16 @@ const classes = computed(() => {
         'mp-text-goldfish-700',
         'dark:mp-bg-goldfish-700',
         'dark:hover:mp-bg-goldfish-600',
+      );
+      break;
+
+    case StyleVariant.Light:
+      array.push(
+        'mp-bg-white',
+        'hover:mp-bg-gray-100',
+        'mp-text-gray-700',
+        'dark:mp-bg-gray-700',
+        'dark:hover:mp-bg-gray-600',
       );
       break;
 

@@ -1,8 +1,9 @@
 import {computed, reactive, type Ref, ref} from 'vue';
+import {camel} from 'radash';
 import {useLocalStorage, useMemoize, usePreferredLanguages} from '@vueuse/core';
+import {type DeliveryOptionsStrings} from '@myparcel-do/shared';
 import {type LanguageDefinition} from '../types';
 import {AVAILABLE_LANGUAGES} from '../constants';
-import type {DeliveryOptionsStrings} from '@myparcel-do/shared';
 
 export type TranslationsObject = Record<string, string>;
 
@@ -12,7 +13,10 @@ interface UseLanguage {
   loading: Ref<boolean>;
   strings: Ref<DeliveryOptionsStrings>;
 
+  load(): Promise<void>;
+
   setLanguage(languageCode: string): Promise<void>;
+
   translate(key: string): string;
 }
 
@@ -49,17 +53,16 @@ const translate = useMemoize((key: string): string => state.translations[languag
 });
 
 const initializeLanguage = async (): Promise<void> => {
-  if (!language.value) {
-    const preferredLanguages = usePreferredLanguages();
+  const preferredLanguages = usePreferredLanguages();
+  const supportedLanguage = [...AVAILABLE_LANGUAGES]
+    .sort((a, b) => preferredLanguages.value.indexOf(a.code) - preferredLanguages.value.indexOf(b.code))
+    .find((language) => preferredLanguages.value.includes(language.code));
 
-    const supportedLanguage = [...AVAILABLE_LANGUAGES]
-      .sort((a, b) => preferredLanguages.value.indexOf(a.code) - preferredLanguages.value.indexOf(b.code))
-      .find((language) => preferredLanguages.value.includes(language.code));
-
-    language.value = supportedLanguage ?? AVAILABLE_LANGUAGES[0];
-  }
+  language.value = supportedLanguage ?? AVAILABLE_LANGUAGES[0];
 
   await setLanguage(language.value.code);
+
+  state.initialized = true;
 };
 
 const setLanguage = async (languageCode: string) => {
@@ -78,14 +81,20 @@ const setLanguage = async (languageCode: string) => {
   state.loading = false;
 };
 
+const TRANSLATION_PREFIX = 'd_o_';
 export const useLanguage = (): UseLanguage => {
-  if (!state.initialized) {
-    state.initialized = true;
+  const load = async (): Promise<void> => {
+    if (state.initialized) {
+      return;
+    }
 
-    void initializeLanguage();
-  }
+    return initializeLanguage();
+  };
+
+  void load();
 
   return {
+    load,
     translate,
     setLanguage,
 
@@ -94,18 +103,15 @@ export const useLanguage = (): UseLanguage => {
     availableLanguages: AVAILABLE_LANGUAGES,
     strings: computed(() => {
       const translations = state.translations[language.value.code] ?? {};
-      const regExp = /^string_([A-z]+)$/;
 
       return Object.fromEntries(
-        Object.entries(translations).reduce((acc, [key, value]) => {
-          if (regExp.exec(key)?.[1]) {
-            const trimmedKey = key.replace(regExp, '$1');
+        Object.entries(translations)
+          .filter(([key]) => key.startsWith(TRANSLATION_PREFIX))
+          .map(([key, value]) => {
+            const newKey = camel(key.replace(TRANSLATION_PREFIX, ''));
 
-            acc.push([trimmedKey, value]);
-          }
-
-          return acc;
-        }, [] as [string, string][]),
+            return [newKey, value];
+          }),
       );
     }),
   };

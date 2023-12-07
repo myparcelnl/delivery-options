@@ -1,11 +1,21 @@
-import {camel} from 'radash';
 import {get} from '@vueuse/core';
-import {type SelectOption} from '@myparcel-do/shared';
+import {
+  ONLY_RECIPIENT_TITLE,
+  type SelectOption,
+  SIGNATURE_TITLE,
+  type SupportedShipmentOptionName,
+} from '@myparcel-do/shared';
+import {ShipmentOptionName} from '@myparcel/constants';
 import {type SelectedDeliveryMoment} from '../types';
 import {SHOWN_SHIPMENT_OPTIONS} from '../constants';
 import {useActiveCarrier, useLanguage} from '../composables';
 import {getResolvedValue} from './getResolvedValue';
 import {getConfigPriceKey} from './getConfigPriceKey';
+
+const TRANSLATION_MAP = Object.freeze({
+  [ShipmentOptionName.Signature]: SIGNATURE_TITLE,
+  [ShipmentOptionName.OnlyRecipient]: ONLY_RECIPIENT_TITLE,
+}) satisfies Record<SupportedShipmentOptionName, string>;
 
 export const createShipmentOptionsFromDeliveryMoment = (
   deliveryOption: SelectedDeliveryMoment | undefined,
@@ -29,7 +39,7 @@ export const createShipmentOptionsFromDeliveryMoment = (
     const priceKey = getConfigPriceKey(name);
 
     return {
-      label: translate(camel(name)),
+      label: translate(TRANSLATION_MAP[name]),
       value: name,
       disabled: hasOnlyOneOption,
       selected: hasOnlyOneOption ? match?.schema.enum[0] : false,

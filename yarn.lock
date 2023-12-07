@@ -145,8 +145,8 @@ __metadata:
   linkType: hard
 
 "@edielemoine/google-docs-importer@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "@edielemoine/google-docs-importer@npm:2.0.0"
+  version: 2.2.0
+  resolution: "@edielemoine/google-docs-importer@npm:2.2.0"
   dependencies:
     csv-parse: "npm:^5.3.0"
     debug: "npm:^4.3.4"
@@ -154,7 +154,7 @@ __metadata:
     yargs: "npm:^17.5.1"
   bin:
     google-docs-importer: dist/bin.js
-  checksum: 3027eb5d99203ad0afa72989c2c8854a8f98e326d9b2766a3b2d13ed16af81acf535bec3aa7e70c7b8dcdceb574ebbc4c00db4f1ff670d50a6bfe1d22488867a
+  checksum: ac985c9811a81aa48225ec7cc8ebe35259a8d0934dacc4b5168c58bf658d6208115e0bfeec1913936e89c3a4d45f7634263eb0f5d7934333f5669b68bb550dfe
   languageName: node
   linkType: hard
 

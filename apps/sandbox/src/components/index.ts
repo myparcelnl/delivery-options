@@ -29,5 +29,3 @@ export {default as SandboxConfiguration} from './SandboxConfiguration.vue';
 export {default as SandboxLoadingIndicator} from './SandboxLoadingIndicator.vue';
 
 export {default as SandboxPlatformBox} from './SandboxPlatformBox.vue';
-
-export {default as SandboxStringsBox} from './SandboxStringsBox.vue';

@@ -31,4 +31,9 @@ export const AVAILABLE_LANGUAGES = [
     name: 'Français',
     emoji: '🇫🇷',
   },
+  {
+    code: 'de',
+    name: 'Deutsch',
+    emoji: '🇩🇪',
+  },
 ] as const satisfies LanguageDefinition[];

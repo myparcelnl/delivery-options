@@ -8,7 +8,7 @@
     "clean": "run ws:clean \"$(pwd)\"",
     "preview": "vite preview",
     "serve": "vite",
-    "translations:import:delivery-options": "google-docs-importer -d 1FjcT_eNLkbUXFpcm4nskdkBSsFWG7wAX9FDxrJwpOuc -s 0 -o public/translations/delivery-options",
+    "translations:import:delivery-options": "google-docs-importer -d 1FjcT_eNLkbUXFpcm4nskdkBSsFWG7wAX9FDxrJwpOuc --prefix d_o_ -s 0 -o public/translations/delivery-options",
     "translations:import:sandbox": "google-docs-importer -d 1FjcT_eNLkbUXFpcm4nskdkBSsFWG7wAX9FDxrJwpOuc -s 1038466479 -o public/translations",
     "translations:import": "run translations:import:delivery-options && run translations:import:sandbox",
     "typecheck": "vue-tsc --project tsconfig.base.json --noEmit"

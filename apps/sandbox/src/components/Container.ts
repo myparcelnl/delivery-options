@@ -1,5 +1,4 @@
 import {type FunctionalComponent, h} from 'vue';
-import {gridClasses} from '../constants';
 
 interface ContainerProps {
   flowCol?: boolean;
@@ -9,9 +8,11 @@ interface ContainerProps {
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export const Container: FunctionalComponent<ContainerProps> = (props, ctx) => {
   const classes = [
-    ...gridClasses,
+    'mp-flex',
+    'mp-gap-4',
+    'mp-items-center',
     props.fluid ? 'mp-max-w-full' : 'mp-max-w-screen-2xl',
-    props.flowCol ? 'mp-grid-flow-col' : 'mp-grid-flow-row',
+    props.flowCol ? 'mp-flex-col' : 'mp-flex-row',
   ];
 
   return h(

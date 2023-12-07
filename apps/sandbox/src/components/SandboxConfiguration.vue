@@ -11,7 +11,6 @@
 
       <SandboxFeaturesBox />
 
-      <SandboxStringsBox />
     </component>
   </KeepAlive>
 </template>
@@ -22,12 +21,13 @@ import {crushObject, type SupportedPlatformName} from '@myparcel-do/shared';
 import {type CreatedForm, createForm} from '@myparcel/vue-form-builder';
 import {useSandboxStore} from '../stores';
 import {useCurrentPlatform, useLanguage} from '../composables';
-import SandboxStringsBox from './SandboxStringsBox.vue';
 import SandboxPlatformBox from './SandboxPlatformBox.vue';
 import SandboxFeaturesBox from './SandboxFeaturesBox.vue';
 import SandboxCarrierConfigBox from './SandboxCarrierConfigBox.vue';
 import SandboxAddressBox from './SandboxAddressBox.vue';
 import FieldWrapper from './FieldWrapper.vue';
+
+await useLanguage().load();
 
 const sandboxStore = useSandboxStore();
 const platform = useCurrentPlatform();

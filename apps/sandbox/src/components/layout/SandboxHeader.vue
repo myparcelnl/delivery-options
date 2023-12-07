@@ -2,7 +2,6 @@
   <header class="mp-bg-monstera-500 mp-text-white">
     <Container
       class="mp-align-middle mp-py-2"
-      flow-col
       fluid>
       <div class="mp-flex mp-gap-4 mp-my-auto">
         <img
@@ -15,11 +14,8 @@
           v-text="translate('title.main')" />
       </div>
 
-      <Container
-        class="mp-align-middle"
-        flow-col
-        fluid>
-        <ul class="mp-align-middle mp-flex mp-gap-4">
+      <Container fluid>
+        <ul class="mp-align-middle mp-flex mp-gap-4 mp-ml-auto">
           <li
             v-for="link in links"
             :key="`link_${link.text}`">

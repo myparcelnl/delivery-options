@@ -4,7 +4,7 @@
 
 <script lang="ts" setup>
 import {computed, ref} from 'vue';
-import {ComponentName} from '@myparcel-do/shared';
+import {CHOOSE_DATE, ComponentName} from '@myparcel-do/shared';
 import {createField} from '@myparcel/vue-form-builder';
 import {getComponent} from '../utils';
 import {FIELD_DELIVERY_DATE} from '../constants';
@@ -33,7 +33,7 @@ const DeliveryDate = createField({
   props: {
     loading: computed(() => !options.value.length),
     options,
-    placeholder: translate('option_placeholder'),
+    placeholder: translate(CHOOSE_DATE),
   },
 });
 </script>

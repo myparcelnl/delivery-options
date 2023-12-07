@@ -45,6 +45,8 @@ export const PICKUP_TITLE = 'pickupTitle';
 
 export const SIGNATURE_TITLE = 'signatureTitle';
 
+export const CHOOSE_DATE = 'chooseDate';
+
 export const WRONG_NUMBER_POSTAL_CODE = 'wrongNumberPostalCode';
 
 export const WRONG_POSTAL_CODE_CITY = 'wrongPostalCodeCity';
