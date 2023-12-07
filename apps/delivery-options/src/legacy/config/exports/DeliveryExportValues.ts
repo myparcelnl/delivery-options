@@ -1,10 +1,10 @@
 import {
   CARRIER,
-  DEFAULT_PACKAGE_TYPE,
   DELIVERY_DATE,
   DELIVERY_MOMENT,
   FEATURE_SHOW_DELIVERY_DATE,
   FORM_PACKAGE_TYPE,
+  PACKAGE_TYPE_DEFAULT,
   PICKUP_STANDARD,
 } from '@myparcel-do/shared';
 import {BELGIUM, NETHERLANDS} from '@myparcel/constants/countries';
@@ -23,7 +23,7 @@ export class DeliveryExportValues extends ExportValues {
   /**
    * @type {MyParcel.PackageType}
    */
-  packageType = DEFAULT_PACKAGE_TYPE;
+  packageType = PACKAGE_TYPE_DEFAULT;
 
   /**
    * @type {{ShipmentOptionName, boolean}}
@@ -41,7 +41,7 @@ export class DeliveryExportValues extends ExportValues {
    * @returns {null|string}
    */
   shouldShowDeliveryDate(values) {
-    const isPackage = DEFAULT_PACKAGE_TYPE === this.packageType;
+    const isPackage = PACKAGE_TYPE_DEFAULT === this.packageType;
     const isNlOrBeShipment = [BELGIUM, NETHERLANDS].includes(configBus.address.cc);
     const isPickup = this.deliveryType === PICKUP_STANDARD;
     const showDeliveryDateFromConfig = configBus.get(FEATURE_SHOW_DELIVERY_DATE, null, this.carrier);
@@ -59,7 +59,7 @@ export class DeliveryExportValues extends ExportValues {
   switchPackageType(packageType) {
     this.packageType = packageType;
 
-    if (packageType === DEFAULT_PACKAGE_TYPE) {
+    if (packageType === PACKAGE_TYPE_DEFAULT) {
       return;
     }
 

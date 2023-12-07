@@ -1,20 +1,14 @@
 import {describe, expect, it} from 'vitest';
-import {
-  CONFIG,
-  KEY_CONFIG,
-  PACKAGE_TYPE_DIGITAL_STAMP,
-  PACKAGE_TYPE_MAILBOX,
-  PACKAGE_TYPE_PACKAGE,
-  UPDATED_DELIVERY_OPTIONS,
-} from '@myparcel-do/shared';
+import {CONFIG, KEY_CONFIG, UPDATED_DELIVERY_OPTIONS} from '@myparcel-do/shared';
+import {PackageTypeName} from '@myparcel/constants';
 import {mockDeliveryOptions} from '../mockDeliveryOptions';
 
 describe.skip('package type', () => {
   it.each`
     packageType
-    ${PACKAGE_TYPE_PACKAGE}
-    ${PACKAGE_TYPE_MAILBOX}
-    ${PACKAGE_TYPE_DIGITAL_STAMP}
+    ${PackageTypeName.Package}
+    ${PackageTypeName.Mailbox}
+    ${PackageTypeName.DigitalStamp}
   `('can use $packageType', async ({packageType}) => {
     expect.assertions(1);
 

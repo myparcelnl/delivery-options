@@ -3,10 +3,10 @@ import {
   AddressField,
   CarrierSetting,
   DELIVERY_DAYS_WINDOW,
-  DELIVERY_DAYS_WINDOW_MIN,
+  DELIVERY_DAYS_WINDOW_DEFAULT,
   DROP_OFF_DAYS,
   DROP_OFF_DELAY,
-  DROP_OFF_DELAY_MIN,
+  DROP_OFF_DELAY_DEFAULT,
 } from '@myparcel-do/shared';
 import {type EndpointParameters, type GetDeliveryOptions} from '@myparcel/sdk';
 import {PackageTypeName, PlatformName} from '@myparcel/constants';
@@ -26,9 +26,9 @@ export const createGetDeliveryOptionsParameters = (
     package_type: config.packageType ?? PackageTypeName.Package,
 
     cutoff_time: calculateCutoffTime(carrier),
-    deliverydays_window: carrier.get(DELIVERY_DAYS_WINDOW, DELIVERY_DAYS_WINDOW_MIN),
+    deliverydays_window: carrier.get(DELIVERY_DAYS_WINDOW, DELIVERY_DAYS_WINDOW_DEFAULT),
     dropoff_days: carrier.get(DROP_OFF_DAYS, [])?.join(';'),
-    dropoff_delay: carrier.get(DROP_OFF_DELAY, DROP_OFF_DELAY_MIN),
+    dropoff_delay: carrier.get(DROP_OFF_DELAY, DROP_OFF_DELAY_DEFAULT),
 
     monday_delivery: get(carrier.features).has(CarrierSetting.AllowMondayDelivery),
     saturday_delivery: get(carrier.features).has(CarrierSetting.AllowSaturdayDelivery),
