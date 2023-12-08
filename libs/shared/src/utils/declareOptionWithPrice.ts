@@ -1,15 +1,9 @@
-import {
-  type AnyConfigKey,
-  type ConfigOption,
-  type ConfigPriceKey,
-  RelatedConfigOptionType,
-  type ResolvedConfigOption,
-} from '../types';
-import {OptionType} from '../enums';
+import {type ConfigKey, type ConfigOption, type ConfigPriceKey, type ResolvedConfigOption} from '../types';
+import {OptionType, RelatedConfigOptionType} from '../enums';
 import {resolveConfigOption} from './resolveConfigOption';
 import {declareOption} from './declareOption';
 
-export const declareOptionWithPrice = <O extends AnyConfigKey | ConfigOption>(
+export const declareOptionWithPrice = <O extends ConfigKey | ConfigOption>(
   option: O,
   priceKey: ConfigPriceKey,
 ): [ResolvedConfigOption<O>, ConfigOption] => {

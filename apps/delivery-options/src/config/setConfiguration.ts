@@ -10,7 +10,7 @@ export const setConfiguration = (config: InputDeliveryOptionsConfiguration): voi
 
   const validated = validateConfig(config);
 
-  configStore.$patch(validated.config);
+  configStore.update(validated.config);
   addressStore.$patch(validated.address);
 
   language.setStrings(validated.strings);

@@ -28,7 +28,7 @@ const resolveOption = (
 // eslint-disable-next-line max-lines-per-function
 export const getResolvedCarrier = async (
   carrierIdentifier: CarrierIdentifier,
-  platformName?: SupportedPlatformName,
+  platformName: SupportedPlatformName,
 ): Promise<ResolvedCarrier> => {
   const carrierRequest = useCarrierRequest(resolveCarrierName(carrierIdentifier));
   await carrierRequest.load();

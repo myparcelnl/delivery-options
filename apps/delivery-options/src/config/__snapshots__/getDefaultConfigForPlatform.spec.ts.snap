@@ -1,0 +1,15 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`getDefaultConfigForPlatform > should return the correct default config for platform belgie 1`] = `
+{
+  "pickupLocationsDefaultView": "list",
+  "pickupShowDistance": false,
+}
+`;
+
+exports[`getDefaultConfigForPlatform > should return the correct default config for platform myparcel 1`] = `
+{
+  "pickupLocationsDefaultView": "map",
+  "pickupShowDistance": true,
+}
+`;

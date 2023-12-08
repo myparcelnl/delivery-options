@@ -1,4 +1,4 @@
-import {type AnyConfigKey} from '../types';
+import {type ConfigKey} from '../types';
 import {
   ALLOW_DELIVERY_OPTIONS,
   ALLOW_EVENING_DELIVERY,
@@ -28,7 +28,7 @@ import {
   SATURDAY_CUTOFF_TIME,
 } from './configKeys';
 
-type DeliveryOptionsFeature = readonly AnyConfigKey[];
+type DeliveryOptionsFeature = readonly ConfigKey[];
 
 export const FEATURES_DELIVERY: DeliveryOptionsFeature = Object.freeze([
   ALLOW_DELIVERY_OPTIONS,

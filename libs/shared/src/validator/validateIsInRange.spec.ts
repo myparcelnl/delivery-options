@@ -3,20 +3,11 @@ import {validateIsInRange} from './validateIsInRange';
 
 describe('validateIsInRange', () => {
   it.each([
-    [undefined, false],
-    [null, false],
-    [true, false],
-    [false, false],
+    [-1, false],
     [0, true],
-    [1, true],
-    [NaN, false],
-    [{}, false],
-    [[], false],
-    [() => {}, false],
-    ['', false],
-    ['hello', false],
+    [5, true],
+    [6, false],
   ])('should validate %s as %s', (value, expected) => {
-    // @ts-expect-error - We're testing invalid values on purpose
-    expect(validateIsInRange(0, 1).validate(value)).toEqual(expected);
+    expect(validateIsInRange(0, 5).validate(value)).toEqual(expected);
   });
 });

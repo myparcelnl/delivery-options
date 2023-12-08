@@ -1,5 +1,6 @@
-import {FORM_NAME_DELIVERY_OPTIONS, type InternalOutput} from '@myparcel-do/shared';
+import {FORM_NAME_DELIVERY_OPTIONS} from '@myparcel-do/shared';
 import {type CreatedForm, createForm} from '@myparcel/vue-form-builder';
+import {type InternalOutput} from '../types';
 import {useConfigStore} from '../stores';
 import {useLanguage} from '../composables';
 

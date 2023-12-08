@@ -21,8 +21,8 @@ export const DEFAULT_PLATFORM = PlatformName.MyParcel;
 
 export const FORM_NAME_DELIVERY_OPTIONS = 'deliveryOptions';
 
-export const QUERY_KEY_CARRIERS = 'carriers';
+export const REQUEST_KEY_CARRIERS = 'carriers';
 
-export const QUERY_KEY_DELIVERY_OPTIONS = 'deliveryOptions';
+export const REQUEST_KEY_DELIVERY_OPTIONS = 'deliveryOptions';
 
-export const QUERY_KEY_PICKUP_LOCATIONS = 'pickupLocations';
+export const REQUEST_KEY_PICKUP_LOCATIONS = 'pickupLocations';

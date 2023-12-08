@@ -4,7 +4,6 @@ export * from './validateDropOffPossibilities';
 export * from './validateHasMinKeys';
 export * from './validateIsBoolean';
 export * from './validateIsCountryCode';
-export * from './validateIsDate';
 export * from './validateIsInRange';
 export * from './validateIsNumeric';
 export * from './validateIsObject';

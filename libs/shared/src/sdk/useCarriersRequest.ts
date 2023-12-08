@@ -1,13 +1,13 @@
 import {type EndpointResponse, type GetCarriers} from '@myparcel/sdk';
 import {type RequestHandler} from '../types';
-import {QUERY_KEY_CARRIERS} from '../constants';
+import {REQUEST_KEY_CARRIERS} from '../constants';
 import {useSdk} from '../composables';
 import {useRequestClient} from './useRequestClient';
 import {useRequest} from './useRequest';
 
 export const useCarriersRequest = (): RequestHandler<EndpointResponse<GetCarriers>> => {
   return useRequest(
-    [QUERY_KEY_CARRIERS],
+    [REQUEST_KEY_CARRIERS],
     async () => {
       const sdk = useSdk();
 
@@ -15,13 +15,13 @@ export const useCarriersRequest = (): RequestHandler<EndpointResponse<GetCarrier
     },
     {
       onSuccess(carriers) {
-        const client = useRequestClient();
+        const requestClient = useRequestClient();
 
         /**
          * Update the cache for each carrier.
          */
         carriers.forEach((carrier) => {
-          client.values.set([QUERY_KEY_CARRIERS, carrier.name], carrier);
+          requestClient.values.set([REQUEST_KEY_CARRIERS, carrier.name], carrier);
         });
       },
     },

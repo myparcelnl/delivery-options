@@ -1,12 +1,18 @@
 import {type Component} from 'vue';
+import {type MakeOptional} from '@myparcel/ts-utils';
+import {type DeliveryOptionsOutput} from '@myparcel/delivery-options/ts';
+import {type CarrierName, type PackageTypeName} from '@myparcel/constants';
 import {
-  type CarrierName,
-  type DeliveryTypeName,
-  type PackageTypeName,
-  type ShipmentOptionName,
-} from '@myparcel/constants';
-import {type ComponentName, type OptionType, type PickupLocationsView} from '../enums';
-import {type AnyConfigKey, type SupportedPlatformName} from './platform.types';
+  type CarrierSetting,
+  type ComponentName,
+  type ConfigSetting,
+  type DeprecatedCarrierSetting,
+  type OptionType,
+  type PickupLocationsView,
+  type RelatedConfigOptionType,
+} from '../enums';
+import {type CustomValidator} from './validation.types';
+import {type SupportedPlatformName} from './platform.types';
 import {type SelectOption} from './options.types';
 import {type DeliveryOptionsAddress} from './address.types';
 
@@ -37,8 +43,6 @@ export type CarrierIdentifier = `${CarrierName}:${number}` | CarrierName;
 export type TimestampString = `${number}:${number}` | string;
 
 export type Price = number | null;
-
-export interface InputCarrierSettings extends CarrierSettings, DeprecatedConfigOptions {}
 
 export interface CarrierSettings {
   allowDeliveryOptions?: boolean | FilterableOption;
@@ -72,31 +76,32 @@ export interface CarrierSettings {
   showDeliveryDate?: boolean;
 }
 
+export interface InputCarrierSettings extends CarrierSettings, DeprecatedConfigOptions {}
+
 export type InputCarrierSettingsObject = Partial<Record<CarrierIdentifier, InputCarrierSettings>>;
 
 export type CarrierSettingsObject = Partial<Record<CarrierIdentifier, CarrierSettings>>;
 
 export interface DeliveryOptionsConfig extends CarrierSettings {
-  apiBaseUrl?: string;
-  carrierSettings?: CarrierSettingsObject;
+  apiBaseUrl: string;
+
+  carrierSettings: CarrierSettingsObject;
   /**
    * Currency. Defaults to format of the browser.
    */
-  currency?: string | undefined;
-  initial?: Partial<DeliveryOptionsOutput>;
+  currency: string | undefined;
 
   /**
    * Locale. Defaults to the language of the browser.
    */
-  locale?: string | undefined;
+  locale: string | undefined;
 
-  pickupLocationsDefaultView?: PickupLocationsView;
-  pickupLocationsMapTileLayerData?: string | MapTileLayerData;
-  pickupShowDistance?: boolean;
-  platform?: SupportedPlatformName;
-  showDeliveryDate?: boolean;
-  showPriceSurcharge?: boolean;
-  showPrices?: boolean;
+  pickupLocationsDefaultView: PickupLocationsView;
+  pickupLocationsMapTileLayerData: string | MapTileLayerData;
+  pickupShowDistance: boolean;
+  platform: SupportedPlatformName;
+  showPriceSurcharge: boolean;
+  showPrices: boolean;
 }
 
 export interface DeprecatedConfigOptions {
@@ -117,9 +122,10 @@ export interface DeprecatedConfigOptions {
 /**
  * Includes deprecated options which will be filtered out.
  */
-export interface InputDeliveryOptionsConfig extends DeliveryOptionsConfig, DeprecatedConfigOptions {
+export type InputDeliveryOptionsConfig = {
   carrierSettings?: InputCarrierSettingsObject;
-}
+} & Omit<MakeOptional<DeliveryOptionsConfig, keyof DeliveryOptionsConfig>, 'carrierSettings'> &
+  DeprecatedConfigOptions;
 
 export interface DeliveryOptionsConfiguration {
   address: DeliveryOptionsAddress;
@@ -136,69 +142,14 @@ export interface InputDeliveryOptionsConfiguration {
   strings?: DeliveryOptionsStrings;
 }
 
-interface ShipmentOptionsOutput {
-  onlyRecipient?: boolean;
-  signature?: boolean;
-}
-
-interface BaseOutput {
-  carrier: CarrierIdentifier;
-  date: string;
-  deliveryType: DeliveryTypeName;
-  isPickup: boolean;
-  packageType: PackageTypeName;
-  shipmentOptions: ShipmentOptionsOutput;
-}
-
-interface DeliveryOutput extends BaseOutput {
-  deliveryType: DeliveryTypeName.Standard | DeliveryTypeName.Evening | DeliveryTypeName.Morning;
-  isPickup: false;
-}
-
-interface PickupOutput extends BaseOutput {
-  deliveryType: DeliveryTypeName.Pickup;
-  isPickup: true;
-  pickupLocation: {
-    location: {
-      latitude: number;
-      longitude: number;
-    };
-    name: string;
-    openingHours: string;
-    pickupLocationCode: string;
-    street: string;
-    streetAdditionalInfo: string;
-    city: string;
-    postalCode: string;
-  };
-}
-
-export type DeliveryOptionsOutput = DeliveryOutput | PickupOutput;
-
-export type InternalOutput = {
-  deliveryDate: string;
-  /**
-   * JSON encoded SelectedDeliveryMoment
-   * @see SelectedDeliveryMoment
-   */
-  deliveryMoment: string;
-  shipmentOptions?: ShipmentOptionName[];
-};
-
-export enum RelatedConfigOptionType {
-  Allow = 'allow',
-  Price = 'price',
-  CutoffTime = 'cutoffTime',
-}
-
 export type RelatedConfigOption = {
   type: RelatedConfigOptionType;
   key: string;
 };
 
 export interface BaseConfigOption<T extends OptionType = OptionType> {
-  key: AnyConfigKey | string;
-  parents?: AnyConfigKey[];
+  key: ConfigKey | string;
+  parents?: ConfigKey[];
   perCarrier?: boolean;
   related?: RelatedConfigOption[];
   type?: T;
@@ -212,19 +163,12 @@ export interface SelectConfigOption extends BaseConfigOption {
 
 export type ConfigOption = BaseConfigOption | SelectConfigOption;
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export interface CustomValidator<T1 = any, T2 = T1> {
-  error: string;
+export type ResolvedConfigOption<O extends ConfigKey | ConfigOption> = O extends ConfigOption ? O : ConfigOption;
 
-  /**
-   * Parse the input value.
-   */
-  parse?(value: T1): T2;
+export type InputCarrierSettingsKey = CarrierSetting | DeprecatedCarrierSetting;
 
-  /**
-   * Validate the input value.
-   */
-  validate(value: T1): boolean;
-}
+export type InputConfigKey = ConfigSetting | InputCarrierSettingsKey;
 
-export type ResolvedConfigOption<O extends AnyConfigKey | ConfigOption> = O extends ConfigOption ? O : ConfigOption;
+export type CarrierSettingsKey = CarrierSetting;
+
+export type ConfigKey = ConfigSetting | CarrierSettingsKey;

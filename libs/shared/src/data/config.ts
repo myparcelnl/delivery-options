@@ -5,3 +5,5 @@ export const KEY_ADDRESS = 'address' satisfies keyof DeliveryOptionsConfiguratio
 export const KEY_CONFIG = 'config' satisfies keyof DeliveryOptionsConfiguration;
 
 export const KEY_STRINGS = 'strings' satisfies keyof DeliveryOptionsConfiguration;
+
+export const KEY_INITIAL = 'initial' satisfies keyof DeliveryOptionsConfiguration;

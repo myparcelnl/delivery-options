@@ -1,14 +1,15 @@
 import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest';
 import {createPinia, setActivePinia} from 'pinia';
-import {CUTOFF_TIME_DEFAULT, type DeliveryOptionsConfig} from '@myparcel-do/shared';
+import {CUTOFF_TIME_DEFAULT, type InputDeliveryOptionsConfig} from '@myparcel-do/shared';
 import {CarrierName} from '@myparcel/constants';
 import {DAY_MONDAY, DAY_TUESDAY} from '../constants';
+import {useCurrentPlatform} from '../composables';
 import {mockDeliveryOptionsConfig} from '../__tests__';
 import {getResolvedCarrier} from './getResolvedCarrier';
 import {calculateCutoffTime} from './calculateCutoffTime';
 
 interface TestInput {
-  config: Partial<DeliveryOptionsConfig>;
+  config: Partial<InputDeliveryOptionsConfig>;
   date: Date;
   result: string;
   when: string;
@@ -115,7 +116,9 @@ describe('calculateCutoffTime', () => {
 
     mockDeliveryOptionsConfig({config});
 
-    const resolvedCarrier = await getResolvedCarrier(CarrierName.PostNl);
+    const platform = useCurrentPlatform();
+
+    const resolvedCarrier = await getResolvedCarrier(CarrierName.PostNl, platform.name.value);
     const actual = calculateCutoffTime(resolvedCarrier);
 
     expect(actual).toBe(result);

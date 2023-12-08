@@ -1,14 +1,16 @@
 import {useMemoize} from '@vueuse/core';
 import {PlatformName} from '@myparcel/constants';
-import {type PlatformOptions, type SupportedPlatformName} from '../types';
-import {configMyParcel, configSendMyParcel} from '../data';
+import {type PlatformOptions} from '../types';
+import {getMyParcelConfig, getSendMyParcelConfig} from '../config';
 
-export const getPlatformConfig = useMemoize((platform: SupportedPlatformName): PlatformOptions => {
+export const getPlatformConfig = useMemoize((platform: PlatformName): PlatformOptions => {
   switch (platform) {
     case PlatformName.MyParcel:
-      return configMyParcel();
+      return getMyParcelConfig();
 
     case PlatformName.SendMyParcel:
-      return configSendMyParcel();
+      return getSendMyParcelConfig();
   }
+
+  throw new Error(`Platform ${platform} is not supported`);
 });

@@ -1,9 +1,10 @@
-import {PackageTypeName} from '@myparcel/constants';
+import {PackageTypeName, PlatformName} from '@myparcel/constants';
 
 export const PACKAGE_TYPE_DEFAULT = PackageTypeName.Package;
 
 export const DEFAULT_PRICE = 0;
 
+export const PLATFORM_DEFAULT = PlatformName.MyParcel;
 /*
  * Drop-off delay
  */

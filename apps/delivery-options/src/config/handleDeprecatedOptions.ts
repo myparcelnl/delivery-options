@@ -28,7 +28,7 @@ const parseDropOffDays = (value?: OneOrMore<string | number>): number[] => {
 export const handleDeprecatedOptions = <T extends InputDeliveryOptionsConfig | InputCarrierSettings>(
   input: T,
 ): T extends InputDeliveryOptionsConfig ? DeliveryOptionsConfig : CarrierSettings => {
-  const {cutoffTime, dropOffDays, cutoffTimeSameDay, saturdayCutoffTime, fridayCutoffTime, ...restConfig} = input;
+  const {cutoffTime, dropOffDays, cutoffTimeSameDay, saturdayCutoffTime, fridayCutoffTime, ...restConfig} = input ?? {};
 
   const hasLegacyOption = Boolean(
     cutoffTime ?? dropOffDays?.length ?? cutoffTimeSameDay ?? saturdayCutoffTime ?? fridayCutoffTime,

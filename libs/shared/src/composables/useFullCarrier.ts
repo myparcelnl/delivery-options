@@ -5,7 +5,7 @@ import {type CarrierIdentifier, type FullCarrier, type SupportedPlatformName} fr
 
 export const useFullCarrier = (
   carrierIdentifier: CarrierIdentifier,
-  platformName?: SupportedPlatformName,
+  platformName: SupportedPlatformName,
 ): Ref<FullCarrier> => {
   return asyncComputed(async () => getFullCarrier(carrierIdentifier, platformName));
 };

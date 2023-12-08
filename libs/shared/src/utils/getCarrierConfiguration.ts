@@ -9,11 +9,11 @@ export const getCarrierConfiguration = (
   const platformConfig = getPlatformConfig(platform);
   const carrierName = resolveCarrierName(carrierIdentifier);
 
-  const foundCarrier = platformConfig?.carriers.find((carrier) => carrier.name === carrierName);
+  const carrierConfig = platformConfig.carriers.find((carrier) => carrier.name === carrierName);
 
-  if (!foundCarrier) {
+  if (!carrierConfig) {
     throw new Error(`No configuration found for carrier ${carrierIdentifier}`);
   }
 
-  return foundCarrier;
+  return carrierConfig;
 };

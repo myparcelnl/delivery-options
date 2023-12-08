@@ -1,11 +1,12 @@
 import {type CarrierName} from '@myparcel/constants';
-import {type CarrierSetting, type ConfigSetting, type SubscriptionType} from '../enums';
+import {type SubscriptionType} from '../enums';
 import {
   type SUPPORTED_DELIVERY_TYPES,
   type SUPPORTED_PACKAGE_TYPES,
   type SUPPORTED_PLATFORMS,
   type SUPPORTED_SHIPMENT_OPTIONS,
 } from '../constants';
+import {type ConfigKey} from './config.types';
 
 export type SupportedPlatformName = (typeof SUPPORTED_PLATFORMS)[number];
 
@@ -21,9 +22,7 @@ export type SupportedPackageTypeName = (typeof SUPPORTED_PACKAGE_TYPES)[number];
 
 export type SubscriptionId = string | undefined;
 
-export type AnyConfigKey = CarrierSetting | ConfigSetting;
-
-export type ConfigPriceKey = Extract<AnyConfigKey, `price${string}`>;
+export type ConfigPriceKey = Extract<ConfigKey, `price${string}`>;
 
 export interface CarrierOptions {
   addressFields?: string[];
@@ -34,7 +33,7 @@ export interface CarrierOptions {
    * getCountriesForDelivery.
    */
   fakeDelivery?: boolean;
-  features?: AnyConfigKey[];
+  features?: ConfigKey[];
   name: CarrierName;
   packageTypes: SupportedPackageTypeName[];
   pickupCountries?: string[];

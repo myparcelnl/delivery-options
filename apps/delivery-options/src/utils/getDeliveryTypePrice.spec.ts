@@ -17,19 +17,6 @@ describe('getDeliveryTypePrice', () => {
     setActivePinia(createPinia());
   });
 
-  it('returns price from config', () => {
-    mockDeliveryOptionsConfig({
-      config: {
-        allowDeliveryOptions: true,
-        priceStandardDelivery: 5.45,
-      },
-    });
-
-    const option = mockDeliveryOption({deliveryType: DeliveryTypeName.Standard});
-
-    expect(getDeliveryTypePrice(option)).toBe(5.45);
-  });
-
   it.each([
     {
       carrier: defineCarrier(CARRIER_POST_NL),

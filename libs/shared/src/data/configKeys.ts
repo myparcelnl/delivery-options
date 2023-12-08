@@ -1,9 +1,7 @@
 // Properties
 
-import {type DeliveryOptionsConfig} from '../types';
-import {CarrierSetting, ConfigSetting} from '../enums';
-
-export const INITIAL = 'initial' satisfies keyof DeliveryOptionsConfig;
+import {type DeliveryOptionsConfig, type InputDeliveryOptionsConfig} from '../types';
+import {CarrierSetting, ConfigSetting, DeprecatedCarrierSetting} from '../enums';
 
 export const API_BASE_URL = ConfigSetting.ApiBaseUrl satisfies keyof DeliveryOptionsConfig;
 
@@ -35,13 +33,7 @@ export const ALLOW_SAME_DAY_DELIVERY = CarrierSetting.AllowSameDayDelivery satis
 
 export const ALLOW_SIGNATURE = CarrierSetting.AllowSignature satisfies keyof DeliveryOptionsConfig;
 
-export const CUTOFF_TIME = CarrierSetting.CutoffTime satisfies keyof DeliveryOptionsConfig;
-
-export const CUTOFF_TIME_SAME_DAY = CarrierSetting.CutoffTimeSameDay satisfies keyof DeliveryOptionsConfig;
-
 export const DELIVERY_DAYS_WINDOW = CarrierSetting.DeliveryDaysWindow satisfies keyof DeliveryOptionsConfig;
-
-export const DROP_OFF_DAYS = CarrierSetting.DropOffDays satisfies keyof DeliveryOptionsConfig;
 
 export const DROP_OFF_DELAY = CarrierSetting.DropOffDelay satisfies keyof DeliveryOptionsConfig;
 
@@ -83,14 +75,10 @@ export const PRICE_PACKAGE_TYPE_MAILBOX = CarrierSetting.PricePackageTypeMailbox
  */
 export const ALLOW_MONDAY_DELIVERY = CarrierSetting.AllowMondayDelivery satisfies keyof DeliveryOptionsConfig;
 
-export const SATURDAY_CUTOFF_TIME = CarrierSetting.SaturdayCutoffTime satisfies keyof DeliveryOptionsConfig;
-
 /*
  * For use with Saturday delivery.
  */
 export const ALLOW_SATURDAY_DELIVERY = CarrierSetting.AllowSaturdayDelivery satisfies keyof DeliveryOptionsConfig;
-
-export const FRIDAY_CUTOFF_TIME = CarrierSetting.FridayCutoffTime satisfies keyof DeliveryOptionsConfig;
 
 /*
  * Carrier settings object
@@ -120,6 +108,21 @@ export const FEATURE_SHOW_DELIVERY_DATE = ConfigSetting.ShowDeliveryDate satisfi
  */
 export const PICKUP_LOCATIONS_MAP_TILE_LAYER_DATA =
   ConfigSetting.PickupLocationsMapTileLayerData satisfies keyof DeliveryOptionsConfig;
+
+/*
+ * Deprecated
+ */
+export const SATURDAY_CUTOFF_TIME =
+  DeprecatedCarrierSetting.SaturdayCutoffTime satisfies keyof InputDeliveryOptionsConfig;
+
+export const FRIDAY_CUTOFF_TIME = DeprecatedCarrierSetting.FridayCutoffTime satisfies keyof InputDeliveryOptionsConfig;
+
+export const CUTOFF_TIME = DeprecatedCarrierSetting.CutoffTime satisfies keyof InputDeliveryOptionsConfig;
+
+export const CUTOFF_TIME_SAME_DAY =
+  DeprecatedCarrierSetting.CutoffTimeSameDay satisfies keyof InputDeliveryOptionsConfig;
+
+export const DROP_OFF_DAYS = DeprecatedCarrierSetting.DropOffDays satisfies keyof InputDeliveryOptionsConfig;
 
 /** @deprecated */
 export const settingsWithCarrierOverride = [

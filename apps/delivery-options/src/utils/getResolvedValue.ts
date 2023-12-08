@@ -1,16 +1,17 @@
 import {
   type CarrierIdentifier,
-  type CarrierSetting,
   type CarrierSettings,
-  type ConfigSetting,
+  type CarrierSettingsKey,
+  type ConfigKey,
+  type DeliveryOptionsConfig,
 } from '@myparcel-do/shared';
 import {useConfigStore} from '../stores';
 
-export const getResolvedValue = <T extends ConfigSetting | CarrierSetting>(
+export const getResolvedValue = <T extends ConfigKey | CarrierSettingsKey>(
   key: T,
   carrierIdentifier?: CarrierIdentifier,
-  defaultValue?: NonNullable<CarrierSettings[T]>,
-): CarrierSettings[T] => {
+  defaultValue?: NonNullable<T extends ConfigKey ? DeliveryOptionsConfig[T] : CarrierSettings[T]>,
+): T extends ConfigKey ? DeliveryOptionsConfig[T] : CarrierSettings[T] => {
   const config = useConfigStore();
 
   const generalValue = config[key] ?? defaultValue;

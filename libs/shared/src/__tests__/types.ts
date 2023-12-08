@@ -1,3 +1,5 @@
+import {type Mock} from 'vitest';
+import {type AbstractEndpoint, type EndpointResponse, type Options} from '@myparcel/sdk';
 import {type CarrierIdentifier, type SupportedPlatformName} from '../types';
 
 export interface FakeDeliveryOptionsParameters {
@@ -17,3 +19,5 @@ export interface ExtraDelivery {
   dropOffDay: number;
   feature: string;
 }
+
+export type SdkMock<E extends AbstractEndpoint> = Mock<[E, Options<E>], EndpointResponse<E>>;

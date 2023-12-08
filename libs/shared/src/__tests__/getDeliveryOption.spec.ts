@@ -1,7 +1,7 @@
 /* eslint-disable max-len,vue/max-len */
 import {describe, expect, it, vi} from 'vitest';
 import {PlatformName} from '@myparcel/constants';
-import {getNextDeliveryOption} from './mocks/delivery-options/getNextDeliveryOption';
+import {getNextDeliveryOption} from './mocks';
 
 describe.skip('Mocking delivery options request', () => {
   const tuesday = '2020-03-10';

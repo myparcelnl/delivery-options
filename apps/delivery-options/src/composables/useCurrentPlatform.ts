@@ -1,7 +1,6 @@
 import {computed} from 'vue';
 import {type ComputedRef} from '@vue/reactivity';
 import {type ResolvedPlatform, type SupportedPlatformName, useResolvedPlatform} from '@myparcel-do/shared';
-import {PlatformName} from '@myparcel/constants';
 import {useConfigStore} from '../stores';
 
 export interface PlatformInstance extends ResolvedPlatform {
@@ -11,9 +10,7 @@ export interface PlatformInstance extends ResolvedPlatform {
 export const useCurrentPlatform = (): PlatformInstance => {
   const config = useConfigStore();
 
-  const name = computed<SupportedPlatformName>(() => {
-    return config.platform ?? PlatformName.MyParcel;
-  });
+  const name = computed<SupportedPlatformName>(() => config.platform);
 
   return {
     name,

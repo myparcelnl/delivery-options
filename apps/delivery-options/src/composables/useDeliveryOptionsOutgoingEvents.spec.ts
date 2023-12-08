@@ -1,10 +1,9 @@
 import {nextTick} from 'vue';
 import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest';
 import {createPinia, setActivePinia} from 'pinia';
-import {type InternalOutput} from '@myparcel-do/shared';
 import {CarrierName, DeliveryTypeName, PackageTypeName} from '@myparcel/constants';
 import {convertOutput} from '../utils';
-import {type SelectedDeliveryMoment} from '../types';
+import {type InternalOutput, type SelectedDeliveryMoment} from '../types';
 import {useDeliveryOptionsOutgoingEvents} from './useDeliveryOptionsOutgoingEvents';
 
 /**

@@ -1,18 +1,18 @@
+import {isEnumValue} from '@myparcel/ts-utils';
+import {DeliveryTypeName, PackageTypeName, ShipmentOptionName} from '@myparcel/constants';
 import {
-  type AnyConfigKey,
+  type ConfigKey,
   type SupportedDeliveryTypeName,
   type SupportedPackageTypeName,
   type SupportedShipmentOptionName,
-} from '@myparcel-do/shared';
-import {isEnumValue} from '@myparcel/ts-utils';
-import {DeliveryTypeName, PackageTypeName, ShipmentOptionName} from '@myparcel/constants';
+} from '../types';
 import {getShipmentOptionConfigMap} from './getShipmentOptionConfigMap';
 import {getPackageTypeConfigMap} from './getPackageTypeConfigMap';
 import {getDeliveryTypeConfigMap} from './getDeliveryTypeConfigMap';
 
 export const getConfigKey = (
   input: SupportedDeliveryTypeName | SupportedShipmentOptionName | SupportedPackageTypeName,
-): AnyConfigKey | null => {
+): ConfigKey | null => {
   let key: string | null = null;
 
   if (isEnumValue(input, PackageTypeName)) {
@@ -33,5 +33,5 @@ export const getConfigKey = (
     key = map[input] ?? null;
   }
 
-  return key as AnyConfigKey | null;
+  return key as ConfigKey | null;
 };

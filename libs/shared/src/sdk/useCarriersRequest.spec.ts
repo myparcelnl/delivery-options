@@ -1,12 +1,13 @@
 import {describe, expect, it} from 'vitest';
 import {get} from '@vueuse/core';
-import {GetCarrier} from '@myparcel/sdk';
-import {fakeCarriersResponse} from '../__tests__/mocks/fakeCarriersResponse';
+import {type Carrier} from '@myparcel/sdk';
+import {REQUEST_KEY_CARRIERS} from '../constants';
+import {fakeCarriersResponse} from '../__tests__';
 import {useRequestClient} from './useRequestClient';
 import {useCarriersRequest} from './useCarriersRequest';
 
 describe('useCarriersRequest', () => {
-  const amountOfCarriers = fakeCarriersResponse().length;
+  const amountOfCarriers = Number(fakeCarriersResponse().length);
 
   it('fetches carriers', async () => {
     expect.assertions(1 + amountOfCarriers * 5);
@@ -31,14 +32,15 @@ describe('useCarriersRequest', () => {
 
     const query = useCarriersRequest();
     await query.load();
-    const carriers = get(query.data);
 
-    const queryClient = useRequestClient();
+    const carriers = get(query.data) as Carrier[];
+
+    const requestClient = useRequestClient();
 
     expect(carriers).toHaveLength(amountOfCarriers);
 
-    carriers?.forEach((carrier) => {
-      expect(queryClient.get([GetCarrier.name, carrier.name])).toBe(carrier);
+    carriers.forEach((carrier) => {
+      expect(requestClient.values.get([REQUEST_KEY_CARRIERS, carrier.name])).toBe(carrier);
     });
   });
 });

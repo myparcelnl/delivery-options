@@ -7,8 +7,9 @@
 <script lang="ts" setup>
 import {computed, markRaw, watch} from 'vue';
 import {get} from '@vueuse/core';
-import {DELIVERY_TITLE, type InternalOutput, PICKUP_TITLE} from '@myparcel-do/shared';
+import {DELIVERY_TITLE, PICKUP_TITLE} from '@myparcel-do/shared';
 import {createField} from '@myparcel/vue-form-builder';
+import {type InternalOutput} from '../types';
 import {createDeliveryOptionsForm} from '../form';
 import {useActiveCarriers, useLanguage} from '../composables';
 import RadioGroupTabs from './RadioGroupTabs.vue';

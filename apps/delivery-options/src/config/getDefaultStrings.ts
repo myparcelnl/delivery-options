@@ -30,7 +30,7 @@ import {
   STREET,
   STRINGS_PACKAGE_TYPE_DIGITAL_STAMP,
   STRINGS_PACKAGE_TYPE_MAILBOX,
-} from '../data';
+} from '@myparcel-do/shared';
 
 /**
  * Get the default strings.

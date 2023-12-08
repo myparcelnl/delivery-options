@@ -1,3 +1,2 @@
-export * from './getDefaultConfigForPlatform';
-export * from './getDefaultConfiguration';
-export * from './getDefaultStrings';
+export * from './getMyParcelConfig';
+export * from './getSendMyParcelConfig';

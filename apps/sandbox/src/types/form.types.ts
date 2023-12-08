@@ -1,4 +1,4 @@
-import {type AnyConfigKey} from '@myparcel-do/shared';
+import {type ConfigKey} from '@myparcel-do/shared';
 import {type AnyElementConfiguration, type ModularCreatedElement} from '@myparcel/vue-form-builder';
 import {type ReadonlyOr} from '@myparcel/ts-utils';
 
@@ -25,7 +25,7 @@ export type ResolvedFieldOrSection<T extends FieldOrSection> = T extends AnyElem
 export interface SandboxOptionGroup {
   children?: SandboxOptionGroup[];
   hasExpand?: boolean;
-  items?: ReadonlyOr<(AnyConfigKey | string | ModularCreatedElement)[]>;
+  items?: ReadonlyOr<(ConfigKey | string | ModularCreatedElement)[]>;
   label?: string;
   name: string;
   perCarrier?: boolean;
