@@ -2,7 +2,9 @@ import {nextTick} from 'vue';
 import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest';
 import {createPinia, setActivePinia} from 'pinia';
 import {type InternalOutput} from '@myparcel-do/shared';
+import {CarrierName, DeliveryTypeName, PackageTypeName} from '@myparcel/constants';
 import {convertOutput} from '../utils';
+import {type SelectedDeliveryMoment} from '../types';
 import {useDeliveryOptionsOutgoingEvents} from './useDeliveryOptionsOutgoingEvents';
 
 /**
@@ -15,7 +17,14 @@ describe('useDeliveryOptionsOutgoingEvents', () => {
 
   const DEFAULT_VALUES: InternalOutput = Object.freeze({
     deliveryDate: '2023-01-01',
-    deliveryMoment: '',
+    deliveryMoment: JSON.stringify({
+      deliveryType: DeliveryTypeName.Standard,
+      date: '',
+      packageType: PackageTypeName.Package,
+      shipmentOptions: [],
+      carrier: CarrierName.PostNl,
+      time: '14:00',
+    } satisfies SelectedDeliveryMoment),
     shipmentOptions: [],
   });
 
@@ -34,11 +43,10 @@ describe('useDeliveryOptionsOutgoingEvents', () => {
 
   it('should emit an event with the values', async () => {
     expect.assertions(4);
-    const store = useDeliveryOptionsStore();
 
-    useDeliveryOptionsOutgoingEvents(emitSpy);
+    const listener = useDeliveryOptionsOutgoingEvents(emitSpy);
 
-    store.updateOutput(DEFAULT_VALUES);
+    listener(DEFAULT_VALUES);
     vi.runAllTimers();
     await nextTick();
 
@@ -51,14 +59,13 @@ describe('useDeliveryOptionsOutgoingEvents', () => {
 
   it('should not emit an event if the values are the same', async () => {
     expect.assertions(3);
-    const store = useDeliveryOptionsStore();
-    useDeliveryOptionsOutgoingEvents(emitSpy);
+    const listener = useDeliveryOptionsOutgoingEvents(emitSpy);
 
-    store.updateOutput(DEFAULT_VALUES);
+    listener(DEFAULT_VALUES);
     vi.runAllTimers();
     await nextTick();
 
-    store.updateOutput(DEFAULT_VALUES);
+    listener(DEFAULT_VALUES);
     vi.runAllTimers();
     await nextTick();
 
@@ -69,14 +76,13 @@ describe('useDeliveryOptionsOutgoingEvents', () => {
 
   it('should emit an event if the values are different', async () => {
     expect.assertions(4);
-    const store = useDeliveryOptionsStore();
-    useDeliveryOptionsOutgoingEvents(emitSpy);
+    const listener = useDeliveryOptionsOutgoingEvents(emitSpy);
 
-    store.updateOutput(DEFAULT_VALUES);
+    listener(DEFAULT_VALUES);
     vi.runAllTimers();
     await nextTick();
 
-    store.updateOutput(DIFFERENT_VALUES);
+    listener(DIFFERENT_VALUES);
     vi.runAllTimers();
     await nextTick();
 
@@ -88,12 +94,11 @@ describe('useDeliveryOptionsOutgoingEvents', () => {
 
   it('debounces the emit', async () => {
     expect.assertions(3);
-    const store = useDeliveryOptionsStore();
 
-    useDeliveryOptionsOutgoingEvents(emitSpy);
+    const listener = useDeliveryOptionsOutgoingEvents(emitSpy);
 
-    store.updateOutput(DEFAULT_VALUES);
-    store.updateOutput(DIFFERENT_VALUES);
+    listener(DEFAULT_VALUES);
+    listener(DIFFERENT_VALUES);
     vi.runAllTimers();
     await nextTick();
 

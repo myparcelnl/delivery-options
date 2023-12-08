@@ -13,7 +13,7 @@ export const useDeliveryOptionsOutgoingEvents = (
 
   const {history} = useRefHistory(outputValues);
 
-  const listener = useDebounceFn(async (internalOutput: InternalOutput) => {
+  return useDebounceFn(async (internalOutput: InternalOutput) => {
     const previousHistoryLength = history.value.length;
 
     const output = convertOutput(internalOutput);
@@ -29,6 +29,4 @@ export const useDeliveryOptionsOutgoingEvents = (
     document.dispatchEvent(new CustomEvent(UPDATED_DELIVERY_OPTIONS, {detail: output}));
     emit('update', output);
   }, DEBOUNCE_DELAY);
-
-  return listener;
 };
