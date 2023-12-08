@@ -7,8 +7,6 @@ export const useI18nStore = defineStore('i18n', {
     const config = useConfigStore();
     const lang = useNavigatorLanguage();
 
-    console.log(config.locale ?? lang.language.value);
-
     return {
       locale: config.locale ?? lang.language.value,
       currency: config.currency ?? 'EUR',
