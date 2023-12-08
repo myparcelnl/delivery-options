@@ -13,10 +13,10 @@
 import {computed, ref} from 'vue';
 import {ComponentName, Loader} from '@myparcel-do/shared';
 import {createField} from '@myparcel/vue-form-builder';
-import {createShipmentOptionsFromDeliveryMoment, getComponent} from '../utils';
-import {FIELD_SHIPMENT_OPTIONS} from '../constants';
-import {useSelectedDeliveryMoment} from '../composables';
-import OptionRowLoader from './OptionRowLoader.vue';
+import {createShipmentOptionsFromDeliveryMoment, getComponent} from '../../../../utils';
+import {FIELD_SHIPMENT_OPTIONS} from '../../../../constants';
+import {useSelectedDeliveryMoment} from '../../../../composables';
+import OptionRowLoader from '../../../../components/common/OptionRow/OptionRowLoader.vue';
 
 const deliveryMoment = useSelectedDeliveryMoment();
 

@@ -27,7 +27,7 @@ import {
   useCheckboxGroupContext,
   type WithElement,
 } from '@myparcel-do/shared';
-import OptionRow from './OptionRow.vue';
+import OptionRow from '../../common/OptionRow/OptionRow.vue';
 
 // eslint-disable-next-line vue/no-unused-properties
 const props = defineProps<WithElement<CheckboxGroupProps<T>>>();

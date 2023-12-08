@@ -8,12 +8,12 @@
 import {computed, onMounted, toRefs, watch} from 'vue';
 import {get} from '@vueuse/core';
 import {useLogger} from '@myparcel-do/shared';
-import {getConfigFromWindow} from '../utils';
-import {type DeliveryOptionsEmits, type DeliveryOptionsProps} from '../types';
-import {useAddressStore, useConfigStore} from '../stores';
-import {setConfiguration} from '../config';
-import {useDeliveryOptionsIncomingEvents, useDeliveryOptionsOutgoingEvents} from '../composables';
-import DeliveryOptionsForm from './DeliveryOptionsForm.vue';
+import {getConfigFromWindow} from '../../utils';
+import {type DeliveryOptionsEmits, type DeliveryOptionsProps} from '../../types';
+import {useAddressStore, useConfigStore} from '../../stores';
+import {setConfiguration} from '../../config';
+import {useDeliveryOptionsIncomingEvents, useDeliveryOptionsOutgoingEvents} from '../../composables';
+import DeliveryOptionsForm from './Delivery/DeliveryOptionsForm/DeliveryOptionsForm.vue';
 
 const props = defineProps<DeliveryOptionsProps>();
 const emit = defineEmits<DeliveryOptionsEmits>();

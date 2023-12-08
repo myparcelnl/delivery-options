@@ -41,7 +41,7 @@ import {
   useRadioGroupContext,
   type WithElement,
 } from '@myparcel-do/shared';
-import OptionRow from './OptionRow.vue';
+import OptionRow from '../OptionRow/OptionRow.vue';
 
 // eslint-disable-next-line vue/no-unused-properties
 const props = defineProps<WithElement<RadioGroupProps<T>>>();

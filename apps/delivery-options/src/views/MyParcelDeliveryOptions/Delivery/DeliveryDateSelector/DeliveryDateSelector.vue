@@ -6,10 +6,10 @@
 import {computed, ref} from 'vue';
 import {CHOOSE_DATE, ComponentName} from '@myparcel-do/shared';
 import {createField} from '@myparcel/vue-form-builder';
-import {getComponent} from '../utils';
-import {FIELD_DELIVERY_DATE} from '../constants';
-import {useDateFormat} from '../composables/useDateFormat';
-import {useLanguage, useResolvedDeliveryDates} from '../composables';
+import {getComponent} from '../../../../utils';
+import {FIELD_DELIVERY_DATE} from '../../../../constants';
+import {useDateFormat} from '../../../../composables/useDateFormat';
+import {useLanguage, useResolvedDeliveryDates} from '../../../../composables';
 
 const {translate} = useLanguage();
 const deliveryDates = useResolvedDeliveryDates();

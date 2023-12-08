@@ -11,14 +11,13 @@ import {
   ALLOW_SAME_DAY_DELIVERY,
   ALLOW_SATURDAY_DELIVERY,
   ALLOW_SIGNATURE,
-  CarrierSetting,
   type CarrierSettingsObject,
   DELIVERY_DAYS_WINDOW,
   type DeliveryOptionsAddress,
-  type DeliveryOptionsConfig,
   DROP_OFF_DELAY,
   DROP_OFF_POSSIBILITIES,
   getDefaultConfiguration,
+  type InputDeliveryOptionsConfig,
   PRICE_EVENING_DELIVERY,
   PRICE_MONDAY_DELIVERY,
   PRICE_MORNING_DELIVERY,
@@ -42,26 +41,26 @@ export const getDefaultSandboxConfig = (): Record<string, unknown> => {
     [DROP_OFF_POSSIBILITIES]: [
       {
         day: 2,
-        [CarrierSetting.CutoffTime]: '17:00',
-        [CarrierSetting.CutoffTimeSameDay]: '09:30',
+        cutoffTime: '17:00',
+        cutoffTimeSameDay: '09:30',
       },
       {
         day: 3,
-        [CarrierSetting.CutoffTime]: '17:00',
-        [CarrierSetting.CutoffTimeSameDay]: '09:30',
+        cutoffTime: '17:00',
+        cutoffTimeSameDay: '09:30',
       },
       {
         day: 4,
-        [CarrierSetting.CutoffTime]: '17:00',
-        [CarrierSetting.CutoffTimeSameDay]: '09:30',
+        cutoffTime: '17:00',
+        cutoffTimeSameDay: '09:30',
       },
       {
         day: 5,
-        [CarrierSetting.CutoffTime]: '17:00',
-        [CarrierSetting.CutoffTimeSameDay]: '09:30',
+        cutoffTime: '17:00',
+        cutoffTimeSameDay: '09:30',
       },
     ],
-  } satisfies DeliveryOptionsConfig) as Record<string, unknown>;
+  } satisfies InputDeliveryOptionsConfig) as Record<string, unknown>;
 };
 
 export const getDefaultSandboxCarrierSettings = (): CarrierSettingsObject => {

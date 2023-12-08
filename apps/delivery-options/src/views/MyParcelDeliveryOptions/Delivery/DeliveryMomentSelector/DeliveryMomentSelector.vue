@@ -14,10 +14,10 @@
 import {computed, ref} from 'vue';
 import {ComponentName, Loader, type SelectOption, type SupportedShipmentOptionName} from '@myparcel-do/shared';
 import {createField} from '@myparcel/vue-form-builder';
-import {getComponent, getDeliveryTypePrice} from '../utils';
-import {FIELD_DELIVERY_MOMENT, SHOWN_SHIPMENT_OPTIONS} from '../constants';
-import {useResolvedDeliveryMoments} from '../composables';
-import OptionRowLoader from './OptionRowLoader.vue';
+import {getComponent, getDeliveryTypePrice} from '../../../../utils';
+import {FIELD_DELIVERY_MOMENT, SHOWN_SHIPMENT_OPTIONS} from '../../../../constants';
+import {useResolvedDeliveryMoments} from '../../../../composables';
+import OptionRowLoader from '../../../../components/common/OptionRow/OptionRowLoader.vue';
 
 const deliveryMoments = useResolvedDeliveryMoments();
 

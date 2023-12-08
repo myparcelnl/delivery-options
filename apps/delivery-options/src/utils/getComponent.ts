@@ -1,7 +1,8 @@
 import {type Component, markRaw, toRaw} from 'vue';
 import {useMemoize} from '@vueuse/core';
 import {CheckboxInput, ComponentName, RadioInput, SelectInputOrSingle} from '@myparcel-do/shared';
-import {CheckboxGroupInput, RadioGroupInput} from '../components';
+import RadioGroupInput from '../components/form/RadioGroupInput/RadioGroupInput.vue';
+import CheckboxGroupInput from '../components/form/CheckboxGroupInput/CheckboxGroupInput.vue';
 
 export const getComponent = useMemoize((componentName: ComponentName): Component => {
   const components = Object.freeze({
