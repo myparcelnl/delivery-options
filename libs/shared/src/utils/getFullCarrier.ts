@@ -5,7 +5,7 @@ import {resolveCarrierName} from './resolveCarrierName';
 import {getCarrierConfiguration} from './getCarrierConfiguration';
 
 export const getFullCarrier = useMemoize(
-  async (carrierIdentifier: CarrierIdentifier, platformName?: SupportedPlatformName): Promise<FullCarrier> => {
+  async (carrierIdentifier: CarrierIdentifier, platformName: SupportedPlatformName): Promise<FullCarrier> => {
     const carrierRequest = useCarrierRequest(resolveCarrierName(carrierIdentifier));
     await carrierRequest.load();
 
