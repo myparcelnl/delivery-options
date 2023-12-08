@@ -1,6 +1,5 @@
 import {type Component} from 'vue';
 import {type MakeOptional} from '@myparcel/ts-utils';
-import {type DeliveryOptionsOutput} from '@myparcel/delivery-options/ts';
 import {type CarrierName, type PackageTypeName} from '@myparcel/constants';
 import {
   type CarrierSetting,
@@ -13,6 +12,7 @@ import {
 } from '../enums';
 import {type CustomValidator} from './validation.types';
 import {type SupportedPlatformName} from './platform.types';
+import {type DeliveryOptionsOutput} from './output.types';
 import {type SelectOption} from './options.types';
 import {type DeliveryOptionsAddress} from './address.types';
 

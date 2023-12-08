@@ -1,5 +1,5 @@
-import {type CarrierIdentifier} from '@myparcel-do/shared';
 import {type DeliveryTypeName, type PackageTypeName, type ShipmentOptionName} from '@myparcel/constants';
+import {type CarrierIdentifier} from './config.types';
 
 interface ShipmentOptionsOutput {
   onlyRecipient?: boolean;

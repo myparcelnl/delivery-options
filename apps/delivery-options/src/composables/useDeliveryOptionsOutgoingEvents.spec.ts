@@ -3,7 +3,7 @@ import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest';
 import {createPinia, setActivePinia} from 'pinia';
 import {CarrierName, DeliveryTypeName, PackageTypeName} from '@myparcel/constants';
 import {convertOutput} from '../utils';
-import {type InternalOutput, type SelectedDeliveryMoment} from '../types';
+import {type SelectedDeliveryMoment} from '../types';
 import {useDeliveryOptionsOutgoingEvents} from './useDeliveryOptionsOutgoingEvents';
 
 /**

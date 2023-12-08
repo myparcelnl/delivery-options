@@ -6,6 +6,7 @@ export * from './element.types';
 export * from './form.types';
 export * from './input.types';
 export * from './options.types';
+export * from './output.types';
 export * from './platform.types';
 export * from './query.types';
 export * from './validation.types';

@@ -1,6 +1,6 @@
-import {FEATURE_SHOW_DELIVERY_DATE} from '@myparcel-do/shared';
+import {type DeliveryOptionsOutput, FEATURE_SHOW_DELIVERY_DATE, type InternalOutput} from '@myparcel-do/shared';
 import {ShipmentOptionName} from '@myparcel/constants';
-import {type DeliveryOptionsOutput, type InternalOutput, type SelectedDeliveryMoment} from '../types';
+import {type SelectedDeliveryMoment} from '../types';
 import {getResolvedValue} from './getResolvedValue';
 
 export const convertOutput = (output: InternalOutput): DeliveryOptionsOutput => {

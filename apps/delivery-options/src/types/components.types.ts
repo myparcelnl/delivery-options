@@ -1,5 +1,4 @@
-import {type InputDeliveryOptionsConfiguration} from '@myparcel-do/shared';
-import {type DeliveryOptionsOutput} from './output.types';
+import {type DeliveryOptionsOutput, type InputDeliveryOptionsConfiguration} from '@myparcel-do/shared';
 
 export interface DeliveryOptionsProps {
   configuration?: InputDeliveryOptionsConfiguration;

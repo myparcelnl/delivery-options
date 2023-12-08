@@ -2,7 +2,7 @@ import {beforeEach, describe, expect, it} from 'vitest';
 import {assign} from 'radash';
 import {createPinia, setActivePinia} from 'pinia';
 import {CarrierName, DeliveryTypeName, PackageTypeName, ShipmentOptionName} from '@myparcel/constants';
-import {type DeliveryOptionsOutput, type InternalOutput, type SelectedDeliveryMoment} from '../types';
+import {type SelectedDeliveryMoment} from '../types';
 import {mockDeliveryOptionsConfig} from '../__tests__';
 import {convertOutput} from './convertOutput';
 
@@ -61,7 +61,7 @@ describe('convertOutput', () => {
   ] satisfies [Partial<InternalOutput>, Partial<DeliveryOptionsOutput>][])(
     'converts internal output to external output',
     (internalOutput, expectedOutput) => {
-      const output = convertOutput(assign(DEFAULT_INTERNAL_OUTPUT, internalOutput) as InternalOutput);
+      const output = convertOutput(assign(DEFAULT_INTERNAL_OUTPUT, internalOutput));
 
       expect(output).toEqual(assign(DEFAULT_OUTPUT, expectedOutput));
     },
