@@ -15,3 +15,4 @@ export * from './isPastTime';
 export * from './showDeveloperInfo';
 export * from './splitTimestamp';
 export * from './toTime';
+export {padStart} from './padStart';
