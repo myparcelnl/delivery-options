@@ -30,11 +30,13 @@ export interface FilterableOption {
 
 export type Weekday = 0 | 1 | 2 | 3 | 4 | 5 | 6;
 
-export interface DropOffEntry {
+export type DropOffEntryObject = {
+  weekday: Weekday | `${Weekday}`;
+  cutoffTimeSameDay?: string;
   cutoffTime?: string;
-  day: Weekday | `${Weekday}`;
-  sameDayCutoffTime?: string;
-}
+};
+
+export type DropOffEntry = Weekday | DropOffEntryObject;
 
 export type DeliveryOptionsStrings = Record<string, string>;
 
@@ -58,9 +60,11 @@ export interface CarrierSettings {
   allowSaturdayDelivery?: boolean;
   allowSignature?: boolean;
   allowStandardDelivery?: boolean | FilterableOption;
+  cutoffTime?: TimestampString;
+  cutoffTimeSameDay?: TimestampString;
   deliveryDaysWindow?: number;
+  dropOffDays?: DropOffEntry[];
   dropOffDelay?: number;
-  dropOffPossibilities?: DropOffEntry[];
   packageType?: PackageTypeName;
   priceEveningDelivery?: Price;
   priceMondayDelivery?: Price;
@@ -76,7 +80,9 @@ export interface CarrierSettings {
   showDeliveryDate?: boolean;
 }
 
-export interface InputCarrierSettings extends CarrierSettings, DeprecatedConfigOptions {}
+export interface InputCarrierSettings extends Omit<CarrierSettings, 'dropOffDays'>, DeprecatedConfigOptions {
+  dropOffDays?: DropOffEntry[] | string;
+}
 
 export type InputCarrierSettingsObject = Partial<Record<CarrierIdentifier, InputCarrierSettings>>;
 
@@ -108,12 +114,6 @@ export interface DeprecatedConfigOptions {
   /** @deprecated use ShowDeliveryDate instead */
   allowShowDeliveryDate?: boolean;
   /** @deprecated use dropOffPossibilities instead */
-  cutoffTime?: TimestampString;
-  /** @deprecated use dropOffPossibilities instead */
-  cutoffTimeSameDay?: TimestampString;
-  /** @deprecated use dropOffPossibilities instead */
-  dropOffDays?: Weekday[] | string;
-  /** @deprecated use dropOffPossibilities instead */
   fridayCutoffTime?: TimestampString;
   /** @deprecated use dropOffPossibilities instead */
   saturdayCutoffTime?: TimestampString;
@@ -123,8 +123,9 @@ export interface DeprecatedConfigOptions {
  * Includes deprecated options which will be filtered out.
  */
 export type InputDeliveryOptionsConfig = {
+  dropOffDays?: DropOffEntry[] | string;
   carrierSettings?: InputCarrierSettingsObject;
-} & Omit<MakeOptional<DeliveryOptionsConfig, keyof DeliveryOptionsConfig>, 'carrierSettings'> &
+} & Omit<MakeOptional<DeliveryOptionsConfig, keyof DeliveryOptionsConfig>, 'carrierSettings' | 'dropOffDays'> &
   DeprecatedConfigOptions;
 
 export interface DeliveryOptionsConfiguration {

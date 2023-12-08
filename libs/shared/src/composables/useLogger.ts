@@ -6,6 +6,8 @@ type ConsoleMessages = unknown[];
 export interface LoggerInstance {
   debug(...messages: ConsoleMessages): void;
 
+  deprecated(thing: string, replacement?: string): void;
+
   error(...messages: ConsoleMessages): void;
 
   warning(...messages: ConsoleMessages): void;
@@ -47,9 +49,14 @@ export const useLogger = useMemoize((): LoggerInstance => {
     console.error('%c[ERROR]', 'color: #f00', ...messages);
   };
 
+  const deprecated = (thing: string, replacement?: string): void => {
+    warning(`⚠️ ${thing} is deprecated.${replacement ? ` Please use ${replacement} instead.` : ''}`);
+  };
+
   return {
     debug,
     warning,
     error,
+    deprecated,
   };
 });

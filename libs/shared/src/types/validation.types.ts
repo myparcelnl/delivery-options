@@ -1,19 +1,19 @@
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export interface CustomValidator<T1 = any, T2 = T1> {
+export interface CustomValidator<InputType = any, TargetType = InputType> {
   error: string;
 
   /**
    * Parse the input value after validation.
    */
-  parse?(value: T1): T2;
+  parse?(value: InputType): TargetType;
 
   /**
    * Parse the input value before validation.
    */
-  preParse?(value: T1): T2;
+  preParse?(value: InputType): TargetType;
 
   /**
    * Validate the input value.
    */
-  validate(value: T1): boolean;
+  validate(value: InputType | TargetType): value is TargetType;
 }

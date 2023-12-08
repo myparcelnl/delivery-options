@@ -12,10 +12,10 @@ import {
   DELIVERY_DAYS_WINDOW,
   DELIVERY_DAYS_WINDOW_MAX,
   DELIVERY_DAYS_WINDOW_MIN,
+  DROP_OFF_DAYS,
   DROP_OFF_DELAY,
   DROP_OFF_DELAY_MAX,
   DROP_OFF_DELAY_MIN,
-  DROP_OFF_POSSIBILITIES,
   FEATURE_PICKUP_LOCATIONS_DEFAULT_VIEW,
   KEY_CONFIG,
   type SelectOption,
@@ -30,7 +30,7 @@ const section = formSection({
   fields: [
     formField({
       key: KEY_CONFIG,
-      name: DROP_OFF_POSSIBILITIES,
+      name: DROP_OFF_DAYS,
       ref: ref([]),
       component: FormDropOffSelector,
     }),

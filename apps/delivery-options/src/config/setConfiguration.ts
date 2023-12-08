@@ -1,14 +1,14 @@
 import {type InputDeliveryOptionsConfiguration} from '@myparcel-do/shared';
 import {useAddressStore, useConfigStore} from '../stores';
 import {useLanguage} from '../composables';
-import {validateConfig} from './validateConfig';
+import {validateConfiguration} from './validateConfiguration';
 
 export const setConfiguration = (config: InputDeliveryOptionsConfiguration): void => {
   const configStore = useConfigStore();
   const addressStore = useAddressStore();
   const language = useLanguage();
 
-  const validated = validateConfig(config);
+  const validated = validateConfiguration(config);
 
   configStore.update(validated.config);
   addressStore.$patch(validated.address);

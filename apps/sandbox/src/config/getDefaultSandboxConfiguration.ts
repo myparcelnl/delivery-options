@@ -14,8 +14,8 @@ import {
   type CarrierSettingsObject,
   DELIVERY_DAYS_WINDOW,
   type DeliveryOptionsAddress,
+  DROP_OFF_DAYS,
   DROP_OFF_DELAY,
-  DROP_OFF_POSSIBILITIES,
   getDefaultDeliveryOptionsConfig,
   type InputDeliveryOptionsConfig,
   PRICE_EVENING_DELIVERY,
@@ -38,7 +38,7 @@ export const getDefaultSandboxConfig = (): InputDeliveryOptionsConfig => {
   return assign<InputDeliveryOptionsConfig>(defaults, {
     [DROP_OFF_DELAY]: 1,
     [DELIVERY_DAYS_WINDOW]: 7,
-    [DROP_OFF_POSSIBILITIES]: [
+    [DROP_OFF_DAYS]: [
       {
         day: 2,
         cutoffTime: '17:00',

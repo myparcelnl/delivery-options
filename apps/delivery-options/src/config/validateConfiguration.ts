@@ -1,17 +1,19 @@
 import {
   AddressField,
   CARRIER_SETTINGS,
+  type CarrierSettings,
   type CarrierSettingsObject,
   type ConfigOption,
   type DeliveryOptionsConfig,
   type DeliveryOptionsConfiguration,
-  DROP_OFF_POSSIBILITIES,
+  DROP_OFF_DAYS,
   getAllConfigOptions,
+  type InputDeliveryOptionsConfig,
   type InputDeliveryOptionsConfiguration,
   LOCALE,
   PLATFORM,
   SUPPORTED_PLATFORMS,
-  validateDropOffPossibilities,
+  validateDropOffDays,
   validateHasMinKeys,
   validateIsCountryCode,
   validateIsNumeric,
@@ -65,31 +67,41 @@ const additionalOptions: ConfigOption[] = [
   },
 
   {
-    key: DROP_OFF_POSSIBILITIES,
-    validators: [validateDropOffPossibilities()],
+    key: DROP_OFF_DAYS,
+    validators: [validateDropOffDays()],
   },
 ];
 
-export const validateConfig = (input: InputDeliveryOptionsConfiguration): DeliveryOptionsConfiguration => {
+const processConfig = <T extends InputDeliveryOptionsConfig | CarrierSettings>(
+  input: T,
+  configOptions: ConfigOption[],
+): T extends InputDeliveryOptionsConfig ? DeliveryOptionsConfig : CarrierSettings => {
+  return filterConfig(handleDeprecatedOptions(input), configOptions);
+};
+
+const validateConfig = (input: InputDeliveryOptionsConfig): DeliveryOptionsConfig => {
   const configOptions: ConfigOption[] = [...getAllConfigOptions(), ...additionalOptions];
   const configOptionsPerCarrier = configOptions.filter((option) => option.perCarrier !== false);
 
-  const filteredConfig = filterConfig<DeliveryOptionsConfig>(handleDeprecatedOptions(input.config), configOptions);
-
-  filteredConfig[CARRIER_SETTINGS] = Object.entries(filteredConfig[CARRIER_SETTINGS] ?? {}).reduce(
-    (acc, [identifier, carrierSettings]) => {
-      const resolved = handleDeprecatedOptions(carrierSettings ?? {});
-
-      acc[identifier as keyof CarrierSettingsObject] = filterConfig(resolved, configOptionsPerCarrier);
-
-      return acc;
-    },
-    {} as CarrierSettingsObject,
-  );
+  const processedConfig = processConfig(input, configOptions);
 
   return {
-    address: filterConfig(input.address, addressOptions),
-    config: filteredConfig,
-    strings: input.strings,
+    ...processedConfig,
+    [CARRIER_SETTINGS]: Object.entries(processedConfig[CARRIER_SETTINGS] ?? {}).reduce(
+      (acc, [identifier, carrierSettings]) => {
+        acc[identifier as keyof CarrierSettingsObject] = processConfig(carrierSettings ?? {}, configOptionsPerCarrier);
+
+        return acc;
+      },
+      {} as CarrierSettingsObject,
+    ),
+  };
+};
+
+export const validateConfiguration = (input: InputDeliveryOptionsConfiguration): DeliveryOptionsConfiguration => {
+  return {
+    address: filterConfig({...input.address}, addressOptions),
+    config: validateConfig({...input.config}),
+    strings: {...input.strings},
   } as unknown as DeliveryOptionsConfiguration;
 };

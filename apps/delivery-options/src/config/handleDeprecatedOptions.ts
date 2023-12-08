@@ -1,56 +1,73 @@
 import {isString} from 'radash';
+import {isDefined} from '@vueuse/core';
 import {
+  CarrierSetting,
   type CarrierSettings,
-  CUTOFF_TIME,
-  CUTOFF_TIME_DEFAULT,
-  CUTOFF_TIME_SAME_DAY,
+  DAY_FRIDAY,
+  DAY_SATURDAY,
   type DeliveryOptionsConfig,
+  DeprecatedCarrierSetting,
+  DROP_OFF_CUTOFF_TIME,
+  DROP_OFF_WEEKDAY,
+  type DropOffEntry,
   type InputCarrierSettings,
   type InputDeliveryOptionsConfig,
-  toArrayWithAnySeparator,
+  useLogger,
   type Weekday,
 } from '@myparcel-do/shared';
-import {type OneOrMore} from '@myparcel/ts-utils';
-import {DAY_FRIDAY, DAY_SATURDAY} from '../constants';
+import {toArray} from '@myparcel/ts-utils';
 
-const parseDropOffDays = (value?: OneOrMore<string | number>): number[] => {
-  let array: (string | number)[] = [];
+const parseDropOffDays = (value?: string | DropOffEntry[]): DropOffEntry[] => {
+  let array: DropOffEntry[] = [];
 
   if (isString(value)) {
-    array = toArrayWithAnySeparator(value);
+    array = toArray(value, ';').map(Number) as Weekday[];
   } else if (Array.isArray(value)) {
-    array = value;
+    array = value.map((item) => (isString(item) ? Number(item) : item)) as DropOffEntry[];
   }
 
-  return array.map(Number);
+  return array;
 };
 
-export const handleDeprecatedOptions = <T extends InputDeliveryOptionsConfig | InputCarrierSettings>(
-  input: T,
-): T extends InputDeliveryOptionsConfig ? DeliveryOptionsConfig : CarrierSettings => {
-  const {cutoffTime, dropOffDays, cutoffTimeSameDay, saturdayCutoffTime, fridayCutoffTime, ...restConfig} = input ?? {};
+type ResolvedInputConfig<Input extends InputDeliveryOptionsConfig | InputCarrierSettings> =
+  Input extends InputDeliveryOptionsConfig ? DeliveryOptionsConfig : CarrierSettings;
 
-  const hasLegacyOption = Boolean(
-    cutoffTime ?? dropOffDays?.length ?? cutoffTimeSameDay ?? saturdayCutoffTime ?? fridayCutoffTime,
-  );
+export const handleDeprecatedOptions = <Input extends InputDeliveryOptionsConfig | InputCarrierSettings>(
+  input: Input,
+): ResolvedInputConfig<Input> => {
+  const logger = useLogger();
 
-  if (hasLegacyOption) {
-    restConfig.dropOffPossibilities = parseDropOffDays(dropOffDays).map((day) => {
-      let currentCutOffTime = cutoffTime;
+  const {allowShowDeliveryDate, saturdayCutoffTime, fridayCutoffTime, ...restConfig} = {...input};
 
-      if (String(day) === DAY_FRIDAY) {
-        currentCutOffTime = fridayCutoffTime;
-      } else if (String(day) === DAY_SATURDAY) {
-        currentCutOffTime = saturdayCutoffTime;
+  const resolvedConfig = restConfig as unknown as ResolvedInputConfig<Input>;
+
+  if (isDefined(allowShowDeliveryDate)) {
+    logger.deprecated(DeprecatedCarrierSetting.AllowShowDeliveryDate, CarrierSetting.ShowDeliveryDate);
+    resolvedConfig[CarrierSetting.ShowDeliveryDate] = allowShowDeliveryDate;
+  }
+
+  if (typeof resolvedConfig.dropOffDays === 'string') {
+    logger.deprecated(`Passing ${CarrierSetting.DropOffDays} as a string`, `an array`);
+    resolvedConfig.dropOffDays = parseDropOffDays(resolvedConfig.dropOffDays);
+  }
+
+  if (isDefined(saturdayCutoffTime) || isDefined(fridayCutoffTime)) {
+    logger.deprecated(
+      `Passing ${DeprecatedCarrierSetting.SaturdayCutoffTime} or ${DeprecatedCarrierSetting.FridayCutoffTime}`,
+      `${CarrierSetting.DropOffDays} with objects containing ${DROP_OFF_CUTOFF_TIME}`,
+    );
+
+    resolvedConfig[CarrierSetting.DropOffDays] = (resolvedConfig.dropOffDays ?? []).map((weekday) => {
+      if (weekday !== DAY_FRIDAY && weekday !== DAY_SATURDAY) {
+        return weekday;
       }
 
       return {
-        day: day.toString() as `${Weekday}`,
-        [CUTOFF_TIME]: currentCutOffTime ?? cutoffTime ?? CUTOFF_TIME_DEFAULT,
-        [CUTOFF_TIME_SAME_DAY]: cutoffTimeSameDay,
+        [DROP_OFF_WEEKDAY]: weekday,
+        [DROP_OFF_CUTOFF_TIME]: weekday === DAY_FRIDAY ? fridayCutoffTime : saturdayCutoffTime,
       };
-    });
+    }) satisfies DropOffEntry[];
   }
 
-  return restConfig;
+  return resolvedConfig;
 };

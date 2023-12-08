@@ -1,5 +1,6 @@
 import {DeliveryTypeName, PackageTypeName, PlatformName, ShipmentOptionName} from '@myparcel/constants';
-import {type DropOffEntry} from './types';
+import {type DropOffEntryObject} from './types';
+import {CarrierSetting} from './enums';
 
 export const SUPPORTED_PLATFORMS = [PlatformName.MyParcel, PlatformName.SendMyParcel] as const;
 
@@ -28,8 +29,22 @@ export const REQUEST_KEY_DELIVERY_OPTIONS = 'deliveryOptions';
 
 export const REQUEST_KEY_PICKUP_LOCATIONS = 'pickupLocations';
 
-export const DROP_OFF_DAY = 'day' satisfies keyof DropOffEntry;
+export const DROP_OFF_WEEKDAY = 'weekday' satisfies keyof DropOffEntryObject;
 
-export const DROP_OFF_CUTOFF_TIME = 'cutoffTime' satisfies keyof DropOffEntry;
+export const DROP_OFF_CUTOFF_TIME = CarrierSetting.CutoffTime satisfies keyof DropOffEntryObject;
 
-export const DROP_OFF_SAME_DAY_CUTOFF_TIME = 'sameDayCutoffTime' satisfies keyof DropOffEntry;
+export const DROP_OFF_SAME_DAY_CUTOFF_TIME = CarrierSetting.CutoffTimeSameDay satisfies keyof DropOffEntryObject;
+
+export const DAY_MONDAY = 1;
+
+export const DAY_TUESDAY = 2;
+
+export const DAY_WEDNESDAY = 3;
+
+export const DAY_THURSDAY = 4;
+
+export const DAY_FRIDAY = 5;
+
+export const DAY_SATURDAY = 6;
+
+export const DAY_SUNDAY = 0;

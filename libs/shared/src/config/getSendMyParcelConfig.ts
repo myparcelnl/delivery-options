@@ -43,7 +43,7 @@ export const getSendMyParcelConfig = (): PlatformOptions => ({
       features: [
         CarrierSetting.ShowDeliveryDate,
         CarrierSetting.DeliveryDaysWindow,
-        CarrierSetting.DropOffPossibilities,
+        CarrierSetting.DropOffDays,
         CarrierSetting.DropOffDelay,
       ],
       addressFields: [AddressField.PostalCode, AddressField.Street, AddressField.City],
@@ -60,7 +60,7 @@ export const getSendMyParcelConfig = (): PlatformOptions => ({
       features: [
         CarrierSetting.ShowDeliveryDate,
         CarrierSetting.DeliveryDaysWindow,
-        CarrierSetting.DropOffPossibilities,
+        CarrierSetting.DropOffDays,
         CarrierSetting.DropOffDelay,
       ],
     },
@@ -117,7 +117,7 @@ export const getSendMyParcelConfig = (): PlatformOptions => ({
         SPAIN,
         UNITED_KINGDOM,
       ],
-      features: [CarrierSetting.DropOffPossibilities, CarrierSetting.DropOffDelay],
+      features: [CarrierSetting.DropOffDays, CarrierSetting.DropOffDelay],
       addressFields: [AddressField.PostalCode, AddressField.Street, AddressField.City],
     },
   ],

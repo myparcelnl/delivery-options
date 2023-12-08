@@ -1,8 +1,12 @@
 import {type CustomValidator} from '../types';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-type ValidatorFunction<T1, T2 = T1> = (...args: any[]) => CustomValidator<T1, T2>;
+type ValidatorFunction<InputType, TargetType = InputType> = (...args: any[]) => CustomValidator<InputType, TargetType>;
 
-export const defineValidator = <T1, T2 = T1, T extends ValidatorFunction<T1, T2> = ValidatorFunction<T1, T2>>(
+export const defineValidator = <
+  InputType,
+  TargetType = InputType,
+  T extends ValidatorFunction<InputType, TargetType> = ValidatorFunction<InputType, TargetType>,
+>(
   validator: T,
 ): T => validator;

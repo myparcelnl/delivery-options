@@ -1,8 +1,7 @@
 import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest';
 import {createPinia, setActivePinia} from 'pinia';
-import {CUTOFF_TIME_DEFAULT, type InputDeliveryOptionsConfig} from '@myparcel-do/shared';
+import {CUTOFF_TIME_DEFAULT, DAY_MONDAY, DAY_TUESDAY, type InputDeliveryOptionsConfig} from '@myparcel-do/shared';
 import {CarrierName} from '@myparcel/constants';
-import {DAY_MONDAY, DAY_TUESDAY} from '../constants';
 import {useCurrentPlatform} from '../composables';
 import {mockDeliveryOptionsConfig} from '../__tests__';
 import {getResolvedCarrier} from './getResolvedCarrier';

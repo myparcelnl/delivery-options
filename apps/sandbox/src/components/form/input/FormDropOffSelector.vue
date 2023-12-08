@@ -21,9 +21,10 @@ import {computed, markRaw, onUnmounted, reactive, ref, toRefs, watch} from 'vue'
 import {get} from '@vueuse/core';
 import {
   DROP_OFF_CUTOFF_TIME,
-  DROP_OFF_DAY,
   DROP_OFF_SAME_DAY_CUTOFF_TIME,
+  DROP_OFF_WEEKDAY,
   type DropOffEntry,
+  type DropOffEntryObject,
   type ElementEmits,
   type ElementProps,
   type SelectOption,
@@ -37,12 +38,12 @@ import FormTimeInput from './FormTimeInput.vue';
 const props = defineProps<ElementProps<DropOffEntry[]>>();
 const emit = defineEmits<ElementEmits<DropOffEntry[]>>();
 
-type InternalEntryObject = Record<number, Omit<DropOffEntry, 'day'>>;
+type InternalEntryObject = Record<number, Omit<DropOffEntryObject, 'weekday'>>;
 
 const model = computed<InternalEntryObject>({
   get() {
     return props.modelValue.reduce((acc, entry) => {
-      acc[entry.day] = entry;
+      acc[entry[DROP_OFF_WEEKDAY]] = entry;
 
       return acc;
     }, {});
@@ -58,7 +59,7 @@ const weekdays = useWeekdays();
 const createWeekdaysObject = (key: string, defaultValue: string) => {
   return reactive(
     weekdays.value.reduce((acc, _, weekday) => {
-      const value = props.modelValue.find((entry) => entry.day === String(weekday))?.[key];
+      const value = props.modelValue.find((entry) => entry[DROP_OFF_WEEKDAY] === String(weekday))?.[key];
 
       acc[weekday] = ref(value ?? defaultValue);
       return acc;
@@ -66,7 +67,7 @@ const createWeekdaysObject = (key: string, defaultValue: string) => {
   );
 };
 
-const days = ref(props.modelValue.map((entry) => String(entry.day)));
+const days = ref(props.modelValue.map((entry) => String(entry[DROP_OFF_WEEKDAY])));
 const cutoffTimes = toRefs(createWeekdaysObject(DROP_OFF_CUTOFF_TIME, '16:00'));
 const sameDayCutoffTimes = toRefs(createWeekdaysObject(DROP_OFF_SAME_DAY_CUTOFF_TIME, '09:00'));
 
@@ -102,10 +103,10 @@ const nestedComponents = weekdays.value.map((weekday, index) => {
 });
 
 const stop = watch([days, ...Object.values(cutoffTimes), ...Object.values(sameDayCutoffTimes)], () => {
-  model.value = days.value.map((day) => ({
-    [DROP_OFF_DAY]: day,
-    [DROP_OFF_CUTOFF_TIME]: cutoffTimes[day].value,
-    [DROP_OFF_SAME_DAY_CUTOFF_TIME]: sameDayCutoffTimes[day].value,
+  model.value = days.value.map((weekday) => ({
+    [DROP_OFF_WEEKDAY]: weekday,
+    [DROP_OFF_CUTOFF_TIME]: cutoffTimes[weekday].value,
+    [DROP_OFF_SAME_DAY_CUTOFF_TIME]: sameDayCutoffTimes[weekday].value,
   }));
 });
 

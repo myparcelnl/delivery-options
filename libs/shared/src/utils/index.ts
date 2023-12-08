@@ -10,4 +10,3 @@ export * from './getFullCarrier';
 export * from './getPlatformConfig';
 export * from './resolveCarrierName';
 export * from './resolveConfigOption';
-export * from './toArrayWithAnySeparator';

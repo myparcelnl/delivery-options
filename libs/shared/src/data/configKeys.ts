@@ -17,6 +17,9 @@ export const SHOW_PRICE_SURCHARGE = ConfigSetting.ShowPriceSurcharge satisfies k
 
 export const PACKAGE_TYPE = CarrierSetting.PackageType satisfies keyof DeliveryOptionsConfig;
 
+/*
+ * Delivery
+ */
 export const ALLOW_DELIVERY_OPTIONS = CarrierSetting.AllowDeliveryOptions satisfies keyof DeliveryOptionsConfig;
 
 export const ALLOW_EVENING_DELIVERY = CarrierSetting.AllowEveningDelivery satisfies keyof DeliveryOptionsConfig;
@@ -25,37 +28,51 @@ export const ALLOW_MORNING_DELIVERY = CarrierSetting.AllowMorningDelivery satisf
 
 export const ALLOW_STANDARD_DELIVERY = CarrierSetting.AllowStandardDelivery satisfies keyof DeliveryOptionsConfig;
 
-export const ALLOW_ONLY_RECIPIENT = CarrierSetting.AllowOnlyRecipient satisfies keyof DeliveryOptionsConfig;
-
-export const ALLOW_PICKUP_LOCATIONS = CarrierSetting.AllowPickupLocations satisfies keyof DeliveryOptionsConfig;
-
 export const ALLOW_SAME_DAY_DELIVERY = CarrierSetting.AllowSameDayDelivery satisfies keyof DeliveryOptionsConfig;
-
-export const ALLOW_SIGNATURE = CarrierSetting.AllowSignature satisfies keyof DeliveryOptionsConfig;
-
-export const DELIVERY_DAYS_WINDOW = CarrierSetting.DeliveryDaysWindow satisfies keyof DeliveryOptionsConfig;
-
-export const DROP_OFF_DELAY = CarrierSetting.DropOffDelay satisfies keyof DeliveryOptionsConfig;
-
-export const DROP_OFF_POSSIBILITIES = CarrierSetting.DropOffPossibilities satisfies keyof DeliveryOptionsConfig;
 
 export const PRICE_EVENING_DELIVERY = CarrierSetting.PriceEveningDelivery satisfies keyof DeliveryOptionsConfig;
 
 export const PRICE_MORNING_DELIVERY = CarrierSetting.PriceMorningDelivery satisfies keyof DeliveryOptionsConfig;
 
-export const PRICE_ONLY_RECIPIENT = CarrierSetting.PriceOnlyRecipient satisfies keyof DeliveryOptionsConfig;
-
-export const PRICE_PICKUP = CarrierSetting.PricePickup satisfies keyof DeliveryOptionsConfig;
-
 export const PRICE_SAME_DAY_DELIVERY = CarrierSetting.PriceSameDayDelivery satisfies keyof DeliveryOptionsConfig;
-
-export const PRICE_SIGNATURE = CarrierSetting.PriceSignature satisfies keyof DeliveryOptionsConfig;
 
 export const PRICE_STANDARD_DELIVERY = CarrierSetting.PriceStandardDelivery satisfies keyof DeliveryOptionsConfig;
 
 export const PRICE_MONDAY_DELIVERY = CarrierSetting.PriceMondayDelivery satisfies keyof DeliveryOptionsConfig;
 
 export const PRICE_SATURDAY_DELIVERY = CarrierSetting.PriceSaturdayDelivery satisfies keyof DeliveryOptionsConfig;
+
+/*
+ * Pickup
+ */
+
+export const ALLOW_PICKUP_LOCATIONS = CarrierSetting.AllowPickupLocations satisfies keyof DeliveryOptionsConfig;
+
+export const PRICE_PICKUP = CarrierSetting.PricePickup satisfies keyof DeliveryOptionsConfig;
+
+/*
+ * Shipment options
+ */
+export const ALLOW_ONLY_RECIPIENT = CarrierSetting.AllowOnlyRecipient satisfies keyof DeliveryOptionsConfig;
+
+export const ALLOW_SIGNATURE = CarrierSetting.AllowSignature satisfies keyof DeliveryOptionsConfig;
+
+export const PRICE_ONLY_RECIPIENT = CarrierSetting.PriceOnlyRecipient satisfies keyof DeliveryOptionsConfig;
+
+export const PRICE_SIGNATURE = CarrierSetting.PriceSignature satisfies keyof DeliveryOptionsConfig;
+
+/*
+ * Drop off settings
+ */
+export const DELIVERY_DAYS_WINDOW = CarrierSetting.DeliveryDaysWindow satisfies keyof DeliveryOptionsConfig;
+
+export const CUTOFF_TIME = CarrierSetting.CutoffTime satisfies keyof DeliveryOptionsConfig;
+
+export const CUTOFF_TIME_SAME_DAY = CarrierSetting.CutoffTimeSameDay satisfies keyof DeliveryOptionsConfig;
+
+export const DROP_OFF_DELAY = CarrierSetting.DropOffDelay satisfies keyof DeliveryOptionsConfig;
+
+export const DROP_OFF_DAYS = CarrierSetting.DropOffDays satisfies keyof DeliveryOptionsConfig;
 
 /*
  * Package types
@@ -116,13 +133,6 @@ export const SATURDAY_CUTOFF_TIME =
   DeprecatedCarrierSetting.SaturdayCutoffTime satisfies keyof InputDeliveryOptionsConfig;
 
 export const FRIDAY_CUTOFF_TIME = DeprecatedCarrierSetting.FridayCutoffTime satisfies keyof InputDeliveryOptionsConfig;
-
-export const CUTOFF_TIME = DeprecatedCarrierSetting.CutoffTime satisfies keyof InputDeliveryOptionsConfig;
-
-export const CUTOFF_TIME_SAME_DAY =
-  DeprecatedCarrierSetting.CutoffTimeSameDay satisfies keyof InputDeliveryOptionsConfig;
-
-export const DROP_OFF_DAYS = DeprecatedCarrierSetting.DropOffDays satisfies keyof InputDeliveryOptionsConfig;
 
 /** @deprecated */
 export const settingsWithCarrierOverride = [
