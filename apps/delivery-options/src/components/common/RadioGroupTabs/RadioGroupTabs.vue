@@ -24,7 +24,7 @@
         <component
           :is="option.content"
           v-if="model === option.value && option.content"
-          class="mp-p-4" />
+          class="mp-pl-4 mp-pt-4" />
       </KeepAlive>
 
       <hr v-if="index < options.length - 1" />
