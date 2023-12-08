@@ -33,7 +33,7 @@ export type Weekday = 0 | 1 | 2 | 3 | 4 | 5 | 6;
 export interface DropOffEntry {
   cutoffTime?: string;
   cutoffTimeSameDay?: string;
-  day: `${Weekday}`;
+  day: Weekday | `${Weekday}`;
 }
 
 export type DeliveryOptionsStrings = Record<string, string>;
