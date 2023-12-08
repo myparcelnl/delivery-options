@@ -16,7 +16,7 @@ import {
   type DeliveryOptionsAddress,
   DROP_OFF_DELAY,
   DROP_OFF_POSSIBILITIES,
-  getDefaultConfiguration,
+  getDefaultDeliveryOptionsConfig,
   type InputDeliveryOptionsConfig,
   PRICE_EVENING_DELIVERY,
   PRICE_MONDAY_DELIVERY,
@@ -30,12 +30,12 @@ import {
   PRICE_SIGNATURE,
   PRICE_STANDARD_DELIVERY,
 } from '@myparcel-do/shared';
-import {CarrierName, PlatformName} from '@myparcel/constants';
+import {CarrierName} from '@myparcel/constants';
 
-export const getDefaultSandboxConfig = (): Record<string, unknown> => {
-  const defaults = getDefaultConfiguration(PlatformName.MyParcel);
+export const getDefaultSandboxConfig = (): InputDeliveryOptionsConfig => {
+  const defaults = getDefaultDeliveryOptionsConfig();
 
-  return assign(defaults.config, {
+  return assign<InputDeliveryOptionsConfig>(defaults, {
     [DROP_OFF_DELAY]: 1,
     [DELIVERY_DAYS_WINDOW]: 7,
     [DROP_OFF_POSSIBILITIES]: [
@@ -60,7 +60,7 @@ export const getDefaultSandboxConfig = (): Record<string, unknown> => {
         cutoffTimeSameDay: '09:30',
       },
     ],
-  } satisfies InputDeliveryOptionsConfig) as Record<string, unknown>;
+  });
 };
 
 export const getDefaultSandboxCarrierSettings = (): CarrierSettingsObject => {
