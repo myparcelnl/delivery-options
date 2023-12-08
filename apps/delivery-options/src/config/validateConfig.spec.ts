@@ -7,6 +7,7 @@ import {
   DROP_OFF_DAYS,
   DROP_OFF_DELAY,
   DROP_OFF_POSSIBILITIES,
+  type DropOffEntry,
   FRIDAY_CUTOFF_TIME,
   type InputDeliveryOptionsConfig,
   type InputDeliveryOptionsConfiguration,
@@ -87,29 +88,29 @@ describe('validateConfig', () => {
       {
         day: '1',
         cutoffTime: '08:00',
-        cutoffTimeSameDay: '08:00',
+        sameDayCutoffTime: '08:00',
       },
       {
         day: '2',
         cutoffTime: '08:00',
-        cutoffTimeSameDay: '08:00',
+        sameDayCutoffTime: '08:00',
       },
       {
         day: '4',
         cutoffTime: '12:00',
-        cutoffTimeSameDay: '08:00',
+        sameDayCutoffTime: '08:00',
       },
       {
         day: '5',
         cutoffTime: '12:00',
-        cutoffTimeSameDay: '08:00',
+        sameDayCutoffTime: '08:00',
       },
       {
         day: '6',
         cutoffTime: '13:00',
-        cutoffTimeSameDay: '08:00',
+        sameDayCutoffTime: '08:00',
       },
-    ]);
+    ] satisfies DropOffEntry[]);
   });
 
   it('ignores and removes deprecated values if drop off possibilities are passed', () => {
@@ -122,7 +123,7 @@ describe('validateConfig', () => {
         {
           day: '2',
           cutoffTime: '08:00',
-          cutoffTimeSameDay: '08:00',
+          sameDayCutoffTime: '08:00',
         },
       ],
     } satisfies InputDeliveryOptionsConfig;
@@ -141,8 +142,8 @@ describe('validateConfig', () => {
       {
         day: '2',
         cutoffTime: '08:00',
-        cutoffTimeSameDay: '08:00',
+        sameDayCutoffTime: '08:00',
       },
-    ]);
+    ] satisfies DropOffEntry[]);
   });
 });

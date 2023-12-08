@@ -9,7 +9,7 @@ import {
 import {getDefaultCarrierSettings} from './getDefaultCarrierSettings';
 
 export const getDefaultDeliveryOptionsConfig = (): DeliveryOptionsConfig => {
-  return Object.freeze({
+  return {
     ...getDefaultCarrierSettings(),
 
     platform: PLATFORM_DEFAULT,
@@ -55,5 +55,5 @@ export const getDefaultDeliveryOptionsConfig = (): DeliveryOptionsConfig => {
     }),
 
     carrierSettings: {},
-  });
+  };
 };

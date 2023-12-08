@@ -19,20 +19,25 @@
 <script lang="ts" setup>
 import {computed, markRaw, onUnmounted, reactive, ref, toRefs, watch} from 'vue';
 import {get} from '@vueuse/core';
-import {type DropOffEntry, type ElementEmits, type ElementProps, type SelectOption} from '@myparcel-do/shared';
+import {
+  DROP_OFF_CUTOFF_TIME,
+  DROP_OFF_DAY,
+  DROP_OFF_SAME_DAY_CUTOFF_TIME,
+  type DropOffEntry,
+  type ElementEmits,
+  type ElementProps,
+  type SelectOption,
+} from '@myparcel-do/shared';
 import {createField, type InteractiveElementConfiguration} from '@myparcel/vue-form-builder';
 import {SandboxCheckboxGroupInput} from '../../base';
-import {useLanguage, useWeekdays} from '../../../composables';
-import FormTimeInput from './FormTimeInput.vue'; // eslint-disable-next-line vue/no-unused-properties
+import {useWeekdays} from '../../../composables';
+import FormTimeInput from './FormTimeInput.vue';
 
 // eslint-disable-next-line vue/no-unused-properties
 const props = defineProps<ElementProps<DropOffEntry[]>>();
 const emit = defineEmits<ElementEmits<DropOffEntry[]>>();
 
 type InternalEntryObject = Record<number, Omit<DropOffEntry, 'day'>>;
-
-const CUTOFF_TIME = 'cutoffTime';
-const CUTOFF_TIME_SAME_DAY = 'cutoffTimeSameDay';
 
 const model = computed<InternalEntryObject>({
   get() {
@@ -48,9 +53,7 @@ const model = computed<InternalEntryObject>({
   },
 });
 
-const language = useLanguage();
-
-const weekdays = useWeekdays(language.language.value.code);
+const weekdays = useWeekdays();
 
 const createWeekdaysObject = (key: string, defaultValue: string) => {
   return reactive(
@@ -64,8 +67,8 @@ const createWeekdaysObject = (key: string, defaultValue: string) => {
 };
 
 const days = ref(props.modelValue.map((entry) => String(entry.day)));
-const cutoffTimes = toRefs(createWeekdaysObject(CUTOFF_TIME, '16:00'));
-const sameDayCutoffTimes = toRefs(createWeekdaysObject(CUTOFF_TIME_SAME_DAY, '09:00'));
+const cutoffTimes = toRefs(createWeekdaysObject(DROP_OFF_CUTOFF_TIME, '16:00'));
+const sameDayCutoffTimes = toRefs(createWeekdaysObject(DROP_OFF_SAME_DAY_CUTOFF_TIME, '09:00'));
 
 const weekdayOptions = computed<SelectOption[]>(() =>
   weekdays.value.map((weekday, index) => ({
@@ -84,15 +87,15 @@ const nestedComponents = weekdays.value.map((weekday, index) => {
   return [
     createField({
       ...common,
-      label: CUTOFF_TIME,
-      name: `${CUTOFF_TIME}-${index}`,
+      label: DROP_OFF_CUTOFF_TIME,
+      name: `${DROP_OFF_CUTOFF_TIME}-${index}`,
       ref: cutoffTimes[index],
     }),
 
     createField({
       ...common,
-      label: CUTOFF_TIME_SAME_DAY,
-      name: `${CUTOFF_TIME_SAME_DAY}-${index}`,
+      label: DROP_OFF_SAME_DAY_CUTOFF_TIME,
+      name: `${DROP_OFF_SAME_DAY_CUTOFF_TIME}-${index}`,
       ref: sameDayCutoffTimes[index],
     }),
   ];
@@ -100,9 +103,9 @@ const nestedComponents = weekdays.value.map((weekday, index) => {
 
 const stop = watch([days, ...Object.values(cutoffTimes), ...Object.values(sameDayCutoffTimes)], () => {
   model.value = days.value.map((day) => ({
-    day,
-    cutoffTime: cutoffTimes[day].value,
-    cutoffTimeSameDay: sameDayCutoffTimes[day].value,
+    [DROP_OFF_DAY]: day,
+    [DROP_OFF_CUTOFF_TIME]: cutoffTimes[day].value,
+    [DROP_OFF_SAME_DAY_CUTOFF_TIME]: sameDayCutoffTimes[day].value,
   }));
 });
 

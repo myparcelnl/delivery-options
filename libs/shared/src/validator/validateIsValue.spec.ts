@@ -16,7 +16,7 @@ describe('validateIsValue', () => {
     [1, [1, 2, 3], true],
     ['v', ['a', 'b', 'c'], false],
     ['a', ['a', 'b', 'c'], true],
-  ])('should validate %s as %s', (value, values, expected) => {
+  ] as [unknown, unknown[], boolean][])('should validate %s as %s', (value, values, expected) => {
     expect(validateIsValue(values).validate(value)).toEqual(expected);
   });
 });
