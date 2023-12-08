@@ -3,8 +3,10 @@
     :id="id"
     v-model.lazy.trim="model"
     :class="classes"
-    type="text"
-    v-bind="$props" />
+    :disabled="disabled"
+    :name="name"
+    :readonly="readonly"
+    type="text" />
 </template>
 
 <script generic="T" lang="ts" setup>

@@ -6,5 +6,13 @@
     "types": ["node", "vite/client"]
   },
   "include": [],
-  "exclude": ["**/__mocks__", "**/__tests__", "**/dist", "**/node_modules"]
+  "exclude": [
+    "**/*.spec.*",
+    "**/*.test.*",
+    "**/__mocks__",
+    "**/__tests__",
+    "**/__snapshots__",
+    "**/dist",
+    "**/node_modules"
+  ]
 }

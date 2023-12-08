@@ -1,17 +1,20 @@
 <template>
   <input
+    :id="id"
     v-model="model"
-    type="radio"
-    v-bind="$props" />
+    :disabled="disabled"
+    :name="name"
+    :readonly="readonly"
+    type="radio" />
 </template>
 
-<script generic="T extends string" lang="ts" setup>
+<script generic="T extends RadioModelValue" lang="ts" setup>
 import {useVModel} from '@vueuse/core';
-import {type InputEmits, type InputProps} from '../types';
+import {type RadioEmits, type RadioModelValue, type RadioProps} from '../types';
 
 // eslint-disable-next-line vue/no-unused-properties
-const props = defineProps<InputProps<T>>();
-const emit = defineEmits<InputEmits<T>>();
+const props = defineProps<RadioProps<T>>();
+const emit = defineEmits<RadioEmits<T>>();
 
 const model = useVModel(props, undefined, emit);
 </script>

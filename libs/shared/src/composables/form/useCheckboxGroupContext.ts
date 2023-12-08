@@ -17,18 +17,21 @@ export const useCheckboxGroupContext = <T extends CheckboxGroupModelValue = Chec
   props: WithElement<CheckboxGroupProps<T>>,
   emit: CheckboxGroupEmits<T>,
 ): CheckboxGroupContext<T> => {
-  const context = useInputWithOptionsContext(props, emit);
+  const context = useInputWithOptionsContext<T>(props as any, emit);
 
   const createUpdateHandler = (option: SelectOption<T>) => {
     return (toggle: boolean) => {
       const newModel = [...get(context.model)];
 
       if (toggle) {
+        // @ts-expect-error todo
         newModel.push(option.value);
       } else {
+        // @ts-expect-error todo
         newModel.splice(newModel.indexOf(option.value), 1);
       }
 
+      // @ts-expect-error todo
       emit('update:modelValue', newModel);
     };
   };

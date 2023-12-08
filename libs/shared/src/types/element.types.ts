@@ -1,15 +1,10 @@
 import {type ComputedRef, type WritableComputedRef} from '@vue/reactivity';
-import {
-  type ComponentOrHtmlElement,
-  type ElementName,
-  type InteractiveElementInstance,
-} from '@myparcel/vue-form-builder';
-import {type Replace} from '@myparcel/ts-utils';
+import {type InteractiveElementInstance} from '@myparcel/vue-form-builder';
 import {type InputProps} from './form.types';
 
-export type ElementContext<T = unknown, Props extends Record<string, unknown> = Record<string, unknown>> = {
+export type ElementContext<Type = unknown, Props extends Record<string, unknown> = Record<string, unknown>> = {
   id: string;
-  model: WritableComputedRef<T>;
+  model: WritableComputedRef<Type>;
   elementProps: ComputedRef<Props & InputProps>;
 };
 
@@ -19,9 +14,8 @@ export type GlobalFieldProps = {
   value?: unknown;
 };
 
-export type ElementInstance<
-  Props extends Record<string, unknown> = Record<string, unknown>,
-  C extends ComponentOrHtmlElement = ComponentOrHtmlElement,
-  N extends ElementName = string,
-  RT = unknown,
-> = Replace<InteractiveElementInstance<C, N, RT>, 'props', Props & GlobalFieldProps & Record<string, unknown>>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type ElementInstance<Props extends any = any, Type = unknown> = InteractiveElementInstance<
+  Type,
+  Props & GlobalFieldProps
+>;

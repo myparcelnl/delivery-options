@@ -4,7 +4,7 @@
       v-if="query.data"
       v-show="loaded && !hasError"
       :alt="carrier"
-      :src="useAssetUrl(query.data.meta.logo_svg)"
+      :src="src"
       class="mp-m-auto"
       @error="hasError = true"
       @load="loaded = true" />
@@ -16,7 +16,8 @@
 </template>
 
 <script lang="ts" setup>
-import {ref} from 'vue';
+import {computed, ref} from 'vue';
+import {get} from '@vueuse/core';
 import {type CarrierIdentifier} from '../types';
 import {useCarrierRequest} from '../sdk';
 import {useAssetUrl} from '../composables';
@@ -28,4 +29,8 @@ const query = useCarrierRequest(props.carrier);
 const loaded = ref(false);
 
 const hasError = ref(false);
+
+const src = computed(() => {
+  return useAssetUrl(get(query.data)?.meta.logo_svg);
+});
 </script>

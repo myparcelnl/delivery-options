@@ -17,7 +17,6 @@ import {
   DROP_OFF_DAYS,
   DROP_OFF_DELAY,
   FEATURE_SHOW_DELIVERY_DATE,
-  FRIDAY_CUTOFF_TIME,
   PRICE_EVENING_DELIVERY,
   PRICE_MORNING_DELIVERY,
   PRICE_ONLY_RECIPIENT,
@@ -25,7 +24,6 @@ import {
   PRICE_SAME_DAY_DELIVERY,
   PRICE_SIGNATURE,
   PRICE_STANDARD_DELIVERY,
-  SATURDAY_CUTOFF_TIME,
 } from './configKeys';
 
 type DeliveryOptionsFeature = readonly ConfigKey[];
@@ -40,10 +38,7 @@ export const FEATURES_EVENING_DELIVERY: DeliveryOptionsFeature = Object.freeze([
   PRICE_EVENING_DELIVERY,
 ]);
 
-export const FEATURES_MONDAY_DELIVERY: DeliveryOptionsFeature = Object.freeze([
-  ALLOW_MONDAY_DELIVERY,
-  SATURDAY_CUTOFF_TIME,
-]);
+export const FEATURES_MONDAY_DELIVERY: DeliveryOptionsFeature = Object.freeze([ALLOW_MONDAY_DELIVERY]);
 
 export const FEATURES_MORNING_DELIVERY: DeliveryOptionsFeature = Object.freeze([
   ALLOW_MORNING_DELIVERY,
@@ -63,10 +58,7 @@ export const FEATURES_PACKAGE_TYPE_MAILBOX: DeliveryOptionsFeature = Object.free
 
 export const FEATURES_PICKUP: DeliveryOptionsFeature = Object.freeze([ALLOW_PICKUP_LOCATIONS, PRICE_PICKUP]);
 
-export const FEATURES_SATURDAY_DELIVERY: DeliveryOptionsFeature = Object.freeze([
-  ALLOW_SATURDAY_DELIVERY,
-  FRIDAY_CUTOFF_TIME,
-]);
+export const FEATURES_SATURDAY_DELIVERY: DeliveryOptionsFeature = Object.freeze([ALLOW_SATURDAY_DELIVERY]);
 
 export const FEATURES_SIGNATURE: DeliveryOptionsFeature = Object.freeze([ALLOW_SIGNATURE, PRICE_SIGNATURE]);
 

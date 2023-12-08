@@ -39,6 +39,12 @@ export type NumberInputProps = InputProps<NumberInputModelValue>;
 
 export type NumberInputEmits = ElementEmits<number>;
 
+export type RadioModelValue = boolean;
+
+export type RadioProps<T extends RadioModelValue> = InputProps<T>;
+
+export type RadioEmits<T extends RadioModelValue> = ElementEmits<T>;
+
 export type RadioGroupModelValue = string;
 
 export type RadioGroupProps<T extends RadioGroupModelValue> = InputProps<T> & OptionsProps<T>;

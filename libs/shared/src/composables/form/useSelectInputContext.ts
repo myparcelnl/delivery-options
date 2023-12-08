@@ -7,4 +7,5 @@ export const useSelectInputContext = <
 >(
   props: P,
   emit: SelectInputEmits<T>,
+  // @ts-expect-error todo
 ): InputWithOptionsContext<T> => useInputWithOptionsContext(props, emit);

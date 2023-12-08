@@ -99,7 +99,7 @@
 export default {inheritAttrs: false};
 </script>
 
-<script generic="T extends SelectInputModelValue" lang="ts" setup>
+<script lang="ts" setup>
 import {computed, nextTick, ref, watch} from 'vue';
 import {
   type SelectInputEmits,
@@ -110,6 +110,8 @@ import {
 } from '../types';
 import {useClickOutside, useCursor, useOpenState, useSelectInputContext} from '../composables';
 import {Loader} from './Loader';
+
+type T = SelectInputModelValue;
 
 // eslint-disable-next-line vue/no-unused-properties
 const props = defineProps<WithElement<SelectInputProps<T>> & {options?: any; loading?: boolean}>();

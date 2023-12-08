@@ -6,10 +6,13 @@
       }"
       class="mp-cursor-pointer mp-inline-flex mp-relative">
       <input
+        :id="id"
         v-model="model"
+        :disabled="disabled"
+        :name="name"
+        :readonly="readonly"
         class="mp-peer mp-sr-only"
-        type="checkbox"
-        v-bind="$props" />
+        type="checkbox" />
 
       <span
         class="dark:mp-bg-gray-600 mp-bg-gray-300 mp-h-6 mp-rounded-full mp-transition-colors mp-w-10 peer-checked:dark:mp-bg-goldfish-600 peer-checked:mp-bg-goldfish-500" />

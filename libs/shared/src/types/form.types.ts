@@ -1,10 +1,9 @@
-import {type ComponentOrHtmlElement, type ElementName} from '@myparcel/vue-form-builder';
 import {type ElementInstance} from './element.types';
 import {type ToRecord} from './common.types';
 
-export interface ElementProps<T = unknown, Props extends Record<string, unknown> = Record<string, unknown>> {
-  element: ElementInstance<Props, ComponentOrHtmlElement, ElementName, T>;
-  modelValue: T;
+export interface ElementProps<Type = unknown, Props extends Record<string, unknown> = Record<string, unknown>> {
+  element: ElementInstance<Props, Type>;
+  modelValue: Type;
 }
 
 export type ElementEmits<T = unknown> = (name: 'update:modelValue', value: T) => void;

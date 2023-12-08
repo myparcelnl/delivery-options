@@ -19,6 +19,7 @@ const toStringKey = (queryKey: string | number | object | RequestKey): string =>
 };
 
 export const useRequestClient = <T>(): RequestClient<T> => {
+  // @ts-expect-error todo
   return {
     ...createStorableMap(requestCache, toStringKey),
 

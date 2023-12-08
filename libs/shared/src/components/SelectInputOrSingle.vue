@@ -20,15 +20,18 @@
 export default {inheritAttrs: false};
 </script>
 
-<script generic="T extends SelectInputModelValue" lang="ts" setup>
+<script lang="ts" setup>
 import {computed} from 'vue';
 import {type SelectInputEmits, type SelectInputModelValue, type SelectInputProps, type WithElement} from '../types';
 import {useSelectInputContext} from '../composables';
 import SelectInput from './SelectInput.vue';
 import {Loader} from './Loader';
 
+// todo: <script generic> does not work in build with 2 script tags
+type T = SelectInputModelValue;
+
 // eslint-disable-next-line vue/no-unused-properties
-const props = defineProps<WithElement<SelectInputProps<T>> & {options?: any; loading?: boolean}>();
+const props = defineProps<WithElement<SelectInputProps<T>>>();
 const emit = defineEmits<SelectInputEmits<T>>();
 
 const {model, options} = useSelectInputContext(props, emit);

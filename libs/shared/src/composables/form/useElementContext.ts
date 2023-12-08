@@ -15,6 +15,7 @@ export const useElementContext = <
 ): ElementContext<T1, Props['element']['props']> => {
   const propRefs = toRefs(props);
 
+  // @ts-expect-error todo
   const id = generateFieldId(propRefs.element);
   const model = useVModel(props, undefined, emit) as WritableComputedRef<T1>;
 

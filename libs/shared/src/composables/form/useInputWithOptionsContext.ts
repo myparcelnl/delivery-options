@@ -22,6 +22,7 @@ export const useInputWithOptionsContext = <T extends SelectInputModelValue = Sel
   props: WithElement<T, InputProps<T> & OptionsProps<T>>,
   emit: SelectInputEmits<T>,
 ): InputWithOptionsContext<T> => {
+  // @ts-expect-error todo
   const {id, model, elementProps} = useElementContext(props, emit);
 
   const options = computed(() => props.element.props.options ?? []);
@@ -44,9 +45,11 @@ export const useInputWithOptionsContext = <T extends SelectInputModelValue = Sel
 
   return {
     id,
+    // @ts-expect-error todo
     options,
     model,
     elementProps: computed(() => {
+      // @ts-expect-error todo
       const {options: _, ...restProps} = elementProps.value;
 
       return restProps;

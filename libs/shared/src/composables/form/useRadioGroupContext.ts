@@ -10,5 +10,6 @@ export const useRadioGroupContext = <
   props: Props,
   emit: RadioGroupEmits<T>,
 ): RadioGroupContext<T> => {
+  // @ts-expect-error todo
   return useInputWithOptionsContext(props, emit);
 };

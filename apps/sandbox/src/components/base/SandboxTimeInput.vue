@@ -1,8 +1,11 @@
 <template>
   <TextInput
+    :id="id"
     v-model.lazy="model"
-    type="time"
-    v-bind="$props" />
+    :disabled="disabled"
+    :name="name"
+    :readonly="readonly"
+    type="time" />
 </template>
 
 <script lang="ts" setup>
