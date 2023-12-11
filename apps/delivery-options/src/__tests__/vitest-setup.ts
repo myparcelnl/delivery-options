@@ -1,14 +1,17 @@
 /* eslint-disable */
 import {afterEach, vi} from 'vitest';
-import {mockGetCarrier, mockGetCarriers} from './mocks';
 import {
   type AbstractPublicEndpoint,
   type EndpointResponse,
   GetCarrier,
   GetCarriers,
+  GetDeliveryOptions,
+  GetPickupLocations,
   type Options,
 } from '@myparcel/sdk';
 import {cleanup} from '@testing-library/vue';
+import {mockGetCarrier, mockGetCarriers} from '@myparcel-do/shared/testing';
+import {mockGetDeliveryOptions, mockGetPickupLocations} from './mocks';
 
 vi.mock('@myparcel/sdk', async (importOriginal) => {
   const original = await importOriginal<typeof import('@myparcel/sdk')>();
@@ -25,6 +28,14 @@ vi.mock('@myparcel/sdk', async (importOriginal) => {
           return Promise.resolve(mockGetCarriers(endpoint, options));
         }
 
+        if (endpoint instanceof GetDeliveryOptions) {
+          return Promise.resolve(mockGetDeliveryOptions(endpoint, options));
+        }
+
+        if (endpoint instanceof GetPickupLocations) {
+          return Promise.resolve(mockGetPickupLocations(endpoint, options));
+        }
+
         throw new Error(`Unknown request: ${endpoint.name}`);
       }
     },
@@ -32,5 +43,5 @@ vi.mock('@myparcel/sdk', async (importOriginal) => {
 });
 
 afterEach(() => {
-  cleanup()
-})
+  cleanup();
+});

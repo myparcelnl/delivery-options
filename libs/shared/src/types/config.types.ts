@@ -1,9 +1,7 @@
-import {type Component} from 'vue';
 import {type MakeOptional} from '@myparcel/ts-utils';
 import {type CarrierName, type PackageTypeName} from '@myparcel/constants';
 import {
   type CarrierSetting,
-  type ComponentName,
   type ConfigSetting,
   type DeprecatedCarrierSetting,
   type OptionType,
@@ -137,7 +135,7 @@ export interface DeliveryOptionsConfiguration {
 
 export interface InputDeliveryOptionsConfiguration {
   address: DeliveryOptionsAddress;
-  components: Partial<Record<ComponentName, Component>>;
+  // components: Partial<Record<ComponentName, Component>>;
   config: InputDeliveryOptionsConfig;
   initial?: Partial<DeliveryOptionsOutput>;
   strings?: DeliveryOptionsStrings;

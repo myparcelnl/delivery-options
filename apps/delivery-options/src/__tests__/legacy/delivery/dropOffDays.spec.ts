@@ -1,5 +1,4 @@
 import {afterEach, describe, expect, test} from 'vitest';
-import dayjs from 'dayjs';
 import {CONFIG, FRIDAY, KEY_CONFIG, MONDAY, SATURDAY, SUNDAY, THURSDAY, TUESDAY, WEDNESDAY} from '@myparcel-do/shared';
 import {CarrierName, PlatformName} from '@myparcel/constants';
 import {getExtraDropOffDay} from '../../../legacy/data';
@@ -30,7 +29,7 @@ describe.skip('Delivery moments', () => {
   `(
     'handles extra dropoff day for $platform, $carrier on day $weekday correctly',
     ({platform, carrier, weekday, expected}) => {
-      const date = dayjs().weekday(weekday).set('h', 10).set('m', 0).toDate();
+      const date = new Date().weekday(weekday).set('h', 10).set('m', 0).toDate();
       vi.setSystemTime(date);
 
       const configBus = mockConfigBus({

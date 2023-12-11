@@ -3,7 +3,7 @@ import {createPinia, setActivePinia} from 'pinia';
 import {CARRIER_DHL_FOR_YOU, CARRIER_POST_NL, CARRIER_UPS} from '@myparcel-do/shared/testing';
 import {type CarrierWithIdentifier} from '@myparcel-do/shared';
 import {CarrierName, DeliveryTypeName} from '@myparcel/constants';
-import {defineCarrier, mockDeliveryOption, mockDeliveryOptionsConfig} from '../__tests__';
+import {defineCarrier, mockDeliveryOptionsConfig, mockResolvedDeliveryOption} from '../__tests__';
 import {getDeliveryTypePrice} from './getDeliveryTypePrice';
 
 type TestInput = {
@@ -73,7 +73,7 @@ describe('getDeliveryTypePrice', () => {
         },
       });
 
-      const option = mockDeliveryOption({deliveryType, carrier});
+      const option = mockResolvedDeliveryOption({deliveryType, carrier});
 
       expect(getDeliveryTypePrice(option, carrier.identifier)).toBe(result);
     },

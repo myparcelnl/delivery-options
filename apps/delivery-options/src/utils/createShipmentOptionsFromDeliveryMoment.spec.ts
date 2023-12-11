@@ -1,10 +1,9 @@
 import {afterEach, beforeEach, describe, expect, it} from 'vitest';
 import {createPinia, setActivePinia} from 'pinia';
-import {ALLOW_ONLY_RECIPIENT, ALLOW_SIGNATURE, KEY_CONFIG} from '@myparcel-do/shared';
+import {ALLOW_ONLY_RECIPIENT, ALLOW_SIGNATURE, getShipmentOptionConfigMap, KEY_CONFIG} from '@myparcel-do/shared';
 import {type ShipmentOptionName} from '@myparcel/constants';
 import {useCarrierSettings} from '../composables';
-import {mockDeliveryOption, mockDeliveryOptionsConfig} from '../__tests__';
-import {getShipmentOptionConfigMap} from '../../../../libs/shared/src/utils/getShipmentOptionConfigMap';
+import {mockDeliveryOptionsConfig, mockResolvedDeliveryOption} from '../__tests__';
 import {createShipmentOptionsFromDeliveryMoment} from './createShipmentOptionsFromDeliveryMoment';
 
 describe('createShipmentOptionsFromDeliveryMoment', () => {
@@ -27,7 +26,7 @@ describe('createShipmentOptionsFromDeliveryMoment', () => {
         },
       });
 
-      const result = createShipmentOptionsFromDeliveryMoment(mockDeliveryOption());
+      const result = createShipmentOptionsFromDeliveryMoment(mockResolvedDeliveryOption());
 
       expect(result).toHaveLength(Object.keys(getShipmentOptionConfigMap()).length - 1);
       expect(result).not.toContainEqual({
@@ -49,7 +48,7 @@ describe('createShipmentOptionsFromDeliveryMoment', () => {
       });
 
       const result = createShipmentOptionsFromDeliveryMoment(
-        mockDeliveryOption({
+        mockResolvedDeliveryOption({
           shipmentOptions: [
             {
               name: shipmentOption as ShipmentOptionName,
@@ -81,7 +80,7 @@ describe('createShipmentOptionsFromDeliveryMoment', () => {
       });
 
       const result = createShipmentOptionsFromDeliveryMoment(
-        mockDeliveryOption({
+        mockResolvedDeliveryOption({
           shipmentOptions: [
             {
               name: shipmentOption as ShipmentOptionName,

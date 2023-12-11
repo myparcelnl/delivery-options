@@ -1,4 +1,3 @@
-export * from './cutoffTimeHasPassed';
 export * from './findExtraDelivery';
 export * from './getDropOffDay';
 export * from './getNextDeliveryOption';

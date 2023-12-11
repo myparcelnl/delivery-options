@@ -19,7 +19,7 @@ exports[`getPlatformConfig > gets config for platform belgie 1`] = `
       "features": [
         "showDeliveryDate",
         "deliveryDaysWindow",
-        "dropOffPossibilities",
+        "dropOffDays",
         "dropOffDelay",
       ],
       "name": "bpost",
@@ -47,7 +47,7 @@ exports[`getPlatformConfig > gets config for platform belgie 1`] = `
       "features": [
         "showDeliveryDate",
         "deliveryDaysWindow",
-        "dropOffPossibilities",
+        "dropOffDays",
         "dropOffDelay",
       ],
       "name": "postnl",
@@ -101,7 +101,7 @@ exports[`getPlatformConfig > gets config for platform belgie 1`] = `
         "pickup",
       ],
       "features": [
-        "dropOffPossibilities",
+        "dropOffDays",
         "dropOffDelay",
       ],
       "name": "dpd",
@@ -157,7 +157,7 @@ exports[`getPlatformConfig > gets config for platform myparcel 1`] = `
       "features": [
         "deliveryDaysWindow",
         "dropOffDelay",
-        "dropOffPossibilities",
+        "dropOffDays",
         "showDeliveryDate",
       ],
       "name": "postnl",
@@ -192,7 +192,7 @@ exports[`getPlatformConfig > gets config for platform myparcel 1`] = `
         "allowSameDayDelivery",
         "deliveryDaysWindow",
         "dropOffDelay",
-        "dropOffPossibilities",
+        "dropOffDays",
       ],
       "name": "dhlforyou",
       "packageTypes": [
@@ -385,7 +385,7 @@ exports[`getPlatformConfig > gets config for platform myparcel 1`] = `
         "pickup",
       ],
       "features": [
-        "dropOffPossibilities",
+        "dropOffDays",
         "dropOffDelay",
       ],
       "name": "dpd",

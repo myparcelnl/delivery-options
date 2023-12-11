@@ -3,8 +3,6 @@ import customTsConfig from 'vite-plugin-custom-tsconfig';
 import {mergeConfig} from 'vite';
 import vue from '@vitejs/plugin-vue';
 
-const dirname = new URL('.', import.meta.url).pathname;
-
 /** @type {import('vitest/config').UserConfigFn} */
 const createCommonViteConfig = (env) => {
   const isProd = env.mode === 'production';
@@ -38,7 +36,6 @@ const createCommonViteConfig = (env) => {
       environment: 'happy-dom',
       include: ['src/**/*.spec.ts'],
       passWithNoTests: true,
-      setupFiles: [`${dirname}/../shared/src/__tests__/vitest-setup.ts`],
     },
   };
 };

@@ -1,3 +1,4 @@
-export * from './getMockDeliveryOptionsConfig';
-export * from './mockDeliveryOption';
+export * from './getMockDeliveryOptionsConfiguration';
 export * from './mockDeliveryOptionsConfig';
+export * from './mockResolvedDeliveryOption';
+export {mockSelectedDeliveryMoment} from './mockSelectedDeliveryMoment';

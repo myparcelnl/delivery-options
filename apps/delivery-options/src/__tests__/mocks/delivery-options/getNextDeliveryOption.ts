@@ -1,8 +1,7 @@
-import dayjs from 'dayjs';
+import {addDays} from 'date-fns';
+import {type ResolvedMockDeliveryOptionsParameters} from '@myparcel-do/shared/testing';
+import {CarrierSetting, getFullCarrier} from '@myparcel-do/shared';
 import {type DeliveryOption} from '@myparcel/sdk';
-import {type FakeDeliveryOptionsParameters} from '../../types';
-import {CarrierSetting} from '../../../enums';
-import {useFullCarrier} from '../../../composables';
 import {shouldSkipToNextDeliveryDate} from './shouldSkipToNextDeliveryDate';
 import {findExtraDelivery} from './findExtraDelivery';
 import {getDeliveryOptionsEntry} from './entries/getDeliveryOptionsEntry';
@@ -16,25 +15,27 @@ interface FakeDeliveryOption {
  * Returns the next available delivery date, very much like the actual responses from the API. This needs to be
  * quite precise because we can't mock the current date with real api responses.
  */
-export const getNextDeliveryOption = (
-  args: FakeDeliveryOptionsParameters,
+export const getNextDeliveryOption = async (
+  args: ResolvedMockDeliveryOptionsParameters,
   daysOffset = 0,
-  currentDate = dayjs(),
-): FakeDeliveryOption => {
-  const next = () => getNextDeliveryOption(args, daysOffset + 1, currentDate);
+  currentDate: Date = new Date(),
+): Promise<FakeDeliveryOption> => {
+  const currentDeliveryDate = addDays(new Date(currentDate), daysOffset);
 
-  const fullCarrier = useFullCarrier(args.carrier, args.platform);
-  const canHaveSameDay = fullCarrier.value.hasFeature(CarrierSetting.AllowSameDayDelivery);
+  const fullCarrier = await getFullCarrier(args.carrier, args.platform);
 
+  const canHaveSameDay = fullCarrier.hasFeature(CarrierSetting.AllowSameDayDelivery);
   const hasSameDayDelivery = daysOffset === 0 && canHaveSameDay;
-  const currentDeliveryDate = currentDate.add(daysOffset, 'day');
-  const extraDelivery = hasSameDayDelivery ? undefined : findExtraDelivery(args, currentDeliveryDate.day());
+
+  const extraDelivery = hasSameDayDelivery
+    ? undefined
+    : findExtraDelivery(args, currentDeliveryDate.getDay(), fullCarrier);
 
   if (
     (daysOffset === 0 && !canHaveSameDay) ||
     shouldSkipToNextDeliveryDate(args, currentDate, currentDeliveryDate, extraDelivery)
   ) {
-    return next();
+    return getNextDeliveryOption(args, daysOffset + 1, currentDate);
   }
 
   return {

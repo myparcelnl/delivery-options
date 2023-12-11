@@ -1,22 +1,24 @@
 import {type Mock} from 'vitest';
 import {type AbstractEndpoint, type EndpointResponse, type Options} from '@myparcel/sdk';
-import {type CarrierIdentifier, type SupportedPlatformName} from '../types';
+import {type CarrierIdentifier, type SupportedPlatformName, type Weekday} from '../types';
 
-export interface FakeDeliveryOptionsParameters {
+export interface MockDeliveryOptionsParameters {
   carrier: CarrierIdentifier;
-  cutoffTime: string;
-  deliveryDaysWindow: number;
-  dropOffDays: number[];
-  dropOffDelay: number;
-  mondayDelivery: boolean | undefined;
+  cutoffTime?: string;
+  deliveryDaysWindow?: number;
+  dropOffDays?: Weekday[];
+  dropOffDelay?: number;
+  mondayDelivery?: boolean | undefined;
   platform: SupportedPlatformName;
-  saturdayDelivery: boolean | undefined;
+  saturdayDelivery?: boolean | undefined;
 }
+
+export type ResolvedMockDeliveryOptionsParameters = Required<MockDeliveryOptionsParameters>;
 
 export interface ExtraDelivery {
   cutoffTime: string;
-  deliveryDay: number;
-  dropOffDay: number;
+  deliveryDay: Weekday;
+  dropOffDay: Weekday;
   feature: string;
 }
 

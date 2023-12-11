@@ -41,10 +41,11 @@ export const getSendMyParcelConfig = (): PlatformOptions => ({
       deliveryCountries: [BELGIUM, NETHERLANDS],
       pickupCountries: [BELGIUM, NETHERLANDS],
       features: [
-        CarrierSetting.ShowDeliveryDate,
+        CarrierSetting.AllowSaturdayDelivery,
         CarrierSetting.DeliveryDaysWindow,
         CarrierSetting.DropOffDays,
         CarrierSetting.DropOffDelay,
+        CarrierSetting.ShowDeliveryDate,
       ],
       addressFields: [AddressField.PostalCode, AddressField.Street, AddressField.City],
       shipmentOptions: [ShipmentOptionName.OnlyRecipient, ShipmentOptionName.Signature],
@@ -58,10 +59,10 @@ export const getSendMyParcelConfig = (): PlatformOptions => ({
       pickupCountries: [BELGIUM, NETHERLANDS],
       shipmentOptions: [ShipmentOptionName.Signature],
       features: [
-        CarrierSetting.ShowDeliveryDate,
         CarrierSetting.DeliveryDaysWindow,
         CarrierSetting.DropOffDays,
         CarrierSetting.DropOffDelay,
+        CarrierSetting.ShowDeliveryDate,
       ],
     },
     {

@@ -4,6 +4,8 @@ import {
   CarrierSetting,
   DELIVERY_DAYS_WINDOW,
   DELIVERY_DAYS_WINDOW_DEFAULT,
+  type DeliveryOptionsAddress,
+  type DeliveryOptionsConfig,
   DROP_OFF_DAYS,
   DROP_OFF_DELAY,
   DROP_OFF_DELAY_DEFAULT,
@@ -11,15 +13,13 @@ import {
 import {type EndpointParameters, type GetDeliveryOptions} from '@myparcel/sdk';
 import {PackageTypeName, PlatformName} from '@myparcel/constants';
 import {type ResolvedCarrier} from '../types';
-import {useAddressStore, useConfigStore} from '../stores';
 import {calculateCutoffTime} from './calculateCutoffTime';
 
 export const createGetDeliveryOptionsParameters = (
   carrier: ResolvedCarrier,
+  config: Pick<DeliveryOptionsConfig, 'platform' | 'packageType'>,
+  address: DeliveryOptionsAddress,
 ): EndpointParameters<GetDeliveryOptions> => {
-  const config = useConfigStore();
-  const address = useAddressStore();
-
   return {
     platform: config.platform ?? PlatformName.MyParcel,
     carrier: carrier.name,

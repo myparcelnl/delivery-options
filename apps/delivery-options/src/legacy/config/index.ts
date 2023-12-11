@@ -1,5 +1,6 @@
 export * from './configBus';
 export * from './configurationMerger';
+export * from './exports';
 export * from './getAddress';
 export * from './getConfig';
 export * from './getWindowObject';
@@ -8,4 +9,3 @@ export * from './isPastTime';
 export * from './settingHasCarrierOverride';
 export * from './settingHasCountryOverride';
 export * from './validatePlatform';
-export * from './exports';

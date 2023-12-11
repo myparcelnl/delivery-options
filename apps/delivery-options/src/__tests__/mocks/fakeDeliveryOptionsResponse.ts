@@ -1,9 +1,9 @@
 /* eslint-disable no-continue */
 
+import {type ResolvedMockDeliveryOptionsParameters} from '@myparcel-do/shared/testing';
+import {type CarrierIdentifier, type SupportedPlatformName, type Weekday} from '@myparcel-do/shared';
 import {type EndpointParameters, type EndpointResponse, type GetDeliveryOptions} from '@myparcel/sdk';
-import {type FakeDeliveryOptionsParameters} from '../types';
-import {type CarrierIdentifier, type SupportedPlatformName} from '../../types';
-import {getNextDeliveryOption} from './delivery-options/getNextDeliveryOption';
+import {getNextDeliveryOption} from './delivery-options';
 
 /**
  * Generate an array of delivery options much like the actual API response.
@@ -11,29 +11,31 @@ import {getNextDeliveryOption} from './delivery-options/getNextDeliveryOption';
 export const fakeDeliveryOptionsResponse = (
   args: EndpointParameters<GetDeliveryOptions>,
 ): EndpointResponse<GetDeliveryOptions> => {
-  const resolvedArgs: FakeDeliveryOptionsParameters = {
+  const resolvedArgs: ResolvedMockDeliveryOptionsParameters = {
     carrier: args.carrier as CarrierIdentifier,
     cutoffTime: args.cutoff_time ?? '16:00',
     deliveryDaysWindow: Number(args.deliverydays_window ?? 1),
-    dropOffDays: args.dropoff_days ? args.dropoff_days.split(';').map(Number) : [0, 1, 2, 3, 4, 5, 6],
+    dropOffDays: (args.dropoff_days ? args.dropoff_days.split(';').map(Number) : [0, 1, 2, 3, 4, 5, 6]) as Weekday[],
     dropOffDelay: Number(args.dropoff_delay ?? 0),
-    mondayDelivery: args.monday_delivery === undefined ? undefined : Boolean(args.monday_delivery),
     platform: args.platform as SupportedPlatformName,
-    saturdayDelivery: args.monday_delivery === undefined ? undefined : Boolean(args.saturday_delivery),
+    mondayDelivery: Boolean(args.monday_delivery),
+    saturdayDelivery: Boolean(args.saturday_delivery),
   };
 
   const {deliveryDaysWindow, dropOffDelay} = resolvedArgs;
 
   let startIndex = Number(dropOffDelay);
 
-  return Array.from({length: dropOffDelay + deliveryDaysWindow}).map(() => {
-    const {index, data} = getNextDeliveryOption(resolvedArgs, startIndex);
+  const promises = Array.from({length: dropOffDelay + deliveryDaysWindow}).map(async () => {
+    const {index, data} = await getNextDeliveryOption(resolvedArgs, startIndex);
 
     // Increment the startIndex for the next run, to start from the last delivery option.
     startIndex += index - startIndex + 1;
 
     return data;
   });
+
+  return Promise.all(promises);
 };
 
 export const deliveryOptionsResponseInvalidPostalCode = (): void => {

@@ -1,8 +1,11 @@
-import {describe, expect, test} from 'vitest';
-import dayjs from 'dayjs';
-import {isPastTime} from '../../legacy/config/isPastTime';
+import {afterEach, describe, expect, test, vi} from 'vitest';
+import {isPastTime} from '../../legacy';
 
 describe.skip('isPastTime function', () => {
+  afterEach(() => {
+    vi.setSystemTime(vi.getRealSystemTime());
+  });
+
   test.each`
     currentTime   | cutOffTime | passed
     ${'00:00'}    | ${'09:30'} | ${false}
@@ -17,14 +20,15 @@ describe.skip('isPastTime function', () => {
     'if current time is $currentTime and cutoff is $cutOffTime, isPastTime should return $passed',
     ({currentTime, cutOffTime, passed}) => {
       const [hours, minutes, seconds] = currentTime.split(':');
-      const date = dayjs()
-        .set('h', hours)
-        .set('m', minutes)
-        .set('s', seconds ?? 0);
 
-      vi.setSystemTime(date.toDate());
+      const date = new Date();
+      date.setDate(1);
+      date.setHours(hours);
+      date.setMinutes(minutes);
+      date.setSeconds(seconds ?? 0);
+
+      vi.setSystemTime(date);
       expect(isPastTime(cutOffTime)).toEqual(passed);
-      vi.setSystemTime(vi.getRealSystemTime());
     },
   );
 });

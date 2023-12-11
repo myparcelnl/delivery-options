@@ -43,7 +43,7 @@ export const createShipmentOptionsFromDeliveryMoment = (
       value: name,
       disabled: hasOnlyOneOption,
       selected: hasOnlyOneOption ? match?.schema.enum[0] : false,
-      price: getResolvedValue(priceKey, carrier),
-    };
+      price: getResolvedValue(priceKey, carrier) ?? undefined,
+    } satisfies SelectOption;
   });
 };

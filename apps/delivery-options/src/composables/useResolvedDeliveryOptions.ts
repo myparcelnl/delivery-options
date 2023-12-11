@@ -3,18 +3,21 @@ import {asyncComputed, get, useMemoize} from '@vueuse/core';
 import {useDeliveryOptionsRequest} from '@myparcel-do/shared';
 import {createGetDeliveryOptionsParameters, createTimeRangeString} from '../utils';
 import {type ResolvedDeliveryOptions} from '../types';
+import {useAddressStore, useConfigStore} from '../stores';
 import {useActiveCarriers} from './useActiveCarriers';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const useResolvedDeliveryOptions = useMemoize(() => {
   const carriers = useActiveCarriers();
+  const config = useConfigStore();
+  const address = useAddressStore();
 
   const resolvedDates = asyncComputed(async () => {
     return Promise.all(
       get(carriers)
         .filter((carrier) => get(carrier.hasDelivery))
         .map(async (carrier) => {
-          const params = createGetDeliveryOptionsParameters(carrier);
+          const params = createGetDeliveryOptionsParameters(carrier, config, address);
           const query = useDeliveryOptionsRequest(params);
 
           await query.load();

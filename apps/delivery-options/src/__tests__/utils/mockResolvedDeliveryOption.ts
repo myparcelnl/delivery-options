@@ -29,7 +29,9 @@ const DEFAULT_DELIVERY_OPTION = Object.freeze({
   ],
 } satisfies ResolvedDeliveryOptions);
 
-export const mockDeliveryOption = (option: RecursivePartial<ResolvedDeliveryOptions> = {}): ResolvedDeliveryOptions => {
+export const mockResolvedDeliveryOption = (
+  option: RecursivePartial<ResolvedDeliveryOptions> = {},
+): ResolvedDeliveryOptions => {
   return {
     ...assign(DEFAULT_DELIVERY_OPTION, option),
     shipmentOptions: option.shipmentOptions ?? DEFAULT_DELIVERY_OPTION.shipmentOptions,

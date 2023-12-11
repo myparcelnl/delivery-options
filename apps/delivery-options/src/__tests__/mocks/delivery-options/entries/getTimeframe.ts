@@ -1,6 +1,9 @@
 import {type DeliveryTimeFrame} from '@myparcel/sdk';
 
-export const getTimeframe = <T extends 'start' | 'end'>(date: string, type: T): DeliveryTimeFrame<T> => {
+export const getTimeframe = <T extends 'start' | 'end' = 'start' | 'end'>(
+  date: string,
+  type: T,
+): DeliveryTimeFrame<T> => {
   return {
     type,
     date_time: {

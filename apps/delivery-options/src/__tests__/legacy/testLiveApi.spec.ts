@@ -5,10 +5,23 @@
  * As long as this test passes, the results of all tests using mocked delivery options can be trusted.
  */
 import {afterAll, beforeAll, describe, expect, test, vi} from 'vitest';
-import dayjs from 'dayjs';
-import {CONFIG, getCarrierConfiguration, KEY_CONFIG} from '@myparcel-do/shared';
+import {format} from 'date-fns';
+import {fakeDeliveryOptionsResponse} from '@myparcel-do/shared/testing';
+import {
+  ALLOW_DELIVERY_OPTIONS,
+  ALLOW_MONDAY_DELIVERY,
+  ALLOW_SATURDAY_DELIVERY,
+  CARRIER_SETTINGS,
+  CUTOFF_TIME,
+  DROP_OFF_DAYS,
+  FRIDAY_CUTOFF_TIME,
+  getCarrierConfiguration,
+  KEY_CONFIG,
+  PLATFORM,
+  SATURDAY_CUTOFF_TIME,
+} from '@myparcel-do/shared';
 import {CarrierName, PlatformName} from '@myparcel/constants';
-import {fetchDeliveryOptions, getRequestParameters} from '../../legacy/data';
+import {fetchDeliveryOptions} from '../../legacy';
 
 describe.skip('test settings on the live API', () => {
   const formatDates = ({date}) => dayjs(date.date).format('dddd, DD-MM-YYYY');
@@ -22,8 +35,8 @@ describe.skip('test settings on the live API', () => {
     vi.restoreAllMocks();
   });
 
-  const now = dayjs();
-  const weekday = now.format('dddd').toLowerCase();
+  const now = new Date();
+  const weekday = format(now, 'dddd').toLowerCase();
 
   test.each`
     platform                     | carrier               | allowExtraDelivery | cutoffTime | extraCutoffTime | dropOffDays
@@ -42,17 +55,17 @@ describe.skip('test settings on the live API', () => {
       const DELIVERY_DAYS_WINDOW = 7;
       const mockedConfigBus = mockConfigBus({
         [KEY_CONFIG]: {
-          [CONFIG.PLATFORM]: platform,
-          [CONFIG.DELIVERY_DAYS_WINDOW]: DELIVERY_DAYS_WINDOW,
-          [CONFIG.DROP_OFF_DAYS]: dropOffDays,
-          [CONFIG.CUTOFF_TIME]: cutoffTime,
-          [CONFIG.ALLOW_MONDAY_DELIVERY]: allowExtraDelivery,
-          [CONFIG.ALLOW_SATURDAY_DELIVERY]: allowExtraDelivery,
-          [CONFIG.FRIDAY_CUTOFF_TIME]: extraCutoffTime,
-          [CONFIG.SATURDAY_CUTOFF_TIME]: extraCutoffTime,
-          [CONFIG.CARRIER_SETTINGS]: {
+          [PLATFORM]: platform,
+          [DELIVERY_DAYS_WINDOW]: DELIVERY_DAYS_WINDOW,
+          [DROP_OFF_DAYS]: dropOffDays,
+          [CUTOFF_TIME]: cutoffTime,
+          [ALLOW_MONDAY_DELIVERY]: allowExtraDelivery,
+          [ALLOW_SATURDAY_DELIVERY]: allowExtraDelivery,
+          [FRIDAY_CUTOFF_TIME]: extraCutoffTime,
+          [SATURDAY_CUTOFF_TIME]: extraCutoffTime,
+          [CARRIER_SETTINGS]: {
             [carrier]: {
-              [CONFIG.ALLOW_DELIVERY_OPTIONS]: true,
+              [ALLOW_DELIVERY_OPTIONS]: true,
             },
           },
         },

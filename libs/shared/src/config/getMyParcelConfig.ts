@@ -48,9 +48,10 @@ export const getMyParcelConfig = (): PlatformOptions => ({
       pickupCountries: [NETHERLANDS, BELGIUM],
       shipmentOptions: [ShipmentOptionName.OnlyRecipient, ShipmentOptionName.Signature],
       features: [
+        CarrierSetting.AllowMondayDelivery,
         CarrierSetting.DeliveryDaysWindow,
-        CarrierSetting.DropOffDelay,
         CarrierSetting.DropOffDays,
+        CarrierSetting.DropOffDelay,
         CarrierSetting.ShowDeliveryDate,
       ],
       addressFields: [AddressField.PostalCode, AddressField.Street, AddressField.City],
