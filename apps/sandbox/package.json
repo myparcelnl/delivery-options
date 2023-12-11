@@ -25,6 +25,7 @@
     "@myparcel-do/build-vite": "workspace:*",
     "@myparcel-do/shared": "workspace:*",
     "@myparcel/ts-utils": "^1.12.0",
+    "@testing-library/vue": "^8.0.1",
     "@vitejs/plugin-vue": "^4.4.1",
     "@vueuse/core": "^10.5.0",
     "autoprefixer": "^10.4.16",
