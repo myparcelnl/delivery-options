@@ -370,7 +370,6 @@ Object {
     "LV",
     "LT",
     "LU",
-    "NL",
     "PL",
     "PT",
     "SK",
@@ -379,26 +378,25 @@ Object {
     "GB",
   ],
   "features": Object {
-    "belgie": Array [
-      Array [
-        "allowDeliveryOptions",
-        "priceStandardDelivery",
-      ],
-      Array [
-        "allowPickupLocations",
-        "pricePickup",
-      ],
-      Array [
-        "dropOffDays",
-      ],
-      Array [
-        "dropOffDelay",
-      ],
-      Array [
-        "cutoffTime",
-      ],
+     "myparcel": Array [
+       Array [
+         "allowDeliveryOptions",
+         "priceStandardDelivery",
+       ],
+       Array [
+         "pricePickup",
+       ],
+       Array [
+         "dropOffDays",
+       ],
+       Array [
+         "dropOffDelay",
+       ],
+       Array [
+         "cutoffTime",
+       ],
     ],
-    "myparcel": Array [
+    "belgie": Array [
       Array [
         "allowDeliveryOptions",
         "priceStandardDelivery",
