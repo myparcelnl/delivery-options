@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [5.11.2](https://github.com/myparcelnl/delivery-options/compare/v5.11.1...v5.11.2) (2023-12-15)
+
+
+### :bug: Bug Fixes
+
+* dpd pickup error ([#202](https://github.com/myparcelnl/delivery-options/issues/202)) ([2e2ec9e](https://github.com/myparcelnl/delivery-options/commit/2e2ec9ea698c5ec4df533337217d2a3525681a9c))
+
 ### [5.11.1](https://github.com/myparcelnl/delivery-options/compare/v5.11.0...v5.11.1) (2023-10-30)
 
 
