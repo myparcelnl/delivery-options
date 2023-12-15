@@ -370,7 +370,6 @@ Object {
     "LV",
     "LT",
     "LU",
-    "NL",
     "PL",
     "PT",
     "SK",
@@ -403,19 +402,6 @@ Object {
         "allowDeliveryOptions",
         "priceStandardDelivery",
       ],
-      Array [
-        "allowPickupLocations",
-        "pricePickup",
-      ],
-      Array [
-        "dropOffDays",
-      ],
-      Array [
-        "dropOffDelay",
-      ],
-      Array [
-        "cutoffTime",
-      ],
     ],
   },
   "name": "dpd",
@@ -423,19 +409,6 @@ Object {
     Array [
       "allowDeliveryOptions",
       "priceStandardDelivery",
-    ],
-    Array [
-      "allowPickupLocations",
-      "pricePickup",
-    ],
-    Array [
-      "dropOffDays",
-    ],
-    Array [
-      "dropOffDelay",
-    ],
-    Array [
-      "cutoffTime",
     ],
   ],
 }
