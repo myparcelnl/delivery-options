@@ -378,24 +378,6 @@ Object {
     "GB",
   ],
   "features": Object {
-     "myparcel": Array [
-       Array [
-         "allowDeliveryOptions",
-         "priceStandardDelivery",
-       ],
-       Array [
-         "pricePickup",
-       ],
-       Array [
-         "dropOffDays",
-       ],
-       Array [
-         "dropOffDelay",
-       ],
-       Array [
-         "cutoffTime",
-       ],
-    ],
     "belgie": Array [
       Array [
         "allowDeliveryOptions",
@@ -415,25 +397,18 @@ Object {
         "cutoffTime",
       ],
     ],
+    "myparcel": Array [
+      Array [
+        "allowDeliveryOptions",
+        "priceStandardDelivery",
+      ],
+    ],
   },
   "name": "dpd",
   "platformFeatures": Array [
     Array [
       "allowDeliveryOptions",
       "priceStandardDelivery",
-    ],
-    Array [
-      "allowPickupLocations",
-      "pricePickup",
-    ],
-    Array [
-      "dropOffDays",
-    ],
-    Array [
-      "dropOffDelay",
-    ],
-    Array [
-      "cutoffTime",
     ],
   ],
 }
