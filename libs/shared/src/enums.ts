@@ -2,9 +2,9 @@ export enum DeprecatedCarrierSetting {
   /** @deprecated use ShowDeliveryDate instead */
   AllowShowDeliveryDate = 'allowShowDeliveryDate',
 
-  /** @deprecated use DropOffPossibilities instead */
+  /** @deprecated use DropOffDays instead */
   FridayCutoffTime = 'fridayCutoffTime',
-  /** @deprecated use DropOffPossibilities instead */
+  /** @deprecated use DropOffDays instead */
   SaturdayCutoffTime = 'saturdayCutoffTime',
 }
 
@@ -16,7 +16,6 @@ export enum CarrierSetting {
   AllowOnlyRecipient = 'allowOnlyRecipient',
   AllowPackageTypeDigitalStamp = 'allowPackageTypeDigitalStamp',
   AllowPackageTypeMailbox = 'allowPackageTypeMailbox',
-  AllowPackageTypePackage = 'allowPackageTypePackage',
   AllowPickupLocations = 'allowPickupLocations',
   AllowSameDayDelivery = 'allowSameDayDelivery',
   AllowSaturdayDelivery = 'allowSaturdayDelivery',
@@ -39,7 +38,6 @@ export enum CarrierSetting {
   PriceSaturdayDelivery = 'priceSaturdayDelivery',
   PriceSignature = 'priceSignature',
   PriceStandardDelivery = 'priceStandardDelivery',
-  ShowDeliveryDate = 'showDeliveryDate',
 }
 
 export enum ConfigSetting {

@@ -1,5 +1,5 @@
 import {type MakeOptional} from '@myparcel/ts-utils';
-import {type CarrierName, type PackageTypeName} from '@myparcel/constants';
+import {type CarrierName} from '@myparcel/constants';
 import {
   type CarrierSetting,
   type ConfigSetting,
@@ -9,7 +9,7 @@ import {
   type RelatedConfigOptionType,
 } from '../enums';
 import {type CustomValidator} from './validation.types';
-import {type SupportedPlatformName} from './platform.types';
+import {type SupportedPackageTypeName, type SupportedPlatformName} from './platform.types';
 import {type DeliveryOptionsOutput} from './output.types';
 import {type SelectOption} from './options.types';
 import {type DeliveryOptionsAddress} from './address.types';
@@ -52,7 +52,6 @@ export interface CarrierSettings {
   allowOnlyRecipient?: boolean;
   allowPackageTypeDigitalStamp?: boolean;
   allowPackageTypeMailbox?: boolean;
-  allowPackageTypePackage?: boolean;
   allowPickupLocations?: boolean | FilterableOption;
   allowSameDayDelivery?: boolean;
   allowSaturdayDelivery?: boolean;
@@ -63,7 +62,7 @@ export interface CarrierSettings {
   deliveryDaysWindow?: number;
   dropOffDays?: DropOffEntry[];
   dropOffDelay?: number;
-  packageType?: PackageTypeName;
+  packageType?: SupportedPackageTypeName;
   priceEveningDelivery?: Price;
   priceMondayDelivery?: Price;
   priceMorningDelivery?: Price;
@@ -111,9 +110,9 @@ export interface DeliveryOptionsConfig extends CarrierSettings {
 export interface DeprecatedConfigOptions {
   /** @deprecated use ShowDeliveryDate instead */
   allowShowDeliveryDate?: boolean;
-  /** @deprecated use dropOffPossibilities instead */
+  /** @deprecated use dropOffDays instead */
   fridayCutoffTime?: TimestampString;
-  /** @deprecated use dropOffPossibilities instead */
+  /** @deprecated use dropOffDays instead */
   saturdayCutoffTime?: TimestampString;
 }
 

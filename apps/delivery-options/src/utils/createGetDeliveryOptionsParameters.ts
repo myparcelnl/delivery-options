@@ -4,26 +4,34 @@ import {
   CarrierSetting,
   DELIVERY_DAYS_WINDOW,
   DELIVERY_DAYS_WINDOW_DEFAULT,
-  type DeliveryOptionsAddress,
-  type DeliveryOptionsConfig,
   DROP_OFF_DAYS,
   DROP_OFF_DELAY,
   DROP_OFF_DELAY_DEFAULT,
+  type SupportedPackageTypeName,
 } from '@myparcel-do/shared';
 import {type EndpointParameters, type GetDeliveryOptions} from '@myparcel/sdk';
 import {PackageTypeName, PlatformName} from '@myparcel/constants';
 import {type ResolvedCarrier} from '../types';
+import {useAddressStore, useConfigStore} from '../stores';
+import {getResolvedValue} from './getResolvedValue';
 import {calculateCutoffTime} from './calculateCutoffTime';
 
 export const createGetDeliveryOptionsParameters = (
   carrier: ResolvedCarrier,
-  config: Pick<DeliveryOptionsConfig, 'platform' | 'packageType'>,
-  address: DeliveryOptionsAddress,
 ): EndpointParameters<GetDeliveryOptions> => {
+  const config = useConfigStore();
+  const address = useAddressStore();
+
+  const packageType: SupportedPackageTypeName = getResolvedValue(
+    CarrierSetting.PackageType,
+    carrier.identifier,
+    PackageTypeName.Package,
+  );
+
   return {
     platform: config.platform ?? PlatformName.MyParcel,
     carrier: carrier.name,
-    package_type: config.packageType ?? PackageTypeName.Package,
+    package_type: carrier.allowedPackageTypes.value.has(packageType) ? packageType : PackageTypeName.Package,
 
     cutoff_time: calculateCutoffTime(carrier),
     deliverydays_window: carrier.get(DELIVERY_DAYS_WINDOW, DELIVERY_DAYS_WINDOW_DEFAULT),

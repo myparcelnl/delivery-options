@@ -1,26 +1,29 @@
 import {
   AddressField,
   CARRIER_SETTINGS,
+  CarrierSetting,
   type CarrierSettings,
   type CarrierSettingsObject,
   type ConfigOption,
+  ConfigSetting,
   type DeliveryOptionsConfig,
   type DeliveryOptionsConfiguration,
-  DROP_OFF_DAYS,
   getAllConfigOptions,
   type InputDeliveryOptionsConfig,
   type InputDeliveryOptionsConfiguration,
-  LOCALE,
-  PLATFORM,
   SUPPORTED_PLATFORMS,
   validateDropOffDays,
   validateHasMinKeys,
+  validateIsBoolean,
   validateIsCountryCode,
   validateIsNumeric,
   validateIsObject,
   validateIsString,
+  validateIsTime,
   validateIsValue,
 } from '@myparcel-do/shared';
+import {isEnumValue} from '@myparcel/ts-utils';
+import {PackageTypeName} from '@myparcel/constants';
 import {handleDeprecatedOptions} from './handleDeprecatedOptions';
 import {filterConfig} from './filterConfig';
 
@@ -49,17 +52,40 @@ const addressOptions: ConfigOption[] = [
 
 const additionalOptions: ConfigOption[] = [
   {
-    key: LOCALE,
+    key: ConfigSetting.Locale,
     perCarrier: false,
     validators: [validateIsString()],
   },
-
   {
-    key: PLATFORM,
+    key: ConfigSetting.Currency,
+    perCarrier: false,
+    validators: [validateIsString()],
+  },
+  {
+    key: ConfigSetting.Platform,
     perCarrier: false,
     validators: [validateIsValue(SUPPORTED_PLATFORMS)],
   },
-
+  {
+    key: ConfigSetting.ApiBaseUrl,
+    perCarrier: false,
+    validators: [validateIsString()],
+  },
+  {
+    key: ConfigSetting.ShowPrices,
+    perCarrier: false,
+    validators: [validateIsBoolean()],
+  },
+  {
+    key: ConfigSetting.ShowDeliveryDate,
+    perCarrier: false,
+    validators: [validateIsBoolean()],
+  },
+  {
+    key: ConfigSetting.ShowPriceSurcharge,
+    perCarrier: false,
+    validators: [validateIsBoolean()],
+  },
   {
     key: CARRIER_SETTINGS,
     perCarrier: false,
@@ -67,8 +93,20 @@ const additionalOptions: ConfigOption[] = [
   },
 
   {
-    key: DROP_OFF_DAYS,
+    key: CarrierSetting.DropOffDays,
     validators: [validateDropOffDays()],
+  },
+  {
+    key: CarrierSetting.CutoffTime,
+    validators: [validateIsTime()],
+  },
+  {
+    key: CarrierSetting.CutoffTimeSameDay,
+    validators: [validateIsTime()],
+  },
+  {
+    key: CarrierSetting.PackageType,
+    validators: [validateIsValue(Object.values(PackageTypeName))],
   },
 ];
 
@@ -81,7 +119,9 @@ const processConfig = <T extends InputDeliveryOptionsConfig | CarrierSettings>(
 
 const validateConfig = (input: InputDeliveryOptionsConfig): DeliveryOptionsConfig => {
   const configOptions: ConfigOption[] = [...getAllConfigOptions(), ...additionalOptions];
-  const configOptionsPerCarrier = configOptions.filter((option) => option.perCarrier !== false);
+  const configOptionsPerCarrier = configOptions.filter(
+    (option) => option.perCarrier ?? isEnumValue(option.key, CarrierSetting),
+  );
 
   const processedConfig = processConfig(input, configOptions);
 

@@ -17,10 +17,11 @@ exports[`getPlatformConfig > gets config for platform belgie 1`] = `
         "standard",
       ],
       "features": [
-        "showDeliveryDate",
+        "allowSaturdayDelivery",
         "deliveryDaysWindow",
         "dropOffDays",
         "dropOffDelay",
+        "showDeliveryDate",
       ],
       "name": "bpost",
       "packageTypes": [
@@ -45,10 +46,10 @@ exports[`getPlatformConfig > gets config for platform belgie 1`] = `
         "standard",
       ],
       "features": [
-        "showDeliveryDate",
         "deliveryDaysWindow",
         "dropOffDays",
         "dropOffDelay",
+        "showDeliveryDate",
       ],
       "name": "postnl",
       "packageTypes": [
@@ -155,9 +156,10 @@ exports[`getPlatformConfig > gets config for platform myparcel 1`] = `
         "pickup",
       ],
       "features": [
+        "allowMondayDelivery",
         "deliveryDaysWindow",
-        "dropOffDelay",
         "dropOffDays",
+        "dropOffDelay",
         "showDeliveryDate",
       ],
       "name": "postnl",

@@ -1,5 +1,5 @@
 import {type DeliveryOptionsConfig} from '../types';
-import {PickupLocationsView} from '../enums';
+import {CarrierSetting, ConfigSetting, PickupLocationsView} from '../enums';
 import {
   DELIVERY_DAYS_WINDOW_DEFAULT,
   DROP_OFF_DELAY_DEFAULT,
@@ -12,41 +12,42 @@ export const getDefaultDeliveryOptionsConfig = (): DeliveryOptionsConfig => {
   return {
     ...getDefaultCarrierSettings(),
 
-    platform: PLATFORM_DEFAULT,
-    locale: 'nl',
-    currency: 'EUR',
-    apiBaseUrl: 'https://api.myparcel.nl',
+    [ConfigSetting.Platform]: PLATFORM_DEFAULT,
+    [ConfigSetting.Locale]: 'nl',
+    [ConfigSetting.Currency]: 'EUR',
+    [ConfigSetting.ApiBaseUrl]: 'https://api.myparcel.nl',
 
-    showPrices: true,
-    showPriceSurcharge: false,
+    [ConfigSetting.ShowPrices]: true,
+    [ConfigSetting.ShowPriceSurcharge]: false,
+    [ConfigSetting.ShowDeliveryDate]: true,
 
-    packageType: PACKAGE_TYPE_DEFAULT,
+    [CarrierSetting.PackageType]: PACKAGE_TYPE_DEFAULT,
 
     // Drop-off
-    deliveryDaysWindow: DELIVERY_DAYS_WINDOW_DEFAULT,
-    dropOffDelay: DROP_OFF_DELAY_DEFAULT,
+    [CarrierSetting.DropOffDays]: [1, 2, 3, 4, 5],
+    [CarrierSetting.DeliveryDaysWindow]: DELIVERY_DAYS_WINDOW_DEFAULT,
+    [CarrierSetting.DropOffDelay]: DROP_OFF_DELAY_DEFAULT,
 
     // Delivery
-    allowDeliveryOptions: true,
-    allowStandardDelivery: true,
-    allowEveningDelivery: true,
-    allowMorningDelivery: true,
-    allowMondayDelivery: true,
-    allowSameDayDelivery: true,
-    allowOnlyRecipient: true,
-    allowSignature: true,
+    [CarrierSetting.AllowDeliveryOptions]: true,
+    [CarrierSetting.AllowStandardDelivery]: true,
+    [CarrierSetting.AllowEveningDelivery]: true,
+    [CarrierSetting.AllowMorningDelivery]: true,
+    [CarrierSetting.AllowMondayDelivery]: true,
+    [CarrierSetting.AllowSameDayDelivery]: true,
+    [CarrierSetting.AllowOnlyRecipient]: true,
+    [CarrierSetting.AllowSignature]: true,
 
     // Pickup
-    allowPickupLocations: true,
+    [CarrierSetting.AllowPickupLocations]: true,
 
-    pickupLocationsDefaultView: PickupLocationsView.Map,
-    pickupShowDistance: true,
-    showDeliveryDate: true,
+    [ConfigSetting.PickupLocationsDefaultView]: PickupLocationsView.Map,
+    [ConfigSetting.PickupShowDistance]: true,
 
     /**
      * Default leaflet tile layer data.
      */
-    pickupLocationsMapTileLayerData: JSON.stringify({
+    [ConfigSetting.PickupLocationsMapTileLayerData]: JSON.stringify({
       url: 'https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png',
       // eslint-disable-next-line max-len,vue/max-len
       attribution:

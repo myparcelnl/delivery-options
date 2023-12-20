@@ -1,4 +1,4 @@
-import {CarrierSetting, CUTOFF_TIME, CUTOFF_TIME_DEFAULT, isPastTime, type TimestampString} from '@myparcel-do/shared';
+import {CarrierSetting, CUTOFF_TIME_DEFAULT, isPastTime, type TimestampString} from '@myparcel-do/shared';
 import {type ResolvedCarrier} from '../types';
 
 export const calculateCutoffTime = (carrier: ResolvedCarrier): TimestampString => {
@@ -12,5 +12,5 @@ export const calculateCutoffTime = (carrier: ResolvedCarrier): TimestampString =
     }
   }
 
-  return carrier.get(CUTOFF_TIME, CUTOFF_TIME_DEFAULT) as TimestampString;
+  return carrier.get(CarrierSetting.CutoffTime, CUTOFF_TIME_DEFAULT) as TimestampString;
 };

@@ -1,6 +1,14 @@
 import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest';
 import {createPinia, setActivePinia} from 'pinia';
-import {CUTOFF_TIME_DEFAULT, DAY_MONDAY, DAY_TUESDAY, type InputDeliveryOptionsConfig} from '@myparcel-do/shared';
+import {
+  CUTOFF_TIME_DEFAULT,
+  DAY_MONDAY,
+  DAY_TUESDAY,
+  DROP_OFF_CUTOFF_TIME,
+  DROP_OFF_SAME_DAY_CUTOFF_TIME,
+  DROP_OFF_WEEKDAY,
+  type InputDeliveryOptionsConfig,
+} from '@myparcel-do/shared';
 import {CarrierName} from '@myparcel/constants';
 import {useCurrentPlatform} from '../composables';
 import {mockDeliveryOptionsConfig} from '../__tests__';
@@ -70,19 +78,19 @@ describe('calculateCutoffTime', () => {
     },
 
     {
-      when: 'drop off possibilities for today are passed',
+      when: 'drop off days for today are passed',
       date: TUESDAY_08_00,
       config: {
-        dropOffPossibilities: [
+        dropOffDays: [
           {
-            day: DAY_MONDAY,
-            cutoffTime: '15:00',
-            cutoffTimeSameDay: '09:00',
+            [DROP_OFF_WEEKDAY]: DAY_MONDAY,
+            [DROP_OFF_CUTOFF_TIME]: '15:00',
+            [DROP_OFF_SAME_DAY_CUTOFF_TIME]: '09:00',
           },
           {
-            day: DAY_TUESDAY,
-            cutoffTime: '17:00',
-            cutoffTimeSameDay: '09:00',
+            [DROP_OFF_WEEKDAY]: DAY_TUESDAY,
+            [DROP_OFF_CUTOFF_TIME]: '17:00',
+            [DROP_OFF_SAME_DAY_CUTOFF_TIME]: '09:00',
           },
         ],
       },
@@ -90,20 +98,20 @@ describe('calculateCutoffTime', () => {
     },
 
     {
-      when: 'drop off possibilities for today are passed and same day cutoff time has not passed',
+      when: 'drop off days for today are passed and same day cutoff time has not passed',
       date: TUESDAY_08_00,
       config: {
         allowSameDayDelivery: true,
-        dropOffPossibilities: [
+        dropOffDays: [
           {
-            day: DAY_MONDAY,
-            cutoffTime: '15:00',
-            cutoffTimeSameDay: '09:00',
+            [DROP_OFF_WEEKDAY]: DAY_MONDAY,
+            [DROP_OFF_CUTOFF_TIME]: '15:00',
+            [DROP_OFF_SAME_DAY_CUTOFF_TIME]: '09:00',
           },
           {
-            day: DAY_TUESDAY,
-            cutoffTime: '17:00',
-            cutoffTimeSameDay: '09:00',
+            [DROP_OFF_WEEKDAY]: DAY_TUESDAY,
+            [DROP_OFF_CUTOFF_TIME]: '17:00',
+            [DROP_OFF_SAME_DAY_CUTOFF_TIME]: '09:00',
           },
         ],
       },

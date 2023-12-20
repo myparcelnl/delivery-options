@@ -52,7 +52,6 @@ export const getMyParcelConfig = (): PlatformOptions => ({
         CarrierSetting.DeliveryDaysWindow,
         CarrierSetting.DropOffDays,
         CarrierSetting.DropOffDelay,
-        CarrierSetting.ShowDeliveryDate,
       ],
       addressFields: [AddressField.PostalCode, AddressField.Street, AddressField.City],
     },
