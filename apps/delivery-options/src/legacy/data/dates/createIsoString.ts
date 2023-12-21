@@ -1,4 +1,4 @@
-import {createDate} from './createDate';
+import {stringToDate} from '../../../utils';
 
 /**
  * Return the date as ISO string to get a date string without changing the date/time because of timezones.
@@ -9,5 +9,5 @@ import {createDate} from './createDate';
  * @returns {string}
  */
 export function createIsoString(date) {
-  return createDate(date).toISOString();
+  return stringToDate(date).toISOString();
 }

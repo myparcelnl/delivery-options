@@ -16,7 +16,7 @@
 <script lang="ts" setup>
 import {computed, ref, watch} from 'vue';
 import {get} from '@vueuse/core';
-import {DELIVERY_TITLE, type InternalOutput, PICKUP_TITLE} from '@myparcel-do/shared';
+import {DELIVERY_TITLE, type InternalOutput, PICKUP_TITLE, type SelectOption} from '@myparcel-do/shared';
 import {createField} from '@myparcel/vue-form-builder';
 import PickupLocations from '../Pickup/PickupLocations.vue';
 import HomeDelivery from '../Delivery/HomeDelivery.vue';
@@ -47,7 +47,7 @@ const HomeOrPickup = createField({
   ref: value,
   props: {
     options: computed(() => {
-      const options = [];
+      const options: SelectOption[] = [];
       const resolvedCarriers = get(carriers) ?? [];
 
       if (resolvedCarriers.some((carrier) => get(carrier.hasDelivery))) {
@@ -61,6 +61,7 @@ const HomeOrPickup = createField({
         options.push({
           label: translate(PICKUP_TITLE),
           value: HOME_OR_PICKUP_PICKUP,
+          ecoFriendly: Infinity,
         });
       }
 

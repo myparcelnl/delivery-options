@@ -1,41 +1,48 @@
-import {beforeEach, describe, expect, it} from 'vitest';
+import {reactive} from 'vue';
+import {afterEach, beforeEach, describe, vi} from 'vitest';
 import {createPinia, setActivePinia} from 'pinia';
-import {useNow} from '@vueuse/core';
 import {useI18nStore} from '../stores';
 import {useDateFormat} from './useDateFormat';
 
-describe('useDateFormat', () => {
+describe.concurrent('useDateFormat', (it) => {
   beforeEach(() => {
     setActivePinia(createPinia());
   });
 
-  it.each([
-    ['nl-NL', 'vandaag'],
-    ['en-GB', 'today'],
-  ])('should return a relative date for %s', (locale, result) => {
-    const i18n = useI18nStore();
-
-    i18n.setLocale(locale);
-
-    const date = useNow();
-    const actualNow = date.value.setTime(date.value.getTime() + 1000);
-
-    const {relative} = useDateFormat(actualNow);
-
-    expect(relative.value).toBe(result);
+  afterEach(() => {
+    vi.setSystemTime(vi.getRealSystemTime());
   });
 
-  it.each([
-    ['nl-NL', 'dinsdag 25 mei'],
-    ['en-GB', 'Tuesday, 25 May'],
-  ])(`should return a default date for %s`, (locale, result) => {
+  it('returns date in various formats', ({expect}) => {
+    const date = new Date('2021-05-25T12:00:00');
+    vi.setSystemTime(date.getTime());
+
+    const formatted = useDateFormat(date);
+
+    const {date: _, ...refs} = reactive(formatted);
+
+    expect(refs).toEqual({
+      standard: 'dinsdag 25 mei',
+      relative: 'vandaag',
+      time: '12:00',
+      weekday: 'dinsdag',
+    });
+  });
+
+  it('reacts to locale changes', ({expect}) => {
     const i18n = useI18nStore();
 
-    i18n.setLocale(locale);
+    const date = new Date('2021-05-25T12:00:00');
+    const {standard} = useDateFormat(date);
 
-    const date = new Date('2021-05-25');
-    const {default: defaultDate} = useDateFormat(date);
+    expect(standard.value).toBe('dinsdag 25 mei');
+    i18n.setLocale('en-US');
+    expect(standard.value).toBe('Tuesday, May 25');
+  });
 
-    expect(defaultDate.value).toBe(result);
+  it('can parse api date strings', ({expect}) => {
+    const formatted = useDateFormat('2021-05-25 14:12:00.000000');
+
+    expect(formatted.date.value).toEqual(new Date('2021-05-25T14:12:00.000Z'));
   });
 });

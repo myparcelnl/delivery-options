@@ -1,4 +1,4 @@
-import {createDate} from './createDate';
+import {stringToDate} from '../../../utils';
 
 /**
  * Format a given date string into the locale format set through the configBus. Force the timezone to be UTC to avoid
@@ -16,7 +16,7 @@ export function createLocaleString(
     minute: '2-digit',
   },
 ) {
-  return createDate(date).toLocaleString(configBus.get(LOCALE), {
+  return stringToDate(date).toLocaleString(configBus.get(LOCALE), {
     ...options,
     timeZone: 'UTC',
   });

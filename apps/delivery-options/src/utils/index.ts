@@ -12,3 +12,4 @@ export * from './getResolvedValue';
 export * from './padStart';
 export * from './showDeveloperInfo';
 export * from './toTime';
+export {stringToDate} from './stringToDate';

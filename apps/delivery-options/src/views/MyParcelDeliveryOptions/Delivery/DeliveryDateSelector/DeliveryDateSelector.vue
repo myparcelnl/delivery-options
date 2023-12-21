@@ -18,7 +18,7 @@ const options = computed(() => {
     const date = useDateFormat(option.date);
 
     return {
-      label: `${date.relative.value} (${date.default.value})`,
+      label: `${date.relative.value} (${date.standard.value})`,
       value: option.date,
     };
   });

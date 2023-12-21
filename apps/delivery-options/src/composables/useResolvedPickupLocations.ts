@@ -28,8 +28,6 @@ export const useResolvedPickupLocations = useMemoize(() => {
   return asyncComputed(() => {
     return resolvedOptions.value.reduce((acc, option) => {
       option.results.forEach((dateOption) => {
-        console.log(dateOption);
-
         acc.push({
           carrier: option.carrier.identifier,
           ...dateOption,

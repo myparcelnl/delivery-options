@@ -1,5 +1,6 @@
 import {CONFIG} from '@myparcel-do/shared';
-import {createDate, createIsoString} from '../dates';
+import {createIsoString} from '../dates';
+import {stringToDate} from '../../../utils';
 
 /**
  * @param {MyParcel.DeliveryOption[]} deliveryOptions - Delivery options object.
@@ -28,7 +29,7 @@ export function getDeliveryDates(deliveryOptions) {
     const {date: deliveryMoment} = option;
 
     const name = createIsoString(deliveryMoment.date);
-    const dateString = createDate(deliveryMoment.date).toLocaleDateString(configBus.get(CONFIG.LOCALE), {
+    const dateString = stringToDate(deliveryMoment.date).toLocaleDateString(configBus.get(CONFIG.LOCALE), {
       weekday: 'long',
       month: 'long',
       day: 'numeric',
