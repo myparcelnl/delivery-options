@@ -44,7 +44,7 @@ export type TimestampString = `${number}:${number}` | string;
 
 export type Price = number | null;
 
-export interface CarrierSettings {
+export interface CarrierSettings extends Partial<Record<CarrierSettingsKey, unknown>> {
   allowDeliveryOptions?: boolean | FilterableOption;
   allowEveningDelivery?: boolean | FilterableOption;
   allowMondayDelivery?: boolean;
@@ -74,7 +74,6 @@ export interface CarrierSettings {
   priceSaturdayDelivery?: Price;
   priceSignature?: Price;
   priceStandardDelivery?: Price;
-  showDeliveryDate?: boolean;
 }
 
 export interface InputCarrierSettings extends Omit<CarrierSettings, 'dropOffDays'>, DeprecatedConfigOptions {
@@ -103,6 +102,7 @@ export interface DeliveryOptionsConfig extends CarrierSettings {
   pickupLocationsMapTileLayerData: string | MapTileLayerData;
   pickupShowDistance: boolean;
   platform: SupportedPlatformName;
+  showDeliveryDate: boolean;
   showPriceSurcharge: boolean;
   showPrices: boolean;
 }
