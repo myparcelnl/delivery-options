@@ -25,6 +25,7 @@ module.exports = {
         'vue/no-bare-strings-in-template': 'off',
         // Disabled because @typescript-eslint freaks out when there is no component block
         'vue/no-empty-component-block': 'off',
+        'vue/no-undef-components': ['error', {ignorePatterns: ['story', 'variant']}],
         'vue/no-setup-props-destructure': 'off',
       },
     },
