@@ -7,8 +7,12 @@
         'mp-px-2': label,
       },
     ]"
-    class="mp-bg-opacity-30 mp-border mp-rounded-full">
-    <slot name="icon" />
+    class="mp-border mp-gap-2 mp-inline-flex mp-items-center mp-rounded-full">
+    <span
+      v-if="hasSlotContent($slots.icon)"
+      class="mp-h-4">
+      <slot name="icon" />
+    </span>
 
     <span
       v-if="label"
@@ -18,14 +22,17 @@
 
 <script lang="ts" setup>
 import {computed} from 'vue';
+import {hasSlotContent} from '../../../utils/hasSlotContent';
+
+const VARIANT_GREEN = 'green';
 
 const props = defineProps<{label?: string; variant?: 'green'}>();
 
 const classes = computed(() => {
-  if (props.variant === 'green') {
-    return ['mp-bg-green-700', 'mp-border-green-700', 'mp-text-green-900'];
+  if (props.variant === VARIANT_GREEN) {
+    return ['mp-bg-green-100', 'mp-border-green-500', 'mp-text-green-700'];
   }
 
-  return ['mp-bg-gray-700', 'mp-border-gray-700', 'mp-text-gray-900'];
+  return ['mp-bg-gray-100', 'mp-border-gray-500', 'mp-text-gray-700'];
 });
 </script>
