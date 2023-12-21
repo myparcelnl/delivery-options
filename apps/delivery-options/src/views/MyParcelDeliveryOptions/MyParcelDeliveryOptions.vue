@@ -13,7 +13,7 @@ import {type DeliveryOptionsEmits, type DeliveryOptionsProps} from '../../types'
 import {useAddressStore, useConfigStore} from '../../stores';
 import {setConfiguration} from '../../config';
 import {useDeliveryOptionsIncomingEvents, useDeliveryOptionsOutgoingEvents} from '../../composables';
-import DeliveryOptionsForm from './Delivery/DeliveryOptionsForm/DeliveryOptionsForm.vue';
+import DeliveryOptionsForm from './DeliveryOptionsForm/DeliveryOptionsForm.vue';
 
 const props = defineProps<DeliveryOptionsProps>();
 const emit = defineEmits<DeliveryOptionsEmits>();

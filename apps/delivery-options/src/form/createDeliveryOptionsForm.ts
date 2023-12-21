@@ -1,10 +1,10 @@
 import {FORM_NAME_DELIVERY_OPTIONS, type InternalOutput} from '@myparcel-do/shared';
-import {type CreatedForm, createForm} from '@myparcel/vue-form-builder';
+import {createForm} from '@myparcel/vue-form-builder';
 import {useConfigStore} from '../stores';
 import {useLanguage} from '../composables';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const createDeliveryOptionsForm = (): CreatedForm<InternalOutput> => {
+export const createDeliveryOptionsForm = () => {
   const config = useConfigStore();
 
   const {translate} = useLanguage();

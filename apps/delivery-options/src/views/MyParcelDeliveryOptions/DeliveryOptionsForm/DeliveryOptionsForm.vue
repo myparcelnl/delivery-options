@@ -1,19 +1,29 @@
 <template>
   <Form.Component>
-    <HomeOrPickup.Component />
+    <HomeOrPickup.Component>
+      <template #content="{option}">
+        <KeepAlive>
+          <component
+            :is="currentComponent"
+            v-if="value === option.value"
+            class="mp-pl-4 mp-pt-4" />
+        </KeepAlive>
+      </template>
+    </HomeOrPickup.Component>
   </Form.Component>
 </template>
 
 <script lang="ts" setup>
-import {computed, markRaw, watch} from 'vue';
+import {computed, ref, watch} from 'vue';
 import {get} from '@vueuse/core';
 import {DELIVERY_TITLE, type InternalOutput, PICKUP_TITLE} from '@myparcel-do/shared';
 import {createField} from '@myparcel/vue-form-builder';
-import HomeDelivery from '../HomeDelivery.vue';
-import PickupLocations from '../../Pickup/PickupLocations.vue';
-import {createDeliveryOptionsForm} from '../../../../form';
-import {useActiveCarriers, useLanguage} from '../../../../composables';
-import RadioGroupTabs from '../../../../components/common/RadioGroupTabs/RadioGroupTabs.vue';
+import PickupLocations from '../Pickup/PickupLocations.vue';
+import HomeDelivery from '../Delivery/HomeDelivery.vue';
+import {createDeliveryOptionsForm} from '../../../form';
+import {FIELD_HOME_OR_PICKUP, HOME_OR_PICKUP_HOME, HOME_OR_PICKUP_PICKUP} from '../../../constants';
+import {useActiveCarriers, useLanguage} from '../../../composables';
+import {RadioGroupInput} from '../../../components';
 
 const emit = defineEmits<(event: 'update', values: InternalOutput) => void>();
 
@@ -28,10 +38,13 @@ const {translate} = useLanguage();
 
 const carriers = useActiveCarriers();
 
+const value = ref();
+
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const HomeOrPickup = createField({
-  name: 'homeOrPickup',
-  component: RadioGroupTabs,
+  name: FIELD_HOME_OR_PICKUP,
+  component: RadioGroupInput,
+  ref: value,
   props: {
     options: computed(() => {
       const options = [];
@@ -40,21 +53,25 @@ const HomeOrPickup = createField({
       if (resolvedCarriers.some((carrier) => get(carrier.hasDelivery))) {
         options.push({
           label: translate(DELIVERY_TITLE),
-          value: 'home',
-          content: markRaw(HomeDelivery),
+          value: HOME_OR_PICKUP_HOME,
         });
       }
 
       if (resolvedCarriers.some((carrier) => get(carrier.hasPickup))) {
         options.push({
           label: translate(PICKUP_TITLE),
-          value: 'pickup',
-          content: markRaw(PickupLocations),
+          value: HOME_OR_PICKUP_PICKUP,
         });
       }
 
       return options;
     }),
   },
+});
+
+const currentComponent = computed(() => {
+  const current = get(HomeOrPickup.ref);
+
+  return current === HOME_OR_PICKUP_PICKUP ? PickupLocations : HomeDelivery;
 });
 </script>

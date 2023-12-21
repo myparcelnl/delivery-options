@@ -11,12 +11,13 @@
 
 <script lang="ts" setup>
 import {computed, ref} from 'vue';
-import {ComponentName, Loader} from '@myparcel-do/shared';
+import {Loader} from '@myparcel-do/shared';
 import {createField} from '@myparcel/vue-form-builder';
-import {createShipmentOptionsFromDeliveryMoment, getComponent} from '../../../../utils';
+import {createShipmentOptionsFromDeliveryMoment} from '../../../../utils';
 import {FIELD_SHIPMENT_OPTIONS} from '../../../../constants';
 import {useSelectedDeliveryMoment} from '../../../../composables';
-import OptionRowLoader from '../../../../components/common/OptionRow/OptionRowLoader.vue';
+import OptionRowLoader from '../../../../components/form/GroupInput/GroupInputLoader.vue';
+import {CheckboxGroupInput} from '../../../../components';
 
 const deliveryMoment = useSelectedDeliveryMoment();
 
@@ -25,7 +26,7 @@ const loading = computed(() => !deliveryMoment.value);
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const ShipmentOptions = createField({
   name: FIELD_SHIPMENT_OPTIONS,
-  component: getComponent(ComponentName.CheckboxGroup),
+  component: CheckboxGroupInput,
   ref: ref([]),
   props: {
     options: computed(() => {

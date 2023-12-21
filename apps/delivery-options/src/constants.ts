@@ -1,5 +1,11 @@
 import {ShipmentOptionName} from '@myparcel/constants';
 
+export const FIELD_HOME_OR_PICKUP = 'homeOrPickup';
+
+export const HOME_OR_PICKUP_HOME = 'home';
+
+export const HOME_OR_PICKUP_PICKUP = 'pickup';
+
 export const FIELD_DELIVERY_MOMENT = 'deliveryMoment';
 
 export const FIELD_DELIVERY_DATE = 'deliveryDate';

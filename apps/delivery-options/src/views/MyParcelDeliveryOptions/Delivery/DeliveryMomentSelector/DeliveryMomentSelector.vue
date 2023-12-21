@@ -1,23 +1,46 @@
 <template>
-  <OptionRowLoader
+  <GroupInputLoader
     v-show="loading"
     :rows="2"
     carrier
     price>
     <Loader.Circle class="mp-h-3 mp-w-3" />
-  </OptionRowLoader>
+  </GroupInputLoader>
 
-  <DeliveryMoment.Component v-show="!loading" />
+  <DeliveryMoment.Component v-show="!loading">
+    <template #default="{option}">
+      <span v-text="option.label" />
+
+      <EcoFriendlyLabel
+        v-if="option.ecoFriendly"
+        :amount="option.ecoFriendly" />
+
+      <PriceTag
+        v-if="option.price"
+        :price="option.price"
+        class="mp-ml-auto" />
+
+      <CarrierLogo
+        v-if="option.carrier"
+        :carrier="option.carrier"
+        :class="{
+          'mp-ml-auto': !option.price,
+        }" />
+    </template>
+  </DeliveryMoment.Component>
 </template>
 
 <script lang="ts" setup>
 import {computed, ref} from 'vue';
-import {ComponentName, Loader, type SelectOption, type SupportedShipmentOptionName} from '@myparcel-do/shared';
+import {CarrierLogo, Loader, type SelectOption, type SupportedShipmentOptionName} from '@myparcel-do/shared';
 import {createField} from '@myparcel/vue-form-builder';
-import {getComponent, getDeliveryTypePrice} from '../../../../utils';
+import {getDeliveryTypePrice} from '../../../../utils';
 import {FIELD_DELIVERY_MOMENT, SHOWN_SHIPMENT_OPTIONS} from '../../../../constants';
 import {useResolvedDeliveryMoments} from '../../../../composables';
-import OptionRowLoader from '../../../../components/common/OptionRow/OptionRowLoader.vue';
+import GroupInputLoader from '../../../../components/form/GroupInput/GroupInputLoader.vue';
+import PriceTag from '../../../../components/common/PriceTag/PriceTag.vue';
+import EcoFriendlyLabel from '../../../../components/common/EcoFriendlyLabel/EcoFriendlyLabel.vue';
+import {RadioGroupInput} from '../../../../components';
 
 const deliveryMoments = useResolvedDeliveryMoments();
 
@@ -46,7 +69,7 @@ const options = computed(() => {
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const DeliveryMoment = createField({
   name: FIELD_DELIVERY_MOMENT,
-  component: getComponent(ComponentName.RadioGroup),
+  component: RadioGroupInput,
   ref: ref(),
   props: {
     options,

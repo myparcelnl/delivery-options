@@ -1,16 +1,24 @@
 <template>
-  <div>
-    <OptionRow
-      v-for="option in options"
-      :key="`${id}-${option.value}`"
-      :option="option">
+  <GroupInput
+    :id="id"
+    :options="options">
+    <template #input="{option}">
       <RadioInput
         v-model="model"
         :value="option.value"
         type="radio"
         v-bind="elementProps" />
-    </OptionRow>
-  </div>
+    </template>
+
+    <template
+      v-for="(slot, index) in Object.keys($slots)"
+      :key="index"
+      #[slot]="context">
+      <slot
+        :name="slot"
+        v-bind="context" />
+    </template>
+  </GroupInput>
 </template>
 
 <script generic="T extends RadioGroupModelValue" lang="ts" setup>
@@ -22,7 +30,10 @@ import {
   useRadioGroupContext,
   type WithElement,
 } from '@myparcel-do/shared';
-import OptionRow from '../../common/OptionRow/OptionRow.vue';
+import GroupInput from '../GroupInput/GroupInput.vue';
+import {type GroupInputSlots} from '../../../types';
+
+defineSlots<GroupInputSlots<T>>();
 
 // eslint-disable-next-line vue/no-unused-properties
 const props = defineProps<WithElement<RadioGroupProps<T>>>();

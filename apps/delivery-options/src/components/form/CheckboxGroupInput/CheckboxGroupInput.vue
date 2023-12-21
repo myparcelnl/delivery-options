@@ -1,10 +1,8 @@
 <template>
-  <div>
-    <OptionRow
-      v-for="option in options"
-      :key="`${id}-${option.value}`"
-      v-model="model"
-      :option="option">
+  <GroupInput
+    :id="id"
+    :options="options">
+    <template #input="{option}">
       <CheckboxInput
         :id="`${id}-${option.value}`"
         v-model="model"
@@ -14,8 +12,17 @@
         :readonly="elementProps.readonly"
         :value="option.value"
         @update:modelValue="createUpdateHandler(option)" />
-    </OptionRow>
-  </div>
+    </template>
+
+    <template
+      v-for="(slot, index) in Object.keys($slots)"
+      :key="index"
+      #[slot]="context">
+      <slot
+        :name="slot"
+        v-bind="context" />
+    </template>
+  </GroupInput>
 </template>
 
 <script generic="T extends CheckboxGroupModelValue" lang="ts" setup>
@@ -27,7 +34,10 @@ import {
   useCheckboxGroupContext,
   type WithElement,
 } from '@myparcel-do/shared';
-import OptionRow from '../../common/OptionRow/OptionRow.vue';
+import GroupInput from '../GroupInput/GroupInput.vue';
+import {type GroupInputSlots} from '../../../types';
+
+defineSlots<GroupInputSlots<T>>();
 
 // eslint-disable-next-line vue/no-unused-properties
 const props = defineProps<WithElement<CheckboxGroupProps<T>>>();

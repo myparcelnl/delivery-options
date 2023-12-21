@@ -17,7 +17,7 @@ export const useResolvedDeliveryOptions = useMemoize(() => {
       get(carriers)
         .filter((carrier) => get(carrier.hasDelivery))
         .map(async (carrier) => {
-          const params = createGetDeliveryOptionsParameters(carrier, config, address);
+          const params = createGetDeliveryOptionsParameters(carrier);
           const query = useDeliveryOptionsRequest(params);
 
           await query.load();
