@@ -1,4 +1,4 @@
-import {defineConfig} from 'histoire';
+import {defaultColors, defineConfig} from 'histoire';
 import {HstVue} from '@histoire/plugin-vue';
 
 export default defineConfig({
@@ -9,6 +9,12 @@ export default defineConfig({
     layout: {
       type: 'grid',
       width: '100%',
+    },
+  },
+  theme: {
+    colors: {
+      gray: defaultColors.zinc,
+      primary: defaultColors.orange,
     },
   },
 });
