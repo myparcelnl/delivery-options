@@ -1,11 +1,11 @@
 <template>
   <SelectInput
-    v-show="showSelect"
+    v-if="showSelect"
     v-model="model"
     :element="element"
     v-bind="$attrs" />
 
-  <b v-show="!showSelect">
+  <b v-else>
     <Loader.Wrapper v-show="options.length === 0">
       <Loader.Text class="mp-w-24" />
     </Loader.Wrapper>
