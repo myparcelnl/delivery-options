@@ -1,10 +1,10 @@
 <template>
   <SandboxHeader />
 
-  <div class="mp-flex">
+  <div class="mp-flex mp-relative">
     <SandboxSidebar />
 
-    <Container>
+    <Container flow-col>
       <h1>Sandbox</h1>
 
       <Box columns="2">

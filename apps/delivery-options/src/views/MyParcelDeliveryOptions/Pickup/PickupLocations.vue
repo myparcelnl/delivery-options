@@ -1,43 +1,36 @@
 <template>
-  <ListOrMap.Component>
-    <template #content="{option}">
-      <KeepAlive>
-        <component
-          :is="currentComponent"
-          v-if="value === option.value"
-          class="mp-pl-4 mp-pt-4" />
-      </KeepAlive>
-    </template>
-  </ListOrMap.Component>
+  <div>
+    <div class="mp-flex mp-mb-2">
+      <DoButton
+        v-for="view in [PICKUP_LOCATIONS_VIEWS_LIST, PICKUP_LOCATIONS_VIEWS_MAP]"
+        :key="view"
+        :active="mode === view"
+        @click="mode = view">
+        {{ translate(view) }}
+      </DoButton>
+    </div>
+
+    <KeepAlive>
+      <component :is="currentComponent" />
+    </KeepAlive>
+  </div>
 </template>
 
 <script lang="ts" setup>
 import {computed, h, ref} from 'vue';
-import {get} from '@vueuse/core';
-import {PICKUP_LOCATIONS_VIEWS_LIST, PICKUP_LOCATIONS_VIEWS_MAP, type SelectOption} from '@myparcel-do/shared';
-import {createField} from '@myparcel/vue-form-builder';
-import {FIELD_HOME_OR_PICKUP} from '../../../constants';
-import {RadioGroupInput} from '../../../components';
+import {PICKUP_LOCATIONS_VIEWS_LIST, PICKUP_LOCATIONS_VIEWS_MAP, type PickupLocationsView} from '@myparcel-do/shared';
+import {useConfigStore} from '../../../stores';
+import {useLanguage} from '../../../composables';
+import DoButton from '../../../components/common/DoButton/DoButton.vue';
 import PickupLocationList from './PickupLocationList/PickupLocationList.vue';
 
-const value = ref();
+const config = useConfigStore();
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
-const ListOrMap = createField({
-  name: FIELD_HOME_OR_PICKUP,
-  component: RadioGroupInput,
-  ref: value,
-  props: {
-    options: [
-      {value: PICKUP_LOCATIONS_VIEWS_LIST, label: PICKUP_LOCATIONS_VIEWS_LIST},
-      {value: PICKUP_LOCATIONS_VIEWS_MAP, label: PICKUP_LOCATIONS_VIEWS_MAP},
-    ] satisfies SelectOption[],
-  },
-});
+const mode = ref<PickupLocationsView>(config.pickupLocationsDefaultView);
 
-const currentComponent = computed(() => {
-  const current = get(ListOrMap.ref);
+const {translate} = useLanguage();
 
-  return current === PICKUP_LOCATIONS_VIEWS_LIST ? PickupLocationList : h('div');
-});
+const currentComponent = computed(() =>
+  mode.value === PICKUP_LOCATIONS_VIEWS_LIST ? PickupLocationList : () => h('div'),
+);
 </script>

@@ -12,6 +12,7 @@ export default defineConfig({
     },
   },
   theme: {
+    darkClass: 'mp-dark',
     colors: {
       gray: defaultColors.zinc,
       primary: defaultColors.orange,
