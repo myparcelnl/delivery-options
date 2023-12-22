@@ -1,9 +1,4 @@
-import {
-  ALLOW_DELIVERY_OPTIONS,
-  CARRIER_SETTINGS,
-  type DeliveryOptionsConfiguration,
-  KEY_CONFIG,
-} from '@myparcel-do/shared';
+import {CarrierSetting, type DeliveryOptionsConfiguration, KEY_CARRIER_SETTINGS, KEY_CONFIG} from '@myparcel-do/shared';
 import {type RecursivePartial} from '@myparcel/ts-utils';
 import {CarrierName} from '@myparcel/constants';
 import {useAddressStore, useConfigStore} from '../../stores';
@@ -14,9 +9,9 @@ export const mockDeliveryOptionsConfig = <I extends RecursivePartial<DeliveryOpt
     input ??
     getMockDeliveryOptionsConfiguration({
       [KEY_CONFIG]: {
-        [CARRIER_SETTINGS]: {
+        [KEY_CARRIER_SETTINGS]: {
           [CarrierName.PostNl]: {
-            [ALLOW_DELIVERY_OPTIONS]: true,
+            [CarrierSetting.AllowDeliveryOptions]: true,
           },
         },
       },

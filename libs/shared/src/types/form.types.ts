@@ -6,18 +6,18 @@ export interface ElementProps<Type = unknown, Props extends Record<string, unkno
   modelValue: Type;
 }
 
-export type ElementEmits<T = unknown> = (name: 'update:modelValue', value: T) => void;
+export type ElementEmits<Type = unknown> = (name: 'update:modelValue', value: Type) => void;
 
-export interface InputProps<T = unknown> {
+export interface InputProps<Type = unknown> {
   disabled?: boolean;
   id?: string | undefined;
-  modelValue: T;
+  modelValue: Type;
   name?: string;
   readonly?: boolean;
 }
 
-export interface InputEmits<T = unknown> {
-  'update:modelValue': (value: T) => void;
+export interface InputEmits<Type = unknown> {
+  'update:modelValue': (value: Type) => void;
 }
 
-export type WithElement<T = unknown, Props extends InputProps<T> = InputProps<T>> = ElementProps<T, ToRecord<Props>>;
+export type WithElement<Props extends InputProps = InputProps> = ElementProps<unknown, ToRecord<Props>>;

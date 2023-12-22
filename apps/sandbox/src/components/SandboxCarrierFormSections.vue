@@ -46,7 +46,7 @@
 <script lang="ts" setup>
 import {computed} from 'vue';
 import {get, useLocalStorage} from '@vueuse/core';
-import {CARRIER_SETTINGS, CarrierLogo, type FullCarrier, useCarriersRequest} from '@myparcel-do/shared';
+import {CarrierLogo, type FullCarrier, KEY_CARRIER_SETTINGS, useCarriersRequest} from '@myparcel-do/shared';
 import {type SettingsSection} from '../types';
 import {getConfigSandboxSections} from '../form';
 import {useAvailableCarriers} from '../composables';
@@ -68,7 +68,7 @@ const allCarriers = computed<(FullCarrier & {sections: SettingsSection[]})[]>(()
   return (
     get(availableCarriers)?.map((carrier) => ({
       ...carrier,
-      sections: getConfigSandboxSections(`${CARRIER_SETTINGS}.${carrier.name}`),
+      sections: getConfigSandboxSections(`${KEY_CARRIER_SETTINGS}.${carrier.name}`),
     })) ?? []
   );
 });

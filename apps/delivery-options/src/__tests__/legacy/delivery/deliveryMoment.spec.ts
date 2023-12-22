@@ -1,17 +1,12 @@
 import {afterEach, describe, expect, it, vi} from 'vitest';
 import {createDate, waitForEvent} from '@myparcel-do/shared/testing';
 import {
-  ALLOW_DELIVERY_OPTIONS,
-  ALLOW_EVENING_DELIVERY,
-  ALLOW_MORNING_DELIVERY,
-  ALLOW_SAME_DAY_DELIVERY,
-  CARRIER_SETTINGS,
+  CarrierSetting,
+  ConfigSetting,
   DAY_TUESDAY,
-  DROP_OFF_DAYS,
-  FEATURE_SHOW_DELIVERY_DATE,
   type InputDeliveryOptionsConfig,
+  KEY_CARRIER_SETTINGS,
   KEY_CONFIG,
-  PLATFORM,
   UPDATED_DELIVERY_OPTIONS,
 } from '@myparcel-do/shared';
 import {CarrierName, DeliveryTypeName, PlatformName} from '@myparcel/constants';
@@ -27,7 +22,7 @@ describe.skip('Delivery moments', () => {
 
     mockDeliveryOptionsConfig({
       [KEY_CONFIG]: {
-        [PLATFORM]: PlatformName.MyParcel,
+        [ConfigSetting.Platform]: PlatformName.MyParcel,
         ...config,
       },
     });
@@ -41,10 +36,10 @@ describe.skip('Delivery moments', () => {
   }
 
   const sameDayConfig = {
-    [CARRIER_SETTINGS]: {
+    [KEY_CARRIER_SETTINGS]: {
       [CarrierName.DhlForYou]: {
-        [ALLOW_DELIVERY_OPTIONS]: true,
-        [ALLOW_SAME_DAY_DELIVERY]: true,
+        [CarrierSetting.AllowDeliveryOptions]: true,
+        [CarrierSetting.AllowSameDayDelivery]: true,
       },
     },
   };
@@ -62,12 +57,12 @@ describe.skip('Delivery moments', () => {
       const date = createDate(DAY_TUESDAY, 10, 0);
 
       const deliveryMoments = await getDeliveryMoments(date, {
-        [DROP_OFF_DAYS]: [0, 1, 2, 3, 4, 5, 6],
-        [CARRIER_SETTINGS]: {
+        [CarrierSetting.DropOffDays]: [0, 1, 2, 3, 4, 5, 6],
+        [KEY_CARRIER_SETTINGS]: {
           [CarrierName.PostNl]: {
-            [ALLOW_DELIVERY_OPTIONS]: true,
-            [ALLOW_MORNING_DELIVERY]: allowMorning,
-            [ALLOW_EVENING_DELIVERY]: allowEvening,
+            [CarrierSetting.AllowDeliveryOptions]: true,
+            [CarrierSetting.AllowMorningDelivery]: allowMorning,
+            [CarrierSetting.AllowEveningDelivery]: allowEvening,
           },
         },
       });
@@ -85,13 +80,13 @@ describe.skip('Delivery moments', () => {
     const date = createDate(DAY_TUESDAY, 10, 0);
 
     const deliveryMoments = await getDeliveryMoments(date, {
-      [DROP_OFF_DAYS]: [0, 1, 2, 3, 4, 5, 6],
-      [CARRIER_SETTINGS]: {
+      [CarrierSetting.DropOffDays]: [0, 1, 2, 3, 4, 5, 6],
+      [KEY_CARRIER_SETTINGS]: {
         [CarrierName.PostNl]: {
-          [ALLOW_DELIVERY_OPTIONS]: true,
-          [ALLOW_MORNING_DELIVERY]: true,
-          [ALLOW_EVENING_DELIVERY]: true,
-          [FEATURE_SHOW_DELIVERY_DATE]: false,
+          [CarrierSetting.AllowDeliveryOptions]: true,
+          [CarrierSetting.AllowMorningDelivery]: true,
+          [CarrierSetting.AllowEveningDelivery]: true,
+          [ConfigSetting.ShowDeliveryDate]: false,
         },
       },
     });

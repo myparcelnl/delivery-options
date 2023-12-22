@@ -1,7 +1,5 @@
 import {
   ADDRESS_NOT_FOUND,
-  ALLOW_DELIVERY_OPTIONS,
-  ALLOW_PICKUP_LOCATIONS,
   CLOSED,
   DELIVERY_TITLE,
   FROM,
@@ -10,7 +8,6 @@ import {
   LOAD_MORE,
   PICKUP_LOCATIONS_LIST_BUTTON,
   PICKUP_LOCATIONS_MAP_BUTTON,
-  SHOW_PRICES,
   WRONG_NUMBER_POSTAL_CODE,
   WRONG_POSTAL_CODE_CITY,
 } from '@myparcel-do/shared';
@@ -27,7 +24,7 @@ export const stringsForm = [
       {
         key: KEY_STRINGS,
         name: DELIVERY_TITLE,
-        conditions: [inAnyCarrier(ALLOW_DELIVERY_OPTIONS)],
+        conditions: [inAnyCarrier(CarrierSetting.AllowDeliveryOptions)],
       },
     ],
   },
@@ -37,17 +34,17 @@ export const stringsForm = [
       {
         key: KEY_STRINGS,
         name: LOAD_MORE,
-        conditions: [inAnyCarrier(ALLOW_PICKUP_LOCATIONS)],
+        conditions: [inAnyCarrier(CarrierSetting.AllowPickupLocations)],
       },
       {
         key: KEY_STRINGS,
         name: PICKUP_LOCATIONS_LIST_BUTTON,
-        conditions: [inAnyCarrier(ALLOW_PICKUP_LOCATIONS)],
+        conditions: [inAnyCarrier(CarrierSetting.AllowPickupLocations)],
       },
       {
         key: KEY_STRINGS,
         name: PICKUP_LOCATIONS_MAP_BUTTON,
-        conditions: [inAnyCarrier(ALLOW_PICKUP_LOCATIONS)],
+        conditions: [inAnyCarrier(CarrierSetting.AllowPickupLocations)],
       },
     ],
   },
@@ -57,7 +54,7 @@ export const stringsForm = [
       {
         key: KEY_STRINGS,
         name: FROM,
-        conditions: [SHOW_PRICES],
+        conditions: [ConfigSetting.ShowPrices],
       },
       {
         key: KEY_STRINGS,
@@ -66,7 +63,7 @@ export const stringsForm = [
       {
         key: KEY_STRINGS,
         name: CLOSED,
-        conditions: [inAnyCarrier(ALLOW_PICKUP_LOCATIONS)],
+        conditions: [inAnyCarrier(CarrierSetting.AllowPickupLocations)],
       },
       {
         key: KEY_STRINGS,

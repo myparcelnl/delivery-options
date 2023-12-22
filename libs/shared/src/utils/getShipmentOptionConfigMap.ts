@@ -1,9 +1,11 @@
 import {ShipmentOptionName} from '@myparcel/constants';
 import {type SupportedShipmentOptionName} from '../types';
-import {type CarrierSetting} from '../enums';
-import {ALLOW_ONLY_RECIPIENT, ALLOW_SIGNATURE} from '../data';
+import {CarrierSetting} from '../enums';
 
-export const getShipmentOptionConfigMap = (): Record<SupportedShipmentOptionName, CarrierSetting> => ({
-  [ShipmentOptionName.Signature]: ALLOW_SIGNATURE,
-  [ShipmentOptionName.OnlyRecipient]: ALLOW_ONLY_RECIPIENT,
-});
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const getShipmentOptionConfigMap = () => {
+  return {
+    [ShipmentOptionName.Signature]: CarrierSetting.AllowSignature,
+    [ShipmentOptionName.OnlyRecipient]: CarrierSetting.AllowOnlyRecipient,
+  } satisfies Record<SupportedShipmentOptionName, CarrierSetting>;
+};

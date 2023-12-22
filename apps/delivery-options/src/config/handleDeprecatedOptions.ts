@@ -3,6 +3,7 @@ import {isDefined} from '@vueuse/core';
 import {
   CarrierSetting,
   type CarrierSettings,
+  ConfigSetting,
   DAY_FRIDAY,
   DAY_SATURDAY,
   type DeliveryOptionsConfig,
@@ -42,8 +43,8 @@ export const handleDeprecatedOptions = <Input extends InputDeliveryOptionsConfig
   const resolvedConfig = restConfig as unknown as ResolvedInputConfig<Input>;
 
   if (isDefined(allowShowDeliveryDate)) {
-    logger.deprecated(DeprecatedCarrierSetting.AllowShowDeliveryDate, CarrierSetting.ShowDeliveryDate);
-    resolvedConfig[CarrierSetting.ShowDeliveryDate] = allowShowDeliveryDate;
+    logger.deprecated(DeprecatedCarrierSetting.AllowShowDeliveryDate, ConfigSetting.ShowDeliveryDate);
+    resolvedConfig[ConfigSetting.ShowDeliveryDate] = allowShowDeliveryDate;
   }
 
   if (typeof resolvedConfig.dropOffDays === 'string') {

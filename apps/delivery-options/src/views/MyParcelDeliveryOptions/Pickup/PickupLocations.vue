@@ -2,7 +2,7 @@
   <div>
     <div class="mp-flex mp-mb-2">
       <DoButton
-        v-for="view in [PICKUP_LOCATIONS_VIEWS_LIST, PICKUP_LOCATIONS_VIEWS_MAP]"
+        v-for="view in [PickupLocationsView.List, PickupLocationsView.Map]"
         :key="view"
         :active="mode === view"
         @click="mode = view">
@@ -18,7 +18,7 @@
 
 <script lang="ts" setup>
 import {computed, h, ref} from 'vue';
-import {PICKUP_LOCATIONS_VIEWS_LIST, PICKUP_LOCATIONS_VIEWS_MAP, type PickupLocationsView} from '@myparcel-do/shared';
+import {PickupLocationsView} from '@myparcel-do/shared';
 import {useConfigStore} from '../../../stores';
 import {useLanguage} from '../../../composables';
 import DoButton from '../../../components/common/DoButton/DoButton.vue';
@@ -31,6 +31,6 @@ const mode = ref<PickupLocationsView>(config.pickupLocationsDefaultView);
 const {translate} = useLanguage();
 
 const currentComponent = computed(() =>
-  mode.value === PICKUP_LOCATIONS_VIEWS_LIST ? PickupLocationList : () => h('div'),
+  mode.value === PickupLocationsView.List ? PickupLocationList : () => h('div'),
 );
 </script>

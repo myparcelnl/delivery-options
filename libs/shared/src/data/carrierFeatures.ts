@@ -1,81 +1,64 @@
 import {type ConfigKey} from '../types';
-import {
-  ALLOW_DELIVERY_OPTIONS,
-  ALLOW_EVENING_DELIVERY,
-  ALLOW_MONDAY_DELIVERY,
-  ALLOW_MORNING_DELIVERY,
-  ALLOW_ONLY_RECIPIENT,
-  ALLOW_PACKAGE_TYPE_DIGITAL_STAMP,
-  ALLOW_PACKAGE_TYPE_MAILBOX,
-  ALLOW_PICKUP_LOCATIONS,
-  ALLOW_SAME_DAY_DELIVERY,
-  ALLOW_SATURDAY_DELIVERY,
-  ALLOW_SIGNATURE,
-  CUTOFF_TIME,
-  CUTOFF_TIME_SAME_DAY,
-  DELIVERY_DAYS_WINDOW,
-  DROP_OFF_DAYS,
-  DROP_OFF_DELAY,
-  FEATURE_SHOW_DELIVERY_DATE,
-  PRICE_EVENING_DELIVERY,
-  PRICE_MORNING_DELIVERY,
-  PRICE_ONLY_RECIPIENT,
-  PRICE_PICKUP,
-  PRICE_SAME_DAY_DELIVERY,
-  PRICE_SIGNATURE,
-  PRICE_STANDARD_DELIVERY,
-} from './configKeys';
+import {CarrierSetting, ConfigSetting} from '../enums';
 
 type DeliveryOptionsFeature = readonly ConfigKey[];
 
 export const FEATURES_DELIVERY: DeliveryOptionsFeature = Object.freeze([
-  ALLOW_DELIVERY_OPTIONS,
-  PRICE_STANDARD_DELIVERY,
+  CarrierSetting.AllowDeliveryOptions,
+  CarrierSetting.PriceStandardDelivery,
 ]);
 
 export const FEATURES_EVENING_DELIVERY: DeliveryOptionsFeature = Object.freeze([
-  ALLOW_EVENING_DELIVERY,
-  PRICE_EVENING_DELIVERY,
+  CarrierSetting.AllowEveningDelivery,
+  CarrierSetting.PriceEveningDelivery,
 ]);
 
-export const FEATURES_MONDAY_DELIVERY: DeliveryOptionsFeature = Object.freeze([ALLOW_MONDAY_DELIVERY]);
+export const FEATURES_MONDAY_DELIVERY: DeliveryOptionsFeature = Object.freeze([CarrierSetting.AllowMondayDelivery]);
 
 export const FEATURES_MORNING_DELIVERY: DeliveryOptionsFeature = Object.freeze([
-  ALLOW_MORNING_DELIVERY,
-  PRICE_MORNING_DELIVERY,
+  CarrierSetting.AllowMorningDelivery,
+  CarrierSetting.PriceMorningDelivery,
 ]);
 
 export const FEATURES_ONLY_RECIPIENT: DeliveryOptionsFeature = Object.freeze([
-  PRICE_ONLY_RECIPIENT,
-  ALLOW_ONLY_RECIPIENT,
+  CarrierSetting.PriceOnlyRecipient,
+  CarrierSetting.AllowOnlyRecipient,
 ]);
 
 export const FEATURES_PACKAGE_TYPE_DIGITAL_STAMP: DeliveryOptionsFeature = Object.freeze([
-  ALLOW_PACKAGE_TYPE_DIGITAL_STAMP,
+  CarrierSetting.AllowPackageTypeDigitalStamp,
 ]);
 
-export const FEATURES_PACKAGE_TYPE_MAILBOX: DeliveryOptionsFeature = Object.freeze([ALLOW_PACKAGE_TYPE_MAILBOX]);
+export const FEATURES_PACKAGE_TYPE_MAILBOX: DeliveryOptionsFeature = Object.freeze([
+  CarrierSetting.AllowPackageTypeMailbox,
+]);
 
-export const FEATURES_PICKUP: DeliveryOptionsFeature = Object.freeze([ALLOW_PICKUP_LOCATIONS, PRICE_PICKUP]);
+export const FEATURES_PICKUP: DeliveryOptionsFeature = Object.freeze([
+  CarrierSetting.AllowPickupLocations,
+  CarrierSetting.PricePickup,
+]);
 
-export const FEATURES_SATURDAY_DELIVERY: DeliveryOptionsFeature = Object.freeze([ALLOW_SATURDAY_DELIVERY]);
+export const FEATURES_SATURDAY_DELIVERY: DeliveryOptionsFeature = Object.freeze([CarrierSetting.AllowSaturdayDelivery]);
 
-export const FEATURES_SIGNATURE: DeliveryOptionsFeature = Object.freeze([ALLOW_SIGNATURE, PRICE_SIGNATURE]);
+export const FEATURES_SIGNATURE: DeliveryOptionsFeature = Object.freeze([
+  CarrierSetting.AllowSignature,
+  CarrierSetting.PriceSignature,
+]);
 
-export const FEATURES_SHOW_DELIVERY_DATE: DeliveryOptionsFeature = Object.freeze([FEATURE_SHOW_DELIVERY_DATE]);
+export const FEATURES_SHOW_DELIVERY_DATE: DeliveryOptionsFeature = Object.freeze([ConfigSetting.ShowDeliveryDate]);
 
-export const FEATURES_DROP_OFF_DAYS: DeliveryOptionsFeature = Object.freeze([DROP_OFF_DAYS]);
+export const FEATURES_DROP_OFF_DAYS: DeliveryOptionsFeature = Object.freeze([CarrierSetting.DropOffDays]);
 
-export const FEATURES_DROP_OFF_DELAY: DeliveryOptionsFeature = Object.freeze([DROP_OFF_DELAY]);
+export const FEATURES_DROP_OFF_DELAY: DeliveryOptionsFeature = Object.freeze([CarrierSetting.DropOffDelay]);
 
-export const FEATURES_DELIVERY_DAYS_WINDOW: DeliveryOptionsFeature = Object.freeze([DELIVERY_DAYS_WINDOW]);
+export const FEATURES_DELIVERY_DAYS_WINDOW: DeliveryOptionsFeature = Object.freeze([CarrierSetting.DeliveryDaysWindow]);
 
-export const FEATURES_CUTOFF_TIME: DeliveryOptionsFeature = Object.freeze([CUTOFF_TIME]);
+export const FEATURES_CUTOFF_TIME: DeliveryOptionsFeature = Object.freeze([CarrierSetting.CutoffTime]);
 
 export const FEATURES_SAME_DAY_DELIVERY: DeliveryOptionsFeature = Object.freeze([
-  ALLOW_SAME_DAY_DELIVERY,
-  PRICE_SAME_DAY_DELIVERY,
-  CUTOFF_TIME_SAME_DAY,
+  CarrierSetting.AllowSameDayDelivery,
+  CarrierSetting.PriceSameDayDelivery,
+  CarrierSetting.CutoffTimeSameDay,
 ]);
 
 export const FEATURE_GROUPS = Object.freeze([

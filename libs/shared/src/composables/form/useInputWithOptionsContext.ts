@@ -11,17 +11,17 @@ import {
 import {useElementContext} from './useElementContext';
 import {calculateInitialValue} from './calculateInitialValue';
 
-export interface InputWithOptionsContext<T extends SelectInputModelValue> {
-  elementProps: ComputedRef<InputProps<T>>;
+export interface InputWithOptionsContext<Type extends SelectInputModelValue> {
+  elementProps: ComputedRef<InputProps<Type>>;
   id: string;
-  model: WritableComputedRef<T>;
-  options: ComputedRef<SelectOption<T>[]>;
+  model: WritableComputedRef<Type>;
+  options: ComputedRef<SelectOption<Type>[]>;
 }
 
-export const useInputWithOptionsContext = <T extends SelectInputModelValue = SelectInputModelValue>(
-  props: WithElement<T, InputProps<T> & OptionsProps<T>>,
-  emit: SelectInputEmits<T>,
-): InputWithOptionsContext<T> => {
+export const useInputWithOptionsContext = <Type extends SelectInputModelValue>(
+  props: WithElement<InputProps<Type> & OptionsProps<Type>>,
+  emit: SelectInputEmits<Type>,
+): InputWithOptionsContext<Type> => {
   // @ts-expect-error todo
   const {id, model, elementProps} = useElementContext(props, emit);
 

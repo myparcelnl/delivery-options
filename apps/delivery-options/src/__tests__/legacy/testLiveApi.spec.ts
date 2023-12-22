@@ -8,17 +8,12 @@ import {afterAll, beforeAll, describe, expect, test, vi} from 'vitest';
 import {format} from 'date-fns';
 import {fakeDeliveryOptionsResponse} from '@myparcel-do/shared/testing';
 import {
-  ALLOW_DELIVERY_OPTIONS,
-  ALLOW_MONDAY_DELIVERY,
-  ALLOW_SATURDAY_DELIVERY,
-  CARRIER_SETTINGS,
-  CUTOFF_TIME,
-  DROP_OFF_DAYS,
-  FRIDAY_CUTOFF_TIME,
+  CarrierSetting,
+  ConfigSetting,
+  DeprecatedCarrierSetting,
   getCarrierConfiguration,
+  KEY_CARRIER_SETTINGS,
   KEY_CONFIG,
-  PLATFORM,
-  SATURDAY_CUTOFF_TIME,
 } from '@myparcel-do/shared';
 import {CarrierName, PlatformName} from '@myparcel/constants';
 import {fetchDeliveryOptions} from '../../legacy';
@@ -55,17 +50,17 @@ describe.skip('test settings on the live API', () => {
       const DELIVERY_DAYS_WINDOW = 7;
       const mockedConfigBus = mockConfigBus({
         [KEY_CONFIG]: {
-          [PLATFORM]: platform,
+          [ConfigSetting.Platform]: platform,
           [DELIVERY_DAYS_WINDOW]: DELIVERY_DAYS_WINDOW,
-          [DROP_OFF_DAYS]: dropOffDays,
-          [CUTOFF_TIME]: cutoffTime,
-          [ALLOW_MONDAY_DELIVERY]: allowExtraDelivery,
-          [ALLOW_SATURDAY_DELIVERY]: allowExtraDelivery,
-          [FRIDAY_CUTOFF_TIME]: extraCutoffTime,
-          [SATURDAY_CUTOFF_TIME]: extraCutoffTime,
-          [CARRIER_SETTINGS]: {
+          [CarrierSetting.DropOffDays]: dropOffDays,
+          [CarrierSetting.CutoffTime]: cutoffTime,
+          [CarrierSetting.AllowMondayDelivery]: allowExtraDelivery,
+          [CarrierSetting.AllowSaturdayDelivery]: allowExtraDelivery,
+          [DeprecatedCarrierSetting.FridayCutoffTime]: extraCutoffTime,
+          [DeprecatedCarrierSetting.SaturdayCutoffTime]: extraCutoffTime,
+          [KEY_CARRIER_SETTINGS]: {
             [carrier]: {
-              [ALLOW_DELIVERY_OPTIONS]: true,
+              [CarrierSetting.AllowDeliveryOptions]: true,
             },
           },
         },

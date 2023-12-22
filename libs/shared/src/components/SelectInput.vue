@@ -25,8 +25,7 @@
       v-model="searchText"
       :tabindex="loading || element.isDisabled ? -1 : 0"
       class="mp-peer mp-sr-only"
-      role="listbox"
-      @focusout="onPressTab" />
+      role="listbox" />
 
     <div
       :class="{
@@ -79,7 +78,7 @@
         class="mp-max-h-72">
         <div
           v-for="(option, index) in filteredOptions"
-          :key="option.value"
+          :key="`${index}-${option.value}`"
           :aria-selected="option.value === model"
           :class="{
             'mp-bg-gray-300 dark:mp-bg-gray-700': cursor === index,
@@ -114,7 +113,7 @@ import {Loader} from './Loader';
 type T = SelectInputModelValue;
 
 // eslint-disable-next-line vue/no-unused-properties
-const props = defineProps<WithElement<SelectInputProps<T>> & {options?: any; loading?: boolean}>();
+const props = defineProps<WithElement<SelectInputProps<T>> & {loading?: boolean}>();
 const emit = defineEmits<SelectInputEmits<T>>();
 
 const {model, options} = useSelectInputContext(props, emit);
@@ -124,12 +123,15 @@ const optionsWrapper = ref<HTMLElement | null>(null);
 const searchRef = ref<HTMLElement | null>(null);
 const searchText = ref<string | null>(null);
 
-const currentOption = computed(() => options.value.find((option) => option.value === model.value));
-const filteredOptions = computed(() =>
-  options.value.filter((option) => {
+const currentOption = computed<SelectOption | undefined>(() => {
+  return options.value.find((option) => option.value === model.value);
+});
+
+const filteredOptions = computed<SelectOption[]>(() => {
+  return options.value.filter((option) => {
     return !searchText.value || option.label?.toLowerCase().includes(searchText.value?.toLowerCase() ?? '');
-  }),
-);
+  });
+});
 
 const scrollToCursor = (cursor: number): void => {
   const option = optionsWrapper.value?.children[cursor] as HTMLElement | undefined;
@@ -199,7 +201,7 @@ const onPressDown = () => {
   }
 };
 
-const onPressTab = (event: FocusEvent) => {
+const onPressTab = (event: Event) => {
   if (!isOpen.value) {
     return;
   }

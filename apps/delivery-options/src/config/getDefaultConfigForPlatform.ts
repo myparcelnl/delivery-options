@@ -1,8 +1,6 @@
 import {assign} from 'radash';
 import {
   type DeliveryOptionsConfig,
-  FEATURE_PICKUP_LOCATIONS_DEFAULT_VIEW,
-  FEATURE_PICKUP_SHOW_DISTANCE,
   getDefaultDeliveryOptionsConfig,
   PickupLocationsView,
   type SupportedPlatformName,
@@ -11,13 +9,13 @@ import {PlatformName} from '@myparcel/constants';
 
 const PLATFORM_DEFAULTS = Object.freeze({
   [PlatformName.MyParcel]: {
-    [FEATURE_PICKUP_SHOW_DISTANCE]: true,
-    [FEATURE_PICKUP_LOCATIONS_DEFAULT_VIEW]: PickupLocationsView.Map,
+    [ConfigSetting.PickupShowDistance]: true,
+    [ConfigSetting.PickupLocationsDefaultView]: PickupLocationsView.Map,
   },
 
   [PlatformName.SendMyParcel]: {
-    [FEATURE_PICKUP_SHOW_DISTANCE]: false,
-    [FEATURE_PICKUP_LOCATIONS_DEFAULT_VIEW]: PickupLocationsView.List,
+    [ConfigSetting.PickupShowDistance]: false,
+    [ConfigSetting.PickupLocationsDefaultView]: PickupLocationsView.List,
   },
 }) satisfies Readonly<Partial<Record<SupportedPlatformName, Partial<DeliveryOptionsConfig>>>>;
 

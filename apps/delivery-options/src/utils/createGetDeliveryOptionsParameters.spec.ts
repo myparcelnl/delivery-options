@@ -2,10 +2,10 @@ import {beforeEach, describe, expect, it} from 'vitest';
 import {assign} from 'radash';
 import {createPinia, setActivePinia} from 'pinia';
 import {
-  CARRIER_SETTINGS,
   type CarrierIdentifier,
   CarrierSetting,
   type InputCarrierSettings,
+  KEY_CARRIER_SETTINGS,
   KEY_CONFIG,
 } from '@myparcel-do/shared';
 import {type EndpointParameters, type GetDeliveryOptions} from '@myparcel/sdk';
@@ -56,7 +56,7 @@ describe('createGetDeliveryOptionsParameters', () => {
   ] satisfies TestInput[])('returns the correct parameters', async ({carrier, platform, config, output}) => {
     expect.assertions(1);
     const configuration = mockDeliveryOptionsConfig(
-      getMockDeliveryOptionsConfiguration({[KEY_CONFIG]: {platform, [CARRIER_SETTINGS]: {[carrier]: {...config}}}}),
+      getMockDeliveryOptionsConfiguration({[KEY_CONFIG]: {platform, [KEY_CARRIER_SETTINGS]: {[carrier]: {...config}}}}),
     );
 
     const resolvedCarrier = await getResolvedCarrier(carrier, configuration.config.platform);

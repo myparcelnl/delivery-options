@@ -1,6 +1,5 @@
 import {
   AddressField,
-  CARRIER_SETTINGS,
   CarrierSetting,
   type CarrierSettings,
   type CarrierSettingsObject,
@@ -11,6 +10,7 @@ import {
   getAllConfigOptions,
   type InputDeliveryOptionsConfig,
   type InputDeliveryOptionsConfiguration,
+  KEY_CARRIER_SETTINGS,
   SUPPORTED_PLATFORMS,
   validateDropOffDays,
   validateHasMinKeys,
@@ -87,7 +87,7 @@ const additionalOptions: ConfigOption[] = [
     validators: [validateIsBoolean()],
   },
   {
-    key: CARRIER_SETTINGS,
+    key: KEY_CARRIER_SETTINGS,
     perCarrier: false,
     validators: [validateIsObject(), validateHasMinKeys(1)],
   },
@@ -127,7 +127,7 @@ const validateConfig = (input: InputDeliveryOptionsConfig): DeliveryOptionsConfi
 
   return {
     ...processedConfig,
-    [CARRIER_SETTINGS]: Object.entries(processedConfig[CARRIER_SETTINGS] ?? {}).reduce(
+    [KEY_CARRIER_SETTINGS]: Object.entries(processedConfig[KEY_CARRIER_SETTINGS] ?? {}).reduce(
       (acc, [identifier, carrierSettings]) => {
         acc[identifier as keyof CarrierSettingsObject] = processConfig(carrierSettings ?? {}, configOptionsPerCarrier);
 

@@ -1,19 +1,13 @@
 // Timestamps are before all cutoff times
 
 import {
-  ALLOW_DELIVERY_OPTIONS,
-  ALLOW_MONDAY_DELIVERY,
-  ALLOW_SATURDAY_DELIVERY,
-  CARRIER_SETTINGS,
-  DELIVERY_DAYS_WINDOW,
-  DROP_OFF_DAYS,
-  DROP_OFF_DELAY,
+  CarrierSetting,
+  ConfigSetting,
+  DeprecatedCarrierSetting,
   FRIDAY,
-  FRIDAY_CUTOFF_TIME,
+  KEY_CARRIER_SETTINGS,
   MONDAY,
-  PLATFORM,
   SATURDAY,
-  SATURDAY_CUTOFF_TIME,
   THURSDAY,
   TUESDAY,
   WEDNESDAY,
@@ -30,13 +24,13 @@ export const DATE_FRIDAY_AFTER_CUTOFF = '2020-03-13T18:00:00Z';
 export const DATE_SATURDAY_AFTER_CUTOFF = '2020-03-14T18:00:00Z';
 
 export const configMyParcel = {
-  [PLATFORM]: PlatformName.MyParcel,
-  [DELIVERY_DAYS_WINDOW]: 7,
+  [ConfigSetting.Platform]: PlatformName.MyParcel,
+  [CarrierSetting.DeliveryDaysWindow]: 7,
   // Includes Saturday
-  [DROP_OFF_DAYS]: [MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY],
-  [DROP_OFF_DELAY]: 0,
-  [SATURDAY_CUTOFF_TIME]: '14:30',
-  [ALLOW_MONDAY_DELIVERY]: true,
+  [CarrierSetting.DropOffDays]: [MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY],
+  [CarrierSetting.DropOffDelay]: 0,
+  [DeprecatedCarrierSetting.SaturdayCutoffTime]: '14:30',
+  [CarrierSetting.AllowMondayDelivery]: true,
 };
 
 /**
@@ -45,17 +39,17 @@ export const configMyParcel = {
  * @see @/delivery-options/data/request/requestData:9
  */
 export const configSendMyParcel = {
-  [PLATFORM]: PlatformName.SendMyParcel,
+  [ConfigSetting.Platform]: PlatformName.SendMyParcel,
 
   // Includes Friday
-  [DROP_OFF_DAYS]: [MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY],
-  [DROP_OFF_DELAY]: 0,
-  [FRIDAY_CUTOFF_TIME]: '14:30',
-  [ALLOW_SATURDAY_DELIVERY]: true,
+  [CarrierSetting.DropOffDays]: [MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY],
+  [CarrierSetting.DropOffDelay]: 0,
+  [DeprecatedCarrierSetting.FridayCutoffTime]: '14:30',
+  [CarrierSetting.AllowSaturdayDelivery]: true,
 
-  [CARRIER_SETTINGS]: {
+  [KEY_CARRIER_SETTINGS]: {
     [CarrierName.Bpost]: {
-      [ALLOW_DELIVERY_OPTIONS]: true,
+      [CarrierSetting.AllowDeliveryOptions]: true,
     },
   },
 };

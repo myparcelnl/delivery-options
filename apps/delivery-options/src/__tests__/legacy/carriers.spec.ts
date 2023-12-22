@@ -1,11 +1,10 @@
 import {describe, expect, it} from 'vitest';
 import {merge} from 'radash';
 import {
-  ALLOW_DELIVERY_OPTIONS,
-  ALLOW_PICKUP_LOCATIONS,
-  CARRIER_SETTINGS,
+  CarrierSetting,
+  ConfigSetting,
+  KEY_CARRIER_SETTINGS,
   KEY_CONFIG,
-  PLATFORM,
   UPDATED_DELIVERY_OPTIONS,
 } from '@myparcel-do/shared';
 import {CarrierName, PlatformName} from '@myparcel/constants';
@@ -14,10 +13,10 @@ import {mockDeliveryOptions} from './mockDeliveryOptions';
 describe.skip('carriers', () => {
   const CONFIG_DELIVERY_SINGLE_CARRIER = Object.freeze({
     [KEY_CONFIG]: {
-      [PLATFORM]: PlatformName.MyParcel,
-      [CARRIER_SETTINGS]: {
+      [ConfigSetting.Platform]: PlatformName.MyParcel,
+      [KEY_CARRIER_SETTINGS]: {
         [CarrierName.PostNl]: {
-          [ALLOW_DELIVERY_OPTIONS]: true,
+          [CarrierSetting.AllowDeliveryOptions]: true,
         },
       },
     },
@@ -27,10 +26,10 @@ describe.skip('carriers', () => {
 
   const CONFIG_DELIVERY_CUSTOM_CARRIER = Object.freeze({
     [KEY_CONFIG]: {
-      [PLATFORM]: PlatformName.MyParcel,
-      [CARRIER_SETTINGS]: {
+      [ConfigSetting.Platform]: PlatformName.MyParcel,
+      [KEY_CARRIER_SETTINGS]: {
         [CUSTOM_CARRIER_IDENTIFIER]: {
-          [ALLOW_DELIVERY_OPTIONS]: true,
+          [CarrierSetting.AllowDeliveryOptions]: true,
         },
       },
     },
@@ -39,9 +38,9 @@ describe.skip('carriers', () => {
   const CONFIG_DELIVERY_MULTIPLE_CARRIERS = Object.freeze(
     merge(CONFIG_DELIVERY_SINGLE_CARRIER, {
       [KEY_CONFIG]: {
-        [CARRIER_SETTINGS]: {
+        [KEY_CARRIER_SETTINGS]: {
           [CarrierName.DhlForYou]: {
-            [ALLOW_DELIVERY_OPTIONS]: true,
+            [CarrierSetting.AllowDeliveryOptions]: true,
           },
         },
       },
@@ -50,12 +49,12 @@ describe.skip('carriers', () => {
 
   const CONFIG_PICKUP_MULTIPLE_CARRIERS = Object.freeze({
     [KEY_CONFIG]: {
-      [CARRIER_SETTINGS]: {
+      [KEY_CARRIER_SETTINGS]: {
         [CarrierName.PostNl]: {
-          [ALLOW_PICKUP_LOCATIONS]: true,
+          [CarrierSetting.AllowPickupLocations]: true,
         },
         [CarrierName.DhlForYou]: {
-          [ALLOW_PICKUP_LOCATIONS]: true,
+          [CarrierSetting.AllowPickupLocations]: true,
         },
       },
     },

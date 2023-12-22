@@ -1,6 +1,6 @@
 import {afterEach, beforeEach, describe, expect, it} from 'vitest';
 import {createPinia, setActivePinia} from 'pinia';
-import {ALLOW_SIGNATURE, CARRIER_SETTINGS, KEY_CONFIG} from '@myparcel-do/shared';
+import {CarrierSetting, KEY_CARRIER_SETTINGS, KEY_CONFIG} from '@myparcel-do/shared';
 import {CarrierName} from '@myparcel/constants';
 import {useCarrierSettings} from '../composables';
 import {mockDeliveryOptionsConfig} from '../__tests__';
@@ -18,40 +18,40 @@ describe('getResolvedValue', () => {
   it('returns the general value when no carrier is given', () => {
     mockDeliveryOptionsConfig({
       [KEY_CONFIG]: {
-        [ALLOW_SIGNATURE]: true,
-        [CARRIER_SETTINGS]: {
+        [CarrierSetting.AllowSignature]: true,
+        [KEY_CARRIER_SETTINGS]: {
           [CarrierName.PostNl]: {
-            [ALLOW_SIGNATURE]: false,
+            [CarrierSetting.AllowSignature]: false,
           },
         },
       },
     });
 
-    expect(getResolvedValue(ALLOW_SIGNATURE)).toBe(true);
+    expect(getResolvedValue(CarrierSetting.AllowSignature)).toBe(true);
   });
 
   it('returns the carrier value when a carrier is given', () => {
     mockDeliveryOptionsConfig({
       [KEY_CONFIG]: {
-        [ALLOW_SIGNATURE]: true,
-        [CARRIER_SETTINGS]: {
+        [CarrierSetting.AllowSignature]: true,
+        [KEY_CARRIER_SETTINGS]: {
           [CarrierName.PostNl]: {
-            [ALLOW_SIGNATURE]: false,
+            [CarrierSetting.AllowSignature]: false,
           },
         },
       },
     });
 
-    expect(getResolvedValue(ALLOW_SIGNATURE, CarrierName.PostNl)).toBe(false);
+    expect(getResolvedValue(CarrierSetting.AllowSignature, CarrierName.PostNl)).toBe(false);
   });
 
   it('returns the general value when a carrier is given but no carrier settings are available', () => {
     mockDeliveryOptionsConfig({
       [KEY_CONFIG]: {
-        [ALLOW_SIGNATURE]: true,
+        [CarrierSetting.AllowSignature]: true,
       },
     });
 
-    expect(getResolvedValue(ALLOW_SIGNATURE, CarrierName.PostNl)).toBe(true);
+    expect(getResolvedValue(CarrierSetting.AllowSignature, CarrierName.PostNl)).toBe(true);
   });
 });

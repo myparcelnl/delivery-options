@@ -2,11 +2,10 @@ import {afterEach, beforeEach, describe, expect, it, type MockInstance, vi} from
 import {get, set} from 'radash';
 import {
   AddressField,
-  CARRIER_SETTINGS,
   CarrierSetting,
-  DROP_OFF_DELAY,
   type InputDeliveryOptionsConfiguration,
   KEY_ADDRESS,
+  KEY_CARRIER_SETTINGS,
   KEY_CONFIG,
   KEY_STRINGS,
 } from '@myparcel-do/shared';
@@ -48,8 +47,16 @@ describe('validateConfig', () => {
   it.each([
     {key: `${KEY_ADDRESS}.${AddressField.Country}`, value: 'DE', valid: true},
     {key: `${KEY_ADDRESS}.${AddressField.Country}`, value: 123, valid: false},
-    {key: `${KEY_CONFIG}.${CARRIER_SETTINGS}.${CarrierName.PostNl}:1234.${DROP_OFF_DELAY}`, value: '-12', valid: true},
-    {key: `${KEY_CONFIG}.${CARRIER_SETTINGS}.${CarrierName.PostNl}:1234.${DROP_OFF_DELAY}`, value: 4, valid: true},
+    {
+      key: `${KEY_CONFIG}.${KEY_CARRIER_SETTINGS}.${CarrierName.PostNl}:1234.${CarrierSetting.DropOffDelay}`,
+      value: '-12',
+      valid: true,
+    },
+    {
+      key: `${KEY_CONFIG}.${KEY_CARRIER_SETTINGS}.${CarrierName.PostNl}:1234.${CarrierSetting.DropOffDelay}`,
+      value: 4,
+      valid: true,
+    },
     {key: `${KEY_CONFIG}.${CarrierSetting.CutoffTime}`, value: '15:00', valid: true},
     {key: `${KEY_CONFIG}.${CarrierSetting.DropOffDays}`, value: [1, 2, 3], valid: true},
     {key: `${KEY_CONFIG}.${CarrierSetting.DropOffDays}`, value: [8], valid: false},

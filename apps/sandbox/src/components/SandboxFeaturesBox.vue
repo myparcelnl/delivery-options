@@ -9,14 +9,10 @@
 <script lang="ts" setup>
 import {ref} from 'vue';
 import {
-  DELIVERY_DAYS_WINDOW,
   DELIVERY_DAYS_WINDOW_MAX,
   DELIVERY_DAYS_WINDOW_MIN,
-  DROP_OFF_DAYS,
-  DROP_OFF_DELAY,
   DROP_OFF_DELAY_MAX,
   DROP_OFF_DELAY_MIN,
-  FEATURE_PICKUP_LOCATIONS_DEFAULT_VIEW,
   KEY_CONFIG,
   type SelectOption,
 } from '@myparcel-do/shared';
@@ -30,14 +26,14 @@ const section = formSection({
   fields: [
     formField({
       key: KEY_CONFIG,
-      name: DROP_OFF_DAYS,
+      name: CarrierSetting.DropOffDays,
       ref: ref([]),
       component: FormDropOffSelector,
     }),
 
     formField({
       key: KEY_CONFIG,
-      name: DROP_OFF_DELAY,
+      name: CarrierSetting.DropOffDelay,
       component: FormNumberInput,
       props: {
         min: DROP_OFF_DELAY_MIN,
@@ -47,7 +43,7 @@ const section = formSection({
 
     formField({
       key: KEY_CONFIG,
-      name: DELIVERY_DAYS_WINDOW,
+      name: CarrierSetting.DeliveryDaysWindow,
       component: FormNumberInput,
       props: {
         min: DELIVERY_DAYS_WINDOW_MIN,
@@ -57,7 +53,7 @@ const section = formSection({
 
     formField({
       key: KEY_CONFIG,
-      name: FEATURE_PICKUP_LOCATIONS_DEFAULT_VIEW,
+      name: ConfigSetting.PickupLocationsDefaultView,
       component: FormRadioGroupInput,
       props: {
         options: [

@@ -2,10 +2,11 @@ import {type SelectInputEmits, type SelectInputModelValue, type SelectInputProps
 import {type InputWithOptionsContext, useInputWithOptionsContext} from './useInputWithOptionsContext';
 
 export const useSelectInputContext = <
-  T extends SelectInputModelValue = SelectInputModelValue,
-  P extends WithElement<SelectInputProps<T>> = WithElement<SelectInputProps<T>>,
+  Type extends SelectInputModelValue,
+  Props extends WithElement<SelectInputProps<Type>>,
 >(
-  props: P,
-  emit: SelectInputEmits<T>,
-  // @ts-expect-error todo
-): InputWithOptionsContext<T> => useInputWithOptionsContext(props, emit);
+  props: Props,
+  emit: SelectInputEmits<Type>,
+): InputWithOptionsContext<Type> => {
+  return useInputWithOptionsContext(props, emit);
+};

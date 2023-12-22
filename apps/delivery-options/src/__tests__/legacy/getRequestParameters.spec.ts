@@ -1,5 +1,5 @@
 import {beforeAll, describe, expect, it, vi} from 'vitest';
-import {CARRIER_SETTINGS, DEFAULT_PLATFORM, getCarrierConfiguration} from '@myparcel-do/shared';
+import {DEFAULT_PLATFORM, getCarrierConfiguration, KEY_CARRIER_SETTINGS} from '@myparcel-do/shared';
 import {CarrierName, PlatformName} from '@myparcel/constants';
 
 describe.skip('Request parameters', () => {
@@ -9,7 +9,7 @@ describe.skip('Request parameters', () => {
 
   let configBus;
 
-  const getFirstCarrier = (configBus) => Object.keys(configBus.get(CARRIER_SETTINGS))[0];
+  const getFirstCarrier = (configBus) => Object.keys(configBus.get(KEY_CARRIER_SETTINGS))[0];
 
   beforeAll(() => {
     configBus = mockConfigBus();
@@ -126,7 +126,7 @@ describe.skip('Request parameters', () => {
         [KEY_ADDRESS]: defaultAddress[platform],
         [KEY_CONFIG]: {
           [PLATFORM]: platform,
-          [CARRIER_SETTINGS]: {
+          [KEY_CARRIER_SETTINGS]: {
             [carrier]: {
               [ALLOW_DELIVERY_OPTIONS]: true,
             },

@@ -1,11 +1,8 @@
 /* eslint-disable no-console */
 import {
   AddressField,
-  ALLOW_DELIVERY_OPTIONS,
-  ALLOW_PICKUP_LOCATIONS,
-  CARRIER_SETTINGS,
   type InputDeliveryOptionsConfiguration,
-  PLATFORM,
+  KEY_CARRIER_SETTINGS,
   UPDATE_DELIVERY_OPTIONS,
 } from '@myparcel-do/shared';
 import {CarrierName, PlatformName} from '@myparcel/constants';
@@ -39,11 +36,11 @@ export const showDeveloperInfo = () => {
 
   const demoConfig = {
     config: {
-      [PLATFORM]: PlatformName.MyParcel,
-      [CARRIER_SETTINGS]: {
+      [ConfigSetting.Platform]: PlatformName.MyParcel,
+      [KEY_CARRIER_SETTINGS]: {
         [CarrierName.PostNl]: {
-          [ALLOW_DELIVERY_OPTIONS]: true,
-          [ALLOW_PICKUP_LOCATIONS]: true,
+          [CarrierSetting.AllowDeliveryOptions]: true,
+          [CarrierSetting.AllowPickupLocations]: true,
         },
       },
     },

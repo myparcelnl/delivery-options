@@ -3,16 +3,14 @@ import {construct, get as objGet} from 'radash';
 import {defineStore} from 'pinia';
 import {useLocalStorage} from '@vueuse/core';
 import {
-  CARRIER_SETTINGS,
   type CarrierSettingsObject,
   type DeliveryOptionsAddress,
   type DeliveryOptionsConfig,
   type InputDeliveryOptionsConfiguration,
   KEY_ADDRESS,
+  KEY_CARRIER_SETTINGS,
   KEY_CONFIG,
   KEY_STRINGS,
-  LOCALE,
-  PLATFORM,
   type SupportedPlatformName,
 } from '@myparcel-do/shared';
 import {PlatformName} from '@myparcel/constants';
@@ -21,11 +19,14 @@ import {useLanguage} from '../composables';
 
 export const useSandboxStore = defineStore('sandbox', {
   state: () => {
-    const carrierSettings = useLocalStorage<CarrierSettingsObject>(CARRIER_SETTINGS, getDefaultSandboxCarrierSettings);
+    const carrierSettings = useLocalStorage<CarrierSettingsObject>(
+      KEY_CARRIER_SETTINGS,
+      getDefaultSandboxCarrierSettings,
+    );
     const config = useLocalStorage<DeliveryOptionsConfig>(KEY_CONFIG, getDefaultSandboxConfig);
     const address = useLocalStorage<DeliveryOptionsAddress>(KEY_ADDRESS, getDefaultSandboxAddress);
 
-    const initialPlatform = objGet(config.value, `${KEY_CONFIG}.${PLATFORM}`, PlatformName.MyParcel);
+    const initialPlatform = objGet(config.value, `${KEY_CONFIG}.${ConfigSetting.Platform}`, PlatformName.MyParcel);
 
     return {
       platform: ref<SupportedPlatformName>(initialPlatform ?? PlatformName.MyParcel),
@@ -55,9 +56,9 @@ export const useSandboxStore = defineStore('sandbox', {
       return toRaw({
         [KEY_CONFIG]: {
           ...this.config,
-          [CARRIER_SETTINGS]: construct(this.carrierSettings),
-          [LOCALE]: language.value.code,
-          [PLATFORM]: this.platform,
+          [KEY_CARRIER_SETTINGS]: construct(this.carrierSettings),
+          [ConfigSetting.Locale]: language.value.code,
+          [ConfigSetting.Platform]: this.platform,
         } satisfies DeliveryOptionsConfig,
         [KEY_ADDRESS]: this.address,
         [KEY_STRINGS]: strings.value,

@@ -1,13 +1,11 @@
 import {type ExtraDelivery, type ResolvedMockDeliveryOptionsParameters} from '@myparcel-do/shared/testing';
 import {
-  ALLOW_MONDAY_DELIVERY,
-  ALLOW_SATURDAY_DELIVERY,
+  CarrierSetting,
   DAY_FRIDAY,
   DAY_MONDAY,
   DAY_SATURDAY,
-  FRIDAY_CUTOFF_TIME,
+  DeprecatedCarrierSetting,
   type FullCarrier,
-  SATURDAY_CUTOFF_TIME,
 } from '@myparcel-do/shared';
 
 /**
@@ -15,16 +13,16 @@ import {
  */
 export const extraDeliveryConfig = Object.freeze([
   {
-    cutoffTime: SATURDAY_CUTOFF_TIME,
+    cutoffTime: DeprecatedCarrierSetting.SaturdayCutoffTime,
     deliveryDay: DAY_MONDAY,
     dropOffDay: DAY_SATURDAY,
-    feature: ALLOW_MONDAY_DELIVERY,
+    feature: CarrierSetting.AllowMondayDelivery,
   },
   {
-    cutoffTime: FRIDAY_CUTOFF_TIME,
+    cutoffTime: DeprecatedCarrierSetting.FridayCutoffTime,
     deliveryDay: DAY_SATURDAY,
     dropOffDay: DAY_FRIDAY,
-    feature: ALLOW_SATURDAY_DELIVERY,
+    feature: CarrierSetting.AllowSaturdayDelivery,
   },
 ]) satisfies readonly ExtraDelivery[];
 

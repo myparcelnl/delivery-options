@@ -17,7 +17,7 @@ export const useCheckboxGroupContext = <T extends CheckboxGroupModelValue = Chec
   props: WithElement<CheckboxGroupProps<T>>,
   emit: CheckboxGroupEmits<T>,
 ): CheckboxGroupContext<T> => {
-  const context = useInputWithOptionsContext<T>(props as any, emit);
+  const context = useInputWithOptionsContext<T>(props, emit);
 
   const createUpdateHandler = (option: SelectOption<T>) => {
     return (toggle: boolean) => {

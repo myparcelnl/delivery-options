@@ -1,10 +1,12 @@
 import {PackageTypeName} from '@myparcel/constants';
 import {type SupportedPackageTypeName} from '../types';
-import {type CarrierSetting} from '../enums';
-import {ALLOW_DELIVERY_OPTIONS, ALLOW_PACKAGE_TYPE_DIGITAL_STAMP, ALLOW_PACKAGE_TYPE_MAILBOX} from '../data';
+import {CarrierSetting} from '../enums';
 
-export const getPackageTypeConfigMap = (): Record<SupportedPackageTypeName, CarrierSetting> => ({
-  [PackageTypeName.Package]: ALLOW_DELIVERY_OPTIONS,
-  [PackageTypeName.Mailbox]: ALLOW_PACKAGE_TYPE_MAILBOX,
-  [PackageTypeName.DigitalStamp]: ALLOW_PACKAGE_TYPE_DIGITAL_STAMP,
-});
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const getPackageTypeConfigMap = () => {
+  return {
+    [PackageTypeName.Package]: CarrierSetting.AllowDeliveryOptions,
+    [PackageTypeName.Mailbox]: CarrierSetting.AllowPackageTypeMailbox,
+    [PackageTypeName.DigitalStamp]: CarrierSetting.AllowPackageTypeDigitalStamp,
+  } satisfies Record<SupportedPackageTypeName, CarrierSetting>;
+};

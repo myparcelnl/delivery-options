@@ -2,10 +2,7 @@ import {get} from '@vueuse/core';
 import {
   AddressField,
   CarrierSetting,
-  DELIVERY_DAYS_WINDOW,
   DELIVERY_DAYS_WINDOW_DEFAULT,
-  DROP_OFF_DAYS,
-  DROP_OFF_DELAY,
   DROP_OFF_DELAY_DEFAULT,
   type SupportedPackageTypeName,
 } from '@myparcel-do/shared';
@@ -34,9 +31,9 @@ export const createGetDeliveryOptionsParameters = (
     package_type: carrier.allowedPackageTypes.value.has(packageType) ? packageType : PackageTypeName.Package,
 
     cutoff_time: calculateCutoffTime(carrier),
-    deliverydays_window: carrier.get(DELIVERY_DAYS_WINDOW, DELIVERY_DAYS_WINDOW_DEFAULT),
-    dropoff_days: carrier.get(DROP_OFF_DAYS, [])?.join(';'),
-    dropoff_delay: carrier.get(DROP_OFF_DELAY, DROP_OFF_DELAY_DEFAULT),
+    deliverydays_window: carrier.get(CarrierSetting.DeliveryDaysWindow, DELIVERY_DAYS_WINDOW_DEFAULT),
+    dropoff_days: carrier.get(CarrierSetting.DropOffDays, [])?.join(';'),
+    dropoff_delay: carrier.get(CarrierSetting.DropOffDelay, DROP_OFF_DELAY_DEFAULT),
 
     monday_delivery: get(carrier.features).has(CarrierSetting.AllowMondayDelivery),
     saturday_delivery: get(carrier.features).has(CarrierSetting.AllowSaturdayDelivery),

@@ -2,19 +2,16 @@ import {useMemoize} from '@vueuse/core';
 import {validateIsInRange} from '../validator';
 import {type ConfigOption} from '../types';
 import {CarrierSetting, ConfigSetting, OptionType} from '../enums';
-import {
-  DELIVERY_DAYS_WINDOW_MAX,
-  DELIVERY_DAYS_WINDOW_MIN,
-  DROP_OFF_DELAY_MAX,
-  DROP_OFF_DELAY_MIN,
-  PRICE_STANDARD_DELIVERY,
-} from '../data';
+import {DELIVERY_DAYS_WINDOW_MAX, DELIVERY_DAYS_WINDOW_MIN, DROP_OFF_DELAY_MAX, DROP_OFF_DELAY_MIN} from '../data';
 import {declareOptionWithPrice} from './declareOptionWithPrice';
 import {declareOption} from './declareOption';
 
 // eslint-disable-next-line max-lines-per-function
 export const getAllConfigOptions = useMemoize((): ConfigOption[] => [
-  ...declareOptionWithPrice({key: CarrierSetting.AllowDeliveryOptions, perCarrier: true}, PRICE_STANDARD_DELIVERY),
+  ...declareOptionWithPrice(
+    {key: CarrierSetting.AllowDeliveryOptions, perCarrier: true},
+    CarrierSetting.PriceStandardDelivery,
+  ),
 
   ...declareOptionWithPrice(CarrierSetting.AllowStandardDelivery, CarrierSetting.PriceStandardDelivery),
 

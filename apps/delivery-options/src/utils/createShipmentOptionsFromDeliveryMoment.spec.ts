@@ -1,6 +1,6 @@
 import {afterEach, beforeEach, describe, expect, it} from 'vitest';
 import {createPinia, setActivePinia} from 'pinia';
-import {ALLOW_ONLY_RECIPIENT, ALLOW_SIGNATURE, getShipmentOptionConfigMap, KEY_CONFIG} from '@myparcel-do/shared';
+import {CarrierSetting, getShipmentOptionConfigMap, KEY_CONFIG} from '@myparcel-do/shared';
 import {type ShipmentOptionName} from '@myparcel/constants';
 import {useCarrierSettings} from '../composables';
 import {mockDeliveryOptionsConfig, mockResolvedDeliveryOption} from '../__tests__';
@@ -20,8 +20,8 @@ describe('createShipmentOptionsFromDeliveryMoment', () => {
     (shipmentOption, configKey) => {
       mockDeliveryOptionsConfig({
         [KEY_CONFIG]: {
-          [ALLOW_SIGNATURE]: true,
-          [ALLOW_ONLY_RECIPIENT]: true,
+          [CarrierSetting.AllowSignature]: true,
+          [CarrierSetting.AllowOnlyRecipient]: true,
           [configKey]: false,
         },
       });
