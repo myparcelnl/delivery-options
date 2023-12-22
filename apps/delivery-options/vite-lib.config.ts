@@ -1,19 +1,16 @@
 import {createViteConfig} from '@myparcel-do/build-vite';
-import viteConfig from './vite.config';
 
-// @ts-expect-error todo
-export default createViteConfig(async (env) => {
-  const [parentConfig] = await Promise.all([viteConfig(env)]);
+const dirname = new URL('.', import.meta.url).pathname;
 
+export default createViteConfig(() => {
   return {
-    ...parentConfig,
     build: {
-      ...parentConfig.build,
       lib: {
-        ...parentConfig.build?.lib,
+        entry: 'src/index.ts',
+        fileName: 'index',
+        formats: ['es', 'cjs'],
         name: 'MyParcelDeliveryOptionsLib',
       },
-
       rollupOptions: {
         external: ['vue'],
         output: {
@@ -22,6 +19,10 @@ export default createViteConfig(async (env) => {
           },
         },
       },
+    },
+
+    test: {
+      setupFiles: [`${dirname}src/__tests__/vitest-setup.ts`],
     },
   };
 });

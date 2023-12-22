@@ -13,6 +13,6 @@ export default createViteConfig({
   },
 
   test: {
-    setupFiles: [`${dirname}/src/__tests__/vitest-setup.ts`],
+    setupFiles: [`${dirname}src/__tests__/vitest-setup.ts`],
   },
 });
