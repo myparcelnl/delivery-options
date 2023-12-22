@@ -9,9 +9,9 @@
     ]"
     class="mp-border mp-gap-2 mp-inline-flex mp-items-center mp-rounded-full">
     <span
-      v-if="hasSlotContent($slots.icon)"
+      v-if="hasSlotContent($slots.default)"
       class="mp-h-4">
-      <slot name="icon" />
+      <slot />
     </span>
 
     <span

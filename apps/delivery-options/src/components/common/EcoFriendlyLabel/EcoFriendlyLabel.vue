@@ -2,9 +2,7 @@
   <InfoLabel
     :label="mostEcoFriendly ? translate('most_eco_friendly') : undefined"
     variant="green">
-    <template #icon>
-      <EcoFriendlyIcon />
-    </template>
+    <EcoFriendlyIcon />
   </InfoLabel>
 </template>
 

@@ -6,9 +6,7 @@
 
     <Variant title="Default with icon">
       <InfoLabel :label="state.label">
-        <template #icon>
-          <ParcelLockerIcon />
-        </template>
+        <ParcelLockerIcon />
       </InfoLabel>
     </Variant>
 
@@ -22,9 +20,7 @@
       <InfoLabel
         :label="state.label"
         variant="green">
-        <template #icon>
-          <ParcelLockerIcon />
-        </template>
+        <ParcelLockerIcon />
       </InfoLabel>
     </Variant>
   </Story>
