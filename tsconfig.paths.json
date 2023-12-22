@@ -1,10 +1,6 @@
 {
   "compilerOptions": {
     "paths": {
-      "@myparcel/vue-form-builder": [
-        "../vue-form-builder/apps/vue-form-builder/src"
-      ],
-      "@myparcel-vfb/*": ["../vue-form-builder/libs/*/src"],
       "@myparcel-do/*": ["./libs/*/src"],
       "@myparcel/constants": ["./node_modules/myparcel/constants"]
     }
