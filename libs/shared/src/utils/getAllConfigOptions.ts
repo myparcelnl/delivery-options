@@ -1,8 +1,15 @@
 import {useMemoize} from '@vueuse/core';
 import {validateIsInRange} from '../validator';
 import {type ConfigOption} from '../types';
-import {CarrierSetting, ConfigSetting, OptionType} from '../enums';
-import {DELIVERY_DAYS_WINDOW_MAX, DELIVERY_DAYS_WINDOW_MIN, DROP_OFF_DELAY_MAX, DROP_OFF_DELAY_MIN} from '../data';
+import {
+  CarrierSetting,
+  ConfigSetting,
+  DELIVERY_DAYS_WINDOW_MAX,
+  DELIVERY_DAYS_WINDOW_MIN,
+  DROP_OFF_DELAY_MAX,
+  DROP_OFF_DELAY_MIN,
+  OptionType,
+} from '../data';
 import {declareOptionWithPrice} from './declareOptionWithPrice';
 import {declareOption} from './declareOption';
 

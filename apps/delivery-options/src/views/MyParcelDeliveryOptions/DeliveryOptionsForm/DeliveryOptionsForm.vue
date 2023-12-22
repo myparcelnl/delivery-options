@@ -21,7 +21,7 @@ import {createField} from '@myparcel/vue-form-builder';
 import PickupLocations from '../Pickup/PickupLocations.vue';
 import HomeDelivery from '../Delivery/HomeDelivery.vue';
 import {createDeliveryOptionsForm} from '../../../form';
-import {FIELD_HOME_OR_PICKUP, HOME_OR_PICKUP_HOME, HOME_OR_PICKUP_PICKUP} from '../../../constants';
+import {FIELD_HOME_OR_PICKUP, HOME_OR_PICKUP_HOME, HOME_OR_PICKUP_PICKUP} from '../../../data';
 import {useActiveCarriers, useLanguage} from '../../../composables';
 import {RadioGroupInput} from '../../../components';
 

@@ -14,7 +14,7 @@ import {computed, ref} from 'vue';
 import {Loader} from '@myparcel-do/shared';
 import {createField} from '@myparcel/vue-form-builder';
 import {createShipmentOptionsFromDeliveryMoment} from '../../../../utils';
-import {FIELD_SHIPMENT_OPTIONS} from '../../../../constants';
+import {FIELD_SHIPMENT_OPTIONS} from '../../../../data';
 import {useSelectedDeliveryMoment} from '../../../../composables';
 import OptionRowLoader from '../../../../components/form/GroupInput/GroupInputLoader.vue';
 import {CheckboxGroupInput} from '../../../../components';

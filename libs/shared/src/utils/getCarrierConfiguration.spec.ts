@@ -1,7 +1,7 @@
 import {describe, expect, it} from 'vitest';
 import {CarrierName, PlatformName} from '@myparcel/constants';
 import {type CarrierIdentifier, type SupportedPlatformName} from '../types';
-import {SUPPORTED_PLATFORMS} from '../constants';
+import {SUPPORTED_PLATFORMS} from '../data/constants';
 import {getCarrierConfiguration} from './getCarrierConfiguration';
 
 describe('getCarrierConfiguration', () => {

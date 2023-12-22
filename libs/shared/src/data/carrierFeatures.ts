@@ -1,5 +1,5 @@
 import {type ConfigKey} from '../types';
-import {CarrierSetting, ConfigSetting} from '../enums';
+import {CarrierSetting, ConfigSetting} from './enums';
 
 type DeliveryOptionsFeature = readonly ConfigKey[];
 

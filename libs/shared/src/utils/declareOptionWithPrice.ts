@@ -1,5 +1,5 @@
 import {type ConfigKey, type ConfigOption, type ConfigPriceKey, type ResolvedConfigOption} from '../types';
-import {OptionType, RelatedConfigOptionType} from '../enums';
+import {OptionType, RelatedConfigOptionType} from '../data';
 import {resolveConfigOption} from './resolveConfigOption';
 import {declareOption} from './declareOption';
 

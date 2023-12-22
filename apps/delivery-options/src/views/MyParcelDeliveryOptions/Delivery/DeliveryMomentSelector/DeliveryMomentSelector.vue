@@ -35,7 +35,7 @@ import {computed, ref} from 'vue';
 import {CarrierLogo, Loader, type SelectOption, type SupportedShipmentOptionName} from '@myparcel-do/shared';
 import {createField} from '@myparcel/vue-form-builder';
 import {getDeliveryTypePrice} from '../../../../utils';
-import {FIELD_DELIVERY_MOMENT, SHOWN_SHIPMENT_OPTIONS} from '../../../../constants';
+import {FIELD_DELIVERY_MOMENT, SHOWN_SHIPMENT_OPTIONS} from '../../../../data';
 import {useResolvedDeliveryMoments} from '../../../../composables';
 import GroupInputLoader from '../../../../components/form/GroupInput/GroupInputLoader.vue';
 import PriceTag from '../../../../components/common/PriceTag/PriceTag.vue';

@@ -10,7 +10,6 @@
       <SandboxCarrierConfigBox />
 
       <SandboxFeaturesBox />
-
     </component>
   </KeepAlive>
 </template>

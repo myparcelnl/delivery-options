@@ -12,7 +12,7 @@ import {
 import {getFullCarrier} from '../utils';
 import {type CarrierIdentifier, type SupportedPlatformName} from '../types';
 import {useCarrierRequest} from '../sdk';
-import {ConfigSetting} from '../enums';
+import {ConfigSetting} from '../data/enums';
 import {useFullCarrier} from './useFullCarrier';
 
 async function loadCarriers(): Promise<void> {

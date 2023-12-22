@@ -1,6 +1,6 @@
 import {type EndpointParameters, type EndpointResponse, type GetDeliveryOptions} from '@myparcel/sdk';
 import {type RequestHandler} from '../types';
-import {REQUEST_KEY_DELIVERY_OPTIONS} from '../constants';
+import {REQUEST_KEY_DELIVERY_OPTIONS} from '../data/constants';
 import {useSdk} from '../composables';
 import {useRequest} from './useRequest';
 

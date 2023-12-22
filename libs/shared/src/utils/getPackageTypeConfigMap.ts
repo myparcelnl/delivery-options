@@ -1,6 +1,6 @@
 import {PackageTypeName} from '@myparcel/constants';
 import {type SupportedPackageTypeName} from '../types';
-import {CarrierSetting} from '../enums';
+import {CarrierSetting} from '../data';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const getPackageTypeConfigMap = () => {

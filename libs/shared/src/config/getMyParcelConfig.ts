@@ -29,7 +29,7 @@ import {
 } from '@myparcel/constants/countries';
 import {CarrierName, DeliveryTypeName, PackageTypeName, ShipmentOptionName} from '@myparcel/constants';
 import {type PlatformOptions} from '../types';
-import {AddressField, CarrierSetting, SubscriptionType} from '../enums';
+import {AddressField, CarrierSetting, SubscriptionType} from '../data';
 
 // eslint-disable-next-line max-lines-per-function
 export const getMyParcelConfig = (): PlatformOptions => ({

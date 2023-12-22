@@ -1,4 +1,4 @@
-import {type AddressField} from '../enums';
+import {type AddressField} from '../data';
 
 interface BaseAddress {
   [AddressField.Country]: string;

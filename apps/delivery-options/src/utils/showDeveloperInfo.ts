@@ -1,16 +1,18 @@
 /* eslint-disable no-console */
 import {
   AddressField,
+  CarrierSetting,
+  ConfigSetting,
   type InputDeliveryOptionsConfiguration,
   KEY_CARRIER_SETTINGS,
-  UPDATE_DELIVERY_OPTIONS,
 } from '@myparcel-do/shared';
 import {CarrierName, PlatformName} from '@myparcel/constants';
+import {UPDATE_DELIVERY_OPTIONS} from '../data';
 
 /**
  * Output some information in the console to help a developer get started quickly.
  */
-export const showDeveloperInfo = () => {
+export const showDeveloperInfo = (): void => {
   const styleHeader1 = ['font-size: 2em', 'font-family: sans-serif', 'padding: .2em 0;'];
 
   const styleHeader2 = [

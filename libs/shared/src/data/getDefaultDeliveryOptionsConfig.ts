@@ -1,5 +1,4 @@
 import {type DeliveryOptionsConfig} from '../types';
-import {CarrierSetting, ConfigSetting, PickupLocationsView} from '../enums';
 import {
   DELIVERY_DAYS_WINDOW_DEFAULT,
   DROP_OFF_DELAY_DEFAULT,
@@ -7,6 +6,7 @@ import {
   PLATFORM_DEFAULT,
 } from './settingsConsts';
 import {getDefaultCarrierSettings} from './getDefaultCarrierSettings';
+import {CarrierSetting, ConfigSetting, PickupLocationsView} from './enums';
 
 export const getDefaultDeliveryOptionsConfig = (): DeliveryOptionsConfig => {
   return {

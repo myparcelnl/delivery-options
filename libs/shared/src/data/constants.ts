@@ -1,5 +1,5 @@
 import {DeliveryTypeName, PackageTypeName, PlatformName, ShipmentOptionName} from '@myparcel/constants';
-import {type DropOffEntryObject} from './types';
+import {type DropOffEntryObject} from '../types';
 import {CarrierSetting} from './enums';
 
 export const SUPPORTED_PLATFORMS = [PlatformName.MyParcel, PlatformName.SendMyParcel] as const;

@@ -2,7 +2,7 @@ import {describe, expect, it} from 'vitest';
 import {get, useMemoize} from '@vueuse/core';
 import {type CarrierIdentifier, type FullCarrier, type SupportedPlatformName} from '../types';
 import {useCarrierRequest} from '../sdk';
-import {SUPPORTED_PLATFORMS} from '../constants';
+import {SUPPORTED_PLATFORMS} from '../data/constants';
 import {useFullCarrier} from '../composables';
 import {resolveCarrierName} from './resolveCarrierName';
 import {getCarrierConfiguration} from './getCarrierConfiguration';

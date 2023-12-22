@@ -1,4 +1,4 @@
-import {type DeliveryOptionsOutput, type InternalOutput} from '@myparcel-do/shared';
+import {ConfigSetting, type DeliveryOptionsOutput, type InternalOutput} from '@myparcel-do/shared';
 import {ShipmentOptionName} from '@myparcel/constants';
 import {type SelectedDeliveryMoment} from '../types';
 import {getResolvedValue} from './getResolvedValue';

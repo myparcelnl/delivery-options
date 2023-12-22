@@ -1,9 +1,10 @@
-import {ref, toRaw} from 'vue';
+import {toRaw} from 'vue';
 import {construct, get as objGet} from 'radash';
 import {defineStore} from 'pinia';
 import {useLocalStorage} from '@vueuse/core';
 import {
   type CarrierSettingsObject,
+  ConfigSetting,
   type DeliveryOptionsAddress,
   type DeliveryOptionsConfig,
   type InputDeliveryOptionsConfiguration,
@@ -18,7 +19,12 @@ import {getDefaultSandboxAddress, getDefaultSandboxCarrierSettings, getDefaultSa
 import {useLanguage} from '../composables';
 
 export const useSandboxStore = defineStore('sandbox', {
-  state: () => {
+  state: (): {
+    config: DeliveryOptionsConfig;
+    carrierSettings: CarrierSettingsObject;
+    address: DeliveryOptionsAddress;
+    platform: SupportedPlatformName;
+  } => {
     const carrierSettings = useLocalStorage<CarrierSettingsObject>(
       KEY_CARRIER_SETTINGS,
       getDefaultSandboxCarrierSettings,
@@ -29,7 +35,7 @@ export const useSandboxStore = defineStore('sandbox', {
     const initialPlatform = objGet(config.value, `${KEY_CONFIG}.${ConfigSetting.Platform}`, PlatformName.MyParcel);
 
     return {
-      platform: ref<SupportedPlatformName>(initialPlatform ?? PlatformName.MyParcel),
+      platform: initialPlatform ?? PlatformName.MyParcel,
       carrierToggle: useLocalStorage<string[]>('carrierToggle', []),
       address,
       carrierSettings,

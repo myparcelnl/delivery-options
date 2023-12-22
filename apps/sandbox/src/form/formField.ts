@@ -1,17 +1,22 @@
-import {markRaw, ref} from 'vue';
-import {type AnyElementConfiguration, createField, type ModularCreatedField} from '@myparcel/vue-form-builder';
+import {markRaw, type Ref, ref} from 'vue';
+import {
+  createField,
+  type InteractiveElementConfiguration,
+  type ModularCreatedElement,
+} from '@myparcel/vue-form-builder';
+import {type MakeOptional} from '@myparcel/ts-utils';
 
-type FormFieldInput = AnyElementConfiguration & {
+interface FormFieldInput<T, Props> extends MakeOptional<InteractiveElementConfiguration<T, Props>, 'ref'> {
   key?: string;
-};
+}
 
-export const formField = (input: FormFieldInput): ModularCreatedField => {
+export const formField = <T, Props>(input: FormFieldInput<T, Props>): ModularCreatedElement<T, Props> => {
   const fullName: string = [input.key, input.name].filter(Boolean).join('.');
 
   return markRaw(
-    createField({
+    createField<T>({
       label: input.name,
-      ref: ref(),
+      ref: ref() as Ref<T>,
       ...input,
       name: fullName,
     }),

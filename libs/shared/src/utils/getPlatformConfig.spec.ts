@@ -1,6 +1,6 @@
 import {describe, expect, it} from 'vitest';
 import {type SupportedPlatformName} from '../types';
-import {SUPPORTED_PLATFORMS} from '../constants';
+import {SUPPORTED_PLATFORMS} from '../data/constants';
 import {getPlatformConfig} from './getPlatformConfig';
 
 describe('getPlatformConfig', () => {

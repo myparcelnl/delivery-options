@@ -7,7 +7,7 @@ import {
   type OptionType,
   type PickupLocationsView,
   type RelatedConfigOptionType,
-} from '../enums';
+} from '../data';
 import {type CustomValidator} from './validation.types';
 import {type SupportedPackageTypeName, type SupportedPlatformName} from './platform.types';
 import {type DeliveryOptionsOutput} from './output.types';

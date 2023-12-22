@@ -1,8 +1,9 @@
 import {nextTick, ref} from 'vue';
 import {useDebounceFn, useRefHistory} from '@vueuse/core';
-import {type InternalOutput, UPDATED_DELIVERY_OPTIONS} from '@myparcel-do/shared';
+import {type InternalOutput} from '@myparcel-do/shared';
 import {convertOutput} from '../utils';
 import {type DeliveryOptionsEmits} from '../types';
+import {UPDATED_DELIVERY_OPTIONS} from '../data';
 
 const DEBOUNCE_DELAY = 50;
 

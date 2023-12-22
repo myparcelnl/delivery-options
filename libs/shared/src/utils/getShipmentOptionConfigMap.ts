@@ -1,6 +1,6 @@
 import {ShipmentOptionName} from '@myparcel/constants';
 import {type SupportedShipmentOptionName} from '../types';
-import {CarrierSetting} from '../enums';
+import {CarrierSetting} from '../data';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const getShipmentOptionConfigMap = () => {

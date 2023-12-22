@@ -7,7 +7,7 @@ import {
 } from '@myparcel-do/shared';
 import {ShipmentOptionName} from '@myparcel/constants';
 import {type SelectedDeliveryMoment} from '../types';
-import {SHOWN_SHIPMENT_OPTIONS} from '../constants';
+import {SHOWN_SHIPMENT_OPTIONS} from '../data';
 import {useActiveCarrier, useLanguage} from '../composables';
 import {getResolvedValue} from './getResolvedValue';
 import {getConfigPriceKey} from './getConfigPriceKey';

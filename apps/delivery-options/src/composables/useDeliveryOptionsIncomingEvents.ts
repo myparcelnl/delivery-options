@@ -1,12 +1,8 @@
 import {useEventListener} from '@vueuse/core';
-import {
-  type InputDeliveryOptionsConfiguration,
-  UPDATE_CONFIG_IN,
-  UPDATE_DELIVERY_OPTIONS,
-  useLogger,
-} from '@myparcel-do/shared';
+import {type InputDeliveryOptionsConfiguration, useLogger} from '@myparcel-do/shared';
 import {isOfType} from '@myparcel/ts-utils';
 import {getConfigFromWindow} from '../utils';
+import {UPDATE_CONFIG_IN, UPDATE_DELIVERY_OPTIONS} from '../data';
 import {setConfiguration} from '../config';
 
 export const useDeliveryOptionsIncomingEvents = (): void => {

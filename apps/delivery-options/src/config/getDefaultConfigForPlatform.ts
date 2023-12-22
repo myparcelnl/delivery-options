@@ -1,5 +1,6 @@
 import {assign} from 'radash';
 import {
+  ConfigSetting,
   type DeliveryOptionsConfig,
   getDefaultDeliveryOptionsConfig,
   PickupLocationsView,

@@ -1,10 +1,4 @@
 /**
- * ConfigBus events.
- *
- * These are only used for and by the configBus so they don't need to be namespaced.
- */
-
-/**
  * Sent by configBus when a setting is updated.
  */
 export const UPDATE = 'update';
@@ -18,11 +12,6 @@ export const AFTER_UPDATE = 'after_update';
  * Sent by configBus when an error has occurred.
  */
 export const ERROR = 'error';
-
-/*
- * Document events
- * The following events should be namespaced to avoid any possible conflicts.
- */
 
 /**
  * This event is used to change the config after the initialization.

@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/no-magic-numbers */
 import {assign} from 'radash';
 import {
+  CarrierSetting,
   type CarrierSettingsObject,
   type DeliveryOptionsAddress,
   DROP_OFF_CUTOFF_TIME,

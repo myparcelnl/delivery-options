@@ -9,6 +9,8 @@
 <script lang="ts" setup>
 import {ref} from 'vue';
 import {
+  CarrierSetting,
+  ConfigSetting,
   DELIVERY_DAYS_WINDOW_MAX,
   DELIVERY_DAYS_WINDOW_MIN,
   DROP_OFF_DELAY_MAX,

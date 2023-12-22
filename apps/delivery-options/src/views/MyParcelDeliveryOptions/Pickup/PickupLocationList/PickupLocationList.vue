@@ -24,7 +24,7 @@ import {computed, ref} from 'vue';
 import {get} from '@vueuse/core';
 import {DEFAULT_MAX_PAGE_ITEMS, LOAD_MORE, type SelectOption} from '@myparcel-do/shared';
 import {createField} from '@myparcel/vue-form-builder';
-import {FIELD_PICKUP_LOCATION} from '../../../../constants';
+import {FIELD_PICKUP_LOCATION} from '../../../../data';
 import {useLanguage, useResolvedPickupLocations} from '../../../../composables';
 import DoButton from '../../../../components/common/DoButton/DoButton.vue';
 import {RadioGroupInput} from '../../../../components';
