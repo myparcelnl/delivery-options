@@ -24,11 +24,17 @@ import {OPENING_HOURS} from '@myparcel-do/shared';
 import {usePickupLocation} from '../../../../composables/usePickupLocation';
 import {useLanguage} from '../../../../composables';
 
-const props = defineProps<{locationCode: string}>();
+const props = defineProps<{
+  /**
+   * JSON encoded ResolvedPickupLocation
+   * @see ResolvedPickupLocation
+   */
+  location: string;
+}>();
 
 const propRefs = toRefs(props);
 
 const {translate} = useLanguage();
 
-const {openingHours} = usePickupLocation(propRefs.locationCode);
+const {openingHours} = usePickupLocation(propRefs.location);
 </script>

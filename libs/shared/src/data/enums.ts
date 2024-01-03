@@ -106,3 +106,8 @@ export enum RelatedConfigOptionType {
   Price = 'price',
   CutoffTime = 'cutoffTime',
 }
+
+export enum PickupLocationType {
+  Default = 'default',
+  Locker = 'locker',
+}

@@ -5,7 +5,7 @@
         <KeepAlive>
           <component
             :is="currentComponent"
-            v-if="value === option.value"
+            v-if="homeOrPickup === option.value"
             class="mp-pl-4 mp-pt-4" />
         </KeepAlive>
       </template>
@@ -38,13 +38,13 @@ const {translate} = useLanguage();
 
 const carriers = useActiveCarriers();
 
-const value = ref();
+const homeOrPickup = ref();
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const HomeOrPickup = createField({
   name: FIELD_HOME_OR_PICKUP,
   component: RadioGroupInput,
-  ref: value,
+  ref: homeOrPickup,
   props: {
     options: computed(() => {
       const options: SelectOption[] = [];

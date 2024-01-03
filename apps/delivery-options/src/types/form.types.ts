@@ -1,5 +1,6 @@
 import {type DeepReadonly} from 'vue';
 import {type CarrierIdentifier, type CarrierWithIdentifier} from '@myparcel-do/shared';
+import {type Replace} from '@myparcel/ts-utils';
 import {type DeliveryOption, type PickupLocation} from '@myparcel/sdk';
 import {type DeliveryTypeName, type PackageTypeName} from '@myparcel/constants';
 
@@ -16,6 +17,11 @@ export interface ResolvedPickupLocation extends PickupLocation {
   carrier: CarrierIdentifier;
 }
 
-export interface SelectedDeliveryMoment extends Omit<ResolvedDeliveryOptions, 'carrier'> {
+export interface SelectedDeliveryMoment
+  extends Replace<
+    Omit<ResolvedDeliveryOptions, 'carrier'>,
+    'deliveryType',
+    DeliveryTypeName.Morning | DeliveryTypeName.Evening | DeliveryTypeName.Standard
+  > {
   carrier: CarrierIdentifier;
 }

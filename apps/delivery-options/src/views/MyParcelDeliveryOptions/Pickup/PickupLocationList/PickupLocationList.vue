@@ -1,13 +1,13 @@
 <template>
   <PickupLocation.Component>
     <template #default="{option}">
-      <PickupLocationListItem :location-code="option.value" />
+      <PickupLocationListItem :location="option.value" />
     </template>
 
     <template #content="{option}">
       <PickupLocationDetails
         v-if="value === option.value"
-        :location-code="option.value" />
+        :location="option.value" />
     </template>
   </PickupLocation.Component>
 
@@ -44,7 +44,7 @@ const options = computed<SelectOption[]>(() => {
     .map((option) => ({
       label: option.location.location_name,
       carrier: option.carrier,
-      value: option.location.location_code,
+      value: JSON.stringify(option),
     }))
     .slice(0, shown.value);
 });

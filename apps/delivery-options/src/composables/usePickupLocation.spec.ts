@@ -4,7 +4,7 @@ import {createPinia, setActivePinia} from 'pinia';
 import {normalizeDate} from '@vueuse/core';
 import {CLOSED} from '@myparcel-do/shared';
 import {useI18nStore} from '../stores';
-import {mockDeliveryOptionsConfig} from '../__tests__';
+import {getFakePickupLocation, mockDeliveryOptionsConfig} from '../__tests__';
 import {usePickupLocation} from './usePickupLocation';
 
 describe.concurrent('usePickupLocation', (it) => {
@@ -12,33 +12,18 @@ describe.concurrent('usePickupLocation', (it) => {
     setActivePinia(createPinia());
 
     mockDeliveryOptionsConfig();
+    usePickupLocation.clear();
   });
 
   afterEach(() => {
     vi.setSystemTime(vi.getRealSystemTime());
   });
 
-  it('returns undefined if location cannot be found', async ({expect}) => {
-    expect.assertions(1);
-    const {location} = usePickupLocation('123');
-    await nextTick();
-
-    expect(location.value).toBeUndefined();
-  });
-
-  it('returns a formatted address string', async ({expect}) => {
-    expect.assertions(1);
-    const {address} = usePickupLocation('397882');
-    await nextTick();
-
-    expect(address.value).toBe('Daalmeerstraat 15, HOOFDDORP');
-  });
-
   it('returns a locale formatted distance string', async ({expect}) => {
     expect.assertions(2);
     const i18n = useI18nStore();
 
-    const {distance} = usePickupLocation('397882');
+    const {distance} = usePickupLocation(JSON.stringify(getFakePickupLocation('397882')));
     await nextTick();
 
     expect(distance.value).toBe('2,5 km');
@@ -52,7 +37,7 @@ describe.concurrent('usePickupLocation', (it) => {
     const now = normalizeDate('2023-12-27');
     vi.setSystemTime(now);
 
-    const {openingHours} = usePickupLocation('217862');
+    const {openingHours} = usePickupLocation(JSON.stringify(getFakePickupLocation('217862')));
     await nextTick();
 
     // Expect to be ordered by closest date
@@ -77,15 +62,5 @@ describe.concurrent('usePickupLocation', (it) => {
       {weekday: 'Monday', timeString: '10:00 AM – 7:00 PM', date: normalizeDate('2024-01-01')},
       {weekday: 'Tuesday', timeString: '10:00 AM – 7:00 PM', date: normalizeDate('2024-01-02')},
     ]);
-  });
-
-  it('returns whether location is a parcel locker', async ({expect}) => {
-    expect.assertions(2);
-    const {isLocker: isNotLocker} = usePickupLocation('397882');
-    const {isLocker} = usePickupLocation('261534');
-    await nextTick();
-
-    expect(isNotLocker.value).toBe(false);
-    expect(isLocker.value).toBe(true);
   });
 });

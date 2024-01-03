@@ -1,49 +1,59 @@
 import {computed, type ComputedRef, type MaybeRef} from 'vue';
 import {isToday} from 'date-fns';
 import {get, useMemoize} from '@vueuse/core';
-import {CLOSED} from '@myparcel-do/shared';
+import {CLOSED, type FullCarrier, type OutputPickupLocation, useFullCarrier} from '@myparcel-do/shared';
 import {type StartEndDate, type Weekday} from '@myparcel/sdk';
+import {getPickupLocationType} from '../utils/getPickupLocationType';
 import {useFormatDistance} from '../utils/formatDistance';
 import {createNextDate} from '../utils/createNextDate';
 import {createTimeRangeString} from '../utils';
 import {type ResolvedPickupLocation} from '../types';
-import {useResolvedPickupLocations} from './useResolvedPickupLocations';
+import {useConfigStore} from '../stores';
 import {useLanguage} from './useLanguage';
 import {useDateFormat} from './useDateFormat';
 
 interface UsePickupLocation {
-  address: ComputedRef<string>;
+  carrier: ComputedRef<FullCarrier | undefined>;
   distance: ComputedRef<string>;
-  isLocker: ComputedRef<boolean>;
-  location: ComputedRef<ResolvedPickupLocation | undefined>;
+  location: ComputedRef<OutputPickupLocation | undefined>;
   openingHours: ComputedRef<{weekday: string; timeString: string}[]>;
 }
 
-export const usePickupLocation = useMemoize((locationCode: MaybeRef<string>): UsePickupLocation => {
-  const pickupLocations = useResolvedPickupLocations();
+// eslint-disable-next-line max-lines-per-function
+export const usePickupLocation = useMemoize((locationJson: MaybeRef<string | undefined>): UsePickupLocation => {
   const {translate} = useLanguage();
 
-  const location = computed(() => {
-    const resolvedLocations = get(pickupLocations.value) ?? [];
-    const resolvedLocationCode = get(locationCode);
+  const resolvedLocation = computed<ResolvedPickupLocation | undefined>(() => JSON.parse(get(locationJson)));
 
-    return resolvedLocations.find((location) => location.location.location_code === resolvedLocationCode);
-  });
+  const location = computed<OutputPickupLocation | undefined>(() => {
+    if (!resolvedLocation.value) {
+      return undefined;
+    }
 
-  const address = computed(() => {
-    const address = location.value?.address;
+    return {
+      type: getPickupLocationType(resolvedLocation.value),
 
-    return address ? `${address.street} ${address.number}, ${address.city}` : '';
+      locationCode: resolvedLocation.value.location.location_code,
+      locationName: resolvedLocation.value.location.location_name,
+      retailNetworkId: resolvedLocation.value.location.retail_network_id,
+
+      street: resolvedLocation.value.address.street,
+      number: resolvedLocation.value.address.number,
+      numberSuffix: '',
+      postalCode: resolvedLocation.value.address.postal_code,
+      city: resolvedLocation.value.address.city,
+      cc: resolvedLocation.value.address.cc,
+    };
   });
 
   const distance = computed(() => {
-    const distance = location.value?.location.distance;
+    const distance = resolvedLocation.value?.location.distance;
 
     return distance ? useFormatDistance(distance).value : '';
   });
 
   const openingHours = computed(() => {
-    const days = location.value?.location.opening_hours ?? ({} as Record<Weekday, StartEndDate[]>);
+    const days = resolvedLocation.value?.location.opening_hours ?? ({} as Record<Weekday, StartEndDate[]>);
 
     return Object.values(days)
       .map((hours, dayOfWeek) => {
@@ -60,9 +70,17 @@ export const usePickupLocation = useMemoize((locationCode: MaybeRef<string>): Us
       .sort((a, b) => a.date.getTime() - b.date.getTime());
   });
 
-  const isLocker = computed(() => {
-    return location.value?.address.number_suffix === 'PBA';
+  const carrier = computed(() => {
+    const carrier = resolvedLocation.value?.carrier;
+
+    if (!carrier) {
+      return undefined;
+    }
+
+    const config = useConfigStore();
+
+    return useFullCarrier(carrier, config.platform).value;
   });
 
-  return {location, address, distance, openingHours, isLocker};
+  return {carrier, location, distance, openingHours};
 });
