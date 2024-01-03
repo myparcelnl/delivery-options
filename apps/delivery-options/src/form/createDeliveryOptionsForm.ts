@@ -1,6 +1,15 @@
 import {FORM_NAME_DELIVERY_OPTIONS, type InternalOutput} from '@myparcel-do/shared';
 import {createForm} from '@myparcel/vue-form-builder';
+import {DeliveryTypeName} from '@myparcel/constants';
 import {useConfigStore} from '../stores';
+import {
+  FIELD_DELIVERY_DATE,
+  FIELD_DELIVERY_MOMENT,
+  FIELD_HOME_OR_PICKUP,
+  FIELD_SHIPMENT_OPTIONS,
+  HOME_OR_PICKUP_HOME,
+  HOME_OR_PICKUP_PICKUP,
+} from '../data';
 import {useLanguage} from '../composables';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -12,14 +21,16 @@ export const createDeliveryOptionsForm = () => {
   return createForm<InternalOutput>(FORM_NAME_DELIVERY_OPTIONS, {
     renderLabel: translate,
     initialValues: {
-      deliveryDate: config.initial?.date,
-      deliveryMoment: JSON.stringify({
+      [FIELD_HOME_OR_PICKUP]:
+        config.initial?.deliveryType === DeliveryTypeName.Pickup ? HOME_OR_PICKUP_PICKUP : HOME_OR_PICKUP_HOME,
+      [FIELD_DELIVERY_DATE]: config.initial?.date,
+      [FIELD_DELIVERY_MOMENT]: JSON.stringify({
         carrier: config.initial?.carrier,
         date: config.initial?.date,
         deliveryType: config.initial?.deliveryType,
         packageType: config.initial?.packageType,
       }),
-      shipmentOptions: [],
+      [FIELD_SHIPMENT_OPTIONS]: [],
     },
   });
 };
