@@ -70,16 +70,16 @@
     },
     "test:coverage": {
       "inputs": ["test"],
-      "dependsOn": ["^build", "^test:coverage"],
+      "dependsOn": ["^build"],
       "outputs": ["{projectRoot}/coverage"]
     },
     "test:run": {
-      "dependsOn": ["^build", "^test:run"],
+      "dependsOn": ["^build"],
       "inputs": ["test"]
     },
     "test:update": {
       "inputs": ["test"],
-      "dependsOn": ["^build", "^test:update"],
+      "dependsOn": ["^build"],
       "outputs": ["{projectRoot}/src/__tests__/__snapshots__"]
     },
     "@nx/vite:test": {
