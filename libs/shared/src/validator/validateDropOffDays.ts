@@ -2,13 +2,13 @@ import {isNumber} from 'radash';
 import {isOfType} from '@myparcel/ts-utils';
 import {type DropOffEntryObject} from '../types';
 import {
+  CarrierSetting,
   DAY_SATURDAY,
   DAY_SUNDAY,
   DROP_OFF_CUTOFF_TIME,
   DROP_OFF_SAME_DAY_CUTOFF_TIME,
   DROP_OFF_WEEKDAY,
-} from '../data/constants';
-import {CarrierSetting} from '../data';
+} from '../data';
 import {validateIsTime} from './validateIsTime';
 import {validateIsInRange} from './validateIsInRange';
 import {createValueMustBe} from './strings';

@@ -8,7 +8,7 @@
 
 <script lang="ts" setup>
 import {toRefs} from 'vue';
-import {useAnchorLink} from '../composables/useAnchorLink';
+import {useAnchorLink} from '../composables';
 
 const props = defineProps<{name: string; label?: string}>();
 const propRefs = toRefs(props);

@@ -1,11 +1,11 @@
 import {type CarrierName} from '@myparcel/constants';
-import {type SubscriptionType} from '../data/enums';
 import {
+  type SubscriptionType,
   type SUPPORTED_DELIVERY_TYPES,
   type SUPPORTED_PACKAGE_TYPES,
   type SUPPORTED_PLATFORMS,
   type SUPPORTED_SHIPMENT_OPTIONS,
-} from '../data/constants';
+} from '../data';
 import {type ConfigKey} from './config.types';
 
 export type SupportedPlatformName = (typeof SUPPORTED_PLATFORMS)[number];

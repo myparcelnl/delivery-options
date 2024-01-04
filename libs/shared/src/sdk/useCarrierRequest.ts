@@ -1,7 +1,7 @@
 import {type EndpointResponse, type GetCarrier} from '@myparcel/sdk';
 import {resolveCarrierName} from '../utils';
 import {type CarrierIdentifier, type RequestHandler} from '../types';
-import {REQUEST_KEY_CARRIERS} from '../data/constants';
+import {REQUEST_KEY_CARRIERS} from '../data';
 import {useSdk} from '../composables';
 import {useRequest} from './useRequest';
 

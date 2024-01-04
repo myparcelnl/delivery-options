@@ -1,6 +1,6 @@
 import {type EndpointParameters, type EndpointResponse, type GetPickupLocations} from '@myparcel/sdk';
 import {type RequestHandler} from '../types';
-import {REQUEST_KEY_PICKUP_LOCATIONS} from '../data/constants';
+import {REQUEST_KEY_PICKUP_LOCATIONS} from '../data';
 import {useSdk} from '../composables';
 import {useRequest} from './useRequest';
 
