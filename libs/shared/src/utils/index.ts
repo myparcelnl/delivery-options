@@ -5,6 +5,7 @@ export * from './declareOptionWithPrice';
 export * from './defineConfig';
 export * from './getAllConfigOptions';
 export * from './getCarrierConfiguration';
+export * from './createAssetUrl';
 export * from './getConfigKey';
 export * from './getDeliveryTypeConfigMap';
 export * from './getFullCarrier';

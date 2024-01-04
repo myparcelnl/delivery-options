@@ -18,9 +18,9 @@
 <script lang="ts" setup>
 import {computed, ref} from 'vue';
 import {get} from '@vueuse/core';
+import {createAssetUrl} from '../utils';
 import {type CarrierIdentifier} from '../types';
 import {useCarrierRequest} from '../sdk';
-import {useAssetUrl} from '../composables';
 
 const props = defineProps<{carrier: CarrierIdentifier}>();
 
@@ -30,7 +30,5 @@ const loaded = ref(false);
 
 const hasError = ref(false);
 
-const src = computed(() => {
-  return useAssetUrl(get(query.data)?.meta.logo_svg);
-});
+const src = computed(() => createAssetUrl(get(query.data)?.meta.logo_svg));
 </script>
