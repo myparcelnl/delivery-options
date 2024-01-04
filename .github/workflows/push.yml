@@ -40,7 +40,7 @@ jobs:
         shell: bash
         # language=sh
         run: |
-          nx run-many \
+          yarn nx run-many \
             --runner="cloud" \
             --output-style="static" \
             --target="build"
