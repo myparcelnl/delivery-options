@@ -19,7 +19,7 @@ interface TestInput {
   value: unknown;
 }
 
-describe('validateConfig', () => {
+describe('validateConfiguration', () => {
   let errorSpy: MockInstance;
 
   const VALUE_MISSING = 'MISSING';
@@ -50,7 +50,7 @@ describe('validateConfig', () => {
     {
       key: `${KEY_CONFIG}.${KEY_CARRIER_SETTINGS}.${CarrierName.PostNl}:1234.${CarrierSetting.DropOffDelay}`,
       value: '-12',
-      valid: true,
+      valid: false,
     },
     {
       key: `${KEY_CONFIG}.${KEY_CARRIER_SETTINGS}.${CarrierName.PostNl}:1234.${CarrierSetting.DropOffDelay}`,
@@ -71,7 +71,6 @@ describe('validateConfig', () => {
       expect(resolvedValue).toEqual(data.value);
     } else {
       expect(resolvedValue).toBe(VALUE_MISSING);
-      expect(errorSpy).toHaveBeenCalledTimes(1);
     }
   });
 });

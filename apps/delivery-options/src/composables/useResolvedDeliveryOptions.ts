@@ -1,8 +1,9 @@
 /* eslint-disable max-nested-callbacks */
 import {asyncComputed, get, useMemoize} from '@vueuse/core';
-import {useDeliveryOptionsRequest} from '@myparcel-do/shared';
+import {type UnionExcept, useDeliveryOptionsRequest} from '@myparcel-do/shared';
+import {type DeliveryTypeName} from '@myparcel/constants';
 import {createGetDeliveryOptionsParameters, createTimeRangeString} from '../utils';
-import {type ResolvedDeliveryOptions} from '../types';
+import {type SelectedDeliveryMoment} from '../types';
 import {useAddressStore, useConfigStore} from '../stores';
 import {useActiveCarriers} from './useActiveCarriers';
 
@@ -37,10 +38,10 @@ export const useResolvedDeliveryOptions = useMemoize(() => {
           const [start, end] = datePossibility.delivery_time_frames;
 
           acc.push({
-            carrier,
+            carrier: carrier.identifier,
             date: dateOption.date.date,
             time: createTimeRangeString(start.date_time.date, end.date_time.date),
-            deliveryType: datePossibility.type,
+            deliveryType: datePossibility.type as UnionExcept<DeliveryTypeName, DeliveryTypeName.Pickup>,
             packageType: datePossibility.package_type,
             shipmentOptions: datePossibility.shipment_options,
           });
@@ -48,6 +49,6 @@ export const useResolvedDeliveryOptions = useMemoize(() => {
       });
 
       return acc;
-    }, [] as ResolvedDeliveryOptions[]);
+    }, [] as SelectedDeliveryMoment[]);
   });
 });

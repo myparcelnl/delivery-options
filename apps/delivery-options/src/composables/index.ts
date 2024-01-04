@@ -1,4 +1,3 @@
-export * from './useActiveCarrier';
 export * from './useActiveCarriers';
 export * from './useCarrierSettings';
 export * from './useCurrentPlatform';
@@ -7,6 +6,7 @@ export * from './useDeliveryOptionsIncomingEvents';
 export * from './useDeliveryOptionsOutgoingEvents';
 export * from './useLanguage';
 export * from './useMostEcoFriendly';
+export * from './useResolvedCarrier';
 export * from './useResolvedDeliveryDates';
 export * from './useResolvedDeliveryMoments';
 export * from './useResolvedDeliveryOptions';

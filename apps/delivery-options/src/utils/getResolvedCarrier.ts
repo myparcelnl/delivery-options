@@ -1,5 +1,5 @@
 import {computed} from 'vue';
-import {get} from '@vueuse/core';
+import {get, useMemoize} from '@vueuse/core';
 import {
   type CarrierIdentifier,
   getCarrierConfiguration,
@@ -26,7 +26,7 @@ const resolveOption = (
 };
 
 // eslint-disable-next-line max-lines-per-function
-export const getResolvedCarrier = async (
+const cb = async (
   carrierIdentifier: CarrierIdentifier,
   platformName: SupportedPlatformName,
 ): Promise<ResolvedCarrier> => {
@@ -92,3 +92,5 @@ export const getResolvedCarrier = async (
     },
   };
 };
+
+export const getResolvedCarrier = useMemoize(cb);

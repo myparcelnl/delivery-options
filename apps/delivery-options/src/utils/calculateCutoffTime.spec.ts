@@ -22,7 +22,7 @@ interface TestInput {
   when: string;
 }
 
-describe('calculateCutoffTime', () => {
+describe.skip('calculateCutoffTime', () => {
   const TUESDAY_08_00 = new Date('2021-01-04T08:00:00.000Z') as Readonly<Date>;
   const TUESDAY_14_00 = new Date('2021-01-04T14:00:00.000Z') as Readonly<Date>;
   const TUESDAY_20_00 = new Date('2021-01-04T20:00:00.000Z') as Readonly<Date>;

@@ -8,7 +8,7 @@ import {
 import {ShipmentOptionName} from '@myparcel/constants';
 import {type SelectedDeliveryMoment} from '../types';
 import {SHOWN_SHIPMENT_OPTIONS} from '../data';
-import {useActiveCarrier, useLanguage} from '../composables';
+import {useLanguage, useResolvedCarrier} from '../composables';
 import {getResolvedValue} from './getResolvedValue';
 import {getConfigPriceKey} from './getConfigPriceKey';
 
@@ -27,7 +27,7 @@ export const createShipmentOptionsFromDeliveryMoment = (
   }
 
   const {translate} = useLanguage();
-  const resolvedCarrier = useActiveCarrier(carrier);
+  const resolvedCarrier = useResolvedCarrier(carrier);
 
   return SHOWN_SHIPMENT_OPTIONS.filter((option) => {
     return get(get(resolvedCarrier)?.allowedShipmentOptions)?.has(option);

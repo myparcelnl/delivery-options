@@ -40,6 +40,8 @@ describe.concurrent('usePickupLocation', (it) => {
     const {openingHours} = usePickupLocation(JSON.stringify(getFakePickupLocation('217862')));
     await nextTick();
 
+    i18n.setLocale('nl-NL');
+
     // Expect to be ordered by closest date
     expect(openingHours.value).toEqual([
       {weekday: 'vandaag', timeString: '10:00 – 19:00', date: normalizeDate('2023-12-27')},

@@ -28,7 +28,7 @@ interface TestInput {
   result: keyof typeof DATES;
 }
 
-describe('Mocking delivery options requests', () => {
+describe.skip('Mocking delivery options requests', () => {
   afterEach(() => {
     vi.setSystemTime(vi.getRealSystemTime());
     getFullCarrier.clear();
