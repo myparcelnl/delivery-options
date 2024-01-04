@@ -1,0 +1,61 @@
+name: 'Run tests 🧪'
+
+on:
+  pull_request:
+    branches:
+      - main
+      - beta
+      - alpha
+
+    paths-ignore:
+      - ./**/*.md
+
+  merge_group:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    uses: ./.github/workflows/test.yml
+    secrets: inherit
+
+  typecheck:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: myparcelnl/actions/yarn-install@v3
+        with:
+          node-version: ${{ vars.NODE_VERSION }}
+
+      - name: 'Run typecheck'
+        # language=sh
+        run: |
+          nx run-many \
+            --runner="cloud" \
+            --output-style="static" \
+            --target="typecheck"
+
+  bundlewatch:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: myparcelnl/actions/yarn-install@v3
+        with:
+          node-version: ${{ vars.NODE_VERSION }}
+
+      - name: 'Build'
+        shell: bash
+        # language=sh
+        run: |
+          nx run-many \
+            --runner="cloud" \
+            --output-style="static" \
+            --target="build"
+
+      - uses: myparcelnl/actions/bundlewatch@v3
+        with:
+          token: ${{ secrets.BUNDLEWATCH_TOKEN }}

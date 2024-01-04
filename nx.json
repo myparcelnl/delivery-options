@@ -107,7 +107,7 @@
       "runner": "nx-cloud",
       "options": {
         "parallel": 10,
-        "cacheableOperations": ["build", "test:coverage"],
+        "cacheableOperations": ["build", "test:coverage", "typecheck"],
         "accessToken": "ZDk5NTE5ZWItMmYxYy00ZjNmLThjMzItMmM0MjIwZTU1M2Y3fHJlYWQtd3JpdGU="
       }
     }
