@@ -1,5 +1,4 @@
-import {describe, expect, it, vi} from 'vitest';
-import {normalizeDate} from '@vueuse/core';
+import {afterEach, describe, expect, it, vi} from 'vitest';
 import {
   DAY_FRIDAY,
   DAY_MONDAY,
@@ -9,12 +8,18 @@ import {
   DAY_TUESDAY,
   DAY_WEDNESDAY,
 } from '@myparcel-do/shared';
+import {createUtcDate} from './createUtcDate';
 import {createNextDate} from './createNextDate';
 
-// Wednesday
-const TODAY = '2023-12-27';
+// create utc date of 2023-12-27 15:00:00
 
 describe('createNextDate', () => {
+  afterEach(() => {
+    vi.setSystemTime(vi.getRealSystemTime());
+  });
+
+  const TODAY = new Date(Date.UTC(2023, 11, 27));
+
   it.each([
     ['today', DAY_WEDNESDAY, TODAY],
     ['tomorrow', DAY_THURSDAY, '2023-12-28'],
@@ -24,10 +29,8 @@ describe('createNextDate', () => {
     ['next monday', DAY_MONDAY, '2024-01-01'],
     ['next tuesday', DAY_TUESDAY, '2024-01-02'],
   ])('returns %s when today is wed and day %i is passed', (_, weekday, expected) => {
-    const now = normalizeDate(TODAY);
+    vi.setSystemTime(TODAY);
 
-    vi.setSystemTime(now);
-
-    expect(createNextDate(weekday)).toEqual(normalizeDate(expected));
+    expect(createNextDate(weekday)).toEqual(createUtcDate(expected));
   });
 });

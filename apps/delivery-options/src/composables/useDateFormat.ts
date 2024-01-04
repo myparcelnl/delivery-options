@@ -30,9 +30,9 @@ export const createRelativeDateFormatter: CreateDateFormatter = useMemoize((loca
   });
 
   return (date) => {
-    const offset = Math.floor((date.getTime() - Date.now()) / SECONDS_IN_DAY);
+    const diff = (date.getTime() - Date.now()) / SECONDS_IN_DAY;
 
-    return intl.format(offset, 'day');
+    return intl.format(Math.round(diff), 'day');
   };
 });
 

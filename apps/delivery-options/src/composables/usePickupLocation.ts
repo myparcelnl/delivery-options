@@ -1,10 +1,11 @@
 import {computed, type ComputedRef, type MaybeRef} from 'vue';
-import {isToday} from 'date-fns';
+import {addDays, isSameDay, isToday} from 'date-fns';
 import {get, useMemoize} from '@vueuse/core';
 import {CLOSED, type FullCarrier, type OutputPickupLocation, useFullCarrier} from '@myparcel-do/shared';
 import {type StartEndDate, type Weekday} from '@myparcel/sdk';
 import {getPickupLocationType} from '../utils/getPickupLocationType';
 import {useFormatDistance} from '../utils/formatDistance';
+import {createUtcDate} from '../utils/createUtcDate';
 import {createNextDate} from '../utils/createNextDate';
 import {createTimeRangeString} from '../utils';
 import {type ResolvedPickupLocation} from '../types';
@@ -23,7 +24,11 @@ interface UsePickupLocation {
 export const usePickupLocation = useMemoize((locationJson: MaybeRef<string | undefined>): UsePickupLocation => {
   const {translate} = useLanguage();
 
-  const resolvedLocation = computed<ResolvedPickupLocation | undefined>(() => JSON.parse(get(locationJson)));
+  const resolvedLocation = computed<ResolvedPickupLocation | undefined>(() => {
+    const resolvedJson = get(locationJson);
+
+    return resolvedJson ? JSON.parse(resolvedJson) : undefined;
+  });
 
   const location = computed<OutputPickupLocation | undefined>(() => {
     if (!resolvedLocation.value) {
@@ -61,9 +66,11 @@ export const usePickupLocation = useMemoize((locationJson: MaybeRef<string | und
         const formattedDay = useDateFormat(date);
         const time: StartEndDate = hours?.[0];
 
+        const isTodayOrTomorrow = isToday(date) || isSameDay(addDays(createUtcDate(), 1), date);
+
         return {
           date,
-          weekday: isToday(date) ? formattedDay.relative.value : formattedDay.weekday.value,
+          weekday: isTodayOrTomorrow ? formattedDay.relative.value : formattedDay.weekday.value,
           timeString: time ? createTimeRangeString(time.start.date, time.end.date) : translate(CLOSED),
         };
       })
