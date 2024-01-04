@@ -1,0 +1,893 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`getConfigurationSections > gets sandbox option groups 1`] = `
+[
+  {
+    "fields": [
+      {
+        "description": "delivery",
+        "fields": [
+          {
+            "Component": {
+              "render": [Function],
+              "setup": [Function],
+            },
+            "field": {
+              "component": {
+                "__file": "/Users/edie/Sites/myparcelnl/delivery-options/apps/sandbox/src/components/form/input/FormToggleInput.vue",
+                "__name": "FormToggleInput",
+                "emits": [
+                  "update:modelValue",
+                ],
+                "props": {
+                  "element": {
+                    "required": true,
+                    "type": null,
+                  },
+                  "modelValue": {
+                    "required": true,
+                    "type": null,
+                  },
+                },
+                "render": [Function],
+                "setup": [Function],
+              },
+              "key": "config",
+              "label": "allowDeliveryOptions",
+              "name": "config.allowDeliveryOptions",
+              "props": {
+                "parents": [],
+              },
+              "ref": undefined,
+              "validators": [],
+              "visibleWhen": [Function],
+            },
+            "ref": undefined,
+          },
+          {
+            "Component": {
+              "render": [Function],
+              "setup": [Function],
+            },
+            "field": {
+              "component": {
+                "__file": "/Users/edie/Sites/myparcelnl/delivery-options/apps/sandbox/src/components/form/input/FormCurrencyInput.vue",
+                "__name": "FormCurrencyInput",
+                "emits": [
+                  "update:modelValue",
+                ],
+                "props": {
+                  "element": {
+                    "required": true,
+                    "type": null,
+                  },
+                  "modelValue": {
+                    "required": true,
+                    "type": null,
+                  },
+                },
+                "render": [Function],
+                "setup": [Function],
+              },
+              "disabledWhen": [Function],
+              "key": "config",
+              "label": "priceStandardDelivery",
+              "name": "config.priceStandardDelivery",
+              "props": {
+                "parents": [
+                  "allowDeliveryOptions",
+                ],
+              },
+              "ref": undefined,
+              "validators": [],
+              "visibleWhen": [Function],
+            },
+            "ref": undefined,
+          },
+          {
+            "Component": {
+              "render": [Function],
+              "setup": [Function],
+            },
+            "field": {
+              "component": {
+                "__file": "/Users/edie/Sites/myparcelnl/delivery-options/apps/sandbox/src/components/form/input/FormToggleInput.vue",
+                "__name": "FormToggleInput",
+                "emits": [
+                  "update:modelValue",
+                ],
+                "props": {
+                  "element": {
+                    "required": true,
+                    "type": null,
+                  },
+                  "modelValue": {
+                    "required": true,
+                    "type": null,
+                  },
+                },
+                "render": [Function],
+                "setup": [Function],
+              },
+              "key": "config",
+              "label": "allowMorningDelivery",
+              "name": "config.allowMorningDelivery",
+              "props": {
+                "parents": [
+                  "allowDeliveryOptions",
+                ],
+              },
+              "ref": undefined,
+              "validators": [],
+              "visibleWhen": [Function],
+            },
+            "ref": undefined,
+          },
+          {
+            "Component": {
+              "render": [Function],
+              "setup": [Function],
+            },
+            "field": {
+              "component": {
+                "__file": "/Users/edie/Sites/myparcelnl/delivery-options/apps/sandbox/src/components/form/input/FormCurrencyInput.vue",
+                "__name": "FormCurrencyInput",
+                "emits": [
+                  "update:modelValue",
+                ],
+                "props": {
+                  "element": {
+                    "required": true,
+                    "type": null,
+                  },
+                  "modelValue": {
+                    "required": true,
+                    "type": null,
+                  },
+                },
+                "render": [Function],
+                "setup": [Function],
+              },
+              "disabledWhen": [Function],
+              "key": "config",
+              "label": "priceMorningDelivery",
+              "name": "config.priceMorningDelivery",
+              "props": {
+                "parents": [
+                  "allowMorningDelivery",
+                ],
+              },
+              "ref": undefined,
+              "validators": [],
+              "visibleWhen": [Function],
+            },
+            "ref": undefined,
+          },
+          {
+            "Component": {
+              "render": [Function],
+              "setup": [Function],
+            },
+            "field": {
+              "component": {
+                "__file": "/Users/edie/Sites/myparcelnl/delivery-options/apps/sandbox/src/components/form/input/FormToggleInput.vue",
+                "__name": "FormToggleInput",
+                "emits": [
+                  "update:modelValue",
+                ],
+                "props": {
+                  "element": {
+                    "required": true,
+                    "type": null,
+                  },
+                  "modelValue": {
+                    "required": true,
+                    "type": null,
+                  },
+                },
+                "render": [Function],
+                "setup": [Function],
+              },
+              "key": "config",
+              "label": "allowEveningDelivery",
+              "name": "config.allowEveningDelivery",
+              "props": {
+                "parents": [
+                  "allowDeliveryOptions",
+                ],
+              },
+              "ref": undefined,
+              "validators": [],
+              "visibleWhen": [Function],
+            },
+            "ref": undefined,
+          },
+          {
+            "Component": {
+              "render": [Function],
+              "setup": [Function],
+            },
+            "field": {
+              "component": {
+                "__file": "/Users/edie/Sites/myparcelnl/delivery-options/apps/sandbox/src/components/form/input/FormCurrencyInput.vue",
+                "__name": "FormCurrencyInput",
+                "emits": [
+                  "update:modelValue",
+                ],
+                "props": {
+                  "element": {
+                    "required": true,
+                    "type": null,
+                  },
+                  "modelValue": {
+                    "required": true,
+                    "type": null,
+                  },
+                },
+                "render": [Function],
+                "setup": [Function],
+              },
+              "disabledWhen": [Function],
+              "key": "config",
+              "label": "priceEveningDelivery",
+              "name": "config.priceEveningDelivery",
+              "props": {
+                "parents": [
+                  "allowEveningDelivery",
+                ],
+              },
+              "ref": undefined,
+              "validators": [],
+              "visibleWhen": [Function],
+            },
+            "ref": undefined,
+          },
+          {
+            "Component": {
+              "render": [Function],
+              "setup": [Function],
+            },
+            "field": {
+              "component": {
+                "__file": "/Users/edie/Sites/myparcelnl/delivery-options/apps/sandbox/src/components/form/input/FormToggleInput.vue",
+                "__name": "FormToggleInput",
+                "emits": [
+                  "update:modelValue",
+                ],
+                "props": {
+                  "element": {
+                    "required": true,
+                    "type": null,
+                  },
+                  "modelValue": {
+                    "required": true,
+                    "type": null,
+                  },
+                },
+                "render": [Function],
+                "setup": [Function],
+              },
+              "key": "config",
+              "label": "allowSameDayDelivery",
+              "name": "config.allowSameDayDelivery",
+              "props": {
+                "parents": [
+                  "allowDeliveryOptions",
+                ],
+              },
+              "ref": undefined,
+              "validators": [],
+              "visibleWhen": [Function],
+            },
+            "ref": undefined,
+          },
+          {
+            "Component": {
+              "render": [Function],
+              "setup": [Function],
+            },
+            "field": {
+              "component": {
+                "__file": "/Users/edie/Sites/myparcelnl/delivery-options/apps/sandbox/src/components/form/input/FormCurrencyInput.vue",
+                "__name": "FormCurrencyInput",
+                "emits": [
+                  "update:modelValue",
+                ],
+                "props": {
+                  "element": {
+                    "required": true,
+                    "type": null,
+                  },
+                  "modelValue": {
+                    "required": true,
+                    "type": null,
+                  },
+                },
+                "render": [Function],
+                "setup": [Function],
+              },
+              "disabledWhen": [Function],
+              "key": "config",
+              "label": "priceSameDayDelivery",
+              "name": "config.priceSameDayDelivery",
+              "props": {
+                "parents": [
+                  "allowSameDayDelivery",
+                ],
+              },
+              "ref": undefined,
+              "validators": [],
+              "visibleWhen": [Function],
+            },
+            "ref": undefined,
+          },
+          {
+            "Component": {
+              "render": [Function],
+              "setup": [Function],
+            },
+            "field": {
+              "component": {
+                "__file": "/Users/edie/Sites/myparcelnl/delivery-options/apps/sandbox/src/components/form/input/FormToggleInput.vue",
+                "__name": "FormToggleInput",
+                "emits": [
+                  "update:modelValue",
+                ],
+                "props": {
+                  "element": {
+                    "required": true,
+                    "type": null,
+                  },
+                  "modelValue": {
+                    "required": true,
+                    "type": null,
+                  },
+                },
+                "render": [Function],
+                "setup": [Function],
+              },
+              "key": "config",
+              "label": "allowMondayDelivery",
+              "name": "config.allowMondayDelivery",
+              "props": {
+                "parents": [
+                  "allowDeliveryOptions",
+                ],
+              },
+              "ref": undefined,
+              "validators": [],
+              "visibleWhen": [Function],
+            },
+            "ref": undefined,
+          },
+          {
+            "Component": {
+              "render": [Function],
+              "setup": [Function],
+            },
+            "field": {
+              "component": {
+                "__file": "/Users/edie/Sites/myparcelnl/delivery-options/apps/sandbox/src/components/form/input/FormCurrencyInput.vue",
+                "__name": "FormCurrencyInput",
+                "emits": [
+                  "update:modelValue",
+                ],
+                "props": {
+                  "element": {
+                    "required": true,
+                    "type": null,
+                  },
+                  "modelValue": {
+                    "required": true,
+                    "type": null,
+                  },
+                },
+                "render": [Function],
+                "setup": [Function],
+              },
+              "disabledWhen": [Function],
+              "key": "config",
+              "label": "priceMondayDelivery",
+              "name": "config.priceMondayDelivery",
+              "props": {
+                "parents": [
+                  "allowMondayDelivery",
+                ],
+              },
+              "ref": undefined,
+              "validators": [],
+              "visibleWhen": [Function],
+            },
+            "ref": undefined,
+          },
+          {
+            "Component": {
+              "render": [Function],
+              "setup": [Function],
+            },
+            "field": {
+              "component": {
+                "__file": "/Users/edie/Sites/myparcelnl/delivery-options/apps/sandbox/src/components/form/input/FormToggleInput.vue",
+                "__name": "FormToggleInput",
+                "emits": [
+                  "update:modelValue",
+                ],
+                "props": {
+                  "element": {
+                    "required": true,
+                    "type": null,
+                  },
+                  "modelValue": {
+                    "required": true,
+                    "type": null,
+                  },
+                },
+                "render": [Function],
+                "setup": [Function],
+              },
+              "key": "config",
+              "label": "allowSaturdayDelivery",
+              "name": "config.allowSaturdayDelivery",
+              "props": {
+                "parents": [
+                  "allowDeliveryOptions",
+                ],
+              },
+              "ref": undefined,
+              "validators": [],
+              "visibleWhen": [Function],
+            },
+            "ref": undefined,
+          },
+          {
+            "Component": {
+              "render": [Function],
+              "setup": [Function],
+            },
+            "field": {
+              "component": {
+                "__file": "/Users/edie/Sites/myparcelnl/delivery-options/apps/sandbox/src/components/form/input/FormCurrencyInput.vue",
+                "__name": "FormCurrencyInput",
+                "emits": [
+                  "update:modelValue",
+                ],
+                "props": {
+                  "element": {
+                    "required": true,
+                    "type": null,
+                  },
+                  "modelValue": {
+                    "required": true,
+                    "type": null,
+                  },
+                },
+                "render": [Function],
+                "setup": [Function],
+              },
+              "disabledWhen": [Function],
+              "key": "config",
+              "label": "priceSaturdayDelivery",
+              "name": "config.priceSaturdayDelivery",
+              "props": {
+                "parents": [
+                  "allowSaturdayDelivery",
+                ],
+              },
+              "ref": undefined,
+              "validators": [],
+              "visibleWhen": [Function],
+            },
+            "ref": undefined,
+          },
+          {
+            "Component": {
+              "render": [Function],
+              "setup": [Function],
+            },
+            "field": {
+              "component": {
+                "__file": "/Users/edie/Sites/myparcelnl/delivery-options/apps/sandbox/src/components/form/input/FormToggleInput.vue",
+                "__name": "FormToggleInput",
+                "emits": [
+                  "update:modelValue",
+                ],
+                "props": {
+                  "element": {
+                    "required": true,
+                    "type": null,
+                  },
+                  "modelValue": {
+                    "required": true,
+                    "type": null,
+                  },
+                },
+                "render": [Function],
+                "setup": [Function],
+              },
+              "key": "config",
+              "label": "allowOnlyRecipient",
+              "name": "config.allowOnlyRecipient",
+              "props": {
+                "parents": [
+                  "allowDeliveryOptions",
+                ],
+              },
+              "ref": undefined,
+              "validators": [],
+              "visibleWhen": [Function],
+            },
+            "ref": undefined,
+          },
+          {
+            "Component": {
+              "render": [Function],
+              "setup": [Function],
+            },
+            "field": {
+              "component": {
+                "__file": "/Users/edie/Sites/myparcelnl/delivery-options/apps/sandbox/src/components/form/input/FormCurrencyInput.vue",
+                "__name": "FormCurrencyInput",
+                "emits": [
+                  "update:modelValue",
+                ],
+                "props": {
+                  "element": {
+                    "required": true,
+                    "type": null,
+                  },
+                  "modelValue": {
+                    "required": true,
+                    "type": null,
+                  },
+                },
+                "render": [Function],
+                "setup": [Function],
+              },
+              "disabledWhen": [Function],
+              "key": "config",
+              "label": "priceOnlyRecipient",
+              "name": "config.priceOnlyRecipient",
+              "props": {
+                "parents": [
+                  "allowOnlyRecipient",
+                ],
+              },
+              "ref": undefined,
+              "validators": [],
+              "visibleWhen": [Function],
+            },
+            "ref": undefined,
+          },
+          {
+            "Component": {
+              "render": [Function],
+              "setup": [Function],
+            },
+            "field": {
+              "component": {
+                "__file": "/Users/edie/Sites/myparcelnl/delivery-options/apps/sandbox/src/components/form/input/FormToggleInput.vue",
+                "__name": "FormToggleInput",
+                "emits": [
+                  "update:modelValue",
+                ],
+                "props": {
+                  "element": {
+                    "required": true,
+                    "type": null,
+                  },
+                  "modelValue": {
+                    "required": true,
+                    "type": null,
+                  },
+                },
+                "render": [Function],
+                "setup": [Function],
+              },
+              "key": "config",
+              "label": "allowSignature",
+              "name": "config.allowSignature",
+              "props": {
+                "parents": [
+                  "allowDeliveryOptions",
+                ],
+              },
+              "ref": undefined,
+              "validators": [],
+              "visibleWhen": [Function],
+            },
+            "ref": undefined,
+          },
+          {
+            "Component": {
+              "render": [Function],
+              "setup": [Function],
+            },
+            "field": {
+              "component": {
+                "__file": "/Users/edie/Sites/myparcelnl/delivery-options/apps/sandbox/src/components/form/input/FormCurrencyInput.vue",
+                "__name": "FormCurrencyInput",
+                "emits": [
+                  "update:modelValue",
+                ],
+                "props": {
+                  "element": {
+                    "required": true,
+                    "type": null,
+                  },
+                  "modelValue": {
+                    "required": true,
+                    "type": null,
+                  },
+                },
+                "render": [Function],
+                "setup": [Function],
+              },
+              "disabledWhen": [Function],
+              "key": "config",
+              "label": "priceSignature",
+              "name": "config.priceSignature",
+              "props": {
+                "parents": [
+                  "allowSignature",
+                ],
+              },
+              "ref": undefined,
+              "validators": [],
+              "visibleWhen": [Function],
+            },
+            "ref": undefined,
+          },
+          {
+            "Component": {
+              "render": [Function],
+              "setup": [Function],
+            },
+            "field": {
+              "component": {
+                "__file": "/Users/edie/Sites/myparcelnl/delivery-options/apps/sandbox/src/components/form/input/FormToggleInput.vue",
+                "__name": "FormToggleInput",
+                "emits": [
+                  "update:modelValue",
+                ],
+                "props": {
+                  "element": {
+                    "required": true,
+                    "type": null,
+                  },
+                  "modelValue": {
+                    "required": true,
+                    "type": null,
+                  },
+                },
+                "render": [Function],
+                "setup": [Function],
+              },
+              "key": "config",
+              "label": "allowPackageTypeDigitalStamp",
+              "name": "config.allowPackageTypeDigitalStamp",
+              "props": {
+                "parents": [
+                  "allowDeliveryOptions",
+                ],
+              },
+              "ref": undefined,
+              "validators": [],
+              "visibleWhen": [Function],
+            },
+            "ref": undefined,
+          },
+          {
+            "Component": {
+              "render": [Function],
+              "setup": [Function],
+            },
+            "field": {
+              "component": {
+                "__file": "/Users/edie/Sites/myparcelnl/delivery-options/apps/sandbox/src/components/form/input/FormCurrencyInput.vue",
+                "__name": "FormCurrencyInput",
+                "emits": [
+                  "update:modelValue",
+                ],
+                "props": {
+                  "element": {
+                    "required": true,
+                    "type": null,
+                  },
+                  "modelValue": {
+                    "required": true,
+                    "type": null,
+                  },
+                },
+                "render": [Function],
+                "setup": [Function],
+              },
+              "disabledWhen": [Function],
+              "key": "config",
+              "label": "pricePackageTypeDigitalStamp",
+              "name": "config.pricePackageTypeDigitalStamp",
+              "props": {
+                "parents": [
+                  "allowPackageTypeDigitalStamp",
+                ],
+              },
+              "ref": undefined,
+              "validators": [],
+              "visibleWhen": [Function],
+            },
+            "ref": undefined,
+          },
+          {
+            "Component": {
+              "render": [Function],
+              "setup": [Function],
+            },
+            "field": {
+              "component": {
+                "__file": "/Users/edie/Sites/myparcelnl/delivery-options/apps/sandbox/src/components/form/input/FormToggleInput.vue",
+                "__name": "FormToggleInput",
+                "emits": [
+                  "update:modelValue",
+                ],
+                "props": {
+                  "element": {
+                    "required": true,
+                    "type": null,
+                  },
+                  "modelValue": {
+                    "required": true,
+                    "type": null,
+                  },
+                },
+                "render": [Function],
+                "setup": [Function],
+              },
+              "key": "config",
+              "label": "allowPackageTypeMailbox",
+              "name": "config.allowPackageTypeMailbox",
+              "props": {
+                "parents": [
+                  "allowDeliveryOptions",
+                ],
+              },
+              "ref": undefined,
+              "validators": [],
+              "visibleWhen": [Function],
+            },
+            "ref": undefined,
+          },
+          {
+            "Component": {
+              "render": [Function],
+              "setup": [Function],
+            },
+            "field": {
+              "component": {
+                "__file": "/Users/edie/Sites/myparcelnl/delivery-options/apps/sandbox/src/components/form/input/FormCurrencyInput.vue",
+                "__name": "FormCurrencyInput",
+                "emits": [
+                  "update:modelValue",
+                ],
+                "props": {
+                  "element": {
+                    "required": true,
+                    "type": null,
+                  },
+                  "modelValue": {
+                    "required": true,
+                    "type": null,
+                  },
+                },
+                "render": [Function],
+                "setup": [Function],
+              },
+              "disabledWhen": [Function],
+              "key": "config",
+              "label": "pricePackageTypeMailbox",
+              "name": "config.pricePackageTypeMailbox",
+              "props": {
+                "parents": [
+                  "allowPackageTypeMailbox",
+                ],
+              },
+              "ref": undefined,
+              "validators": [],
+              "visibleWhen": [Function],
+            },
+            "ref": undefined,
+          },
+        ],
+        "key": "delivery",
+      },
+    ],
+    "label": "delivery",
+  },
+  {
+    "fields": [
+      {
+        "description": "pickup",
+        "fields": [
+          {
+            "Component": {
+              "render": [Function],
+              "setup": [Function],
+            },
+            "field": {
+              "component": {
+                "__file": "/Users/edie/Sites/myparcelnl/delivery-options/apps/sandbox/src/components/form/input/FormToggleInput.vue",
+                "__name": "FormToggleInput",
+                "emits": [
+                  "update:modelValue",
+                ],
+                "props": {
+                  "element": {
+                    "required": true,
+                    "type": null,
+                  },
+                  "modelValue": {
+                    "required": true,
+                    "type": null,
+                  },
+                },
+                "render": [Function],
+                "setup": [Function],
+              },
+              "key": "config",
+              "label": "allowPickupLocations",
+              "name": "config.allowPickupLocations",
+              "props": {
+                "parents": [],
+              },
+              "ref": undefined,
+              "validators": [],
+              "visibleWhen": [Function],
+            },
+            "ref": undefined,
+          },
+          {
+            "Component": {
+              "render": [Function],
+              "setup": [Function],
+            },
+            "field": {
+              "component": {
+                "__file": "/Users/edie/Sites/myparcelnl/delivery-options/apps/sandbox/src/components/form/input/FormCurrencyInput.vue",
+                "__name": "FormCurrencyInput",
+                "emits": [
+                  "update:modelValue",
+                ],
+                "props": {
+                  "element": {
+                    "required": true,
+                    "type": null,
+                  },
+                  "modelValue": {
+                    "required": true,
+                    "type": null,
+                  },
+                },
+                "render": [Function],
+                "setup": [Function],
+              },
+              "disabledWhen": [Function],
+              "key": "config",
+              "label": "pricePickup",
+              "name": "config.pricePickup",
+              "props": {
+                "parents": [
+                  "allowPickupLocations",
+                ],
+              },
+              "ref": undefined,
+              "validators": [],
+              "visibleWhen": [Function],
+            },
+            "ref": undefined,
+          },
+        ],
+        "key": "pickup",
+      },
+    ],
+    "label": "pickup",
+  },
+]
+`;
