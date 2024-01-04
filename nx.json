@@ -13,6 +13,7 @@
       "{projectRoot}/*.mjs",
       "{projectRoot}/*.ts",
       "{projectRoot}/package.json",
+      "{projectRoot}/public/**/*",
       "{projectRoot}/src/**/*",
       "{projectRoot}/tsconfig.*.json"
     ],
