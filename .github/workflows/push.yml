@@ -40,6 +40,15 @@ jobs:
         with:
           node-version: ${{ vars.NODE_VERSION }}
 
+      - name: 'Import translations'
+        shell: bash
+        # language=sh
+        run: |
+          yarn nx run-many \
+            --runner="cloud" \
+            --output-style="static" \
+            --target="import:translations"
+
       - name: 'Build'
         shell: bash
         # language=sh
