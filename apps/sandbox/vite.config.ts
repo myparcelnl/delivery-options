@@ -12,7 +12,8 @@ export default defineConfig((env) => {
   return {
     plugins: [vue(), customTsConfig({tsConfigPath: 'tsconfig.base.json'})],
 
-    base: isProd ? '/delivery-options/' : '/',
+    // TODO: uncomment when using github pages
+    // base: isProd ? '/delivery-options/' : '/',
 
     server: {
       port: PORT,
