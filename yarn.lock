@@ -966,14 +966,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@myparcel-vfb/core@npm:^1.0.0-beta.32":
-  version: 1.0.0-beta.32
-  resolution: "@myparcel-vfb/core@npm:1.0.0-beta.32"
+"@myparcel-vfb/core@npm:^1.0.0-beta.33":
+  version: 1.0.0-beta.33
+  resolution: "@myparcel-vfb/core@npm:1.0.0-beta.33"
   dependencies:
     "@myparcel-vfb/hook-manager": "npm:^1.0.0-beta.10"
     "@myparcel-vfb/utils": "npm:^1.0.0-beta.5"
     "@myparcel/ts-utils": "npm:^1.6.0"
-  checksum: b9351529693a32aebcc8b8bb44a6af8137769aff4fab70b35a0593bcf1eed16fb19e7cd7104a87a5bcb1e246d194afc1b07d4553284f5e34f143a7fa89d363f9
+  checksum: 8f4269214f6171613ca3606b84294381af03aa655c82754069bfbd5af63a29bf6cc62bd269173745d07d947f3733ce5d2166d830930ede64f34a9f4f4dcdc2d3
   languageName: node
   linkType: hard
 
@@ -986,14 +986,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@myparcel-vfb/plugin@npm:^1.0.0-beta.32":
-  version: 1.0.0-beta.32
-  resolution: "@myparcel-vfb/plugin@npm:1.0.0-beta.32"
+"@myparcel-vfb/plugin@npm:^1.0.0-beta.33":
+  version: 1.0.0-beta.33
+  resolution: "@myparcel-vfb/plugin@npm:1.0.0-beta.33"
   dependencies:
-    "@myparcel-vfb/core": "npm:^1.0.0-beta.32"
+    "@myparcel-vfb/core": "npm:^1.0.0-beta.33"
     "@myparcel/ts-utils": "npm:^1.6.0"
     "@vue/devtools-api": "npm:^6.5.0"
-  checksum: 7824d2bf4096e9261b80844719050abcdfaa8d98bfbf9fb46feb3381b44c34972cfe566709c820b2690ce002500939db566c766cd7450ebea39dbe3d98ff4e5e
+  checksum: c329d2ea7ba160bfaf7851b3ca12cc32e080db7b873e35fa0006eb4e62aca9ce4ab7655ce80556bcda869af7003d81ba67518db1143fcff7b1581dc8e0a05c98
   languageName: node
   linkType: hard
 
@@ -1088,17 +1088,17 @@ __metadata:
   linkType: hard
 
 "@myparcel/vue-form-builder@npm:^1.0.0-beta.1":
-  version: 1.0.0-beta.33
-  resolution: "@myparcel/vue-form-builder@npm:1.0.0-beta.33"
+  version: 1.0.0-beta.34
+  resolution: "@myparcel/vue-form-builder@npm:1.0.0-beta.34"
   dependencies:
-    "@myparcel-vfb/core": "npm:^1.0.0-beta.32"
+    "@myparcel-vfb/core": "npm:^1.0.0-beta.33"
     "@myparcel-vfb/hook-manager": "npm:^1.0.0-beta.10"
-    "@myparcel-vfb/plugin": "npm:^1.0.0-beta.32"
+    "@myparcel-vfb/plugin": "npm:^1.0.0-beta.33"
     "@myparcel-vfb/utils": "npm:^1.0.0-beta.5"
     "@myparcel/ts-utils": "npm:^1.6.0"
   peerDependencies:
     vue: ^3
-  checksum: 048018e7401c39b442f41e0b611d2f5566ffc18a33e800a98520fe08d354d91ecfa25785942da691519ac2755d1ddc93dff2f2a6aa754f204809558caee93357
+  checksum: 4faeaef7f8e966021bb8f7ea787ac5fa5c0d71d8493fb3b005e20a4b74b252ad624fd876c957862950d47a0389d28a0424af50395090076cf474cb5648c0ae98
   languageName: node
   linkType: hard
 
