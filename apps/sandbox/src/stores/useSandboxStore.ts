@@ -62,7 +62,7 @@ export const useSandboxStore = defineStore('sandbox', {
       return toRaw({
         [KEY_CONFIG]: {
           ...this.config,
-          [KEY_CARRIER_SETTINGS]: construct(this.carrierSettings),
+          [KEY_CARRIER_SETTINGS]: this.carrierSettings,
           [ConfigSetting.Locale]: language.value.code,
           [ConfigSetting.Platform]: this.platform,
         } satisfies DeliveryOptionsConfig,
