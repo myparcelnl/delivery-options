@@ -31,10 +31,14 @@ jobs:
           app-id: ${{ secrets.MYPARCEL_APP_ID }}
           private-key: ${{ secrets.MYPARCEL_APP_PRIVATE_KEY }}
 
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           token: ${{ secrets.GH_REPO_TOKEN }}
           fetch-depth: 0
+
+      - uses: myparcelnl/actions/yarn-install@v3
+        with:
+          node-version: ${{ vars.NODE_VERSION }}
 
       - name: 'Build'
         shell: bash
