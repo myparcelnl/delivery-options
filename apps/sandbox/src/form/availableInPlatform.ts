@@ -1,7 +1,8 @@
 import {get} from '@vueuse/core';
-import {type ConfigKey, getAllConfigOptions, useLogger} from '@myparcel-do/shared';
+import {type ConfigKey, useLogger} from '@myparcel-do/shared';
 import {type InteractiveElementInstance} from '@myparcel/vue-form-builder';
 import {type SandboxPlatformInstance} from '../composables';
+import {getAllSandboxConfigOptions} from './getAllSandboxConfigOptions';
 
 export const availableInPlatform = (field: InteractiveElementInstance, platform: SandboxPlatformInstance): boolean => {
   const logger = useLogger();
@@ -16,7 +17,7 @@ export const availableInPlatform = (field: InteractiveElementInstance, platform:
   const isEnabled = get(platform.features).has(baseField);
 
   if (!isEnabled) {
-    const options = getAllConfigOptions();
+    const options = getAllSandboxConfigOptions();
     const match = options.find((option) => option.key === baseField);
 
     return match?.parents?.some((parent) => get(platform.features).has(parent)) ?? false;

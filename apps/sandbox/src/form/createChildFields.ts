@@ -1,14 +1,15 @@
 import {isDefined} from '@vueuse/core';
-import {type ConfigOption, getAllConfigOptions} from '@myparcel-do/shared';
+import {type ConfigOption} from '@myparcel-do/shared';
 import {type InteractiveElementInstance} from '@myparcel/vue-form-builder';
 import {type SandboxOptionGroup, type SettingsField} from '../types';
 import {useCurrentPlatform} from '../composables';
+import {getAllSandboxConfigOptions} from './getAllSandboxConfigOptions';
 import {createField} from './createField';
 import {availableInPlatform} from './availableInPlatform';
 import {allParentsHave} from './allParentsHave';
 
 export const createChildFields = (group: SandboxOptionGroup, prefix: string): SettingsField[] => {
-  const allOptions = getAllConfigOptions();
+  const allOptions = getAllSandboxConfigOptions();
   const platform = useCurrentPlatform();
 
   const resolvedItems = (group.items ?? [])
