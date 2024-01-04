@@ -45,9 +45,10 @@ jobs:
             --output-style="static" \
             --target="build"
 
-      - uses: actions/upload-pages-artifact@v1
-        with:
-          path: dist
+      # TODO: uncomment when on main
+      #      - uses: actions/upload-pages-artifact@v1
+      #        with:
+      #          path: dist
 
       # TODO implement release flow with monodeploy
 
