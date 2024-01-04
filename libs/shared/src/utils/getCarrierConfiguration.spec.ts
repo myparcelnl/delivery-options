@@ -15,9 +15,7 @@ describe('getCarrierConfiguration', () => {
     (platform, carrier) => {
       const config = getCarrierConfiguration(carrier, platform);
 
-      expect(config).toContain({
-        name: CarrierName.PostNl,
-      });
+      expect(config.name).toBe(CarrierName.PostNl);
     },
   );
 

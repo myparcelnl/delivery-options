@@ -12,7 +12,7 @@ import {
 import {getFullCarrier} from '../utils';
 import {type CarrierIdentifier, type SupportedPlatformName} from '../types';
 import {useCarrierRequest} from '../sdk';
-import {ConfigSetting} from '../data';
+import {CarrierSetting} from '../data';
 import {useFullCarrier} from './useFullCarrier';
 
 async function loadCarriers(): Promise<void> {
@@ -95,8 +95,8 @@ describe('useFullCarrier', () => {
       const dhlForYou = useFullCarrier(CarrierName.DhlForYou, PlatformName.MyParcel);
 
       await loadCarriers();
-      expect(postNl.value.hasFeature(ConfigSetting.ShowDeliveryDate)).toBe(true);
-      expect(dhlForYou.value.hasFeature(ConfigSetting.ShowDeliveryDate)).toBe(false);
+      expect(postNl.value.hasFeature(CarrierSetting.AllowMondayDelivery)).toBe(true);
+      expect(dhlForYou.value.hasFeature(CarrierSetting.AllowMondayDelivery)).toBe(false);
     });
 
     it('can use hasDeliveryInCountry', async () => {
