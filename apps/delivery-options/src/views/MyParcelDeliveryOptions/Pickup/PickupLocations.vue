@@ -17,11 +17,12 @@
 </template>
 
 <script lang="ts" setup>
-import {computed, h, ref} from 'vue';
+import {computed, ref} from 'vue';
 import {PickupLocationsView} from '@myparcel-do/shared';
 import {useConfigStore} from '../../../stores';
 import {useLanguage} from '../../../composables';
 import DoButton from '../../../components/common/DoButton/DoButton.vue';
+import PickupLocationMap from './PickupLocationMap/PickupLocationMap.vue';
 import PickupLocationList from './PickupLocationList/PickupLocationList.vue';
 
 const config = useConfigStore();
@@ -31,6 +32,6 @@ const mode = ref<PickupLocationsView>(config.pickupLocationsDefaultView);
 const {translate} = useLanguage();
 
 const currentComponent = computed(() =>
-  mode.value === PickupLocationsView.List ? PickupLocationList : () => h('div'),
+  mode.value === PickupLocationsView.List ? PickupLocationList : PickupLocationMap,
 );
 </script>

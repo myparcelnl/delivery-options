@@ -14,7 +14,7 @@ import {type DeliveryOptionsOutput} from './output.types';
 import {type SelectOption} from './options.types';
 import {type DeliveryOptionsAddress} from './address.types';
 
-interface MapTileLayerData {
+export interface MapTileLayerData {
   attribution: string;
   maxZoom?: number;
   token?: string;

@@ -1018,11 +1018,13 @@ __metadata:
     "@myparcel/vue-form-builder": "npm:^1.0.0-beta.1"
     "@pinia/testing": "npm:^0.1.3"
     "@testing-library/vue": "npm:^8.0.1"
+    "@types/leaflet": "npm:^1"
     "@vue/test-utils": "npm:^2.4.0"
     "@vue/tsconfig": "npm:^0.1.0"
     "@vueuse/core": "npm:^10.0.0"
     happy-dom: "npm:^12.10.3"
     histoire: "npm:^0.17.6"
+    leaflet: "npm:^1.9.4"
     pinia: "npm:^2.1.7"
     radash: "npm:^11.0.0"
     typescript: "npm:^5.2.0"
@@ -2490,6 +2492,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/geojson@npm:*":
+  version: 7946.0.13
+  resolution: "@types/geojson@npm:7946.0.13"
+  checksum: 4450d070f2591500bd3ce13a898d8e4b53a6b75dfb08c002c2553a1bb135cdde9980dee6193d9fe2179c7b5fb6c52470acd116a3db91b33d8c6ba9ae3ae44e11
+  languageName: node
+  linkType: hard
+
 "@types/istanbul-lib-coverage@npm:^2.0.1":
   version: 2.0.6
   resolution: "@types/istanbul-lib-coverage@npm:2.0.6"
@@ -2501,6 +2510,15 @@ __metadata:
   version: 7.0.15
   resolution: "@types/json-schema@npm:7.0.15"
   checksum: a996a745e6c5d60292f36731dd41341339d4eeed8180bb09226e5c8d23759067692b1d88e5d91d72ee83dfc00d3aca8e7bd43ea120516c17922cbcb7c3e252db
+  languageName: node
+  linkType: hard
+
+"@types/leaflet@npm:^1":
+  version: 1.9.8
+  resolution: "@types/leaflet@npm:1.9.8"
+  dependencies:
+    "@types/geojson": "npm:*"
+  checksum: 9a635d8ced35da27d8dfe972954bd5b4c91354beef710d7cfcca0e7bff3d189eb4cfd36ff68dac2bdc4b002d50f9ed5036c2e659683131e50d227a2050c72895
   languageName: node
   linkType: hard
 
@@ -7572,6 +7590,13 @@ __metadata:
     picocolors: "npm:^1.0.0"
     shell-quote: "npm:^1.8.1"
   checksum: 82d0bd9a44e7a972157719e63dac1b8196db6ec7066c1ec57a495f6c3d6e734f3c4da89549e7b33eb3b0356668ad02a9e7782b6733f5ebd7a61b7c5f635a3ee9
+  languageName: node
+  linkType: hard
+
+"leaflet@npm:^1.9.4":
+  version: 1.9.4
+  resolution: "leaflet@npm:1.9.4"
+  checksum: f639441dbb7eb9ae3fcd29ffd7d3508f6c6106892441634b0232fafb9ffb1588b05a8244ec7085de2c98b5ed703894df246898477836cfd0ce5b96d4717b5ca1
   languageName: node
   linkType: hard
 
