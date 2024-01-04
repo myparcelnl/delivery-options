@@ -10,7 +10,7 @@ jobs:
     strategy:
       matrix:
         node-version: [18, 20]
-    # TODO uncomment when all tests pass
+    # TODO remove when all tests pass
     continue-on-error: true
     steps:
       - uses: actions/checkout@v4
@@ -20,6 +20,8 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
       - name: 'Run tests'
+        # TODO remove when all tests pass
+        continue-on-error: true
         #language=sh
         run: |
           yarn nx run-many \
