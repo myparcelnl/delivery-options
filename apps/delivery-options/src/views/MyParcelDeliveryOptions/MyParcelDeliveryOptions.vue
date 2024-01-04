@@ -5,6 +5,7 @@
 </template>
 
 <script lang="ts" setup>
+import '../../assets/index.scss';
 import {computed, onMounted, toRefs, watch} from 'vue';
 import {get} from '@vueuse/core';
 import {useLogger} from '@myparcel-do/shared';

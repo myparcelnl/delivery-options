@@ -16,12 +16,12 @@
 <script lang="ts" setup>
 import {computed, ref, watch} from 'vue';
 import {get} from '@vueuse/core';
-import {DELIVERY_TITLE, type InternalOutput, PICKUP_TITLE, type SelectOption} from '@myparcel-do/shared';
+import {type InternalOutput, PICKUP_TITLE, type SelectOption} from '@myparcel-do/shared';
 import {createField} from '@myparcel/vue-form-builder';
 import PickupLocations from '../Pickup/PickupLocations.vue';
 import HomeDelivery from '../Delivery/HomeDelivery.vue';
 import {createDeliveryOptionsForm} from '../../../form';
-import {FIELD_HOME_OR_PICKUP, HOME_OR_PICKUP_HOME, HOME_OR_PICKUP_PICKUP} from '../../../data';
+import {FIELD_HOME_OR_PICKUP, HOME_OR_PICKUP_PICKUP} from '../../../data';
 import {useActiveCarriers, useLanguage} from '../../../composables';
 import {RadioGroupInput} from '../../../components';
 
@@ -50,12 +50,12 @@ const HomeOrPickup = createField({
       const options: SelectOption[] = [];
       const resolvedCarriers = get(carriers) ?? [];
 
-      if (resolvedCarriers.some((carrier) => get(carrier.hasDelivery))) {
-        options.push({
-          label: translate(DELIVERY_TITLE),
-          value: HOME_OR_PICKUP_HOME,
-        });
-      }
+      // if (resolvedCarriers.some((carrier) => get(carrier.hasDelivery))) {
+      //   options.push({
+      //     label: translate(DELIVERY_TITLE),
+      //     value: HOME_OR_PICKUP_HOME,
+      //   });
+      // }
 
       if (resolvedCarriers.some((carrier) => get(carrier.hasPickup))) {
         options.push({

@@ -4,14 +4,15 @@
       <template #fallback>Loading...</template>
 
       <template #default>
-        <OsmMapInner v-bind="props" />
+        <OsmMapInner v-bind="props">
+          <slot />
+        </OsmMapInner>
       </template>
     </Suspense>
   </div>
 </template>
 
 <script lang="ts" setup>
-import {useScriptTag, useStyleTag} from '@vueuse/core';
 import OsmMapInner from '../OsmMapInner/OsmMapInner.vue';
 import {type OsmMapProps} from '../../../types/map.types';
 
@@ -20,11 +21,4 @@ const props = withDefaults(defineProps<OsmMapProps>(), {
   zoom: 14,
   height: '400px',
 });
-
-const css = (await fetch('https://unpkg.com/leaflet@1.9.4/dist/leaflet.css')).text();
-
-useStyleTag(await css);
-
-const tag = useScriptTag('https://unpkg.com/leaflet@1.9.4/dist/leaflet.js');
-await tag.load();
 </script>
