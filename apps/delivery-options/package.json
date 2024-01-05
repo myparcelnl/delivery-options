@@ -60,6 +60,7 @@
     "@histoire/plugin-vue": "^0.17.6",
     "@myparcel-do/build-vite": "workspace:*",
     "@pinia/testing": "^0.1.3",
+    "@tailwindcss/container-queries": "^0.1.0",
     "@testing-library/vue": "^8.0.1",
     "@types/leaflet": "^1.9.4",
     "@vue/test-utils": "^2.4.0",

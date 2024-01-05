@@ -1,6 +1,7 @@
 <template>
   <DeliveryOptionsForm
     v-if="ready"
+    class="@container myparcel-delivery-options"
     @update="emitChange" />
 </template>
 

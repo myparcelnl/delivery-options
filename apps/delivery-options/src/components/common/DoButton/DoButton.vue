@@ -5,6 +5,7 @@
       'mp-px-5',
       'mp-py-2',
       'mp-flex-grow',
+      'mp-w-full',
 
       // Borders
       'first-of-type:mp-border-l',

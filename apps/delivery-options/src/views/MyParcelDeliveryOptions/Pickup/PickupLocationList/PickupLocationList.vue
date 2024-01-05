@@ -1,18 +1,20 @@
 <template>
   <PickupLocation.Component>
     <template #default="{option}">
-      <PickupLocationListItem :location="option.value" />
+      <PickupLocationListItem :pickup-location="option.value" />
     </template>
 
     <template #content="{option}">
       <PickupLocationDetails
         v-if="value === option.value"
-        :location="option.value" />
+        :pickup-location="option.value"
+        class="mp-mb-2" />
     </template>
   </PickupLocation.Component>
 
   <DoButton
     v-if="pickupLocations?.length > shown"
+    class="mp-mt-4"
     type="button"
     @click="loadMore">
     {{ translate(LOAD_MORE) }}
@@ -22,7 +24,7 @@
 <script lang="ts" setup>
 import {computed, ref} from 'vue';
 import {get} from '@vueuse/core';
-import {DEFAULT_MAX_PAGE_ITEMS, type SelectOption} from '@myparcel-do/shared';
+import {DEFAULT_MAX_PAGE_ITEMS, LOAD_MORE, type SelectOption} from '@myparcel-do/shared';
 import {createField} from '@myparcel/vue-form-builder';
 import {FIELD_PICKUP_LOCATION} from '../../../../data';
 import {useLanguage, useResolvedPickupLocations} from '../../../../composables';

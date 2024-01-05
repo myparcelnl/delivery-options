@@ -1,23 +1,23 @@
 <template>
-  <div class="overflow-hidden">
-    <div
-      ref="container"
-      :style="{height}" />
+  <div
+    ref="container"
+    :style="{height}" />
 
-    <slot />
-  </div>
+  <slot />
 </template>
 
 <script lang="ts" setup>
+/* eslint-disable new-cap */
 import {computed, onMounted, onUnmounted, provide, ref, toRefs, watch} from 'vue';
 import {isString} from 'radash';
 import {type Control, type Map, type Marker, type TileLayer} from 'leaflet';
-import {useDebounceFn, useScriptTag, useStyleTag} from '@vueuse/core';
+import {isDef, useDebounceFn, useScriptTag, useStyleTag} from '@vueuse/core';
 import {type MapTileLayerData} from '@myparcel-do/shared';
 import {type OsmMapProps} from '../../../types/map.types';
 import {useConfigStore} from '../../../stores';
 
-const props = defineProps<Required<OsmMapProps>>();
+// eslint-disable-next-line vue/no-unused-properties
+const props = defineProps<OsmMapProps>();
 const propRefs = toRefs(props);
 
 const container = ref<HTMLElement>();
@@ -52,17 +52,26 @@ const fitBounds = useDebounceFn(() => {
   const group = new L.featureGroup(markers.value as Marker[]);
 
   map.value?.fitBounds(group.getBounds());
-  map.value?.setZoom(propRefs.zoom.value);
+
+  map.value?.off('layeradd', fitBounds);
 }, 100);
 
 onMounted(() => {
   const {center, scroll, zoom} = propRefs;
   const {attribution, maxZoom, url, token} = tileLayerData.value;
 
+  if (!isDef(container.value)) {
+    return;
+  }
+
   map.value = new L.Map(container.value, {
     preferCanvas: true,
     scrollWheelZoom: scroll.value,
   }).setView(center.value ?? [0, 0], zoom.value);
+
+  if (!isDef(map.value)) {
+    return;
+  }
 
   tileLayer.value = new L.TileLayer(url, {attribution, maxZoom, accessToken: token});
   scale.value = new L.Control.Scale();
@@ -70,7 +79,7 @@ onMounted(() => {
   tileLayer.value?.addTo(map.value);
   scale.value?.addTo(map.value);
 
-  map.value?.on('layeradd', fitBounds);
+  map.value.on('layeradd', fitBounds);
 });
 
 onUnmounted(() => {

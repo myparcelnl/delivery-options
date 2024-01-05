@@ -19,6 +19,6 @@ import {type OsmMapProps} from '../../../types/map.types';
 // eslint-disable-next-line vue/no-unused-properties
 const props = withDefaults(defineProps<OsmMapProps>(), {
   zoom: 14,
-  height: '400px',
+  height: '100%',
 });
 </script>

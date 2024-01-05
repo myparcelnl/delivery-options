@@ -1,21 +1,19 @@
 <template>
-  <div></div>
+  <slot />
 </template>
 
 <script lang="ts" setup>
 import {inject, onUnmounted, type Ref, ref, toRefs, watch} from 'vue';
 import {type Map, type Marker, type MarkerOptions} from 'leaflet';
-import {watchOnce} from '@vueuse/core';
+import {isDef, watchOnce} from '@vueuse/core';
 
 const props = defineProps<{center: [number, number]; options: MarkerOptions}>();
 const propRefs = toRefs(props);
 
+const emit = defineEmits<(event: 'click', marker: Marker) => void>();
+
 const map = inject<Ref<Map | undefined>>('map');
 const markers = inject<Ref<Marker[]>>('markers');
-
-const emit = defineEmits<{
-  render(marker: Marker): void;
-}>();
 
 const marker = ref<Marker>();
 
@@ -28,16 +26,23 @@ watchOnce(
         () => {
           const {options, center} = propRefs;
 
-          if (marker.value) {
+          if (isDef(marker.value)) {
             marker.value.options = options.value;
           } else {
             marker.value = L.marker(center.value, options.value);
 
+            if (!isDef(marker.value)) {
+              return;
+            }
+
+            marker.value.on('click', () => {
+              // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+              emit('click', marker.value!);
+            });
+
             markers?.value?.push(marker.value);
 
             map?.value?.addLayer(marker.value);
-
-            emit('render', marker.value);
           }
         },
         {immediate: true},
@@ -48,7 +53,7 @@ watchOnce(
 );
 
 onUnmounted(() => {
-  if (!marker.value) {
+  if (!isDef(marker.value)) {
     return;
   }
 
