@@ -59,7 +59,7 @@ export const getMyParcelConfig = (): PlatformOptions => ({
       name: CarrierName.DhlForYou,
       subscription: SubscriptionType.Optional,
       packageTypes: [PackageTypeName.Package],
-      deliveryTypes: [DeliveryTypeName.Standard],
+      deliveryTypes: [DeliveryTypeName.Standard, DeliveryTypeName.Pickup],
       deliveryCountries: [NETHERLANDS, BELGIUM],
       pickupCountries: [NETHERLANDS],
       shipmentOptions: [ShipmentOptionName.OnlyRecipient, ShipmentOptionName.Signature],
@@ -165,7 +165,7 @@ export const getMyParcelConfig = (): PlatformOptions => ({
       name: CarrierName.Ups,
       subscription: SubscriptionType.Required,
       packageTypes: [PackageTypeName.Package],
-      deliveryTypes: [DeliveryTypeName.Standard],
+      deliveryTypes: [DeliveryTypeName.Standard, DeliveryTypeName.Pickup],
       deliveryCountries: [
         BULGARIA,
         GERMANY,

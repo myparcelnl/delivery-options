@@ -37,7 +37,7 @@ export const getSendMyParcelConfig = (): PlatformOptions => ({
       name: CarrierName.Bpost,
       subscription: SubscriptionType.Never,
       packageTypes: [PackageTypeName.Package],
-      deliveryTypes: [DeliveryTypeName.Standard],
+      deliveryTypes: [DeliveryTypeName.Standard, DeliveryTypeName.Pickup],
       deliveryCountries: [BELGIUM, NETHERLANDS],
       pickupCountries: [BELGIUM, NETHERLANDS],
       features: [
@@ -53,7 +53,7 @@ export const getSendMyParcelConfig = (): PlatformOptions => ({
       name: CarrierName.PostNl,
       subscription: SubscriptionType.Never,
       packageTypes: [PackageTypeName.Package],
-      deliveryTypes: [DeliveryTypeName.Standard],
+      deliveryTypes: [DeliveryTypeName.Standard, DeliveryTypeName.Pickup],
       deliveryCountries: [BELGIUM, NETHERLANDS],
       pickupCountries: [BELGIUM, NETHERLANDS],
       shipmentOptions: [ShipmentOptionName.Signature],
