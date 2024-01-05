@@ -3,13 +3,18 @@
     <PickupLocationName :pickup-location="pickupLocation" />
   </div>
 
-  <span
-    class="mp-ml-auto"
-    v-text="distance" />
+  <div class="mp-flex mp-gap-2 mp-items-center mp-ml-auto">
+    <span v-text="distance" />
+
+    <CarrierLogo
+      v-if="carrier"
+      :carrier="carrier.identifier" />
+  </div>
 </template>
 
 <script lang="ts" setup>
 import {toRefs} from 'vue';
+import {CarrierLogo} from '@myparcel-do/shared';
 import {usePickupLocation} from '../../../../composables/usePickupLocation';
 import PickupLocationName from './PickupLocationName.vue';
 
@@ -22,5 +27,5 @@ const props = defineProps<{
 }>();
 const propRefs = toRefs(props);
 
-const {distance} = usePickupLocation(propRefs.pickupLocation);
+const {distance, carrier} = usePickupLocation(propRefs.pickupLocation);
 </script>

@@ -1,4 +1,4 @@
-import {computed, type ComputedRef, type MaybeRef} from 'vue';
+import {computed, type ComputedRef, type MaybeRef, type Ref} from 'vue';
 import {addDays, isSameDay, isToday} from 'date-fns';
 import {get, useMemoize} from '@vueuse/core';
 import {CLOSED, type FullCarrier, type OutputPickupLocation, useFullCarrier} from '@myparcel-do/shared';
@@ -14,51 +14,50 @@ import {useLanguage} from './useLanguage';
 import {useDateFormat} from './useDateFormat';
 
 interface UsePickupLocation {
-  carrier: ComputedRef<FullCarrier | undefined>;
+  carrier: Ref<FullCarrier>;
   distance: ComputedRef<string>;
   location: ComputedRef<OutputPickupLocation | undefined>;
   openingHours: ComputedRef<{weekday: string; timeString: string}[]>;
 }
 
 // eslint-disable-next-line max-lines-per-function
-export const usePickupLocation = useMemoize((locationJson: MaybeRef<string | undefined>): UsePickupLocation => {
+export const usePickupLocation = useMemoize((locationJson: MaybeRef<string>): UsePickupLocation => {
+  const resolvedLocation = computed<ResolvedPickupLocation>(() => JSON.parse(get(locationJson)));
+
+  const carrier = computed(() => resolvedLocation.value.carrier);
+
   const {translate} = useLanguage();
+  const config = useConfigStore();
 
-  const resolvedLocation = computed<ResolvedPickupLocation | undefined>(() => {
-    const resolvedJson = get(locationJson);
-
-    return resolvedJson ? JSON.parse(resolvedJson) : undefined;
-  });
+  const fullCarrier = useFullCarrier(carrier, config.platform);
 
   const location = computed<OutputPickupLocation | undefined>(() => {
-    if (!resolvedLocation.value) {
-      return undefined;
-    }
+    const {address, location} = resolvedLocation.value;
 
     return {
       type: getPickupLocationType(resolvedLocation.value),
 
-      locationCode: resolvedLocation.value.location.location_code,
-      locationName: resolvedLocation.value.location.location_name,
-      retailNetworkId: resolvedLocation.value.location.retail_network_id,
+      locationCode: location.location_code,
+      locationName: location.location_name,
+      retailNetworkId: location.retail_network_id,
 
-      street: resolvedLocation.value.address.street,
-      number: resolvedLocation.value.address.number,
+      street: address.street,
+      number: address.number,
       numberSuffix: '',
-      postalCode: resolvedLocation.value.address.postal_code,
-      city: resolvedLocation.value.address.city,
-      cc: resolvedLocation.value.address.cc,
+      postalCode: address.postal_code,
+      city: address.city,
+      cc: address.cc,
     };
   });
 
   const distance = computed(() => {
-    const distance = resolvedLocation.value?.location.distance;
+    const {distance} = resolvedLocation.value.location;
 
     return distance ? useFormatDistance(distance).value : '';
   });
 
   const openingHours = computed(() => {
-    const days = resolvedLocation.value?.location.opening_hours ?? ({} as Record<Weekday, StartEndDate[]>);
+    const days = resolvedLocation.value.location.opening_hours ?? ({} as Record<Weekday, StartEndDate[]>);
 
     return Object.values(days)
       .map((hours, dayOfWeek) => {
@@ -77,17 +76,5 @@ export const usePickupLocation = useMemoize((locationJson: MaybeRef<string | und
       .sort((a, b) => a.date.getTime() - b.date.getTime());
   });
 
-  const carrier = computed(() => {
-    const carrier = resolvedLocation.value?.carrier;
-
-    if (!carrier) {
-      return undefined;
-    }
-
-    const config = useConfigStore();
-
-    return useFullCarrier(carrier, config.platform).value;
-  });
-
-  return {carrier, location, distance, openingHours};
+  return {carrier: fullCarrier, location, distance, openingHours};
 });
