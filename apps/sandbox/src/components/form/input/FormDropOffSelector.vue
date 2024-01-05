@@ -79,21 +79,21 @@ const weekdayOptions = computed<SelectOption[]>(() =>
 );
 
 const nestedComponents = weekdays.value.map((weekday, index) => {
-  const common: Partial<InteractiveElementConfiguration> = {
+  const common = {
     component: markRaw(FormTimeInput),
     visibleWhen: () => get(days).includes(String(index)),
     disabledWhen: () => !get(days).includes(String(index)),
-  };
+  } satisfies Partial<InteractiveElementConfiguration>;
 
   return [
-    createField({
+    createField<string>({
       ...common,
       label: DROP_OFF_CUTOFF_TIME,
       name: `${DROP_OFF_CUTOFF_TIME}-${index}`,
       ref: cutoffTimes[index],
     }),
 
-    createField({
+    createField<string>({
       ...common,
       label: DROP_OFF_SAME_DAY_CUTOFF_TIME,
       name: `${DROP_OFF_SAME_DAY_CUTOFF_TIME}-${index}`,

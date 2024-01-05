@@ -7,11 +7,19 @@ import {
 import {type MakeOptional} from '@myparcel/ts-utils';
 import {findSandboxOption, getDefaultValueForType} from '../utils';
 
-interface FormFieldInput<T, Props> extends MakeOptional<InteractiveElementConfiguration<T, Props>, 'ref'> {
+/**
+ * @TODO change to ComponentProps from vfb in next version
+ */
+type ComponentProps = Record<string, unknown>;
+
+interface FormFieldInput<T, Props extends ComponentProps = ComponentProps>
+  extends MakeOptional<InteractiveElementConfiguration<T, Props>, 'ref'> {
   key?: string;
 }
 
-export const formField = <T, Props>(input: FormFieldInput<T, Props>): ModularCreatedElement<T, Props> => {
+export const formField = <T, Props extends ComponentProps = ComponentProps>(
+  input: FormFieldInput<T, Props>,
+): ModularCreatedElement<T, Props> => {
   const fullName: string = [input.key, input.name].filter(Boolean).join('.');
 
   const fullOption = findSandboxOption(input.name);

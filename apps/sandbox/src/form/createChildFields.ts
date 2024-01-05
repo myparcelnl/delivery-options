@@ -4,7 +4,7 @@ import {type InteractiveElementInstance} from '@myparcel/vue-form-builder';
 import {type SandboxOptionGroup, type SettingsField} from '../types';
 import {useCurrentPlatform} from '../composables';
 import {getAllSandboxConfigOptions} from './getAllSandboxConfigOptions';
-import {createField} from './createField';
+import {createSandboxField} from './createSandboxField';
 import {availableInPlatform} from './availableInPlatform';
 import {allParentsHave} from './allParentsHave';
 
@@ -18,7 +18,7 @@ export const createChildFields = (group: SandboxOptionGroup, prefix: string): Se
 
   return resolvedItems.reduce((acc, item) => {
     acc.push(
-      createField(item, prefix, {
+      createSandboxField(item, prefix, {
         visibleWhen(field: InteractiveElementInstance) {
           return availableInPlatform(field, platform) && allParentsHave(item.parents, field.form, prefix);
         },
@@ -33,7 +33,7 @@ export const createChildFields = (group: SandboxOptionGroup, prefix: string): Se
       }
 
       acc.push(
-        createField(match, prefix, {
+        createSandboxField(match, prefix, {
           visibleWhen(field: InteractiveElementInstance) {
             return availableInPlatform(field, platform) && allParentsHave(match.parents, field.form, prefix);
           },
