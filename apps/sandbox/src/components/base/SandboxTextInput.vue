@@ -9,7 +9,7 @@
     type="text" />
 </template>
 
-<script generic="T" lang="ts" setup>
+<script lang="ts" setup>
 import {useVModel} from '@vueuse/core';
 import {type TextInputEmits, type TextInputProps} from '@myparcel-do/shared';
 import {useBaseInputClasses} from '../../composables';
