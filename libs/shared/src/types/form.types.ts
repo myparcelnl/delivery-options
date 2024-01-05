@@ -16,8 +16,4 @@ export interface InputProps<Type = unknown> {
   readonly?: boolean;
 }
 
-export interface InputEmits<Type = unknown> {
-  'update:modelValue': (value: Type) => void;
-}
-
 export type WithElement<Props extends InputProps = InputProps> = ElementProps<unknown, ToRecord<Props>>;

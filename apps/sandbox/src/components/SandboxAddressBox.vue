@@ -5,14 +5,6 @@
     </AutoAnchor>
 
     <SandboxSettingsSection :section="section" />
-
-    <!--    <Cc.Component /> -->
-    <!---->
-    <!--    <Street.Component /> -->
-    <!---->
-    <!--    <PostalCode.Component /> -->
-    <!---->
-    <!--    <City.Component /> -->
   </Box>
 </template>
 

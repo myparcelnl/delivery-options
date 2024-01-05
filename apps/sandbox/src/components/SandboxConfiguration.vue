@@ -1,8 +1,8 @@
 <template>
   <KeepAlive>
     <component
-      :is="Form?.Component"
-      v-if="Form?.Component">
+      :is="Form.Component"
+      v-if="Form.Component">
       <SandboxPlatformBox />
 
       <SandboxAddressBox />

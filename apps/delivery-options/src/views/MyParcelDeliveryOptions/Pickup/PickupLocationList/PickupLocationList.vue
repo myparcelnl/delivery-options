@@ -22,7 +22,7 @@
 <script lang="ts" setup>
 import {computed, ref} from 'vue';
 import {get} from '@vueuse/core';
-import {DEFAULT_MAX_PAGE_ITEMS, LOAD_MORE, type SelectOption} from '@myparcel-do/shared';
+import {DEFAULT_MAX_PAGE_ITEMS, type SelectOption} from '@myparcel-do/shared';
 import {createField} from '@myparcel/vue-form-builder';
 import {FIELD_PICKUP_LOCATION} from '../../../../data';
 import {useLanguage, useResolvedPickupLocations} from '../../../../composables';

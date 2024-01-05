@@ -2,7 +2,7 @@
   <Box>
     <h2>Carriers</h2>
 
-    <Suspense @resolve="startListening">
+    <Suspense>
       <template #default>
         <SandboxCarrierFormSections />
       </template>
@@ -16,6 +16,7 @@
 
 <script lang="ts" setup>
 import {watch} from 'vue';
+import {useDebounceFn} from '@vueuse/core';
 import {useForm} from '@myparcel/vue-form-builder';
 import {useSandboxStore} from '../stores';
 import SandboxLoadingIndicator from './SandboxLoadingIndicator.vue';
@@ -29,9 +30,13 @@ const form = useForm();
  * Start listening to changes in the configuration when the carrier fields have loaded. This is so the configuration is
  * not saved to storage before all fields are loaded.
  */
-const startListening = () => {
-  watch(form.values, (newConfiguration) => {
-    sandboxStore.updateConfiguration(newConfiguration);
-  });
-};
+
+form.on(
+  'afterAddElement',
+  useDebounceFn(() => {
+    watch(form.values, (newConfiguration: Record<string, unknown>) => {
+      sandboxStore.updateConfiguration(newConfiguration);
+    });
+  }, 50),
+);
 </script>

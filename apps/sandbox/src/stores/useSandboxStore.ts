@@ -1,12 +1,14 @@
 import {toRaw} from 'vue';
 import {construct, get as objGet} from 'radash';
 import {defineStore} from 'pinia';
-import {useLocalStorage} from '@vueuse/core';
+import {type RemovableRef, useLocalStorage} from '@vueuse/core';
 import {
   type CarrierSettingsObject,
   ConfigSetting,
+  DEFAULT_PLATFORM,
   type DeliveryOptionsAddress,
-  type DeliveryOptionsConfig,
+  type InputCarrierSettingsObject,
+  type InputDeliveryOptionsConfig,
   type InputDeliveryOptionsConfiguration,
   KEY_ADDRESS,
   KEY_CARRIER_SETTINGS,
@@ -18,28 +20,31 @@ import {PlatformName} from '@myparcel/constants';
 import {getDefaultSandboxAddress, getDefaultSandboxCarrierSettings, getDefaultSandboxConfig} from '../config';
 import {useLanguage} from '../composables';
 
+type ConfigWithoutCarrierSettings = Omit<InputDeliveryOptionsConfig, 'carrierSettings'>;
+
 export const useSandboxStore = defineStore('sandbox', {
   state: (): {
-    config: DeliveryOptionsConfig;
-    carrierSettings: CarrierSettingsObject;
-    address: DeliveryOptionsAddress;
+    address: RemovableRef<DeliveryOptionsAddress>;
+    carrierSettings: InputCarrierSettingsObject;
+    carrierToggle: RemovableRef<string[]>;
+    config: RemovableRef<ConfigWithoutCarrierSettings>;
     platform: SupportedPlatformName;
   } => {
     const carrierSettings = useLocalStorage<CarrierSettingsObject>(
       KEY_CARRIER_SETTINGS,
       getDefaultSandboxCarrierSettings,
     );
-    const config = useLocalStorage<DeliveryOptionsConfig>(KEY_CONFIG, getDefaultSandboxConfig);
+    const config = useLocalStorage<ConfigWithoutCarrierSettings>(KEY_CONFIG, getDefaultSandboxConfig);
     const address = useLocalStorage<DeliveryOptionsAddress>(KEY_ADDRESS, getDefaultSandboxAddress);
 
     const initialPlatform = objGet(config.value, `${KEY_CONFIG}.${ConfigSetting.Platform}`, PlatformName.MyParcel);
 
     return {
-      platform: initialPlatform ?? PlatformName.MyParcel,
-      carrierToggle: useLocalStorage<string[]>('carrierToggle', []),
       address,
       carrierSettings,
+      carrierToggle: useLocalStorage<string[]>('carrierToggle', []),
       config,
+      platform: initialPlatform ?? DEFAULT_PLATFORM,
     };
   },
 
@@ -50,13 +55,13 @@ export const useSandboxStore = defineStore('sandbox', {
 
       this.address = address;
       this.config = restConfig;
-      this.carrierSettings = carrierSettings!;
-      this.platform = restConfig.platform!;
+      this.carrierSettings = carrierSettings ?? {};
+      this.platform = restConfig.platform ?? DEFAULT_PLATFORM;
     },
   },
 
   getters: {
-    resolvedConfiguration(): Omit<InputDeliveryOptionsConfiguration, 'components'> {
+    resolvedConfiguration(): InputDeliveryOptionsConfiguration {
       const {language, strings} = useLanguage();
 
       return toRaw({
@@ -65,7 +70,7 @@ export const useSandboxStore = defineStore('sandbox', {
           [KEY_CARRIER_SETTINGS]: this.carrierSettings,
           [ConfigSetting.Locale]: language.value.code,
           [ConfigSetting.Platform]: this.platform,
-        } satisfies DeliveryOptionsConfig,
+        } satisfies InputDeliveryOptionsConfig,
         [KEY_ADDRESS]: this.address,
         [KEY_STRINGS]: strings.value,
       });
