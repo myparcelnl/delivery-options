@@ -8,7 +8,7 @@
 }
 
 @each $carrier, $color in $carriers {
-  .mp__carrier-marker--#{$carrier} path {
+  .leaflet-marker-pane .mp__carrier-marker--#{$carrier}.active path {
     fill: $color !important;
   }
 }

@@ -12,10 +12,38 @@ const propRefs = toRefs(props);
 
 const emit = defineEmits<(event: 'click', marker: Marker) => void>();
 
-const map = inject<Ref<Map | undefined>>('map');
-const markers = inject<Ref<Marker[]>>('markers');
+// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+const map = inject<Ref<Map | undefined>>('map')!;
+// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+const markers = inject<Ref<Marker[]>>('markers')!;
 
 const marker = ref<Marker>();
+
+const CLASS_MARKER_ACTIVE = 'active';
+
+const toggleActiveClass = (): void => {
+  markers?.value.forEach((item) => {
+    if (item === marker.value) {
+      return;
+    }
+
+    item.getElement()?.classList.remove(CLASS_MARKER_ACTIVE);
+  });
+
+  marker.value?.getElement()?.classList.add(CLASS_MARKER_ACTIVE);
+};
+
+const onMarkerClick = (): void => {
+  if (!isDef(marker.value)) {
+    return;
+  }
+
+  toggleActiveClass();
+
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  emit('click', marker.value);
+  map.value?.panTo(marker.value.getLatLng());
+};
 
 watchOnce(
   () => map,
@@ -35,12 +63,8 @@ watchOnce(
               return;
             }
 
-            marker.value.on('click', () => {
-              // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-              emit('click', marker.value!);
-            });
-
-            markers?.value?.push(marker.value);
+            marker.value.on('click', onMarkerClick);
+            markers.value.push(marker.value);
 
             map?.value?.addLayer(marker.value);
           }

@@ -52,7 +52,6 @@ const fitBounds = useDebounceFn(() => {
   const group = new L.featureGroup(markers.value as Marker[]);
 
   map.value?.fitBounds(group.getBounds());
-
   map.value?.off('layeradd', fitBounds);
 }, 100);
 
