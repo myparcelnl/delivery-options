@@ -7,8 +7,8 @@ import {useActiveCarriers} from './useActiveCarriers';
 export const useResolvedPickupLocations = useMemoize(() => {
   const carriers = useActiveCarriers();
 
-  const resolvedOptions = asyncComputed(async () => {
-    return Promise.all(
+  return asyncComputed<ResolvedPickupLocation[]>(async () => {
+    const result = await Promise.all(
       get(carriers)
         .filter((carrier) => get(carrier.hasPickup))
         .map(async (carrier) => {
@@ -17,24 +17,15 @@ export const useResolvedPickupLocations = useMemoize(() => {
 
           await query.load();
 
-          return {
-            carrier,
-            results: get(query.data) ?? [],
-          };
+          return (get(query.data) ?? []).map((option) => ({
+            ...option,
+            carrier: carrier.identifier,
+          }));
         }),
     );
-  });
 
-  return asyncComputed(() => {
-    return resolvedOptions.value.reduce((acc, option) => {
-      option.results.forEach((dateOption) => {
-        acc.push({
-          carrier: option.carrier.identifier,
-          ...dateOption,
-        });
-      });
-
-      return acc;
-    }, [] as ResolvedPickupLocation[]);
+    return result
+      .flat(1)
+      .sort((a, b) => Number(a.location.distance) - Number(b.location.distance)) as ResolvedPickupLocation[];
   });
 });
