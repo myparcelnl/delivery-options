@@ -1,4 +1,4 @@
-import {computed, type ComputedRef, type MaybeRef, type Ref} from 'vue';
+import {capitalize, computed, type ComputedRef, type MaybeRef, type Ref} from 'vue';
 import {addDays, isSameDay, isToday} from 'date-fns';
 import {get, useMemoize} from '@vueuse/core';
 import {
@@ -78,7 +78,7 @@ export const usePickupLocation = useMemoize((locationCode: MaybeRef<string>): Us
 
         return {
           date,
-          weekday: isTodayOrTomorrow ? formattedDay.relative.value : formattedDay.weekday.value,
+          weekday: capitalize(isTodayOrTomorrow ? formattedDay.relative.value : formattedDay.weekday.value),
           timeString: time ? createTimeRangeString(time.start.date, time.end.date) : translate(CLOSED),
         };
       })
