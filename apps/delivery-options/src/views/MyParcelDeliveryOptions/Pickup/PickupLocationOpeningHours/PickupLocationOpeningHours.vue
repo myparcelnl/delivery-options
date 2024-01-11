@@ -1,24 +1,26 @@
 <template>
-  <b
-    class="mp-block"
-    v-text="translate(OPENING_HOURS)" />
+  <div>
+    <b
+      class="mp-block"
+      v-text="translate(OPENING_HOURS)" />
 
-  <div
-    v-for="hours in filteredOpeningHours"
-    :key="hours.weekday"
-    class="mp-content-between mp-gap-1 mp-grid mp-grid-cols-2">
-    <span v-text="hours.weekday" />
-    <span
-      class="mp-text-nowrap"
-      v-text="hours.timeString" />
+    <div
+      v-for="hours in filteredOpeningHours"
+      :key="hours.weekday"
+      class="mp-content-between mp-gap-1 mp-grid mp-grid-cols-2">
+      <span v-text="hours.weekday" />
+      <span
+        class="mp-text-nowrap"
+        v-text="hours.timeString" />
+    </div>
+
+    <DoButton
+      v-if="!showAll"
+      link
+      @click="showAll = true">
+      {{ translate(SHOW_MORE_HOURS) }}
+    </DoButton>
   </div>
-
-  <DoButton
-    v-if="!showAll"
-    link
-    @click="showAll = true">
-    {{ translate(SHOW_MORE_HOURS) }}
-  </DoButton>
 </template>
 
 <script lang="ts" setup>

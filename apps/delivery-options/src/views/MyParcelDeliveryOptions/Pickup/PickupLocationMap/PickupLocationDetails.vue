@@ -1,13 +1,5 @@
 <template>
-  <div class="mp-flex mp-flex-col mp-gap-1">
-    <h2>
-      {{ pickupLocation }}
-    </h2>
-
-    <div>
-      {{ carrier?.identifier }}
-    </div>
-
+  <div class="mp-flex mp-flex-col mp-gap-2">
     <div class="mp-flex mp-gap-2 mp-items-center">
       <div>
         <PickupLocationName :pickup-location="pickupLocation" />
