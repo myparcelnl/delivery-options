@@ -1,5 +1,5 @@
 <template>
-  <div class="overflow-hidden">
+  <div class="mp-select-none overflow-hidden">
     <Suspense>
       <template #fallback>Loading...</template>
 

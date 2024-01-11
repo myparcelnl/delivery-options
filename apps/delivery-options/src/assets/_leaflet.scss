@@ -13,6 +13,7 @@
     @apply mp-z-[9999] #{!important};
 
     path {
+      @apply mp-transition-colors;
       fill: $color !important;
     }
   }

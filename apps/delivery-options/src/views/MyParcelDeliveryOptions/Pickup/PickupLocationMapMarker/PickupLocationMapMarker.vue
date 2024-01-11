@@ -29,6 +29,8 @@ const options = computed<MarkerOptions>(() => {
   return {
     title: location.value.locationName,
     icon: L.divIcon({
+      // eslint-disable-next-line no-magic-numbers,@typescript-eslint/no-magic-numbers
+      iconAnchor: [24, 58],
       className: `${MAP_MARKER_CLASS_PREFIX} ${MAP_MARKER_CLASS_PREFIX}--${carrier.value.name}`,
       html: createCarrierMarkerIcon(carrier.value),
     }),
