@@ -49,6 +49,10 @@ const links = [
     text: 'links.slack',
     link: 'https://join.slack.com/t/myparcel-dev/shared_invite/enQtNDkyNTg3NzA1MjM4LWQ5MWE5MTQ3MDg4YjU5NzdjYjk0OTY1ZDJiYjU5YzJjNzk3Yzk3NGY0OWFkZDU4MDYwZDEyZDlhZTgzOWM1MjI',
   },
+  {
+    text: 'links.github',
+    link: 'https://github.com/myparcelnl/delivery-options',
+  },
 ] satisfies {
   text: string;
   link: string;
