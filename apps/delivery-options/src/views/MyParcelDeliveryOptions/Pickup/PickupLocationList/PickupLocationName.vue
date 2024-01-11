@@ -7,7 +7,7 @@
 
   <InfoLabel
     v-if="PickupLocationType.Locker === location?.type"
-    :label="translate('parcelLocker')"
+    :label="translate(PARCEL_LOCKER)"
     class="mp-mt-1">
     <ParcelLockerIcon />
   </InfoLabel>
@@ -15,7 +15,7 @@
 
 <script lang="ts" setup>
 import {toRefs} from 'vue';
-import {PickupLocationType} from '@myparcel-do/shared';
+import {PARCEL_LOCKER, PickupLocationType} from '@myparcel-do/shared';
 import {usePickupLocation} from '../../../../composables/usePickupLocation';
 import {useLanguage} from '../../../../composables';
 import ParcelLockerIcon from '../../../../components/icons/ParcelLockerIcon.vue';
