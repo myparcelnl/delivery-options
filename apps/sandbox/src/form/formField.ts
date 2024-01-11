@@ -1,16 +1,12 @@
 import {markRaw, type Ref, ref} from 'vue';
 import {
+  type ComponentProps,
   createField,
   type InteractiveElementConfiguration,
   type ModularCreatedElement,
 } from '@myparcel/vue-form-builder';
 import {type MakeOptional} from '@myparcel/ts-utils';
 import {findSandboxOption, getDefaultValueForType} from '../utils';
-
-/**
- * @TODO change to ComponentProps from vfb in next version
- */
-type ComponentProps = Record<string, unknown>;
 
 interface FormFieldInput<T, Props extends ComponentProps = ComponentProps>
   extends MakeOptional<InteractiveElementConfiguration<T, Props>, 'ref'> {
@@ -33,7 +29,7 @@ export const formField = <T, Props extends ComponentProps = ComponentProps>(
       name: fullName,
       props: {
         description: `${optionLabel}_description`,
-        ...input.props,
+        ...(input.props ?? {}),
       },
     }),
   );
