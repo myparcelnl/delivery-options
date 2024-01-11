@@ -10,9 +10,9 @@
     :prefix="prefix"
     :section="field as SettingsSection" />
 
-  <SandboxSettingsField
-    v-else
-    :field="field as SettingsField" />
+  <component
+    :is="(field as SettingsField).Component"
+    v-else />
 </template>
 
 <script lang="ts" setup>
@@ -21,7 +21,6 @@ import {isOfType} from '@myparcel/ts-utils';
 import {type SettingsField, type SettingsGroup, type SettingsSection} from '../../types';
 import SandboxSettingsSection from './SandboxSettingsSection.vue';
 import SandboxSettingsGroup from './SandboxSettingsGroup.vue';
-import SandboxSettingsField from './SandboxSettingsField.vue';
 
 const props = withDefaults(
   defineProps<{
