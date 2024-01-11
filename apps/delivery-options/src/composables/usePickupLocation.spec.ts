@@ -4,7 +4,7 @@ import {createPinia, setActivePinia} from 'pinia';
 import {CLOSED} from '@myparcel-do/shared';
 import {createUtcDate} from '../utils/createUtcDate';
 import {useI18nStore} from '../stores';
-import {getFakePickupLocation, mockDeliveryOptionsConfig} from '../__tests__';
+import {mockDeliveryOptionsConfig} from '../__tests__';
 import {usePickupLocation} from './usePickupLocation';
 
 describe.concurrent('usePickupLocation', (it) => {
@@ -23,7 +23,7 @@ describe.concurrent('usePickupLocation', (it) => {
     expect.assertions(2);
     const i18n = useI18nStore();
 
-    const {distance} = usePickupLocation(JSON.stringify(getFakePickupLocation('397882')));
+    const {distance} = usePickupLocation('397882');
     await nextTick();
 
     expect(distance.value).toBe('2,5 km');
@@ -37,7 +37,7 @@ describe.concurrent('usePickupLocation', (it) => {
     const now = createUtcDate('2023-12-27');
     vi.setSystemTime(now);
 
-    const {openingHours} = usePickupLocation(JSON.stringify(getFakePickupLocation('217862')));
+    const {openingHours} = usePickupLocation('217862');
     await nextTick();
 
     i18n.setLocale('nl-NL');

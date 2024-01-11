@@ -1,5 +1,13 @@
 <template>
   <div class="mp-flex mp-flex-col mp-gap-1">
+    <h2>
+      {{ pickupLocation }}
+    </h2>
+
+    <div>
+      {{ carrier?.identifier }}
+    </div>
+
     <div class="mp-flex mp-gap-2 mp-items-center">
       <div>
         <PickupLocationName :pickup-location="pickupLocation" />
@@ -7,7 +15,7 @@
 
       <CarrierLogo
         v-if="carrier"
-        :carrier="carrier.identifier"
+        :carrier="carrier.name"
         class="mp-ml-auto" />
     </div>
 
@@ -22,13 +30,7 @@ import PickupLocationOpeningHours from '../PickupLocationOpeningHours/PickupLoca
 import PickupLocationName from '../PickupLocationList/PickupLocationName.vue';
 import {usePickupLocation} from '../../../../composables/usePickupLocation';
 
-const props = defineProps<{
-  /**
-   * JSON encoded ResolvedPickupLocation
-   * @see ResolvedPickupLocation
-   */
-  pickupLocation: string;
-}>();
+const props = defineProps<{pickupLocation: string}>();
 const propRefs = toRefs(props);
 
 const {carrier} = usePickupLocation(propRefs.pickupLocation);

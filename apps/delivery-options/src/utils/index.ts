@@ -12,4 +12,6 @@ export * from './getResolvedValue';
 export * from './padStart';
 export * from './showDeveloperInfo';
 export * from './toTime';
+export {findPickupLocation} from './findPickupLocation';
+
 export {stringToDate} from './stringToDate';

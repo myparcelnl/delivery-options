@@ -4,7 +4,6 @@ import {
   type DeliveryOutput,
   type InternalOutput,
   type MakeRequired,
-  type OutputPickupLocation,
   type PickupOutput,
 } from '@myparcel-do/shared';
 import {CarrierName, DeliveryTypeName, PackageTypeName, ShipmentOptionName} from '@myparcel/constants';
@@ -33,18 +32,18 @@ const createDeliveryOutput = (output: InternalOutput): DeliveryOutput => {
 };
 
 const createPickupOutput = (output: InternalOutputWithPickupLocation): PickupOutput => {
-  const {carrier, location} = usePickupLocation(output.pickupLocation);
+  const result = usePickupLocation(output.pickupLocation);
 
-  const carrierIdentifier = carrier?.value?.identifier ?? CarrierName.PostNl;
+  const {carrier, location} = result;
 
   return {
     date: undefined,
     isPickup: true,
+    carrier: carrier.value?.identifier ?? CarrierName.PostNl,
     deliveryType: DeliveryTypeName.Pickup,
     packageType: PackageTypeName.Package,
     shipmentOptions: {},
-    carrier: carrierIdentifier,
-    pickupLocation: location.value ?? ({} as OutputPickupLocation),
+    pickupLocation: location.value,
   };
 };
 

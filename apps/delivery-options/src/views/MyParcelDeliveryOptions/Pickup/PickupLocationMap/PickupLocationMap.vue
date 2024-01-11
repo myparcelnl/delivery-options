@@ -10,7 +10,8 @@
           <PickupLocationMapMarker
             v-for="location in pickupLocations"
             :key="location.location.location_code"
-            :pickup-location="location" />
+            :active="model === location.location.location_code"
+            :pickup-location="location.location.location_code" />
         </template>
       </Suspense>
     </OsmMap>
@@ -26,10 +27,12 @@
 <script lang="ts" setup>
 import PickupLocationMapMarker from '../PickupLocationMapMarker/PickupLocationMapMarker.vue';
 import {useDeliveryOptionsForm} from '../../../../form';
-import {useResolvedPickupLocations} from '../../../../composables';
+import {useResolvedPickupLocations, useSelectedPickupLocation} from '../../../../composables';
 import OsmMap from '../../../../components/map/OsmMap/OsmMap.vue';
 import PickupLocationDetails from './PickupLocationDetails.vue';
 
 const pickupLocations = useResolvedPickupLocations();
 const form = useDeliveryOptionsForm();
+
+const {model} = useSelectedPickupLocation();
 </script>

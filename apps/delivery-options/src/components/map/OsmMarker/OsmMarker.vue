@@ -6,8 +6,9 @@
 import {inject, onUnmounted, type Ref, ref, toRefs, watch} from 'vue';
 import {type Map, type Marker, type MarkerOptions} from 'leaflet';
 import {isDef, watchOnce} from '@vueuse/core';
+import {MAP_MARKER_CLASS_ACTIVE} from '../../../data';
 
-const props = defineProps<{center: [number, number]; options: MarkerOptions}>();
+const props = defineProps<{center: [number, number]; options: MarkerOptions; active?: boolean}>();
 const propRefs = toRefs(props);
 
 const emit = defineEmits<(event: 'click', marker: Marker) => void>();
@@ -19,26 +20,10 @@ const markers = inject<Ref<Marker[]>>('markers')!;
 
 const marker = ref<Marker>();
 
-const CLASS_MARKER_ACTIVE = 'active';
-
-const toggleActiveClass = (): void => {
-  markers?.value.forEach((item) => {
-    if (item === marker.value) {
-      return;
-    }
-
-    item.getElement()?.classList.remove(CLASS_MARKER_ACTIVE);
-  });
-
-  marker.value?.getElement()?.classList.add(CLASS_MARKER_ACTIVE);
-};
-
 const onMarkerClick = (): void => {
   if (!isDef(marker.value)) {
     return;
   }
-
-  toggleActiveClass();
 
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   emit('click', marker.value);
@@ -75,6 +60,14 @@ watchOnce(
   },
   {immediate: Boolean(map?.value)},
 );
+
+watch(propRefs.active, () => {
+  if (!isDef(marker.value)) {
+    return;
+  }
+
+  marker.value.getElement()?.classList[propRefs.active.value ? 'add' : 'remove'](MAP_MARKER_CLASS_ACTIVE);
+});
 
 onUnmounted(() => {
   if (!isDef(marker.value)) {

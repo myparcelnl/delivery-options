@@ -5,10 +5,12 @@
     </template>
 
     <template #content="{option}">
-      <PickupLocationDetails
-        v-if="value === option.value"
-        :pickup-location="option.value"
-        class="mp-mb-2" />
+      <KeepAlive>
+        <PickupLocationDetails
+          v-if="model === option.value"
+          :pickup-location="option.value"
+          class="mp-mb-2" />
+      </KeepAlive>
     </template>
   </PickupLocation.Component>
 
@@ -24,18 +26,16 @@
 <script lang="ts" setup>
 import {computed, ref} from 'vue';
 import {get} from '@vueuse/core';
-import {DEFAULT_MAX_PAGE_ITEMS, LOAD_MORE, type SelectOption} from '@myparcel-do/shared';
+import {DEFAULT_MAX_PAGE_ITEMS, LOAD_MORE, PickupLocationsView, type SelectOption} from '@myparcel-do/shared';
 import {createField} from '@myparcel/vue-form-builder';
 import {FIELD_PICKUP_LOCATION} from '../../../../data';
-import {useLanguage, useResolvedPickupLocations} from '../../../../composables';
+import {useLanguage, useResolvedPickupLocations, useSelectedPickupLocation} from '../../../../composables';
 import DoButton from '../../../../components/common/DoButton/DoButton.vue';
 import {RadioGroupInput} from '../../../../components';
 import PickupLocationListItem from './PickupLocationListItem.vue';
 import PickupLocationDetails from './PickupLocationDetails.vue';
 
 const pickupLocations = useResolvedPickupLocations();
-
-const value = ref();
 
 const shown = ref(DEFAULT_MAX_PAGE_ITEMS);
 
@@ -46,15 +46,17 @@ const options = computed<SelectOption[]>(() => {
     .map((option) => ({
       label: option.location.location_name,
       carrier: option.carrier,
-      value: JSON.stringify(option),
+      value: option.location.location_code,
     }))
     .slice(0, shown.value);
 });
 
+const {model} = useSelectedPickupLocation();
+
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const PickupLocation = createField({
-  name: FIELD_PICKUP_LOCATION,
-  ref: value,
+  name: `${PickupLocationsView.List}_${FIELD_PICKUP_LOCATION}`,
+  ref: model,
   component: RadioGroupInput,
   props: {
     loading: computed(() => !options.value.length),

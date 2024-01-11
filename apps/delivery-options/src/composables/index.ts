@@ -13,3 +13,4 @@ export * from './useResolvedDeliveryOptions';
 export * from './useResolvedPickupLocations';
 export * from './useSelectedDeliveryDate';
 export * from './useSelectedDeliveryMoment';
+export * from './useSelectedPickupLocation';

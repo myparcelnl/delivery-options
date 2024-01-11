@@ -111,7 +111,7 @@ describe('convertOutput', () => {
     {
       internal: createInternalOutput({
         homeOrPickup: HOME_OR_PICKUP_PICKUP,
-        pickupLocation: JSON.stringify(fakePickupLocation),
+        pickupLocation: fakePickupLocation.location.location_code,
       }),
 
       external: createExternalOutput({

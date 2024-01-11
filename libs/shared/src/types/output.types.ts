@@ -22,29 +22,21 @@ export interface DeliveryOutput extends BaseOutput {
 }
 
 export type OutputPickupLocation = {
-  locationName: string;
-  locationCode: string;
-  retailNetworkId: string;
   /** @since v6.0.0 */
   type: PickupLocationType;
 
+  locationName: string;
+  locationCode: string;
+  retailNetworkId: string;
+
+  latitude: number;
+  longitude: number;
   street: string;
   number: string;
   numberSuffix: string;
   postalCode: string;
   city: string;
   cc: string;
-
-  /** @deprecated use numberSuffix */
-  number_suffix?: string;
-  /** @deprecated use postalCode */
-  postal_code?: string;
-  /** @deprecated use locationName */
-  location_name?: string;
-  /** @deprecated use locationCode */
-  location_code?: string;
-  /** @deprecated use retailNetworkId */
-  retail_network_id?: string;
 };
 
 export interface PickupOutput extends BaseOutput {
@@ -67,7 +59,7 @@ export type InternalOutput = {
   shipmentOptions?: ShipmentOptionName[];
 
   /**
-   * JSON encoded ResolvedPickupLocation
+   * Location code.
    */
   pickupLocation?: string;
 };

@@ -15,3 +15,7 @@ export const HOME_OR_PICKUP_PICKUP = 'pickup';
 export const FIELD_PICKUP_LOCATION = 'pickupLocation';
 
 export const SHOWN_SHIPMENT_OPTIONS = [ShipmentOptionName.Signature, ShipmentOptionName.OnlyRecipient] as const;
+
+export const MAP_MARKER_CLASS_ACTIVE = 'active';
+
+export const MAP_MARKER_CLASS_PREFIX = 'mp__carrier-marker';

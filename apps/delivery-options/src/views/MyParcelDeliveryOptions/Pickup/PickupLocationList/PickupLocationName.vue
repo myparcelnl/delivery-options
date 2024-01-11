@@ -21,13 +21,7 @@ import {useLanguage} from '../../../../composables';
 import ParcelLockerIcon from '../../../../components/icons/ParcelLockerIcon.vue';
 import InfoLabel from '../../../../components/common/InfoLabel/InfoLabel.vue';
 
-const props = defineProps<{
-  /**
-   * JSON encoded ResolvedPickupLocation
-   * @see ResolvedPickupLocation
-   * */
-  pickupLocation: string;
-}>();
+const props = defineProps<{pickupLocation: string}>();
 const propRefs = toRefs(props);
 
 const {translate} = useLanguage();
