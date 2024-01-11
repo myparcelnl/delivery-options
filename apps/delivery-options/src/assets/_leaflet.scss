@@ -4,11 +4,16 @@
  * Animates marker movement. Taken from https://gist.github.com/meule/777d9a8a42e2c99a3386
  */
 .leaflet-marker-pane > * {
-  transition: transform .3s linear;
+  @apply mp-transition-transform;
 }
 
 @each $carrier, $color in $carriers {
-  .leaflet-marker-pane .mp__carrier-marker--#{$carrier}.active path {
-    fill: $color !important;
+  .leaflet-marker-pane .mp__carrier-marker--#{$carrier}.active {
+    // Always show active markers on top
+    @apply mp-z-[9999] #{!important};
+
+    path {
+      fill: $color !important;
+    }
   }
 }
