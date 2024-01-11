@@ -1,6 +1,5 @@
 import {computed} from 'vue';
 import {useMemoize} from '@vueuse/core';
-import {findPickupLocation} from '../utils';
 import {useDeliveryOptionsForm} from '../form';
 import {FIELD_PICKUP_LOCATION} from '../data';
 
@@ -17,9 +16,5 @@ export const useSelectedPickupLocation = useMemoize(() => {
     },
   });
 
-  return {
-    model,
-
-    location: computed(() => findPickupLocation(model.value)),
-  };
+  return {model};
 });
