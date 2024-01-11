@@ -13,20 +13,28 @@ import {computed} from 'vue';
 import {AddressField, KEY_ADDRESS} from '@myparcel-do/shared';
 import {ALL_COUNTRIES} from '@myparcel/constants/countries';
 import {formField, formSection} from '../form';
+import {useAvailableCarriers, useLanguage} from '../composables';
 import FormTextInput from './form/input/FormTextInput.vue';
 import {FormSelectInput} from './form/input';
 import SandboxSettingsSection from './form/SandboxSettingsSection.vue';
 import {Box} from './Box';
 import AutoAnchor from './AutoAnchor.vue';
 
-// todo filter by carrier countries
+const allCarriers = useAvailableCarriers();
+
+const {translate} = useLanguage();
+
 const countries = computed(() => {
   return ALL_COUNTRIES.filter((country) => {
-    return true;
-  }).map((country) => ({
-    label: country,
-    value: country,
-  }));
+    return allCarriers.value?.some((carrier) => {
+      return carrier.hasDeliveryInCountry(country) || carrier.hasPickupInCountry(country);
+    });
+  })
+    .map((country) => ({
+      label: translate(`country_${country.toLowerCase()}`),
+      value: country,
+    }))
+    .sort((a, b) => a.label.localeCompare(b.label));
 });
 
 const section = formSection({
@@ -77,51 +85,4 @@ const section = formSection({
     }),
   ],
 });
-
-//
-// // eslint-disable-next-line @typescript-eslint/naming-convention
-// const Cc = createField({
-//   label: AddressField.Country,
-//   name: `${KEY_ADDRESS}.${AddressField.Country}`,
-//   ref: ref(),
-//   component: SelectInput,
-//   props: {
-//     autocomplete: 'country',
-//     loading: computed(() => !countries.value.length),
-//     options: countries,
-//   },
-// });
-//
-// // eslint-disable-next-line @typescript-eslint/naming-convention
-// const Street = createField({
-//   label: AddressField.Street,
-//   name: `${KEY_ADDRESS}.${AddressField.Street}`,
-//   ref: ref(),
-//   component: FormTextInput,
-//   attributes: {
-//     autocomplete: 'address-line1',
-//   },
-// });
-//
-// // eslint-disable-next-line @typescript-eslint/naming-convention
-// const PostalCode = createField({
-//   label: AddressField.PostalCode,
-//   name: `${KEY_ADDRESS}.${AddressField.PostalCode}`,
-//   ref: ref(),
-//   component: FormTextInput,
-//   attributes: {
-//     autocomplete: 'postal-code',
-//   },
-// });
-//
-// // eslint-disable-next-line @typescript-eslint/naming-convention
-// const City = createField({
-//   label: AddressField.City,
-//   name: `${KEY_ADDRESS}.${AddressField.City}`,
-//   ref: ref(),
-//   component: FormTextInput,
-//   attributes: {
-//     autocomplete: 'address-level2',
-//   },
-// });
 </script>
