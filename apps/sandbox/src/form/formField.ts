@@ -33,6 +33,7 @@ export const formField = <T, Props extends ComponentProps = ComponentProps>(
       name: fullName,
       props: {
         description: `${optionLabel}_description`,
+        ...input.props,
       },
     }),
   );
