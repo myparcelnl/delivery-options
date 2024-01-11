@@ -5,7 +5,7 @@
     </component>
   </AutoAnchor>
 
-  <SubText v-if="field.description">
+  <SubText v-if="field.description && has(field.description)">
     {{ translate(field.description) }}
   </SubText>
 
@@ -25,7 +25,7 @@ import SandboxSettingsEntry from './SandboxSettingsEntry.vue';
 
 const props = defineProps<{field: SettingsGroup; level?: number | string}>();
 
-const {translate} = useLanguage();
+const {translate, has} = useLanguage();
 
 const resolvedFields = computed(() => props?.field?.fields ?? []);
 </script>
