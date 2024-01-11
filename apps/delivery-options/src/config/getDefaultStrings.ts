@@ -2,9 +2,6 @@ import {
   ADDRESS_NOT_FOUND,
   CITY,
   CLOSED,
-  DELIVERY_EVENING_TITLE,
-  DELIVERY_MORNING_TITLE,
-  DELIVERY_STANDARD_TITLE,
   DELIVERY_TITLE,
   DISCOUNT,
   ERROR_3212,
@@ -57,9 +54,6 @@ export const getDefaultStrings = () => ({
   [HEADER_DELIVERY_OPTIONS]: '',
 
   // Title of options
-  [DELIVERY_EVENING_TITLE]: '',
-  [DELIVERY_MORNING_TITLE]: '',
-  [DELIVERY_STANDARD_TITLE]: '',
   [DELIVERY_TITLE]: 'Thuis of op het werk bezorgen',
   [ONLY_RECIPIENT_TITLE]: 'Alleen ontvanger',
   [PICK_UP]: 'Afhalen',
