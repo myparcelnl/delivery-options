@@ -1,6 +1,6 @@
 <template>
   <div class="@sm:mp-flex-row mp-border mp-flex mp-flex-col mp-overflow-hidden mp-relative mp-rounded-2xl">
-    <OsmMap
+    <LeafletMap
       :class="{
         '@sm:mp-w-1/2': Boolean(form.values.pickupLocation),
       }"
@@ -14,7 +14,7 @@
             :pickup-location="location.location.location_code" />
         </template>
       </Suspense>
-    </OsmMap>
+    </LeafletMap>
 
     <div
       v-if="form.values.pickupLocation"
@@ -28,7 +28,7 @@
 import PickupLocationMapMarker from '../PickupLocationMapMarker/PickupLocationMapMarker.vue';
 import {useDeliveryOptionsForm} from '../../../../form';
 import {useResolvedPickupLocations, useSelectedPickupLocation} from '../../../../composables';
-import OsmMap from '../../../../components/map/OsmMap/OsmMap.vue';
+import LeafletMap from '../../../../components/map/LeafletMap/LeafletMap.vue';
 import PickupLocationDetails from './PickupLocationDetails.vue';
 
 const pickupLocations = useResolvedPickupLocations();

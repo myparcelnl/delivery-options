@@ -1,5 +1,5 @@
 <template>
-  <OsmMarker
+  <LeafletMarker
     v-if="carrier"
     v-bind="{active, center, options}"
     @click="onClick" />
@@ -12,7 +12,7 @@ import {createCarrierMarkerIcon} from '../../../../utils/createCarrierMarkerIcon
 import {MAP_MARKER_CLASS_PREFIX} from '../../../../data';
 import {usePickupLocation} from '../../../../composables/usePickupLocation';
 import {useSelectedPickupLocation} from '../../../../composables';
-import OsmMarker from '../../../../components/map/OsmMarker/OsmMarker.vue';
+import LeafletMarker from '../../../../components/map/LeafletMarker/LeafletMarker.vue';
 
 const props = defineProps<{pickupLocation: string; active: boolean}>();
 const propRefs = toRefs(props);

@@ -13,11 +13,11 @@ import {isString} from 'radash';
 import {type Control, type Map, type Marker, type TileLayer} from 'leaflet';
 import {isDef, useDebounceFn, useScriptTag, useStyleTag} from '@vueuse/core';
 import {type MapTileLayerData} from '@myparcel-do/shared';
-import {type OsmMapProps} from '../../../types/map.types';
+import {type LeafletMapProps} from '../../../types/map.types';
 import {useConfigStore} from '../../../stores';
 
 // eslint-disable-next-line vue/no-unused-properties
-const props = defineProps<OsmMapProps>();
+const props = defineProps<LeafletMapProps>();
 const propRefs = toRefs(props);
 
 const container = ref<HTMLElement>();

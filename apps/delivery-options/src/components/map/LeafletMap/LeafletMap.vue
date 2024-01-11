@@ -4,20 +4,20 @@
       <template #fallback>Loading...</template>
 
       <template #default>
-        <OsmMapInner v-bind="props">
+        <LeafletMapInner v-bind="props">
           <slot />
-        </OsmMapInner>
+        </LeafletMapInner>
       </template>
     </Suspense>
   </div>
 </template>
 
 <script lang="ts" setup>
-import OsmMapInner from '../OsmMapInner/OsmMapInner.vue';
-import {type OsmMapProps} from '../../../types/map.types';
+import LeafletMapInner from '../LeafletMapInner/LeafletMapInner.vue';
+import {type LeafletMapProps} from '../../../types/map.types';
 
 // eslint-disable-next-line vue/no-unused-properties
-const props = withDefaults(defineProps<OsmMapProps>(), {
+const props = withDefaults(defineProps<LeafletMapProps>(), {
   zoom: 14,
   height: '100%',
 });
