@@ -33,7 +33,7 @@ import {
 /**
  * Get the default strings.
  */
-export const getDefaultStrings = () => ({
+export const getDefaultStrings = (): Record<string, string> => ({
   // Address strings
   [CITY]: 'Plaats',
   [POSTAL_CODE]: 'Postcode',

@@ -38,5 +38,3 @@ defineProps<{
   footer?: string[];
 }>();
 </script>
-
-<style scoped></style>

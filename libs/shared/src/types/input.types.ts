@@ -52,9 +52,9 @@ export type RadioGroupProps<T extends RadioGroupModelValue> = InputProps<T> & Op
 
 export type RadioGroupEmits<T extends RadioGroupModelValue> = ElementEmits<T>;
 
-export type TextInputModelValue = InputProps<string | number>;
+export type TextInputModelValue = string | number | undefined;
 
-export type TextInputProps = InputProps<string | number>;
+export type TextInputProps = InputProps<TextInputModelValue>;
 
 export type TextInputEmits = ElementEmits<string>;
 

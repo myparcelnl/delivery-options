@@ -15,8 +15,7 @@
     </template>
 
     <template
-      v-for="(slot, index) in Object.keys($slots)"
-      :key="index"
+      v-for="slot in Object.keys($slots)"
       #[slot]="context">
       <slot
         :name="slot"
