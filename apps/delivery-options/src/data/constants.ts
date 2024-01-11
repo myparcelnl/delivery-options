@@ -19,3 +19,5 @@ export const SHOWN_SHIPMENT_OPTIONS = [ShipmentOptionName.Signature, ShipmentOpt
 export const MAP_MARKER_CLASS_ACTIVE = 'active';
 
 export const MAP_MARKER_CLASS_PREFIX = 'mp__carrier-marker';
+
+export const SHOWN_OPENING_HOURS = 3;

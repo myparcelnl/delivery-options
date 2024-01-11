@@ -19,14 +19,14 @@
     class="mp-mt-4"
     type="button"
     @click="loadMore">
-    {{ translate(LOAD_MORE) }}
+    {{ translate(SHOW_MORE_LOCATIONS) }}
   </DoButton>
 </template>
 
 <script lang="ts" setup>
 import {computed, ref} from 'vue';
 import {get} from '@vueuse/core';
-import {DEFAULT_MAX_PAGE_ITEMS, LOAD_MORE, PickupLocationsView, type SelectOption} from '@myparcel-do/shared';
+import {DEFAULT_MAX_PAGE_ITEMS, PickupLocationsView, type SelectOption, SHOW_MORE_LOCATIONS} from '@myparcel-do/shared';
 import {createField} from '@myparcel/vue-form-builder';
 import {FIELD_PICKUP_LOCATION} from '../../../../data';
 import {useLanguage, useResolvedPickupLocations, useSelectedPickupLocation} from '../../../../composables';

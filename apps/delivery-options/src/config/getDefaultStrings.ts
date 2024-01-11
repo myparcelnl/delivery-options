@@ -15,7 +15,6 @@ import {
   ERROR_3728,
   FROM,
   HEADER_DELIVERY_OPTIONS,
-  LOAD_MORE,
   NUMBER,
   ONLY_RECIPIENT_TITLE,
   OPENING_HOURS,
@@ -26,6 +25,8 @@ import {
   PICKUP_LOCATIONS_MAP_BUTTON,
   PICKUP_TITLE,
   POSTAL_CODE,
+  SHOW_MORE_HOURS,
+  SHOW_MORE_LOCATIONS,
   SIGNATURE_TITLE,
   STREET,
   STRINGS_PACKAGE_TYPE_DIGITAL_STAMP,
@@ -47,7 +48,10 @@ export const getDefaultStrings = () => ({
   [CLOSED]: 'Gesloten',
   [DISCOUNT]: 'Korting',
   [FROM]: 'Vanaf',
-  [LOAD_MORE]: 'Laad meer',
+
+  // [LOAD_MORE]: 'Laad meer',
+  [SHOW_MORE_LOCATIONS]: 'Toon meer locaties',
+  [SHOW_MORE_HOURS]: 'Toon meer openingstijden',
 
   // Main header
   [HEADER_DELIVERY_OPTIONS]: '',

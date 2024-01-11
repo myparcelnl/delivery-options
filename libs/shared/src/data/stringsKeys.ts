@@ -19,6 +19,10 @@ export const FROM = 'from';
 
 export const LOAD_MORE = 'loadMore';
 
+export const SHOW_MORE_LOCATIONS = 'showMoreLocations';
+
+export const SHOW_MORE_HOURS = 'showMoreHours';
+
 export const PICK_UP = 'pickUp';
 
 export const PICK_UP_FROM = 'pickUpFrom';

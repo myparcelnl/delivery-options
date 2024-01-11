@@ -1,10 +1,52 @@
 <template>
   <button
-    :class="[
+    :class="classes"
+    type="button">
+    <slot />
+
+    <span
+      v-if="props.link"
+      class="mp-not-sr-only">
+      &or;
+    </span>
+  </button>
+</template>
+
+<script lang="ts" setup>
+import {computed} from 'vue';
+
+const props = defineProps<{
+  active?: boolean;
+
+  /**
+   * To show the button as a link.
+   */
+  link?: boolean;
+}>();
+
+const classes = computed(() => {
+  const classList: (string | Record<string, unknown>)[] = [
+    // Colors
+    'dark:mp-border-gray-700',
+    'dark:mp-text-gray-300',
+    'mp-text-gray-500',
+
+    'mp-transition-colors',
+
+    // Spacing
+    'mp-py-2',
+    'mp-flex-grow',
+  ];
+
+  if (props.link) {
+    classList.push({
+      'mp-text-gray-800 mp-underline': props.active,
+      'hover:mp-text-gray-900 dark:hover:mp-text-gray-200 hover:mp-underline': !props.active,
+    });
+  } else {
+    classList.push(
       // Spacing
       'mp-px-5',
-      'mp-py-2',
-      'mp-flex-grow',
       'mp-w-full',
 
       // Borders
@@ -16,22 +58,15 @@
       'mp-border',
 
       // Colors
-      'dark:mp-border-gray-700',
-      'dark:mp-text-gray-100',
       'mp-bg-white',
-      'mp-text-gray-900',
-      'mp-transition-colors',
 
       {
-        'dark:mp-bg-gray-900 mp-bg-gray-200': active,
-        'hover:mp-bg-gray-100 dark:hover:mp-bg-gray-700 dark:mp-bg-gray-800 mp-bg-gray-100': !active,
+        'dark:mp-bg-gray-900 mp-bg-gray-200': props.active,
+        'hover:mp-bg-gray-100 dark:hover:mp-bg-gray-700 dark:mp-bg-gray-800 mp-bg-gray-100': !props.active,
       },
-    ]"
-    type="button">
-    <slot />
-  </button>
-</template>
+    );
+  }
 
-<script lang="ts" setup>
-defineProps<{active?: boolean}>();
+  return classList;
+});
 </script>
