@@ -45,14 +45,6 @@ export const SIGNATURE_TITLE = 'signatureTitle';
 
 export const CHOOSE_DATE = 'chooseDate';
 
-export const WRONG_NUMBER_POSTAL_CODE = 'wrongNumberPostalCode';
-
-export const WRONG_POSTAL_CODE_CITY = 'wrongPostalCodeCity';
-
-export const MONDAY_DELIVERY_TITLE = 'mondayDeliveryTitle';
-
-export const SATURDAY_DELIVERY_TITLE = 'saturdayDeliveryTitle';
-
 export const PICKUP_LOCATIONS_LIST_BUTTON = 'pickupLocationsListButton';
 
 export const PICKUP_LOCATIONS_MAP_BUTTON = 'pickupLocationsMapButton';
@@ -85,7 +77,6 @@ export const ALL_STRINGS = [
   ECO_FRIENDLY,
   FROM,
   HEADER_DELIVERY_OPTIONS,
-  MONDAY_DELIVERY_TITLE,
   NUMBER,
   ONLY_RECIPIENT_TITLE,
   OPENING_HOURS,
@@ -96,15 +87,12 @@ export const ALL_STRINGS = [
   PICK_UP,
   PICK_UP_FROM,
   POSTAL_CODE,
-  SATURDAY_DELIVERY_TITLE,
   SHOW_MORE_HOURS,
   SHOW_MORE_LOCATIONS,
   SIGNATURE_TITLE,
   STREET,
   STRINGS_PACKAGE_TYPE_DIGITAL_STAMP,
   STRINGS_PACKAGE_TYPE_MAILBOX,
-  WRONG_NUMBER_POSTAL_CODE,
-  WRONG_POSTAL_CODE_CITY,
   ERROR_3212,
   ERROR_3224,
   ERROR_3501,
