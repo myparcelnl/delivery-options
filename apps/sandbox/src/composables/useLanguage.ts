@@ -48,11 +48,30 @@ const loadLanguage = useMemoize(async (language: LanguageDefinition): Promise<Tr
   return {...(await resultA.json()), ...(await resultB.json())};
 });
 
-const translate = useMemoize((key: string): string => state.translations[language.value.code]?.[key] ?? key, {
-  getKey: (key) => {
-    return `${language.value.code}_${key}`;
+const translate = useMemoize(
+  (key: string): string => {
+    const result = state.translations[language.value.code]?.[key];
+
+    if (!result) {
+      return key;
+    }
+
+    const matches = result.match(/@:([^"]+)/g);
+
+    if (matches) {
+      return matches.reduce((acc, match) => {
+        return acc.replace(match, translate(match.substring(2)));
+      }, result);
+    }
+
+    return result;
   },
-});
+  {
+    getKey: (key) => {
+      return `${language.value.code}_${key}`;
+    },
+  },
+);
 
 const initializeLanguage = async (): Promise<void> => {
   const preferredLanguages = usePreferredLanguages();
