@@ -13,6 +13,8 @@ interface UseLanguage {
   loading: Ref<boolean>;
   strings: Ref<DeliveryOptionsStrings>;
 
+  has(key: string): boolean;
+
   load(): Promise<void>;
 
   setLanguage(languageCode: string): Promise<void>;
@@ -82,6 +84,7 @@ const setLanguage = async (languageCode: string) => {
 };
 
 const TRANSLATION_PREFIX = 'd_o_';
+
 export const useLanguage = (): UseLanguage => {
   const load = async (): Promise<void> => {
     if (state.initialized) {
@@ -96,6 +99,11 @@ export const useLanguage = (): UseLanguage => {
   return {
     load,
     translate,
+
+    has(key: string): boolean {
+      return !!state.translations[language.value.code]?.[key];
+    },
+
     setLanguage,
 
     language,

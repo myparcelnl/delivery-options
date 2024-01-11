@@ -5,10 +5,9 @@
     </component>
   </AutoAnchor>
 
-  <p
-    v-if="field.description"
-    class="mp-mb-4 mp-text-gray-600 mp-text-sm"
-    v-text="translate(field.description)" />
+  <SubText v-if="field.description">
+    {{ translate(field.description) }}
+  </SubText>
 
   <SandboxSettingsEntry
     v-for="subField in resolvedFields"
@@ -18,6 +17,7 @@
 
 <script lang="ts" setup>
 import {computed} from 'vue';
+import SubText from '../SubText.vue';
 import AutoAnchor from '../AutoAnchor.vue';
 import {type SettingsGroup} from '../../types';
 import {useLanguage} from '../../composables';
