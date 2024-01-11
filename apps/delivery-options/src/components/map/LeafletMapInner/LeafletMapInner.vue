@@ -8,13 +8,14 @@
 
 <script lang="ts" setup>
 /* eslint-disable new-cap */
-import {computed, onMounted, onUnmounted, provide, ref, toRefs, watch} from 'vue';
+import {computed, onActivated, onMounted, onUnmounted, provide, ref, toRefs, watch} from 'vue';
 import {isString} from 'radash';
 import {type Control, type Map, type Marker, type TileLayer} from 'leaflet';
 import {isDef, useDebounceFn, useScriptTag, useStyleTag} from '@vueuse/core';
 import {type MapTileLayerData} from '@myparcel-do/shared';
 import {type LeafletMapProps} from '../../../types/map.types';
 import {useConfigStore} from '../../../stores';
+import {MAP_MARKER_CLASS_ACTIVE} from '../../../data';
 
 // eslint-disable-next-line vue/no-unused-properties
 const props = defineProps<LeafletMapProps>();
@@ -86,4 +87,13 @@ onUnmounted(() => {
 });
 
 onUnmounted(watch(propRefs.zoom, () => map.value?.setZoom(propRefs.zoom.value)));
+
+// Center active marker on activation of the component.
+onActivated(() => {
+  const activeMarker = markers.value.find((marker) => marker.getElement()?.classList.contains(MAP_MARKER_CLASS_ACTIVE));
+
+  if (isDef(activeMarker)) {
+    map.value?.panTo(activeMarker.getLatLng());
+  }
+});
 </script>

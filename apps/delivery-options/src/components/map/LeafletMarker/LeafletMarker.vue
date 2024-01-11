@@ -61,15 +61,21 @@ watchOnce(
   {immediate: Boolean(map?.value)},
 );
 
-watch(propRefs.active, () => {
-  if (!isDef(marker.value)) {
-    return;
-  }
+const unwatch = watch(
+  propRefs.active,
+  () => {
+    if (!isDef(marker.value)) {
+      return;
+    }
 
-  marker.value.getElement()?.classList[propRefs.active.value ? 'add' : 'remove'](MAP_MARKER_CLASS_ACTIVE);
-});
+    marker.value.getElement()?.classList[propRefs.active.value ? 'add' : 'remove'](MAP_MARKER_CLASS_ACTIVE);
+  },
+  {immediate: true},
+);
 
 onUnmounted(() => {
+  unwatch();
+
   if (!isDef(marker.value)) {
     return;
   }
