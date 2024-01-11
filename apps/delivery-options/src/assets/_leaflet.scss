@@ -7,6 +7,10 @@
   @apply mp-transition-transform;
 }
 
+.leaflet-container .leaflet-control-attribution {
+  @apply mp-max-w-prose;
+}
+
 @each $carrier, $color in $carriers {
   .leaflet-marker-pane .mp__carrier-marker--#{$carrier}.active {
     // Always show active markers on top
