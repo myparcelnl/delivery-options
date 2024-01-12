@@ -46,6 +46,11 @@ Object {
       ],
     ],
   },
+  "getDefaultRequestParameters": Array [
+    "city",
+    "postalCode",
+  ],
+  "hasFakeDelivery": false,
   "name": "bpost",
   "platformFeatures": Array [],
 }
@@ -103,6 +108,11 @@ Object {
       ],
     ],
   },
+  "getDefaultRequestParameters": Array [
+    "city",
+    "postalCode",
+  ],
+  "hasFakeDelivery": false,
   "name": "dhl",
   "platformFeatures": Array [
     Array [
@@ -160,6 +170,12 @@ Object {
       ],
     ],
   },
+  "getDefaultRequestParameters": Array [
+    "city",
+    "postalCode",
+    "street",
+  ],
+  "hasFakeDelivery": false,
   "name": "dhleuroplus",
   "platformFeatures": Array [
     Array [
@@ -217,6 +233,11 @@ Object {
       ],
     ],
   },
+  "getDefaultRequestParameters": Array [
+    "city",
+    "postalCode",
+  ],
+  "hasFakeDelivery": false,
   "name": "dhlforyou",
   "platformFeatures": Array [
     Array [
@@ -319,6 +340,12 @@ Object {
       ],
     ],
   },
+  "getDefaultRequestParameters": Array [
+    "city",
+    "postalCode",
+    "street",
+  ],
+  "hasFakeDelivery": false,
   "name": "dhlparcelconnect",
   "platformFeatures": Array [
     Array [
@@ -410,6 +437,12 @@ Object {
       ],
     ],
   },
+  "getDefaultRequestParameters": Array [
+    "postalCode",
+    "street",
+    "city",
+  ],
+  "hasFakeDelivery": false,
   "name": "dpd",
   "platformFeatures": Array [
     Array [
@@ -517,6 +550,12 @@ Object {
       ],
     ],
   },
+  "getDefaultRequestParameters": Array [
+    "postalCode",
+    "street",
+    "city",
+  ],
+  "hasFakeDelivery": true,
   "name": "postnl",
   "platformFeatures": Array [
     Array [
@@ -610,6 +649,12 @@ Object {
       ],
     ],
   },
+  "getDefaultRequestParameters": Array [
+    "postalCode",
+    "street",
+    "city",
+  ],
+  "hasFakeDelivery": true,
   "name": "ups",
   "platformFeatures": Array [
     Array [

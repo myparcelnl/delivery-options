@@ -13,6 +13,8 @@ describe('CarrierConfigurationFactory', () => {
       countriesForDelivery: config.getCountriesForDelivery(),
       countriesBlacklist: config.getCountriesBlacklist(),
       countriesForPickup: config.getCountriesForPickup(),
+      hasFakeDelivery: config.hasFakeDelivery(),
+      getDefaultRequestParameters: config.getDefaultRequestParameters(),
     }).toMatchSnapshot();
   });
 
