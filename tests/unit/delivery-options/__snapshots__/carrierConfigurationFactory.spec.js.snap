@@ -2,6 +2,7 @@
 
 exports[`CarrierConfigurationFactory should create a configuration for bpost 1`] = `
 Object {
+  "countriesBlacklist": Array [],
   "countriesForDelivery": Array [
     "BE",
     "NL",
@@ -52,6 +53,7 @@ Object {
 
 exports[`CarrierConfigurationFactory should create a configuration for dhl 1`] = `
 Object {
+  "countriesBlacklist": Array [],
   "countriesForDelivery": Array [
     "AT",
     "BG",
@@ -120,6 +122,7 @@ Object {
 
 exports[`CarrierConfigurationFactory should create a configuration for dhleuroplus 1`] = `
 Object {
+  "countriesBlacklist": Array [],
   "countriesForDelivery": Array [
     "BE",
     "BG",
@@ -169,6 +172,7 @@ Object {
 
 exports[`CarrierConfigurationFactory should create a configuration for dhlforyou 1`] = `
 Object {
+  "countriesBlacklist": Array [],
   "countriesForDelivery": Array [
     "NL",
     "BE",
@@ -254,6 +258,7 @@ Object {
 
 exports[`CarrierConfigurationFactory should create a configuration for dhlparcelconnect 1`] = `
 Object {
+  "countriesBlacklist": Array [],
   "countriesForDelivery": Array [
     "BG",
     "DE",
@@ -330,6 +335,7 @@ Object {
 
 exports[`CarrierConfigurationFactory should create a configuration for dpd 1`] = `
 Object {
+  "countriesBlacklist": Array [],
   "countriesForDelivery": Array [
     "AT",
     "BE",
@@ -416,6 +422,7 @@ Object {
 
 exports[`CarrierConfigurationFactory should create a configuration for postnl 1`] = `
 Object {
+  "countriesBlacklist": Array [],
   "countriesForDelivery": Array [
     "NL",
     "BE",
@@ -567,6 +574,9 @@ Object {
 
 exports[`CarrierConfigurationFactory should create a configuration for ups 1`] = `
 Object {
+  "countriesBlacklist": Array [
+    "NL",
+  ],
   "countriesForDelivery": Array [
     "BG",
     "DE",
