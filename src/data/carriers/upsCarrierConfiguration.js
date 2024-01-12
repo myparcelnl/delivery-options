@@ -16,13 +16,13 @@ import {
   LATVIA,
   LITHUANIA,
   LUXEMBOURG,
+  NETHERLANDS,
   POLAND,
   PORTUGAL,
   ROMANIA,
   SLOVAKIA,
   SLOVENIA,
-  SPAIN,
-  SWEDEN,
+  SPAIN, SWEDEN,
 } from '@myparcel/js-sdk/dist/constant/countries-iso2';
 import { CITY, POSTAL_CODE, STREET } from '../keys/addressKeys';
 import { MYPARCEL, SENDMYPARCEL } from '@/data/keys/platformKeys';
@@ -65,6 +65,10 @@ export class UpsCarrierConfiguration extends AbstractCarrierConfiguration {
 
   hasFakeDelivery() {
     return true;
+  }
+
+  getCountriesBlacklist() {
+    return [NETHERLANDS];
   }
 
   getCountriesForPickup() {
