@@ -4,10 +4,8 @@ import {
   BULGARIA,
   CROATIA,
   CZECH_REPUBLIC,
-  DENMARK,
   ESTONIA,
   FINLAND,
-  FRANCE,
   GERMANY,
   GREECE,
   HUNGARY,
@@ -22,11 +20,11 @@ import {
   ROMANIA,
   SLOVAKIA,
   SLOVENIA,
-  SPAIN, SWEDEN,
+  SPAIN,
 } from '@myparcel/js-sdk/dist/constant/countries-iso2';
 import { CITY, POSTAL_CODE, STREET } from '../keys/addressKeys';
-import { MYPARCEL, SENDMYPARCEL } from '@/data/keys/platformKeys';
 import { AbstractCarrierConfiguration } from '@/data/carriers/abstractCarrierConfiguration';
+import { MYPARCEL } from '@/data/keys/platformKeys';
 import { UPS } from '../keys/carrierKeys';
 
 export class UpsCarrierConfiguration extends AbstractCarrierConfiguration {
