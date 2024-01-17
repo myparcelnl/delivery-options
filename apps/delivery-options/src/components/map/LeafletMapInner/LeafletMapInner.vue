@@ -13,7 +13,7 @@ import {isString} from 'radash';
 import {type Control, type Map, type Marker, type TileLayer} from 'leaflet';
 import {isDef, useDebounceFn, useScriptTag, useStyleTag} from '@vueuse/core';
 import {type MapTileLayerData} from '@myparcel-do/shared';
-import {type LeafletMapProps} from '../../../types/map.types';
+import {type LeafletMapProps} from '../../../types';
 import {useConfigStore} from '../../../stores';
 import {MAP_MARKER_CLASS_ACTIVE} from '../../../data';
 

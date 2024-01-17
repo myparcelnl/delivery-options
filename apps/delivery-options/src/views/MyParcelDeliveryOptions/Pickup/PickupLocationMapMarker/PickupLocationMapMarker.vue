@@ -8,10 +8,9 @@
 <script lang="ts" setup>
 import {computed, toRefs} from 'vue';
 import {type MarkerOptions} from 'leaflet';
-import {createCarrierMarkerIcon} from '../../../../utils/createCarrierMarkerIcon';
+import {createCarrierMarkerIcon} from '../../../../utils';
 import {MAP_MARKER_CLASS_PREFIX} from '../../../../data';
-import {usePickupLocation} from '../../../../composables/usePickupLocation';
-import {useSelectedPickupLocation} from '../../../../composables';
+import {usePickupLocation, useSelectedPickupLocation} from '../../../../composables';
 import LeafletMarker from '../../../../components/map/LeafletMarker/LeafletMarker.vue';
 
 const props = defineProps<{pickupLocation: string; active: boolean}>();

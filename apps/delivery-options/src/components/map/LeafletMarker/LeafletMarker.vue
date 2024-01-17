@@ -5,7 +5,7 @@
 <script lang="ts" setup>
 import {inject, onUnmounted, type Ref, ref, toRefs, watch} from 'vue';
 import {type Map, type Marker, type MarkerOptions} from 'leaflet';
-import {isDef, watchOnce} from '@vueuse/core';
+import {isDef} from '@vueuse/core';
 import {MAP_MARKER_CLASS_ACTIVE} from '../../../data';
 
 const props = defineProps<{center: [number, number]; options: MarkerOptions; active?: boolean}>();
@@ -30,35 +30,33 @@ const onMarkerClick = (): void => {
   map.value?.panTo(marker.value.getLatLng());
 };
 
-watchOnce(
-  () => map,
-  (map) => {
-    onUnmounted(
-      watch(
-        propRefs.options,
-        () => {
-          const {options, center} = propRefs;
+onUnmounted(
+  watch(
+    [propRefs.options, map],
+    () => {
+      if (!map.value) {
+        return;
+      }
 
-          if (isDef(marker.value)) {
-            marker.value.options = options.value;
-          } else {
-            marker.value = L.marker(center.value, options.value);
+      const {options, center} = propRefs;
 
-            if (!isDef(marker.value)) {
-              return;
-            }
+      if (isDef(marker.value)) {
+        marker.value.options = options.value;
+      } else {
+        marker.value = L.marker(center.value, options.value);
 
-            marker.value.on('click', onMarkerClick);
-            markers.value.push(marker.value);
+        if (!isDef(marker.value)) {
+          return;
+        }
 
-            map?.value?.addLayer(marker.value);
-          }
-        },
-        {immediate: true},
-      ),
-    );
-  },
-  {immediate: Boolean(map?.value)},
+        marker.value.on('click', onMarkerClick);
+        markers.value.push(marker.value);
+
+        map?.value?.addLayer(marker.value);
+      }
+    },
+    {immediate: true},
+  ),
 );
 
 const unwatch = watch(

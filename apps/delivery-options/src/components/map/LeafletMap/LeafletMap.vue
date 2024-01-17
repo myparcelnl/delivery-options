@@ -14,7 +14,7 @@
 
 <script lang="ts" setup>
 import LeafletMapInner from '../LeafletMapInner/LeafletMapInner.vue';
-import {type LeafletMapProps} from '../../../types/map.types';
+import {type LeafletMapProps} from '../../../types';
 
 // eslint-disable-next-line vue/no-unused-properties
 const props = withDefaults(defineProps<LeafletMapProps>(), {
