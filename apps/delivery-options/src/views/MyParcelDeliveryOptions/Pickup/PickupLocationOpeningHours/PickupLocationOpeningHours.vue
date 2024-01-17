@@ -27,8 +27,7 @@
 import {computed, onDeactivated, ref, toRefs} from 'vue';
 import {OPENING_HOURS, SHOW_MORE_HOURS} from '@myparcel-do/shared';
 import {SHOWN_OPENING_HOURS} from '../../../../data';
-import {usePickupLocation} from '../../../../composables/usePickupLocation';
-import {useLanguage} from '../../../../composables';
+import {useLanguage, usePickupLocation} from '../../../../composables';
 import DoButton from '../../../../components/common/DoButton/DoButton.vue';
 
 const props = defineProps<{pickupLocation: string}>();
@@ -38,10 +37,10 @@ const {translate} = useLanguage();
 
 const showAll = ref(false);
 
-const {openingHours} = usePickupLocation(propRefs.pickupLocation);
+const location = usePickupLocation(propRefs.pickupLocation);
 
 const filteredOpeningHours = computed(() => {
-  return showAll.value ? openingHours.value : openingHours.value.slice(0, SHOWN_OPENING_HOURS);
+  return showAll.value ? location.value?.openingHours : location.value?.openingHours.slice(0, SHOWN_OPENING_HOURS);
 });
 
 onDeactivated(() => {

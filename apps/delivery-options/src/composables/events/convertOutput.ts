@@ -31,15 +31,15 @@ const createDeliveryOutput = (output: InternalOutput): DeliveryOutput => {
 const createPickupOutput = (output: InternalOutputWithPickupLocation): PickupOutput => {
   const result = usePickupLocation(output.pickupLocation);
 
-  const {carrier, location} = result;
+  const {carrier, location} = result.value ?? {};
 
   return {
-    carrier: carrier.value?.identifier ?? CarrierName.PostNl,
+    carrier: carrier?.identifier ?? CarrierName.PostNl,
     date: undefined,
     deliveryType: DeliveryTypeName.Pickup,
     isPickup: true,
     packageType: PackageTypeName.Package,
-    pickupLocation: location.value,
+    pickupLocation: location,
     shipmentOptions: {},
   };
 };

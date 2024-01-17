@@ -6,8 +6,8 @@
       </div>
 
       <CarrierLogo
-        v-if="carrier"
-        :carrier="carrier.name"
+        v-if="location?.carrier"
+        :carrier="location.carrier.name"
         class="mp-ml-auto" />
     </div>
 
@@ -25,5 +25,5 @@ import {usePickupLocation} from '../../../../composables';
 const props = defineProps<{pickupLocation: string}>();
 const propRefs = toRefs(props);
 
-const {carrier} = usePickupLocation(propRefs.pickupLocation);
+const location = usePickupLocation(propRefs.pickupLocation);
 </script>

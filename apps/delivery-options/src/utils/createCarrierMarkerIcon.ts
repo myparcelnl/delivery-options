@@ -19,9 +19,12 @@ const CARRIER_MARKER_TEMPLATE = `
     </div>
   </div>`;
 
-export const createCarrierMarkerIcon = useMemoize((carrier: FullCarrier): string => {
-  return L.Util.template(CARRIER_MARKER_TEMPLATE, {
-    iconAlt: carrier.human,
-    iconUrl: createAssetUrl(carrier.meta.logo_svg),
-  });
-});
+export const createCarrierMarkerIcon = useMemoize(
+  (carrier: FullCarrier): string => {
+    return L.Util.template(CARRIER_MARKER_TEMPLATE, {
+      iconAlt: carrier.human,
+      iconUrl: createAssetUrl(carrier.meta.logo_svg),
+    });
+  },
+  {getKey: (carrier: FullCarrier) => carrier.name},
+);

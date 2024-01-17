@@ -1,17 +1,9 @@
-import {capitalize, computed, type ComputedRef, type MaybeRef, type Ref} from 'vue';
+import {capitalize, type MaybeRef, type Ref} from 'vue';
 import {addDays, isSameDay, isToday} from 'date-fns';
-import {get, useMemoize} from '@vueuse/core';
-import {
-  type CarrierIdentifier,
-  CLOSED,
-  type FullCarrier,
-  type OutputPickupLocation,
-  resolveRefKey,
-  useFullCarrier,
-} from '@myparcel-do/shared';
+import {asyncComputed, get, useMemoize} from '@vueuse/core';
+import {CLOSED, type FullCarrier, getFullCarrier, type OutputPickupLocation, resolveRefKey} from '@myparcel-do/shared';
 import {type StartEndDate, type Weekday} from '@myparcel/sdk';
 import {createNextDate, createUtcDate, getPickupLocationType} from '../utils';
-import {type ResolvedPickupLocation} from '../types';
 import {useConfigStore} from '../stores';
 import {useTimeRange} from './useTimeRange';
 import {useResolvedPickupLocations} from './useResolvedPickupLocations';
@@ -20,84 +12,70 @@ import {useFormatDistance} from './useFormatDistance';
 import {useDateFormat} from './useDateFormat';
 
 interface UsePickupLocation {
-  carrier: Ref<FullCarrier>;
-  distance: ComputedRef<string>;
-  location: ComputedRef<OutputPickupLocation>;
-  openingHours: ComputedRef<{weekday: string; timeString: string}[]>;
+  carrier: FullCarrier;
+  distance: string;
+  location: OutputPickupLocation;
+  openingHours: {weekday: string; timeString: string}[];
 }
 
-// eslint-disable-next-line max-lines-per-function
-const cb = (locationCode: MaybeRef<string>): UsePickupLocation => {
-  const config = useConfigStore();
-  const locations = useResolvedPickupLocations();
+const getFullPickupLocation = useMemoize(
+  // eslint-disable-next-line max-lines-per-function
+  async (locationCode: string): Promise<UsePickupLocation> => {
+    const config = useConfigStore();
+    const locations = useResolvedPickupLocations();
+    const {translate} = useLanguage();
 
-  const resolvedLocation = computed<ResolvedPickupLocation>(() => {
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return (locations.value ?? []).find(({location}) => location.location_code === get(locationCode))!;
-  });
+    const resolvedLocation = (locations.value ?? []).find(({location}) => location.location_code === get(locationCode));
 
-  const carrier = computed<CarrierIdentifier>(() => resolvedLocation.value.carrier);
-
-  const fullCarrier = useFullCarrier(carrier, config.platform);
-
-  const {translate} = useLanguage();
-
-  const location = computed<OutputPickupLocation>(() => {
-    const {address, location} = resolvedLocation.value;
+    if (!resolvedLocation) {
+      throw new Error();
+    }
 
     return {
-      type: getPickupLocationType(resolvedLocation.value),
+      carrier: await getFullCarrier(get(resolvedLocation.carrier), get(config.platform)),
 
-      locationCode: location.location_code,
-      locationName: location.location_name,
-      retailNetworkId: location.retail_network_id,
+      distance: useFormatDistance(resolvedLocation.location.distance).value,
 
-      latitude: Number(location.latitude),
-      longitude: Number(location.longitude),
+      openingHours: Object.values(resolvedLocation.location.opening_hours ?? ({} as Record<Weekday, StartEndDate[]>))
+        .map((hours, dayOfWeek) => {
+          const date = createNextDate(dayOfWeek);
+          const formattedDay = useDateFormat(date);
 
-      street: address.street,
-      number: address.number,
-      numberSuffix: '',
-      postalCode: address.postal_code,
-      city: address.city,
-      cc: address.cc,
+          const isTodayOrTomorrow = isToday(date) || isSameDay(addDays(createUtcDate(), 1), date);
+
+          const time: StartEndDate = hours?.[0];
+          const timeString = time ? useTimeRange(time.start.date, time.end.date).value : translate(CLOSED);
+
+          return {
+            date,
+            weekday: capitalize(isTodayOrTomorrow ? formattedDay.relative.value : formattedDay.weekday.value),
+            timeString,
+          };
+        })
+        .sort((a, b) => a.date.getTime() - b.date.getTime()),
+
+      location: {
+        type: getPickupLocationType(resolvedLocation),
+
+        locationCode: resolvedLocation.location.location_code,
+        locationName: resolvedLocation.location.location_name,
+        retailNetworkId: resolvedLocation.location.retail_network_id,
+
+        latitude: Number(resolvedLocation.location.latitude),
+        longitude: Number(resolvedLocation.location.longitude),
+
+        street: resolvedLocation.address.street,
+        number: resolvedLocation.address.number,
+        numberSuffix: '',
+        postalCode: resolvedLocation.address.postal_code,
+        city: resolvedLocation.address.city,
+        cc: resolvedLocation.address.cc,
+      },
     };
-  });
+  },
+  {getKey: resolveRefKey},
+);
 
-  const distance = computed(() => {
-    const {distance} = resolvedLocation.value.location;
-
-    return distance ? useFormatDistance(distance).value : '';
-  });
-
-  const openingHours = computed(() => {
-    const days = resolvedLocation.value.location.opening_hours ?? ({} as Record<Weekday, StartEndDate[]>);
-
-    return Object.values(days)
-      .map((hours, dayOfWeek) => {
-        const date = createNextDate(dayOfWeek);
-        const formattedDay = useDateFormat(date);
-
-        const isTodayOrTomorrow = isToday(date) || isSameDay(addDays(createUtcDate(), 1), date);
-
-        const time: StartEndDate = hours?.[0];
-        const timeString = time ? useTimeRange(time.start.date, time.end.date).value : translate(CLOSED);
-
-        return {
-          date,
-          weekday: capitalize(isTodayOrTomorrow ? formattedDay.relative.value : formattedDay.weekday.value),
-          timeString,
-        };
-      })
-      .sort((a, b) => a.date.getTime() - b.date.getTime());
-  });
-
-  return {
-    carrier: fullCarrier,
-    distance,
-    openingHours,
-    location,
-  };
+export const usePickupLocation = (locationCode: MaybeRef<string>): Ref<UsePickupLocation | undefined> => {
+  return asyncComputed(() => getFullPickupLocation(get(locationCode)));
 };
-
-export const usePickupLocation = useMemoize(cb, {getKey: resolveRefKey});

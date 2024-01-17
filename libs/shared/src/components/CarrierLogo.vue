@@ -13,18 +13,19 @@
 </template>
 
 <script lang="ts" setup>
-import {computed, ref} from 'vue';
+import {computed, ref, toRefs} from 'vue';
 import {get} from '@vueuse/core';
 import {type CarrierName} from '@myparcel/constants';
 import {createAssetUrl} from '../utils';
 import {useCarrierRequest} from '../composables';
 
 const props = defineProps<{carrier: CarrierName}>();
+const propRefs = toRefs(props);
 
 const loaded = ref(false);
 const hasError = ref(false);
 
-const request = computed(() => useCarrierRequest(props.carrier));
+const request = computed(() => useCarrierRequest(propRefs.carrier.value));
 const data = computed(() => get(get(request).data));
 
 const src = computed(() => createAssetUrl(data.value?.meta.logo_svg));

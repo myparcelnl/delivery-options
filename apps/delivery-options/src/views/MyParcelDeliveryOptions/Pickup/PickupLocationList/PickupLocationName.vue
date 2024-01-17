@@ -1,12 +1,12 @@
 <template>
-  <p v-text="location?.locationName" />
+  <p v-text="location?.location?.locationName" />
 
   <p
     class="mp-opacity-60"
-    v-text="`${location?.street} ${location?.number}`" />
+    v-text="`${location?.location?.street} ${location?.location?.number}`" />
 
   <InfoLabel
-    v-if="PickupLocationType.Locker === location?.type"
+    v-if="PickupLocationType.Locker === location?.location?.type"
     :label="translate(PARCEL_LOCKER)"
     class="mp-mt-1">
     <ParcelLockerIcon />
@@ -16,8 +16,7 @@
 <script lang="ts" setup>
 import {toRefs} from 'vue';
 import {PARCEL_LOCKER, PickupLocationType} from '@myparcel-do/shared';
-import {usePickupLocation} from '../../../../composables/usePickupLocation';
-import {useLanguage} from '../../../../composables';
+import {useLanguage, usePickupLocation} from '../../../../composables';
 import ParcelLockerIcon from '../../../../components/icons/ParcelLockerIcon.vue';
 import InfoLabel from '../../../../components/common/InfoLabel/InfoLabel.vue';
 
@@ -26,5 +25,5 @@ const propRefs = toRefs(props);
 
 const {translate} = useLanguage();
 
-const {location} = usePickupLocation(propRefs.pickupLocation);
+const location = usePickupLocation(propRefs.pickupLocation);
 </script>
