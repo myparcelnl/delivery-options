@@ -1,29 +1,26 @@
 import {
   ConfigSetting,
-  type DeliveryOptionsOutput,
   type DeliveryOutput,
   type InternalOutput,
-  type MakeRequired,
+  type InternalOutputWithPickupLocation,
   type PickupOutput,
 } from '@myparcel-do/shared';
 import {CarrierName, DeliveryTypeName, PackageTypeName, ShipmentOptionName} from '@myparcel/constants';
-import {type SelectedDeliveryMoment} from '../types';
-import {HOME_OR_PICKUP_PICKUP} from '../data';
-import {usePickupLocation} from '../composables/usePickupLocation';
-import {getResolvedValue} from './getResolvedValue';
-
-type InternalOutputWithPickupLocation = MakeRequired<InternalOutput, 'pickupLocation'>;
+import {usePickupLocation} from '../usePickupLocation';
+import {getResolvedValue} from '../../utils';
+import {type SelectedDeliveryMoment} from '../../types';
+import {HOME_OR_PICKUP_PICKUP} from '../../data';
 
 const createDeliveryOutput = (output: InternalOutput): DeliveryOutput => {
   const deliveryMoment = JSON.parse(output.deliveryMoment || '{}') as SelectedDeliveryMoment;
   const showDeliveryDate = getResolvedValue(ConfigSetting.ShowDeliveryDate);
 
   return {
-    isPickup: false,
-    deliveryType: deliveryMoment.deliveryType,
-    packageType: deliveryMoment.packageType,
-    date: showDeliveryDate ? output.deliveryDate : undefined,
     carrier: deliveryMoment.carrier,
+    date: showDeliveryDate ? output.deliveryDate : undefined,
+    deliveryType: deliveryMoment.deliveryType,
+    isPickup: false,
+    packageType: deliveryMoment.packageType,
     shipmentOptions: {
       signature: output.shipmentOptions?.includes(ShipmentOptionName.Signature) ?? false,
       onlyRecipient: output.shipmentOptions?.includes(ShipmentOptionName.OnlyRecipient) ?? false,
@@ -37,20 +34,18 @@ const createPickupOutput = (output: InternalOutputWithPickupLocation): PickupOut
   const {carrier, location} = result;
 
   return {
-    date: undefined,
-    isPickup: true,
     carrier: carrier.value?.identifier ?? CarrierName.PostNl,
+    date: undefined,
     deliveryType: DeliveryTypeName.Pickup,
+    isPickup: true,
     packageType: PackageTypeName.Package,
-    shipmentOptions: {},
     pickupLocation: location.value,
+    shipmentOptions: {},
   };
 };
 
-export const convertOutput = (output: InternalOutput): DeliveryOptionsOutput => {
-  if (output.homeOrPickup === HOME_OR_PICKUP_PICKUP && output.pickupLocation) {
-    return createPickupOutput(output as InternalOutputWithPickupLocation);
-  }
-
-  return createDeliveryOutput(output);
+export const convertOutput = (internalOutput: InternalOutput): PickupOutput | DeliveryOutput => {
+  return internalOutput.homeOrPickup === HOME_OR_PICKUP_PICKUP && Boolean(internalOutput.pickupLocation)
+    ? createPickupOutput(internalOutput as InternalOutputWithPickupLocation)
+    : createDeliveryOutput(internalOutput);
 };

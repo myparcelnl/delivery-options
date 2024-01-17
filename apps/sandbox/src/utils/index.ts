@@ -1,5 +1,4 @@
 export * from './defineConfig';
+export * from './findSandboxOption';
 export * from './getCarrierSettingsKey';
-export {findSandboxOption} from './findSandboxOption';
-
-export {getDefaultValueForType} from './getDefaultValueForType';
+export * from './getDefaultValueForType';

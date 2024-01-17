@@ -1,6 +1,6 @@
 import {computed, ref} from 'vue';
 import {type PromiseOr} from '@myparcel/ts-utils';
-import {type RequestClient, type RequestHandler, type RequestKey, type UseRequestOptions} from '../types';
+import {type RequestClient, type RequestHandler, type RequestKey, type UseRequestOptions} from '../../types';
 import {useRequestClient} from './useRequestClient';
 
 const createRequestHandler = <T>(

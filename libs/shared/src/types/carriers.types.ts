@@ -1,16 +1,10 @@
 import {type Carrier} from '@myparcel/sdk';
-import {type CarrierName} from '@myparcel/constants';
 import {
   type SupportedDeliveryTypeName,
   type SupportedPackageTypeName,
   type SupportedShipmentOptionName,
 } from './platform.types';
 import {type CarrierIdentifier, type ConfigKey} from './config.types';
-
-export interface CarrierObject {
-  identifier: CarrierIdentifier;
-  name: CarrierName;
-}
 
 export interface CarrierWithIdentifier extends Carrier {
   identifier: CarrierIdentifier;

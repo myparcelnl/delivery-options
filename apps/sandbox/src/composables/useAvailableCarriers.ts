@@ -1,12 +1,12 @@
 import {type Ref} from 'vue';
-import {asyncComputed, get} from '@vueuse/core';
+import {asyncComputed, get, useMemoize} from '@vueuse/core';
 import {type FullCarrier, getFullCarrier} from '@myparcel-do/shared';
 import {useCurrentPlatform} from './useCurrentPlatform';
 
 /**
  * Get the carriers that are available in the current platform.
  */
-export const useAvailableCarriers = (): Ref<FullCarrier[]> => {
+export const useAvailableCarriers = useMemoize((): Ref<FullCarrier[]> => {
   const platform = useCurrentPlatform();
 
   return asyncComputed(
@@ -20,4 +20,4 @@ export const useAvailableCarriers = (): Ref<FullCarrier[]> => {
     undefined,
     {shallow: false},
   );
-};
+});

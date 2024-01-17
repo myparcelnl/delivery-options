@@ -21,3 +21,5 @@ export const MAP_MARKER_CLASS_ACTIVE = 'active';
 export const MAP_MARKER_CLASS_PREFIX = 'mp__carrier-marker';
 
 export const SHOWN_OPENING_HOURS = 3;
+
+export const OUTPUT_EVENT_DEBOUNCE_DELAY = 50;

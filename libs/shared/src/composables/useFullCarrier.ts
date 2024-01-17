@@ -1,13 +1,14 @@
 import {type MaybeRef, type Ref} from 'vue';
-import {asyncComputed, get} from '@vueuse/core';
+import {asyncComputed, get, useMemoize} from '@vueuse/core';
 import {getFullCarrier} from '../utils';
 import {type CarrierIdentifier, type FullCarrier, type SupportedPlatformName} from '../types';
+import {resolveRefKey} from '../resolveRefKey';
 
-export const useFullCarrier = (
+const cb = (
   carrierIdentifier: MaybeRef<CarrierIdentifier>,
   platformName: MaybeRef<SupportedPlatformName>,
 ): Ref<FullCarrier> => {
-  return asyncComputed(async () => {
-    return getFullCarrier(get(carrierIdentifier), get(platformName));
-  });
+  return asyncComputed(() => getFullCarrier(get(carrierIdentifier), get(platformName)));
 };
+
+export const useFullCarrier = useMemoize(cb, {getKey: resolveRefKey});

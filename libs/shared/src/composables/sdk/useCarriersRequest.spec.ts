@@ -1,7 +1,7 @@
 import {describe, expect, it} from 'vitest';
 import {get} from '@vueuse/core';
 import {type Carrier} from '@myparcel/sdk';
-import {REQUEST_KEY_CARRIERS} from '../data';
+import {REQUEST_KEY_CARRIERS} from '../../data';
 import {useRequestClient} from './useRequestClient';
 import {useCarriersRequest} from './useCarriersRequest';
 

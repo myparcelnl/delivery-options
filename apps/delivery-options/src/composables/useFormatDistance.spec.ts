@@ -1,7 +1,7 @@
+import {useFormatDistance} from './index';
 import {beforeEach, describe, expect, it} from 'vitest';
 import {createPinia, setActivePinia} from 'pinia';
 import {useI18nStore} from '../stores';
-import {useFormatDistance} from './formatDistance';
 
 describe('useFormatDistance', () => {
   beforeEach(() => {

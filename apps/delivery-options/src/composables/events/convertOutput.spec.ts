@@ -12,9 +12,9 @@ import {
 } from '@myparcel-do/shared';
 import {type Replace} from '@myparcel/ts-utils';
 import {CarrierName, DeliveryTypeName, PackageTypeName, ShipmentOptionName} from '@myparcel/constants';
-import {type SelectedDeliveryMoment} from '../types';
-import {HOME_OR_PICKUP_HOME, HOME_OR_PICKUP_PICKUP} from '../data';
-import {getFakePickupLocation, getMockDeliveryOptionsConfiguration, mockDeliveryOptionsConfig} from '../__tests__';
+import {type SelectedDeliveryMoment} from '../../types';
+import {HOME_OR_PICKUP_HOME, HOME_OR_PICKUP_PICKUP} from '../../data';
+import {getFakePickupLocation, getMockDeliveryOptionsConfiguration, mockDeliveryOptionsConfig} from '../../__tests__';
 import {convertOutput} from './convertOutput';
 
 interface TestInput {

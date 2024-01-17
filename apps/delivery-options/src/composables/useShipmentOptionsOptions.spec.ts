@@ -1,14 +1,15 @@
+import {useCarrierSettings, useResolvedCarrier} from './index';
 import {afterEach, beforeEach, describe, expect, it} from 'vitest';
 import {createPinia, setActivePinia} from 'pinia';
 import {flushPromises} from '@vue/test-utils';
-import {CarrierSetting, getShipmentOptionConfigMap, KEY_CONFIG} from '@myparcel-do/shared';
 import {CarrierName, type ShipmentOptionName} from '@myparcel/constants';
-import {useCarrierSettings, useResolvedCarrier} from '../composables';
-import {mockDeliveryOptionsConfig, mockResolvedDeliveryOption} from '../__tests__';
-import {getResolvedCarrier} from './getResolvedCarrier';
-import {createShipmentOptionsFromDeliveryMoment} from './createShipmentOptionsFromDeliveryMoment';
+import {getResolvedCarrier} from '../utils';
+import {mockSelectedDeliveryOptions} from '../__tests__/utils/mockSelectedDeliveryOptions';
+import {mockDeliveryOptionsConfig} from '../__tests__';
+import {CarrierSetting, getShipmentOptionConfigMap, KEY_CONFIG} from '../../../../libs/shared/src';
+import {useShipmentOptionsOptions} from './useShipmentOptionsOptions';
 
-describe('createShipmentOptionsFromDeliveryMoment', () => {
+describe('useShipmentOptionsOptions', () => {
   beforeEach(async () => {
     setActivePinia(createPinia());
 
@@ -31,8 +32,9 @@ describe('createShipmentOptionsFromDeliveryMoment', () => {
           [configKey]: false,
         },
       });
+      mockSelectedDeliveryOptions();
 
-      const result = createShipmentOptionsFromDeliveryMoment(mockResolvedDeliveryOption());
+      const result = useShipmentOptionsOptions();
 
       expect(result).toHaveLength(Object.keys(getShipmentOptionConfigMap()).length - 1);
       expect(result).not.toContainEqual({
@@ -48,19 +50,20 @@ describe('createShipmentOptionsFromDeliveryMoment', () => {
     'should set %s to disabled based on enum',
     (shipmentOption, configKey) => {
       mockDeliveryOptionsConfig({[KEY_CONFIG]: {[configKey]: true}});
-
-      const result = createShipmentOptionsFromDeliveryMoment(
-        mockResolvedDeliveryOption({
+      mockSelectedDeliveryOptions({
+        deliveryMoment: {
           shipmentOptions: [
             {
               name: shipmentOption as ShipmentOptionName,
               schema: {type: 'boolean', enum: [false]},
             },
           ],
-        }),
-      );
+        },
+      });
 
-      const option = result.find((item) => item.value === shipmentOption);
+      const result = useShipmentOptionsOptions();
+
+      const option = result.value.find((item) => item.value === shipmentOption);
       expect(option).toMatchObject({disabled: true, selected: false});
     },
   );
@@ -69,19 +72,20 @@ describe('createShipmentOptionsFromDeliveryMoment', () => {
     'should set %s to selected and disabled based on enum',
     (shipmentOption, configKey) => {
       mockDeliveryOptionsConfig({[KEY_CONFIG]: {[configKey]: true}});
-
-      const result = createShipmentOptionsFromDeliveryMoment(
-        mockResolvedDeliveryOption({
+      mockSelectedDeliveryOptions({
+        deliveryMoment: {
           shipmentOptions: [
             {
               name: shipmentOption as ShipmentOptionName,
               schema: {type: 'boolean', enum: [true]},
             },
           ],
-        }),
-      );
+        },
+      });
 
-      const option = result.find((item) => item.value === shipmentOption);
+      const result = useShipmentOptionsOptions();
+
+      const option = result.value.find((item) => item.value === shipmentOption);
       expect(option).toMatchObject({disabled: true, selected: true});
     },
   );

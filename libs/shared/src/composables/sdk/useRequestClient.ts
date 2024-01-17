@@ -1,7 +1,7 @@
 import {ref} from 'vue';
 import {isNumber, isString} from 'radash';
-import {createStorableMap} from '../utils';
-import {type RequestClient, type RequestHandler, type RequestKey} from '../types';
+import {createStorableMap} from '../../utils';
+import {type RequestClient, type RequestHandler, type RequestKey} from '../../types';
 
 const requestCache = ref(new Map<string, RequestHandler<unknown>>());
 const valueCache = ref(new Map<string, unknown>());

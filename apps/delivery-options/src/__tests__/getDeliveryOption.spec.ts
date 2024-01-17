@@ -5,7 +5,7 @@ import {
   type MockDeliveryOptionsParameters,
   type ResolvedMockDeliveryOptionsParameters,
 } from '@myparcel-do/shared/testing';
-import {CUTOFF_TIME_DEFAULT, getFullCarrier, type SupportedPlatformName} from '@myparcel-do/shared';
+import {CUTOFF_TIME_DEFAULT, type SupportedPlatformName, useFullCarrier} from '@myparcel-do/shared';
 import {CarrierName, PlatformName} from '@myparcel/constants';
 import {getNextDeliveryOption} from './mocks';
 
@@ -31,7 +31,7 @@ interface TestInput {
 describe.skip('Mocking delivery options requests', () => {
   afterEach(() => {
     vi.setSystemTime(vi.getRealSystemTime());
-    getFullCarrier.clear();
+    useFullCarrier.clear();
   });
 
   it.each`

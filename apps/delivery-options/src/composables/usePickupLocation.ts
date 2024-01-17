@@ -6,17 +6,17 @@ import {
   CLOSED,
   type FullCarrier,
   type OutputPickupLocation,
+  resolveRefKey,
   useFullCarrier,
 } from '@myparcel-do/shared';
 import {type StartEndDate, type Weekday} from '@myparcel/sdk';
-import {getPickupLocationType} from '../utils/getPickupLocationType';
-import {useFormatDistance} from '../utils/formatDistance';
-import {createUtcDate} from '../utils/createUtcDate';
-import {createNextDate} from '../utils/createNextDate';
-import {createTimeRangeString, findPickupLocation} from '../utils';
+import {createNextDate, createUtcDate, getPickupLocationType} from '../utils';
 import {type ResolvedPickupLocation} from '../types';
 import {useConfigStore} from '../stores';
+import {useTimeRange} from './useTimeRange';
+import {useResolvedPickupLocations} from './useResolvedPickupLocations';
 import {useLanguage} from './useLanguage';
+import {useFormatDistance} from './useFormatDistance';
 import {useDateFormat} from './useDateFormat';
 
 interface UsePickupLocation {
@@ -27,9 +27,14 @@ interface UsePickupLocation {
 }
 
 // eslint-disable-next-line max-lines-per-function
-export const usePickupLocation = useMemoize((locationCode: MaybeRef<string>): UsePickupLocation => {
-  const resolvedLocation = computed<ResolvedPickupLocation>(() => findPickupLocation(get(locationCode))!);
+const cb = (locationCode: MaybeRef<string>): UsePickupLocation => {
   const config = useConfigStore();
+  const locations = useResolvedPickupLocations();
+
+  const resolvedLocation = computed<ResolvedPickupLocation>(() => {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    return (locations.value ?? []).find(({location}) => location.location_code === get(locationCode))!;
+  });
 
   const carrier = computed<CarrierIdentifier>(() => resolvedLocation.value.carrier);
 
@@ -72,14 +77,16 @@ export const usePickupLocation = useMemoize((locationCode: MaybeRef<string>): Us
       .map((hours, dayOfWeek) => {
         const date = createNextDate(dayOfWeek);
         const formattedDay = useDateFormat(date);
-        const time: StartEndDate = hours?.[0];
 
         const isTodayOrTomorrow = isToday(date) || isSameDay(addDays(createUtcDate(), 1), date);
+
+        const time: StartEndDate = hours?.[0];
+        const timeString = time ? useTimeRange(time.start.date, time.end.date).value : translate(CLOSED);
 
         return {
           date,
           weekday: capitalize(isTodayOrTomorrow ? formattedDay.relative.value : formattedDay.weekday.value),
-          timeString: time ? createTimeRangeString(time.start.date, time.end.date) : translate(CLOSED),
+          timeString,
         };
       })
       .sort((a, b) => a.date.getTime() - b.date.getTime());
@@ -91,4 +98,6 @@ export const usePickupLocation = useMemoize((locationCode: MaybeRef<string>): Us
     openingHours,
     location,
   };
-});
+};
+
+export const usePickupLocation = useMemoize(cb, {getKey: resolveRefKey});

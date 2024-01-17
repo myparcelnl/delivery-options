@@ -1,6 +1,6 @@
 import {addDays} from 'date-fns';
 import {type ResolvedMockDeliveryOptionsParameters} from '@myparcel-do/shared/testing';
-import {CarrierSetting, getFullCarrier} from '@myparcel-do/shared';
+import {CarrierSetting, useFullCarrier} from '@myparcel-do/shared';
 import {type DeliveryOption} from '@myparcel/sdk';
 import {shouldSkipToNextDeliveryDate} from './shouldSkipToNextDeliveryDate';
 import {findExtraDelivery} from './findExtraDelivery';
@@ -22,14 +22,14 @@ export const getNextDeliveryOption = async (
 ): Promise<FakeDeliveryOption> => {
   const currentDeliveryDate = addDays(new Date(currentDate), daysOffset);
 
-  const fullCarrier = await getFullCarrier(args.carrier, args.platform);
+  const fullCarrier = useFullCarrier(args.carrier, args.platform);
 
-  const canHaveSameDay = fullCarrier.hasFeature(CarrierSetting.AllowSameDayDelivery);
+  const canHaveSameDay = fullCarrier.value.hasFeature(CarrierSetting.AllowSameDayDelivery);
   const hasSameDayDelivery = daysOffset === 0 && canHaveSameDay;
 
   const extraDelivery = hasSameDayDelivery
     ? undefined
-    : findExtraDelivery(args, currentDeliveryDate.getDay(), fullCarrier);
+    : findExtraDelivery(args, currentDeliveryDate.getDay(), fullCarrier.value);
 
   if (
     (daysOffset === 0 && !canHaveSameDay) ||

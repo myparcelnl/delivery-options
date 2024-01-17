@@ -1,9 +1,10 @@
 import {nextTick} from 'vue';
 import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest';
 import {createPinia, setActivePinia} from 'pinia';
+import {type InternalOutput} from '@myparcel-do/shared';
 import {CarrierName, DeliveryTypeName, PackageTypeName} from '@myparcel/constants';
-import {convertOutput} from '../utils';
-import {type SelectedDeliveryMoment} from '../types';
+import {useExternalOutput} from '../../utils';
+import {type SelectedDeliveryMoment} from '../../types';
 import {useDeliveryOptionsOutgoingEvents} from './useDeliveryOptionsOutgoingEvents';
 
 /**
@@ -50,10 +51,10 @@ describe('useDeliveryOptionsOutgoingEvents', () => {
     await nextTick();
 
     expect(emitSpy).toHaveBeenCalledTimes(1);
-    expect(emitSpy).toHaveBeenCalledWith('update', convertOutput(DEFAULT_VALUES));
+    expect(emitSpy).toHaveBeenCalledWith('update', useExternalOutput(DEFAULT_VALUES));
 
     expect(dispatchEventSpy).toHaveBeenCalledTimes(1);
-    expect(dispatchEventSpy.mock.calls[0][0].detail).toEqual(convertOutput(DEFAULT_VALUES));
+    expect(dispatchEventSpy.mock.calls[0][0].detail).toEqual(useExternalOutput(DEFAULT_VALUES));
   });
 
   it('should not emit an event if the values are the same', async () => {
@@ -70,7 +71,7 @@ describe('useDeliveryOptionsOutgoingEvents', () => {
 
     expect(emitSpy).toHaveBeenCalledTimes(1);
     expect(dispatchEventSpy).toHaveBeenCalledTimes(1);
-    expect(dispatchEventSpy.mock.calls[0][0].detail).toEqual(convertOutput(DEFAULT_VALUES));
+    expect(dispatchEventSpy.mock.calls[0][0].detail).toEqual(useExternalOutput(DEFAULT_VALUES));
   });
 
   it('should emit an event if the values are different', async () => {
@@ -87,8 +88,8 @@ describe('useDeliveryOptionsOutgoingEvents', () => {
 
     expect(emitSpy).toHaveBeenCalledTimes(2);
     expect(dispatchEventSpy).toHaveBeenCalledTimes(2);
-    expect(dispatchEventSpy.mock.calls[0][0].detail).toEqual(convertOutput(DEFAULT_VALUES));
-    expect(dispatchEventSpy.mock.calls[1][0].detail).toEqual(convertOutput(DIFFERENT_VALUES));
+    expect(dispatchEventSpy.mock.calls[0][0].detail).toEqual(useExternalOutput(DEFAULT_VALUES));
+    expect(dispatchEventSpy.mock.calls[1][0].detail).toEqual(useExternalOutput(DIFFERENT_VALUES));
   });
 
   it('debounces the emit', async () => {
@@ -103,6 +104,6 @@ describe('useDeliveryOptionsOutgoingEvents', () => {
 
     expect(emitSpy).toHaveBeenCalledTimes(1);
     expect(dispatchEventSpy).toHaveBeenCalledTimes(1);
-    expect(dispatchEventSpy.mock.calls[0][0].detail).toEqual(convertOutput(DIFFERENT_VALUES));
+    expect(dispatchEventSpy.mock.calls[0][0].detail).toEqual(useExternalOutput(DIFFERENT_VALUES));
   });
 });

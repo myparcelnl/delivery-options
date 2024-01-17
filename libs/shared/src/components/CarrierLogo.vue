@@ -17,7 +17,7 @@ import {computed, ref} from 'vue';
 import {get} from '@vueuse/core';
 import {type CarrierName} from '@myparcel/constants';
 import {createAssetUrl} from '../utils';
-import {useCarrierRequest} from '../sdk';
+import {useCarrierRequest} from '../composables';
 
 const props = defineProps<{carrier: CarrierName}>();
 

@@ -20,7 +20,7 @@ import {toRefs} from 'vue';
 import {CarrierLogo} from '@myparcel-do/shared';
 import PickupLocationOpeningHours from '../PickupLocationOpeningHours/PickupLocationOpeningHours.vue';
 import PickupLocationName from '../PickupLocationList/PickupLocationName.vue';
-import {usePickupLocation} from '../../../../composables/usePickupLocation';
+import {usePickupLocation} from '../../../../composables';
 
 const props = defineProps<{pickupLocation: string}>();
 const propRefs = toRefs(props);

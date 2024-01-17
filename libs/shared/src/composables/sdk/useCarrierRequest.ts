@@ -1,8 +1,8 @@
 import {type EndpointResponse, type GetCarrier} from '@myparcel/sdk';
-import {resolveCarrierName} from '../utils';
-import {type CarrierIdentifier, type RequestHandler} from '../types';
-import {REQUEST_KEY_CARRIERS} from '../data';
-import {useSdk} from '../composables';
+import {resolveCarrierName} from '../../utils';
+import {type CarrierIdentifier, type RequestHandler} from '../../types';
+import {REQUEST_KEY_CARRIERS} from '../../data';
+import {useSdk} from '..';
 import {useRequest} from './useRequest';
 
 export const useCarrierRequest = (carrier: CarrierIdentifier): RequestHandler<EndpointResponse<GetCarrier>[number]> => {

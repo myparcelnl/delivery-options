@@ -9,11 +9,10 @@ import {
   PlatformName,
   ShipmentOptionName,
 } from '@myparcel/constants';
-import {getFullCarrier} from '../utils';
 import {type CarrierIdentifier, type SupportedPlatformName} from '../types';
-import {useCarrierRequest} from '../sdk';
 import {CarrierSetting} from '../data';
 import {useFullCarrier} from './useFullCarrier';
+import {useCarrierRequest} from './sdk';
 
 async function loadCarriers(): Promise<void> {
   await useCarrierRequest(CarrierName.PostNl).load();
@@ -26,7 +25,7 @@ describe('useFullCarrier', () => {
   });
 
   afterEach(() => {
-    getFullCarrier.clear();
+    useFullCarrier.clear();
   });
 
   it.each([
