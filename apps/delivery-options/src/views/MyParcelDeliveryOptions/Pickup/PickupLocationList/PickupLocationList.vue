@@ -1,14 +1,14 @@
 <template>
   <PickupLocation.Component>
     <template #default="{option}">
-      <PickupLocationListItem :pickup-location="option.value" />
+      <PickupLocationListItem :location-code="option.value" />
     </template>
 
     <template #content="{option}">
       <KeepAlive>
         <PickupLocationDetails
           v-if="model === option.value"
-          :pickup-location="option.value"
+          :location-code="option.value"
           class="mp-mb-2" />
       </KeepAlive>
     </template>

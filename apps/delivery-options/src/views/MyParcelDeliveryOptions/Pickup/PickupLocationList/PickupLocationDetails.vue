@@ -1,6 +1,6 @@
 <template>
   <div class="mp-border mp-p-5 mp-rounded-lg">
-    <PickupLocationOpeningHours :pickup-location="pickupLocation" />
+    <PickupLocationOpeningHours :location-code="locationCode" />
   </div>
 </template>
 
@@ -12,6 +12,6 @@ defineProps<{
    * JSON encoded ResolvedPickupLocation
    * @see ResolvedPickupLocation
    */
-  pickupLocation: string;
+  locationCode: string;
 }>();
 </script>

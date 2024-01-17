@@ -11,7 +11,7 @@
             v-for="location in pickupLocations"
             :key="location.location.location_code"
             :active="model === location.location.location_code"
-            :pickup-location="location.location.location_code" />
+            :location-code="location.location.location_code" />
         </template>
       </Suspense>
     </LeafletMap>
@@ -19,7 +19,7 @@
     <div
       v-if="form.values.pickupLocation"
       class="@sm:mp-border-l @sm:mp-border-t-none @sm:mp-w-1/2 mp-border-t mp-flex-grow mp-p-5">
-      <PickupLocationDetails :pickup-location="form.values.pickupLocation" />
+      <PickupLocationDetails :location-code="form.values.pickupLocation" />
     </div>
   </div>
 </template>

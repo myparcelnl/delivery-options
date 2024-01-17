@@ -2,7 +2,7 @@
   <div class="mp-flex mp-flex-col mp-gap-2">
     <div class="mp-flex mp-gap-2 mp-items-center">
       <div>
-        <PickupLocationName :pickup-location="pickupLocation" />
+        <PickupLocationName :location-code="locationCode" />
       </div>
 
       <CarrierLogo
@@ -11,7 +11,7 @@
         class="mp-ml-auto" />
     </div>
 
-    <PickupLocationOpeningHours :pickup-location="pickupLocation" />
+    <PickupLocationOpeningHours :location-code="locationCode" />
   </div>
 </template>
 
@@ -22,8 +22,8 @@ import PickupLocationOpeningHours from '../PickupLocationOpeningHours/PickupLoca
 import PickupLocationName from '../PickupLocationList/PickupLocationName.vue';
 import {usePickupLocation} from '../../../../composables';
 
-const props = defineProps<{pickupLocation: string}>();
+const props = defineProps<{locationCode: string}>();
 const propRefs = toRefs(props);
 
-const location = usePickupLocation(propRefs.pickupLocation);
+const location = usePickupLocation(propRefs.locationCode);
 </script>

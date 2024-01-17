@@ -31,10 +31,12 @@ const getFullPickupLocation = useMemoize(
       throw new Error();
     }
 
+    const formattedDistance = useFormatDistance(resolvedLocation.location.distance);
+
     return {
       carrier: await getFullCarrier(get(resolvedLocation.carrier), get(config.platform)),
 
-      distance: useFormatDistance(resolvedLocation.location.distance).value,
+      distance: formattedDistance.value,
 
       openingHours: Object.values(resolvedLocation.location.opening_hours ?? ({} as Record<Weekday, StartEndDate[]>))
         .map((hours, dayOfWeek) => {

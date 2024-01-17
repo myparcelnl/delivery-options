@@ -30,17 +30,19 @@ import {SHOWN_OPENING_HOURS} from '../../../../data';
 import {useLanguage, usePickupLocation} from '../../../../composables';
 import DoButton from '../../../../components/common/DoButton/DoButton.vue';
 
-const props = defineProps<{pickupLocation: string}>();
+const props = defineProps<{locationCode: string}>();
 const propRefs = toRefs(props);
 
 const {translate} = useLanguage();
 
 const showAll = ref(false);
 
-const location = usePickupLocation(propRefs.pickupLocation);
+const pickupLocation = usePickupLocation(propRefs.locationCode);
 
 const filteredOpeningHours = computed(() => {
-  return showAll.value ? location.value?.openingHours : location.value?.openingHours.slice(0, SHOWN_OPENING_HOURS);
+  return showAll.value
+    ? pickupLocation.value?.openingHours
+    : pickupLocation.value?.openingHours.slice(0, SHOWN_OPENING_HOURS);
 });
 
 onDeactivated(() => {
