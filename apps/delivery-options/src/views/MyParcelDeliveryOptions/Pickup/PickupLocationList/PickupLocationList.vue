@@ -24,7 +24,7 @@
 </template>
 
 <script lang="ts" setup>
-import {computed, ref} from 'vue';
+import {computed, onActivated, ref} from 'vue';
 import {get} from '@vueuse/core';
 import {DEFAULT_MAX_PAGE_ITEMS, PickupLocationsView, type SelectOption, SHOW_MORE_LOCATIONS} from '@myparcel-do/shared';
 import {createField} from '@myparcel/vue-form-builder';
@@ -67,4 +67,20 @@ const PickupLocation = createField({
 const loadMore = () => {
   shown.value += DEFAULT_MAX_PAGE_ITEMS;
 };
+
+/**
+ * Load more pickup locations if the current selected pickup location is not visible.
+ */
+const loadMoreIfInvisible = (): void => {
+  if (!options.value.length || options.value.some((option) => option.value === model.value)) {
+    return;
+  }
+
+  loadMore();
+  loadMoreIfInvisible();
+};
+
+onActivated(() => {
+  loadMoreIfInvisible();
+});
 </script>
