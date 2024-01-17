@@ -30,49 +30,43 @@ const onMarkerClick = (): void => {
   map.value?.panTo(marker.value.getLatLng());
 };
 
-onUnmounted(
-  watch(
-    [propRefs.options, map],
-    () => {
-      if (!map.value) {
-        return;
-      }
+const addMarker = (): void => {
+  if (!map.value) {
+    return;
+  }
 
-      const {options, center} = propRefs;
+  const {options, center} = propRefs;
 
-      if (isDef(marker.value)) {
-        marker.value.options = options.value;
-      } else {
-        marker.value = L.marker(center.value, options.value);
+  if (isDef(marker.value)) {
+    marker.value.options = options.value;
+  } else {
+    marker.value = L.marker(center.value, options.value);
 
-        if (!isDef(marker.value)) {
-          return;
-        }
-
-        marker.value.on('click', onMarkerClick);
-        markers.value.push(marker.value);
-
-        map?.value?.addLayer(marker.value);
-      }
-    },
-    {immediate: true},
-  ),
-);
-
-const unwatch = watch(
-  propRefs.active,
-  () => {
     if (!isDef(marker.value)) {
       return;
     }
 
-    marker.value.getElement()?.classList[propRefs.active.value ? 'add' : 'remove'](MAP_MARKER_CLASS_ACTIVE);
-  },
-  {immediate: true},
-);
+    marker.value.on('click', onMarkerClick);
+    markers.value.push(marker.value);
+
+    map?.value?.addLayer(marker.value);
+  }
+};
+
+const setActive = (): void => {
+  if (!isDef(marker.value)) {
+    return;
+  }
+
+  marker.value.getElement()?.classList[propRefs.active.value ? 'add' : 'remove'](MAP_MARKER_CLASS_ACTIVE);
+};
+
+const unwatchAddMarker = watch([propRefs.options, map], addMarker, {immediate: true});
+const unwatchSetActive = watch(propRefs.active, setActive, {immediate: true});
 
 onUnmounted(() => {
-  unwatch();
+  unwatchAddMarker();
+  unwatchSetActive();
 
   if (!isDef(marker.value)) {
     return;
