@@ -40,7 +40,8 @@ export class AbstractCarrierConfiguration {
    * @returns {boolean}
    */
   allowsDeliveryIn(country) {
-    return this.getCountriesForDelivery().includes(country.toUpperCase()) || this.hasFakeDelivery();
+    return this.getCountriesForDelivery().includes(country.toUpperCase())
+      || (this.hasFakeDelivery() && !this.getCountriesBlacklist().includes(country.toUpperCase()));
   }
 
   /**
@@ -79,6 +80,10 @@ export class AbstractCarrierConfiguration {
    * @returns {string[]}
    */
   getCountriesForDelivery() {
+    return [];
+  }
+
+  getCountriesBlacklist() {
     return [];
   }
 

@@ -11,7 +11,10 @@ describe('CarrierConfigurationFactory', () => {
       features: config.getFeatures(),
       platformFeatures: config.getPlatformFeatures(),
       countriesForDelivery: config.getCountriesForDelivery(),
+      countriesBlacklist: config.getCountriesBlacklist(),
       countriesForPickup: config.getCountriesForPickup(),
+      hasFakeDelivery: config.hasFakeDelivery(),
+      getDefaultRequestParameters: config.getDefaultRequestParameters(),
     }).toMatchSnapshot();
   });
 

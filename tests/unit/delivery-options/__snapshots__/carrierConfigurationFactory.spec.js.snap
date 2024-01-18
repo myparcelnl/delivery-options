@@ -2,6 +2,7 @@
 
 exports[`CarrierConfigurationFactory should create a configuration for bpost 1`] = `
 Object {
+  "countriesBlacklist": Array [],
   "countriesForDelivery": Array [
     "BE",
     "NL",
@@ -45,6 +46,11 @@ Object {
       ],
     ],
   },
+  "getDefaultRequestParameters": Array [
+    "city",
+    "postalCode",
+  ],
+  "hasFakeDelivery": false,
   "name": "bpost",
   "platformFeatures": Array [],
 }
@@ -52,6 +58,7 @@ Object {
 
 exports[`CarrierConfigurationFactory should create a configuration for dhl 1`] = `
 Object {
+  "countriesBlacklist": Array [],
   "countriesForDelivery": Array [
     "AT",
     "BG",
@@ -101,6 +108,11 @@ Object {
       ],
     ],
   },
+  "getDefaultRequestParameters": Array [
+    "city",
+    "postalCode",
+  ],
+  "hasFakeDelivery": false,
   "name": "dhl",
   "platformFeatures": Array [
     Array [
@@ -120,6 +132,7 @@ Object {
 
 exports[`CarrierConfigurationFactory should create a configuration for dhleuroplus 1`] = `
 Object {
+  "countriesBlacklist": Array [],
   "countriesForDelivery": Array [
     "BE",
     "BG",
@@ -157,6 +170,12 @@ Object {
       ],
     ],
   },
+  "getDefaultRequestParameters": Array [
+    "city",
+    "postalCode",
+    "street",
+  ],
+  "hasFakeDelivery": false,
   "name": "dhleuroplus",
   "platformFeatures": Array [
     Array [
@@ -169,6 +188,7 @@ Object {
 
 exports[`CarrierConfigurationFactory should create a configuration for dhlforyou 1`] = `
 Object {
+  "countriesBlacklist": Array [],
   "countriesForDelivery": Array [
     "NL",
     "BE",
@@ -213,6 +233,11 @@ Object {
       ],
     ],
   },
+  "getDefaultRequestParameters": Array [
+    "city",
+    "postalCode",
+  ],
+  "hasFakeDelivery": false,
   "name": "dhlforyou",
   "platformFeatures": Array [
     Array [
@@ -254,6 +279,7 @@ Object {
 
 exports[`CarrierConfigurationFactory should create a configuration for dhlparcelconnect 1`] = `
 Object {
+  "countriesBlacklist": Array [],
   "countriesForDelivery": Array [
     "BG",
     "DE",
@@ -314,6 +340,12 @@ Object {
       ],
     ],
   },
+  "getDefaultRequestParameters": Array [
+    "city",
+    "postalCode",
+    "street",
+  ],
+  "hasFakeDelivery": false,
   "name": "dhlparcelconnect",
   "platformFeatures": Array [
     Array [
@@ -330,6 +362,7 @@ Object {
 
 exports[`CarrierConfigurationFactory should create a configuration for dpd 1`] = `
 Object {
+  "countriesBlacklist": Array [],
   "countriesForDelivery": Array [
     "AT",
     "BE",
@@ -404,6 +437,12 @@ Object {
       ],
     ],
   },
+  "getDefaultRequestParameters": Array [
+    "postalCode",
+    "street",
+    "city",
+  ],
+  "hasFakeDelivery": false,
   "name": "dpd",
   "platformFeatures": Array [
     Array [
@@ -416,6 +455,7 @@ Object {
 
 exports[`CarrierConfigurationFactory should create a configuration for postnl 1`] = `
 Object {
+  "countriesBlacklist": Array [],
   "countriesForDelivery": Array [
     "NL",
     "BE",
@@ -510,6 +550,12 @@ Object {
       ],
     ],
   },
+  "getDefaultRequestParameters": Array [
+    "postalCode",
+    "street",
+    "city",
+  ],
+  "hasFakeDelivery": true,
   "name": "postnl",
   "platformFeatures": Array [
     Array [
@@ -567,6 +613,9 @@ Object {
 
 exports[`CarrierConfigurationFactory should create a configuration for ups 1`] = `
 Object {
+  "countriesBlacklist": Array [
+    "NL",
+  ],
   "countriesForDelivery": Array [
     "BG",
     "DE",
@@ -600,6 +649,12 @@ Object {
       ],
     ],
   },
+  "getDefaultRequestParameters": Array [
+    "postalCode",
+    "street",
+    "city",
+  ],
+  "hasFakeDelivery": true,
   "name": "ups",
   "platformFeatures": Array [
     Array [
