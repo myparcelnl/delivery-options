@@ -15,6 +15,7 @@ exports[`getPlatformConfig > gets config for platform belgie 1`] = `
       ],
       "deliveryTypes": [
         "standard",
+        "pickup",
       ],
       "features": [
         "allowSaturdayDelivery",
@@ -43,6 +44,7 @@ exports[`getPlatformConfig > gets config for platform belgie 1`] = `
       ],
       "deliveryTypes": [
         "standard",
+        "pickup",
       ],
       "features": [
         "deliveryDaysWindow",
@@ -186,6 +188,7 @@ exports[`getPlatformConfig > gets config for platform myparcel 1`] = `
       ],
       "deliveryTypes": [
         "standard",
+        "pickup",
       ],
       "features": [
         "allowSameDayDelivery",
@@ -335,6 +338,7 @@ exports[`getPlatformConfig > gets config for platform myparcel 1`] = `
       ],
       "deliveryTypes": [
         "standard",
+        "pickup",
       ],
       "fakeDelivery": true,
       "name": "ups",

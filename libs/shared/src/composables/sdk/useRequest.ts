@@ -43,23 +43,18 @@ const createRequestHandler = <T>(
   };
 };
 
-const memoizedUseRequest = useMemoize(
-  <T>(key: RequestKey, callback: () => PromiseOr<T>, options?: UseRequestOptions<T>): RequestHandler<T> => {
-    const requestStorage = useRequestStorage();
-
-    const query = createRequestHandler<T>(requestStorage, key, callback, options);
-
-    void query.load();
-
-    return query;
-  },
-  {getKey: (key) => requestKeyToString(key)},
-);
-
-export const useRequest = <T>(
+const cb = <T>(
   key: RequestKey,
   callback: () => PromiseOr<T>,
   options?: UseRequestOptions<T>,
 ): RequestHandler<T extends Promise<infer U> ? U : T> => {
-  return memoizedUseRequest(key, callback, options) as RequestHandler<T extends Promise<infer U> ? U : T>;
+  const requestStorage = useRequestStorage();
+
+  const query = createRequestHandler<T>(requestStorage, key, callback, options);
+
+  void query.load();
+
+  return query as RequestHandler<T extends Promise<infer U> ? U : T>;
 };
+
+export const useRequest = useMemoize(cb, {getKey: (key) => requestKeyToString(key)}) as typeof cb;

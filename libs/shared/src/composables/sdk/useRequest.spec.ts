@@ -20,7 +20,8 @@ describe('useRequest', () => {
 
   afterEach(() => {
     vi.resetAllMocks();
-    useRequestStorage().clear();
+    useRequestStorage.clear();
+    useRequest.clear();
   });
 
   it('waits for async result', () => {

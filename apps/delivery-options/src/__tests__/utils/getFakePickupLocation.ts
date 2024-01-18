@@ -1,5 +1,5 @@
+import {fakePickupLocationsResponse} from '@myparcel-do/shared/testing';
 import {type PickupLocation} from '@myparcel/sdk';
-import {fakePickupLocationsResponse} from '../mocks';
 
 export const getFakePickupLocation = (locationCode: string): PickupLocation => {
   const all = fakePickupLocationsResponse();

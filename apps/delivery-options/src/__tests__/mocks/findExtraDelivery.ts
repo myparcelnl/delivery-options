@@ -1,4 +1,4 @@
-import {type ExtraDelivery, type ResolvedMockDeliveryOptionsParameters} from '@myparcel-do/shared/testing';
+import {type ExtraDelivery, type ResolvedMockDeliveryOptionsParameters} from '../../../../../libs/shared/src/__tests__';
 import {
   CarrierSetting,
   DAY_FRIDAY,
@@ -6,7 +6,7 @@ import {
   DAY_SATURDAY,
   DeprecatedCarrierSetting,
   type FullCarrier,
-} from '@myparcel-do/shared';
+} from '../../../../../libs/shared/src';
 
 /**
  * Settings for extra delivery days.

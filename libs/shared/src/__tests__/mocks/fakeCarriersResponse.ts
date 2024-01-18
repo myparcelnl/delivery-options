@@ -1,3 +1,5 @@
+import {type Carrier} from '@myparcel/sdk';
+import {type CarrierNameOrId} from '@myparcel/constants';
 import {
   CARRIER_BOL,
   CARRIER_BPOST,
@@ -10,9 +12,7 @@ import {
   CARRIER_INSTABOX,
   CARRIER_POST_NL,
   CARRIER_UPS,
-} from '@myparcel-do/shared/testing';
-import {type Carrier} from '@myparcel/sdk';
-import {type CarrierNameOrId} from '@myparcel/constants';
+} from '../carriers';
 
 const allCarrierData = [
   CARRIER_POST_NL,

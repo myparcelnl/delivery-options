@@ -1,7 +1,7 @@
 import {addDays} from 'date-fns';
-import {type ResolvedMockDeliveryOptionsParameters} from '@myparcel-do/shared/testing';
-import {CarrierSetting, getFullCarrier} from '@myparcel-do/shared';
 import {type DeliveryOption} from '@myparcel/sdk';
+import {type ResolvedMockDeliveryOptionsParameters} from '../../../../../libs/shared/src/__tests__';
+import {CarrierSetting, getFullCarrier} from '../../../../../libs/shared/src';
 import {shouldSkipToNextDeliveryDate} from './shouldSkipToNextDeliveryDate';
 import {findExtraDelivery} from './findExtraDelivery';
 import {getDeliveryOptionsEntry} from './entries/getDeliveryOptionsEntry';

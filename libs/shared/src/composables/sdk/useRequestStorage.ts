@@ -1,11 +1,35 @@
 import {ref} from 'vue';
 import {useMemoize} from '@vueuse/core';
-import {createStorableMap} from '../../utils';
 import {type RequestStorage} from '../../types';
 import {requestKeyToString} from './requestKeyToString';
 
-const valueCache = ref(new Map<string, unknown>());
-
 export const useRequestStorage = useMemoize((): RequestStorage => {
-  return createStorableMap(valueCache, requestKeyToString);
+  const valueCache = ref(new Map<string, unknown>());
+
+  return {
+    set(key, value) {
+      valueCache.value.set(requestKeyToString(key), value);
+
+      return value;
+    },
+
+    has(key) {
+      return valueCache.value.has(requestKeyToString(key));
+    },
+
+    // @ts-expect-error is fine
+    get(key) {
+      if (!valueCache.value.has(requestKeyToString(key))) {
+        throw new Error(`Key ${key} not found`);
+      }
+
+      return valueCache.value.get(requestKeyToString(key));
+    },
+
+    clear() {
+      valueCache.value.clear();
+    },
+
+    storage: valueCache,
+  };
 });

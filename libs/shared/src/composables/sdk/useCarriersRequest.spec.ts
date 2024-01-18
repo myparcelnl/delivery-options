@@ -2,6 +2,7 @@ import {describe, expect, it} from 'vitest';
 import {get} from '@vueuse/core';
 import {type Carrier} from '@myparcel/sdk';
 import {REQUEST_KEY_CARRIERS} from '../../data';
+import {fakeCarriersResponse} from '../../__tests__';
 import {useRequestStorage} from './useRequestStorage';
 import {useCarriersRequest} from './useCarriersRequest';
 

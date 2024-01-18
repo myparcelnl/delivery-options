@@ -31,7 +31,7 @@ export default defineConfig((env) => {
     },
 
     test: {
-      setupFiles: [`${dirname}/../delivery-options/src/__tests__/vitest-setup.ts`],
+      setupFiles: [`${dirname}/../../libs/shared/src/__tests__/vitest-setup.ts`],
       coverage: {
         all: true,
         enabled: false,

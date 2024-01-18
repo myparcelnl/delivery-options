@@ -1,5 +1,5 @@
 /* eslint-disable max-nested-callbacks */
-import {afterEach, beforeEach, describe, expect, it} from 'vitest';
+import {beforeEach, describe, expect, it} from 'vitest';
 import {createPinia, setActivePinia} from 'pinia';
 import {
   CarrierId,
@@ -22,10 +22,6 @@ async function loadCarriers(): Promise<void> {
 describe('useFullCarrier', () => {
   beforeEach(() => {
     setActivePinia(createPinia());
-  });
-
-  afterEach(() => {
-    useFullCarrier.clear();
   });
 
   it.each([
