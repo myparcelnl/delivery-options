@@ -2,7 +2,7 @@ import {type EndpointResponse, type GetCarriers} from '@myparcel/sdk';
 import {type RequestHandler} from '../../types';
 import {REQUEST_KEY_CARRIERS} from '../../data';
 import {useSdk} from '..';
-import {useRequestClient} from './useRequestClient';
+import {useRequestStorage} from './useRequestStorage';
 import {useRequest} from './useRequest';
 
 export const useCarriersRequest = (): RequestHandler<EndpointResponse<GetCarriers>> => {
@@ -15,13 +15,13 @@ export const useCarriersRequest = (): RequestHandler<EndpointResponse<GetCarrier
     },
     {
       onSuccess(carriers) {
-        const requestClient = useRequestClient();
+        const requestStorage = useRequestStorage();
 
         /**
          * Update the cache for each carrier.
          */
         carriers.forEach((carrier) => {
-          requestClient.values.set([REQUEST_KEY_CARRIERS, carrier.name], carrier);
+          requestStorage.set([REQUEST_KEY_CARRIERS, carrier.name], carrier);
         });
       },
     },

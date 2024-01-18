@@ -1,16 +1,18 @@
+import {type MaybeRef} from 'vue';
+import {get} from '@vueuse/core';
 import {type EndpointResponse, type GetCarrier} from '@myparcel/sdk';
-import {resolveCarrierName} from '../../utils';
-import {type CarrierIdentifier, type RequestHandler} from '../../types';
+import {type CarrierName} from '@myparcel/constants';
+import {type RequestHandler} from '../../types';
 import {REQUEST_KEY_CARRIERS} from '../../data';
 import {useSdk} from '..';
 import {useRequest} from './useRequest';
 
-export const useCarrierRequest = (carrier: CarrierIdentifier): RequestHandler<EndpointResponse<GetCarrier>[number]> => {
-  const carrierName = resolveCarrierName(carrier);
-
-  return useRequest([REQUEST_KEY_CARRIERS, carrierName], async () => {
+export const useCarrierRequest = (
+  carrier: MaybeRef<CarrierName>,
+): RequestHandler<EndpointResponse<GetCarrier>[number]> => {
+  return useRequest([REQUEST_KEY_CARRIERS, get(carrier)], async () => {
     const sdk = useSdk();
 
-    return (await sdk.getCarrier({path: {carrier: carrierName}}))?.[0];
+    return (await sdk.getCarrier({path: {carrier: get(carrier)}}))?.[0];
   });
 };

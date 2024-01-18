@@ -1,6 +1,6 @@
 import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest';
 import {get} from '@vueuse/core';
-import {useRequestClient} from './useRequestClient';
+import {useRequestStorage} from './useRequestStorage';
 import {useRequest} from './useRequest';
 
 describe('useRequest', () => {
@@ -20,8 +20,7 @@ describe('useRequest', () => {
 
   afterEach(() => {
     vi.resetAllMocks();
-    useRequestClient().clear();
-    useRequestClient().values.clear();
+    useRequestStorage().clear();
   });
 
   it('waits for async result', () => {

@@ -1,10 +1,12 @@
 import {computed, ref} from 'vue';
+import {useMemoize} from '@vueuse/core';
 import {type PromiseOr} from '@myparcel/ts-utils';
-import {type RequestClient, type RequestHandler, type RequestKey, type UseRequestOptions} from '../../types';
-import {useRequestClient} from './useRequestClient';
+import {type RequestHandler, type RequestKey, type RequestStorage, type UseRequestOptions} from '../../types';
+import {useRequestStorage} from './useRequestStorage';
+import {requestKeyToString} from './requestKeyToString';
 
 const createRequestHandler = <T>(
-  requestClient: RequestClient<T>,
+  storage: RequestStorage,
   queryKey: RequestKey,
   callback: () => PromiseOr<T>,
   options?: UseRequestOptions<T>,
@@ -13,12 +15,12 @@ const createRequestHandler = <T>(
   const loading = computed(() => !data.value);
 
   const load = async () => {
-    if (!requestClient.values.has(queryKey)) {
-      void requestClient.values.set(queryKey, callback());
+    if (!storage.has(queryKey)) {
+      void storage.set(queryKey, callback());
     }
 
     try {
-      data.value = await requestClient.values.get(queryKey);
+      data.value = await storage.get(queryKey);
     } catch (error) {
       // @ts-expect-error todo
       await options?.onError?.(error);
@@ -29,7 +31,7 @@ const createRequestHandler = <T>(
     // @ts-expect-error todo
     await options?.onSuccess?.(data.value);
 
-    requestClient.values.set(queryKey, data.value);
+    storage.set(queryKey, data.value);
   };
 
   void load();
@@ -41,22 +43,23 @@ const createRequestHandler = <T>(
   };
 };
 
+const memoizedUseRequest = useMemoize(
+  <T>(key: RequestKey, callback: () => PromiseOr<T>, options?: UseRequestOptions<T>): RequestHandler<T> => {
+    const requestStorage = useRequestStorage();
+
+    const query = createRequestHandler<T>(requestStorage, key, callback, options);
+
+    void query.load();
+
+    return query;
+  },
+  {getKey: (key) => requestKeyToString(key)},
+);
+
 export const useRequest = <T>(
   key: RequestKey,
   callback: () => PromiseOr<T>,
   options?: UseRequestOptions<T>,
-): RequestHandler<T> => {
-  const requestClient = useRequestClient<T>();
-
-  if (!requestClient.has(key)) {
-    const newQuery = createRequestHandler<T>(requestClient, key, callback, options);
-
-    requestClient.set(key, newQuery);
-  }
-
-  const query = requestClient.get(key);
-
-  void query.load();
-
-  return query;
+): RequestHandler<T extends Promise<infer U> ? U : T> => {
+  return memoizedUseRequest(key, callback, options) as RequestHandler<T extends Promise<infer U> ? U : T>;
 };

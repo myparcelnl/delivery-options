@@ -6,17 +6,23 @@
 </template>
 
 <script lang="ts" setup>
-import {ref} from 'vue';
+import {toRef} from 'vue';
 import {ConfigSetting, KEY_CONFIG, type SelectOption, SUPPORTED_PLATFORMS} from '@myparcel-do/shared';
 import {createField} from '@myparcel/vue-form-builder';
+import {type PlatformName} from '@myparcel/constants';
+import {useSandboxStore} from '../stores';
 import RadioGroupInput from './RadioGroupInput.vue';
 import {Box} from './Box';
 
+const store = useSandboxStore();
+
+const platformRef = toRef(store.platform);
+
 // eslint-disable-next-line @typescript-eslint/naming-convention
-const Platform = createField({
+const Platform = createField<PlatformName>({
   name: `${KEY_CONFIG}.${ConfigSetting.Platform}`,
   component: RadioGroupInput,
-  ref: ref(),
+  ref: platformRef,
   wrapper: false,
   props: {
     options: SUPPORTED_PLATFORMS.map((platform) => ({

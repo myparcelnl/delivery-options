@@ -2,7 +2,7 @@ import {describe, expect, it} from 'vitest';
 import {get} from '@vueuse/core';
 import {type Carrier} from '@myparcel/sdk';
 import {REQUEST_KEY_CARRIERS} from '../../data';
-import {useRequestClient} from './useRequestClient';
+import {useRequestStorage} from './useRequestStorage';
 import {useCarriersRequest} from './useCarriersRequest';
 
 describe('useCarriersRequest', () => {
@@ -34,12 +34,12 @@ describe('useCarriersRequest', () => {
 
     const carriers = get(query.data) as Carrier[];
 
-    const requestClient = useRequestClient();
+    const requestClient = useRequestStorage();
 
     expect(carriers).toHaveLength(amountOfCarriers);
 
     carriers.forEach((carrier) => {
-      expect(requestClient.values.get([REQUEST_KEY_CARRIERS, carrier.name])).toBe(carrier);
+      expect(requestClient.get([REQUEST_KEY_CARRIERS, carrier.name])).toBe(carrier);
     });
   });
 });

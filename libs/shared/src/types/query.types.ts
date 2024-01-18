@@ -26,6 +26,4 @@ export interface UseRequestOptions<T> {
 
 export type RequestKey = (string | object | RequestKey)[];
 
-export interface RequestClient<T> extends StorableMap<RequestHandler<T>, RequestKey> {
-  values: StorableMap<unknown, RequestKey>;
-}
+export type RequestStorage = StorableMap<unknown, RequestKey>;

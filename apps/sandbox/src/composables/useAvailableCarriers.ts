@@ -11,8 +11,10 @@ export const useAvailableCarriers = useMemoize((): Ref<FullCarrier[]> => {
 
   return asyncComputed(
     () => {
+      const {carriers} = get(platform.config);
+
       return Promise.all(
-        get(platform.config).carriers.map((carrier) => {
+        carriers.map((carrier) => {
           return getFullCarrier(carrier.name, get(platform.name));
         }),
       );
