@@ -30,6 +30,14 @@ const onMarkerClick = (): void => {
   map.value?.panTo(marker.value.getLatLng());
 };
 
+const setActive = (): void => {
+  if (!isDef(marker.value)) {
+    return;
+  }
+
+  marker.value.getElement()?.classList[propRefs.active.value ? 'add' : 'remove'](MAP_MARKER_CLASS_ACTIVE);
+};
+
 const addMarker = (): void => {
   if (!map.value) {
     return;
@@ -51,23 +59,13 @@ const addMarker = (): void => {
 
     map?.value?.addLayer(marker.value);
   }
+
+  onUnmounted(watch(propRefs.active, setActive, {immediate: true}));
 };
 
-const setActive = (): void => {
-  if (!isDef(marker.value)) {
-    return;
-  }
-
-  marker.value.getElement()?.classList[propRefs.active.value ? 'add' : 'remove'](MAP_MARKER_CLASS_ACTIVE);
-};
-
-const unwatchAddMarker = watch([propRefs.options, map], addMarker, {immediate: true});
-const unwatchSetActive = watch(propRefs.active, setActive, {immediate: true});
+onUnmounted(watch([propRefs.options, map], addMarker, {immediate: true}));
 
 onUnmounted(() => {
-  unwatchAddMarker();
-  unwatchSetActive();
-
   if (!isDef(marker.value)) {
     return;
   }
