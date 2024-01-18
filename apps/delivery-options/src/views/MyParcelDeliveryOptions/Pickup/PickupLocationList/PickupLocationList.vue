@@ -72,7 +72,7 @@ const loadMore = () => {
  * Load more pickup locations if the current selected pickup location is not visible.
  */
 const loadMoreIfInvisible = (): void => {
-  if (!options.value.length || options.value.some((option) => option.value === model.value)) {
+  if (!model.value || !options.value.length || options.value.some((option) => option.value === model.value)) {
     return;
   }
 
