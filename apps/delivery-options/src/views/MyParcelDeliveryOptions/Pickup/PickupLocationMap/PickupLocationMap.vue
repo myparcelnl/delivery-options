@@ -10,7 +10,7 @@
           <PickupLocationMapMarker
             v-for="location in pickupLocations"
             :key="location.location.location_code"
-            :active="model === location.location.location_code"
+            :active="locationCode === location.location.location_code"
             :location-code="location.location.location_code" />
         </template>
       </Suspense>
@@ -34,5 +34,5 @@ import PickupLocationDetails from './PickupLocationDetails.vue';
 const pickupLocations = useResolvedPickupLocations();
 const {instance: form} = useDeliveryOptionsForm();
 
-const {model} = useSelectedPickupLocation();
+const {locationCode} = useSelectedPickupLocation();
 </script>

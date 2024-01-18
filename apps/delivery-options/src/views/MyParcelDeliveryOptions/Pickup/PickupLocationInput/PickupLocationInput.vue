@@ -8,12 +8,12 @@ import {createField} from '@myparcel/vue-form-builder';
 import {FIELD_PICKUP_LOCATION} from '../../../../data';
 import {useSelectedPickupLocation} from '../../../../composables';
 
-const {model} = useSelectedPickupLocation();
+const {locationCode} = useSelectedPickupLocation();
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const Location = createField({
   name: FIELD_PICKUP_LOCATION,
-  ref: model,
+  ref: locationCode,
   component: TextInput,
   attributes: {type: 'hidden'},
 });

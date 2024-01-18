@@ -78,6 +78,14 @@ export const getFullPickupLocation = useMemoize(
   {getKey: resolveRefKey},
 );
 
-export const usePickupLocation = (locationCode: MaybeRef<string>): Ref<FullPickupLocation | undefined> => {
-  return asyncComputed(async () => getFullPickupLocation(get(locationCode)));
+export const usePickupLocation = (locationCode: MaybeRef<string | undefined>): Ref<FullPickupLocation | undefined> => {
+  return asyncComputed(async () => {
+    const resolved = get(locationCode);
+
+    if (!resolved) {
+      return undefined;
+    }
+
+    return getFullPickupLocation(resolved);
+  });
 };

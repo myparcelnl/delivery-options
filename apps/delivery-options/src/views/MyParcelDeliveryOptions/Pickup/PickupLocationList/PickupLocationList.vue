@@ -7,7 +7,7 @@
     <template #content="{option}">
       <KeepAlive>
         <PickupLocationDetails
-          v-if="model === option.value"
+          v-if="locationCode === option.value"
           :location-code="option.value"
           class="mp-mb-2" />
       </KeepAlive>
@@ -36,10 +36,11 @@ import PickupLocationListItem from './PickupLocationListItem.vue';
 import PickupLocationDetails from './PickupLocationDetails.vue';
 
 const pickupLocations = useResolvedPickupLocations();
+const {translate} = useLanguage();
 
 const shown = ref(DEFAULT_MAX_PAGE_ITEMS);
 
-const {translate} = useLanguage();
+const {locationCode} = useSelectedPickupLocation();
 
 const options = computed<SelectOption[]>(() => {
   return (get(pickupLocations.value) ?? [])
@@ -51,12 +52,10 @@ const options = computed<SelectOption[]>(() => {
     .slice(0, shown.value);
 });
 
-const {model} = useSelectedPickupLocation();
-
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const PickupLocation = createField({
   name: `${PickupLocationsView.List}_${FIELD_PICKUP_LOCATION}`,
-  ref: model,
+  ref: locationCode,
   component: RadioGroupInput,
   props: {
     loading: computed(() => !options.value.length),
@@ -72,7 +71,11 @@ const loadMore = () => {
  * Load more pickup locations if the current selected pickup location is not visible.
  */
 const loadMoreIfInvisible = (): void => {
-  if (!model.value || !options.value.length || options.value.some((option) => option.value === model.value)) {
+  if (
+    !locationCode.value ||
+    !options.value.length ||
+    options.value.some((option) => option.value === locationCode.value)
+  ) {
     return;
   }
 

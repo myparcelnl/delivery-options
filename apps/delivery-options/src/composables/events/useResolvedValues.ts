@@ -3,7 +3,7 @@ import {isDef} from '@vueuse/core';
 import {type ComputedRef} from '@vue/reactivity';
 import {ConfigSetting, type DeliveryOutput, type PickupOutput} from '@myparcel-do/shared';
 import {DeliveryTypeName, PackageTypeName, ShipmentOptionName} from '@myparcel/constants';
-import {useSelectedFullLocation} from '../useSelectedFullPickupLocation';
+import {useSelectedPickupLocation} from '../useSelectedPickupLocation';
 import {useSelectedDeliveryMoment} from '../useSelectedDeliveryMoment';
 import {getResolvedValue, parseJson} from '../../utils';
 import {type SelectedDeliveryMoment} from '../../types';
@@ -13,7 +13,7 @@ import {FIELD_DELIVERY_MOMENT, FIELD_SHIPMENT_OPTIONS} from '../../data';
 export const useResolvedValues = (): ComputedRef => {
   const {instance: form} = useDeliveryOptionsForm();
 
-  const pickupLocation = useSelectedFullLocation();
+  const pickupLocation = useSelectedPickupLocation();
   const deliveryMoment = useSelectedDeliveryMoment();
 
   return computed(() => {
