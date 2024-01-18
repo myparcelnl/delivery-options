@@ -10,13 +10,15 @@ import {computed, toRefs} from 'vue';
 import {type MarkerOptions} from 'leaflet';
 import {isDef} from '@vueuse/core';
 import {createCarrierMarkerIcon} from '../../../../utils';
-import {MAP_MARKER_CLASS_PREFIX} from '../../../../data';
-import {usePickupLocation, useSelectedPickupLocation} from '../../../../composables';
+import {useDeliveryOptionsForm} from '../../../../form';
+import {FIELD_PICKUP_LOCATION, MAP_MARKER_CLASS_PREFIX} from '../../../../data';
+import {usePickupLocation} from '../../../../composables';
 import LeafletMarker from '../../../../components/map/LeafletMarker/LeafletMarker.vue';
 
 const props = defineProps<{locationCode: string; active: boolean}>();
 const propRefs = toRefs(props);
 
+const form = useDeliveryOptionsForm();
 const pickupLocation = usePickupLocation(propRefs.locationCode);
 
 const center = computed(() => {
@@ -47,9 +49,7 @@ const options = computed<MarkerOptions>(() => {
   };
 });
 
-const {model} = useSelectedPickupLocation();
-
 const onClick = () => {
-  model.value = pickupLocation.value?.location?.locationCode;
+  form.instance.setValue(FIELD_PICKUP_LOCATION, pickupLocation.value?.location.locationCode);
 };
 </script>

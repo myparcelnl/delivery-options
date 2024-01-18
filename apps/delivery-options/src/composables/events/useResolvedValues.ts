@@ -25,12 +25,12 @@ export const useResolvedValues = (): ComputedRef => {
 
     if (isDef(pickupLocation.location.value)) {
       return {
-        carrier: pickupLocation.location.value.carrier,
+        carrier: pickupLocation.location.value.carrier.identifier,
         date: undefined,
         deliveryType: DeliveryTypeName.Pickup,
         isPickup: true,
         packageType: PackageTypeName.Package,
-        pickupLocation: pickupLocation.location.value,
+        pickupLocation: pickupLocation.location.value.location,
         shipmentOptions: {},
       } satisfies PickupOutput;
     }

@@ -17,10 +17,14 @@ export const useResolvedPickupLocations = useMemoize(() => {
 
           await query.load();
 
-          return (get(query.data) ?? []).map((option) => ({
-            ...option,
-            carrier: carrier.identifier,
-          }));
+          return (get(query.data) ?? []).map((option) => {
+            const {possibilities, ...rest} = option;
+
+            return {
+              ...rest,
+              carrier: carrier.identifier,
+            };
+          });
         }),
     );
 

@@ -13,7 +13,7 @@ export interface ResolvedDeliveryOptions {
   time: string;
 }
 
-export interface ResolvedPickupLocation extends PickupLocation {
+export interface ResolvedPickupLocation extends Omit<PickupLocation, 'possibilities'> {
   carrier: CarrierIdentifier;
 }
 

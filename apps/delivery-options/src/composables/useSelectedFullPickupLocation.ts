@@ -1,21 +1,17 @@
-import {computed, type Ref} from 'vue';
-import {type ComputedRef} from '@vue/reactivity';
-import {type ResolvedPickupLocation} from '../types';
+import {type Ref} from 'vue';
 import {useSelectedPickupLocation} from './useSelectedPickupLocation';
-import {useResolvedPickupLocations} from './useResolvedPickupLocations';
+import {type FullPickupLocation, usePickupLocation} from './fullPickupLocation';
 
 export const useSelectedFullLocation = (): {
   locationCode: Ref<string>;
-  location: ComputedRef<ResolvedPickupLocation | undefined>;
+  location: Ref<FullPickupLocation | undefined>;
 } => {
   const {model} = useSelectedPickupLocation();
 
-  const locations = useResolvedPickupLocations();
+  const fullLocation = usePickupLocation(model);
 
   return {
     locationCode: model,
-    location: computed(() => {
-      return locations.value?.find(({location}) => location.location_code === model.value);
-    }),
+    location: fullLocation,
   };
 };
