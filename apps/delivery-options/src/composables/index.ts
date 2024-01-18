@@ -1,4 +1,5 @@
 export * from './events';
+export * from './fullPickupLocation';
 export * from './useActiveCarriers';
 export * from './useCarrierSettings';
 export * from './useCurrentPlatform';
@@ -7,7 +8,6 @@ export * from './useFormatDistance';
 export * from './useLanguage';
 export * from './useLeaflet';
 export * from './useMostEcoFriendly';
-export * from './usePickupLocation';
 export * from './useResolvedCarrier';
 export * from './useResolvedDeliveryDates';
 export * from './useResolvedDeliveryMoments';

@@ -11,16 +11,16 @@ import {useLanguage} from './useLanguage';
 import {useFormatDistance} from './useFormatDistance';
 import {useDateFormat} from './useDateFormat';
 
-interface UsePickupLocation {
+export interface FullPickupLocation {
   carrier: FullCarrier;
   distance: string;
   location: OutputPickupLocation;
   openingHours: {weekday: string; timeString: string}[];
 }
 
-const getFullPickupLocation = useMemoize(
+export const getFullPickupLocation = useMemoize(
   // eslint-disable-next-line max-lines-per-function
-  async (locationCode: string): Promise<UsePickupLocation> => {
+  async (locationCode: string): Promise<FullPickupLocation> => {
     const config = useConfigStore();
     const locations = useResolvedPickupLocations();
     const {translate} = useLanguage();
@@ -78,6 +78,6 @@ const getFullPickupLocation = useMemoize(
   {getKey: resolveRefKey},
 );
 
-export const usePickupLocation = (locationCode: MaybeRef<string>): Ref<UsePickupLocation | undefined> => {
-  return asyncComputed(() => getFullPickupLocation(get(locationCode)));
+export const usePickupLocation = (locationCode: MaybeRef<string>): Ref<FullPickupLocation | undefined> => {
+  return asyncComputed(async () => getFullPickupLocation(get(locationCode)));
 };

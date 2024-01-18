@@ -13,6 +13,7 @@ export * from './getResolvedCarrier';
 export * from './getResolvedValue';
 export * from './hasSlotContent';
 export * from './padStart';
+export * from './parseJson';
 export * from './showDeveloperInfo';
 export * from './stringToDate';
 export * from './toTime';

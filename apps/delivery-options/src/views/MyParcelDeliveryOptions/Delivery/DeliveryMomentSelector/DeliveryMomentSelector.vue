@@ -49,12 +49,12 @@ const loading = computed(() => !deliveryMoments.value.length);
 const options = computed(() => {
   return deliveryMoments.value.map((option) => {
     return {
-      carrier: option.carrier.identifier,
+      carrier: option.carrier,
       label: option.time,
-      price: getDeliveryTypePrice(option, option.carrier.identifier),
+      price: getDeliveryTypePrice(option, option.carrier),
       value: JSON.stringify({
         time: option.time,
-        carrier: option.carrier.identifier,
+        carrier: option.carrier,
         date: option.date,
         deliveryType: option.deliveryType,
         packageType: option.packageType,

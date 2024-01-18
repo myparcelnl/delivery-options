@@ -1,7 +1,7 @@
+import {type Replace} from '@myparcel/ts-utils';
 import {type DeliveryTypeName, type PackageTypeName, type ShipmentOptionName} from '@myparcel/constants';
 import {type PickupLocationType} from '../data';
 import {type CarrierIdentifier} from './config.types';
-import {type MakeRequired} from './common.types';
 
 interface ShipmentOptionsOutput {
   onlyRecipient?: boolean;
@@ -65,4 +65,4 @@ export type InternalOutput = {
   pickupLocation?: string;
 };
 
-export type InternalOutputWithPickupLocation = MakeRequired<InternalOutput, 'pickupLocation'>;
+export type InternalOutputWithPickupLocation = Replace<InternalOutput, 'pickupLocation', {}>;

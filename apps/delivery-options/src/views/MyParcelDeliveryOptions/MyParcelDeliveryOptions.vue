@@ -1,8 +1,7 @@
 <template>
   <DeliveryOptionsForm
     v-if="ready"
-    class="@container myparcel-delivery-options"
-    @update="emitChange" />
+    class="@container myparcel-delivery-options" />
 </template>
 
 <script lang="ts" setup>
@@ -64,6 +63,5 @@ watch(
 );
 
 useDeliveryOptionsIncomingEvents();
-
-const emitChange = useDeliveryOptionsOutgoingEvents(emit);
+useDeliveryOptionsOutgoingEvents(emit);
 </script>

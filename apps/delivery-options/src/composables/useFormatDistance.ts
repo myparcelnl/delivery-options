@@ -1,7 +1,7 @@
-import {useLanguage} from './index';
 import {computed, type MaybeRef} from 'vue';
 import {useMemoize} from '@vueuse/core';
 import {type ComputedRef} from '@vue/reactivity';
+import {useLanguage} from './useLanguage';
 
 const METER = 'meter';
 const M_TO_KM = 1000;

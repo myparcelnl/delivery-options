@@ -1,13 +1,10 @@
 /* eslint-disable max-len,vue/max-len */
 import {afterEach, describe, expect, it, vi} from 'vitest';
 import {format} from 'date-fns';
-import {
-  type MockDeliveryOptionsParameters,
-  type ResolvedMockDeliveryOptionsParameters,
-} from '@myparcel-do/shared/testing';
 import {CUTOFF_TIME_DEFAULT, type SupportedPlatformName} from '@myparcel-do/shared';
 import {CarrierName, PlatformName} from '@myparcel/constants';
-import {getNextDeliveryOption} from './mocks';
+import {type MockDeliveryOptionsParameters, type ResolvedMockDeliveryOptionsParameters} from '../../types';
+import {getNextDeliveryOption} from './getNextDeliveryOption';
 
 const DATES = Object.freeze({
   tue: '2020-03-10',

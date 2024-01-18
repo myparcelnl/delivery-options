@@ -1,6 +1,6 @@
 import {vi} from 'vitest';
 import {type GetPickupLocations} from '@myparcel/sdk';
-import {type SdkMock} from '..';
+import {type SdkMock} from '../types';
 import {fakePickupLocationsResponse} from './fakePickupLocationsResponse';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars

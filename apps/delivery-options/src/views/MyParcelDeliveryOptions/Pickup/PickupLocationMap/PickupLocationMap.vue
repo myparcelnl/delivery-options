@@ -32,7 +32,7 @@ import LeafletMap from '../../../../components/map/LeafletMap/LeafletMap.vue';
 import PickupLocationDetails from './PickupLocationDetails.vue';
 
 const pickupLocations = useResolvedPickupLocations();
-const form = useDeliveryOptionsForm();
+const {instance: form} = useDeliveryOptionsForm();
 
 const {model} = useSelectedPickupLocation();
 </script>

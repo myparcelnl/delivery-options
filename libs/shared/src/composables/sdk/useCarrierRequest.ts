@@ -2,9 +2,9 @@ import {type MaybeRef} from 'vue';
 import {get} from '@vueuse/core';
 import {type EndpointResponse, type GetCarrier} from '@myparcel/sdk';
 import {type CarrierName} from '@myparcel/constants';
+import {useSdk} from '../useSdk';
 import {type RequestHandler} from '../../types';
 import {REQUEST_KEY_CARRIERS} from '../../data';
-import {useSdk} from '..';
 import {useRequest} from './useRequest';
 
 export const useCarrierRequest = (

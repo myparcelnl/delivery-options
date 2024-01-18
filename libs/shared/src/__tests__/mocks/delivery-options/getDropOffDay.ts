@@ -1,5 +1,5 @@
 import {getDay, isSameDay, subDays} from 'date-fns';
-import {type Weekday} from '../../../../../libs/shared/src';
+import {type Weekday} from '../../../types';
 
 /**
  * Find the last possible dropoff day for a given delivery day.

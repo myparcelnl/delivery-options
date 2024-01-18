@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest';
+import {beforeEach, describe, expect, it, vi} from 'vitest';
 import {
   CarrierSetting,
   ConfigSetting,
@@ -14,6 +14,10 @@ import {
 import {handleDeprecatedOptions} from './handleDeprecatedOptions';
 
 describe('handleDeprecatedOptions', () => {
+  beforeEach(() => {
+    vi.spyOn(console, 'warn').mockImplementation(() => {});
+  });
+
   describe('allow show delivery date', () => {
     it.each([true, false])(
       `converts ${DeprecatedCarrierSetting.AllowShowDeliveryDate} to ${ConfigSetting.ShowDeliveryDate}`,

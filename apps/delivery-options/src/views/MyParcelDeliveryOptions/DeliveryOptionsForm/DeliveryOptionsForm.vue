@@ -14,25 +14,19 @@
 </template>
 
 <script lang="ts" setup>
-import {computed, ref, watch} from 'vue';
+import {computed, ref} from 'vue';
 import {get} from '@vueuse/core';
-import {DELIVERY_TITLE, type InternalOutput, PICKUP_TITLE, type SelectOption} from '@myparcel-do/shared';
+import {DELIVERY_TITLE, PICKUP_TITLE, type SelectOption} from '@myparcel-do/shared';
 import {createField} from '@myparcel/vue-form-builder';
 import PickupLocations from '../Pickup/PickupLocations.vue';
 import HomeDelivery from '../Delivery/HomeDelivery.vue';
-import {createDeliveryOptionsForm} from '../../../form';
+import {useDeliveryOptionsForm} from '../../../form';
 import {FIELD_HOME_OR_PICKUP, HOME_OR_PICKUP_HOME, HOME_OR_PICKUP_PICKUP} from '../../../data';
 import {useActiveCarriers, useLanguage} from '../../../composables';
 import {RadioGroupInput} from '../../../components';
 
-const emit = defineEmits<(event: 'update', values: InternalOutput) => void>();
-
 // eslint-disable-next-line @typescript-eslint/naming-convention
-const Form = createDeliveryOptionsForm();
-
-watch(Form.instance.values, (value) => {
-  emit('update', value as InternalOutput);
-});
+const Form = useDeliveryOptionsForm();
 
 const {translate} = useLanguage();
 

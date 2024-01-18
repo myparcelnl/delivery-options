@@ -19,7 +19,7 @@ const DELIVERY_MOMENT_DEFAULTS = Object.freeze({
 });
 
 export const mockSelectedDeliveryOptions = (values?: Partial<MockInternalOutput>): FormInstance<InternalOutput> => {
-  const form = useDeliveryOptionsForm();
+  const {instance: form} = useDeliveryOptionsForm();
 
   const resolvedDeliveryMoment = isString(values?.deliveryMoment)
     ? values?.deliveryMoment

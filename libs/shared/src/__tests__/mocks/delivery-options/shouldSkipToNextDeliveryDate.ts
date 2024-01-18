@@ -1,7 +1,8 @@
 import {getDay, isSameDay} from 'date-fns';
 import {PlatformName} from '@myparcel/constants';
-import {type ExtraDelivery, type ResolvedMockDeliveryOptionsParameters} from '../../../../../libs/shared/src/__tests__';
-import {DAY_MONDAY, DAY_SATURDAY, DAY_SUNDAY, isPastTime} from '../../../../../libs/shared/src';
+import {type ExtraDelivery, type ResolvedMockDeliveryOptionsParameters} from '../../types';
+import {isPastTime} from '../../../utils';
+import {DAY_MONDAY, DAY_SATURDAY, DAY_SUNDAY} from '../../../data';
 import {getDropOffDay} from './getDropOffDay';
 
 const daysWithoutDelivery = {

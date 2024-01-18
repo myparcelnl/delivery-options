@@ -1,32 +1,24 @@
-import {nextTick, ref} from 'vue';
-import {useDebounceFn, useRefHistory} from '@vueuse/core';
+import {onUnmounted, watch} from 'vue';
+import {isDef} from '@vueuse/core';
 import {type DeliveryOptionsEmits} from '../../types';
-import {OUTPUT_EVENT_DEBOUNCE_DELAY, UPDATED_DELIVERY_OPTIONS} from '../../data';
-import {type InternalOutput} from '../../../../../libs/shared/src';
-import {convertOutput} from './convertOutput';
+import {UPDATED_DELIVERY_OPTIONS} from '../../data';
+import {useResolvedValues} from './useResolvedValues';
 
-export const useDeliveryOptionsOutgoingEvents = (
-  emit: DeliveryOptionsEmits,
-): ((internalOutput: InternalOutput) => void) => {
-  const outputValues = ref<string>();
+export const useDeliveryOptionsOutgoingEvents = (emit: DeliveryOptionsEmits): void => {
+  const resolvedValues = useResolvedValues();
 
-  const {history} = useRefHistory(outputValues);
+  const unwatch = watch(
+    resolvedValues,
+    (values) => {
+      if (!isDef(values)) {
+        return;
+      }
 
-  return useDebounceFn(async (internalOutput: InternalOutput) => {
-    const previousHistoryLength = history.value.length;
+      emit('update', values);
+      document.dispatchEvent(new CustomEvent(UPDATED_DELIVERY_OPTIONS, {detail: values}));
+    },
+    {deep: true, immediate: true},
+  );
 
-    const output = convertOutput(internalOutput);
-
-    outputValues.value = JSON.stringify(output);
-
-    await nextTick();
-
-    // If unchanged, don't emit.
-    if (history.value.length > 1 && history.value.length === previousHistoryLength) {
-      return;
-    }
-
-    document.dispatchEvent(new CustomEvent(UPDATED_DELIVERY_OPTIONS, {detail: output}));
-    emit('update', output);
-  }, OUTPUT_EVENT_DEBOUNCE_DELAY);
+  onUnmounted(unwatch);
 };

@@ -1,12 +1,6 @@
-import {type ExtraDelivery, type ResolvedMockDeliveryOptionsParameters} from '../../../../../libs/shared/src/__tests__';
-import {
-  CarrierSetting,
-  DAY_FRIDAY,
-  DAY_MONDAY,
-  DAY_SATURDAY,
-  DeprecatedCarrierSetting,
-  type FullCarrier,
-} from '../../../../../libs/shared/src';
+import {type ExtraDelivery, type ResolvedMockDeliveryOptionsParameters} from '../../types';
+import {type FullCarrier} from '../../../types';
+import {CarrierSetting, DAY_FRIDAY, DAY_MONDAY, DAY_SATURDAY, DeprecatedCarrierSetting} from '../../../data';
 
 /**
  * Settings for extra delivery days.

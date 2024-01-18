@@ -1,11 +1,11 @@
 import {type DeepReadonly} from 'vue';
-import {type CarrierIdentifier, type CarrierWithIdentifier, type UnionExcept} from '@myparcel-do/shared';
+import {type CarrierIdentifier, type UnionExcept} from '@myparcel-do/shared';
 import {type Replace} from '@myparcel/ts-utils';
 import {type DeliveryOption, type PickupLocation} from '@myparcel/sdk';
 import {type DeliveryTypeName, type PackageTypeName} from '@myparcel/constants';
 
 export interface ResolvedDeliveryOptions {
-  carrier: CarrierWithIdentifier;
+  carrier: CarrierIdentifier;
   date: string;
   deliveryType: DeliveryTypeName;
   packageType: PackageTypeName;

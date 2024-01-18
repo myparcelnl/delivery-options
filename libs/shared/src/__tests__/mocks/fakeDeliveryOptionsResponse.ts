@@ -1,9 +1,9 @@
 /* eslint-disable no-continue */
 
 import {type EndpointParameters, type EndpointResponse, type GetDeliveryOptions} from '@myparcel/sdk';
-import {getNextDeliveryOption} from '../../../../../apps/delivery-options/src/__tests__/mocks';
-import {type CarrierIdentifier, type SupportedPlatformName, type Weekday} from '../..';
-import {type ResolvedMockDeliveryOptionsParameters} from '..';
+import {type ResolvedMockDeliveryOptionsParameters} from '../types';
+import {type CarrierIdentifier, type SupportedPlatformName, type Weekday} from '../../types';
+import {getNextDeliveryOption} from './delivery-options';
 
 /**
  * Generate an array of delivery options much like the actual API response.
