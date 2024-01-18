@@ -11,6 +11,7 @@ import {PackageTypeName, PlatformName} from '@myparcel/constants';
 import {type ResolvedCarrier} from '../types';
 import {useAddressStore, useConfigStore} from '../stores';
 import {getResolvedValue} from './getResolvedValue';
+import {calculateDropOffDays} from './calculateDropOffDays';
 import {calculateCutoffTime} from './calculateCutoffTime';
 
 export const createGetDeliveryOptionsParameters = (
@@ -32,7 +33,7 @@ export const createGetDeliveryOptionsParameters = (
 
     cutoff_time: calculateCutoffTime(carrier),
     deliverydays_window: carrier.get(CarrierSetting.DeliveryDaysWindow, DELIVERY_DAYS_WINDOW_DEFAULT),
-    dropoff_days: carrier.get(CarrierSetting.DropOffDays, [])?.join(';'),
+    dropoff_days: calculateDropOffDays(carrier),
     dropoff_delay: carrier.get(CarrierSetting.DropOffDelay, DROP_OFF_DELAY_DEFAULT),
 
     monday_delivery: get(carrier.features).has(CarrierSetting.AllowMondayDelivery),

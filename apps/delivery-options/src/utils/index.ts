@@ -1,4 +1,5 @@
 export * from './calculateCutoffTime';
+export * from './calculateDropOffDays';
 export * from './createCarrierMarkerIcon';
 export * from './createGetDeliveryOptionsParameters';
 export * from './createNextDate';
