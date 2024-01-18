@@ -1,9 +1,10 @@
 import {capitalize, type MaybeRef, type Ref} from 'vue';
 import {addDays, isSameDay, isToday} from 'date-fns';
 import {asyncComputed, get, useMemoize} from '@vueuse/core';
-import {CLOSED, type FullCarrier, getFullCarrier, type OutputPickupLocation, resolveRefKey} from '@myparcel-do/shared';
+import {CLOSED, type OutputPickupLocation, resolveRefKey} from '@myparcel-do/shared';
 import {type StartEndDate, type Weekday} from '@myparcel/sdk';
-import {createNextDate, createUtcDate, getPickupLocationType} from '../utils';
+import {createNextDate, createUtcDate, getPickupLocationType, getResolvedCarrier} from '../utils';
+import {type ResolvedCarrier} from '../types';
 import {useConfigStore} from '../stores';
 import {useTimeRange} from './useTimeRange';
 import {useResolvedPickupLocations} from './useResolvedPickupLocations';
@@ -12,7 +13,7 @@ import {useFormatDistance} from './useFormatDistance';
 import {useDateFormat} from './useDateFormat';
 
 export interface FullPickupLocation {
-  carrier: FullCarrier;
+  carrier: ResolvedCarrier;
   distance: string;
   location: OutputPickupLocation;
   openingHours: {weekday: string; timeString: string}[];
@@ -34,7 +35,7 @@ export const getFullPickupLocation = useMemoize(
     const formattedDistance = useFormatDistance(resolvedLocation.location.distance);
 
     return {
-      carrier: await getFullCarrier(get(resolvedLocation.carrier), get(config.platform)),
+      carrier: await getResolvedCarrier(get(resolvedLocation.carrier), get(config.platform)),
 
       distance: formattedDistance.value,
 

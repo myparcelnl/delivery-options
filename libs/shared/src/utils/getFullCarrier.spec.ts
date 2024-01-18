@@ -1,62 +1,102 @@
-import {describe, expect, it} from 'vitest';
-import {get, useMemoize} from '@vueuse/core';
-import {type CarrierIdentifier, type FullCarrier, type SupportedPlatformName} from '../types';
-import {SUPPORTED_PLATFORMS} from '../data';
-import {useCarrierRequest, useFullCarrier} from '../composables';
-import {resolveCarrierName} from './resolveCarrierName';
-import {getCarrierConfiguration} from './getCarrierConfiguration';
-
-export const getFullCarrier = useMemoize(
-  async (carrierIdentifier: CarrierIdentifier, platformName: SupportedPlatformName): Promise<FullCarrier> => {
-    const carrierRequest = useCarrierRequest(resolveCarrierName(carrierIdentifier));
-    await carrierRequest.load();
-
-    const config = getCarrierConfiguration(carrierIdentifier, platformName);
-    const apiCarrier = get(carrierRequest.data);
-
-    if (!apiCarrier) {
-      throw new Error();
-    }
-
-    return {
-      identifier: carrierIdentifier,
-      ...apiCarrier,
-
-      hasPackageType(packageType) {
-        return config.packageTypes?.includes(packageType) ?? false;
-      },
-
-      hasDeliveryType(deliveryType) {
-        return config.deliveryTypes?.includes(deliveryType) ?? false;
-      },
-
-      hasShipmentOption(shipmentOption) {
-        return config.shipmentOptions?.includes(shipmentOption) ?? false;
-      },
-
-      hasFeature(feature) {
-        const allFeatures = config.features?.flat();
-
-        return allFeatures?.includes(feature) ?? false;
-      },
-
-      hasDeliveryInCountry(countryCode) {
-        return config.deliveryCountries?.includes(countryCode) ?? false;
-      },
-
-      hasPickupInCountry(countryCode) {
-        return config.pickupCountries?.includes(countryCode) ?? false;
-      },
-    };
-  },
-);
+/* eslint-disable max-nested-callbacks */
+import {beforeEach, describe, expect, it} from 'vitest';
+import {createPinia, setActivePinia} from 'pinia';
+import {
+  CarrierId,
+  CarrierName,
+  DeliveryTypeName,
+  PackageTypeName,
+  PlatformName,
+  ShipmentOptionName,
+} from '@myparcel/constants';
+import {type CarrierIdentifier, type SupportedPlatformName} from '../types';
+import {CarrierSetting} from '../data';
+import {getFullCarrier} from './getFullCarrier';
 
 describe('getFullCarrier', () => {
-  it('returns carrier data for %s on platform %s', async () => {});
+  beforeEach(() => {
+    setActivePinia(createPinia());
+  });
 
-  it.each(SUPPORTED_PLATFORMS)('throws error on %s when carrier is not found', (platform) => {
-    expect(() => {
-      return useFullCarrier('foo' as CarrierIdentifier, platform);
+  it.each([
+    [CarrierName.PostNl, PlatformName.MyParcel],
+    [`${CarrierName.PostNl}:12345`, PlatformName.MyParcel],
+    [CarrierName.PostNl, PlatformName.SendMyParcel],
+    [`${CarrierName.PostNl}:12345`, PlatformName.SendMyParcel],
+  ] satisfies [CarrierIdentifier, SupportedPlatformName][])(
+    'returns carrier data for %s on platform %s',
+    async (identifier, platform) => {
+      expect.assertions(5);
+
+      const postNl = await getFullCarrier(identifier, platform);
+
+      expect(postNl).toBeDefined();
+      expect(postNl.id).toBe(CarrierId.PostNl);
+      expect(postNl.name).toBe(CarrierName.PostNl);
+      expect(postNl.human).toBeTypeOf('string');
+      expect(postNl.meta).toBeInstanceOf(Object);
+    },
+  );
+
+  describe('exposes utility methods', () => {
+    it('can use hasPackageType', async () => {
+      expect.assertions(2);
+
+      const postNl = await getFullCarrier(CarrierName.PostNl, PlatformName.MyParcel);
+      const dhlForYou = await getFullCarrier(CarrierName.DhlForYou, PlatformName.MyParcel);
+
+      expect(postNl.hasPackageType(PackageTypeName.DigitalStamp)).toBe(true);
+      expect(dhlForYou.hasPackageType(PackageTypeName.DigitalStamp)).toBe(false);
+    });
+
+    it('can use hasDeliveryType', async () => {
+      expect.assertions(2);
+
+      const postNl = await getFullCarrier(CarrierName.PostNl, PlatformName.MyParcel);
+      const dhlForYou = await getFullCarrier(CarrierName.DhlForYou, PlatformName.MyParcel);
+
+      expect(postNl.hasDeliveryType(DeliveryTypeName.Morning)).toBe(true);
+      expect(dhlForYou.hasDeliveryType(DeliveryTypeName.Morning)).toBe(false);
+    });
+
+    it('can use hasShipmentOption', async () => {
+      expect.assertions(2);
+
+      const postNl = await getFullCarrier(CarrierName.PostNl, PlatformName.MyParcel);
+      const dhlForYou = await getFullCarrier(CarrierName.DhlForYou, PlatformName.MyParcel);
+
+      expect(postNl.hasShipmentOption(ShipmentOptionName.OnlyRecipient)).toBe(true);
+      expect(dhlForYou.hasShipmentOption(ShipmentOptionName.OnlyRecipient)).toBe(true);
+    });
+
+    it('can use hasFeature', async () => {
+      expect.assertions(2);
+
+      const postNl = await getFullCarrier(CarrierName.PostNl, PlatformName.MyParcel);
+      const dhlForYou = await getFullCarrier(CarrierName.DhlForYou, PlatformName.MyParcel);
+
+      expect(postNl.hasFeature(CarrierSetting.AllowMondayDelivery)).toBe(true);
+      expect(dhlForYou.hasFeature(CarrierSetting.AllowMondayDelivery)).toBe(false);
+    });
+
+    it('can use hasDeliveryInCountry', async () => {
+      expect.assertions(2);
+
+      const postNl = await getFullCarrier(CarrierName.PostNl, PlatformName.MyParcel);
+      const dhlForYou = await getFullCarrier(CarrierName.DhlForYou, PlatformName.MyParcel);
+
+      expect(postNl.hasDeliveryInCountry('NL')).toBe(true);
+      expect(dhlForYou.hasDeliveryInCountry('NL')).toBe(true);
+    });
+
+    it('can use hasPickupInCountry', async () => {
+      expect.assertions(2);
+
+      const postNl = await getFullCarrier(CarrierName.PostNl, PlatformName.MyParcel);
+      const dhlForYou = await getFullCarrier(CarrierName.DhlForYou, PlatformName.MyParcel);
+
+      expect(postNl.hasPickupInCountry('BE')).toBe(true);
+      expect(dhlForYou.hasPickupInCountry('BE')).toBe(false);
     });
   });
 });
