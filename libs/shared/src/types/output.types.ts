@@ -22,24 +22,23 @@ export interface DeliveryOutput extends BaseOutput {
   isPickup: false;
 }
 
-export type OutputPickupLocation = {
+export interface OutputPickupLocation {
+  cc: string;
+  city: string;
   /** @since v6.0.0 */
-  type: PickupLocationType;
   distance: number;
-
-  locationName: string;
-  locationCode: string;
-  retailNetworkId: string;
-
   latitude: number;
+  locationCode: string;
+  locationName: string;
   longitude: number;
-  street: string;
   number: string;
   numberSuffix: string;
   postalCode: string;
-  city: string;
-  cc: string;
-};
+  retailNetworkId: string;
+  street: string;
+  /** @since v6.0.0 */
+  type: PickupLocationType;
+}
 
 export interface PickupOutput extends BaseOutput {
   deliveryType: DeliveryTypeName.Pickup;

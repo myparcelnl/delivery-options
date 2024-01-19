@@ -24,10 +24,13 @@
 </template>
 
 <script lang="ts" setup>
-import {computed, onDeactivated, ref, toRefs} from 'vue';
-import {OPENING_HOURS, SHOW_MORE_HOURS} from '@myparcel-do/shared';
+import {capitalize, computed, onDeactivated, ref, toRefs} from 'vue';
+import {addDays, isSameDay, isToday} from 'date-fns';
+import {CLOSED, OPENING_HOURS, SHOW_MORE_HOURS} from '@myparcel-do/shared';
+import {type StartEndDate} from '@myparcel/sdk';
+import {createNextDate, createUtcDate} from '../../../../utils';
 import {SHOWN_OPENING_HOURS} from '../../../../data';
-import {useLanguage, usePickupLocation} from '../../../../composables';
+import {useDateFormat, useLanguage, usePickupLocation, useTimeRange} from '../../../../composables';
 import DoButton from '../../../../components/common/DoButton/DoButton.vue';
 
 const props = defineProps<{locationCode: string}>();
@@ -39,10 +42,26 @@ const showAll = ref(false);
 
 const pickupLocation = usePickupLocation(propRefs.locationCode);
 
+const openingHours = computed(() => {
+  return (pickupLocation.value?.openingHours ?? []).map(({hours, weekday}) => {
+    const date = createNextDate(weekday);
+    const formattedDay = useDateFormat(date);
+
+    const isTodayOrTomorrow = isToday(date) || isSameDay(addDays(createUtcDate(), 1), date);
+
+    const time: StartEndDate = hours?.[0];
+    const timeString = time ? useTimeRange(time.start.date, time.end.date).value : translate(CLOSED);
+
+    return {
+      date,
+      weekday: capitalize(isTodayOrTomorrow ? formattedDay.relative.value : formattedDay.weekday.value),
+      timeString,
+    };
+  });
+});
+
 const filteredOpeningHours = computed(() => {
-  return showAll.value
-    ? pickupLocation.value?.openingHours
-    : pickupLocation.value?.openingHours.slice(0, SHOWN_OPENING_HOURS);
+  return showAll.value ? openingHours.value : openingHours.value.slice(0, SHOWN_OPENING_HOURS);
 });
 
 onDeactivated(() => {

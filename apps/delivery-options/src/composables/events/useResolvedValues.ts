@@ -24,10 +24,10 @@ export const useResolvedValues = (): ComputedRef => {
     }
 
     if (isDef(pickupLocation.location.value)) {
-      const {carrier, location} = pickupLocation.location.value;
+      const {carrier, openingHours, ...location} = pickupLocation.location.value;
 
       return {
-        carrier: carrier.identifier,
+        carrier,
         date: undefined,
         deliveryType: DeliveryTypeName.Pickup,
         isPickup: true,

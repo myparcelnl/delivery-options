@@ -36,6 +36,7 @@ import PickupLocationListItem from './PickupLocationListItem.vue';
 import PickupLocationDetails from './PickupLocationDetails.vue';
 
 const pickupLocations = useResolvedPickupLocations();
+
 const {translate} = useLanguage();
 
 const shown = ref(DEFAULT_MAX_PAGE_ITEMS);
@@ -45,9 +46,9 @@ const {locationCode} = useSelectedPickupLocation();
 const options = computed<SelectOption[]>(() => {
   return (get(pickupLocations.value) ?? [])
     .map((option) => ({
-      label: option.location.location_name,
+      label: option.locationName,
       carrier: option.carrier,
-      value: option.location.location_code,
+      value: option.locationCode,
     }))
     .slice(0, shown.value);
 });

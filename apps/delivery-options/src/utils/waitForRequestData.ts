@@ -3,9 +3,9 @@ import {type RequestHandler} from '@myparcel-do/shared';
 
 export const waitForRequestData = async <Response, Args extends unknown[]>(
   endpoint: (...args: Args) => RequestHandler<Response>,
-  args: Args,
+  args?: Args,
 ): Promise<Response> => {
-  const request = endpoint(...args);
+  const request = endpoint(...((args ?? []) as Args));
   await request.load();
 
   const data = get(request.data);

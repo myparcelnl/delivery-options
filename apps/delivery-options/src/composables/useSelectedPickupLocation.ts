@@ -1,18 +1,22 @@
-import {ref, type Ref} from 'vue';
-import {useMemoize} from '@vueuse/core';
-import {type UsePickupLocation, usePickupLocation} from './usePickupLocation';
+import {computed, ref, type Ref} from 'vue';
+import {type ComputedRef} from '@vue/reactivity';
+import {type ResolvedPickupLocation} from '../types';
+import {usePickupLocation} from './usePickupLocation';
 
-const getSelectedPickupLocation = useMemoize(() => ref());
+const selectedPickupLocation = ref();
 
 export const useSelectedPickupLocation = (): {
   locationCode: Ref<string>;
-  location: Ref<UsePickupLocation | undefined>;
+  location: ComputedRef<ResolvedPickupLocation | undefined>;
 } => {
-  const model = getSelectedPickupLocation();
-  const fullLocation = usePickupLocation(model);
-
   return {
-    locationCode: model,
-    location: fullLocation,
+    locationCode: selectedPickupLocation,
+    location: computed(() => {
+      if (!selectedPickupLocation.value) {
+        return undefined;
+      }
+
+      return usePickupLocation(selectedPickupLocation).value;
+    }),
   };
 };

@@ -24,8 +24,8 @@ import {PickupLocationsView} from '@myparcel-do/shared';
 import {useConfigStore} from '../../../stores';
 import {useLanguage} from '../../../composables';
 import DoButton from '../../../components/common/DoButton/DoButton.vue';
-import PickupLocationMap from './PickupLocationMap/PickupLocationMap.vue';
-import PickupLocationList from './PickupLocationList/PickupLocationList.vue';
+import PickupLocationMapWrapper from './PickupLocationMap/PickupLocationMapWrapper.vue';
+import PickupLocationListWrapper from './PickupLocationList/PickupLocationListWrapper.vue';
 import PickupLocationInput from './PickupLocationInput/PickupLocationInput.vue';
 
 const config = useConfigStore();
@@ -35,6 +35,6 @@ const mode = ref<PickupLocationsView>(config.pickupLocationsDefaultView);
 const {translate} = useLanguage();
 
 const currentComponent = computed(() =>
-  mode.value === PickupLocationsView.List ? PickupLocationList : PickupLocationMap,
+  mode.value === PickupLocationsView.List ? PickupLocationListWrapper : PickupLocationMapWrapper,
 );
 </script>

@@ -20,6 +20,8 @@ const markers = inject<Ref<Marker[]>>('markers')!;
 
 const marker = ref<Marker>();
 
+const watchers = ref([]);
+
 const onMarkerClick = (): void => {
   if (!isDef(marker.value)) {
     return;
@@ -60,7 +62,7 @@ const addMarker = (): void => {
     map?.value?.addLayer(marker.value);
   }
 
-  onUnmounted(watch(propRefs.active, setActive, {immediate: true}));
+  watch(propRefs.active, setActive, {immediate: true});
 };
 
 onUnmounted(watch([propRefs.options, map], addMarker, {immediate: true}));

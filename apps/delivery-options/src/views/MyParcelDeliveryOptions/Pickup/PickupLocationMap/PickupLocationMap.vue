@@ -9,9 +9,9 @@
         <template #default>
           <PickupLocationMapMarker
             v-for="location in pickupLocations"
-            :key="location.location.location_code"
-            :active="locationCode === location.location.location_code"
-            :location-code="location.location.location_code" />
+            :key="location.locationCode"
+            :active="locationCode === location.locationCode"
+            :location-code="location.locationCode" />
         </template>
       </Suspense>
     </LeafletMap>

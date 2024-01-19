@@ -1,4 +1,4 @@
-import {computed, type MaybeRef} from 'vue';
+import {computed, type MaybeRef, toValue} from 'vue';
 import {useMemoize} from '@vueuse/core';
 import {type ComputedRef} from '@vue/reactivity';
 import {useLanguage} from './useLanguage';
@@ -20,7 +20,7 @@ export const useFormatDistance = (distance: MaybeRef<number | string>): Computed
   const {locale} = useLanguage();
 
   return computed(() => {
-    const resolvedDistance = Math.round(Number(distance));
+    const resolvedDistance = Math.round(Number(toValue(distance)));
     const useKm = resolvedDistance >= M_TO_KM;
 
     const formatter = createDistanceFormatter(locale.value, useKm);

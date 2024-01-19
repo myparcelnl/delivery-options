@@ -1,12 +1,12 @@
 <template>
-  <p v-text="pickupLocation?.location.locationName" />
+  <p v-text="pickupLocation.locationName" />
 
   <p
     class="mp-opacity-60"
-    v-text="`${pickupLocation?.location.street} ${pickupLocation?.location.number}`" />
+    v-text="`${pickupLocation.street} ${pickupLocation.number}`" />
 
   <InfoLabel
-    v-if="PickupLocationType.Locker === pickupLocation?.location.type"
+    v-if="PickupLocationType.Locker === pickupLocation.type"
     :label="translate(PARCEL_LOCKER)"
     class="mp-mt-1">
     <ParcelLockerIcon />
