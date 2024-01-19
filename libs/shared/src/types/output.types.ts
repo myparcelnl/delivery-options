@@ -25,6 +25,7 @@ export interface DeliveryOutput extends BaseOutput {
 export type OutputPickupLocation = {
   /** @since v6.0.0 */
   type: PickupLocationType;
+  distance: number;
 
   locationName: string;
   locationCode: string;

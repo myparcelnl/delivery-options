@@ -59,6 +59,7 @@ export const getFullPickupLocation = useMemoize(
 
       location: {
         type: getPickupLocationType(resolvedLocation),
+        distance: Number(resolvedLocation.location.distance),
 
         locationCode: resolvedLocation.location.location_code,
         locationName: resolvedLocation.location.location_name,
