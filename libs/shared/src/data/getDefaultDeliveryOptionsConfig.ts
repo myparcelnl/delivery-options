@@ -1,3 +1,4 @@
+import {useNavigatorLanguage} from '@vueuse/core';
 import {type DeliveryOptionsConfig} from '../types';
 import {
   DELIVERY_DAYS_WINDOW_DEFAULT,
@@ -9,11 +10,13 @@ import {getDefaultCarrierSettings} from './getDefaultCarrierSettings';
 import {CarrierSetting, ConfigSetting, PickupLocationsView} from './enums';
 
 export const getDefaultDeliveryOptionsConfig = (): DeliveryOptionsConfig => {
+  const lang = useNavigatorLanguage();
+
   return {
     ...getDefaultCarrierSettings(),
 
     [ConfigSetting.Platform]: PLATFORM_DEFAULT,
-    [ConfigSetting.Locale]: 'nl',
+    [ConfigSetting.Locale]: lang.language.value,
     [ConfigSetting.Currency]: 'EUR',
     [ConfigSetting.ApiBaseUrl]: 'https://api.myparcel.nl',
 

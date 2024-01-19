@@ -1,12 +1,16 @@
 import {reactive} from 'vue';
 import {afterEach, beforeEach, describe, vi} from 'vitest';
 import {createPinia, setActivePinia} from 'pinia';
-import {useI18nStore} from '../stores';
+import {useLanguage} from './useLanguage';
 import {useDateFormat} from './useDateFormat';
 
 describe.concurrent('useDateFormat', (it) => {
   beforeEach(() => {
     setActivePinia(createPinia());
+
+    const {setLocale} = useLanguage();
+
+    setLocale('nl-NL');
   });
 
   afterEach(() => {
@@ -30,13 +34,13 @@ describe.concurrent('useDateFormat', (it) => {
   });
 
   it('reacts to locale changes', ({expect}) => {
-    const i18n = useI18nStore();
+    const {setLocale} = useLanguage();
 
     const date = new Date('2021-05-25T12:00:00');
     const {standard} = useDateFormat(date);
 
     expect(standard.value).toBe('dinsdag 25 mei');
-    i18n.setLocale('en-US');
+    setLocale('en-US');
     expect(standard.value).toBe('Tuesday, May 25');
   });
 

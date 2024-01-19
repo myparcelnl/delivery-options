@@ -1,6 +1,6 @@
 import {beforeEach, describe, expect, it} from 'vitest';
 import {createPinia, setActivePinia} from 'pinia';
-import {useI18nStore} from '../stores';
+import {useLanguage} from './useLanguage';
 import {useFormatDistance} from './useFormatDistance';
 
 describe('useFormatDistance', () => {
@@ -28,12 +28,13 @@ describe('useFormatDistance', () => {
   });
 
   it.concurrent('reacts to locale changes', ({expect}) => {
-    const i18n = useI18nStore();
+    const {setLocale} = useLanguage();
 
     const formatted = useFormatDistance(2456);
 
+    setLocale('nl-NL');
     expect(formatted.value).toBe('2,5 km');
-    i18n.setLocale('en-US');
+    setLocale('en-US');
     expect(formatted.value).toBe('2.5km');
   });
 });

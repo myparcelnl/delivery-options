@@ -21,16 +21,14 @@ const TRANSLATION_MAP = Object.freeze({
 
 export const useShipmentOptionsOptions = (): ComputedRef<SelectOption[]> => {
   const deliveryMoment = useSelectedDeliveryMoment();
+  const {translate} = useLanguage();
 
   return computed(() => {
-    const carrier = deliveryMoment.value?.carrier;
+    const resolvedCarrier = useResolvedCarrier(deliveryMoment.value?.carrier);
 
-    if (!carrier) {
+    if (!resolvedCarrier.value) {
       return [];
     }
-
-    const {translate} = useLanguage();
-    const resolvedCarrier = useResolvedCarrier(carrier);
 
     return SHOWN_SHIPMENT_OPTIONS.filter((option) => {
       return get(get(resolvedCarrier)?.allowedShipmentOptions)?.has(option);
@@ -46,7 +44,7 @@ export const useShipmentOptionsOptions = (): ComputedRef<SelectOption[]> => {
         value: name,
         disabled: hasOnlyOneOption,
         selected: hasOnlyOneOption ? match?.schema.enum[0] : false,
-        price: getResolvedValue(priceKey, carrier) ?? undefined,
+        price: getResolvedValue(priceKey, resolvedCarrier.value?.identifier) ?? undefined,
       } satisfies SelectOption;
     });
   });

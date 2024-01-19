@@ -1,11 +1,12 @@
 import {computed, reactive, type Ref} from 'vue';
 import {get} from 'radash';
 import {useLogger} from '@myparcel-do/shared';
-import {useI18nStore} from '../stores';
+import {useConfigStore} from '../stores';
 
 interface UseLanguage {
   locale: Ref<string>;
 
+  setLocale(locale: string): void;
   setStrings(strings: Record<string, string>): void;
   translate(key: string): string;
 }
@@ -32,10 +33,15 @@ const translate = (key: string): string => {
 };
 
 export const useLanguage = (): UseLanguage => {
-  const i18n = useI18nStore();
+  const config = useConfigStore();
 
   return {
-    locale: computed(() => i18n.locale),
+    locale: computed(() => config.locale),
+
+    setLocale(locale: string): void {
+      config.locale = locale;
+    },
+
     translate,
 
     setStrings(strings: Record<string, string>): void {
