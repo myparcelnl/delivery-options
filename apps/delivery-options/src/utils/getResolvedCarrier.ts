@@ -1,5 +1,5 @@
 import {computed} from 'vue';
-import {get, useMemoize} from '@vueuse/core';
+import {useMemoize} from '@vueuse/core';
 import {
   type CarrierIdentifier,
   getCarrierConfiguration,
@@ -14,6 +14,7 @@ import {
 import {DeliveryTypeName} from '@myparcel/constants';
 import {type ResolvedCarrier} from '../types';
 import {useAddressStore} from '../stores';
+import {waitForRequestData} from './waitForRequestData';
 import {getResolvedValue} from './getResolvedValue';
 
 const resolveOption = (
@@ -30,15 +31,9 @@ const cb = async (
   carrierIdentifier: CarrierIdentifier,
   platformName: SupportedPlatformName,
 ): Promise<ResolvedCarrier> => {
-  const carrierRequest = useCarrierRequest(resolveCarrierName(carrierIdentifier));
-  await carrierRequest.load();
+  const apiCarrier = await waitForRequestData(useCarrierRequest, [resolveCarrierName(carrierIdentifier)]);
 
   const config = getCarrierConfiguration(carrierIdentifier, platformName);
-  const apiCarrier = get(carrierRequest.data);
-
-  if (!apiCarrier) {
-    throw new Error();
-  }
 
   const allowedCountriesPickup = computed(() => config.pickupCountries ?? []);
   const allowedCountriesDelivery = computed(() => config.deliveryCountries ?? []);
