@@ -12,7 +12,7 @@ import {useLanguage} from './useLanguage';
 import {useFormatDistance} from './useFormatDistance';
 import {useDateFormat} from './useDateFormat';
 
-export interface FullPickupLocation {
+export interface UsePickupLocation {
   carrier: ResolvedCarrier;
   distance: string;
   location: OutputPickupLocation;
@@ -21,7 +21,7 @@ export interface FullPickupLocation {
 
 export const getFullPickupLocation = useMemoize(
   // eslint-disable-next-line max-lines-per-function
-  async (locationCode: string): Promise<FullPickupLocation> => {
+  async (locationCode: string): Promise<UsePickupLocation> => {
     const config = useConfigStore();
     const locations = useResolvedPickupLocations();
     const {translate} = useLanguage();
@@ -80,7 +80,7 @@ export const getFullPickupLocation = useMemoize(
   {getKey: resolveRefKey},
 );
 
-export const usePickupLocation = (locationCode: MaybeRef<string | undefined>): Ref<FullPickupLocation | undefined> => {
+export const usePickupLocation = (locationCode: MaybeRef<string | undefined>): Ref<UsePickupLocation | undefined> => {
   return asyncComputed(async () => {
     const resolved = get(locationCode);
 

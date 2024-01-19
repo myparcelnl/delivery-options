@@ -1,12 +1,12 @@
 import {ref, type Ref} from 'vue';
 import {useMemoize} from '@vueuse/core';
-import {type FullPickupLocation, usePickupLocation} from './fullPickupLocation';
+import {type UsePickupLocation, usePickupLocation} from './usePickupLocation';
 
 const getSelectedPickupLocation = useMemoize(() => ref());
 
 export const useSelectedPickupLocation = (): {
   locationCode: Ref<string>;
-  location: Ref<FullPickupLocation | undefined>;
+  location: Ref<UsePickupLocation | undefined>;
 } => {
   const model = getSelectedPickupLocation();
   const fullLocation = usePickupLocation(model);

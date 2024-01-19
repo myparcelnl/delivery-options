@@ -4,8 +4,8 @@ import {flushPromises} from '@vue/test-utils';
 import {CLOSED} from '@myparcel-do/shared';
 import {createUtcDate} from '../utils';
 import {mockDeliveryOptionsConfig, waitForPickupLocations} from '../__tests__';
+import {getFullPickupLocation, usePickupLocation} from './usePickupLocation';
 import {useLanguage} from './useLanguage';
-import {getFullPickupLocation, usePickupLocation} from './fullPickupLocation';
 
 describe.concurrent.skip('usePickupLocation', (it) => {
   beforeEach(async () => {
