@@ -8,7 +8,6 @@ export * from './getComponent';
 export * from './getConfigFromWindow';
 export * from './getConfigPriceKey';
 export * from './getDeliveryTypePrice';
-export * from './getPickupLocationType';
 export * from './getResolvedCarrier';
 export * from './getResolvedValue';
 export * from './hasSlotContent';

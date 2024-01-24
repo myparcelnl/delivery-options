@@ -11,6 +11,7 @@ export * from './getFullCarrier';
 export * from './getPackageTypeConfigMap';
 export * from './getPlatformConfig';
 export * from './getShipmentOptionConfigMap';
+export * from './isCustomEvent';
 export * from './isPastTime';
 export * from './resolveCarrierName';
 export * from './resolveConfigOption';

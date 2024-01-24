@@ -1,18 +1,18 @@
 import {useEventListener} from '@vueuse/core';
-import {isOfType} from '@myparcel/ts-utils';
+import {type InputDeliveryOptionsConfiguration, isCustomEvent, useLogger} from '@myparcel-do/shared';
 import {getConfigFromWindow} from '../../utils';
 import {UPDATE_CONFIG_IN, UPDATE_DELIVERY_OPTIONS} from '../../data';
 import {setConfiguration} from '../../config';
-import {type InputDeliveryOptionsConfiguration, useLogger} from '../../../../../libs/shared/src';
 
 export const useDeliveryOptionsIncomingEvents = (): void => {
   const logger = useLogger();
 
-  const updateConfigFromEvent = (event: Event | CustomEvent) => {
-    const isCustomEvent = isOfType<CustomEvent>(event, 'detail');
-    const newConfig: InputDeliveryOptionsConfiguration = isCustomEvent ? event.detail : getConfigFromWindow();
+  const updateConfigFromEvent = (event: Event | CustomEvent<InputDeliveryOptionsConfiguration>) => {
+    const hasDetail = isCustomEvent(event);
 
-    logger.debug(`Received configuration from ${isCustomEvent ? 'event' : 'window'}`, newConfig);
+    const newConfig: InputDeliveryOptionsConfiguration = hasDetail ? event.detail : getConfigFromWindow();
+
+    logger.debug(`Received configuration from ${hasDetail ? 'event' : 'window'}`, newConfig);
 
     setConfiguration(newConfig);
   };

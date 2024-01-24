@@ -2,9 +2,9 @@ import './assets/base.scss';
 import './assets/index.scss';
 import {createApp} from 'vue';
 import {createPinia} from 'pinia';
+import {isCustomEvent} from '@myparcel-do/shared';
 import {createMyParcelFormBuilderPlugin} from '@myparcel/vue-form-builder';
 import {MyParcelDeliveryOptions} from './views';
-import {isCustomEvent} from './utils/isCustomEvent';
 import {showDeveloperInfo} from './utils';
 import {UPDATE_DELIVERY_OPTIONS} from './data';
 
