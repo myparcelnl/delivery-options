@@ -9,20 +9,27 @@ import {showDeveloperInfo} from './utils';
 import {type IncomingEventDetail} from './types/events.types';
 import {RENDER_DELIVERY_OPTIONS, UPDATE_DELIVERY_OPTIONS} from './data';
 
-const apps = new Map<string, App>();
-
 if (import.meta.env.DEV && !window.hasOwnProperty('MyParcelConfig')) {
   window.onload = showDeveloperInfo;
 }
 
+/* eslint-disable @typescript-eslint/naming-convention,no-underscore-dangle */
 const mountApp = (selector: string, configuration: InputDeliveryOptionsConfiguration | undefined): void => {
+  const element = document.querySelector<Element & {__vue_app__?: App}>(selector);
+
+  /**
+   * Unmount the app if it's already mounted on the same selector.
+   */
+  if (element?.__vue_app__) {
+    element.__vue_app__?.unmount();
+  }
+
   const app = createApp(MyParcelDeliveryOptions, {configuration});
 
   app.use(createPinia());
   app.use(createMyParcelFormBuilderPlugin());
 
   app.mount(selector);
-  apps.set(selector, app);
 };
 
 const initialize = (event: Event | CustomEvent): void => {
@@ -30,13 +37,11 @@ const initialize = (event: Event | CustomEvent): void => {
   document.removeEventListener(UPDATE_DELIVERY_OPTIONS, initialize);
 
   const hasData = isCustomEvent<IncomingEventDetail>(event);
+
   const selector = (hasData ? event.detail.selector : null) ?? `#${__CLASS_BASE__}`;
+  const configuration = hasData ? event.detail : undefined;
 
-  if (RENDER_DELIVERY_OPTIONS === event.type && apps.has(selector)) {
-    apps.get(selector)?.unmount();
-  }
-
-  mountApp(selector, hasData ? event.detail : undefined);
+  mountApp(selector, configuration);
 };
 
 document.addEventListener(RENDER_DELIVERY_OPTIONS, initialize);
