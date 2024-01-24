@@ -12,6 +12,9 @@
       <excludePattern pattern="cache" />
       <excludePattern pattern="lib" />
       <excludePattern pattern="coverage" />
+      <excludePattern pattern=".eslintcache" />
+      <excludePattern pattern="*.tsbuildinfo" />
+      <excludePattern pattern="*.timestamp-*" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
