@@ -17,3 +17,4 @@ export * from './showDeveloperInfo';
 export * from './stringToDate';
 export * from './toTime';
 export * from './waitForRequestData';
+export {getDefaultAddress} from './getDefaultAddress';

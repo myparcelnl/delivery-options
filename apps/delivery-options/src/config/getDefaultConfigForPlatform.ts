@@ -22,6 +22,12 @@ const PLATFORM_DEFAULTS = Object.freeze({
 
 export const getDefaultConfigForPlatform = (
   platform: SupportedPlatformName = PlatformName.MyParcel,
-): Partial<DeliveryOptionsConfig> => {
-  return assign<Partial<DeliveryOptionsConfig>>(getDefaultDeliveryOptionsConfig(), PLATFORM_DEFAULTS?.[platform] ?? {});
+): DeliveryOptionsConfig => {
+  return assign<DeliveryOptionsConfig>(
+    {
+      ...getDefaultDeliveryOptionsConfig(),
+      [ConfigSetting.Platform]: platform,
+    },
+    (PLATFORM_DEFAULTS?.[platform] ?? {}) as DeliveryOptionsConfig,
+  );
 };

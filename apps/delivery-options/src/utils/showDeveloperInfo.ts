@@ -1,42 +1,48 @@
 /* eslint-disable no-console */
-import {
-  AddressField,
-  CarrierSetting,
-  ConfigSetting,
-  type InputDeliveryOptionsConfiguration,
-  KEY_CARRIER_SETTINGS,
-} from '@myparcel-do/shared';
+import {CarrierSetting, ConfigSetting, KEY_CARRIER_SETTINGS} from '@myparcel-do/shared';
+import {type ReadonlyOr} from '@myparcel/ts-utils';
 import {CarrierName, PlatformName} from '@myparcel/constants';
-import {UPDATE_DELIVERY_OPTIONS} from '../data';
+import {type IncomingEventDetail} from '../types/events.types';
+import {RENDER_DELIVERY_OPTIONS} from '../data';
+import {getDefaultAddress} from './getDefaultAddress';
+
+const JSON_SPACES = 2;
+
+const lineHeight = 'line-height: 2em';
+const sansSerif = 'font-family: sans-serif';
+const padding = 'padding: 0 0.5em';
+const margin = 'margin: 2px 0';
+
+const h1 = Object.freeze(['font-size: 2em', sansSerif, lineHeight]);
+
+const h2 = Object.freeze([
+  'font-size: 1.4em',
+  'border-bottom: 1px solid #ff8c00',
+  sansSerif,
+  lineHeight,
+  padding,
+  margin,
+]);
+
+const text = Object.freeze([
+  'font-size: 1.2em',
+  'background-color: #ff8c00',
+  'color: #222',
+  'border-radius: 0.5em',
+  sansSerif,
+  lineHeight,
+  padding,
+  margin,
+]);
+
+const code = ['font-family: monospace'];
 
 /**
  * Output some information in the console to help a developer get started quickly.
  */
 export const showDeveloperInfo = (): void => {
-  const styleHeader1 = ['font-size: 2em', 'font-family: sans-serif', 'padding: .2em 0;'];
-
-  const styleHeader2 = [
-    'color: gray',
-    'font-size: 1.4em',
-    'font-style: italic',
-    'font-family: sans-serif',
-    'padding: .2em 0;',
-  ];
-
-  const styleText = [
-    'color: white',
-    'font-size: 1.2em',
-    'font-family: sans-serif',
-    'padding: .2em .3em;',
-    'background-color: #51B67D',
-    'border-radius: 3px',
-    'margin: .1em 0',
-    'border-left: 3px solid #14785A',
-  ];
-
-  const styleCode = ['padding: .2em 0;'];
-
   const demoConfig = {
+    selector: `#${__CLASS_BASE__}`,
     config: {
       [ConfigSetting.Platform]: PlatformName.MyParcel,
       [KEY_CARRIER_SETTINGS]: {
@@ -44,31 +50,45 @@ export const showDeveloperInfo = (): void => {
           [CarrierSetting.AllowDeliveryOptions]: true,
           [CarrierSetting.AllowPickupLocations]: true,
         },
+        [CarrierName.DhlForYou]: {
+          [CarrierSetting.AllowDeliveryOptions]: true,
+          [CarrierSetting.AllowPickupLocations]: true,
+        },
       },
     },
-    address: {
-      [AddressField.Country]: 'NL',
-      [AddressField.City]: 'Hoofddorp',
-      [AddressField.PostalCode]: '2132JE',
-      [AddressField.Street]: 'Antareslaan 31',
-    },
-  } satisfies Omit<InputDeliveryOptionsConfiguration, 'components'>;
+    address: getDefaultAddress(),
+  } satisfies IncomingEventDetail;
 
-  console.log('%cWelcome to the MyParcel delivery options!', styleHeader1.join(';'));
-  console.log('%cCheck out README.md for the full documentation.', styleHeader2.join(';'));
-  console.log(
-    '%cBy default, the delivery options are not visible. \n' +
-      'To show it you must fill window.MyParcelConfig with the following data:',
-    styleText.join(';'),
+  const log = (message: string, style: ReadonlyOr<string[]>): void => {
+    console.log(`%c${message}`, style.join(';'));
+  };
+
+  log('Welcome to the MyParcel delivery options!', h1);
+  log(
+    `Documentation: ${__URL_DOCUMENTATION__}
+Sandbox: ${__URL_SANDBOX__}`,
+    h2,
   );
-  console.log(`%cwindow.MyParcelConfig = ${JSON.stringify(demoConfig, null, 2)}`, styleCode.join(';'));
-  console.log('%cAnd then send an event to tell the delivery options module to update its data:', styleText.join(';'));
-  console.log(`%cdocument.dispatchEvent(new Event('${UPDATE_DELIVERY_OPTIONS}'));`, styleCode.join(';'));
-  console.log(
-    '%cThis example shows a checkout with delivery options and pickup locations enabled for both bpost and dpd. ' +
-      'Check out the readme for all possible settings combinations.\n' +
-      '⬇ You can try it right here in your browser console. ⬇',
-    styleText.join(';'),
+
+  log(
+    `By default, the delivery options are not rendered.
+To show it you must pass a configuration via an event:`,
+    text,
+  );
+
+  const configJson = JSON.stringify({detail: demoConfig}, null, JSON_SPACES).replace(/"([^"]+)":/g, '$1:');
+
+  log(
+    `const event = new CustomEvent('${RENDER_DELIVERY_OPTIONS}', ${configJson});
+
+document.dispatchEvent(event);`,
+    code,
+  );
+
+  log(
+    `This example shows a checkout with delivery options and pickup locations enabled for ${CarrierName.PostNl} and ${CarrierName.DhlForYou}.
+⬇ You can try it right here in your browser console. ⬇`,
+    text,
   );
   /* eslint-enable no-console */
 };
