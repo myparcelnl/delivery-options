@@ -21,8 +21,8 @@
     "libs/*"
   ],
   "scripts": {
-    "build": "nx run-many -t build",
-    "build:dev": "nx run-many -t build:dev",
+    "build": "nx run-many -t build --output-style=stream",
+    "build:dev": "nx run-many -t build:dev --output-style=stream",
     "clean": "nx run-many -t clean --parallel=99",
     "lint": "nx affected -t lint --output-style=stream",
     "lint:fix": "nx affected -t lint:fix --output-style=stream",

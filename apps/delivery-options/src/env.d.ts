@@ -7,3 +7,5 @@ declare module '*.vue' {
   const component: DefineComponent<{}, {}, any>;
   export default component;
 }
+
+declare const __CLASS_BASE__: string;

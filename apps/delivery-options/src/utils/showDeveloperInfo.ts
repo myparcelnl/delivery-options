@@ -47,10 +47,10 @@ export const showDeveloperInfo = (): void => {
       },
     },
     address: {
-      [AddressField.Country]: '',
-      [AddressField.City]: '',
-      [AddressField.PostalCode]: '',
-      [AddressField.Street]: '',
+      [AddressField.Country]: 'NL',
+      [AddressField.City]: 'Hoofddorp',
+      [AddressField.PostalCode]: '2132JE',
+      [AddressField.Street]: 'Antareslaan 31',
     },
   } satisfies Omit<InputDeliveryOptionsConfiguration, 'components'>;
 

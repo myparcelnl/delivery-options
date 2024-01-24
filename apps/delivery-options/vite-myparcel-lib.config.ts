@@ -1,13 +1,13 @@
+import {mergeConfig} from 'vite';
 import {createViteConfig} from '@myparcel-do/build-vite';
+import baseConfig from './vite-myparcel.config';
 
-const dirname = new URL('.', import.meta.url).pathname;
-
-export default createViteConfig(() => {
-  return {
+export default createViteConfig((env) => {
+  return mergeConfig(baseConfig(env), {
     build: {
       lib: {
-        entry: 'src/index.ts',
-        fileName: 'index',
+        entry: 'src/main.ts',
+        fileName: 'myparcel-lib',
         formats: ['es', 'cjs'],
         name: 'MyParcelDeliveryOptionsLib',
       },
@@ -20,9 +20,5 @@ export default createViteConfig(() => {
         },
       },
     },
-
-    test: {
-      setupFiles: [`${dirname}src/__tests__/vitest-setup.ts`],
-    },
-  };
+  });
 });
