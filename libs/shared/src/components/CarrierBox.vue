@@ -18,8 +18,8 @@
 
 <script lang="ts" setup>
 import {toRefs} from 'vue';
-import {useCarrierRequest} from '@myparcel-do/shared';
 import {type CarrierName} from '@myparcel/constants';
+import {useCarrierRequest} from '../composables';
 import CarrierLogo from './CarrierLogo.vue';
 
 const props = defineProps<{carrier: CarrierName}>();

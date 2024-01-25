@@ -1,9 +1,10 @@
 /* eslint-disable max-len,vue/max-len */
 import {afterEach, describe, expect, it, vi} from 'vitest';
 import {format} from 'date-fns';
-import {CUTOFF_TIME_DEFAULT, type SupportedPlatformName} from '@myparcel-do/shared';
 import {CarrierName, PlatformName} from '@myparcel/constants';
 import {type MockDeliveryOptionsParameters, type ResolvedMockDeliveryOptionsParameters} from '../../types';
+import {type SupportedPlatformName} from '../../../types';
+import {CUTOFF_TIME_DEFAULT} from '../../../data';
 import {getNextDeliveryOption} from './getNextDeliveryOption';
 
 const DATES = Object.freeze({

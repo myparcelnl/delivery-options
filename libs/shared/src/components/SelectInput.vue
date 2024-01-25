@@ -100,7 +100,6 @@ export default {inheritAttrs: false};
 
 <script lang="ts" setup>
 import {computed, nextTick, ref, watch} from 'vue';
-import {NBSP} from '@myparcel-do/shared';
 import {
   type SelectInputEmits,
   type SelectInputModelValue,
@@ -108,6 +107,7 @@ import {
   type SelectOption,
   type WithElement,
 } from '../types';
+import {NBSP} from '../data';
 import {useClickOutside, useCursor, useOpenState, useSelectInputContext} from '../composables';
 import {Loader} from './Loader';
 

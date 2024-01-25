@@ -1,6 +1,6 @@
 import {type Ref} from 'vue';
 import {useEventListener} from '@vueuse/core';
-import {ElementEvent} from '@myparcel-do/shared';
+import {ElementEvent} from '../data';
 
 export const useClickOutside = (elementRef: Ref<HTMLElement | null>, callback: () => void): void => {
   useEventListener(ElementEvent.Click, (event) => {
