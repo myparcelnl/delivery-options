@@ -12,7 +12,7 @@ export default createViteConfig((env) => {
         name: 'MyParcelDeliveryOptionsLib',
       },
       rollupOptions: {
-        external: ['vue'],
+        external: ['vue', 'leaflet'],
         output: {
           globals: {
             vue: 'Vue',

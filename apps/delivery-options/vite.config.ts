@@ -10,6 +10,9 @@ export default createViteConfig({
       formats: ['es', 'cjs'],
       name: 'MyParcelDeliveryOptionsIndex',
     },
+    rollupOptions: {
+      external: ['leaflet'],
+    },
   },
 
   test: {
