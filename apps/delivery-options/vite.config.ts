@@ -1,6 +1,13 @@
+import {fileURLToPath} from 'node:url';
 import {createViteConfig} from '@myparcel-do/build-vite';
 
 const dirname = new URL('.', import.meta.url).pathname;
+
+export const resolvePiniaDevtoolsFix = {
+  alias: {
+    pinia: fileURLToPath(new URL('../../node_modules/pinia/dist/pinia.prod.cjs', import.meta.url)),
+  },
+};
 
 export default createViteConfig({
   build: {
@@ -14,6 +21,8 @@ export default createViteConfig({
       external: ['leaflet'],
     },
   },
+
+  resolve: resolvePiniaDevtoolsFix,
 
   test: {
     setupFiles: [`${dirname}/../../libs/shared/src/__tests__/vitest-setup.ts`],

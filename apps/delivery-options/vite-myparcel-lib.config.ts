@@ -1,5 +1,6 @@
 import {mergeConfig} from 'vite';
 import {createViteConfig} from '@myparcel-do/build-vite';
+import {resolvePiniaDevtoolsFix} from './vite.config';
 import baseConfig from './vite-myparcel.config';
 
 export default createViteConfig((env) => {
@@ -20,5 +21,7 @@ export default createViteConfig((env) => {
         },
       },
     },
+
+    resolve: resolvePiniaDevtoolsFix,
   });
 });
