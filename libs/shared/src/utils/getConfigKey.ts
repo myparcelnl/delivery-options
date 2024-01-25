@@ -2,6 +2,7 @@ import {isEnumValue} from '@myparcel/ts-utils';
 import {DeliveryTypeName, PackageTypeName, ShipmentOptionName} from '@myparcel/constants';
 import {
   type ConfigKey,
+  CustomDeliveryType,
   type SupportedDeliveryTypeName,
   type SupportedPackageTypeName,
   type SupportedShipmentOptionName,
@@ -21,7 +22,7 @@ export const getConfigKey = (
     key = map[input] ?? null;
   }
 
-  if (isEnumValue(input, DeliveryTypeName)) {
+  if (isEnumValue(input, DeliveryTypeName) || isEnumValue(input, CustomDeliveryType)) {
     const map = getDeliveryTypeConfigMap();
 
     key = map[input] ?? null;
