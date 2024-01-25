@@ -11,7 +11,9 @@
         class="mp-ml-auto" />
     </div>
 
-    <PickupLocationOpeningHours :location-code="locationCode" />
+    <PickupLocationOpeningHours
+      :expanded="expanded"
+      :location-code="locationCode" />
   </div>
 </template>
 
@@ -22,7 +24,7 @@ import PickupLocationOpeningHours from '../PickupLocationOpeningHours/PickupLoca
 import PickupLocationName from '../PickupLocationList/PickupLocationName.vue';
 import {usePickupLocation} from '../../../../composables';
 
-const props = defineProps<{locationCode: string}>();
+const props = defineProps<{locationCode: string; expanded?: boolean}>();
 const propRefs = toRefs(props);
 
 const location = usePickupLocation(propRefs.locationCode);

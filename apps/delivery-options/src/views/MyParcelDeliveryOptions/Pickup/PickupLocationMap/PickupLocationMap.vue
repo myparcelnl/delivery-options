@@ -1,10 +1,17 @@
 <template>
-  <div class="@sm:mp-flex-row mp-border mp-flex mp-flex-col mp-overflow-hidden mp-relative mp-rounded-2xl">
+  <div
+    :class="{
+      'mp-flex-row': md,
+      'mp-flex-col': !md,
+    }"
+    class="mp-border mp-flex mp-overflow-hidden mp-relative mp-rounded-2xl">
     <LeafletMap
       :class="{
-        '@sm:mp-w-1/2': Boolean(form.values.pickupLocation),
-      }"
-      class="@sm:mp-h-[400px] mp-h-[300px]">
+        'mp-h-[400px]': md,
+        'mp-h-[300px]': !md,
+        'mp-w-1/2': md && form.values.pickupLocation,
+        'mp-w-full': !md || !form.values.pickupLocation,
+      }">
       <Suspense>
         <template #default>
           <PickupLocationMapMarker
@@ -18,8 +25,14 @@
 
     <div
       v-if="form.values.pickupLocation"
-      class="@sm:mp-border-l @sm:mp-border-t-none @sm:mp-w-1/2 mp-border-t mp-flex-grow mp-p-5">
-      <PickupLocationDetails :location-code="form.values.pickupLocation" />
+      :class="{
+        'mp-border-l mp-w-1/2': md,
+        'mp-border-t': !md,
+      }"
+      class="mp-flex-grow mp-p-5">
+      <PickupLocationDetails
+        :location-code="form.values.pickupLocation"
+        expanded />
     </div>
   </div>
 </template>
@@ -27,7 +40,7 @@
 <script lang="ts" setup>
 import PickupLocationMapMarker from '../PickupLocationMapMarker/PickupLocationMapMarker.vue';
 import {useDeliveryOptionsForm} from '../../../../form';
-import {useResolvedPickupLocations, useSelectedPickupLocation} from '../../../../composables';
+import {useBreakpoints, useResolvedPickupLocations, useSelectedPickupLocation} from '../../../../composables';
 import LeafletMap from '../../../../components/map/LeafletMap/LeafletMap.vue';
 import PickupLocationDetails from './PickupLocationDetails.vue';
 
@@ -35,4 +48,6 @@ const pickupLocations = useResolvedPickupLocations();
 const {instance: form} = useDeliveryOptionsForm();
 
 const {locationCode} = useSelectedPickupLocation();
+
+const {md} = useBreakpoints();
 </script>

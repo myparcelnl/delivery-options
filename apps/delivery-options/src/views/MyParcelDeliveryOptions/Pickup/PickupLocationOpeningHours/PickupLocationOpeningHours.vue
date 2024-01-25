@@ -15,9 +15,9 @@
     </div>
 
     <DoButton
-      v-if="!showAll"
+      v-if="!resolvedShowAll"
       link
-      @click="showAll = true">
+      @click="mutableShowAll = true">
       {{ translate(SHOW_MORE_HOURS) }}
     </DoButton>
   </div>
@@ -33,14 +33,15 @@ import {SHOWN_OPENING_HOURS} from '../../../../data';
 import {useDateFormat, useLanguage, usePickupLocation, useTimeRange} from '../../../../composables';
 import DoButton from '../../../../components/common/DoButton/DoButton.vue';
 
-const props = defineProps<{locationCode: string}>();
+const props = defineProps<{locationCode: string; expanded?: boolean}>();
 const propRefs = toRefs(props);
 
 const {translate} = useLanguage();
 
-const showAll = ref(false);
-
 const pickupLocation = usePickupLocation(propRefs.locationCode);
+
+const mutableShowAll = ref(false);
+const resolvedShowAll = computed(() => props.expanded || mutableShowAll.value);
 
 const openingHours = computed(() => {
   return (pickupLocation.value?.openingHours ?? [])
@@ -63,10 +64,10 @@ const openingHours = computed(() => {
 });
 
 const filteredOpeningHours = computed(() => {
-  return showAll.value ? openingHours.value : openingHours.value.slice(0, SHOWN_OPENING_HOURS);
+  return resolvedShowAll.value ? openingHours.value : openingHours.value.slice(0, SHOWN_OPENING_HOURS);
 });
 
 onDeactivated(() => {
-  showAll.value = false;
+  mutableShowAll.value = false;
 });
 </script>

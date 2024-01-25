@@ -2,7 +2,7 @@
   <div ref="wrapper">
     <DeliveryOptionsForm
       v-if="ready"
-      class="@container myparcel-delivery-options" />
+      class="myparcel-delivery-options" />
   </div>
 </template>
 
