@@ -4,11 +4,11 @@
 
 <script lang="ts" setup>
 import {computed, ref} from 'vue';
-import {CHOOSE_DATE, ComponentName} from '@myparcel-do/shared';
+import {CHOOSE_DATE} from '@myparcel-do/shared';
 import {createField} from '@myparcel/vue-form-builder';
-import {getComponent} from '../../../../utils';
 import {FIELD_DELIVERY_DATE} from '../../../../data';
 import {useDateFormat, useLanguage, useResolvedDeliveryDates} from '../../../../composables';
+import DateSelector from './DateSelector.vue';
 
 const {translate} = useLanguage();
 const deliveryDates = useResolvedDeliveryDates();
@@ -18,7 +18,7 @@ const options = computed(() => {
     const date = useDateFormat(option.date);
 
     return {
-      label: `${date.relative.value} (${date.standard.value})`,
+      label: `${date.relative} (${date.standard})`,
       value: option.date,
     };
   });
@@ -27,7 +27,7 @@ const options = computed(() => {
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const DeliveryDate = createField({
   name: FIELD_DELIVERY_DATE,
-  component: getComponent(ComponentName.Select),
+  component: DateSelector,
   ref: ref(),
   props: {
     loading: computed(() => !options.value.length),

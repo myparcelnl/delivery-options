@@ -1,5 +1,6 @@
-import {computed, type MaybeRef} from 'vue';
+import {capitalize, computed, type MaybeRef, reactive, type UnwrapNestedRefs} from 'vue';
 import {isString} from 'radash';
+import {addDays, isBefore} from 'date-fns';
 import {type DateLike, get, normalizeDate, useMemoize} from '@vueuse/core';
 import {type ComputedRef} from '@vue/reactivity';
 import {stringToDate} from '../utils';
@@ -13,6 +14,8 @@ const FORMAT_AUTO = 'auto';
 
 interface FormattedDateInstance {
   date: ComputedRef<Date>;
+  day: ComputedRef<string>;
+  month: ComputedRef<string>;
   relative: ComputedRef<string>;
   standard: ComputedRef<string>;
   time: ComputedRef<string>;
@@ -42,7 +45,7 @@ const createDateFormatter: CreateDateFormatter = useMemoize((locale, options): D
   return (date) => formatter.format(date);
 });
 
-export const useDateFormat = (date: MaybeRef<DateLike>): FormattedDateInstance => {
+export const useDateFormat = (date: MaybeRef<DateLike>): UnwrapNestedRefs<FormattedDateInstance> => {
   const {locale} = useLanguage();
 
   const resolvedDate = computed(() => {
@@ -51,40 +54,60 @@ export const useDateFormat = (date: MaybeRef<DateLike>): FormattedDateInstance =
     return isString(resolvedDate) ? stringToDate(resolvedDate) : normalizeDate(resolvedDate);
   });
 
-  return {
+  const relative = computed(() => {
+    const format = createRelativeDateFormatter(get(locale));
+
+    return format(resolvedDate.value);
+  });
+
+  const weekday = computed(() => {
+    const format = createDateFormatter(get(locale), {weekday: FORMAT_LONG});
+
+    if (isBefore(resolvedDate.value, addDays(Date.now(), 2))) {
+      return capitalize(relative.value);
+    }
+
+    return format(resolvedDate.value);
+  });
+
+  const day = computed(() => {
+    const format = createDateFormatter(get(locale), {day: FORMAT_NUMERIC});
+
+    return format(resolvedDate.value);
+  });
+
+  const time = computed(() => {
+    const format = createDateFormatter(get(locale), {
+      hour: FORMAT_NUMERIC,
+      minute: FORMAT_NUMERIC,
+    });
+
+    return format(resolvedDate.value);
+  });
+
+  const standard = computed(() => {
+    const format = createDateFormatter(get(locale), {
+      weekday: FORMAT_LONG,
+      day: FORMAT_NUMERIC,
+      month: FORMAT_LONG,
+    });
+
+    return format(resolvedDate.value);
+  });
+
+  const month = computed(() => {
+    const format = createDateFormatter(get(locale), {month: FORMAT_LONG});
+
+    return format(resolvedDate.value);
+  });
+
+  return reactive({
     date: resolvedDate,
-
-    relative: computed(() => {
-      const formatter = createRelativeDateFormatter(get(locale));
-
-      return formatter(resolvedDate.value);
-    }),
-
-    standard: computed(() => {
-      const formatter = createDateFormatter(get(locale), {
-        weekday: FORMAT_LONG,
-        day: FORMAT_NUMERIC,
-        month: FORMAT_LONG,
-      });
-
-      return formatter(resolvedDate.value);
-    }),
-
-    time: computed(() => {
-      const formatter = createDateFormatter(get(locale), {
-        hour: FORMAT_NUMERIC,
-        minute: FORMAT_NUMERIC,
-      });
-
-      return formatter(resolvedDate.value);
-    }),
-
-    weekday: computed(() => {
-      const formatter = createDateFormatter(get(locale), {
-        weekday: FORMAT_LONG,
-      });
-
-      return formatter(resolvedDate.value);
-    }),
-  };
+    day,
+    month,
+    relative,
+    standard,
+    time,
+    weekday,
+  });
 };

@@ -1,5 +1,6 @@
 export * from './events';
 export * from './useActiveCarriers';
+export * from './useBreakpoints';
 export * from './useCarrierSettings';
 export * from './useCurrentPlatform';
 export * from './useDateFormat';
@@ -8,6 +9,7 @@ export * from './useLanguage';
 export * from './useLeaflet';
 export * from './useMostEcoFriendly';
 export * from './usePickupLocation';
+export * from './useProvideElementWidth';
 export * from './useResolvedCarrier';
 export * from './useResolvedDeliveryDates';
 export * from './useResolvedDeliveryMoments';

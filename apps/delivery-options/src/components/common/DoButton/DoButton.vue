@@ -1,6 +1,7 @@
 <template>
   <button
     :class="classes"
+    :disabled="disabled"
     type="button">
     <slot />
 
@@ -17,6 +18,8 @@ import {computed} from 'vue';
 
 const props = defineProps<{
   active?: boolean;
+
+  disabled?: boolean;
 
   /**
    * To show the button as a link.
@@ -57,10 +60,11 @@ const classes = computed(() => {
       'mp-border-r-0',
       'mp-border',
 
-      // Colors
-      'mp-bg-white',
-
       {
+        // Colors
+        'mp-bg-white': !props.disabled,
+        'mp-cursor-not-allowed mp-opacity-50 mp-bg-gray-100': props.disabled,
+
         'dark:mp-bg-gray-900 mp-bg-gray-200': props.active,
         'hover:mp-bg-gray-100 dark:hover:mp-bg-gray-700 dark:mp-bg-gray-800 mp-bg-gray-100': !props.active,
       },

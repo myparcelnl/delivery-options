@@ -1,19 +1,25 @@
 <template>
-  <DeliveryOptionsForm
-    v-if="ready"
-    class="@container myparcel-delivery-options" />
+  <div ref="wrapper">
+    <DeliveryOptionsForm
+      v-if="ready"
+      class="@container myparcel-delivery-options" />
+  </div>
 </template>
 
 <script lang="ts" setup>
 import '../../assets/index.scss';
-import {computed, onMounted, toRefs, watch} from 'vue';
+import {computed, onMounted, ref, toRefs, watch} from 'vue';
 import {get} from '@vueuse/core';
 import {useLogger} from '@myparcel-do/shared';
 import {getConfigFromWindow} from '../../utils';
 import {type DeliveryOptionsEmits, type DeliveryOptionsProps} from '../../types';
 import {useAddressStore, useConfigStore} from '../../stores';
 import {setConfiguration} from '../../config';
-import {useDeliveryOptionsIncomingEvents, useDeliveryOptionsOutgoingEvents} from '../../composables';
+import {
+  useDeliveryOptionsIncomingEvents,
+  useDeliveryOptionsOutgoingEvents,
+  useProvideElementWidth,
+} from '../../composables';
 import DeliveryOptionsForm from './DeliveryOptionsForm/DeliveryOptionsForm.vue';
 
 const props = defineProps<DeliveryOptionsProps>();
@@ -24,6 +30,8 @@ const propRefs = toRefs(props);
 const logger = useLogger();
 const config = useConfigStore();
 const address = useAddressStore();
+
+const wrapper = ref<HTMLFormElement>();
 
 const ready = computed(() => {
   const isReady = Boolean(config.platform && address.cc);
@@ -64,4 +72,6 @@ watch(
 
 useDeliveryOptionsIncomingEvents();
 useDeliveryOptionsOutgoingEvents(emit);
+
+useProvideElementWidth(wrapper);
 </script>

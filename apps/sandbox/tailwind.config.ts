@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-magic-numbers,no-magic-numbers */
+import defaultTheme from 'tailwindcss/defaultTheme';
 import {type Config} from 'tailwindcss';
 import containerQueriesPlugin from '@tailwindcss/container-queries';
 
@@ -17,6 +18,8 @@ const config: Config = {
       sans: ['Proxima Nova', 'sans-serif'],
     },
     fontSize: {
+      ...defaultTheme.fontSize,
+
       xs: ['0.75rem', {lineHeight: '1.125rem'}],
       sm: ['0.875rem', {lineHeight: '1.3125rem'}],
       base: ['1rem', {lineHeight: '1.5rem'}],
