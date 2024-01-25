@@ -4,14 +4,16 @@
 
 <script lang="ts" setup>
 import {inject, onUnmounted, type Ref, ref, toRefs, watch} from 'vue';
-import {type Map, type Marker, type MarkerOptions} from 'leaflet';
+import {type Map, type MarkerOptions} from 'leaflet';
 import {isDef} from '@vueuse/core';
+import {ElementEvent} from '@myparcel-do/shared';
+import {type Marker} from '../../../types';
 import {MAP_MARKER_CLASS_ACTIVE} from '../../../data';
 
 const props = defineProps<{center: [number, number]; options: MarkerOptions; active?: boolean}>();
 const propRefs = toRefs(props);
 
-const emit = defineEmits<(event: 'click', marker: Marker) => void>();
+const emit = defineEmits<(event: ElementEvent.Click, marker: Marker) => void>();
 
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 const map = inject<Ref<Map | undefined>>('map')!;
@@ -20,15 +22,13 @@ const markers = inject<Ref<Marker[]>>('markers')!;
 
 const marker = ref<Marker>();
 
-const watchers = ref([]);
-
 const onMarkerClick = (): void => {
   if (!isDef(marker.value)) {
     return;
   }
 
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  emit('click', marker.value);
+  emit(ElementEvent.Click, marker.value);
   map.value?.panTo(marker.value.getLatLng());
 };
 
@@ -56,7 +56,15 @@ const addMarker = (): void => {
       return;
     }
 
-    marker.value.on('click', onMarkerClick);
+    marker.value.on(ElementEvent.Click, onMarkerClick);
+    marker.value.on(ElementEvent.Keydown, (event) => {
+      if (!['Enter', 'Space'].includes(event.originalEvent.key)) {
+        return;
+      }
+
+      onMarkerClick();
+    });
+
     markers.value.push(marker.value);
 
     map?.value?.addLayer(marker.value);

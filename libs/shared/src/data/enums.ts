@@ -111,3 +111,8 @@ export enum PickupLocationType {
   Default = 'default',
   Locker = 'locker',
 }
+
+export enum ElementEvent {
+  Keydown = 'keydown',
+  Click = 'click',
+}

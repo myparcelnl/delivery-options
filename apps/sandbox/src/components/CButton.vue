@@ -3,7 +3,7 @@
     :class="classes"
     class="dark:mp-text-white mp-inline-flex mp-rounded-[20px] mp-whitespace-nowrap"
     type="button"
-    @click="$emit('click')">
+    @click="$emit(ElementEvent.Click)">
     <span class="mp-m-auto">
       <slot />
     </span>
@@ -12,6 +12,7 @@
 
 <script lang="ts" setup>
 import {computed} from 'vue';
+import {ElementEvent} from '@myparcel-do/shared';
 import {type StyleProps} from '../types';
 import {StyleSize, StyleVariant} from '../constants';
 

@@ -7,7 +7,7 @@
     class="mp-bg-opacity-20 mp-border mp-flex mp-flex-col mp-items-center mp-p-3 mp-rounded-xl"
     role="button"
     tabindex="0"
-    @click="$emit('click')">
+    @click="$emit(ElementEvent.Click)">
     <span
       class="mp-not-sr-only"
       v-text="formatted.weekday" />
@@ -24,6 +24,7 @@
 
 <script lang="ts" setup>
 import {toRefs} from 'vue';
+import {ElementEvent} from '@myparcel-do/shared';
 import {useDateFormat} from '../../../../composables';
 
 const props = defineProps<{date: string; active?: boolean}>();
