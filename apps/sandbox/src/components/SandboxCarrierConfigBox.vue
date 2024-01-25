@@ -1,5 +1,5 @@
 <template>
-  <Box>
+  <Box class="mp-flex mp-flex-col mp-gap-4">
     <h2>Carriers</h2>
 
     <Suspense>
