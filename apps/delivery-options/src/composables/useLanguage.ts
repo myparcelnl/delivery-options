@@ -1,10 +1,11 @@
-import {computed, reactive, type Ref} from 'vue';
+import {computed, type ComputedRef, reactive} from 'vue';
 import {get} from 'radash';
+import {useMemoize} from '@vueuse/core';
 import {useLogger} from '@myparcel-do/shared';
 import {useConfigStore} from '../stores';
 
 interface UseLanguage {
-  locale: Ref<string>;
+  locale: ComputedRef<string>;
 
   setLocale(locale: string): void;
   setStrings(strings: Record<string, string>): void;
@@ -32,7 +33,7 @@ const translate = (key: string): string => {
   return translation;
 };
 
-export const useLanguage = (): UseLanguage => {
+export const useLanguage = useMemoize((): UseLanguage => {
   const config = useConfigStore();
 
   return {
@@ -47,5 +48,5 @@ export const useLanguage = (): UseLanguage => {
     setStrings(strings: Record<string, string>): void {
       state.strings = Object.freeze(strings);
     },
-  };
-};
+  } as UseLanguage;
+});

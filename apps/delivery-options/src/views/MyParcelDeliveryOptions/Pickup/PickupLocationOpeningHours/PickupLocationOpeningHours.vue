@@ -43,21 +43,23 @@ const showAll = ref(false);
 const pickupLocation = usePickupLocation(propRefs.locationCode);
 
 const openingHours = computed(() => {
-  return (pickupLocation.value?.openingHours ?? []).map(({hours, weekday}) => {
-    const date = createNextDate(weekday);
-    const formattedDay = useDateFormat(date);
+  return (pickupLocation.value?.openingHours ?? [])
+    .map(({hours, weekday}) => {
+      const date = createNextDate(weekday);
+      const formattedDay = useDateFormat(date);
 
-    const isTodayOrTomorrow = isToday(date) || isSameDay(addDays(createUtcDate(), 1), date);
+      const isTodayOrTomorrow = isToday(date) || isSameDay(addDays(createUtcDate(), 1), date);
 
-    const time: StartEndDate = hours?.[0];
-    const timeString = time ? useTimeRange(time.start.date, time.end.date).value : translate(CLOSED);
+      const time: StartEndDate = hours?.[0];
+      const timeString = time ? useTimeRange(time.start.date, time.end.date).value : translate(CLOSED);
 
-    return {
-      date,
-      weekday: capitalize(isTodayOrTomorrow ? formattedDay.relative : formattedDay.weekday),
-      timeString,
-    };
-  });
+      return {
+        date,
+        weekday: capitalize(isTodayOrTomorrow ? formattedDay.relative : formattedDay.weekday),
+        timeString,
+      };
+    })
+    .sort((a, b) => a.date.getTime() - b.date.getTime());
 });
 
 const filteredOpeningHours = computed(() => {

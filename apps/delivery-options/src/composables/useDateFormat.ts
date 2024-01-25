@@ -45,6 +45,7 @@ const createDateFormatter: CreateDateFormatter = useMemoize((locale, options): D
   return (date) => formatter.format(date);
 });
 
+// eslint-disable-next-line max-lines-per-function
 export const useDateFormat = (date: MaybeRef<DateLike>): UnwrapNestedRefs<FormattedDateInstance> => {
   const {locale} = useLanguage();
 

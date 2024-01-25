@@ -7,9 +7,7 @@ import {getDefaultConfigForPlatform} from '../config';
  * @see setConfiguration for changing the configuration.
  */
 export const useConfigStore = defineStore('config', {
-  state: (): DeliveryOptionsConfig => {
-    return getDefaultDeliveryOptionsConfig();
-  },
+  state: getDefaultDeliveryOptionsConfig,
 
   actions: {
     update(configuration: DeliveryOptionsConfig): void {
