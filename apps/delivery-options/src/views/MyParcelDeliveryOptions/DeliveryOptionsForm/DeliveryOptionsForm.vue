@@ -8,6 +8,8 @@
             v-if="homeOrPickup === option.value"
             class="mp-pl-4 mp-pt-4" />
         </KeepAlive>
+
+        <hr v-if="option.value === HOME_OR_PICKUP_HOME" />
       </template>
     </HomeOrPickup.Component>
   </Form.Component>

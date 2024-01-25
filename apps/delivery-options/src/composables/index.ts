@@ -8,6 +8,7 @@ export * from './useFormatDistance';
 export * from './useLanguage';
 export * from './useLeaflet';
 export * from './useMostEcoFriendly';
+export * from './useOptionsGroupedByCarrier';
 export * from './usePickupLocation';
 export * from './useProvideElementWidth';
 export * from './useResolvedCarrier';

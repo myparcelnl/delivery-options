@@ -36,4 +36,4 @@ export const CUTOFF_TIME_SAME_DAY_DEFAULT = '09:30';
  * Pickup locations pagination
  */
 
-export const DEFAULT_MAX_PAGE_ITEMS = 5;
+export const DEFAULT_MAX_PAGE_ITEMS = 3;

@@ -1,0 +1,29 @@
+<template>
+  <div class="mp-border mp-p-4 mp-rounded-xl">
+    <div
+      v-if="data"
+      class="mp-flex mp-gap-2 mp-items-center mp-pb-2">
+      <CarrierLogo
+        :carrier="data.name"
+        small />
+
+      <b
+        class="mp-font-bold"
+        v-text="data.human" />
+    </div>
+
+    <slot />
+  </div>
+</template>
+
+<script lang="ts" setup>
+import {toRefs} from 'vue';
+import {useCarrierRequest} from '@myparcel-do/shared';
+import {type CarrierName} from '@myparcel/constants';
+import CarrierLogo from './CarrierLogo.vue';
+
+const props = defineProps<{carrier: CarrierName}>();
+const propRefs = toRefs(props);
+
+const {data} = useCarrierRequest(propRefs.carrier);
+</script>

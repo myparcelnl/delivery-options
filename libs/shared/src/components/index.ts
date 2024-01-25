@@ -1,5 +1,7 @@
 export * from './Loader';
 
+export {default as CarrierBox} from './CarrierBox.vue';
+
 export {default as CarrierLogo} from './CarrierLogo.vue';
 
 export {default as CheckboxInput} from './CheckboxInput.vue';

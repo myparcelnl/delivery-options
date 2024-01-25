@@ -1,57 +1,71 @@
 <template>
   <div class="mp-gap-4 mp-grid mp-grid-flow-row">
-    <DeliveryMomentCarrierGroup
-      v-for="[carrier, group] in groupedOptions"
+    <CarrierBox
+      v-for="[carrier, group] in grouped"
       :key="carrier"
-      v-model="model"
-      :carrier="carrier"
-      :options="group" />
+      :carrier="carrier">
+      <GroupInput
+        :id="carrier"
+        :options="group">
+        <template #input="{option}">
+          <RadioInput
+            v-model="model"
+            :name="FIELD_DELIVERY_MOMENT"
+            :value="option.value"
+            type="radio" />
+        </template>
+
+        <template #default="{option}">
+          <span v-text="option.label" />
+
+          <EcoFriendlyLabel
+            v-if="option.ecoFriendly"
+            :id="carrier"
+            :amount="option.ecoFriendly" />
+
+          <PriceTag
+            v-if="option.price"
+            :price="option.price"
+            class="mp-ml-auto" />
+        </template>
+      </GroupInput>
+    </CarrierBox>
   </div>
 </template>
 
 <script generic="T" lang="ts" setup>
-import {computed, toRefs, watch} from 'vue';
+import {toRefs, toValue, watch} from 'vue';
 import {useVModel} from '@vueuse/core';
-import {type RadioGroupEmits, type RadioGroupProps, type SelectOption, type WithElement} from '@myparcel-do/shared';
-import {type CarrierName} from '@myparcel/constants';
-import {useSelectedDeliveryDate} from '../../../../composables';
-import DeliveryMomentCarrierGroup from './DeliveryMomentCarrierGroup.vue';
+import {
+  CarrierBox,
+  type RadioGroupEmits,
+  type RadioGroupProps,
+  RadioInput,
+  type WithElement,
+} from '@myparcel-do/shared';
+import {FIELD_DELIVERY_MOMENT} from '../../../../data';
+import {useOptionsGroupedByCarrier, useSelectedDeliveryDate} from '../../../../composables';
+import PriceTag from '../../../../components/common/PriceTag/PriceTag.vue';
+import EcoFriendlyLabel from '../../../../components/common/EcoFriendlyLabel/EcoFriendlyLabel.vue'; // eslint-disable-next-line vue/no-unused-properties
+import {GroupInput} from '../../../../components';
 
 // eslint-disable-next-line vue/no-unused-properties
 const props = defineProps<WithElement<RadioGroupProps<T>>>();
 const emit = defineEmits<RadioGroupEmits<T>>();
+const propRefs = toRefs(props);
 
 const model = useVModel(props, undefined, emit);
 
-const propRefs = toRefs(props);
-
 const date = useSelectedDeliveryDate();
 
-const options = computed<SelectOption<T>[]>(() => {
-  const {options} = propRefs.element.value.props;
-
-  return options;
-});
-
-const groupedOptions = computed<[CarrierName, SelectOption<T>[]][]>(() => {
-  const groupedOptions = options.value.reduce((acc, option: SelectOption<T>) => {
-    const group = option.carrier;
-
-    if (!acc[group]) {
-      acc[group] = [];
-    }
-
-    acc[group].push(option);
-    return acc;
-  }, {} as Record<CarrierName, SelectOption<T>[]>);
-
-  return Object.entries(groupedOptions) as [CarrierName, SelectOption<T>[]][];
-});
+const {options, grouped} = useOptionsGroupedByCarrier(propRefs.element);
 
 watch(
   date,
   () => {
-    model.value = options.value[0].value;
+    const [first] = toValue(options);
+
+    model.value = first.value;
   },
   {immediate: options.value.length > 0},
 );
