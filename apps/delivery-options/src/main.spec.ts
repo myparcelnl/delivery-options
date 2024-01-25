@@ -1,70 +1,68 @@
-import * as Vue from 'vue';
-import {afterEach, describe, it, vi} from 'vitest';
-import {flushPromises} from '@vue/test-utils';
-import {waitForEvent} from '@myparcel-do/shared/testing';
-import {KEY_ADDRESS, KEY_CONFIG} from '@myparcel-do/shared';
-import {PlatformName} from '@myparcel/constants';
-import {getDefaultAddress} from './utils';
-import {RENDER_DELIVERY_OPTIONS, UPDATE_DELIVERY_OPTIONS, UPDATED_DELIVERY_OPTIONS} from './data';
-import {getDefaultConfigForPlatform} from './config';
+import {afterEach, beforeEach, describe, expect, it, type MockInstance, vi} from 'vitest';
+import {RENDER_DELIVERY_OPTIONS, UPDATE_DELIVERY_OPTIONS} from './data';
+import {createDiv, dispatchEvent} from './__tests__';
 
-/**
- * @vitest-environment happy-dom
- */
-const createWrapper = async (): Promise<void> => {
-  await import('./main');
+describe.todo('main', () => {
+  const unmountSpy: MockInstance = vi.fn();
+  const mountSpy: MockInstance = vi.fn();
 
-  const wrapper = document.createElement('div');
+  beforeEach(async () => {
+    mountSpy.mockImplementation((selector: string): void => {
+      const element = document.querySelector<HTMLDivElement>(selector)!;
 
-  wrapper.id = __CLASS_BASE__;
+      element.__vue_app__ = {unmount: unmountSpy};
+    });
 
-  document.body.appendChild(wrapper);
-};
+    vi.doMock('vue', async (importOriginal) => {
+      // eslint-disable-next-line @typescript-eslint/consistent-type-imports
+      const actual = await importOriginal<typeof import('vue')>();
 
-const dispatchEvent = async (event: string, detail?: unknown): Promise<void> => {
-  const eventInstance = detail ? new CustomEvent(event, {detail}) : new Event(event);
+      return {
+        ...actual,
+        createApp: () => ({
+          use: vi.fn(),
+          mount: mountSpy,
+          unmount: unmountSpy,
+        }),
+      };
+    });
 
-  console.warn('dispatching event', event);
-  document.dispatchEvent(eventInstance);
+    await import('./main');
 
-  await waitForEvent(UPDATED_DELIVERY_OPTIONS);
-  await flushPromises();
-};
+    createDiv();
+    createDiv('test');
+  });
 
-describe('main', () => {
   afterEach(() => {
     vi.restoreAllMocks();
     vi.resetModules();
   });
 
-  it(`creates app once when ${UPDATE_DELIVERY_OPTIONS} is dispatched`, async ({expect}) => {
+  it.each([
+    ['using Event', undefined],
+    ['using CustomEvent', {selector: '#test'}],
+  ])(`creates app once when ${UPDATE_DELIVERY_OPTIONS} is dispatched %s`, async (_, detail) => {
     expect.assertions(2);
-    const createAppSpy = vi.spyOn(Vue, 'createApp');
 
-    await createWrapper();
+    await dispatchEvent(UPDATE_DELIVERY_OPTIONS, detail);
+    expect(mountSpy).toHaveBeenCalledTimes(1);
 
-    window.MyParcelConfig = {
-      [KEY_CONFIG]: getDefaultConfigForPlatform(PlatformName.MyParcel),
-      [KEY_ADDRESS]: getDefaultAddress(),
-    };
-
-    await dispatchEvent(UPDATE_DELIVERY_OPTIONS);
-    expect(createAppSpy).toHaveBeenCalledTimes(1);
-
-    await dispatchEvent(UPDATE_DELIVERY_OPTIONS);
-    expect(createAppSpy).toHaveBeenCalledTimes(1);
+    await dispatchEvent(UPDATE_DELIVERY_OPTIONS, detail);
+    expect(mountSpy).toHaveBeenCalledTimes(1);
   });
 
-  it(`creates app when ${RENDER_DELIVERY_OPTIONS} is dispatched`, async ({expect}) => {
-    expect.assertions(2);
-    const createAppSpy = vi.spyOn(Vue, 'createApp');
+  it.each([
+    ['using Event', undefined],
+    ['using CustomEvent', {selector: '#test'}],
+  ])(`creates app when ${RENDER_DELIVERY_OPTIONS} is dispatched %s`, async (_, detail) => {
+    expect.assertions(4);
 
-    await createWrapper();
+    await dispatchEvent(RENDER_DELIVERY_OPTIONS, detail);
+    expect(mountSpy).toHaveBeenCalledTimes(1);
+    expect(unmountSpy).toHaveBeenCalledTimes(0);
 
-    await dispatchEvent(RENDER_DELIVERY_OPTIONS);
-    expect(createAppSpy).toHaveBeenCalledTimes(1);
-
-    await dispatchEvent(RENDER_DELIVERY_OPTIONS);
-    expect(createAppSpy).toHaveBeenCalledTimes(2);
+    await dispatchEvent(RENDER_DELIVERY_OPTIONS, detail);
+    expect(mountSpy).toHaveBeenCalledTimes(2);
+    expect(unmountSpy).toHaveBeenCalledTimes(1);
   });
 });

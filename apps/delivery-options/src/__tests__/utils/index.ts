@@ -1,3 +1,5 @@
+export * from './createDiv';
+export * from './dispatchEvent';
 export * from './getFakePickupLocation';
 export * from './getMockDeliveryOptionsConfiguration';
 export * from './mockDeliveryOptionsConfig';
