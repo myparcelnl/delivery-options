@@ -7,7 +7,7 @@ export default createViteConfig((env) => {
     build: {
       lib: {
         entry: 'src/main.ts',
-        fileName: 'myparcel-lib',
+        fileName: 'myparcel.lib',
         formats: ['es', 'cjs'],
         name: 'MyParcelDeliveryOptionsLib',
       },
