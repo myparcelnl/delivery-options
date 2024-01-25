@@ -1,5 +1,10 @@
 <template>
-  <div class="after:mp-block after:mp-content-[''] after:mp-pb-[100%] mp-h-8 mp-inline-flex mp-select-none mp-w-8">
+  <div
+    :class="{
+      'mp-h-8 mp-w-8': !small,
+      'mp-h-6 mp-w-6': small,
+    }"
+    class="after:mp-block after:mp-content-[''] after:mp-pb-[100%] mp-inline-flex mp-select-none">
     <img
       v-if="!request.loading"
       v-show="loaded && !hasError"
@@ -19,7 +24,7 @@ import {type CarrierName} from '@myparcel/constants';
 import {createAssetUrl} from '../utils';
 import {useCarrierRequest} from '../composables';
 
-const props = defineProps<{carrier: CarrierName}>();
+const props = defineProps<{carrier: CarrierName; small?: boolean}>();
 const propRefs = toRefs(props);
 
 const loaded = ref(false);

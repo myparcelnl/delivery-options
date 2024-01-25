@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mp-gap-4 mp-grid mp-grid-flow-row">
     <DeliveryDateSelector />
 
     <DeliveryMomentSelector />
