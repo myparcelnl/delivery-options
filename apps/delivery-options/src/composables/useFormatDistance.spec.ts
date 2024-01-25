@@ -6,6 +6,9 @@ import {useFormatDistance} from './useFormatDistance';
 describe('useFormatDistance', () => {
   beforeEach(() => {
     setActivePinia(createPinia());
+
+    const {setLocale} = useLanguage();
+    setLocale('nl-NL');
   });
 
   it.each([
@@ -32,7 +35,6 @@ describe('useFormatDistance', () => {
 
     const formatted = useFormatDistance(2456);
 
-    setLocale('nl-NL');
     expect(formatted.value).toBe('2,5 km');
     setLocale('en-US');
     expect(formatted.value).toBe('2.5km');

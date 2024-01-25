@@ -7,20 +7,20 @@
     }"
     :role="date ? 'button' : undefined"
     :tabindex="date ? 0 : undefined"
-    :title="date ? formatted.standard : undefined"
+    :title="date ? standard : undefined"
     class="mp-flex mp-flex-col mp-items-center mp-p-3 mp-rounded-xl"
     @click="() => (date ? $emit(ElementEvent.Click) : null)">
     <span
       class="mp-not-sr-only"
-      v-text="date ? formatted.weekday : NBSP" />
+      v-text="date ? weekday : NBSP" />
 
     <span
       class="mp-not-sr-only mp-text-3xl"
-      v-text="date ? formatted.day : NBSP" />
+      v-text="date ? day : NBSP" />
 
     <span
       class="mp-not-sr-only"
-      v-text="date ? formatted.month : NBSP" />
+      v-text="date ? month : NBSP" />
   </div>
 </template>
 
@@ -35,5 +35,5 @@ defineEmits<{click: void}>();
 
 const propRefs = toRefs(props);
 
-const formatted = useDateFormat(propRefs.date);
+const {standard, weekday, day, month} = useDateFormat(propRefs.date);
 </script>

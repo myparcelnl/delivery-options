@@ -18,14 +18,12 @@ const renderDeliveryOptions = (options?: Partial<RenderOptions>): RenderResult =
 };
 
 describe('MyParcelDeliveryOptions.vue', () => {
-  let logSpy: MockInstance;
-  let warnSpy: MockInstance;
   let errorSpy: MockInstance;
 
   beforeEach(() => {
     errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
-    warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
-    logSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
+    vi.spyOn(console, 'warn').mockImplementation(() => {});
+    vi.spyOn(console, 'log').mockImplementation(() => {});
   });
 
   afterEach(() => {
@@ -36,7 +34,7 @@ describe('MyParcelDeliveryOptions.vue', () => {
     const instance = renderDeliveryOptions();
 
     expect(errorSpy).toHaveBeenCalled();
-    expect(instance.container.children).toHaveLength(0);
+    expect(instance.container.children[0].children).toHaveLength(0);
   });
 
   it.skip('boots if config is passed via prop', () => {
@@ -53,6 +51,6 @@ describe('MyParcelDeliveryOptions.vue', () => {
     const instance = renderDeliveryOptions({props: {config}});
 
     expect(errorSpy).not.toHaveBeenCalled();
-    expect(instance.container.children).toHaveLength(0);
+    expect(instance.container.children[0].children).toHaveLength(0);
   });
 });

@@ -7,5 +7,5 @@ export const useTimeRange = (startDate: MaybeRef<DateLike>, endDate: MaybeRef<Da
   const formattedStartDate = useDateFormat(startDate);
   const formattedEndDate = useDateFormat(endDate);
 
-  return computed(() => `${formattedStartDate.time} – ${formattedEndDate.time}`);
+  return computed(() => `${formattedStartDate.time.value} – ${formattedEndDate.time.value}`);
 };

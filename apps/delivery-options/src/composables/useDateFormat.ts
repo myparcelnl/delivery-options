@@ -1,4 +1,4 @@
-import {capitalize, computed, type MaybeRef, reactive, type UnwrapNestedRefs} from 'vue';
+import {capitalize, computed, type MaybeRef} from 'vue';
 import {isString} from 'radash';
 import {addDays, isBefore} from 'date-fns';
 import {type DateLike, get, normalizeDate, useMemoize} from '@vueuse/core';
@@ -46,7 +46,7 @@ const createDateFormatter: CreateDateFormatter = useMemoize((locale, options): D
 });
 
 // eslint-disable-next-line max-lines-per-function
-export const useDateFormat = (date: MaybeRef<DateLike>): UnwrapNestedRefs<FormattedDateInstance> => {
+export const useDateFormat = (date: MaybeRef<DateLike>): FormattedDateInstance => {
   const {locale} = useLanguage();
 
   const resolvedDate = computed(() => {
@@ -102,7 +102,7 @@ export const useDateFormat = (date: MaybeRef<DateLike>): UnwrapNestedRefs<Format
     return format(resolvedDate.value);
   });
 
-  return reactive({
+  return {
     date: resolvedDate,
     day,
     month,
@@ -110,5 +110,5 @@ export const useDateFormat = (date: MaybeRef<DateLike>): UnwrapNestedRefs<Format
     standard,
     time,
     weekday,
-  });
+  };
 };

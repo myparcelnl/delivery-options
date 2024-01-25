@@ -9,7 +9,6 @@ describe.concurrent('useDateFormat', (it) => {
     setActivePinia(createPinia());
 
     const {setLocale} = useLanguage();
-
     setLocale('nl-NL');
   });
 

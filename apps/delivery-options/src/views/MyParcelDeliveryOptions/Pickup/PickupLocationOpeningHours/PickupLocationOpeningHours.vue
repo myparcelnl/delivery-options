@@ -56,7 +56,7 @@ const openingHours = computed(() => {
 
       return {
         date,
-        weekday: capitalize(isTodayOrTomorrow ? formattedDay.relative : formattedDay.weekday),
+        weekday: capitalize(isTodayOrTomorrow ? formattedDay.relative.value : formattedDay.weekday.value),
         timeString,
       };
     })
