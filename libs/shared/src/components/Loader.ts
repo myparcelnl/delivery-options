@@ -1,15 +1,17 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import {type FunctionalComponent, h} from 'vue';
+import {NBSP} from '../data';
 
 const COMMON_GRID_CLASSES = ['mp-flex', 'mp-flex-1'];
+
+export const LOADER_CLASSES = ['mp-bg-black', 'dark:mp-bg-white', 'mp-opacity-25'];
 
 const Wrapper: FunctionalComponent = (_, ctx) =>
   h('div', {class: [...COMMON_GRID_CLASSES, 'mp-animate-pulse']}, ctx.slots);
 
-const Base: FunctionalComponent = (_, ctx) =>
-  h('div', {class: ['mp-bg-black', 'dark:mp-bg-white', 'mp-opacity-25']}, ctx.slots);
+const Base: FunctionalComponent = (_, ctx) => h('div', {class: LOADER_CLASSES}, ctx.slots);
 
-const Text: FunctionalComponent = () => h(Base, {class: ['mp-rounded-full', 'mp-text-transparent']}, () => ['&nbsp;']);
+const Text: FunctionalComponent = () => h(Base, {class: ['mp-rounded-full', 'mp-text-transparent']}, () => [NBSP]);
 
 const Circle: FunctionalComponent = () => h(Base, {class: ['mp-rounded-full']});
 

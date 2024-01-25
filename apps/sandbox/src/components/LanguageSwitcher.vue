@@ -4,13 +4,13 @@
     :options="options"
     :variant="StyleVariant.Light"
     @update:modelValue="setLanguage">
-    <span>{{ language.emoji }}&nbsp;{{ language.name }}</span>
+    <span>{{ language.emoji }}{{ NBSP }}{{ language.name }}</span>
   </SandboxDropdownButton>
 </template>
 
 <script lang="ts" setup>
 import {computed} from 'vue';
-import {type SelectOption} from '@myparcel-do/shared';
+import {NBSP, type SelectOption} from '@myparcel-do/shared';
 import {StyleVariant} from '../constants';
 import {useLanguage} from '../composables';
 import SandboxDropdownButton from './SandboxDropdownButton.vue';

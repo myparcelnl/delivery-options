@@ -50,3 +50,5 @@ export const DAY_SATURDAY = 6;
 export const DAY_SUNDAY = 0;
 
 export const DAYS_IN_WEEK = 7;
+
+export const NBSP = '\u00A0';

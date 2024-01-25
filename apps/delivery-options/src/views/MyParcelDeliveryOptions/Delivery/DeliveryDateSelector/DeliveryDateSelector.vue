@@ -30,7 +30,6 @@ const DeliveryDate = createField({
   component: DateSelector,
   ref: ref(),
   props: {
-    loading: computed(() => !options.value.length),
     options,
     placeholder: translate(CHOOSE_DATE),
   },

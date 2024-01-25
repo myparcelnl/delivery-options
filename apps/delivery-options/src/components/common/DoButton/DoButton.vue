@@ -21,6 +21,8 @@ const props = defineProps<{
 
   disabled?: boolean;
 
+  noSpacing?: boolean;
+
   /**
    * To show the button as a link.
    */
@@ -36,9 +38,9 @@ const classes = computed(() => {
 
     'mp-transition-colors',
 
-    // Spacing
-    'mp-py-2',
-    'mp-flex-grow',
+    {
+      'mp-py-2 mp-flex-grow': !props.noSpacing,
+    },
   ];
 
   if (props.link) {
@@ -48,10 +50,6 @@ const classes = computed(() => {
     });
   } else {
     classList.push(
-      // Spacing
-      'mp-px-5',
-      'mp-w-full',
-
       // Borders
       'first-of-type:mp-border-l',
       'first-of-type:mp-rounded-l-full',
@@ -61,6 +59,9 @@ const classes = computed(() => {
       'mp-border',
 
       {
+        // Spacing
+        'mp-px-5 mp-w-full': !props.noSpacing,
+
         // Colors
         'mp-bg-white': !props.disabled,
         'mp-cursor-not-allowed mp-opacity-50 mp-bg-gray-100': props.disabled,

@@ -1,30 +1,37 @@
 <template>
-  <div class="mp-flex">
+  <div class="mp-flex mp-select-none">
     <div class="mp-flex mp-items-center mp-mr-2">
-      <DoButton
-        :disabled="cursor <= 0"
-        class="mp-flex-grow-0"
+      <IconButton
+        :disabled="loading || cursor <= 0"
         @click="previous">
         <CaretLeftIcon />
-      </DoButton>
+      </IconButton>
     </div>
 
     <div class="mp-auto-cols-fr mp-flex-grow mp-gap-2 mp-grid mp-grid-flow-col">
+      <template v-if="loading">
+        <DateBlock
+          v-for="i in shownItems"
+          :key="i" />
+      </template>
+
       <DateBlock
         v-for="{date} in visibleDates"
+        v-else
         :key="date"
-        :active="model === date"
+        :class="{
+          'mp-bg-blue-500 mp-border-blue-500': model === date,
+        }"
         :date="date"
         @click="model = date" />
     </div>
 
     <div class="mp-flex mp-items-center mp-ml-2">
-      <DoButton
-        :disabled="cursor >= dates.length - shownItems"
-        class="mp-flex-grow-0"
+      <IconButton
+        :disabled="loading || cursor >= dates.length - shownItems"
         @click="next">
         <CaretRightIcon />
-      </DoButton>
+      </IconButton>
     </div>
   </div>
 </template>
@@ -32,15 +39,15 @@
 <script lang="ts" setup>
 import {computed, ref, watch} from 'vue';
 import {useVModel} from '@vueuse/core';
-import {type TextInputEmits, type TextInputProps} from '@myparcel-do/shared';
+import {type TextInputEmits, type TextInputProps, type WithElement} from '@myparcel-do/shared';
 import {useDeliveryOptionsForm} from '../../../../form';
 import {FIELD_DELIVERY_DATE} from '../../../../data';
 import {useBreakpoints, useResolvedDeliveryDates} from '../../../../composables';
-import {CaretLeftIcon, CaretRightIcon, DoButton} from '../../../../components';
-import DateBlock from './DateBlock.vue';
+import {CaretLeftIcon, CaretRightIcon, IconButton} from '../../../../components';
+import DateBlock from './DateBlock.vue'; // eslint-disable-next-line vue/no-unused-properties
 
 // eslint-disable-next-line vue/no-unused-properties
-const props = defineProps<TextInputProps>();
+const props = defineProps<WithElement<TextInputProps>>();
 const emit = defineEmits<TextInputEmits>();
 
 const model = useVModel(props, undefined, emit);
@@ -88,4 +95,6 @@ watch(
   },
   {immediate: dates.value.length > 0},
 );
+
+const loading = computed(() => !dates.value.length);
 </script>

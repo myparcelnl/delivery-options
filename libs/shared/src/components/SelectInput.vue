@@ -48,7 +48,7 @@
             v-text="element.props.placeholder" />
 
           <span class="mp-pb-3 mp-pt-5">
-            <span v-text="currentOption?.label ?? '&nbsp;'" />
+            <span v-text="currentOption?.label ?? NBSP" />
           </span>
         </span>
 
@@ -100,6 +100,7 @@ export default {inheritAttrs: false};
 
 <script lang="ts" setup>
 import {computed, nextTick, ref, watch} from 'vue';
+import {NBSP} from '@myparcel-do/shared';
 import {
   type SelectInputEmits,
   type SelectInputModelValue,

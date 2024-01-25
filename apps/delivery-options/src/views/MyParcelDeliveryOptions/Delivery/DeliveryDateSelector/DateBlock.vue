@@ -2,32 +2,35 @@
   <div
     :class="{
       'mp-bg-blue-500 mp-border-blue-500': active,
+      [LOADER_CLASSES.join(' ')]: !date,
+      'mp-bg-opacity-20 mp-border': date,
     }"
-    :title="formatted.standard"
-    class="mp-bg-opacity-20 mp-border mp-flex mp-flex-col mp-items-center mp-p-3 mp-rounded-xl"
-    role="button"
-    tabindex="0"
-    @click="$emit(ElementEvent.Click)">
+    :role="date ? 'button' : undefined"
+    :tabindex="date ? 0 : undefined"
+    :title="date ? formatted.standard : undefined"
+    class="mp-flex mp-flex-col mp-items-center mp-p-3 mp-rounded-xl"
+    @click="() => (date ? $emit(ElementEvent.Click) : null)">
     <span
       class="mp-not-sr-only"
-      v-text="formatted.weekday" />
+      v-text="date ? formatted.weekday : NBSP" />
 
     <span
       class="mp-not-sr-only mp-text-3xl"
-      v-text="formatted.day" />
+      v-text="date ? formatted.day : NBSP" />
 
     <span
       class="mp-not-sr-only"
-      v-text="formatted.month" />
+      v-text="date ? formatted.month : NBSP" />
   </div>
 </template>
 
 <script lang="ts" setup>
 import {toRefs} from 'vue';
-import {ElementEvent} from '@myparcel-do/shared';
+import {type DateLike} from '@vueuse/core';
+import {ElementEvent, LOADER_CLASSES, NBSP} from '@myparcel-do/shared';
 import {useDateFormat} from '../../../../composables';
 
-const props = defineProps<{date: string; active?: boolean}>();
+const props = defineProps<{date?: DateLike; active?: boolean}>();
 defineEmits<{click: void}>();
 
 const propRefs = toRefs(props);
