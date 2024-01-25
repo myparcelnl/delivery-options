@@ -1,8 +1,0 @@
-{
-  "compilerOptions": {
-    "paths": {
-      "@myparcel-do/*": ["./libs/*/src"],
-      "@myparcel/constants": ["./node_modules/myparcel/constants"]
-    }
-  }
-}
