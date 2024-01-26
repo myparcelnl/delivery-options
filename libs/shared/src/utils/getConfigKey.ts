@@ -12,7 +12,7 @@ import {getPackageTypeConfigMap} from './getPackageTypeConfigMap';
 import {getDeliveryTypeConfigMap} from './getDeliveryTypeConfigMap';
 
 export const getConfigKey = (
-  input: SupportedDeliveryTypeName | SupportedShipmentOptionName | SupportedPackageTypeName,
+  input: SupportedDeliveryTypeName | SupportedShipmentOptionName | SupportedPackageTypeName | CustomDeliveryType,
 ): ConfigKey | null => {
   let key: string | null = null;
 
