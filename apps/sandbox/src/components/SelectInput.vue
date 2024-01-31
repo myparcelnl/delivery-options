@@ -101,15 +101,16 @@ export default {inheritAttrs: false};
 <script lang="ts" setup>
 import {computed, nextTick, ref, watch} from 'vue';
 import {
-  type SelectInputEmits,
   type SelectInputModelValue,
-  type SelectInputProps,
-  type SelectOption,
   type WithElement,
-} from '../types';
-import {NBSP} from '../data';
-import {useClickOutside, useCursor, useOpenState, useSelectInputContext} from '../composables';
-import {Loader} from './Loader';
+  type SelectInputProps,
+  type SelectInputEmits,
+  useSelectInputContext,
+  type SelectOption,
+  useCursor,
+  useOpenState,
+  useClickOutside,
+} from '@myparcel-do/shared';
 
 type T = SelectInputModelValue;
 
