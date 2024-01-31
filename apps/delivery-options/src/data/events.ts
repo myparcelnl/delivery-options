@@ -40,12 +40,12 @@ export const UPDATED_DELIVERY_OPTIONS = 'myparcel_updated_delivery_options';
 export const DISABLE_DELIVERY_OPTIONS = 'myparcel_disable_delivery_options';
 
 /**
- * Manually show the delivery options. The update listener has to be re-enabled after this.
+ * Manually show the delivery options.
  */
 export const SHOW_DELIVERY_OPTIONS = 'myparcel_show_delivery_options';
 
 /**
- * Manually hide the delivery options. Should remove the update listener.
+ * Manually hide the delivery options.
  */
 export const HIDE_DELIVERY_OPTIONS = 'myparcel_hide_delivery_options';
 

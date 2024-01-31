@@ -1,5 +1,7 @@
 <template>
-  <div ref="wrapper">
+  <div
+    v-show="show"
+    ref="wrapper">
     <DeliveryOptionsForm
       v-if="ready"
       class="myparcel-delivery-options" />
@@ -9,11 +11,12 @@
 <script lang="ts" setup>
 import '../../assets/index.scss';
 import {computed, onMounted, ref, toRefs, watch} from 'vue';
-import {get} from '@vueuse/core';
+import {get, useEventListener} from '@vueuse/core';
 import {useLogger} from '@myparcel-do/shared';
 import {getConfigFromWindow} from '../../utils';
 import {type DeliveryOptionsEmits, type DeliveryOptionsProps} from '../../types';
 import {useAddressStore, useConfigStore} from '../../stores';
+import {HIDE_DELIVERY_OPTIONS, SHOW_DELIVERY_OPTIONS} from '../../data';
 import {setConfiguration} from '../../config';
 import {
   useDeliveryOptionsIncomingEvents,
@@ -33,25 +36,24 @@ const address = useAddressStore();
 
 const wrapper = ref<HTMLFormElement>();
 
-const ready = computed(() => {
-  const isReady = Boolean(config.platform && address.cc);
+const ready = computed(() => Boolean(config.platform && address.cc));
 
-  logger.debug(`Ready: ${isReady}`);
-  return isReady;
-});
+const show = ref(true);
 
 onMounted(() => {
   if (propRefs.configuration?.value) {
-    logger.debug('Using config from props');
+    if (import.meta.env.DEV) logger.debug('Using config from props');
+
     return;
   }
 
   if (!window.MyParcelConfig) {
-    logger.error('No config found :(');
+    if (import.meta.env.DEV) logger.error('No config found');
+
     return;
   }
 
-  logger.debug('Using config from window');
+  if (import.meta.env.DEV) logger.debug('Using config from window');
 
   setConfiguration(getConfigFromWindow());
 });
@@ -74,4 +76,12 @@ useDeliveryOptionsIncomingEvents();
 useDeliveryOptionsOutgoingEvents(emit);
 
 useProvideElementWidth(wrapper);
+
+useEventListener(document, SHOW_DELIVERY_OPTIONS, () => {
+  show.value = true;
+});
+
+useEventListener(document, HIDE_DELIVERY_OPTIONS, () => {
+  show.value = false;
+});
 </script>
