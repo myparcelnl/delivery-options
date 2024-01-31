@@ -9,9 +9,9 @@
   },
   "license": "MIT",
   "type": "module",
+  "exports": "./index.js",
   "main": "./index.js",
   "module": "./index.js",
-  "exports": "./index.js",
   "types": "./index.d.ts",
   "scripts": {
     "lint": "run ws:lint \"$(pwd)\"",

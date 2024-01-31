@@ -1,6 +1,7 @@
 {
   "name": "@myparcel-do/shared",
   "version": "6.0.0-alpha.1",
+  "private": true,
   "description": "",
   "repository": {
     "type": "git",
@@ -27,17 +28,6 @@
     "./src",
     "./dist"
   ],
-  "dependencies": {
-    "@myparcel/constants": "^1.1.1",
-    "@myparcel/sdk": "^3.3.1",
-    "@myparcel/ts-utils": "^1.12.0",
-    "@myparcel/vue-form-builder": "^1.0.0-beta.1",
-    "@vueuse/core": "^10.6.0",
-    "date-fns": "^2.30.0",
-    "pinia": "^2.1.7",
-    "radash": "^11.0.0",
-    "vue": "^3.3.0"
-  },
   "scripts": {
     "build": "run ws:vue:build \"$(pwd)\"",
     "build:dev": "run ws:vue:build \"$(pwd)\"",
@@ -50,8 +40,16 @@
     "test:update": "run ws:test:update \"$(pwd)\"",
     "typecheck": "run ws:vue:typecheck \"$(pwd)\""
   },
-  "publishConfig": {
-    "access": "public"
+  "dependencies": {
+    "@myparcel/constants": "^1.1.1",
+    "@myparcel/sdk": "^3.3.1",
+    "@myparcel/ts-utils": "^1.12.0",
+    "@myparcel/vue-form-builder": "^1.0.0-beta.1",
+    "@vueuse/core": "^10.6.0",
+    "date-fns": "^2.30.0",
+    "pinia": "^2.1.7",
+    "radash": "^11.0.0",
+    "vue": "^3.3.0"
   },
   "devDependencies": {
     "@pinia/testing": "^0.1.3",
@@ -60,5 +58,8 @@
     "@vitest/ui": "^1.0.0",
     "vite": "^5.0.0",
     "vitest": "^1.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

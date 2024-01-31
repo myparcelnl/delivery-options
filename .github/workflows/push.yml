@@ -58,12 +58,16 @@ jobs:
             --output-style="static" \
             --target="build"
 
+      - name: 'Release'
+        working-directory: apps/delivery-options
+        # language=sh
+        run: |
+          npx semantic-release
+
       # TODO: uncomment when on main
       #      - uses: actions/upload-pages-artifact@v1
       #        with:
-      #          path: dist
-
-      # TODO implement release flow with monodeploy
+      #          path: apps/sandbox/dist
 
   # TODO: uncomment when on main
   #  deploy:
