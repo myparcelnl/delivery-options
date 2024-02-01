@@ -25,7 +25,7 @@ See the [GitHub releases page] or [CHANGELOG.md].
 
 ### v5 to v6
 
-Most of the big in v6 are internal, but there are some breaking changes and deprecations.
+Most of the big changes in v6 are internal, but there are some breaking changes and deprecations.
 
 **Improvements**
 
