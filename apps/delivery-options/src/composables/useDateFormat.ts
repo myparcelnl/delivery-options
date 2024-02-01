@@ -1,12 +1,10 @@
 import {capitalize, computed, type MaybeRef} from 'vue';
 import {isString} from 'radash';
-import {addDays, isBefore} from 'date-fns';
+import {addDays, isBefore, differenceInCalendarDays, startOfDay} from 'date-fns';
 import {type DateLike, get, normalizeDate, useMemoize} from '@vueuse/core';
 import {type ComputedRef} from '@vue/reactivity';
 import {stringToDate} from '../utils';
 import {useLanguage} from './useLanguage';
-
-const SECONDS_IN_DAY = 86400000;
 
 const FORMAT_LONG = 'long';
 const FORMAT_NUMERIC = 'numeric';
@@ -33,9 +31,9 @@ export const createRelativeDateFormatter: CreateDateFormatter = useMemoize((loca
   });
 
   return (date) => {
-    const diff = (date.getTime() - Date.now()) / SECONDS_IN_DAY;
+    const diff = differenceInCalendarDays(startOfDay(date), startOfDay(new Date()));
 
-    return intl.format(Math.round(diff), 'day');
+    return intl.format(diff, 'day');
   };
 });
 
