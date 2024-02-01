@@ -59,10 +59,12 @@ jobs:
             --target="build"
 
       - name: 'Release'
-        working-directory: apps/delivery-options
         # language=sh
         run: |
           npx semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_REPO_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       # TODO: uncomment when on main
       #      - uses: actions/upload-pages-artifact@v1
