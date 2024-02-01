@@ -17,18 +17,22 @@ describe.concurrent('useDateFormat', (it) => {
   });
 
   it('returns date in various formats', ({expect}) => {
-    const date = new Date('2021-05-25T12:00:00');
-    vi.setSystemTime(date.getTime());
+    const now = new Date('2021-05-23T12:00:00');
+    vi.setSystemTime(now.getTime());
 
+    // 2 days later
+    const date = new Date('2021-05-25T12:00:00');
     const formatted = useDateFormat(date);
 
     const {date: _, ...refs} = reactive(formatted);
 
     expect(refs).toEqual({
+      day: '25',
+      month: 'mei',
+      relative: 'overmorgen',
       standard: 'dinsdag 25 mei',
-      relative: 'vandaag',
       time: '12:00',
-      weekday: 'dinsdag',
+      weekday: 'Dinsdag',
     });
   });
 

@@ -66,7 +66,7 @@ export const useDateFormat = (date: MaybeRef<DateLike>): FormattedDateInstance =
       return capitalize(relative.value);
     }
 
-    return format(resolvedDate.value);
+    return capitalize(format(resolvedDate.value));
   });
 
   const day = computed(() => {
