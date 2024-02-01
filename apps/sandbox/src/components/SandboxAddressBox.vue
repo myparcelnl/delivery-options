@@ -1,40 +1,68 @@
 <template>
-  <Box>
+  <Box class="mp-gap-2 mp-grid">
     <AutoAnchor name="address">
       <h2>Address</h2>
     </AutoAnchor>
 
-    <SandboxSettingsSection :section="section" />
+    <div class="mp-gap-2 mp-grid mp-grid-cols-2">
+      <AddressPresetBox
+        v-for="address in sampleAddresses"
+        :key="address"
+        v-model="selectedAddress"
+        :address="address" />
+    </div>
+
+    <Box @click="isCustom ? null : (selectedAddress = customValue)">
+      <h3>
+        <label>
+          <RadioInput
+            v-model="selectedAddress"
+            :value="customValue"
+            name="address" />
+
+          {{ translate('custom') }}
+        </label>
+      </h3>
+
+      <SandboxSettingsSection
+        v-show="isCustom"
+        :section="section" />
+    </Box>
   </Box>
 </template>
 
 <script lang="ts" setup>
 import {computed} from 'vue';
-import {AddressField, KEY_ADDRESS} from '@myparcel-do/shared';
+import {AddressField, KEY_ADDRESS, RadioInput} from '@myparcel-do/shared';
 import {ALL_COUNTRIES} from '@myparcel/constants/countries';
+import {translateCountry} from '../utils';
 import {formField, formSection} from '../form';
+import {useAddressSelector} from '../composables/useAddressSelector';
 import {useAvailableCarriers, useLanguage} from '../composables';
 import FormTextInput from './form/input/FormTextInput.vue';
 import {FormSelectInput} from './form/input';
 import SandboxSettingsSection from './form/SandboxSettingsSection.vue';
 import {Box} from './Box';
 import AutoAnchor from './AutoAnchor.vue';
+import AddressPresetBox from './AddressPresetBox.vue';
 
 const allCarriers = useAvailableCarriers();
 
 const {translate} = useLanguage();
 
+const {isCustom, sampleAddresses, selectedAddress, customValue} = useAddressSelector();
+
 const countries = computed(() => {
   return ALL_COUNTRIES.filter((country) => {
-    return allCarriers.value?.some((carrier) => {
-      return carrier.hasDeliveryInCountry(country) || carrier.hasPickupInCountry(country);
-    });
+    return allCarriers.value?.some(
+      (carrier) => carrier.hasDeliveryInCountry(country) || carrier.hasPickupInCountry(country),
+    );
   })
     .map((country) => ({
-      label: translate(`country_${country.toLowerCase()}`),
+      label: translateCountry(country),
       value: country,
     }))
-    .sort((a, b) => a.label.localeCompare(b.label));
+    .sort((countryA, countryB) => countryA.label.localeCompare(countryB.label));
 });
 
 const section = formSection({

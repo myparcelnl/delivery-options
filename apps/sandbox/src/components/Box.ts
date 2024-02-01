@@ -3,6 +3,7 @@ import {gridClasses} from '../constants';
 
 interface Props {
   columns?: number | string;
+  is?: string;
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -20,24 +21,18 @@ export const Box: FunctionalComponent<Props> = (props, ctx) => {
   }
 
   return h(
-    'div',
+    props.is ?? 'div',
     {
-      class: [
-        'mp-mt-4',
-        'mp-mb-3',
-        'mp-px-4',
-        'mp-py-4',
-        'mp-border',
-        'mp-rounded-xl',
-        'mp-shadow-sm',
-        ...additionalClasses,
-      ],
+      class: ['mp-px-4', 'mp-py-4', 'mp-border', 'mp-rounded-xl', 'mp-shadow-sm', ...additionalClasses],
     },
     ctx.slots,
   );
 };
 
 Box.props = {
+  is: {
+    type: String,
+  },
   columns: {
     type: [Number, String],
   },

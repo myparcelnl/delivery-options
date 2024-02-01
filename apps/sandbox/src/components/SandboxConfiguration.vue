@@ -41,6 +41,12 @@ const renderForPlatform = (platform: SupportedPlatformName): CreatedForm => {
     createForm(`configuration.${platform}`, {
       renderLabel: translate,
 
+      form: {
+        attributes: {
+          class: 'mp-grid mp-gap-4 mp-mb-4',
+        },
+      },
+
       field: {
         wrapper: FieldWrapper,
       },

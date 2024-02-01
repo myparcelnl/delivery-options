@@ -5,7 +5,7 @@
     <div class="mp-flex mp-flex-col mp-gap-2">
       <label
         :for="id"
-        class="mp-gap-2 mp-grid mp-grid-flow-col mp-items-center mp-justify-start mp-overflow-x-scroll mp-pt-2 mp-self-start mp-whitespace-nowrap">
+        class="mp-items-center mp-overflow-x-scroll mp-whitespace-nowrap">
         <slot name="label">
           {{ element.label }}
         </slot>
