@@ -1,10 +1,11 @@
 const {
+  addChangelogPlugin,
   addCommitAnalyzerPlugin,
   addGitHubActionsOutputPlugin,
+  addGitHubPlugin,
+  addGitPlugin,
   addReleaseNotesGeneratorPlugin,
-  addChangelogPlugin,
-} = require('@myparcel/semantic-release-config/src/plugins/index.js');
-const {addGitHubPlugin, addGitPlugin} = require('@myparcel/semantic-release-config/src/plugins');
+} = require('@myparcel/semantic-release-config/src/plugins');
 const mainConfig = require('@myparcel/semantic-release-config/npm');
 
 /**
