@@ -47,7 +47,7 @@ jobs:
           yarn nx run-many \
             --runner="cloud" \
             --output-style="static" \
-            --target="import:translations"
+            --target="translations:import"
 
       - name: 'Build'
         shell: bash
