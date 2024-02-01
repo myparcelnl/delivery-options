@@ -59,6 +59,7 @@ jobs:
             --target="build"
 
       - name: 'Release'
+        working-directory: apps/delivery-options
         # language=sh
         run: |
           npx semantic-release
