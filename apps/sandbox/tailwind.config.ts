@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-magic-numbers,no-magic-numbers */
+import plugin from 'tailwindcss/plugin';
 import defaultTheme from 'tailwindcss/defaultTheme';
 import {type Config} from 'tailwindcss';
 
@@ -65,6 +66,16 @@ const config: Config = {
       minWidth: ({theme}) => theme('width'),
     },
   },
+  plugins: [
+    plugin(({matchUtilities, theme}) => {
+      matchUtilities(
+        {
+          'animate-delay': (value) => ({animationDelay: value}),
+        },
+        {values: theme('transitionDelay')},
+      );
+    }),
+  ],
 };
 
 export default config;

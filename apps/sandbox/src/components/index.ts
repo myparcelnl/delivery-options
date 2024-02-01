@@ -1,5 +1,6 @@
 export * from './Box';
 export * from './Container';
+export * from './DotsLoader';
 export * from './base';
 export * from './form';
 export * from './layout';
@@ -25,7 +26,5 @@ export {default as SandboxAddressBox} from './SandboxAddressBox.vue';
 export {default as SandboxCarrierFormSections} from './SandboxCarrierFormSections.vue';
 
 export {default as SandboxConfiguration} from './SandboxConfiguration.vue';
-
-export {default as SandboxLoadingIndicator} from './SandboxLoadingIndicator.vue';
 
 export {default as SandboxPlatformBox} from './SandboxPlatformBox.vue';

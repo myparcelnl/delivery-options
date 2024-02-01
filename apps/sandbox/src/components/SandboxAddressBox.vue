@@ -20,7 +20,7 @@
             :value="customValue"
             name="address" />
 
-          {{ translate('custom') }}
+          {{ translate('address_custom') }}
         </label>
       </h3>
 
@@ -65,13 +65,15 @@ const countries = computed(() => {
     .sort((countryA, countryB) => countryA.label.localeCompare(countryB.label));
 });
 
+const LABEL_PREFIX = `${KEY_ADDRESS}_`;
+
 const section = formSection({
-  label: 'address',
+  label: KEY_ADDRESS,
   fields: [
     formField({
       key: KEY_ADDRESS,
       name: AddressField.Country,
-      label: AddressField.Country,
+      label: LABEL_PREFIX + AddressField.Country,
       component: FormSelectInput,
       wrapper: false,
       props: {
@@ -85,7 +87,7 @@ const section = formSection({
     formField({
       key: KEY_ADDRESS,
       name: AddressField.Street,
-      label: AddressField.Street,
+      label: LABEL_PREFIX + AddressField.Street,
       component: FormTextInput,
       attributes: {
         autocomplete: 'address-line1',
@@ -95,7 +97,7 @@ const section = formSection({
     formField({
       key: KEY_ADDRESS,
       name: AddressField.PostalCode,
-      label: AddressField.PostalCode,
+      label: LABEL_PREFIX + AddressField.PostalCode,
       component: FormTextInput,
       attributes: {
         autocomplete: 'postal-code',
@@ -105,7 +107,7 @@ const section = formSection({
     formField({
       key: KEY_ADDRESS,
       name: AddressField.City,
-      label: AddressField.City,
+      label: LABEL_PREFIX + AddressField.City,
       component: FormTextInput,
       attributes: {
         autocomplete: 'address-level2',

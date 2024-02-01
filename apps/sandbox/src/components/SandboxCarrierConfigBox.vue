@@ -8,7 +8,7 @@
       </template>
 
       <template #fallback>
-        <SandboxLoadingIndicator />
+        <DotsLoader />
       </template>
     </Suspense>
   </Box>
@@ -19,9 +19,9 @@ import {watch} from 'vue';
 import {useDebounceFn} from '@vueuse/core';
 import {useForm} from '@myparcel/vue-form-builder';
 import {useSandboxStore} from '../stores';
-import SandboxLoadingIndicator from './SandboxLoadingIndicator.vue';
 import SandboxCarrierFormSections from './SandboxCarrierFormSections.vue';
-import {Box} from './Box.js';
+import {DotsLoader} from './DotsLoader';
+import {Box} from './Box';
 
 const sandboxStore = useSandboxStore();
 const form = useForm();

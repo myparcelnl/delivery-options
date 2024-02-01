@@ -53,10 +53,15 @@ const translate = useMemoize(
     const result = state.translations[language.value.code]?.[key];
 
     if (!result) {
+      if (import.meta.env.DEV) {
+        // eslint-disable-next-line no-console
+        console.error('Missing translation:', key);
+      }
+
       return key;
     }
 
-    const matches = result.match(/@:([^"]+)/g);
+    const matches = result.match(/@:([^" ]+)/g);
 
     if (matches) {
       return matches.reduce((acc, match) => {

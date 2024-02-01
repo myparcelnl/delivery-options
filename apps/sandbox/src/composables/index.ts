@@ -1,6 +1,7 @@
 export * from './useAnchorLink';
 export * from './useAvailableCarriers';
 export * from './useBaseInputClasses';
+export * from './useColorMode';
 export * from './useCurrentCountry';
 export * from './useCurrentPlatform';
 export * from './useElInputClasses';

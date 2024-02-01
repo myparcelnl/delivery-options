@@ -10,8 +10,8 @@
           src="https://assets.myparcel.nl/skin/images/logo-inverse.svg" />
 
         <span
-          class="mp-my-auto"
-          v-text="translate('title.main')" />
+          class="mp-my-auto mp-whitespace-nowrap"
+          v-text="translate('page_title')" />
       </div>
 
       <Container fluid>
@@ -42,15 +42,15 @@ import {useLanguage} from '../../composables';
 
 const links = [
   {
-    text: 'links.api_documentation',
+    text: 'link_documentation',
     link: 'https://myparcelnl.github.io/api/',
   },
   {
-    text: 'links.slack',
+    text: 'link_slack',
     link: 'https://join.slack.com/t/myparcel-dev/shared_invite/enQtNDkyNTg3NzA1MjM4LWQ5MWE5MTQ3MDg4YjU5NzdjYjk0OTY1ZDJiYjU5YzJjNzk3Yzk3NGY0OWFkZDU4MDYwZDEyZDlhZTgzOWM1MjI',
   },
   {
-    text: 'links.github',
+    text: 'link_github',
     link: 'https://github.com/myparcelnl/delivery-options',
   },
 ] satisfies {

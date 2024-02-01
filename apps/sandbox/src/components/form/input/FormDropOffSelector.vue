@@ -88,14 +88,14 @@ const nestedComponents = weekdays.value.map((weekday, index) => {
   return [
     createField<string>({
       ...common,
-      label: DROP_OFF_CUTOFF_TIME,
+      label: `option_${DROP_OFF_CUTOFF_TIME}`,
       name: `${DROP_OFF_CUTOFF_TIME}-${index}`,
       ref: cutoffTimes[index],
     }),
 
     createField<string>({
       ...common,
-      label: DROP_OFF_SAME_DAY_CUTOFF_TIME,
+      label: `option_${DROP_OFF_SAME_DAY_CUTOFF_TIME}`,
       name: `${DROP_OFF_SAME_DAY_CUTOFF_TIME}-${index}`,
       ref: sameDayCutoffTimes[index],
     }),
