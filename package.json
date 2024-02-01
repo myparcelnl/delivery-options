@@ -29,7 +29,6 @@
     "prepare": "(is-ci || husky install)",
     "serve": "nx run-many -t serve --parallel=99",
     "test": "nx run-many -t test --parallel=99 --output-style=stream",
-    "test:affected": "nx affected -t test:run --output-style=stream",
     "test:coverage": "nx run-many -t test:coverage --output-style=stream",
     "test:run": "nx run-many -t test:run --output-style=stream",
     "test:update": "nx run-many -t test:update --output-style=stream",
