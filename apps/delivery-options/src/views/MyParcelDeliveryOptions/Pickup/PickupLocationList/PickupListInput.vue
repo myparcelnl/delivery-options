@@ -1,5 +1,5 @@
 <template>
-  <div class="mp-gap-4 mp-grid mp-grid-flow-row">
+  <div class="mp-gap-4 mp-grid">
     <PickupLocationCarrierGroup
       v-for="[carrier, group] in grouped"
       :key="carrier"
