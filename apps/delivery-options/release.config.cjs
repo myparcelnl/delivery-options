@@ -1,4 +1,5 @@
 const {
+  addNpmPlugin,
   addChangelogPlugin,
   addCommitAnalyzerPlugin,
   addGitHubActionsOutputPlugin,
@@ -25,5 +26,6 @@ module.exports = {
     addChangelogPlugin(),
     addGitHubPlugin(),
     addGitPlugin(),
+    addNpmPlugin(),
   ],
 };
