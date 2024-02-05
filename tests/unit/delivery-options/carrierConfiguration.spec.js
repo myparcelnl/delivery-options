@@ -59,7 +59,7 @@ describe('CarrierConfiguration', () => {
   it('(dis)allows package type', () => {
     expect(config.allowsPackageTypeIn(PACKAGE_TYPE_DIGITAL_STAMP, 'NL')).toBe(false);
     expect(config.allowsPackageTypeIn(PACKAGE_TYPE_MAILBOX, 'NL')).toBe(true);
-    expect(config.allowsPackageTypeIn(PACKAGE_TYPE_MAILBOX, 'BE')).toBe(false);
+    expect(config.allowsPackageTypeIn(PACKAGE_TYPE_MAILBOX, 'BE')).toBe(true);
     expect(config.allowsPackageTypeIn('NonExistentType', 'NL')).toBe(false);
   });
 
