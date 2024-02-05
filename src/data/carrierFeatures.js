@@ -69,6 +69,15 @@ export const FEATURES_PACKAGE_TYPE_MAILBOX = [
 ];
 
 /**
+ * Permissions to enable package type packet.
+ *
+ * @type {string[]}
+ */
+export const FEATURES_PACKAGE_TYPE_PACKET = [
+  CONFIG.ALLOW_PACKAGE_TYPE_PACKET,
+];
+
+/**
  * Permissions to enable pickup.
  *
  * @type {string[]}

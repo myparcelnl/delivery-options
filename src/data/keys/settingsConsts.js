@@ -6,6 +6,7 @@ import * as PLATFORMS from '@/data/keys/platformKeys';
 export const DEFAULT_PLATFORM = PLATFORMS.MYPARCEL;
 
 export const PACKAGE_TYPE_PACKAGE = 'package';
+export const PACKAGE_TYPE_PACKET = 'packet';
 export const PACKAGE_TYPE_DIGITAL_STAMP = 'digital_stamp';
 export const PACKAGE_TYPE_MAILBOX = 'mailbox';
 
