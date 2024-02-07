@@ -24,10 +24,7 @@ module.exports = {
   // eslint-disable-next-line no-template-curly-in-string
   tagFormat: 'v${version}',
   plugins: [
-    addCommitAnalyzerPlugin({
-      preset: 'conventionalcommits',
-      releaseRules: [{type: '*', scope: 'sandbox', release: false}],
-    }),
+    addCommitAnalyzerPlugin(),
     addGitHubActionsOutputPlugin(),
     addReleaseNotesGeneratorPlugin(),
     addChangelogPlugin(),
