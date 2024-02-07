@@ -16,7 +16,7 @@
 import {ref} from 'vue';
 import {useEventListener} from '@vueuse/core';
 import {isCustomEvent} from '@myparcel-do/shared';
-import {UPDATED_DELIVERY_OPTIONS} from '@myparcel/delivery-options/ts';
+import {UPDATED_DELIVERY_OPTIONS} from '@myparcel/delivery-options';
 import SandboxTable from './components/SandboxTable.vue';
 import {CButton} from './components';
 

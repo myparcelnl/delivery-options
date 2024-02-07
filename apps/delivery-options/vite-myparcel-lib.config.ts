@@ -1,15 +1,21 @@
-import {mergeConfig} from 'vite';
+import dts from 'vite-plugin-dts';
+import {mergeConfig, type UserConfig} from 'vite';
 import {createViteConfig} from '@myparcel-do/build-vite';
-import {resolvePiniaDevtoolsFix} from './vite.config';
-import baseConfig from './vite-myparcel.config';
+import baseConfig from './vite.config';
+import {getSharedConfig, createFilenameFormatter} from './private';
 
 export default createViteConfig((env) => {
+  const isProd = env.mode === 'production';
+
   return mergeConfig(baseConfig(env), {
+    plugins: [isProd && dts({entryRoot: 'src'})],
+
     build: {
+      emptyOutDir: false,
       lib: {
         entry: 'src/main.ts',
-        fileName: 'myparcel.lib',
-        formats: ['es', 'cjs'],
+        fileName: createFilenameFormatter('myparcel.lib'),
+        formats: ['es', 'umd'],
         name: 'MyParcelDeliveryOptionsLib',
       },
       rollupOptions: {
@@ -17,11 +23,12 @@ export default createViteConfig((env) => {
         output: {
           globals: {
             vue: 'Vue',
+            leaflet: 'L',
           },
         },
       },
     },
 
-    resolve: resolvePiniaDevtoolsFix,
-  });
+    ...getSharedConfig(),
+  } satisfies UserConfig);
 });

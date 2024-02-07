@@ -10,7 +10,8 @@ export const availableInPlatform = (field: InteractiveElementInstance, platform:
   const baseField = field.name?.split('.').pop() as ConfigKey;
 
   if (!baseField) {
-    logger.warning('Could not determine base field from', field.name);
+    if (import.meta.env.DEV) logger.warning('Could not determine base field from', field.name);
+
     return false;
   }
 

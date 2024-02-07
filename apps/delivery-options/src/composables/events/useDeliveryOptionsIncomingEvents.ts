@@ -12,7 +12,7 @@ export const useDeliveryOptionsIncomingEvents = (): void => {
 
     const newConfig: InputDeliveryOptionsConfiguration = hasDetail ? event.detail : getConfigFromWindow();
 
-    logger.debug(`Received configuration from ${hasDetail ? 'event' : 'window'}`, newConfig);
+    if (import.meta.env.DEV) logger.debug(`Received configuration from ${hasDetail ? 'event' : 'window'}`, newConfig);
 
     setConfiguration(newConfig);
   };

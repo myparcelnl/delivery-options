@@ -27,7 +27,8 @@ const translate = (key: string): string => {
 
   if (!translation) {
     const logger = useLogger();
-    logger.error(`Missing translation: "${key}"`);
+
+    if (import.meta.env.DEV) logger.error(`Missing translation: "${key}"`);
   }
 
   return translation;

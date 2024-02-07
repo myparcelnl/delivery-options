@@ -1,18 +1,28 @@
-import {mergeConfig} from 'vite';
+import {mergeConfig, type UserConfig} from 'vite';
 import {createViteConfig} from '@myparcel-do/build-vite';
-import baseConfig, {resolvePiniaDevtoolsFix} from './vite.config';
+import baseConfig from './vite.config';
+import {getSharedConfig, createFilenameFormatter} from './private';
 
 export default createViteConfig((env) => {
   return mergeConfig(baseConfig(env), {
     build: {
+      emptyOutDir: false,
       lib: {
         entry: 'src/main.ts',
-        fileName: 'myparcel',
-        formats: ['es', 'cjs'],
+        fileName: createFilenameFormatter('myparcel'),
+        formats: ['es', 'umd'],
         name: 'MyParcelDeliveryOptions',
+      },
+      rollupOptions: {
+        external: ['leaflet'],
+        output: {
+          globals: {
+            leaflet: 'L',
+          },
+        },
       },
     },
 
-    resolve: resolvePiniaDevtoolsFix,
-  });
+    ...getSharedConfig(),
+  } satisfies UserConfig);
 });

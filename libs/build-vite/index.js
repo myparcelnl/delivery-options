@@ -1,4 +1,3 @@
-import dts from 'vite-plugin-dts';
 import customTsConfig from 'vite-plugin-custom-tsconfig';
 import {mergeConfig} from 'vite';
 import vue from '@vitejs/plugin-vue';
@@ -8,7 +7,7 @@ const createCommonViteConfig = (env) => {
   const isProd = env.mode === 'production';
 
   return {
-    plugins: [isProd && dts({entryRoot: 'src'}), vue(), customTsConfig({tsConfigPath: 'tsconfig.base.json'})],
+    plugins: [vue(), customTsConfig({tsConfigPath: 'tsconfig.base.json'})],
 
     build: {
       minify: isProd,

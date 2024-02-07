@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts" setup>
-import {MyParcelDeliveryOptions} from '@myparcel/delivery-options/ts';
+import {MyParcelDeliveryOptions} from '@myparcel/delivery-options';
 import {useSandboxStore} from '../stores';
 
 const store = useSandboxStore();
