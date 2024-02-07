@@ -1,6 +1,5 @@
-import {computed, type MaybeRef} from 'vue';
+import {computed, type MaybeRef, type ComputedRef} from 'vue';
 import {get, useMemoize} from '@vueuse/core';
-import {type ComputedRef} from '@vue/reactivity';
 import {type ResolvedPickupLocation} from '../types';
 import {useResolvedPickupLocations} from './useResolvedPickupLocations';
 

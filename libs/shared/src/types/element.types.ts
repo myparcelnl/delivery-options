@@ -1,4 +1,4 @@
-import {type ComputedRef, type WritableComputedRef} from '@vue/reactivity';
+import {type ComputedRef, type WritableComputedRef} from 'vue';
 import {type InteractiveElementInstance} from '@myparcel/vue-form-builder';
 import {type InputProps} from './form.types';
 

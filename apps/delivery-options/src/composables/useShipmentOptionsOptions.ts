@@ -1,6 +1,5 @@
-import {computed} from 'vue';
+import {computed, type ComputedRef} from 'vue';
 import {get} from '@vueuse/core';
-import {type ComputedRef} from '@vue/reactivity';
 import {
   ONLY_RECIPIENT_TITLE,
   type SelectOption,

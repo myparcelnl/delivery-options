@@ -1,4 +1,4 @@
-import {type ComputedRef} from '@vue/reactivity';
+import {type ComputedRef} from 'vue';
 import {
   type CarrierIdentifier,
   type CarrierSettings,

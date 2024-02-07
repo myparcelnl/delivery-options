@@ -1,6 +1,5 @@
-import {computed} from 'vue';
+import {computed, type ComputedRef} from 'vue';
 import {useMemoize} from '@vueuse/core';
-import {type ComputedRef} from '@vue/reactivity';
 import {type ResolvedPlatform, type SupportedPlatformName, useResolvedPlatform} from '@myparcel-do/shared';
 import {useSandboxStore} from '../stores';
 

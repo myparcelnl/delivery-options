@@ -1,6 +1,5 @@
-import {computed, type MaybeRef} from 'vue';
+import {computed, type MaybeRef, type ComputedRef} from 'vue';
 import {get} from '@vueuse/core';
-import {type ComputedRef} from '@vue/reactivity';
 import {getConfigKey, getPlatformConfig} from '../utils';
 import {type PlatformOptions, type SupportedPlatformName} from '../types';
 

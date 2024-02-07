@@ -1,6 +1,5 @@
-import {computed, type MaybeRef, toValue} from 'vue';
+import {computed, type MaybeRef, toValue, type ComputedRef} from 'vue';
 import {useMemoize} from '@vueuse/core';
-import {type ComputedRef} from '@vue/reactivity';
 import {useLanguage} from './useLanguage';
 
 const METER = 'meter';

@@ -49,7 +49,8 @@ export const useInputWithOptionsContext = <Type extends SelectInputModelValue>(
     options,
     model,
     elementProps: computed(() => {
-      // @ts-expect-error todo
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       const {options: _, ...restProps} = elementProps.value;
 
       return restProps;

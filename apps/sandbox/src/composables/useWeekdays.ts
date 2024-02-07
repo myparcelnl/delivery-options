@@ -1,5 +1,4 @@
-import {computed} from 'vue';
-import {type ComputedRef} from '@vue/reactivity';
+import {computed, type ComputedRef} from 'vue';
 import {useLanguage} from './useLanguage';
 
 export const useWeekdays = (): ComputedRef<string[]> => {

@@ -1,6 +1,5 @@
-import {computed, type MaybeRef} from 'vue';
+import {computed, type MaybeRef, type ComputedRef} from 'vue';
 import {type DateLike} from '@vueuse/core';
-import {type ComputedRef} from '@vue/reactivity';
 import {useDateFormat} from './useDateFormat';
 
 export const useTimeRange = (startDate: MaybeRef<DateLike>, endDate: MaybeRef<DateLike>): ComputedRef<string> => {

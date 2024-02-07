@@ -1,5 +1,4 @@
-import {computed, ref, type Ref} from 'vue';
-import {type ComputedRef} from '@vue/reactivity';
+import {computed, ref, type Ref, type ComputedRef} from 'vue';
 import {type ResolvedPickupLocation} from '../types';
 import {usePickupLocation} from './usePickupLocation';
 

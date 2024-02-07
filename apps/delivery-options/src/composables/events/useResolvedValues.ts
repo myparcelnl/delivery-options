@@ -1,6 +1,5 @@
-import {computed} from 'vue';
+import {computed, type ComputedRef} from 'vue';
 import {isDef} from '@vueuse/core';
-import {type ComputedRef} from '@vue/reactivity';
 import {ConfigSetting, type DeliveryOutput, type PickupOutput} from '@myparcel-do/shared';
 import {DeliveryTypeName, PackageTypeName, ShipmentOptionName} from '@myparcel/constants';
 import {useSelectedPickupLocation} from '../useSelectedPickupLocation';

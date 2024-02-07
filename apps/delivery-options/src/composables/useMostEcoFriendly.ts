@@ -1,6 +1,5 @@
-import {computed, type MaybeRef, ref} from 'vue';
+import {computed, type MaybeRef, ref, type ComputedRef} from 'vue';
 import {get} from '@vueuse/core';
-import {type ComputedRef} from '@vue/reactivity';
 
 const groups = ref(new Map<string, number>());
 export const useMostEcoFriendly = (amount: MaybeRef<number>, group: MaybeRef<string>): ComputedRef<boolean> => {
