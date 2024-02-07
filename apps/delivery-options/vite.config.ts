@@ -3,7 +3,7 @@ import {getSharedConfig} from './private';
 
 const dirname = new URL('.', import.meta.url).pathname;
 
-export default createViteConfig({
+export default createViteConfig((env) => ({
   build: {
     emptyOutDir: false,
     lib: {
@@ -26,5 +26,5 @@ export default createViteConfig({
     setupFiles: [`${dirname}/../../libs/shared/src/__tests__/vitest-setup.ts`],
   },
 
-  ...getSharedConfig(),
-});
+  ...getSharedConfig(env),
+}));

@@ -23,6 +23,6 @@ export default createViteConfig((env) => {
       },
     },
 
-    ...getSharedConfig(),
+    ...getSharedConfig(env),
   } satisfies UserConfig);
 });
