@@ -22,18 +22,21 @@ module.exports = {
     addGitHubActionsOutputPlugin(),
     addReleaseNotesGeneratorPlugin(),
     addChangelogPlugin(),
-    addNpmPlugin({npmPublish: false}),
-    addGitHubPlugin(),
-    addGitPlugin(),
+    /*
+     * Remove the workspace dependencies before npm publish because npm cannot handle workspace dependencies. The
+     * version update and git commit are done in the prepare step, so the removed dependencies will not be committed.
+     */
     [
       '@semantic-release/exec',
       {
         publishCmd: [
           'npm pkg delete "dependencies.@myparcel-do/shared"',
           'npm pkg delete "devDependencies.@myparcel-do/build-vite"',
-          'npm publish',
         ].join(' && '),
       },
     ],
+    addNpmPlugin(),
+    addGitHubPlugin(),
+    addGitPlugin(),
   ],
 };
