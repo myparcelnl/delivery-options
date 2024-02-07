@@ -15,7 +15,9 @@
       "{projectRoot}/package.json",
       "{projectRoot}/public/**/*",
       "{projectRoot}/src/**/*",
-      "{projectRoot}/tsconfig.*.json"
+      "{projectRoot}/tsconfig.*.json",
+      "!{projectRoot}/release.config.cjs",
+      "!{projectRoot}/histoire.*"
     ],
     "prod": [
       "default",
