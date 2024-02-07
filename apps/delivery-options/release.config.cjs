@@ -7,13 +7,7 @@ const {
   addNpmPlugin,
   addReleaseNotesGeneratorPlugin,
 } = require('@myparcel/semantic-release-config/src/plugins');
-const mainConfig = require('@myparcel/semantic-release-config/npm');
-
-/**
- * Fixes "__dirname is not defined" error in semantic-release-monorepo.
- */
-// eslint-disable-next-line no-underscore-dangle
-global.__dirname = __dirname;
+const mainConfig = require('@myparcel/semantic-release-config');
 
 /**
  * @type {import('semantic-release').Options}
@@ -28,8 +22,18 @@ module.exports = {
     addGitHubActionsOutputPlugin(),
     addReleaseNotesGeneratorPlugin(),
     addChangelogPlugin(),
+    addNpmPlugin({npmPublish: false}),
     addGitHubPlugin(),
     addGitPlugin(),
-    addNpmPlugin(),
+    [
+      '@semantic-release/exec',
+      {
+        publishCmd: [
+          'npm pkg delete "dependencies.@myparcel-do/shared"',
+          'npm pkg delete "devDependencies.@myparcel-do/build-vite"',
+          'npm publish',
+        ].join(' && '),
+      },
+    ],
   ],
 };
