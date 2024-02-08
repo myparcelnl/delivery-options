@@ -1,4 +1,4 @@
-import {executeWithErrorHandling, hasErrors, throwIfHasErrors} from '../utils';
+import {executeWithErrorHandling, throwIfHasErrors} from '../utils';
 import {type ContextWithNextRelease} from '../types';
 
 export const gitCommit = async (context: ContextWithNextRelease): Promise<void> => {
@@ -13,10 +13,6 @@ export const gitCommit = async (context: ContextWithNextRelease): Promise<void> 
       stdio: 'inherit',
     },
   );
-
-  if (!hasErrors()) {
-    await executeWithErrorHandling('git', ['push', '--tags'], {env, cwd});
-  }
 
   throwIfHasErrors();
 };

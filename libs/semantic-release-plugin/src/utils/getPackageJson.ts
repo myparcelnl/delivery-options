@@ -2,11 +2,13 @@ import {readPackage, type NormalizedPackageJson} from 'read-pkg';
 import {type ContextWithNextRelease} from '../types';
 import {addError, throwIfHasErrors} from './errorHandling';
 
-export const getPackageJson = async (context: ContextWithNextRelease): Promise<NormalizedPackageJson> => {
-  let pkg: NormalizedPackageJson | undefined;
+let pkg: NormalizedPackageJson | undefined;
 
+export const getPackageJson = async (context: ContextWithNextRelease): Promise<NormalizedPackageJson> => {
   try {
-    pkg = await readPackage({cwd: context.cwd});
+    if (!pkg) {
+      pkg = await readPackage({cwd: context.cwd});
+    }
 
     if (!pkg?.name) {
       addError(new Error('No package.json found'));
