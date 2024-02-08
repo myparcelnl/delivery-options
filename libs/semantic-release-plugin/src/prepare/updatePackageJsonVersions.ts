@@ -1,7 +1,7 @@
-import {getPackageJson, execute, addError, throwIfHasErrors} from './utils';
-import {type PrepareCmd} from './types';
+import {getPackageJson, execute, addError, throwIfHasErrors} from '../utils';
+import {type ContextWithNextRelease} from '../types';
 
-export const prepare: PrepareCmd = async (_, context) => {
+export const updatePackageJsonVersions = async (context: ContextWithNextRelease): Promise<void> => {
   const {cwd, env, logger, nextRelease} = context;
   const pkg = await getPackageJson(context);
 

@@ -21,8 +21,10 @@ module.exports = {
     addGitHubActionsOutputPlugin(),
     addReleaseNotesGeneratorPlugin(),
     addChangelogPlugin(),
-    '@myparcel-do/semantic-release-plugin',
     addGitHubPlugin(),
-    addGitPlugin(),
+    /*
+     * Includes npm and git functionality
+     */
+    '@myparcel-do/semantic-release-plugin',
   ],
 };

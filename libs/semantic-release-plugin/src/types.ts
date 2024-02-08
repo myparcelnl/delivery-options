@@ -19,6 +19,7 @@ export interface ContextWithNextRelease extends Context {
   nextRelease: {
     version: string;
     channel: string;
+    notes: string;
   };
 }
 
