@@ -1,0 +1,24 @@
+{
+  "name": "@myparcel-do/semantic-release-plugin",
+  "version": "6.0.0-alpha.0",
+  "private": true,
+  "description": "Stripped down npm publish plugin which supports workspace dependencies",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/myparcelnl/delivery-options.git",
+    "directory": "libs/semantic-release-plugin"
+  },
+  "main": "dist/index.mjs",
+  "scripts": {
+    "build": "tsup-node src/index.ts --format esm --out-dir dist"
+  },
+  "dependencies": {
+    "execa": "^8.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.16",
+    "read-pkg": "^9.0.1",
+    "tsup": "^8.0.0",
+    "typescript": "^5.2.0"
+  }
+}
