@@ -6,7 +6,7 @@ import {addError} from './errorHandling';
 export const executeWithErrorHandling = async (command: string, args: string[], options?: Options) => {
   const result = await execute(command, args, options);
 
-  if (result.stderr) {
+  if (result.exitCode !== 0) {
     addError(new Error(`Command "${command} ${args.join(' ')}" failed: ${result.stderr}`));
   }
 
