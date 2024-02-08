@@ -30,6 +30,12 @@ export default defineConfig((env) => {
       exclude: ['@myparcel/vue-form-builder'],
     },
 
+    resolve: {
+      alias: {
+        '@myparcel/delivery-options': `${dirname}/../delivery-options/src`,
+      },
+    },
+
     test: {
       setupFiles: [`${dirname}/../../libs/shared/src/__tests__/vitest-setup.ts`],
       coverage: {
