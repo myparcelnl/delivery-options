@@ -8,9 +8,8 @@ export const updatePackageJsonVersions = async (context: ContextWithNextRelease)
   if (pkg?.name) {
     const {version} = nextRelease;
 
+    logger.log(`Setting version in every package.json to ${version}`);
     await execute('yarn', ['workspaces', 'foreach', '-Apv', `exec`, `npm pkg set version=${version}`], {cwd, env});
-
-    logger.log(`Set version in every package.json to ${version}`);
   } else {
     addError(new Error('No package.json found'));
   }
