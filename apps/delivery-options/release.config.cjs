@@ -4,7 +4,6 @@ const {
   addCommitAnalyzerPlugin,
   addGitHubActionsOutputPlugin,
   addGitHubPlugin,
-  addGitPlugin,
   addReleaseNotesGeneratorPlugin,
 } = require('@myparcel/semantic-release-config/src/plugins');
 const mainConfig = require('@myparcel/semantic-release-config');
@@ -21,10 +20,12 @@ module.exports = {
     addGitHubActionsOutputPlugin(),
     addReleaseNotesGeneratorPlugin(),
     addChangelogPlugin(),
-    addGitHubPlugin(),
+
     /*
      * Includes npm and git functionality
      */
     '@myparcel-do/semantic-release-plugin',
+
+    addGitHubPlugin(),
   ],
 };
