@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "paths": {
+      "@myparcel-do/*": ["apps/*/src", "libs/*/src"],
+      "@myparcel/delivery-options": ["apps/delivery-options/src"]
+    }
+  }
+}
