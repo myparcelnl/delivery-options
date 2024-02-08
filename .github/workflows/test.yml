@@ -25,7 +25,7 @@ jobs:
             --output-style="static" \
             --target="test:coverage"
 
-      - uses: codecov/codecov-action@v3
+      - uses: codecov/codecov-action@v4
         if: matrix.node-version == vars.NODE_VERSION
         with:
           files: coverage/clover.xml
