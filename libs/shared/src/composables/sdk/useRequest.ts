@@ -1,9 +1,43 @@
 import {computed, ref} from 'vue';
 import {useMemoize} from '@vueuse/core';
-import {type PromiseOr} from '@myparcel/ts-utils';
+import {type PromiseOr, isOfType} from '@myparcel/ts-utils';
+import {type ApiException} from '@myparcel/sdk';
+import {useApiExceptions} from '../useApiExceptions';
 import {type RequestHandler, type RequestKey, type RequestStorage, type UseRequestOptions} from '../../types';
 import {useRequestStorage} from './useRequestStorage';
 import {requestKeyToString} from './requestKeyToString';
+
+const defaultErrorHandler = (exception: ApiException, requestKey: RequestKey) => {
+  const {addException} = useApiExceptions();
+
+  addException(requestKey, exception);
+};
+
+const createRequestCallback = <T>(
+  callback: () => PromiseOr<T>,
+  queryKey: RequestKey,
+  options?: UseRequestOptions<T>,
+): (() => Promise<T>) => {
+  return async () => {
+    try {
+      const value = await callback();
+
+      await options?.onSuccess?.(value);
+
+      return value;
+    } catch (error) {
+      if (!isOfType<ApiException>(error, 'data')) {
+        throw error;
+      }
+
+      const handler = options?.onError ?? defaultErrorHandler;
+
+      await handler(error, queryKey);
+
+      return (options?.fallback ?? null) as T;
+    }
+  };
+};
 
 const createRequestHandler = <T>(
   storage: RequestStorage,
@@ -16,20 +50,12 @@ const createRequestHandler = <T>(
 
   const load = async () => {
     if (!storage.has(queryKey)) {
-      void storage.set(queryKey, callback());
+      const cb = createRequestCallback(callback, queryKey, options);
+
+      void storage.set(queryKey, cb());
     }
 
-    try {
-      data.value = await storage.get(queryKey);
-    } catch (error) {
-      // @ts-expect-error todo
-      await options?.onError?.(error);
-
-      data.value = null;
-    }
-
-    // @ts-expect-error todo
-    await options?.onSuccess?.(data.value);
+    data.value = await storage.get(queryKey);
 
     storage.set(queryKey, data.value);
   };

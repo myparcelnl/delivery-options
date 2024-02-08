@@ -7,9 +7,13 @@ import {useRequest} from './useRequest';
 export const usePickupLocationsRequest = (
   parameters: EndpointParameters<GetPickupLocations>,
 ): RequestHandler<EndpointResponse<GetPickupLocations>> => {
-  return useRequest([REQUEST_KEY_PICKUP_LOCATIONS, parameters], () => {
-    const sdk = useSdk();
+  return useRequest(
+    [REQUEST_KEY_PICKUP_LOCATIONS, parameters],
+    () => {
+      const sdk = useSdk();
 
-    return sdk.getPickupLocations({parameters});
-  });
+      return sdk.getPickupLocations({parameters});
+    },
+    {fallback: []},
+  );
 };

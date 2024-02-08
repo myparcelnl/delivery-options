@@ -21,7 +21,11 @@ export interface RequestHandler<T> {
 }
 
 export interface UseRequestOptions<T> {
-  onSuccess(data: T): PromiseOr<void>;
+  fallback?: T;
+
+  onError?(error: unknown, queryKey: RequestKey): PromiseOr<void>;
+
+  onSuccess?(data: T): PromiseOr<void>;
 }
 
 export type RequestKey = (string | object | RequestKey)[];

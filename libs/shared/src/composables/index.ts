@@ -1,5 +1,6 @@
 export * from './form';
 export * from './sdk';
+export * from './useApiExceptions';
 export * from './useClickOutside';
 export * from './useCursor';
 export * from './useFullCarrier';

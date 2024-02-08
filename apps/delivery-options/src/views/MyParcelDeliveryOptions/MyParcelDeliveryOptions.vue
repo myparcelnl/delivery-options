@@ -4,7 +4,12 @@
     ref="wrapper">
     <DeliveryOptionsForm
       v-if="ready"
+      v-show="!hasExceptions"
       class="myparcel-delivery-options" />
+
+    <KeepAlive>
+      <Errors v-if="hasExceptions" />
+    </KeepAlive>
   </div>
 </template>
 
@@ -12,7 +17,7 @@
 import '../../assets/index.scss';
 import {computed, onMounted, ref, toRefs, watch} from 'vue';
 import {get, useEventListener} from '@vueuse/core';
-import {useLogger} from '@myparcel-do/shared';
+import {useLogger, useApiExceptions} from '@myparcel-do/shared';
 import {getConfigFromWindow} from '../../utils';
 import {type DeliveryOptionsEmits, type DeliveryOptionsProps} from '../../types';
 import {useAddressStore, useConfigStore} from '../../stores';
@@ -23,6 +28,7 @@ import {
   useDeliveryOptionsOutgoingEvents,
   useProvideElementWidth,
 } from '../../composables';
+import Errors from './Errors.vue';
 import DeliveryOptionsForm from './DeliveryOptionsForm/DeliveryOptionsForm.vue';
 
 const props = defineProps<DeliveryOptionsProps>();
@@ -35,6 +41,8 @@ const config = useConfigStore();
 const address = useAddressStore();
 
 const wrapper = ref<HTMLFormElement>();
+
+const {hasExceptions} = useApiExceptions();
 
 const ready = computed(() => Boolean(config.platform && address.cc));
 

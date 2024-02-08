@@ -14,6 +14,7 @@ export const useCarriersRequest = (): RequestHandler<EndpointResponse<GetCarrier
       return sdk.getCarriers();
     },
     {
+      fallback: [],
       onSuccess(carriers) {
         const requestStorage = useRequestStorage();
 
