@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel/delivery-options-v6.0.0-alpha.2](https://github.com/myparcelnl/delivery-options/compare/v6.0.0-alpha.1...v6.0.0-alpha.2) (2024-02-08)
+
+
+### :sparkles: New Features
+
+* add basic error handling ([6e9e9d8](https://github.com/myparcelnl/delivery-options/commit/6e9e9d8f0a220cffd644aca69374a318a68771d4))
+
 ## [@myparcel/delivery-options-v6.0.0-alpha.1](https://github.com/myparcelnl/delivery-options/compare/v5.11.0...v6.0.0-alpha.1) (2024-02-08)
 
 ### ⚠ BREAKING CHANGES
