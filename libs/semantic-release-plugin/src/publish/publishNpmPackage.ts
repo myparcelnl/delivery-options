@@ -1,4 +1,4 @@
-import {getPackageJson} from '../utils';
+import {getPackageJson, executeWithErrorHandling} from '../utils';
 import {type ContextWithNextRelease} from '../types';
 import {getChannel} from './getChannel';
 
@@ -6,11 +6,9 @@ export const publishNpmPackage = async (context: ContextWithNextRelease): Promis
   const {env, cwd, logger, nextRelease} = context;
 
   const pkg = await getPackageJson(context);
-
   const tag = getChannel(context.nextRelease.channel);
 
-  // await execute('npm', ['publish', '--tag', tag], {cwd, env, stdio: 'inherit'});
+  logger.log(`Publishing package ${pkg?.name}@${nextRelease.version} (${tag}) to NPM registry`);
 
-  logger.log(`await execute('npm', ['publish', '--tag', ${tag}], ${JSON.stringify({cwd, env, stdio: 'inherit'})};`);
-  logger.log(`Published package ${pkg?.name}@${nextRelease.version} (${tag}) to NPM registry`);
+  await executeWithErrorHandling('npm', ['publish', '--tag', tag], {cwd, env, stdio: 'inherit'});
 };
