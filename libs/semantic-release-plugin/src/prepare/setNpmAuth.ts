@@ -8,7 +8,7 @@ export const setNpmAuth = async (context: ContextWithNextRelease): Promise<void>
 
   await executeWithErrorHandling(
     'npm',
-    ['config', 'set', '//registry.npmjs.org/:_authToken', context.env.NPM_TOKEN ?? ''],
+    ['config', '--global', 'set', '//registry.npmjs.org/:_authToken', context.env.NPM_TOKEN ?? ''],
     {cwd, env},
   );
 };
