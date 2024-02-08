@@ -25,7 +25,7 @@ See the [GitHub releases page] or [CHANGELOG.md].
 
 ### v5 to v6
 
-Most of the big changes in v6 are internal, but there are some breaking changes and deprecations.
+The app was rewritten from scratch, to be able to upgrade all underlying technologies and to improve the performance and stability. The existing behavior will mostly continue to work, so you can upgrade to v6 without huge changes. However, there are some breaking changes and deprecations, so please read the following list carefully.
 
 **Improvements**
 
@@ -38,6 +38,7 @@ Most of the big changes in v6 are internal, but there are some breaking changes 
 **Breaking changes**
 
 - It's no longer possible to set `showDeliveryDate` per carrier. This is now a global setting only.
+- The CSS is no longer bundled, so you must manually include `dist/style.css`. This does not apply if you're using the Vue component.
 
 **Deprecated**
 

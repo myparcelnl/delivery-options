@@ -5,97 +5,39 @@ All notable changes to this project will be documented in this file. See
 
 ## [@myparcel/delivery-options-v6.0.0-alpha.1](https://github.com/myparcelnl/delivery-options/compare/v5.11.0...v6.0.0-alpha.1) (2024-02-08)
 
-
 ### ⚠ BREAKING CHANGES
 
-* add new boilerplate
-
-### wip
-
-* add new boilerplate ([0286f8e](https://github.com/myparcelnl/delivery-options/commit/0286f8e3895c1b6453265079261228ef4d35beaf))
-
+- It's no longer possible to set `showDeliveryDate` per carrier. This is now a global setting only.
+- The CSS is no longer bundled, so you must manually include `dist/style.css`. This does not apply if you're using the Vue component.
 
 ### :sparkles: New Features
 
-* add "show more" to opening hours ([014d35c](https://github.com/myparcelnl/delivery-options/commit/014d35ca98ce9d89dfa92d0cd3c73ba9a130ddaa))
-* add active state to pickup map markers ([80bf0ac](https://github.com/myparcelnl/delivery-options/commit/80bf0ac0d9e8f70edb4e4122739a78c0f1b4811c))
-* add chunk of delivery options ([1ec5d8f](https://github.com/myparcelnl/delivery-options/commit/1ec5d8fb2a5012adccee54601cedaf3287252739))
-* add correct icons ([58aabf7](https://github.com/myparcelnl/delivery-options/commit/58aabf7cfc32f06caa2aeb1658ba88f097a5d71c))
-* add drop off possibilities ([e20f63b](https://github.com/myparcelnl/delivery-options/commit/e20f63b06bbfc81b6b08ae5c1c5511f84e0a3d34))
-* add huge chunk of sandbox ([8b16252](https://github.com/myparcelnl/delivery-options/commit/8b16252be31dfc70e1bbff3f52f9d9263932e050))
-* add initial myparcel.js usage ([4ab7284](https://github.com/myparcelnl/delivery-options/commit/4ab728457d5554af3adaeebce5449f967032d32a))
-* add initial pickup list ([c9b1055](https://github.com/myparcelnl/delivery-options/commit/c9b105549afa0161d01c5790eed83c9b6fea2688))
-* add missing translation keys ([bf96e53](https://github.com/myparcelnl/delivery-options/commit/bf96e534d0a6948227c5a688144f8d6c0ab5c480))
-* add parcel locker indicators ([c6a6831](https://github.com/myparcelnl/delivery-options/commit/c6a683112ca98b144498833682942ad374dd0d57))
-* add pickup map details ([14acfa3](https://github.com/myparcelnl/delivery-options/commit/14acfa3fc1a091543669a854df28c57e324d4f46))
-* capitalize opening hours ([f0e5240](https://github.com/myparcelnl/delivery-options/commit/f0e5240ed311c7edb0f00832017578134526f997))
-* **carriers:** filter and sort carriers ([79bb531](https://github.com/myparcelnl/delivery-options/commit/79bb53112150770db3b6d06ff467b364f2d666cb))
-* **delivery-options:** do not expose delivery date if it's turned off ([c037903](https://github.com/myparcelnl/delivery-options/commit/c03790339b90250f05ac46b0cce93a6c7c22583b))
-* **design:** make pickup map responsive ([033414e](https://github.com/myparcelnl/delivery-options/commit/033414ee5cf4f6ef93c1159838313dd3aea15f17))
-* **design:** update date selector design ([e48ed68](https://github.com/myparcelnl/delivery-options/commit/e48ed68d5dde3fd45005c1e0855c71e594611c2b))
-* **design:** update delivery moment selector design ([af6d9b3](https://github.com/myparcelnl/delivery-options/commit/af6d9b3a20be927ce1a30b3c4c15747338ce62fa))
-* **design:** update pickup list selector design ([085b9bb](https://github.com/myparcelnl/delivery-options/commit/085b9bb9db9ee2c6e6e62a5a81989660587a7601))
-* **design:** use carets for delivery and pickup choice ([01c333e](https://github.com/myparcelnl/delivery-options/commit/01c333e464e3f6f0228030e756ba96e7418e1308))
-* **events:** add show and hide events ([9ae883b](https://github.com/myparcelnl/delivery-options/commit/9ae883b02af145024a7b87a42370fa46ab3188ce))
-* handle deprecated cutoff and dropoff options ([11d2c79](https://github.com/myparcelnl/delivery-options/commit/11d2c79fce8c67fa80f89d3b2ad4ca75df86141a))
-* implement translations ([44f0a88](https://github.com/myparcelnl/delivery-options/commit/44f0a881728a5a66ee6f95a1c85a3179c4f1e14f))
-* improve list and map toggle and add load more button ([6471228](https://github.com/myparcelnl/delivery-options/commit/64712287196ee170dc4b95606c3176f16b54770a))
-* improve pickup location emit logic ([36a0577](https://github.com/myparcelnl/delivery-options/commit/36a057763fb81f2e2fe31712acff2dac882cbd02))
-* improve sandbox grouping ([6d6e58a](https://github.com/myparcelnl/delivery-options/commit/6d6e58aafd5862e47798ff54ed1fa8dc32659d4b))
-* pass language to delivery options ([87b80d5](https://github.com/myparcelnl/delivery-options/commit/87b80d560042b5aa2b8008594aed6ec7339df427))
-* **pickup:** export location distance ([3af47b9](https://github.com/myparcelnl/delivery-options/commit/3af47b9dddc573823a129f833c36f5902d68c4ce))
-* **pickup:** make selected location visible when coming from map ([1f48bb8](https://github.com/myparcelnl/delivery-options/commit/1f48bb8a6483b7fcf5fe8a1617dd48d8b77ffe6c))
-* render initial map view ([2f05523](https://github.com/myparcelnl/delivery-options/commit/2f05523380a8f396a3e104836c107332d53327dd))
-* render map markers ([6ec4a5e](https://github.com/myparcelnl/delivery-options/commit/6ec4a5ea846ff816c90123bee22b8f00975f3825))
-* show carrier in pickup locations ([5c1f1a2](https://github.com/myparcelnl/delivery-options/commit/5c1f1a2fb1e840fe9dc9e7efa942a4d0d38e4beb))
-* validate delivery options config ([1569f33](https://github.com/myparcelnl/delivery-options/commit/1569f33de4338714405b308f00ca7b8e4deee179))
-
+- It's now possible to set separate cutoff times per day and per carrier via `dropOffDays`.
+- A beautiful new design.
+- The app can now be used as a Vue component in any Vue 3 app.
+- TypeScript support.
+- More exported methods, constants, types and interfaces.
 
 ### :bug: Bug Fixes
 
-* add loaders to delivery options ([f74ccfb](https://github.com/myparcelnl/delivery-options/commit/f74ccfba34cccdea04836accc585c737a45bde6d))
-* change padding in radio group tabs ([e3fcf10](https://github.com/myparcelnl/delivery-options/commit/e3fcf1072eb914f978c323b49ccbd72af998d2e4))
-* clean up business logic ([95f1a81](https://github.com/myparcelnl/delivery-options/commit/95f1a811966f695e63dd515af7a4ed7dc09b8fba))
-* **delivery-options:** fix date format locale ([125dbe8](https://github.com/myparcelnl/delivery-options/commit/125dbe805fd6380fa7af16bbccecb89f5bc354ec))
-* **design:** improve date select design ([467d3df](https://github.com/myparcelnl/delivery-options/commit/467d3df924f295a787bc4b7ac162a351191e721d))
-* fix browser saved settings not being honored ([6b08c26](https://github.com/myparcelnl/delivery-options/commit/6b08c263930cf3902c8961a7ca292a56df0f7170))
-* fix date options translations not being reactive ([6a0d3c6](https://github.com/myparcelnl/delivery-options/commit/6a0d3c6d37c9efaf750ffb5459f501e86e8486c0))
-* fix date parsing and formatting ([dff03d8](https://github.com/myparcelnl/delivery-options/commit/dff03d870f38aca130ad9b66d6514cd6d52ec6d7))
-* fix delivery moment not being updated ([2ce6882](https://github.com/myparcelnl/delivery-options/commit/2ce688225e5f6c5b0269d45a625d97d36ea32b25))
-* fix drop-off days not being sent to api correctly ([f40ae0a](https://github.com/myparcelnl/delivery-options/commit/f40ae0a56ad6a7f406e31c35bdfa4a4044b11fa9))
-* fix relative dates being wrong ([bbc4712](https://github.com/myparcelnl/delivery-options/commit/bbc4712b9dd902a28b379760b72cc918a336facc))
-* improve look and add prices for shipment options ([5fa9a86](https://github.com/myparcelnl/delivery-options/commit/5fa9a867fee0ed9ff3eb440144c0e7fb92ba59b7))
-* improve marker events ([ac6706e](https://github.com/myparcelnl/delivery-options/commit/ac6706e79b98aa74866ce3b9f72c09af6610bf2f))
-* improve rendering via events behavior ([1970c35](https://github.com/myparcelnl/delivery-options/commit/1970c35dd9f1adebf5b411e5b649c1cb87feeb61))
-* improve unmounting on subsequent render event ([d503122](https://github.com/myparcelnl/delivery-options/commit/d503122f7b6f16265c7ff82e9887b13e8382b2d6))
-* **pickup:** fix details not being refreshed when using map ([9e98205](https://github.com/myparcelnl/delivery-options/commit/9e982056ca619aeebf1589e6075f75aa9bb1f605))
-* **pickup:** fix error when switching from delivery to pickup ([402d524](https://github.com/myparcelnl/delivery-options/commit/402d524b9d67e366b04498219660bed3e175485f))
-* **pickup:** fix list being broken when starting on map ([e2dde2e](https://github.com/myparcelnl/delivery-options/commit/e2dde2ec6cb7457820de7d592112ff076c2d4be7))
-* **pickup:** fix pickup output values ([fbfb98f](https://github.com/myparcelnl/delivery-options/commit/fbfb98f26ab45d9d59b7a0e114140a9d5cbb4012))
-* **pickup:** improve appearance of pickup details ([a1d0bb0](https://github.com/myparcelnl/delivery-options/commit/a1d0bb0f8e61d062dd5f130e63bf9a87b9514a4f))
-* **pickup:** improve centering of markers ([5b9b3c2](https://github.com/myparcelnl/delivery-options/commit/5b9b3c29c7baa1e28ad1bdf8b7ea47e3996b0de2))
-* **pickup:** improve map hooks ([ea077b6](https://github.com/myparcelnl/delivery-options/commit/ea077b64d7c6e963a5bc32ab8a7b0dc3383287f5))
-* **pickup:** improve marker style ([4e2cb24](https://github.com/myparcelnl/delivery-options/commit/4e2cb2467509babc23eddff8abfe23e4e1f69a54))
-* **pickup:** keep selected marker on top ([50fa1ed](https://github.com/myparcelnl/delivery-options/commit/50fa1ed65d651a7c1a81191b483345bce7e68553))
-* **pickup:** make opening hours respond to locale changes ([918b8dc](https://github.com/myparcelnl/delivery-options/commit/918b8dc7bb5d9dff96f080c0cd679826c7621b07))
-* **pickup:** make pickup map properly interactive ([e1ebf6f](https://github.com/myparcelnl/delivery-options/commit/e1ebf6f291db7bcb56bc71e00e838771d1e63783))
-* **pickup:** make pickup respond to locale change ([553cc12](https://github.com/myparcelnl/delivery-options/commit/553cc1217dd05f23e5fd9d95f3731af025f32f7b))
-* **pickup:** mark initial location as active when switching to map ([2a2e99c](https://github.com/myparcelnl/delivery-options/commit/2a2e99cb70733f679dd08eb0257f74b9c52198e4))
-* **pickup:** reduce width of attribution box ([9ae5e75](https://github.com/myparcelnl/delivery-options/commit/9ae5e756e3252a0014d1ce8ed4c986b2ab7d6f4c))
-* **pickup:** show pickup locations sorted by distance ([c94f722](https://github.com/myparcelnl/delivery-options/commit/c94f72252b368e563f03fe2521bd4a5dedb00b35))
-* remove tailwind base from delivery options styles ([ee339bf](https://github.com/myparcelnl/delivery-options/commit/ee339bf55bf8c437f25003c6f153be9e72d2d7bf))
-* restore commented code ([05f4035](https://github.com/myparcelnl/delivery-options/commit/05f40354b859890d3657f2150b1be20a36563dfa))
-* update deprecated config parsing ([6710ddf](https://github.com/myparcelnl/delivery-options/commit/6710ddf2a10a84880a56ececa39deb1bb84c86ee))
-* update drop off possibilities to match pdk ([226960c](https://github.com/myparcelnl/delivery-options/commit/226960c351884fb29401646b3fc7b26e484d866b))
-* update options and their validation ([4b9cd52](https://github.com/myparcelnl/delivery-options/commit/4b9cd522943cf8a40a8a1de5016ef635b584016c))
-
+- The app was rewritten from scratch intending to fix all known issues.
 
 ### :zap: Performance Improvements
 
-* only use resolved carriers in delivery options ([95afee3](https://github.com/myparcelnl/delivery-options/commit/95afee386bc449e0e12819dd603cd7a2213c1444))
-* reduce bundle size ([0ab6f2d](https://github.com/myparcelnl/delivery-options/commit/0ab6f2dc7b601d57f1b46b0f963fd2e44e3b58e0))
-* reduce bundle size ([d3ddc5e](https://github.com/myparcelnl/delivery-options/commit/d3ddc5eb0f56701d68bf09711ea9f81e54387418))
-* remove unnecessary class ([0009b6e](https://github.com/myparcelnl/delivery-options/commit/0009b6ec4f86db5602e386b32f2df7ad19046ba3))
+- Vastly improved performance and stability.
+- Upgraded from Vue 2 to Vue 3.
+
+### :wrench: Internal Changes
+
+- Upgraded from Vue CLI to Vite.
+- The app is now written in TypeScript.
+
+### New Deprecations
+
+- `cutoffTime` is deprecated, use `dropOffDays` instead
+- Rather than relying on `allowDeliveryOptions`, use `allowStandardDelivery` instead.
+
+> ⚠️ **Note:** The existing behavior will continue to work throughout v6 but will be removed/changed in the next major version.
 
 ## [5.11.0](https://github.com/myparcelnl/delivery-options/compare/v5.10.1...v5.11.0) (2023-10-11)
 
