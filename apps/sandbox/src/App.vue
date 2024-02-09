@@ -19,11 +19,9 @@
         </Suspense>
       </div>
 
-      <div class="mp-flex mp-flex-col mp-flex-grow mp-relative mp-w-3/5">
-        <div class="mp-sticky mp-top-4">
-          <div class="mp-gap-4 mp-grid">
-            <DeliveryOptionsDemo v-if="ready" />
-          </div>
+      <div class="mp-flex mp-flex-col mp-flex-grow mp-sticky mp-top-4 mp-w-3/5">
+        <div class="mp-gap-4 mp-grid">
+          <DeliveryOptionsDemo v-if="ready" />
         </div>
       </div>
     </Container>
