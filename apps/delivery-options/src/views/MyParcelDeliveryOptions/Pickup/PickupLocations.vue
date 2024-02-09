@@ -21,8 +21,9 @@
 <script lang="ts" setup>
 import {computed, ref, watch} from 'vue';
 import {PickupLocationsView} from '@myparcel-do/shared';
-import {useDeliveryOptionsForm, FIELD_PICKUP_LOCATION} from '@myparcel/delivery-options';
 import {useConfigStore} from '../../../stores';
+import {useDeliveryOptionsForm} from '../../../form';
+import {FIELD_PICKUP_LOCATION} from '../../../data';
 import {useLanguage, useResolvedPickupLocations} from '../../../composables';
 import {DoButton} from '../../../components';
 import PickupLocationMapWrapper from './PickupLocationMap/PickupLocationMapWrapper.vue';
