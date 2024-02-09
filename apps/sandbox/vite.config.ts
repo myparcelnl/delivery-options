@@ -6,8 +6,8 @@ export const PORT = 9860;
 
 const dirname = new URL('.', import.meta.url).pathname;
 
-export default defineConfig((env) => {
-  const isProd = env.mode === 'production';
+export default defineConfig(({mode}) => {
+  const isProd = mode === 'production';
 
   return {
     plugins: [vue(), customTsConfig({tsConfigPath: 'tsconfig.base.json'})],
@@ -34,6 +34,10 @@ export default defineConfig((env) => {
       alias: {
         '@myparcel/delivery-options': `${dirname}/../delivery-options/src`,
       },
+    },
+
+    define: {
+      'process.env.NODE_ENV': JSON.stringify(mode),
     },
 
     test: {
