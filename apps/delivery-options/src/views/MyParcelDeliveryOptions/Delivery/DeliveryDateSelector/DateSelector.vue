@@ -1,6 +1,8 @@
 <template>
   <div class="mp-flex mp-select-none">
-    <div class="mp-flex mp-items-center mp-mr-2">
+    <div
+      v-show="showNavigation"
+      class="mp-flex mp-items-center mp-mr-2">
       <IconButton
         :disabled="loading || cursor <= 0"
         @click="previous">
@@ -28,7 +30,9 @@
         @click="model = date" />
     </component>
 
-    <div class="mp-flex mp-items-center mp-ml-2">
+    <div
+      v-show="showNavigation"
+      class="mp-flex mp-items-center mp-ml-2">
       <IconButton
         :disabled="loading || cursor >= dates.length - shownItems"
         @click="next">
@@ -59,9 +63,9 @@ const form = useDeliveryOptionsForm();
 
 const cursor = ref(0);
 
-const width = useBreakpoints();
+const {sm} = useBreakpoints();
 
-const shownItems = computed(() => (width.sm.value ? 2 : 4));
+const shownItems = computed(() => (sm.value ? 2 : 4));
 
 const previous = () => {
   if (cursor.value <= 0) {
@@ -99,4 +103,5 @@ watch(
 );
 
 const loading = computed(() => !dates.value.length);
+const showNavigation = computed(() => dates.value.length > shownItems.value);
 </script>
