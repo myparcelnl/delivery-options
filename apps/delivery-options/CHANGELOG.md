@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel/delivery-options-v6.0.0-alpha.5](https://github.com/myparcelnl/delivery-options/compare/v6.0.0-alpha.4...v6.0.0-alpha.5) (2024-02-09)
+
+
+### :sparkles: New Features
+
+* **design:** add loader to pickup map and list ([099205c](https://github.com/myparcelnl/delivery-options/commit/099205c22c3e535638f21b8ca441c1cb9a0e8d8e))
+* **design:** update some colors and paddings ([744aa0e](https://github.com/myparcelnl/delivery-options/commit/744aa0ed7e82cd1803c680e542a9a92f873e4715))
+
+
+### :bug: Bug Fixes
+
+* **pickup:** fix map not working ([5f513ad](https://github.com/myparcelnl/delivery-options/commit/5f513ade1cbee2413ce67f46ab7687e1341ca5d6))
+* **pickup:** select first location on switch to pickup ([0f1a3c0](https://github.com/myparcelnl/delivery-options/commit/0f1a3c01e9c849ecdd0d8ed160fdf1385d821cc6))
+* **pickup:** sort carriers by defined order ([68e74d5](https://github.com/myparcelnl/delivery-options/commit/68e74d5882a4a278fc67d7fa7c72ed3ed4abfba4))
+
 ## [@myparcel/delivery-options-v6.0.0-alpha.4](https://github.com/myparcelnl/delivery-options/compare/v6.0.0-alpha.3...v6.0.0-alpha.4) (2024-02-09)
 
 
