@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel/delivery-options-v6.0.0-alpha.3](https://github.com/myparcelnl/delivery-options/compare/v6.0.0-alpha.2...v6.0.0-alpha.3) (2024-02-09)
+
+
+### :sparkles: New Features
+
+* **design:** show proper loaders for delivery when changing config ([463f41f](https://github.com/myparcelnl/delivery-options/commit/463f41fcb3ed334280223b90738afb99f8872fc7))
+
 ## [@myparcel/delivery-options-v6.0.0-alpha.2](https://github.com/myparcelnl/delivery-options/compare/v6.0.0-alpha.1...v6.0.0-alpha.2) (2024-02-08)
 
 
