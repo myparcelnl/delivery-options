@@ -1,5 +1,5 @@
 <template>
-  <Loader.Base class="mp-h-3 mp-rounded-full mp-w-3" />
+  <Loader.Base class="mp-h-4 mp-rounded-full mp-w-4" />
 </template>
 
 <script lang="ts" setup>

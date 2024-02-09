@@ -1,5 +1,5 @@
-import {asyncComputed, get, useMemoize} from '@vueuse/core';
-import {PickupLocationType, usePickupLocationsRequest} from '@myparcel-do/shared';
+import {get, useMemoize} from '@vueuse/core';
+import {PickupLocationType, usePickupLocationsRequest, computedAsync} from '@myparcel-do/shared';
 import {type PickupLocation} from '@myparcel/sdk';
 import {createGetDeliveryOptionsParameters} from '../utils';
 import {type ResolvedCarrier, type ResolvedPickupLocation} from '../types';
@@ -46,7 +46,7 @@ const loadPickupLocations = async (carrier: ResolvedCarrier) => {
 export const useResolvedPickupLocations = useMemoize(() => {
   const carriers = useActiveCarriers();
 
-  return asyncComputed<ResolvedPickupLocation[]>(async () => {
+  return computedAsync<ResolvedPickupLocation[]>(async () => {
     const result = await Promise.all(
       get(carriers)
         .filter((carrier) => get(carrier.hasPickup))
@@ -54,5 +54,5 @@ export const useResolvedPickupLocations = useMemoize(() => {
     );
 
     return result.flat(1).sort((a, b) => Number(a.distance) - Number(b.distance));
-  });
+  }, []);
 });

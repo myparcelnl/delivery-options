@@ -3,7 +3,9 @@
     v-show="loading"
     :rows="2"
     price>
-    <RadioButtonLoader />
+    <template #input>
+      <RadioButtonLoader />
+    </template>
   </GroupInputLoader>
 
   <ShipmentOptions.Component v-show="!loading" />

@@ -4,9 +4,11 @@
       v-for="i in Number(rows)"
       :key="i"
       class="mp-flex mp-gap-2 mp-items-center mp-py-1">
-      <slot />
+      <slot name="input" />
 
-      <Loader.Text class="mp-w-24" />
+      <slot>
+        <Loader.Text class="mp-w-24" />
+      </slot>
 
       <Loader.Text
         v-if="price"

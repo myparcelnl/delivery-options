@@ -1,7 +1,11 @@
 <template>
   <div class="mp-select-none overflow-hidden">
     <Suspense>
-      <template #fallback>Loading...</template>
+      <template #fallback>
+        <Loader.Wrapper>
+          <Loader.Base class="mp-h-full mp-w-full" />
+        </Loader.Wrapper>
+      </template>
 
       <template #default>
         <LeafletMapInner v-bind="props">
@@ -13,6 +17,7 @@
 </template>
 
 <script lang="ts" setup>
+import {Loader} from '@myparcel-do/shared';
 import LeafletMapInner from '../LeafletMapInner/LeafletMapInner.vue';
 import {type LeafletMapProps} from '../../../types';
 

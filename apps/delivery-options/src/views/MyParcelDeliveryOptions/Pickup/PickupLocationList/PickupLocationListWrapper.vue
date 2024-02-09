@@ -1,12 +1,18 @@
 <template>
-  <PickupLocationList v-if="pickupLocations?.length" />
+  <PickupLocationListLoader v-show="loading" />
 
-  <div v-else>Loading...</div>
+  <PickupLocationList
+    v-if="pickupLocations?.length"
+    v-show="!loading" />
 </template>
 
 <script lang="ts" setup>
+import {computed} from 'vue';
 import {useResolvedPickupLocations} from '../../../../composables';
+import PickupLocationListLoader from './PickupLocationListLoader.vue';
 import PickupLocationList from './PickupLocationList.vue';
 
 const pickupLocations = useResolvedPickupLocations();
+
+const loading = computed(() => pickupLocations.loading.value || !pickupLocations.value.length);
 </script>
