@@ -15,7 +15,7 @@ import {isDef, useDebounceFn, useScriptTag, useStyleTag} from '@vueuse/core';
 import {type MapTileLayerData} from '@myparcel-do/shared';
 import {type LeafletMapProps} from '../../../types';
 import {useConfigStore} from '../../../stores';
-import {MAP_MARKER_CLASS_ACTIVE} from '../../../data'; // eslint-disable-next-line vue/no-unused-properties
+import {MAP_MARKER_CLASS_ACTIVE} from '../../../data';
 
 // eslint-disable-next-line vue/no-unused-properties
 const props = withDefaults(defineProps<LeafletMapProps>(), {

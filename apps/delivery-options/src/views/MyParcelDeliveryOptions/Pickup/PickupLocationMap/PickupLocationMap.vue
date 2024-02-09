@@ -9,8 +9,8 @@
       :class="{
         'mp-h-[400px]': md,
         'mp-h-[300px]': !md,
-        'mp-w-1/2': md && form.values.pickupLocation,
-        'mp-w-full': !md || !form.values.pickupLocation,
+        'mp-w-1/2': md,
+        'mp-w-full': !md,
       }">
       <Suspense>
         <template #default>
@@ -24,13 +24,13 @@
     </LeafletMap>
 
     <div
-      v-if="form.values.pickupLocation"
       :class="{
         'mp-border-l mp-w-1/2': md,
         'mp-border-t': !md,
       }"
       class="mp-flex-grow mp-p-5">
       <PickupLocationDetails
+        v-if="form.values.pickupLocation"
         :location-code="form.values.pickupLocation"
         expanded />
     </div>
