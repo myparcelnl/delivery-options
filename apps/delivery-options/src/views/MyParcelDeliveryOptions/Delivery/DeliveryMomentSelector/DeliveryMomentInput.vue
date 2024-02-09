@@ -45,9 +45,7 @@ import {
 } from '@myparcel-do/shared';
 import {FIELD_DELIVERY_MOMENT} from '../../../../data';
 import {useOptionsGroupedByCarrier, useSelectedDeliveryDate} from '../../../../composables';
-import PriceTag from '../../../../components/common/PriceTag/PriceTag.vue';
-import EcoFriendlyLabel from '../../../../components/common/EcoFriendlyLabel/EcoFriendlyLabel.vue'; // eslint-disable-next-line vue/no-unused-properties
-import {GroupInput} from '../../../../components';
+import {GroupInput, PriceTag, EcoFriendlyLabel} from '../../../../components';
 
 // eslint-disable-next-line vue/no-unused-properties
 const props = defineProps<WithElement<RadioGroupProps<T>>>();

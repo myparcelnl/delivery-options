@@ -43,8 +43,7 @@ import {
 } from '@myparcel-do/shared';
 import {type CarrierName} from '@myparcel/constants';
 import {useLanguage, useSelectedPickupLocation} from '../../../../composables';
-import DoButton from '../../../../components/common/DoButton/DoButton.vue';
-import {GroupInput} from '../../../../components';
+import {GroupInput, DoButton} from '../../../../components';
 import PickupLocationListItem from './PickupLocationListItem.vue';
 import PickupLocationDetails from './PickupLocationDetails.vue';
 

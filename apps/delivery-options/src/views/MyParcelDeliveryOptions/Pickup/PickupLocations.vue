@@ -23,7 +23,7 @@ import {computed, ref} from 'vue';
 import {PickupLocationsView} from '@myparcel-do/shared';
 import {useConfigStore} from '../../../stores';
 import {useLanguage} from '../../../composables';
-import DoButton from '../../../components/common/DoButton/DoButton.vue';
+import {DoButton} from '../../../components';
 import PickupLocationMapWrapper from './PickupLocationMap/PickupLocationMapWrapper.vue';
 import PickupLocationListWrapper from './PickupLocationList/PickupLocationListWrapper.vue';
 import PickupLocationInput from './PickupLocationInput/PickupLocationInput.vue';

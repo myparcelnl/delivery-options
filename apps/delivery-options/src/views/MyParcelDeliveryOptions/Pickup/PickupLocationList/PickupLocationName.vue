@@ -17,8 +17,7 @@
 import {toRefs} from 'vue';
 import {PARCEL_LOCKER, PickupLocationType} from '@myparcel-do/shared';
 import {useLanguage, usePickupLocation} from '../../../../composables';
-import ParcelLockerIcon from '../../../../components/icons/ParcelLockerIcon.vue';
-import InfoLabel from '../../../../components/common/InfoLabel/InfoLabel.vue';
+import {ParcelLockerIcon, InfoLabel} from '../../../../components';
 
 const props = defineProps<{locationCode: string}>();
 const propRefs = toRefs(props);

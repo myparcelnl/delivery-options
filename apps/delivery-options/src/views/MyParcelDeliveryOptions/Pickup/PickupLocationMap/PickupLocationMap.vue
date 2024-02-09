@@ -41,7 +41,7 @@
 import PickupLocationMapMarker from '../PickupLocationMapMarker/PickupLocationMapMarker.vue';
 import {useDeliveryOptionsForm} from '../../../../form';
 import {useBreakpoints, useResolvedPickupLocations, useSelectedPickupLocation} from '../../../../composables';
-import LeafletMap from '../../../../components/map/LeafletMap/LeafletMap.vue';
+import {LeafletMap} from '../../../../components';
 import PickupLocationDetails from './PickupLocationDetails.vue';
 
 const pickupLocations = useResolvedPickupLocations();

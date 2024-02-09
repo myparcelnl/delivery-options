@@ -13,7 +13,7 @@ import {createCarrierMarkerIcon} from '../../../../utils';
 import {useDeliveryOptionsForm} from '../../../../form';
 import {FIELD_PICKUP_LOCATION, MAP_MARKER_CLASS_PREFIX} from '../../../../data';
 import {usePickupLocation, useResolvedCarrier} from '../../../../composables';
-import LeafletMarker from '../../../../components/map/LeafletMarker/LeafletMarker.vue';
+import {LeafletMarker} from '../../../../components';
 
 const props = defineProps<{locationCode: string; active: boolean}>();
 const propRefs = toRefs(props);

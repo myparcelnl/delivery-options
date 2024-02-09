@@ -31,7 +31,7 @@ import {type StartEndDate} from '@myparcel/sdk';
 import {createNextDate, createUtcDate} from '../../../../utils';
 import {SHOWN_OPENING_HOURS} from '../../../../data';
 import {useDateFormat, useLanguage, usePickupLocation, useTimeRange} from '../../../../composables';
-import DoButton from '../../../../components/common/DoButton/DoButton.vue';
+import {DoButton} from '../../../../components';
 
 const props = defineProps<{locationCode: string; expanded?: boolean}>();
 const propRefs = toRefs(props);
