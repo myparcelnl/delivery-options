@@ -1,7 +1,7 @@
 <template>
   <div class="mp-flex-grow">
     <Box>
-      <h2>Result</h2>
+      <h2 v-text="translate('result')" />
 
       <div class="mp-max-w-full mp-min-w-80 mp-overflow-auto mp-pb-4 mp-resize-x">
         <DeliveryOptionsBlock />
@@ -12,7 +12,7 @@
   <Box>
     <Expandable>
       <template #title>
-        <h3>Resolved configuration</h3>
+        <h3 v-text="translate('resolved_configuration')" />
       </template>
 
       <pre
@@ -27,7 +27,7 @@
   <Box>
     <Expandable>
       <template #title>
-        <h3>Events</h3>
+        <h3 v-text="translate('events')" />
       </template>
 
       <DebugEventLog />
@@ -37,8 +37,11 @@
 
 <script lang="ts" setup>
 import {useSandboxStore} from './stores';
+import {useLanguage} from './composables';
 import {Box, DeliveryOptionsBlock, Expandable} from './components';
 import DebugEventLog from './DebugEventLog.vue';
 
 const sandboxStore = useSandboxStore();
+
+const {translate} = useLanguage();
 </script>

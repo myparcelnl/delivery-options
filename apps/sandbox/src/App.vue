@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="loading"
+    v-if="!languageReady"
     class="mp-flex mp-h-[100vh] mp-items-center mp-justify-center mp-w-[100vw]">
     <DotsLoader />
   </div>
@@ -8,11 +8,7 @@
   <div v-else>
     <SandboxHeader />
 
-    <Container>
-      <h1>MyParcel Delivery Options Sandbox</h1>
-    </Container>
-
-    <Container class="!mp-items-start">
+    <Container class="!mp-items-start mp-py-8">
       <div class="mp-w-2/5">
         <Suspense @resolve="ready = true">
           <SandboxConfiguration />
@@ -31,7 +27,7 @@
 </template>
 
 <script lang="ts" setup>
-import {ref} from 'vue';
+import {ref, onMounted, onActivated} from 'vue';
 import {useColorMode, useLanguage} from './composables';
 import SandboxHeader from './components/layout/SandboxHeader.vue';
 import SandboxFooter from './components/layout/SandboxFooter.vue';
@@ -43,5 +39,15 @@ const ready = ref(false);
 
 useColorMode();
 
-const {loading} = useLanguage();
+const {load} = useLanguage();
+
+const languageReady = ref(false);
+
+const waitForLanguage = async () => {
+  await load();
+  languageReady.value = true;
+};
+
+onMounted(waitForLanguage);
+onActivated(waitForLanguage);
 </script>

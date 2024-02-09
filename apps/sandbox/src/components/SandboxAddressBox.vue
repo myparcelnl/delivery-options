@@ -1,7 +1,7 @@
 <template>
   <Box class="mp-gap-2 mp-grid">
     <AutoAnchor name="address">
-      <h2>Address</h2>
+      <h2 v-text="translate('address')" />
     </AutoAnchor>
 
     <div class="mp-gap-2 mp-grid mp-grid-cols-2">
@@ -74,7 +74,7 @@ const section = formSection({
       component: FormSelectInput,
       wrapper: false,
       props: {
-        placeholder: AddressField.Country,
+        placeholder: translate('choose_date'),
         autocomplete: 'country',
         loading: computed(() => !countries.value.length),
         options: countries,
