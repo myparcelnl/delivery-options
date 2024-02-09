@@ -7,7 +7,7 @@
             :class="{
               'mp-rotate-90': homeOrPickup === option.value,
             }"
-            class="mp-cursor-pointer mp-transition-transform" />
+            class="mp-cursor-pointer mp-not-sr-only mp-transition-transform" />
 
           <RadioInput
             v-model="homeOrPickup"
@@ -16,15 +16,17 @@
         </span>
       </template>
 
+      <template #default="{option}">
+        <b v-text="option.label" />
+      </template>
+
       <template #content="{option}">
         <KeepAlive>
           <component
             :is="currentComponent"
             v-if="homeOrPickup === option.value"
-            class="mp-pl-4 mp-pt-4" />
+            class="mp-pl-4 mp-py-2" />
         </KeepAlive>
-
-        <hr v-if="option.value === HOME_OR_PICKUP_HOME" />
       </template>
     </HomeOrPickup.Component>
   </Form.Component>
@@ -40,7 +42,7 @@ import HomeDelivery from '../Delivery/HomeDelivery.vue';
 import {useDeliveryOptionsForm} from '../../../form';
 import {FIELD_HOME_OR_PICKUP, HOME_OR_PICKUP_HOME, HOME_OR_PICKUP_PICKUP} from '../../../data';
 import {useActiveCarriers, useLanguage} from '../../../composables';
-import {CaretRightIcon, RadioGroupInput} from '../../../components';
+import {CaretRightIcon, RadioGroupInput} from '../../../components'; // eslint-disable-next-line @typescript-eslint/naming-convention
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const Form = useDeliveryOptionsForm();

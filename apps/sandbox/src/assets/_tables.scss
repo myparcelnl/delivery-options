@@ -11,8 +11,6 @@ tfoot {
 }
 
 tr {
-  @apply mp-border-gray-200 dark:mp-border-gray-700;
-
   &:not(:last-of-type) {
     @apply mp-border-b-2;
   }

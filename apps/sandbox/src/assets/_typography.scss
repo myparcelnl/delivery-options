@@ -50,3 +50,7 @@ h6 {
 a:not(.reset) {
   @apply mp-text-goldfish-500 hover:mp-text-goldfish-700;
 }
+
+b {
+  @apply mp-font-bold;
+}

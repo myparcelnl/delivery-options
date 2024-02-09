@@ -7,9 +7,7 @@
         :carrier="data.name"
         small />
 
-      <b
-        class="mp-font-bold"
-        v-text="data.human" />
+      <b v-text="data.human" />
     </div>
 
     <slot />
