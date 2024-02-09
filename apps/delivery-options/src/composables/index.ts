@@ -18,4 +18,5 @@ export * from './useResolvedPickupLocations';
 export * from './useSelectedDeliveryDate';
 export * from './useSelectedDeliveryMoment';
 export * from './useSelectedPickupLocation';
+export * from './useShipmentOptionsOptions';
 export * from './useTimeRange';

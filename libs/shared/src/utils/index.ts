@@ -1,3 +1,4 @@
+export * from './computedAsync';
 export * from './createAssetUrl';
 export * from './crushObject';
 export * from './declareOption';

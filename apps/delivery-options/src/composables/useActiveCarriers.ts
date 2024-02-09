@@ -1,10 +1,11 @@
-import {type Ref} from 'vue';
-import {asyncComputed, useMemoize} from '@vueuse/core';
+import {useMemoize} from '@vueuse/core';
 import {
   type CarrierIdentifier,
   resolveCarrierName,
   type CarrierSettings,
   splitCarrierIdentifier,
+  computedAsync,
+  type ComputedAsync,
 } from '@myparcel-do/shared';
 import {getResolvedCarrier} from '../utils';
 import {type ResolvedCarrier} from '../types';
@@ -14,11 +15,11 @@ import {useCurrentPlatform} from './useCurrentPlatform';
 /**
  * Get the carriers that are currently active in the delivery options config.
  */
-export const useActiveCarriers = useMemoize((): Ref<ResolvedCarrier[]> => {
+export const useActiveCarriers = useMemoize((): ComputedAsync<ResolvedCarrier[]> => {
   const config = useConfigStore();
   const platform = useCurrentPlatform();
 
-  return asyncComputed(async () => {
+  return computedAsync(async () => {
     const carrierNames = platform.config.value.carriers.map((carrier) => carrier.name);
     const entries = Object.entries(config.carrierSettings) as [CarrierIdentifier, CarrierSettings][];
 

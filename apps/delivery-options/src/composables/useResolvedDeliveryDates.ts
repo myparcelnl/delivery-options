@@ -7,7 +7,7 @@ export const useResolvedDeliveryDates = useMemoize((): ComputedRef<ResolvedDeliv
   const deliveryOptions = useResolvedDeliveryOptions();
 
   return computed(() => {
-    if (!deliveryOptions.value) {
+    if (deliveryOptions.loading.value) {
       return [];
     }
 

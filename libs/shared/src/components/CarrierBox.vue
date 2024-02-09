@@ -1,5 +1,5 @@
 <template>
-  <div class="mp-border mp-p-4 mp-rounded-xl">
+  <Box>
     <div
       v-if="data"
       class="mp-flex mp-gap-2 mp-items-center mp-pb-2">
@@ -13,7 +13,7 @@
     </div>
 
     <slot />
-  </div>
+  </Box>
 </template>
 
 <script lang="ts" setup>
@@ -21,6 +21,7 @@ import {toRefs} from 'vue';
 import {type CarrierName} from '@myparcel/constants';
 import {useCarrierRequest} from '../composables';
 import CarrierLogo from './CarrierLogo.vue';
+import Box from './Box.vue';
 
 const props = defineProps<{carrier: CarrierName}>();
 const propRefs = toRefs(props);

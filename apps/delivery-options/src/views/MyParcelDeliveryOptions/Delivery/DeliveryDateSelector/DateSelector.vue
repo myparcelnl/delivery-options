@@ -8,7 +8,9 @@
       </IconButton>
     </div>
 
-    <div class="mp-auto-cols-fr mp-flex-grow mp-gap-2 mp-grid mp-grid-flow-col">
+    <component
+      :is="loading ? Loader.Wrapper : 'div'"
+      class="mp-auto-cols-fr mp-flex-grow mp-gap-2 mp-grid mp-grid-flow-col">
       <template v-if="loading">
         <DateBlock
           v-for="i in shownItems"
@@ -24,7 +26,7 @@
         }"
         :date="date"
         @click="model = date" />
-    </div>
+    </component>
 
     <div class="mp-flex mp-items-center mp-ml-2">
       <IconButton
@@ -39,12 +41,12 @@
 <script lang="ts" setup>
 import {computed, ref, watch} from 'vue';
 import {useVModel} from '@vueuse/core';
-import {type TextInputEmits, type TextInputProps, type WithElement} from '@myparcel-do/shared';
+import {type TextInputEmits, type TextInputProps, type WithElement, Loader} from '@myparcel-do/shared';
 import {useDeliveryOptionsForm} from '../../../../form';
 import {FIELD_DELIVERY_DATE} from '../../../../data';
 import {useBreakpoints, useResolvedDeliveryDates} from '../../../../composables';
 import {CaretLeftIcon, CaretRightIcon, IconButton} from '../../../../components';
-import DateBlock from './DateBlock.vue'; // eslint-disable-next-line vue/no-unused-properties
+import DateBlock from './DateBlock.vue';
 
 // eslint-disable-next-line vue/no-unused-properties
 const props = defineProps<WithElement<TextInputProps>>();

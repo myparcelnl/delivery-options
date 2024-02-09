@@ -1,4 +1,6 @@
 <template>
+  <DeliveryMomentSelectorLoader v-show="loading" />
+
   <DeliveryMoment.Component v-show="!loading" />
 </template>
 
@@ -9,6 +11,7 @@ import {createField} from '@myparcel/vue-form-builder';
 import {getDeliveryTypePrice} from '../../../../utils';
 import {FIELD_DELIVERY_MOMENT, SHOWN_SHIPMENT_OPTIONS} from '../../../../data';
 import {useResolvedDeliveryMoments} from '../../../../composables';
+import DeliveryMomentSelectorLoader from './DeliveryMomentSelectorLoader.vue';
 import DeliveryMomentInput from './DeliveryMomentInput.vue';
 
 const deliveryMoments = useResolvedDeliveryMoments();

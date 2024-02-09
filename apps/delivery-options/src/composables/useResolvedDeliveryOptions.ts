@@ -1,6 +1,7 @@
 /* eslint-disable max-nested-callbacks */
-import {asyncComputed, get, useMemoize} from '@vueuse/core';
-import {type UnionExcept, useDeliveryOptionsRequest} from '@myparcel-do/shared';
+import {toValue} from 'vue';
+import {useMemoize} from '@vueuse/core';
+import {type UnionExcept, useDeliveryOptionsRequest, computedAsync} from '@myparcel-do/shared';
 import {type DeliveryTypeName} from '@myparcel/constants';
 import {createGetDeliveryOptionsParameters} from '../utils';
 import {type SelectedDeliveryMoment} from '../types';
@@ -11,27 +12,22 @@ import {useActiveCarriers} from './useActiveCarriers';
 export const useResolvedDeliveryOptions = useMemoize(() => {
   const carriers = useActiveCarriers();
 
-  const resolvedDates = asyncComputed(async () => {
-    return Promise.all(
-      get(carriers)
-        .filter((carrier) => get(carrier.hasDelivery))
+  return computedAsync(async () => {
+    const resolvedDates = await Promise.all(
+      toValue(carriers.value)
+        .filter((carrier) => toValue(carrier.hasDelivery))
         .map(async (carrier) => {
           const params = createGetDeliveryOptionsParameters(carrier);
           const query = useDeliveryOptionsRequest(params);
 
           await query.load();
 
-          return {
-            carrier,
-            dates: get(query.data) ?? [],
-          };
+          return {carrier, dates: toValue(query.data) ?? []};
         }),
     );
-  });
 
-  return asyncComputed(() => {
-    return resolvedDates.value.reduce((acc, {carrier, dates}) => {
-      dates?.forEach((dateOption) => {
+    return resolvedDates.reduce((acc: SelectedDeliveryMoment[], {carrier, dates}) => {
+      dates.forEach((dateOption) => {
         dateOption.possibilities.forEach((datePossibility) => {
           const [start, end] = datePossibility.delivery_time_frames;
           const timeRange = useTimeRange(start.date_time.date, end.date_time.date);
@@ -49,5 +45,5 @@ export const useResolvedDeliveryOptions = useMemoize(() => {
 
       return acc;
     }, [] as SelectedDeliveryMoment[]);
-  });
+  }, []);
 });

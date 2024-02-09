@@ -11,15 +11,15 @@
       <Loader.Text
         v-if="price"
         class="mp-ml-auto mp-w-12" />
-      <Loader.Circle
-        v-if="carrier"
-        class="mp-h-8 mp-w-8" />
+
+      <CarrierLogoLoader v-if="carrier" />
     </div>
   </Loader.Wrapper>
 </template>
 
 <script lang="ts" setup>
 import {Loader} from '@myparcel-do/shared';
+import CarrierLogoLoader from '../../loaders/CarrierLogoLoader.vue';
 
 withDefaults(
   defineProps<{

@@ -1,27 +1,29 @@
 <template>
-  <OptionRowLoader
+  <GroupInputLoader
     v-show="loading"
     :rows="2"
     price>
-    <Loader.Base class="mp-h-3 mp-rounded-sm mp-w-3" />
-  </OptionRowLoader>
+    <RadioButtonLoader />
+  </GroupInputLoader>
 
   <ShipmentOptions.Component v-show="!loading" />
 </template>
 
 <script lang="ts" setup>
 import {computed, ref} from 'vue';
-import {Loader} from '@myparcel-do/shared';
 import {createField} from '@myparcel/vue-form-builder';
 import {FIELD_SHIPMENT_OPTIONS} from '../../../../data';
-import {useShipmentOptionsOptions} from '../../../../composables/useShipmentOptionsOptions';
-import {useSelectedDeliveryMoment} from '../../../../composables';
-import OptionRowLoader from '../../../../components/form/GroupInput/GroupInputLoader.vue';
-import {CheckboxGroupInput} from '../../../../components';
+import {
+  useShipmentOptionsOptions,
+  useSelectedDeliveryMoment,
+  useResolvedDeliveryMoments,
+} from '../../../../composables';
+import {GroupInputLoader, CheckboxGroupInput, RadioButtonLoader} from '../../../../components';
 
+const deliveryMoments = useResolvedDeliveryMoments();
 const deliveryMoment = useSelectedDeliveryMoment();
 
-const loading = computed(() => !deliveryMoment.value);
+const loading = computed(() => !deliveryMoments.value.length || !deliveryMoment.value);
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const ShipmentOptions = createField({

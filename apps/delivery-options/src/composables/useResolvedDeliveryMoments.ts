@@ -8,7 +8,7 @@ export const useResolvedDeliveryMoments = (): ComputedRef<ResolvedDeliveryOption
   const deliveryOptions = useResolvedDeliveryOptions();
 
   return computed(() => {
-    if (!deliveryDate.value || !deliveryOptions.value) {
+    if (!deliveryDate.value || deliveryOptions.loading.value || !deliveryOptions.value.length) {
       return [];
     }
 

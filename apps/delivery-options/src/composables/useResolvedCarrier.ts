@@ -1,17 +1,16 @@
-import {type Ref} from 'vue';
-import {asyncComputed, get, type MaybeRef, useMemoize} from '@vueuse/core';
-import {type CarrierIdentifier, resolveRefKey} from '@myparcel-do/shared';
+import {get, type MaybeRef, useMemoize} from '@vueuse/core';
+import {type CarrierIdentifier, resolveRefKey, computedAsync, type ComputedAsync} from '@myparcel-do/shared';
 import {getResolvedCarrier} from '../utils';
 import {type ResolvedCarrier} from '../types';
 import {useConfigStore} from '../stores';
 
-export type UseCarrier = Ref<ResolvedCarrier | undefined>;
+export type UseCarrier = ComputedAsync<ResolvedCarrier | undefined>;
 
 export const useResolvedCarrier = useMemoize(
   (carrier: MaybeRef<CarrierIdentifier | undefined>): UseCarrier => {
     const config = useConfigStore();
 
-    return asyncComputed(async () => {
+    return computedAsync(async () => {
       const carrierIdentifier = get(carrier);
 
       if (!carrierIdentifier) {

@@ -10,6 +10,7 @@ import {ShipmentOptionName} from '@myparcel/constants';
 import {getConfigPriceKey, getResolvedValue} from '../utils';
 import {SHOWN_SHIPMENT_OPTIONS} from '../data';
 import {useSelectedDeliveryMoment} from './useSelectedDeliveryMoment';
+import {useResolvedDeliveryOptions} from './useResolvedDeliveryOptions';
 import {useResolvedCarrier} from './useResolvedCarrier';
 import {useLanguage} from './useLanguage';
 
@@ -19,13 +20,15 @@ const TRANSLATION_MAP = Object.freeze({
 }) satisfies Record<SupportedShipmentOptionName, string>;
 
 export const useShipmentOptionsOptions = (): ComputedRef<SelectOption[]> => {
+  const deliveryOptions = useResolvedDeliveryOptions();
   const deliveryMoment = useSelectedDeliveryMoment();
   const {translate} = useLanguage();
 
   return computed(() => {
+    const hasNoDeliveryOptions = deliveryOptions.loading.value || !deliveryOptions.value.length;
     const resolvedCarrier = useResolvedCarrier(deliveryMoment.value?.carrier);
 
-    if (!resolvedCarrier.value) {
+    if (hasNoDeliveryOptions || !resolvedCarrier.value) {
       return [];
     }
 
