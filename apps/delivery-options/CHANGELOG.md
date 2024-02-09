@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel/delivery-options-v6.0.0-alpha.4](https://github.com/myparcelnl/delivery-options/compare/v6.0.0-alpha.3...v6.0.0-alpha.4) (2024-02-09)
+
+
+### :sparkles: New Features
+
+* **design:** hide date arrows if all dates are visible ([c73273b](https://github.com/myparcelnl/delivery-options/commit/c73273bc91419f0a090fb937b7c60bf610edf1f8))
+
 ## [@myparcel/delivery-options-v6.0.0-alpha.3](https://github.com/myparcelnl/delivery-options/compare/v6.0.0-alpha.2...v6.0.0-alpha.3) (2024-02-09)
 
 
