@@ -5,6 +5,10 @@ import {createGetDeliveryOptionsParameters} from '../utils';
 import {type ResolvedCarrier, type ResolvedPickupLocation} from '../types';
 import {useActiveCarriers} from './useActiveCarriers';
 
+const sortByDistance = (locationA: ResolvedPickupLocation, locationB: ResolvedPickupLocation): number => {
+  return Number(locationA.distance) - Number(locationB.distance);
+};
+
 const formatPickupLocation = (carrier: ResolvedCarrier, option: PickupLocation): ResolvedPickupLocation => {
   const {location, address} = option;
 
@@ -53,6 +57,6 @@ export const useResolvedPickupLocations = useMemoize(() => {
         .map(loadPickupLocations),
     );
 
-    return result.flat(1).sort((a, b) => Number(a.distance) - Number(b.distance));
+    return result.map((locations) => locations.sort(sortByDistance)).flat(1);
   }, []);
 });
