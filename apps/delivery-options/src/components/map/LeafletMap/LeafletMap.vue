@@ -8,7 +8,7 @@
       </template>
 
       <template #default>
-        <LeafletMapInner v-bind="props">
+        <LeafletMapInner v-bind="$props">
           <slot />
         </LeafletMapInner>
       </template>
@@ -22,8 +22,5 @@ import LeafletMapInner from '../LeafletMapInner/LeafletMapInner.vue';
 import {type LeafletMapProps} from '../../../types';
 
 // eslint-disable-next-line vue/no-unused-properties
-const props = withDefaults(defineProps<LeafletMapProps>(), {
-  zoom: 14,
-  height: '100%',
-});
+defineProps<LeafletMapProps>();
 </script>

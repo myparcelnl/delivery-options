@@ -1,9 +1,11 @@
 <template>
   <PickupLocationMapLoader v-show="loading" />
 
-  <PickupLocationMap
-    v-if="pickupLocations.length"
-    v-show="!loading" />
+  <KeepAlive>
+    <PickupLocationMap
+      v-if="pickupLocations.length"
+      v-show="!loading" />
+  </KeepAlive>
 </template>
 
 <script lang="ts" setup>

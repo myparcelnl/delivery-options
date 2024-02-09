@@ -1,9 +1,9 @@
 <template>
   <div
     ref="container"
-    :style="{height}" />
-
-  <slot />
+    :style="{height}">
+    <slot />
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -15,10 +15,14 @@ import {isDef, useDebounceFn, useScriptTag, useStyleTag} from '@vueuse/core';
 import {type MapTileLayerData} from '@myparcel-do/shared';
 import {type LeafletMapProps} from '../../../types';
 import {useConfigStore} from '../../../stores';
-import {MAP_MARKER_CLASS_ACTIVE} from '../../../data';
+import {MAP_MARKER_CLASS_ACTIVE} from '../../../data'; // eslint-disable-next-line vue/no-unused-properties
 
 // eslint-disable-next-line vue/no-unused-properties
-const props = defineProps<LeafletMapProps>();
+const props = withDefaults(defineProps<LeafletMapProps>(), {
+  zoom: 14,
+  height: '100%',
+  center: () => [0, 0],
+});
 const propRefs = toRefs(props);
 
 const container = ref<HTMLElement>();
@@ -57,22 +61,20 @@ const fitBounds = useDebounceFn(() => {
 }, 100);
 
 onMounted(() => {
-  const {center, scroll, zoom} = propRefs;
-  const {attribution, maxZoom, url, token} = tileLayerData.value;
-
   if (!isDef(container.value)) {
     return;
   }
 
-  map.value = new L.Map(container.value, {
-    preferCanvas: true,
-    scrollWheelZoom: scroll.value,
-  }).setView(center.value ?? [0, 0], zoom.value);
+  const {center, scroll, zoom} = propRefs;
+  const {attribution, maxZoom, url, token} = tileLayerData.value;
+
+  map.value = new L.Map(container.value, {preferCanvas: true, scrollWheelZoom: scroll.value});
 
   if (!isDef(map.value)) {
     return;
   }
 
+  map.value.setView(center.value, zoom.value);
   tileLayer.value = new L.TileLayer(url, {attribution, maxZoom, accessToken: token});
   scale.value = new L.Control.Scale();
 

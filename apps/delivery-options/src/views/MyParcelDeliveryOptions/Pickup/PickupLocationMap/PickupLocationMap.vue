@@ -45,6 +45,7 @@ import {LeafletMap} from '../../../../components';
 import PickupLocationDetails from './PickupLocationDetails.vue';
 
 const pickupLocations = useResolvedPickupLocations();
+
 const {instance: form} = useDeliveryOptionsForm();
 
 const {locationCode} = useSelectedPickupLocation();
