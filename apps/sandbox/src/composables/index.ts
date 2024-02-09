@@ -1,3 +1,4 @@
+export * from './useAddressSelector';
 export * from './useAnchorLink';
 export * from './useAvailableCarriers';
 export * from './useBaseInputClasses';
