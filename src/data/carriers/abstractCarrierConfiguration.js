@@ -5,7 +5,7 @@ import {
 } from '@/data/keys/configKeys';
 import {BELGIUM, NETHERLANDS} from '@myparcel/js-sdk/dist/constant/countries-iso2';
 import { CITY, POSTAL_CODE, STREET } from '../keys/addressKeys';
-import { PACKAGE_TYPE_DIGITAL_STAMP, PACKAGE_TYPE_MAILBOX, PACKAGE_TYPE_PACKAGE, PACKAGE_TYPE_PACKET } from '@/data/keys/settingsConsts';
+import { PACKAGE_TYPE_DIGITAL_STAMP, PACKAGE_TYPE_MAILBOX, PACKAGE_TYPE_PACKAGE, PACKAGE_TYPE_PACKAGE_SMALL } from '@/data/keys/settingsConsts';
 import { flatten } from 'lodash-es';
 import { validatePlatform } from '@/delivery-options/config/validatePlatform';
 
@@ -69,7 +69,7 @@ export class AbstractCarrierConfiguration {
     switch (packageTypeName) {
       case PACKAGE_TYPE_PACKAGE:
         return true;
-      case PACKAGE_TYPE_PACKET:
+      case PACKAGE_TYPE_PACKAGE_SMALL:
         return ![NETHERLANDS, BELGIUM].contains(country) && this.hasFeature(ALLOW_PACKAGE_TYPE_PACKET);
       case PACKAGE_TYPE_MAILBOX:
         return this.hasFeature(ALLOW_PACKAGE_TYPE_MAILBOX);
