@@ -1,7 +1,7 @@
 import {
   ALLOW_PACKAGE_TYPE_DIGITAL_STAMP,
   ALLOW_PACKAGE_TYPE_MAILBOX,
-  ALLOW_PACKAGE_TYPE_PACKET,
+  ALLOW_PACKAGE_TYPE_PACKAGE_SMALL,
 } from '@/data/keys/configKeys';
 import {BELGIUM, NETHERLANDS} from '@myparcel/js-sdk/dist/constant/countries-iso2';
 import { CITY, POSTAL_CODE, STREET } from '../keys/addressKeys';
@@ -70,7 +70,7 @@ export class AbstractCarrierConfiguration {
       case PACKAGE_TYPE_PACKAGE:
         return true;
       case PACKAGE_TYPE_PACKAGE_SMALL:
-        return ![NETHERLANDS, BELGIUM].contains(country) && this.hasFeature(ALLOW_PACKAGE_TYPE_PACKET);
+        return ![NETHERLANDS, BELGIUM].contains(country) && this.hasFeature(ALLOW_PACKAGE_TYPE_PACKAGE_SMALL);
       case PACKAGE_TYPE_MAILBOX:
         return this.hasFeature(ALLOW_PACKAGE_TYPE_MAILBOX);
       case PACKAGE_TYPE_DIGITAL_STAMP:
