@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel/delivery-options-v6.0.0-alpha.7](https://github.com/myparcelnl/delivery-options/compare/v6.0.0-alpha.6...v6.0.0-alpha.7) (2024-02-14)
+
+
+### :bug: Bug Fixes
+
+* **pickup:** show prices in pickup locations list ([70b77a5](https://github.com/myparcelnl/delivery-options/commit/70b77a523f2340b59d0152ce80a53d6f5b4f4660))
+* show correct prices on monday, saturday and same-day delivery ([fa07cd7](https://github.com/myparcelnl/delivery-options/commit/fa07cd7058dbd1f50ed2a1c47f41d4af98e76245))
+
 ## [@myparcel/delivery-options-v6.0.0-alpha.6](https://github.com/myparcelnl/delivery-options/compare/v6.0.0-alpha.5...v6.0.0-alpha.6) (2024-02-14)
 
 
