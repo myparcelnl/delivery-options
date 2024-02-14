@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel/delivery-options-v6.0.0-alpha.6](https://github.com/myparcelnl/delivery-options/compare/v6.0.0-alpha.5...v6.0.0-alpha.6) (2024-02-14)
+
+
+### :bug: Bug Fixes
+
+* show prices on shipment options ([ca79a76](https://github.com/myparcelnl/delivery-options/commit/ca79a7628d8ecb9856c149c28ca2fc9faf269404))
+
 ## [@myparcel/delivery-options-v6.0.0-alpha.5](https://github.com/myparcelnl/delivery-options/compare/v6.0.0-alpha.4...v6.0.0-alpha.5) (2024-02-09)
 
 
