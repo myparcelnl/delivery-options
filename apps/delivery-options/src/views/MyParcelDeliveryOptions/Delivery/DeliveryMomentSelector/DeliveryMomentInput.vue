@@ -17,16 +17,6 @@
 
         <template #default="{option}">
           <span v-text="option.label" />
-
-          <EcoFriendlyLabel
-            v-if="option.ecoFriendly"
-            :id="carrier"
-            :amount="option.ecoFriendly" />
-
-          <PriceTag
-            v-if="option.price"
-            :price="option.price"
-            class="mp-ml-auto" />
         </template>
       </GroupInput>
     </CarrierBox>
@@ -45,7 +35,7 @@ import {
 } from '@myparcel-do/shared';
 import {FIELD_DELIVERY_MOMENT} from '../../../../data';
 import {useOptionsGroupedByCarrier, useSelectedDeliveryDate} from '../../../../composables';
-import {GroupInput, PriceTag, EcoFriendlyLabel} from '../../../../components';
+import {GroupInput} from '../../../../components';
 
 // eslint-disable-next-line vue/no-unused-properties
 const props = defineProps<WithElement<RadioGroupProps<T>>>();

@@ -18,6 +18,11 @@
           v-if="option.ecoFriendly"
           :id="id"
           :amount="option.ecoFriendly" />
+
+        <PriceTag
+          v-if="option.price"
+          :price="option.price"
+          class="mp-ml-auto" />
       </label>
 
       <div>
@@ -32,7 +37,7 @@
 <script generic="T extends SelectOptionValue" lang="ts" setup>
 /* eslint-disable @typescript-eslint/no-unnecessary-type-arguments */
 import {type SelectOption, type SelectOptionValue} from '@myparcel-do/shared';
-import {EcoFriendlyLabel} from '../../common';
+import {EcoFriendlyLabel, PriceTag} from '../../common';
 import {type GroupInputSlots} from '../../../types';
 
 defineSlots<GroupInputSlots<T>>();
