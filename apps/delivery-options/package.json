@@ -49,7 +49,7 @@
   },
   "dependencies": {
     "@myparcel-do/shared": "workspace:*",
-    "@myparcel/constants": "^1.1.0",
+    "@myparcel/constants": "^2.0.0",
     "@myparcel/sdk": "^3.0.0",
     "@myparcel/ts-utils": "^1.12.0",
     "@myparcel/vue-form-builder": "^1.0.0-beta.1",
