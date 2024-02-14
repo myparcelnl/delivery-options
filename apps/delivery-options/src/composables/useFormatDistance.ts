@@ -15,7 +15,7 @@ const createDistanceFormatter = useMemoize(
     }),
 );
 
-export const useFormatDistance = (distance: MaybeRef<number | string>): ComputedRef<string> => {
+export const useFormatDistance = (distance: MaybeRef<number | string | undefined>): ComputedRef<string> => {
   const {locale} = useLanguage();
 
   return computed(() => {

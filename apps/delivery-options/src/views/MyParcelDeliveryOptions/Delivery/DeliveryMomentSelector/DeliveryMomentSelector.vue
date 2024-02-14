@@ -23,7 +23,7 @@ const options = computed(() => {
     return {
       carrier: option.carrier,
       label: option.time,
-      price: getDeliveryTypePrice(option, option.carrier),
+      price: getDeliveryTypePrice(option.deliveryType, option.carrier),
       value: JSON.stringify({
         time: option.time,
         carrier: option.carrier,

@@ -1,15 +1,13 @@
 <template>
-  <div>
+  <div class="mp-flex-grow">
     <PickupLocationName :location-code="locationCode" />
   </div>
 
-  <div class="mp-flex mp-gap-2 mp-items-center mp-ml-auto">
-    <span v-text="distance" />
+  <span v-text="distance" />
 
-    <CarrierLogo
-      v-if="pickupLocation.carrier"
-      :carrier="carrierName" />
-  </div>
+  <CarrierLogo
+    v-if="pickupLocation.carrier"
+    :carrier="carrierName" />
 </template>
 
 <script lang="ts" setup>

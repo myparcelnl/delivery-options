@@ -19,4 +19,5 @@ export interface GroupInputSlots<T extends SelectOptionValue> {
   content: OptionSlotProp<T>;
   default: OptionSlotProp<T>;
   input: OptionSlotProp<T>;
+  right: OptionSlotProp<T>;
 }

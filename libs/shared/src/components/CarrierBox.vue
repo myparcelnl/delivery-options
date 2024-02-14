@@ -8,6 +8,8 @@
         small />
 
       <b v-text="data.human" />
+
+      <slot name="heading" />
     </div>
 
     <slot />

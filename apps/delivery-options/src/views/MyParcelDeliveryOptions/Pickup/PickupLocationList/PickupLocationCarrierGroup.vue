@@ -1,5 +1,11 @@
 <template>
   <CarrierBox :carrier="carrier">
+    <template #heading>
+      <PriceTag
+        :price="price"
+        class="mp-ml-auto" />
+    </template>
+
     <GroupInput
       :id="carrier"
       :options="filteredOptions">
@@ -41,9 +47,10 @@ import {
   type SelectOption,
   SHOW_MORE_LOCATIONS,
 } from '@myparcel-do/shared';
-import {type CarrierName} from '@myparcel/constants';
+import {type CarrierName, DeliveryTypeName} from '@myparcel/constants';
+import {getDeliveryTypePrice} from '../../../../utils';
 import {useLanguage, useSelectedPickupLocation} from '../../../../composables';
-import {GroupInput, DoButton} from '../../../../components';
+import {GroupInput, DoButton, PriceTag} from '../../../../components';
 import PickupLocationListItem from './PickupLocationListItem.vue';
 import PickupLocationDetails from './PickupLocationDetails.vue';
 
@@ -85,4 +92,8 @@ onActivated(() => {
 });
 
 const filteredOptions = computed(() => props.options.slice(0, shown.value));
+
+const price = computed(() => {
+  return getDeliveryTypePrice(DeliveryTypeName.Pickup, props.carrier);
+});
 </script>
