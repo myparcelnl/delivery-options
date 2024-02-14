@@ -32,7 +32,6 @@ describe('createGetDeliveryOptionsParameters', () => {
       carrier: CarrierName.PostNl,
       config: {
         [CarrierSetting.AllowMondayDelivery]: true,
-        [CarrierSetting.AllowPackageTypeMailbox]: true,
         [CarrierSetting.AllowSaturdayDelivery]: true,
         [CarrierSetting.AllowSameDayDelivery]: true,
         [CarrierSetting.CutoffTime]: '13:00',
@@ -60,7 +59,6 @@ describe('createGetDeliveryOptionsParameters', () => {
       carrier: CarrierName.DhlForYou,
       config: {
         [CarrierSetting.AllowMondayDelivery]: true,
-        [CarrierSetting.AllowPackageTypeMailbox]: true,
         [CarrierSetting.AllowSaturdayDelivery]: true,
         [CarrierSetting.AllowSameDayDelivery]: true,
         [CarrierSetting.CutoffTime]: '16:00',
@@ -68,7 +66,7 @@ describe('createGetDeliveryOptionsParameters', () => {
         [CarrierSetting.DeliveryDaysWindow]: 4,
         [CarrierSetting.DropOffDays]: [0, 2, 3, 4],
         [CarrierSetting.DropOffDelay]: 0,
-        [CarrierSetting.PackageType]: PackageTypeName.Mailbox,
+        [CarrierSetting.PackageType]: PackageTypeName.DigitalStamp,
       },
       output: {
         platform: PlatformName.MyParcel,

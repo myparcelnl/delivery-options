@@ -14,8 +14,6 @@ export enum CarrierSetting {
   AllowMondayDelivery = 'allowMondayDelivery',
   AllowMorningDelivery = 'allowMorningDelivery',
   AllowOnlyRecipient = 'allowOnlyRecipient',
-  AllowPackageTypeDigitalStamp = 'allowPackageTypeDigitalStamp',
-  AllowPackageTypeMailbox = 'allowPackageTypeMailbox',
   AllowPickupLocations = 'allowPickupLocations',
   AllowSameDayDelivery = 'allowSameDayDelivery',
   AllowSaturdayDelivery = 'allowSaturdayDelivery',
@@ -75,9 +73,10 @@ export enum AddressField {
 }
 
 export enum OptionGroup {
-  PackageType = 'packageType',
+  PackageTypes = 'packageTypes',
   Delivery = 'delivery',
-  ShipmentOption = 'shipmentOption',
+  DeliveryMoments = 'deliveryMoments',
+  ShipmentOptions = 'shipmentOptions',
   Feature = 'feature',
   DropOff = 'dropOff',
   Pickup = 'pickup',

@@ -1,6 +1,5 @@
 import {describe, expect, it} from 'vitest';
 import {getShipmentOptionConfigMap} from './getShipmentOptionConfigMap';
-import {getPackageTypeConfigMap} from './getPackageTypeConfigMap';
 import {getDeliveryTypeConfigMap} from './getDeliveryTypeConfigMap';
 import {getConfigKey} from './getConfigKey';
 
@@ -11,12 +10,10 @@ describe('getConfigKey', () => {
     expect(getConfigKey('invalid')).toBeNull();
   });
 
-  const packageTypeConfigMap = getPackageTypeConfigMap();
   const deliveryTypeConfigMap = getDeliveryTypeConfigMap();
   const shipmentOptionConfigMap = getShipmentOptionConfigMap();
 
   const matrix = {
-    ...packageTypeConfigMap,
     ...deliveryTypeConfigMap,
     ...shipmentOptionConfigMap,
   };

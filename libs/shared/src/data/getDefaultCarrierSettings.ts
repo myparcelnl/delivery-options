@@ -7,8 +7,6 @@ export const getDefaultCarrierSettings = (): CarrierSettings => {
     allowMondayDelivery: undefined,
     allowMorningDelivery: undefined,
     allowOnlyRecipient: undefined,
-    allowPackageTypeDigitalStamp: undefined,
-    allowPackageTypeMailbox: undefined,
     allowPickupLocations: undefined,
     allowSameDayDelivery: undefined,
     allowSaturdayDelivery: undefined,

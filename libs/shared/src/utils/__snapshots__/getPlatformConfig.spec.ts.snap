@@ -199,6 +199,7 @@ exports[`getPlatformConfig > gets config for platform myparcel 1`] = `
       "name": "dhlforyou",
       "packageTypes": [
         "package",
+        "mailbox",
       ],
       "pickupCountries": [
         "NL",

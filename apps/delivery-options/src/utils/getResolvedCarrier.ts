@@ -20,10 +20,10 @@ import {getResolvedValue} from './getResolvedValue';
 const DELIVERY_TYPES = [DeliveryTypeName.Standard, DeliveryTypeName.Evening, DeliveryTypeName.Morning];
 
 const resolveOption = (
-  packageType: SupportedPackageTypeName | SupportedDeliveryTypeName | SupportedShipmentOptionName,
+  input: SupportedPackageTypeName | SupportedDeliveryTypeName | SupportedShipmentOptionName,
   carrierIdentifier?: CarrierIdentifier,
 ) => {
-  const key = getConfigKey(packageType);
+  const key = getConfigKey(input);
   return Boolean(key && getResolvedValue(key, carrierIdentifier));
 };
 
@@ -40,7 +40,7 @@ const cb = async (
   const allowedCountriesDelivery = computed(() => config.deliveryCountries ?? []);
 
   const allowedPackageTypes = computed(() => {
-    return new Set(config.packageTypes?.filter((option) => resolveOption(option, carrierIdentifier)) ?? []);
+    return new Set(config.packageTypes ?? []);
   });
 
   const allowedDeliveryTypes = computed(() => {

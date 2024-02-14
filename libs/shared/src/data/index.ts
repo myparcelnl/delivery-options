@@ -1,4 +1,3 @@
-export * from './carrierFeatures';
 export * from './config';
 export * from './constants';
 export * from './enums';

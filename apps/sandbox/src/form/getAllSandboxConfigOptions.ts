@@ -3,8 +3,10 @@ import {CarrierSetting, type ConfigOption, getAllConfigOptions} from '@myparcel-
 
 const extended = Object.freeze([
   /* Delivery */
-  {key: CarrierSetting.AllowMondayDelivery, parents: [CarrierSetting.AllowDeliveryOptions]},
-  {key: CarrierSetting.PriceMondayDelivery, parents: [CarrierSetting.AllowMondayDelivery]},
+  {key: CarrierSetting.AllowDeliveryOptions},
+
+  {key: CarrierSetting.AllowStandardDelivery, parents: [CarrierSetting.AllowDeliveryOptions]},
+  {key: CarrierSetting.PriceStandardDelivery, parents: [CarrierSetting.AllowStandardDelivery]},
 
   {key: CarrierSetting.AllowSameDayDelivery, parents: [CarrierSetting.AllowDeliveryOptions]},
   {key: CarrierSetting.PriceSameDayDelivery, parents: [CarrierSetting.AllowSameDayDelivery]},
@@ -18,6 +20,9 @@ const extended = Object.freeze([
   {key: CarrierSetting.AllowMondayDelivery, parents: [CarrierSetting.AllowDeliveryOptions]},
   {key: CarrierSetting.PriceMondayDelivery, parents: [CarrierSetting.AllowMondayDelivery]},
 
+  {key: CarrierSetting.AllowMondayDelivery, parents: [CarrierSetting.AllowDeliveryOptions]},
+  {key: CarrierSetting.PriceMondayDelivery, parents: [CarrierSetting.AllowMondayDelivery]},
+
   {key: CarrierSetting.AllowSaturdayDelivery, parents: [CarrierSetting.AllowDeliveryOptions]},
   {key: CarrierSetting.PriceSaturdayDelivery, parents: [CarrierSetting.AllowSaturdayDelivery]},
 
@@ -27,11 +32,8 @@ const extended = Object.freeze([
   {key: CarrierSetting.AllowOnlyRecipient, parents: [CarrierSetting.AllowDeliveryOptions]},
   {key: CarrierSetting.PriceOnlyRecipient, parents: [CarrierSetting.AllowOnlyRecipient]},
 
-  {key: CarrierSetting.AllowPackageTypeMailbox, parents: [CarrierSetting.AllowDeliveryOptions]},
-  {key: CarrierSetting.PricePackageTypeMailbox, parents: [CarrierSetting.AllowPackageTypeMailbox]},
-
-  {key: CarrierSetting.AllowPackageTypeDigitalStamp, parents: [CarrierSetting.AllowDeliveryOptions]},
-  {key: CarrierSetting.PricePackageTypeDigitalStamp, parents: [CarrierSetting.AllowPackageTypeDigitalStamp]},
+  {key: CarrierSetting.PricePackageTypeMailbox, parents: [CarrierSetting.AllowDeliveryOptions]},
+  {key: CarrierSetting.PricePackageTypeDigitalStamp, parents: [CarrierSetting.AllowDeliveryOptions]},
 
   /* Pickup */
   {key: CarrierSetting.PricePickup, parents: [CarrierSetting.AllowPickupLocations]},

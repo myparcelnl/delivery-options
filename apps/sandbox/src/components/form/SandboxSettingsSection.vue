@@ -1,8 +1,8 @@
 <template>
   <div>
     <template
-      v-for="field in section.fields"
-      :key="field.name">
+      v-for="(field, index) in section.fields"
+      :key="`${section.label}_${index}`">
       <SandboxSettingsEntry
         :field="field"
         :level="Number(level) + 1"

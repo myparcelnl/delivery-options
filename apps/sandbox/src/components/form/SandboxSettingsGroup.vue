@@ -1,9 +1,7 @@
 <template>
-  <AutoAnchor :name="field.key">
-    <component :is="`h${level}`">
-      {{ translate(field.key) }}
-    </component>
-  </AutoAnchor>
+  <component :is="`h${level}`">
+    {{ translate(field.key) }}
+  </component>
 
   <SubText v-if="field.description && has(field.description)">
     {{ translate(field.description) }}
@@ -18,7 +16,6 @@
 <script lang="ts" setup>
 import {computed} from 'vue';
 import SubText from '../SubText.vue';
-import AutoAnchor from '../AutoAnchor.vue';
 import {type SettingsGroup} from '../../types';
 import {useLanguage} from '../../composables';
 import SandboxSettingsEntry from './SandboxSettingsEntry.vue';

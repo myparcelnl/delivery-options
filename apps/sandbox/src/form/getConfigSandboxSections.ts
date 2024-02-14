@@ -5,21 +5,27 @@ import {resolveSandboxSection} from './resolveSandboxSection';
 const CONFIG_GROUPS = Object.freeze([
   {
     name: OptionGroup.Delivery,
-    items: [
-      CarrierSetting.AllowDeliveryOptions,
-
-      CarrierSetting.AllowMorningDelivery,
-      CarrierSetting.AllowEveningDelivery,
-      CarrierSetting.AllowSameDayDelivery,
-
-      CarrierSetting.AllowMondayDelivery,
-      CarrierSetting.AllowSaturdayDelivery,
-
-      CarrierSetting.AllowOnlyRecipient,
-      CarrierSetting.AllowSignature,
-
-      CarrierSetting.AllowPackageTypeDigitalStamp,
-      CarrierSetting.AllowPackageTypeMailbox,
+    items: [CarrierSetting.AllowDeliveryOptions],
+    children: [
+      {
+        name: OptionGroup.DeliveryMoments,
+        items: [
+          CarrierSetting.AllowStandardDelivery,
+          CarrierSetting.AllowMorningDelivery,
+          CarrierSetting.AllowEveningDelivery,
+          CarrierSetting.AllowSameDayDelivery,
+          CarrierSetting.AllowMondayDelivery,
+          CarrierSetting.AllowSaturdayDelivery,
+        ],
+      },
+      {
+        name: OptionGroup.ShipmentOptions,
+        items: [CarrierSetting.AllowOnlyRecipient, CarrierSetting.AllowSignature],
+      },
+      {
+        name: OptionGroup.PackageTypes,
+        items: [CarrierSetting.PricePackageTypeMailbox, CarrierSetting.PricePackageTypeDigitalStamp],
+      },
     ],
   },
 

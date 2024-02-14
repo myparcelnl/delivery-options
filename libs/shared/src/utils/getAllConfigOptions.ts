@@ -15,27 +15,22 @@ import {declareOption} from './declareOption';
 
 // eslint-disable-next-line max-lines-per-function
 export const getAllConfigOptions = useMemoize((): ConfigOption[] => [
-  ...declareOptionWithPrice(
-    {key: CarrierSetting.AllowDeliveryOptions, perCarrier: true},
-    CarrierSetting.PriceStandardDelivery,
-  ),
+  declareOption({key: CarrierSetting.AllowDeliveryOptions, perCarrier: true}),
 
   ...declareOptionWithPrice(CarrierSetting.AllowStandardDelivery, CarrierSetting.PriceStandardDelivery),
-
-  ...declareOptionWithPrice(CarrierSetting.AllowMondayDelivery, CarrierSetting.PriceMondayDelivery),
-  ...declareOptionWithPrice(CarrierSetting.AllowSaturdayDelivery, CarrierSetting.PriceSaturdayDelivery),
-
   ...declareOptionWithPrice(CarrierSetting.AllowMorningDelivery, CarrierSetting.PriceMorningDelivery),
   ...declareOptionWithPrice(CarrierSetting.AllowEveningDelivery, CarrierSetting.PriceEveningDelivery),
   ...declareOptionWithPrice(CarrierSetting.AllowSameDayDelivery, CarrierSetting.PriceSameDayDelivery),
+  ...declareOptionWithPrice(CarrierSetting.AllowMondayDelivery, CarrierSetting.PriceMondayDelivery),
+  ...declareOptionWithPrice(CarrierSetting.AllowSaturdayDelivery, CarrierSetting.PriceSaturdayDelivery),
 
   ...declareOptionWithPrice(CarrierSetting.AllowOnlyRecipient, CarrierSetting.PriceOnlyRecipient),
   ...declareOptionWithPrice(CarrierSetting.AllowSignature, CarrierSetting.PriceSignature),
 
   ...declareOptionWithPrice(CarrierSetting.AllowPickupLocations, CarrierSetting.PricePickup),
 
-  ...declareOptionWithPrice(CarrierSetting.AllowPackageTypeMailbox, CarrierSetting.PricePackageTypeMailbox),
-  ...declareOptionWithPrice(CarrierSetting.AllowPackageTypeDigitalStamp, CarrierSetting.PricePackageTypeDigitalStamp),
+  declareOption({key: CarrierSetting.PricePackageTypeMailbox, type: OptionType.Currency}),
+  declareOption({key: CarrierSetting.PricePackageTypeDigitalStamp, type: OptionType.Currency}),
 
   declareOption({
     key: CarrierSetting.DropOffDelay,
