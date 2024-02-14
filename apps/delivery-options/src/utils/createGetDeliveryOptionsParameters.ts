@@ -36,6 +36,7 @@ export const createGetDeliveryOptionsParameters = (
     dropoff_days: calculateDropOffDays(carrier),
     dropoff_delay: carrier.get(CarrierSetting.DropOffDelay, DROP_OFF_DELAY_DEFAULT),
 
+    same_day_delivery: get(carrier.features).has(CarrierSetting.AllowSameDayDelivery),
     monday_delivery: get(carrier.features).has(CarrierSetting.AllowMondayDelivery),
     saturday_delivery: get(carrier.features).has(CarrierSetting.AllowSaturdayDelivery),
 
