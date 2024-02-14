@@ -23,8 +23,8 @@
   </div>
 </template>
 
-<script generic="T" lang="ts" setup>
-import {toRefs, toValue, watch} from 'vue';
+<script generic="T extends string | null" lang="ts" setup>
+import {toRefs, watch, toValue} from 'vue';
 import {useVModel} from '@vueuse/core';
 import {
   CarrierBox,
@@ -49,10 +49,13 @@ const date = useSelectedDeliveryDate();
 const {options, grouped} = useOptionsGroupedByCarrier(propRefs.element);
 
 watch(
-  date,
+  [options, date],
   () => {
-    const [first] = toValue(options);
+    if (!options.value.length > 0) {
+      return;
+    }
 
+    const [first] = toValue(options);
     model.value = first.value;
   },
   {immediate: options.value.length > 0},

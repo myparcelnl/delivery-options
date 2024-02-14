@@ -52,7 +52,7 @@ export type DeliveryOptionsOutput = DeliveryOutput | PickupOutput;
 
 export type InternalOutput = {
   homeOrPickup: string;
-  deliveryDate: string;
+  deliveryDate: null | string;
 
   /**
    * JSON encoded SelectedDeliveryMoment

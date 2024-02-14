@@ -1,5 +1,7 @@
 <template>
-  <div class="mp-flex mp-select-none">
+  <div
+    v-show="showDeliveryDate"
+    class="mp-flex mp-select-none">
     <div
       v-show="showNavigation"
       class="mp-flex mp-items-center mp-mr-2">
@@ -48,7 +50,12 @@ import {useVModel} from '@vueuse/core';
 import {type TextInputEmits, type TextInputProps, type WithElement, Loader} from '@myparcel-do/shared';
 import {useDeliveryOptionsForm} from '../../../../form';
 import {FIELD_DELIVERY_DATE} from '../../../../data';
-import {useBreakpoints, useResolvedDeliveryDates} from '../../../../composables';
+import {
+  useBreakpoints,
+  useResolvedDeliveryDates,
+  useResolvedDeliveryOptions,
+  useFeatures,
+} from '../../../../composables';
 import {CaretLeftIcon, CaretRightIcon, IconButton} from '../../../../components';
 import DateBlock from './DateBlock.vue';
 
@@ -58,11 +65,13 @@ const emit = defineEmits<TextInputEmits>();
 
 const model = useVModel(props, undefined, emit);
 
+const deliveryOptions = useResolvedDeliveryOptions();
 const dates = useResolvedDeliveryDates();
 const form = useDeliveryOptionsForm();
 
 const cursor = ref(0);
 
+const {showDeliveryDate} = useFeatures();
 const {sm} = useBreakpoints();
 
 const shownItems = computed(() => (sm.value ? 2 : 4));
@@ -102,6 +111,6 @@ watch(
   {immediate: dates.value.length > 0},
 );
 
-const loading = computed(() => !dates.value.length);
+const loading = computed(() => deliveryOptions.loading.value);
 const showNavigation = computed(() => dates.value.length > shownItems.value);
 </script>

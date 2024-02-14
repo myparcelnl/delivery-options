@@ -1,5 +1,5 @@
 import {useNavigatorLanguage} from '@vueuse/core';
-import {type DeliveryOptionsConfig} from '../types';
+import {type ResolvedDeliveryOptionsConfig} from '../types';
 import {
   DELIVERY_DAYS_WINDOW_DEFAULT,
   DROP_OFF_DELAY_DEFAULT,
@@ -9,7 +9,7 @@ import {
 import {getDefaultCarrierSettings} from './getDefaultCarrierSettings';
 import {CarrierSetting, ConfigSetting, PickupLocationsView} from './enums';
 
-export const getDefaultDeliveryOptionsConfig = (): DeliveryOptionsConfig => {
+export const getDefaultDeliveryOptionsConfig = (): ResolvedDeliveryOptionsConfig => {
   const lang = useNavigatorLanguage();
 
   return {

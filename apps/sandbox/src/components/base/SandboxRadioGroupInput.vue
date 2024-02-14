@@ -3,7 +3,7 @@
     <li
       v-for="option in options"
       :key="option.value">
-      <label class="mp-gap-4 mp-grid mp-grid-flow-col">
+      <label class="mp-flex mp-gap-2">
         <RadioInput
           v-model="model"
           :disabled="disabled"

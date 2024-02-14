@@ -1,6 +1,8 @@
-import {PackageTypeName, PlatformName} from '@myparcel/constants';
+import {PackageTypeName, PlatformName, DeliveryTypeName} from '@myparcel/constants';
 
 export const PACKAGE_TYPE_DEFAULT = PackageTypeName.Package;
+
+export const DELIVERY_TYPE_DEFAULT = DeliveryTypeName.Standard;
 
 export const PLATFORM_DEFAULT = PlatformName.MyParcel;
 

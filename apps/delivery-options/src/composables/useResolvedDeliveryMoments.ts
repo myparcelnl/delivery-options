@@ -8,12 +8,12 @@ export const useResolvedDeliveryMoments = (): ComputedRef<ResolvedDeliveryOption
   const deliveryOptions = useResolvedDeliveryOptions();
 
   return computed(() => {
-    if (!deliveryDate.value || deliveryOptions.loading.value || !deliveryOptions.value.length) {
+    if (deliveryOptions.loading.value || !deliveryOptions.value.length) {
       return [];
     }
 
     return deliveryOptions.value
       .filter((option) => option.date === deliveryDate.value)
-      .sort((a, b) => a.time.localeCompare(b.time));
+      .sort((optionA, optionB) => optionA.time.localeCompare(optionB.time));
   });
 };

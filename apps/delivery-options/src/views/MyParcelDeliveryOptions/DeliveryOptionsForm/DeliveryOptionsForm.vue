@@ -35,21 +35,22 @@
 <script lang="ts" setup>
 import {computed, ref} from 'vue';
 import {get} from '@vueuse/core';
-import {DELIVERY_TITLE, PICKUP_TITLE, RadioInput, type SelectOption} from '@myparcel-do/shared';
+import {DELIVERY_TITLE, PICKUP_TITLE, RadioInput, type SelectOption, PACKAGE_TYPE_DEFAULT} from '@myparcel-do/shared';
 import {createField} from '@myparcel/vue-form-builder';
 import PickupLocations from '../Pickup/PickupLocations.vue';
 import HomeDelivery from '../Delivery/HomeDelivery.vue';
+import {useConfigStore} from '../../../stores';
 import {useDeliveryOptionsForm} from '../../../form';
 import {FIELD_HOME_OR_PICKUP, HOME_OR_PICKUP_HOME, HOME_OR_PICKUP_PICKUP} from '../../../data';
 import {useActiveCarriers, useLanguage} from '../../../composables';
-import {CaretRightIcon, RadioGroupInput} from '../../../components'; // eslint-disable-next-line @typescript-eslint/naming-convention
+import {CaretRightIcon, RadioGroupInput} from '../../../components';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const Form = useDeliveryOptionsForm();
+const carriers = useActiveCarriers();
+const config = useConfigStore();
 
 const {translate} = useLanguage();
-
-const carriers = useActiveCarriers();
 
 const homeOrPickup = ref();
 
@@ -70,7 +71,7 @@ const HomeOrPickup = createField({
         });
       }
 
-      if (resolvedCarriers.some((carrier) => get(carrier.hasPickup))) {
+      if (PACKAGE_TYPE_DEFAULT === config.packageType && resolvedCarriers.some((carrier) => get(carrier.hasPickup))) {
         options.push({
           label: translate(PICKUP_TITLE),
           value: HOME_OR_PICKUP_PICKUP,

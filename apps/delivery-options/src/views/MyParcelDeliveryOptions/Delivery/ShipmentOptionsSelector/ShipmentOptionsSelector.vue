@@ -1,6 +1,6 @@
 <template>
   <GroupInputLoader
-    v-show="loading"
+    v-show="loading && availableShipmentOptions.length"
     :rows="2"
     price>
     <template #input>
@@ -8,7 +8,7 @@
     </template>
   </GroupInputLoader>
 
-  <ShipmentOptions.Component v-show="!loading" />
+  <ShipmentOptions.Component v-show="!loading && availableShipmentOptions.length" />
 </template>
 
 <script lang="ts" setup>
@@ -19,11 +19,15 @@ import {
   useShipmentOptionsOptions,
   useSelectedDeliveryMoment,
   useResolvedDeliveryMoments,
+  useFeatures,
 } from '../../../../composables';
 import {GroupInputLoader, CheckboxGroupInput, RadioButtonLoader} from '../../../../components';
 
 const deliveryMoments = useResolvedDeliveryMoments();
 const deliveryMoment = useSelectedDeliveryMoment();
+const options = useShipmentOptionsOptions();
+
+const {availableShipmentOptions} = useFeatures();
 
 const loading = computed(() => !deliveryMoments.value.length || !deliveryMoment.value);
 
@@ -32,8 +36,6 @@ const ShipmentOptions = createField({
   name: FIELD_SHIPMENT_OPTIONS,
   component: CheckboxGroupInput,
   ref: ref([]),
-  props: {
-    options: useShipmentOptionsOptions(),
-  },
+  props: {options},
 });
 </script>

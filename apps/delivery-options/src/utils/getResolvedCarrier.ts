@@ -17,12 +17,13 @@ import {useAddressStore} from '../stores';
 import {waitForRequestData} from './waitForRequestData';
 import {getResolvedValue} from './getResolvedValue';
 
+const DELIVERY_TYPES = [DeliveryTypeName.Standard, DeliveryTypeName.Evening, DeliveryTypeName.Morning];
+
 const resolveOption = (
   packageType: SupportedPackageTypeName | SupportedDeliveryTypeName | SupportedShipmentOptionName,
   carrierIdentifier?: CarrierIdentifier,
 ) => {
   const key = getConfigKey(packageType);
-
   return Boolean(key && getResolvedValue(key, carrierIdentifier));
 };
 
@@ -58,7 +59,8 @@ const cb = async (
     const address = useAddressStore();
 
     return (
-      allowedDeliveryTypes.value.has(DeliveryTypeName.Standard) && allowedCountriesDelivery.value.includes(address.cc)
+      DELIVERY_TYPES.some((deliveryType) => allowedDeliveryTypes.value.has(deliveryType)) &&
+      allowedCountriesDelivery.value.includes(address.cc)
     );
   });
 

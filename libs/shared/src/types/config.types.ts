@@ -12,6 +12,7 @@ import {type CustomValidator} from './validation.types';
 import {type SupportedPackageTypeName, type SupportedPlatformName} from './platform.types';
 import {type DeliveryOptionsOutput} from './output.types';
 import {type SelectOption} from './options.types';
+import {type MakeRequired} from './common.types';
 import {type DeliveryOptionsAddress} from './address.types';
 
 export interface MapTileLayerData {
@@ -50,8 +51,6 @@ export interface CarrierSettings extends Partial<Record<CarrierSettingsKey, unkn
   allowMondayDelivery?: boolean;
   allowMorningDelivery?: boolean | FilterableOption;
   allowOnlyRecipient?: boolean;
-  allowPackageTypeDigitalStamp?: boolean;
-  allowPackageTypeMailbox?: boolean;
   allowPickupLocations?: boolean | FilterableOption;
   allowSameDayDelivery?: boolean;
   allowSaturdayDelivery?: boolean;
@@ -106,6 +105,33 @@ export interface DeliveryOptionsConfig extends CarrierSettings {
   showPriceSurcharge: boolean;
   showPrices: boolean;
 }
+
+export type ResolvedDeliveryOptionsConfig = MakeRequired<
+  DeliveryOptionsConfig,
+  | ConfigSetting.ApiBaseUrl
+  | ConfigSetting.Currency
+  | ConfigSetting.Locale
+  | ConfigSetting.PickupLocationsDefaultView
+  | ConfigSetting.PickupLocationsMapTileLayerData
+  | ConfigSetting.PickupShowDistance
+  | ConfigSetting.Platform
+  | ConfigSetting.ShowDeliveryDate
+  | ConfigSetting.ShowPriceSurcharge
+  | ConfigSetting.ShowPrices
+  | CarrierSetting.AllowDeliveryOptions
+  | CarrierSetting.AllowEveningDelivery
+  | CarrierSetting.AllowMondayDelivery
+  | CarrierSetting.AllowMorningDelivery
+  | CarrierSetting.AllowOnlyRecipient
+  | CarrierSetting.AllowPickupLocations
+  | CarrierSetting.AllowSameDayDelivery
+  | CarrierSetting.AllowSignature
+  | CarrierSetting.AllowStandardDelivery
+  | CarrierSetting.DeliveryDaysWindow
+  | CarrierSetting.DropOffDays
+  | CarrierSetting.DropOffDelay
+  | CarrierSetting.PackageType
+>;
 
 export interface DeprecatedConfigOptions {
   /** @deprecated use ShowDeliveryDate instead */

@@ -7,6 +7,8 @@
 
       <SandboxAddressBox />
 
+      <SandboxPackageTypeBox />
+
       <SandboxCarrierConfigBox />
 
       <SandboxFeaturesBox />
@@ -21,6 +23,7 @@ import {type CreatedForm, createForm} from '@myparcel/vue-form-builder';
 import {useSandboxStore} from '../stores';
 import {useCurrentPlatform, useLanguage} from '../composables';
 import SandboxPlatformBox from './SandboxPlatformBox.vue';
+import SandboxPackageTypeBox from './SandboxPackageTypeBox.vue';
 import SandboxFeaturesBox from './SandboxFeaturesBox.vue';
 import SandboxCarrierConfigBox from './SandboxCarrierConfigBox.vue';
 import SandboxAddressBox from './SandboxAddressBox.vue';

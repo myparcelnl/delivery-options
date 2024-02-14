@@ -8,11 +8,11 @@ import {
 } from '@myparcel-do/shared';
 import {ShipmentOptionName} from '@myparcel/constants';
 import {getConfigPriceKey, getResolvedValue} from '../utils';
-import {SHOWN_SHIPMENT_OPTIONS} from '../data';
 import {useSelectedDeliveryMoment} from './useSelectedDeliveryMoment';
 import {useResolvedDeliveryOptions} from './useResolvedDeliveryOptions';
 import {useResolvedCarrier} from './useResolvedCarrier';
 import {useLanguage} from './useLanguage';
+import {useFeatures} from './useFeatures';
 
 const TRANSLATION_MAP = Object.freeze({
   [ShipmentOptionName.Signature]: SIGNATURE_TITLE,
@@ -20,6 +20,8 @@ const TRANSLATION_MAP = Object.freeze({
 }) satisfies Record<SupportedShipmentOptionName, string>;
 
 export const useShipmentOptionsOptions = (): ComputedRef<SelectOption[]> => {
+  const {availableShipmentOptions} = useFeatures();
+
   const deliveryOptions = useResolvedDeliveryOptions();
   const deliveryMoment = useSelectedDeliveryMoment();
   const {translate} = useLanguage();
@@ -32,22 +34,24 @@ export const useShipmentOptionsOptions = (): ComputedRef<SelectOption[]> => {
       return [];
     }
 
-    return SHOWN_SHIPMENT_OPTIONS.filter((option) => {
-      return get(get(resolvedCarrier)?.allowedShipmentOptions)?.has(option);
-    }).map((name) => {
-      const match = get(deliveryMoment.value)?.shipmentOptions?.find((option) => option.name === name);
+    return availableShipmentOptions.value
+      .filter((option) => {
+        return get(get(resolvedCarrier)?.allowedShipmentOptions)?.has(option);
+      })
+      .map((name) => {
+        const match = get(deliveryMoment.value)?.shipmentOptions?.find((option) => option.name === name);
 
-      const hasOnlyOneOption = match?.schema.enum.length === 1;
+        const hasOnlyOneOption = match?.schema.enum.length === 1;
 
-      const priceKey = getConfigPriceKey(name);
+        const priceKey = getConfigPriceKey(name);
 
-      return {
-        label: translate(TRANSLATION_MAP[name]),
-        value: name,
-        disabled: hasOnlyOneOption,
-        selected: hasOnlyOneOption ? match?.schema.enum[0] : false,
-        price: getResolvedValue(priceKey, resolvedCarrier.value?.identifier) ?? undefined,
-      } satisfies SelectOption;
-    });
+        return {
+          label: translate(TRANSLATION_MAP[name]),
+          value: name,
+          disabled: hasOnlyOneOption,
+          selected: hasOnlyOneOption ? match?.schema.enum[0] : false,
+          price: getResolvedValue(priceKey, resolvedCarrier.value?.identifier) ?? undefined,
+        } satisfies SelectOption;
+      });
   });
 };

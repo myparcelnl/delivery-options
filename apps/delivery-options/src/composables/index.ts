@@ -4,6 +4,7 @@ export * from './useBreakpoints';
 export * from './useCarrierSettings';
 export * from './useCurrentPlatform';
 export * from './useDateFormat';
+export * from './useFeatures';
 export * from './useFormatDistance';
 export * from './useLanguage';
 export * from './useMostEcoFriendly';
