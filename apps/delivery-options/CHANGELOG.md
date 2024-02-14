@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel/delivery-options-v6.0.0-alpha.9](https://github.com/myparcelnl/delivery-options/compare/v6.0.0-alpha.8...v6.0.0-alpha.9) (2024-02-14)
+
+
+### :sparkles: New Features
+
+* separate allowDeliveryOptions and allowStandardDelivery ([8d3f84e](https://github.com/myparcelnl/delivery-options/commit/8d3f84ee02560ba0622af7468c0acbb572821fe2))
+* support mailbox and digital stamp ([b49e0d4](https://github.com/myparcelnl/delivery-options/commit/b49e0d4804e0e0a4e2944b87ebc3ee05934755fe))
+
 ## [@myparcel/delivery-options-v6.0.0-alpha.8](https://github.com/myparcelnl/delivery-options/compare/v6.0.0-alpha.7...v6.0.0-alpha.8) (2024-02-14)
 
 
