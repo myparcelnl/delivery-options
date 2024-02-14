@@ -3,9 +3,11 @@
 exports[`getDeliveryTypeConfigMap > should return the correct config map 1`] = `
 {
   "evening": "allowEveningDelivery",
+  "monday": "allowMondayDelivery",
   "morning": "allowMorningDelivery",
   "pickup": "allowPickupLocations",
   "same_day": "allowSameDayDelivery",
+  "saturday": "allowSaturdayDelivery",
   "standard": "allowDeliveryOptions",
 }
 `;
