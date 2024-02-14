@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel/delivery-options-v6.0.0-alpha.8](https://github.com/myparcelnl/delivery-options/compare/v6.0.0-alpha.7...v6.0.0-alpha.8) (2024-02-14)
+
+
+### :bug: Bug Fixes
+
+* show same-day delivery when enabled ([59f19bc](https://github.com/myparcelnl/delivery-options/commit/59f19bc1ccc858a6c786b0d8f9278121ff4d0672))
+
 ## [@myparcel/delivery-options-v6.0.0-alpha.7](https://github.com/myparcelnl/delivery-options/compare/v6.0.0-alpha.6...v6.0.0-alpha.7) (2024-02-14)
 
 
