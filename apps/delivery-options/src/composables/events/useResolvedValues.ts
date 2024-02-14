@@ -1,6 +1,12 @@
 import {computed, type ComputedRef} from 'vue';
 import {isDef} from '@vueuse/core';
-import {ConfigSetting, type DeliveryOutput, type PickupOutput} from '@myparcel-do/shared';
+import {
+  ConfigSetting,
+  type DeliveryOutput,
+  type PickupOutput,
+  type SupportedDeliveryTypeName,
+  type DeliveryDeliveryType,
+} from '@myparcel-do/shared';
 import {DeliveryTypeName, PackageTypeName, ShipmentOptionName} from '@myparcel/constants';
 import {useSelectedPickupLocation} from '../useSelectedPickupLocation';
 import {useSelectedDeliveryMoment} from '../useSelectedDeliveryMoment';
@@ -9,7 +15,13 @@ import {type SelectedDeliveryMoment} from '../../types';
 import {useDeliveryOptionsForm} from '../../form';
 import {FIELD_DELIVERY_MOMENT, FIELD_SHIPMENT_OPTIONS} from '../../data';
 
-export const useResolvedValues = (): ComputedRef => {
+const DELIVERY_DELIVERY_TYPES: readonly SupportedDeliveryTypeName[] = Object.freeze([
+  DeliveryTypeName.Morning,
+  DeliveryTypeName.Evening,
+  DeliveryTypeName.Standard,
+]);
+
+export const useResolvedValues = (): ComputedRef<PickupOutput | DeliveryOutput | undefined> => {
   const {instance: form} = useDeliveryOptionsForm();
 
   const pickupLocation = useSelectedPickupLocation();
@@ -40,10 +52,14 @@ export const useResolvedValues = (): ComputedRef => {
     const showDeliveryDate = getResolvedValue(ConfigSetting.ShowDeliveryDate);
     const shipmentOptions = values[FIELD_SHIPMENT_OPTIONS] ?? [];
 
+    const deliveryType: DeliveryDeliveryType = DELIVERY_DELIVERY_TYPES.includes(parsedMoment.deliveryType)
+      ? (parsedMoment.deliveryType as DeliveryDeliveryType)
+      : DeliveryTypeName.Standard;
+
     return {
       carrier: parsedMoment.carrier,
       date: showDeliveryDate ? parsedMoment?.date : undefined,
-      deliveryType: parsedMoment.deliveryType,
+      deliveryType,
       isPickup: false,
       packageType: parsedMoment.packageType,
       shipmentOptions: {

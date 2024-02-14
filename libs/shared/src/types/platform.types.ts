@@ -12,6 +12,8 @@ export type SupportedPlatformName = (typeof SUPPORTED_PLATFORMS)[number];
 
 export enum CustomDeliveryType {
   SameDay = 'same_day',
+  Monday = 'monday',
+  Saturday = 'saturday',
 }
 
 export type SupportedDeliveryTypeName = (typeof SUPPORTED_DELIVERY_TYPES)[number] | CustomDeliveryType;

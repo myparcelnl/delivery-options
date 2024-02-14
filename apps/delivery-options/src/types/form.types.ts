@@ -1,5 +1,5 @@
 import {type DeepReadonly} from 'vue';
-import {type CarrierIdentifier, type OutputPickupLocation, type UnionExcept} from '@myparcel-do/shared';
+import {type CarrierIdentifier, type OutputPickupLocation, type SupportedDeliveryTypeName} from '@myparcel-do/shared';
 import {type Replace} from '@myparcel/ts-utils';
 import {type DeliveryOption, type StartEndDate} from '@myparcel/sdk';
 import {type DeliveryTypeName, type PackageTypeName} from '@myparcel/constants';
@@ -24,10 +24,6 @@ export interface ResolvedPickupLocation extends OutputPickupLocation {
 }
 
 export interface SelectedDeliveryMoment
-  extends Replace<
-    Omit<ResolvedDeliveryOptions, 'carrier'>,
-    'deliveryType',
-    UnionExcept<DeliveryTypeName, DeliveryTypeName.Pickup>
-  > {
+  extends Replace<Omit<ResolvedDeliveryOptions, 'carrier'>, 'deliveryType', SupportedDeliveryTypeName> {
   carrier: CarrierIdentifier;
 }

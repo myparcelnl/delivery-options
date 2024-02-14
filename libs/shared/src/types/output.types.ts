@@ -17,8 +17,10 @@ interface BaseOutput {
   shipmentOptions: ShipmentOptionsOutput;
 }
 
+export type DeliveryDeliveryType = DeliveryTypeName.Standard | DeliveryTypeName.Evening | DeliveryTypeName.Morning;
+
 export interface DeliveryOutput extends BaseOutput {
-  deliveryType: DeliveryTypeName.Standard | DeliveryTypeName.Evening | DeliveryTypeName.Morning;
+  deliveryType: DeliveryDeliveryType;
   isPickup: false;
 }
 

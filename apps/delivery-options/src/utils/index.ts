@@ -9,6 +9,7 @@ export * from './getConfigPriceKey';
 export * from './getDefaultAddress';
 export * from './getDeliveryTypePrice';
 export * from './getResolvedCarrier';
+export * from './getResolvedDeliveryType';
 export * from './getResolvedValue';
 export * from './hasSlotContent';
 export * from './padStart';

@@ -1,14 +1,14 @@
 import {beforeEach, describe, expect, it} from 'vitest';
 import {createPinia, setActivePinia} from 'pinia';
 import {CARRIER_DHL_FOR_YOU, CARRIER_POST_NL, CARRIER_UPS} from '@myparcel-do/shared/testing';
-import {type CarrierWithIdentifier} from '@myparcel-do/shared';
+import {type CarrierWithIdentifier, CustomDeliveryType, type SupportedDeliveryTypeName} from '@myparcel-do/shared';
 import {CarrierName, DeliveryTypeName} from '@myparcel/constants';
 import {defineCarrier, mockDeliveryOptionsConfig, mockResolvedDeliveryOption} from '../__tests__';
 import {getDeliveryTypePrice} from './getDeliveryTypePrice';
 
 type TestInput = {
   carrier: CarrierWithIdentifier;
-  deliveryType: DeliveryTypeName;
+  deliveryType: SupportedDeliveryTypeName;
   result: number;
 };
 
@@ -48,6 +48,21 @@ describe('getDeliveryTypePrice', () => {
       deliveryType: DeliveryTypeName.Pickup,
       result: -1,
     },
+    {
+      carrier: defineCarrier(CARRIER_POST_NL),
+      deliveryType: DeliveryTypeName.Morning,
+      result: 7.99,
+    },
+    {
+      carrier: defineCarrier(CARRIER_POST_NL),
+      deliveryType: CustomDeliveryType.Monday,
+      result: 9.99,
+    },
+    {
+      carrier: defineCarrier(CARRIER_DHL_FOR_YOU),
+      deliveryType: CustomDeliveryType.SameDay,
+      result: 11.95,
+    },
   ] satisfies TestInput[])(
     'resolves price for $carrier.name $deliveryType to € $result',
     ({carrier, deliveryType, result}) => {
@@ -60,10 +75,12 @@ describe('getDeliveryTypePrice', () => {
             [CarrierName.DhlForYou]: {
               pricePickup: 0,
               priceStandardDelivery: 5.95,
+              priceSameDayDelivery: 11.95,
             },
             [CarrierName.PostNl]: {
               priceStandardDelivery: 4.95,
               priceMorningDelivery: 7.99,
+              priceMondayDelivery: 9.99,
             },
             [`${CarrierName.DhlForYou}:12345`]: {
               pricePickup: -1,

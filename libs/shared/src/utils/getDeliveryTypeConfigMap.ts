@@ -8,4 +8,6 @@ export const getDeliveryTypeConfigMap = (): Record<SupportedDeliveryTypeName, Ca
   [DeliveryTypeName.Morning]: CarrierSetting.AllowMorningDelivery,
   [DeliveryTypeName.Pickup]: CarrierSetting.AllowPickupLocations,
   [CustomDeliveryType.SameDay]: CarrierSetting.AllowSameDayDelivery,
+  [CustomDeliveryType.Monday]: CarrierSetting.AllowMondayDelivery,
+  [CustomDeliveryType.Saturday]: CarrierSetting.AllowSaturdayDelivery,
 });

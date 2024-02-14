@@ -1,9 +1,8 @@
 /* eslint-disable max-nested-callbacks */
 import {toValue} from 'vue';
 import {useMemoize} from '@vueuse/core';
-import {type UnionExcept, useDeliveryOptionsRequest, computedAsync} from '@myparcel-do/shared';
-import {type DeliveryTypeName} from '@myparcel/constants';
-import {createGetDeliveryOptionsParameters} from '../utils';
+import {useDeliveryOptionsRequest, computedAsync} from '@myparcel-do/shared';
+import {createGetDeliveryOptionsParameters, getResolvedDeliveryType} from '../utils';
 import {type SelectedDeliveryMoment} from '../types';
 import {useTimeRange} from './useTimeRange';
 import {useActiveCarriers} from './useActiveCarriers';
@@ -36,7 +35,7 @@ export const useResolvedDeliveryOptions = useMemoize(() => {
             carrier: carrier.identifier,
             date: dateOption.date.date,
             time: timeRange.value,
-            deliveryType: datePossibility.type as UnionExcept<DeliveryTypeName, DeliveryTypeName.Pickup>,
+            deliveryType: getResolvedDeliveryType(dateOption.date.date, datePossibility.type),
             packageType: datePossibility.package_type,
             shipmentOptions: datePossibility.shipment_options,
           });

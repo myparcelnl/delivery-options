@@ -1,5 +1,5 @@
 import {describe, expect, it} from 'vitest';
-import {CarrierSetting} from '@myparcel-do/shared';
+import {CarrierSetting, CustomDeliveryType} from '@myparcel-do/shared';
 import {DeliveryTypeName, ShipmentOptionName} from '@myparcel/constants';
 import {getConfigPriceKey} from './getConfigPriceKey';
 
@@ -9,6 +9,9 @@ describe('getConfigPriceKey', () => {
     [DeliveryTypeName.Evening, CarrierSetting.PriceEveningDelivery],
     [DeliveryTypeName.Morning, CarrierSetting.PriceMorningDelivery],
     [DeliveryTypeName.Pickup, CarrierSetting.PricePickup],
+    [CustomDeliveryType.SameDay, CarrierSetting.PriceSameDayDelivery],
+    [CustomDeliveryType.Monday, CarrierSetting.PriceMondayDelivery],
+    [CustomDeliveryType.Saturday, CarrierSetting.PriceSaturdayDelivery],
   ] as const)('returns price key for delivery type %s', (deliveryType, priceKey) => {
     expect(getConfigPriceKey(deliveryType)).toBe(priceKey);
   });
