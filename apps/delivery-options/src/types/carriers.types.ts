@@ -13,11 +13,11 @@ import {type Carrier} from '@myparcel/sdk';
 
 export type ResolvedCarrier = Carrier & {
   identifier: CarrierIdentifier;
-  allowedCountriesDelivery: ComputedRef<string[]>;
-  allowedCountriesPickup: ComputedRef<string[]>;
-  allowedDeliveryTypes: ComputedRef<Set<SupportedDeliveryTypeName>>;
-  allowedPackageTypes: ComputedRef<Set<SupportedPackageTypeName>>;
-  allowedShipmentOptions: ComputedRef<Set<SupportedShipmentOptionName>>;
+  pickupCountries: ComputedRef<Set<string>>;
+  deliveryCountries: ComputedRef<Set<string>>;
+  deliveryTypes: ComputedRef<Set<SupportedDeliveryTypeName>>;
+  packageTypes: ComputedRef<Set<SupportedPackageTypeName>>;
+  shipmentOptions: ComputedRef<Set<SupportedShipmentOptionName>>;
   features: ComputedRef<Set<ConfigKey>>;
   hasDelivery: ComputedRef<boolean>;
   hasPickup: ComputedRef<boolean>;

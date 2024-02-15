@@ -2,7 +2,6 @@ import {computed} from 'vue';
 import {useMemoize} from '@vueuse/core';
 import {
   type CarrierIdentifier,
-  getCarrierConfiguration,
   getConfigKey,
   resolveCarrierName,
   type SupportedDeliveryTypeName,
@@ -10,11 +9,12 @@ import {
   type SupportedPlatformName,
   type SupportedShipmentOptionName,
   useCarrierRequest,
+  waitForRequestData,
+  useCarrier,
 } from '@myparcel-do/shared';
 import {DeliveryTypeName} from '@myparcel/constants';
 import {type ResolvedCarrier} from '../types';
 import {useAddressStore} from '../stores';
-import {waitForRequestData} from './waitForRequestData';
 import {getResolvedValue} from './getResolvedValue';
 
 const DELIVERY_TYPES = [DeliveryTypeName.Standard, DeliveryTypeName.Evening, DeliveryTypeName.Morning];
@@ -27,58 +27,59 @@ const resolveOption = (
   return Boolean(key && getResolvedValue(key, carrierIdentifier));
 };
 
+const filterSet = <T>(set: Set<T>, cb: (value: T) => boolean) => {
+  return new Set([...set]?.filter(cb) ?? []);
+};
+
 // eslint-disable-next-line max-lines-per-function
 const cb = async (
   carrierIdentifier: CarrierIdentifier,
   platformName: SupportedPlatformName,
 ): Promise<ResolvedCarrier> => {
-  const apiCarrier = await waitForRequestData(useCarrierRequest, [resolveCarrierName(carrierIdentifier)]);
+  await waitForRequestData(useCarrierRequest, [resolveCarrierName(carrierIdentifier)]);
 
-  const config = getCarrierConfiguration(carrierIdentifier, platformName);
+  const config = useCarrier({carrierIdentifier, platformName});
 
-  const allowedCountriesPickup = computed(() => config.pickupCountries ?? []);
-  const allowedCountriesDelivery = computed(() => config.deliveryCountries ?? []);
-
-  const allowedPackageTypes = computed(() => {
-    return new Set(config.packageTypes ?? []);
+  const deliveryTypes = computed(() => {
+    return filterSet(config.deliveryTypes.value, (option) => resolveOption(option, carrierIdentifier));
   });
 
-  const allowedDeliveryTypes = computed(() => {
-    return new Set(config.deliveryTypes?.filter((option) => resolveOption(option, carrierIdentifier)) ?? []);
-  });
-
-  const allowedShipmentOptions = computed(() => {
-    return new Set(config.shipmentOptions?.filter((option) => resolveOption(option, carrierIdentifier)) ?? []);
+  const shipmentOptions = computed(() => {
+    return filterSet(config.shipmentOptions.value, (option) => resolveOption(option, carrierIdentifier));
   });
 
   const features = computed(() => {
-    return new Set(config.features?.filter((option) => getResolvedValue(option, carrierIdentifier)) ?? []);
+    return filterSet(config.features.value, (option) => getResolvedValue(option, carrierIdentifier));
   });
 
   const hasDelivery = computed(() => {
     const address = useAddressStore();
 
     return (
-      DELIVERY_TYPES.some((deliveryType) => allowedDeliveryTypes.value.has(deliveryType)) &&
-      allowedCountriesDelivery.value.includes(address.cc)
+      DELIVERY_TYPES.some((deliveryType) => {
+        const configKey = getConfigKey(deliveryType);
+        const val = getResolvedValue(configKey, carrierIdentifier);
+
+        return deliveryTypes.value.has(deliveryType) && val;
+      }) && config.deliveryCountries.value.has(address.cc)
     );
   });
 
   const hasPickup = computed(() => {
     const address = useAddressStore();
 
-    return allowedDeliveryTypes.value.has(DeliveryTypeName.Pickup) && allowedCountriesPickup.value.includes(address.cc);
+    return deliveryTypes.value.has(DeliveryTypeName.Pickup) && config.pickupCountries.value.has(address.cc);
   });
 
   return {
-    identifier: carrierIdentifier,
-    ...apiCarrier,
+    ...config.carrier.value,
 
-    allowedCountriesDelivery,
-    allowedCountriesPickup,
-    allowedDeliveryTypes,
-    allowedPackageTypes,
-    allowedShipmentOptions,
+    pickupCountries: config.pickupCountries,
+    deliveryCountries: config.deliveryCountries,
+    deliveryTypes,
+    packageTypes: config.packageTypes,
+    shipmentOptions,
+
     features,
 
     hasDelivery,

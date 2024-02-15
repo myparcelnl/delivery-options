@@ -22,7 +22,7 @@ export const useDeliveryMomentOptions = (): ComputedRef<SelectOption[]> => {
   return computed(() => {
     if (PACKAGE_TYPE_DEFAULT !== config.packageType) {
       return activeCarriers.value
-        .filter((carrier) => carrier.hasDelivery.value && carrier.allowedPackageTypes.value.has(config.packageType))
+        .filter((carrier) => carrier.hasDelivery.value && carrier.packageTypes.value.has(config.packageType))
         .map((carrier) => {
           return {
             carrier: carrier.name,

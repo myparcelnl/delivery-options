@@ -45,5 +45,4 @@ export interface CarrierOptions {
 
 export interface PlatformOptions {
   carriers: CarrierOptions[];
-  features?: string[];
 }

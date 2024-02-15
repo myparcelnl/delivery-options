@@ -43,7 +43,7 @@ import {Box} from './Box';
 import AutoAnchor from './AutoAnchor.vue';
 import AddressPresetBox from './AddressPresetBox.vue';
 
-const allCarriers = useAvailableCarriers();
+const availableCarriers = useAvailableCarriers();
 
 const {translate} = useLanguage();
 
@@ -51,9 +51,9 @@ const {isCustom, sampleAddresses, selectedAddress, customValue} = useAddressSele
 
 const countries = computed(() => {
   return ALL_COUNTRIES.filter((country) => {
-    return allCarriers.value?.some(
-      (carrier) => carrier.hasDeliveryInCountry(country) || carrier.hasPickupInCountry(country),
-    );
+    return availableCarriers.value?.some((carrier) => {
+      return carrier.deliveryCountries.value.has(country) || carrier.pickupCountries.value.has(country);
+    });
   })
     .map((country) => ({
       label: translateCountry(country),

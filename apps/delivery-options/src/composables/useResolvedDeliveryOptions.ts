@@ -13,7 +13,7 @@ export const useResolvedDeliveryOptions = useMemoize(() => {
 
   const asyncComp = computedAsync(async () => {
     const resolvedDates = await Promise.all(
-      toValue(carriers.value)
+      toValue(carriers)
         .filter((carrier) => toValue(carrier.hasDelivery))
         .map(async (carrier) => {
           const params = createGetDeliveryOptionsParameters(carrier);
@@ -50,7 +50,7 @@ export const useResolvedDeliveryOptions = useMemoize(() => {
     return asyncComp.value.filter((option) => {
       const carrier = carriers.value.find((carrier) => carrier.name === option.carrier);
 
-      return carrier?.allowedDeliveryTypes.value.has(option.deliveryType);
+      return carrier?.deliveryTypes.value.has(option.deliveryType);
     });
   });
 

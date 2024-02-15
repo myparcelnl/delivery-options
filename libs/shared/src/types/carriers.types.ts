@@ -11,6 +11,7 @@ export interface CarrierWithIdentifier extends Carrier {
 }
 
 export type FullCarrier = CarrierWithIdentifier & {
+  allOptions: string[];
   hasDeliveryInCountry(countryCode: string): boolean;
   hasDeliveryType(deliveryType: SupportedDeliveryTypeName): boolean;
   hasFeature(feature: ConfigKey): boolean;

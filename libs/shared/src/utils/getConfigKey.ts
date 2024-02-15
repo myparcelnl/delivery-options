@@ -1,31 +1,35 @@
 import {isEnumValue} from '@myparcel/ts-utils';
-import {DeliveryTypeName, ShipmentOptionName} from '@myparcel/constants';
+import {DeliveryTypeName, ShipmentOptionName, PackageTypeName} from '@myparcel/constants';
 import {
   type ConfigKey,
   CustomDeliveryType,
   type SupportedDeliveryTypeName,
-  type SupportedPackageTypeName,
   type SupportedShipmentOptionName,
+  type SupportedPackageTypeName,
 } from '../types';
 import {getShipmentOptionConfigMap} from './getShipmentOptionConfigMap';
-import {getDeliveryTypeConfigMap} from './getDeliveryTypeConfigMap';
+import {getDeliveryTypeConfigMap, getPackageTypeConfigMap} from './getDeliveryTypeConfigMap';
 
 export const getConfigKey = (
-  input: SupportedDeliveryTypeName | SupportedShipmentOptionName | SupportedPackageTypeName | CustomDeliveryType,
-): ConfigKey | null => {
-  let key: string | null = null;
+  input: SupportedDeliveryTypeName | SupportedShipmentOptionName | SupportedPackageTypeName,
+): ConfigKey => {
+  let map: Record<string, string> | undefined = undefined;
 
-  if (isEnumValue(input, DeliveryTypeName) || isEnumValue(input, CustomDeliveryType)) {
-    const map = getDeliveryTypeConfigMap();
+  if (isEnumValue(input, PackageTypeName)) {
+    map = getPackageTypeConfigMap();
+  }
 
-    key = map[input] ?? null;
+  if (isEnumValue(input, {...DeliveryTypeName, ...CustomDeliveryType})) {
+    map = getDeliveryTypeConfigMap();
   }
 
   if (isEnumValue(input, ShipmentOptionName)) {
-    const map = getShipmentOptionConfigMap();
-
-    key = map[input] ?? null;
+    map = getShipmentOptionConfigMap();
   }
 
-  return key as ConfigKey | null;
+  if (!map) {
+    throw new Error(`No config key found for ${input}`);
+  }
+
+  return map[input] as ConfigKey;
 };

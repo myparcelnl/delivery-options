@@ -11,9 +11,10 @@ import {
   type SupportedPlatformName,
   useCarrierRequest,
   resolveCarrierName,
+  waitForRequestData,
 } from '@myparcel-do/shared';
 import {CarrierName, PlatformName} from '@myparcel/constants';
-import {waitForRequestData, getResolvedCarrier} from '../utils';
+import {getResolvedCarrier} from '../utils';
 import {mockDeliveryOptionsConfig} from '../__tests__';
 import {useActiveCarriers} from './useActiveCarriers';
 

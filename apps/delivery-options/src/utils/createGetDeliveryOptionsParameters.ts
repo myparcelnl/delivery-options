@@ -5,6 +5,7 @@ import {
   DELIVERY_DAYS_WINDOW_DEFAULT,
   DROP_OFF_DELAY_DEFAULT,
   type SupportedPackageTypeName,
+  resolveCarrierName,
 } from '@myparcel-do/shared';
 import {type EndpointParameters, type GetDeliveryOptions} from '@myparcel/sdk';
 import {PackageTypeName, PlatformName} from '@myparcel/constants';
@@ -28,8 +29,8 @@ export const createGetDeliveryOptionsParameters = (
 
   return {
     platform: config.platform ?? PlatformName.MyParcel,
-    carrier: carrier.name,
-    package_type: carrier.allowedPackageTypes.value.has(packageType) ? packageType : PackageTypeName.Package,
+    carrier: resolveCarrierName(carrier.identifier),
+    package_type: carrier.packageTypes.value.has(packageType) ? packageType : PackageTypeName.Package,
 
     cutoff_time: calculateCutoffTime(carrier),
     deliverydays_window: carrier.get(CarrierSetting.DeliveryDaysWindow, DELIVERY_DAYS_WINDOW_DEFAULT),

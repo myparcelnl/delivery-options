@@ -36,7 +36,7 @@ export const useShipmentOptionsOptions = (): ComputedRef<SelectOption[]> => {
 
     return availableShipmentOptions.value
       .filter((option) => {
-        return get(get(resolvedCarrier)?.allowedShipmentOptions)?.has(option);
+        return get(get(resolvedCarrier)?.shipmentOptions)?.has(option);
       })
       .map((name) => {
         const match = get(deliveryMoment.value)?.shipmentOptions?.find((option) => option.name === name);

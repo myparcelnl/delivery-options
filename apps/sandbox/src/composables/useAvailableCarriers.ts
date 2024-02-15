@@ -1,24 +1,19 @@
-import {get, useMemoize} from '@vueuse/core';
-import {type FullCarrier, getFullCarrier, computedAsync, type ComputedAsync} from '@myparcel-do/shared';
+import {computed, toValue} from 'vue';
+import {useMemoize} from '@vueuse/core';
+import {useCarrier} from '@myparcel-do/shared';
 import {useCurrentPlatform} from './useCurrentPlatform';
 
 /**
  * Get the carriers that are available in the current platform.
  */
-export const useAvailableCarriers = useMemoize((): ComputedAsync<FullCarrier[]> => {
+export const useAvailableCarriers = useMemoize(() => {
   const platform = useCurrentPlatform();
 
-  return computedAsync(
-    () => {
-      const {carriers} = get(platform.config);
+  return computed(() => {
+    const {carriers} = toValue(platform.config);
 
-      return Promise.all(
-        carriers.map((carrier) => {
-          return getFullCarrier(carrier.name, get(platform.name));
-        }),
-      );
-    },
-    undefined,
-    {shallow: false},
-  );
+    return carriers.map((carrier) => {
+      return useCarrier({carrierIdentifier: carrier.name, platformName: platform.name});
+    });
+  });
 });

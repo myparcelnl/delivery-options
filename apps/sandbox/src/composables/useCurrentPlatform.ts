@@ -1,9 +1,9 @@
 import {computed, type ComputedRef} from 'vue';
 import {useMemoize} from '@vueuse/core';
-import {type ResolvedPlatform, type SupportedPlatformName, useResolvedPlatform} from '@myparcel-do/shared';
+import {type UsePlatform, type SupportedPlatformName, usePlatform} from '@myparcel-do/shared';
 import {useSandboxStore} from '../stores';
 
-export interface SandboxPlatformInstance extends ResolvedPlatform {
+export interface SandboxPlatformInstance extends UsePlatform {
   name: ComputedRef<SupportedPlatformName>;
 }
 
@@ -15,6 +15,6 @@ export const useCurrentPlatform = useMemoize((): SandboxPlatformInstance => {
 
   return {
     name: platformName,
-    ...useResolvedPlatform(platformName),
+    ...usePlatform(platformName),
   };
 });

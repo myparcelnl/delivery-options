@@ -6,7 +6,7 @@ export const allParentsHave = (parents: undefined | string[], form: FormInstance
     const optionName = prefix ? `${prefix}.${parent}` : parent;
     const parentOption = findSandboxOption(parent);
 
-    const value = form.getValue(optionName);
+    const value = form.values[optionName] ?? false;
 
     return Boolean(value) && parentOption && allParentsHave(parentOption.parents, form, prefix);
   });

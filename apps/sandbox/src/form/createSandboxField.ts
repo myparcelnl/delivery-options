@@ -1,14 +1,13 @@
 import {markRaw} from 'vue';
 import {type ConfigOption} from '@myparcel-do/shared';
 import {type InteractiveElementConfiguration, type ModularCreatedElement} from '@myparcel/vue-form-builder';
-import {type MakeOptional} from '@myparcel/ts-utils';
 import {getComponent} from './getComponent';
 import {formField} from './formField';
 
 export const createSandboxField = (
   option: ConfigOption,
   prefix?: string,
-  config?: MakeOptional<InteractiveElementConfiguration, 'ref'>,
+  config?: Partial<InteractiveElementConfiguration>,
 ): ModularCreatedElement => {
   return formField({
     name: option.key,

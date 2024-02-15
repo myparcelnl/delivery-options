@@ -1,8 +1,8 @@
 import {computed, type ComputedRef} from 'vue';
-import {type ResolvedPlatform, type SupportedPlatformName, useResolvedPlatform} from '@myparcel-do/shared';
+import {type UsePlatform, type SupportedPlatformName, usePlatform} from '@myparcel-do/shared';
 import {useConfigStore} from '../stores';
 
-export interface PlatformInstance extends ResolvedPlatform {
+export interface PlatformInstance extends UsePlatform {
   name: ComputedRef<SupportedPlatformName>;
 }
 
@@ -13,6 +13,6 @@ export const useCurrentPlatform = (): PlatformInstance => {
 
   return {
     name,
-    ...useResolvedPlatform(name),
+    ...usePlatform(name),
   };
 };

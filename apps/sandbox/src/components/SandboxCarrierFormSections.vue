@@ -1,6 +1,6 @@
 <template>
   <CarrierBox
-    v-for="carrier in allCarriers"
+    v-for="carrier in carrierSections"
     :key="carrier.name"
     :carrier="carrier.name">
     <SandboxSettingsSection
@@ -13,23 +13,27 @@
 <script lang="ts" setup>
 import {computed} from 'vue';
 import {get} from '@vueuse/core';
-import {CarrierBox, type FullCarrier, KEY_CARRIER_SETTINGS, useCarriersRequest} from '@myparcel-do/shared';
+import {
+  CarrierBox,
+  type FullCarrier,
+  KEY_CARRIER_SETTINGS,
+  useCarriersRequest,
+  waitForRequestData,
+} from '@myparcel-do/shared';
 import {type SettingsSection} from '../types';
 import {getConfigSandboxSections} from '../form';
 import {useAvailableCarriers} from '../composables';
 import {SandboxSettingsSection} from './form';
 
-const carriers = useCarriersRequest();
-
-await carriers.load();
+await waitForRequestData(useCarriersRequest);
 
 const availableCarriers = useAvailableCarriers();
 
-const allCarriers = computed<(FullCarrier & {sections: SettingsSection[]})[]>(() => {
+const carrierSections = computed<(FullCarrier & {sections: SettingsSection[]})[]>(() => {
   return (
-    get(availableCarriers)?.map((carrier) => ({
-      ...carrier,
-      sections: getConfigSandboxSections(`${KEY_CARRIER_SETTINGS}.${carrier.name}`),
+    get(availableCarriers)?.map(({carrier}) => ({
+      ...carrier.value,
+      sections: getConfigSandboxSections(`${KEY_CARRIER_SETTINGS}.${carrier.value.name}`),
     })) ?? []
   );
 });

@@ -42,10 +42,12 @@ export const useActiveCarriers = useMemoize((): ComputedAsync<ResolvedCarrier[]>
         return carrierNames.indexOf(nameA) - carrierNames.indexOf(nameB);
       });
 
-    return Promise.all(
+    const resolvedCarriers = await Promise.all(
       sortedCarrierSettings.map(([identifier]) => {
         return getResolvedCarrier(identifier, platform.name.value);
       }),
     );
+
+    return resolvedCarriers.filter((carrier) => carrier.hasDelivery.value || carrier.hasPickup.value);
   });
 });
