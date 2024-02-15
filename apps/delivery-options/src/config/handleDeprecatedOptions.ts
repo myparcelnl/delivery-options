@@ -38,9 +38,25 @@ export const handleDeprecatedOptions = <Input extends InputDeliveryOptionsConfig
 ): ResolvedInputConfig<Input> => {
   const logger = useLogger();
 
-  const {allowShowDeliveryDate, saturdayCutoffTime, fridayCutoffTime, ...restConfig} = {...input};
+  const {
+    allowDeliveryOptions,
+    allowShowDeliveryDate,
+    allowStandardDelivery,
+    fridayCutoffTime,
+    saturdayCutoffTime,
+    ...restConfig
+  } = {...input};
 
   const resolvedConfig = restConfig as unknown as ResolvedInputConfig<Input>;
+
+  if (isDefined(allowDeliveryOptions) && !isDefined(allowStandardDelivery)) {
+    logger.deprecated(
+      `Passing only ${CarrierSetting.AllowDeliveryOptions} without ${CarrierSetting.AllowStandardDelivery}`,
+      `${CarrierSetting.AllowDeliveryOptions}: true and ${CarrierSetting.AllowStandardDelivery}: true`,
+    );
+
+    resolvedConfig[CarrierSetting.AllowStandardDelivery] = allowDeliveryOptions;
+  }
 
   if (isDefined(allowShowDeliveryDate)) {
     logger.deprecated(DeprecatedCarrierSetting.AllowShowDeliveryDate, ConfigSetting.ShowDeliveryDate);
