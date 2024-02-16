@@ -32,8 +32,6 @@ const props = defineProps<{
 const classes = computed(() => {
   const classList: (string | Record<string, unknown>)[] = [
     // Colors
-    'dark:mp-border-gray-700',
-    'dark:mp-text-gray-300',
     'mp-text-gray-500',
 
     'mp-transition-colors',
@@ -46,7 +44,7 @@ const classes = computed(() => {
   if (props.link) {
     classList.push({
       'mp-text-gray-800 mp-underline': props.active,
-      'hover:mp-text-gray-900 dark:hover:mp-text-gray-200 hover:mp-underline': !props.active,
+      'hover:mp-text-gray-900 hover:mp-underline': !props.active,
     });
   } else {
     classList.push(
@@ -66,8 +64,8 @@ const classes = computed(() => {
         'mp-bg-white': !props.disabled,
         'mp-cursor-not-allowed mp-opacity-50 mp-bg-gray-100': props.disabled,
 
-        'dark:mp-bg-gray-900 mp-bg-gray-200': props.active,
-        'hover:mp-bg-gray-100 dark:hover:mp-bg-gray-700 dark:mp-bg-gray-800 mp-bg-gray-100': !props.active,
+        'mp-bg-gray-200': props.active,
+        'hover:mp-bg-gray-100 mp-bg-gray-100': !props.active,
       },
     );
   }
