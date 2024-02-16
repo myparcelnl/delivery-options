@@ -1,7 +1,7 @@
 /* eslint-disable max-nested-callbacks */
 import {toValue, computed} from 'vue';
 import {useMemoize} from '@vueuse/core';
-import {useDeliveryOptionsRequest, computedAsync, type ComputedAsync} from '@myparcel-do/shared';
+import {useDeliveryOptionsRequest, computedAsync, addLoadingProperty} from '@myparcel-do/shared';
 import {createGetDeliveryOptionsParameters, getResolvedDeliveryType} from '../utils';
 import {type SelectedDeliveryMoment} from '../types';
 import {useTimeRange} from './useTimeRange';
@@ -11,7 +11,7 @@ import {useActiveCarriers} from './useActiveCarriers';
 export const useResolvedDeliveryOptions = useMemoize(() => {
   const carriers = useActiveCarriers();
 
-  const asyncComp = computedAsync(async () => {
+  const asyncComputed = computedAsync(async () => {
     const resolvedDates = await Promise.all(
       toValue(carriers)
         .filter((carrier) => toValue(carrier.hasDelivery))
@@ -47,14 +47,12 @@ export const useResolvedDeliveryOptions = useMemoize(() => {
   }, []);
 
   const final = computed(() => {
-    return asyncComp.value.filter((option) => {
+    return asyncComputed.value.filter((option) => {
       const carrier = carriers.value.find((carrier) => carrier.name === option.carrier);
 
       return carrier?.deliveryTypes.value.has(option.deliveryType);
     });
   });
 
-  Object.defineProperty(final, 'loading', asyncComp.loading);
-
-  return final as ComputedAsync<(typeof final)['value']>;
+  return addLoadingProperty(final, asyncComputed.loading);
 });

@@ -1,3 +1,4 @@
+export * from './addLoadingProperty';
 export * from './computedAsync';
 export * from './createAssetUrl';
 export * from './crushObject';

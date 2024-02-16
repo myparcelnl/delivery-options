@@ -1,5 +1,6 @@
 import {type Ref, ref} from 'vue';
 import {type AsyncComputedOnCancel, type AsyncComputedOptions, asyncComputed} from '@vueuse/core';
+import {addLoadingProperty} from './addLoadingProperty';
 
 export interface ComputedAsync<T> extends Ref<T> {
   loading: Ref<boolean>;
@@ -17,11 +18,5 @@ export const computedAsync = <T>(
     evaluating: loading,
   });
 
-  Object.defineProperty(computed, 'loading', {
-    get() {
-      return loading;
-    },
-  });
-
-  return computed as ComputedAsync<T>;
+  return addLoadingProperty(computed, loading);
 };

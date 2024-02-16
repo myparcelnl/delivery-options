@@ -6,10 +6,15 @@ import {SHOWN_SHIPMENT_OPTIONS} from '../data';
 
 export const useFeatures = useMemoize(() => {
   const config = useConfigStore();
-  const isDefaultPackageType = computed(() => PACKAGE_TYPE_DEFAULT === config.packageType);
 
   return {
-    availableShipmentOptions: computed(() => (isDefaultPackageType.value ? SHOWN_SHIPMENT_OPTIONS : [])),
-    showDeliveryDate: computed(() => isDefaultPackageType.value && config[ConfigSetting.ShowDeliveryDate]),
+    availableShipmentOptions: computed(() => {
+      return PACKAGE_TYPE_DEFAULT === config.packageType ? SHOWN_SHIPMENT_OPTIONS : [];
+    }),
+
+    showDeliveryDate: computed(() => {
+      console.log(PACKAGE_TYPE_DEFAULT === config.packageType, config[ConfigSetting.ShowDeliveryDate]);
+      return PACKAGE_TYPE_DEFAULT === config.packageType && config[ConfigSetting.ShowDeliveryDate];
+    }),
   };
 });
