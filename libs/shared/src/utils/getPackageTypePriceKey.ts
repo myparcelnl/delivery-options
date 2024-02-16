@@ -1,5 +1,6 @@
-import {type SupportedPackageTypeName, type ConfigPriceKey, CarrierSetting} from '@myparcel-do/shared';
 import {PackageTypeName} from '@myparcel/constants';
+import {type ConfigPriceKey, type SupportedPackageTypeName} from '../types';
+import {CarrierSetting} from '../data';
 
 export const getPackageTypePriceKey = (packageType: SupportedPackageTypeName): ConfigPriceKey => {
   switch (packageType) {

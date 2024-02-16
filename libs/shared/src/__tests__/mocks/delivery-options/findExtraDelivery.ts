@@ -1,6 +1,6 @@
 import {type ExtraDelivery, type ResolvedMockDeliveryOptionsParameters} from '../../types';
-import {type FullCarrier} from '../../../types';
 import {CarrierSetting, DAY_FRIDAY, DAY_MONDAY, DAY_SATURDAY, DeprecatedCarrierSetting} from '../../../data';
+import {type UseCarrier} from '../../../composables';
 
 /**
  * Settings for extra delivery days.
@@ -23,12 +23,12 @@ export const extraDeliveryConfig = Object.freeze([
 export const findExtraDelivery = (
   {dropOffDays}: ResolvedMockDeliveryOptionsParameters,
   dayOfWeek: number,
-  fullCarrier: FullCarrier,
+  carrierInstance: UseCarrier,
 ): ExtraDelivery | undefined => {
   return extraDeliveryConfig.find((setting) => {
     const isToday = setting.deliveryDay === dayOfWeek;
     const hasDropOffDay = dropOffDays?.includes(setting.dropOffDay);
-    const carrierHasFeature = fullCarrier.hasFeature(setting.feature);
+    const carrierHasFeature = carrierInstance.features.value.has(setting.feature);
 
     return isToday && hasDropOffDay && carrierHasFeature;
   });

@@ -82,7 +82,7 @@ export const useCarrier = (options: UseCarrierOptions): UseCarrier => {
   }));
 
   return {
-    carrier,
+    carrier: carrier as Ref<Carrier & {identifier: CarrierIdentifier}>,
 
     pickupCountries,
     deliveryCountries,
