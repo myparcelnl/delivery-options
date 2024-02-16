@@ -8,8 +8,8 @@
   </SubText>
 
   <SandboxSettingsEntry
-    v-for="subField in resolvedFields"
-    :key="subField.name"
+    v-for="(subField, index) in resolvedFields"
+    :key="`${index}_${subField.field.name}`"
     :field="subField" />
 </template>
 
