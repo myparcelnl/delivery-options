@@ -39,6 +39,7 @@ const cb = async (
   await waitForRequestData(useCarrierRequest, [resolveCarrierName(carrierIdentifier)]);
 
   const config = useCarrier({carrierIdentifier, platformName});
+  const address = useAddressStore();
 
   const deliveryTypes = computed(() => {
     return filterSet(config.deliveryTypes.value, (option) => resolveOption(option, carrierIdentifier));
@@ -53,15 +54,14 @@ const cb = async (
   });
 
   const hasDelivery = computed(() => {
-    const address = useAddressStore();
-
     return (
+      config.deliveryCountries.value.has(address.cc) &&
       DELIVERY_TYPES.some((deliveryType) => {
         const configKey = getConfigKey(deliveryType);
-        const val = getResolvedValue(configKey, carrierIdentifier);
+        const value = getResolvedValue(configKey, carrierIdentifier);
 
-        return deliveryTypes.value.has(deliveryType) && val;
-      }) && config.deliveryCountries.value.has(address.cc)
+        return deliveryTypes.value.has(deliveryType) && value;
+      })
     );
   });
 

@@ -1,3 +1,4 @@
+import {toValue} from 'vue';
 import {useMemoize} from '@vueuse/core';
 import {
   type CarrierIdentifier,
@@ -48,6 +49,6 @@ export const useActiveCarriers = useMemoize((): ComputedAsync<ResolvedCarrier[]>
       }),
     );
 
-    return resolvedCarriers.filter((carrier) => carrier.hasDelivery.value || carrier.hasPickup.value);
+    return resolvedCarriers.filter((carrier) => toValue(carrier.hasDelivery) || toValue(carrier.hasPickup));
   });
 });

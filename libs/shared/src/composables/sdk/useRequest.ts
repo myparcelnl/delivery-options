@@ -83,4 +83,4 @@ const cb = <T>(
   return query as RequestHandler<T extends Promise<infer U> ? U : T>;
 };
 
-export const useRequest = useMemoize(cb, {getKey: (key) => requestKeyToString(key)}) as typeof cb;
+export const useRequest = useMemoize(cb, {getKey: (key) => requestKeyToString(key)}) as typeof cb & {clear: () => void};

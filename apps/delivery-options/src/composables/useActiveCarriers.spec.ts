@@ -1,5 +1,5 @@
 import {toValue} from 'vue';
-import {describe, it, expect, beforeEach, afterEach} from 'vitest';
+import {describe, it, expect, beforeEach} from 'vitest';
 import {setActivePinia, createPinia} from 'pinia';
 import {flushPromises} from '@vue/test-utils';
 import {
@@ -12,7 +12,10 @@ import {
   useCarrierRequest,
   resolveCarrierName,
   waitForRequestData,
+  KEY_ADDRESS,
+  AddressField,
 } from '@myparcel-do/shared';
+import {NETHERLANDS, BELGIUM, FRANCE} from '@myparcel/constants/countries';
 import {CarrierName, PlatformName} from '@myparcel/constants';
 import {getResolvedCarrier} from '../utils';
 import {mockDeliveryOptionsConfig} from '../__tests__';
@@ -21,11 +24,6 @@ import {useActiveCarriers} from './useActiveCarriers';
 describe('useActiveCarriers', () => {
   beforeEach(() => {
     setActivePinia(createPinia());
-  });
-
-  afterEach(() => {
-    getResolvedCarrier.clear();
-    useActiveCarriers.clear();
   });
 
   const identifiers = [
@@ -45,28 +43,45 @@ describe('useActiveCarriers', () => {
   it.each([
     [
       PlatformName.MyParcel,
+      NETHERLANDS,
       [
         CarrierName.PostNl,
         `${CarrierName.PostNl}:4242`,
         CarrierName.DhlForYou,
         `${CarrierName.DhlForYou}:1234`,
         `${CarrierName.DhlForYou}:3456`,
-        CarrierName.DhlParcelConnect,
-        `${CarrierName.DhlParcelConnect}:422`,
         CarrierName.DhlEuroPlus,
       ],
     ],
-    [PlatformName.SendMyParcel, [CarrierName.Bpost, CarrierName.PostNl, `${CarrierName.PostNl}:4242`]],
-  ] satisfies [SupportedPlatformName, CarrierIdentifier[]][])(
-    'filters and sorts carriers for %s',
-    async (platformName, expectedOrder) => {
+    [
+      PlatformName.MyParcel,
+      FRANCE,
+      [CarrierName.DhlParcelConnect, `${CarrierName.DhlParcelConnect}:422`, CarrierName.DhlEuroPlus],
+    ],
+    [PlatformName.SendMyParcel, BELGIUM, [CarrierName.Bpost, CarrierName.PostNl, `${CarrierName.PostNl}:4242`]],
+    [PlatformName.SendMyParcel, NETHERLANDS, [CarrierName.Bpost, CarrierName.PostNl, `${CarrierName.PostNl}:4242`]],
+  ] satisfies [SupportedPlatformName, string, CarrierIdentifier[]][])(
+    'filters and sorts carriers for "%s" in country "%s"',
+    async (platformName, countryCode, expectedOrder) => {
       expect.assertions(1);
 
+      getResolvedCarrier.clear();
+      useActiveCarriers.clear();
+
       const carrierSettings = Object.fromEntries(
-        identifiers.map((identifier) => [identifier, {[CarrierSetting.AllowDeliveryOptions]: true}]),
+        identifiers.map((identifier) => [
+          identifier,
+          {
+            [CarrierSetting.AllowDeliveryOptions]: true,
+            [CarrierSetting.AllowStandardDelivery]: true,
+          },
+        ]),
       );
 
       mockDeliveryOptionsConfig({
+        [KEY_ADDRESS]: {
+          [AddressField.Country]: countryCode,
+        },
         [KEY_CONFIG]: {
           [ConfigSetting.Platform]: platformName,
           [KEY_CARRIER_SETTINGS]: carrierSettings,

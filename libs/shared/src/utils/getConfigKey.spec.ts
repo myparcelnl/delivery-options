@@ -4,10 +4,10 @@ import {getDeliveryTypeConfigMap} from './getDeliveryTypeConfigMap';
 import {getConfigKey} from './getConfigKey';
 
 describe('getConfigKey', () => {
-  it('returns null for invalid input', () => {
+  it('throws exception on invalid input', () => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    expect(getConfigKey('invalid')).toBeNull();
+    expect(() => getConfigKey('invalid')).toThrow();
   });
 
   const deliveryTypeConfigMap = getDeliveryTypeConfigMap();

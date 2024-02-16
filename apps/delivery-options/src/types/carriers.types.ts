@@ -18,7 +18,7 @@ export type ResolvedCarrier = Carrier & {
   deliveryTypes: ComputedRef<Set<SupportedDeliveryTypeName>>;
   packageTypes: ComputedRef<Set<SupportedPackageTypeName>>;
   shipmentOptions: ComputedRef<Set<SupportedShipmentOptionName>>;
-  features: ComputedRef<Set<ConfigKey>>;
+  features: ComputedRef<Set<string>>;
   hasDelivery: ComputedRef<boolean>;
   hasPickup: ComputedRef<boolean>;
   get<Key extends ConfigKey | CarrierSettingsKey>(

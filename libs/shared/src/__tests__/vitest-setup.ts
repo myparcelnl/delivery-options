@@ -11,6 +11,11 @@ import {
   type Options,
 } from '@myparcel/sdk';
 import {cleanup} from '@testing-library/vue';
+import {useRequestStorage} from '../composables';
+
+const { afterEachHooks } = vi.hoisted(() => {
+  return {afterEachHooks: [] as (() => void)[]};
+});
 
 vi.mock('@myparcel/sdk', async (importOriginal) => {
   const original = await importOriginal<typeof import('@myparcel/sdk')>();
@@ -41,6 +46,26 @@ vi.mock('@myparcel/sdk', async (importOriginal) => {
   };
 });
 
+vi.mock('@vueuse/core', async (importOriginal) => {
+  const original = await importOriginal<typeof import('@vueuse/core')>();
+
+  return {
+    ...original,
+    useMemoize: vi.fn((...args: any[]) => {
+      // @ts-expect-error todo
+      let useMemoizeReturn = original.useMemoize(...args);
+
+      afterEachHooks.push(() => useMemoizeReturn.clear());
+
+      return useMemoizeReturn;
+    }),
+  };
+});
+
 afterEach(() => {
-  cleanup()
-})
+   useRequestStorage().clear();
+
+  afterEachHooks.forEach(hook => hook());
+
+  cleanup();
+});
