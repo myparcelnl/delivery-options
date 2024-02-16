@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel/delivery-options-v6.0.0-alpha.10](https://github.com/myparcelnl/delivery-options/compare/v6.0.0-alpha.9...v6.0.0-alpha.10) (2024-02-16)
+
+
+### :sparkles: New Features
+
+* handle deprecated allowDeliveryOptions behavior ([f025951](https://github.com/myparcelnl/delivery-options/commit/f0259516235a859ed22e80629861babf449f0f0c))
+
+
+### :bug: Bug Fixes
+
+* **design:** fix date loader not showing ([0397d1b](https://github.com/myparcelnl/delivery-options/commit/0397d1bddd502c00895524d403c1475c9b0b13d4))
+* get prices of other package types correctly ([32a40dc](https://github.com/myparcelnl/delivery-options/commit/32a40dc390c96cf59c234f4403b52f9c83a44bf0))
+
+
+### :zap: Performance Improvements
+
+* remove excess css classes ([b064101](https://github.com/myparcelnl/delivery-options/commit/b064101e4b1a9fed17ed03b21a12679d70a43649))
+
 ## [@myparcel/delivery-options-v6.0.0-alpha.9](https://github.com/myparcelnl/delivery-options/compare/v6.0.0-alpha.8...v6.0.0-alpha.9) (2024-02-14)
 
 
