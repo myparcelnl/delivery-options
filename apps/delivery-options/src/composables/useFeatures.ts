@@ -13,7 +13,6 @@ export const useFeatures = useMemoize(() => {
     }),
 
     showDeliveryDate: computed(() => {
-      console.log(PACKAGE_TYPE_DEFAULT === config.packageType, config[ConfigSetting.ShowDeliveryDate]);
       return PACKAGE_TYPE_DEFAULT === config.packageType && config[ConfigSetting.ShowDeliveryDate];
     }),
   };
