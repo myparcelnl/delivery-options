@@ -1,4 +1,9 @@
-import {type CarrierIdentifier, type SupportedDeliveryTypeName, PACKAGE_TYPE_DEFAULT} from '@myparcel-do/shared';
+import {
+  type CarrierIdentifier,
+  type SupportedDeliveryTypeName,
+  PACKAGE_TYPE_DEFAULT,
+  getPackageTypePriceKey,
+} from '@myparcel-do/shared';
 import {useConfigStore} from '../stores';
 import {getResolvedValue} from './getResolvedValue';
 import {getConfigPriceKey} from './getConfigPriceKey';
@@ -9,7 +14,7 @@ export const getDeliveryTypePrice = (deliveryType: SupportedDeliveryTypeName, ca
   const priceKey =
     PACKAGE_TYPE_DEFAULT === config.packageType
       ? getConfigPriceKey(deliveryType)
-      : getConfigPriceKey(config.packageType);
+      : getPackageTypePriceKey(config.packageType);
 
   return getResolvedValue(priceKey, carrier) ?? 0;
 };

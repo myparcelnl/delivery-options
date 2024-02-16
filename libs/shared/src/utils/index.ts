@@ -8,6 +8,7 @@ export * from './getAllConfigOptions';
 export * from './getCarrierConfiguration';
 export * from './getConfigKey';
 export * from './getDeliveryTypeConfigMap';
+export * from './getPackageTypePriceKey';
 export * from './getPlatformConfig';
 export * from './getShipmentOptionConfigMap';
 export * from './isCustomEvent';

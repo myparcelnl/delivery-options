@@ -1,7 +1,13 @@
 import {type MaybeRef, computed, toValue, type ComputedRef, type Ref} from 'vue';
 import {asyncComputed} from '@vueuse/core';
 import {type Carrier} from '@myparcel/sdk';
-import {resolveCarrierName, waitForRequestData, getCarrierConfiguration, getConfigKey} from '../utils';
+import {
+  resolveCarrierName,
+  waitForRequestData,
+  getCarrierConfiguration,
+  getConfigKey,
+  getPackageTypePriceKey,
+} from '../utils';
 import {
   type CarrierIdentifier,
   type SupportedPlatformName,
@@ -64,7 +70,7 @@ export const useCarrier = (options: UseCarrierOptions): UseCarrier => {
   const features = computed(() => {
     return new Set([
       ...(config.value?.features ?? []),
-      ...packageTypes.value,
+      ...[...packageTypes.value].map(getPackageTypePriceKey),
       ...[...deliveryTypes.value, ...shipmentOptions.value].map(getConfigKey),
     ]);
   });

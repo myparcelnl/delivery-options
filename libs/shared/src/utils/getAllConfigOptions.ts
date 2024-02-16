@@ -1,4 +1,5 @@
 import {useMemoize} from '@vueuse/core';
+import {PackageTypeName} from '@myparcel/constants';
 import {validateIsInRange} from '../validator';
 import {type ConfigOption} from '../types';
 import {
@@ -29,8 +30,8 @@ export const getAllConfigOptions = useMemoize((): ConfigOption[] => [
 
   ...declareOptionWithPrice(CarrierSetting.AllowPickupLocations, CarrierSetting.PricePickup),
 
-  declareOption({key: CarrierSetting.PricePackageTypeMailbox, type: OptionType.Currency}),
-  declareOption({key: CarrierSetting.PricePackageTypeDigitalStamp, type: OptionType.Currency}),
+  ...declareOptionWithPrice(PackageTypeName.Mailbox, CarrierSetting.PricePackageTypeMailbox),
+  ...declareOptionWithPrice(PackageTypeName.DigitalStamp, CarrierSetting.PricePackageTypeDigitalStamp),
 
   declareOption({
     key: CarrierSetting.DropOffDelay,

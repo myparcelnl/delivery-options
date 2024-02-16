@@ -3,7 +3,6 @@ import {type CarrierName} from '@myparcel/constants';
 import {
   type CarrierSetting,
   type ConfigSetting,
-  type DeprecatedCarrierSetting,
   type OptionType,
   type PickupLocationsView,
   type RelatedConfigOptionType,
@@ -189,10 +188,6 @@ export type ConfigOption = BaseConfigOption | SelectConfigOption;
 
 export type ResolvedConfigOption<O extends ConfigKey | ConfigOption> = O extends ConfigOption ? O : ConfigOption;
 
-export type InputCarrierSettingsKey = CarrierSetting | DeprecatedCarrierSetting;
-
-export type InputConfigKey = ConfigSetting | InputCarrierSettingsKey;
-
 export type CarrierSettingsKey = CarrierSetting;
 
-export type ConfigKey = ConfigSetting | CarrierSettingsKey;
+export type ConfigKey = ConfigSetting | CarrierSettingsKey | SupportedPackageTypeName;
