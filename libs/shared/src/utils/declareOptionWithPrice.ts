@@ -27,12 +27,6 @@ export const declareOptionWithPrice = <O extends ConfigKey | ConfigOption>(
       key: priceKey,
       parents: [...(resolvedOption.parents ?? []), resolvedOption.key],
       type: OptionType.Currency,
-      // related: [
-      //   {
-      //     type: RelatedConfigOptionType.Allow,
-      //     key: option.key,
-      //   },
-      // ],
     }),
   ];
 };
