@@ -45,4 +45,8 @@ export const PACKAGE_TYPE_OPTIONS = [
     text: 'package_types.digital_stamp',
     value: PACKAGE_TYPE_DIGITAL_STAMP,
   },
+  {
+    text: 'package_types.package_small',
+    value: PACKAGE_TYPE_PACKAGE_SMALL,
+  },
 ];
