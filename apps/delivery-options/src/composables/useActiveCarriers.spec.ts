@@ -56,7 +56,13 @@ describe('useActiveCarriers', () => {
     [
       PlatformName.MyParcel,
       FRANCE,
-      [CarrierName.DhlParcelConnect, `${CarrierName.DhlParcelConnect}:422`, CarrierName.DhlEuroPlus],
+      [
+        CarrierName.PostNl,
+        `${CarrierName.PostNl}:4242`,
+        CarrierName.DhlParcelConnect,
+        `${CarrierName.DhlParcelConnect}:422`,
+        CarrierName.DhlEuroPlus,
+      ],
     ],
     [PlatformName.SendMyParcel, BELGIUM, [CarrierName.Bpost, CarrierName.PostNl, `${CarrierName.PostNl}:4242`]],
     [PlatformName.SendMyParcel, NETHERLANDS, [CarrierName.Bpost, CarrierName.PostNl, `${CarrierName.PostNl}:4242`]],
