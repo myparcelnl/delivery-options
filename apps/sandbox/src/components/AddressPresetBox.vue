@@ -11,7 +11,7 @@
         :value="address[AddressField.Country]"
         name="address" />
 
-      {{ translateCountry(address[AddressField.Country]) }}
+      {{ translate(createCountryTranslatable(address[AddressField.Country])) }}
     </h3>
 
     <p v-text="address[AddressField.Street]" />
@@ -23,7 +23,8 @@
 <script lang="ts" setup>
 import {useModel} from 'vue';
 import {type DeliveryOptionsAddress, AddressField, RadioInput} from '@myparcel-do/shared';
-import {translateCountry} from '../utils';
+import {createCountryTranslatable} from '../utils';
+import {useLanguage} from '../composables';
 import {Box} from './Box';
 
 const props = defineProps<{
@@ -33,4 +34,5 @@ const props = defineProps<{
 }>();
 
 const model = useModel(props, 'modelValue');
+const {translate} = useLanguage();
 </script>
