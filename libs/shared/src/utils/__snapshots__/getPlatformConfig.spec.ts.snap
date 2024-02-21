@@ -155,6 +155,7 @@ exports[`getPlatformConfig > gets config for platform myparcel 1`] = `
         "evening",
         "pickup",
       ],
+      "fakeDelivery": true,
       "features": [
         "allowMondayDelivery",
         "deliveryDaysWindow",
@@ -342,6 +343,9 @@ exports[`getPlatformConfig > gets config for platform myparcel 1`] = `
         "pickup",
       ],
       "fakeDelivery": true,
+      "fakeDeliveryBlacklist": [
+        "NL",
+      ],
       "name": "ups",
       "packageTypes": [
         "package",
@@ -350,6 +354,9 @@ exports[`getPlatformConfig > gets config for platform myparcel 1`] = `
         "DE",
       ],
       "subscription": 1,
+      "unsupportedParameters": [
+        "package_type",
+      ],
     },
     {
       "addressFields": [

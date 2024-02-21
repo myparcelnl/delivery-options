@@ -1,9 +1,9 @@
 import {useMemoize} from '@vueuse/core';
 import {PlatformName} from '@myparcel/constants';
-import {type PlatformOptions} from '../types';
+import {type PlatformConfiguration} from '../types';
 import {getMyParcelConfig, getSendMyParcelConfig} from '../config';
 
-export const getPlatformConfig = useMemoize((platform: PlatformName): PlatformOptions => {
+export const getPlatformConfig = useMemoize((platform: PlatformName): PlatformConfiguration => {
   switch (platform) {
     case PlatformName.MyParcel:
       return getMyParcelConfig();

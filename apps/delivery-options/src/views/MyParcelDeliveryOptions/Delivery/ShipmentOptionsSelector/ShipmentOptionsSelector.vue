@@ -12,24 +12,18 @@
 </template>
 
 <script lang="ts" setup>
-import {computed, ref} from 'vue';
+import {computed, ref, toValue} from 'vue';
 import {createField} from '@myparcel/vue-form-builder';
 import {FIELD_SHIPMENT_OPTIONS} from '../../../../data';
-import {
-  useShipmentOptionsOptions,
-  useSelectedDeliveryMoment,
-  useResolvedDeliveryMoments,
-  useFeatures,
-} from '../../../../composables';
+import {useShipmentOptionsOptions, useFeatures, useResolvedDeliveryOptions} from '../../../../composables';
 import {GroupInputLoader, CheckboxGroupInput, RadioButtonLoader} from '../../../../components';
 
-const deliveryMoments = useResolvedDeliveryMoments();
-const deliveryMoment = useSelectedDeliveryMoment();
+const deliveryOptions = useResolvedDeliveryOptions();
 const options = useShipmentOptionsOptions();
 
 const {availableShipmentOptions} = useFeatures();
 
-const loading = computed(() => !deliveryMoments.value.length || !deliveryMoment.value);
+const loading = computed(() => toValue(deliveryOptions.loading));
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const ShipmentOptions = createField({

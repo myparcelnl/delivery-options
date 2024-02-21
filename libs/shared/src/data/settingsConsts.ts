@@ -1,10 +1,11 @@
 import {PackageTypeName, PlatformName, DeliveryTypeName} from '@myparcel/constants';
+import {type SupportedPackageTypeName, type SupportedDeliveryTypeName, type SupportedPlatformName} from '../types';
 
-export const PACKAGE_TYPE_DEFAULT = PackageTypeName.Package;
+export const PACKAGE_TYPE_DEFAULT = PackageTypeName.Package satisfies SupportedPackageTypeName;
 
-export const DELIVERY_TYPE_DEFAULT = DeliveryTypeName.Standard;
+export const DELIVERY_TYPE_DEFAULT = DeliveryTypeName.Standard satisfies SupportedDeliveryTypeName;
 
-export const PLATFORM_DEFAULT = PlatformName.MyParcel;
+export const PLATFORM_DEFAULT = PlatformName.MyParcel satisfies SupportedPlatformName;
 
 /*
  * Drop-off delay

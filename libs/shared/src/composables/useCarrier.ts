@@ -14,6 +14,7 @@ import {
   type SupportedPackageTypeName,
   type SupportedDeliveryTypeName,
   type SupportedShipmentOptionName,
+  type CarrierConfiguration,
 } from '../types';
 import {useCarrierRequest} from './sdk';
 
@@ -24,8 +25,11 @@ interface UseCarrierOptions {
 
 export interface UseCarrier {
   carrier: Ref<Carrier & {identifier: CarrierIdentifier}>;
+  config: ComputedRef<CarrierConfiguration | undefined>;
   deliveryCountries: ComputedRef<Set<string>>;
   deliveryTypes: ComputedRef<Set<SupportedDeliveryTypeName>>;
+  fakeDelivery: ComputedRef<boolean>;
+  fakeDeliveryBlacklist: ComputedRef<Set<string>>;
   features: ComputedRef<Set<string>>;
   packageTypes: ComputedRef<Set<SupportedPackageTypeName>>;
   pickupCountries: ComputedRef<Set<string>>;
@@ -61,6 +65,9 @@ export const useCarrier = (options: UseCarrierOptions): UseCarrier => {
     return getCarrierConfiguration(carrierName.value, toValue(options.platformName));
   });
 
+  const fakeDelivery = computed(() => Boolean(config.value?.fakeDelivery));
+  const fakeDeliveryBlacklist = computed(() => new Set(config.value?.fakeDeliveryBlacklist ?? []));
+
   const pickupCountries = computed(() => new Set(config.value?.pickupCountries ?? []));
   const deliveryCountries = computed(() => new Set(config.value?.deliveryCountries ?? []));
   const packageTypes = computed(() => new Set(config.value?.packageTypes ?? []));
@@ -83,6 +90,11 @@ export const useCarrier = (options: UseCarrierOptions): UseCarrier => {
 
   return {
     carrier: carrier as Ref<Carrier & {identifier: CarrierIdentifier}>,
+
+    config,
+
+    fakeDelivery,
+    fakeDeliveryBlacklist,
 
     pickupCountries,
     deliveryCountries,

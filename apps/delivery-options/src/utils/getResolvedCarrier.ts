@@ -56,6 +56,10 @@ const cb = async (
     });
   });
 
+  const hasFakeDelivery = computed(() => {
+    return config.fakeDelivery.value && !config.fakeDeliveryBlacklist.value.has(address.cc);
+  });
+
   const hasDelivery = computed(() => {
     return (
       config.deliveryCountries.value.has(address.cc) &&
@@ -77,6 +81,8 @@ const cb = async (
   return {
     ...config.carrier.value,
 
+    config: config.config,
+
     pickupCountries: config.pickupCountries,
     deliveryCountries: config.deliveryCountries,
     deliveryTypes,
@@ -85,7 +91,9 @@ const cb = async (
 
     features,
 
+    hasAnyDelivery: computed(() => hasDelivery.value || hasFakeDelivery.value),
     hasDelivery,
+    hasFakeDelivery,
     hasPickup,
 
     get(key, defaultValue) {

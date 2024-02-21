@@ -28,11 +28,11 @@ import {
   UNITED_KINGDOM,
 } from '@myparcel/constants/countries';
 import {CarrierName, DeliveryTypeName, PackageTypeName, ShipmentOptionName} from '@myparcel/constants';
-import {type PlatformOptions} from '../types';
+import {type PlatformConfiguration} from '../types';
 import {AddressField, CarrierSetting, SubscriptionType} from '../data';
 
 // eslint-disable-next-line max-lines-per-function
-export const getMyParcelConfig = (): PlatformOptions => ({
+export const getMyParcelConfig = (): PlatformConfiguration => ({
   carriers: [
     {
       name: CarrierName.PostNl,
@@ -46,6 +46,7 @@ export const getMyParcelConfig = (): PlatformOptions => ({
       ],
       deliveryCountries: [NETHERLANDS, BELGIUM],
       pickupCountries: [NETHERLANDS, BELGIUM],
+      fakeDelivery: true,
       shipmentOptions: [ShipmentOptionName.OnlyRecipient, ShipmentOptionName.Signature],
       features: [
         CarrierSetting.AllowMondayDelivery,
@@ -190,7 +191,9 @@ export const getMyParcelConfig = (): PlatformOptions => ({
       ],
       pickupCountries: [GERMANY],
       fakeDelivery: true,
+      fakeDeliveryBlacklist: [NETHERLANDS],
       addressFields: [AddressField.PostalCode, AddressField.Street, AddressField.City],
+      unsupportedParameters: ['package_type'],
     },
     {
       name: CarrierName.Dpd,

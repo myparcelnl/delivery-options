@@ -8,11 +8,13 @@ import {
   type SupportedDeliveryTypeName,
   type SupportedPackageTypeName,
   type SupportedShipmentOptionName,
+  type CarrierConfiguration,
 } from '@myparcel-do/shared';
 import {type Carrier} from '@myparcel/sdk';
 
 export type ResolvedCarrier = Carrier & {
   identifier: CarrierIdentifier;
+  config: ComputedRef<CarrierConfiguration | undefined>;
   pickupCountries: ComputedRef<Set<string>>;
   deliveryCountries: ComputedRef<Set<string>>;
   deliveryTypes: ComputedRef<Set<SupportedDeliveryTypeName>>;
@@ -20,6 +22,8 @@ export type ResolvedCarrier = Carrier & {
   shipmentOptions: ComputedRef<Set<SupportedShipmentOptionName>>;
   features: ComputedRef<Set<string>>;
   hasDelivery: ComputedRef<boolean>;
+  hasFakeDelivery: ComputedRef<boolean>;
+  hasAnyDelivery: ComputedRef<boolean>;
   hasPickup: ComputedRef<boolean>;
   get<Key extends ConfigKey | CarrierSettingsKey>(
     key: Key,

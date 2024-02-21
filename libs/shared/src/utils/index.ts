@@ -1,6 +1,7 @@
 export * from './addLoadingProperty';
 export * from './computedAsync';
 export * from './createAssetUrl';
+export * from './createTimestamp';
 export * from './crushObject';
 export * from './declareOption';
 export * from './declareOptionWithPrice';

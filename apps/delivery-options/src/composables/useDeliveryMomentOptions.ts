@@ -1,15 +1,14 @@
-import {type ComputedRef, computed} from 'vue';
+import {type ComputedRef, computed, toValue} from 'vue';
 import {
   type SelectOption,
   PACKAGE_TYPE_DEFAULT,
   DELIVERY_TYPE_DEFAULT,
   type SupportedShipmentOptionName,
 } from '@myparcel-do/shared';
-import {getDeliveryTypePrice} from '../utils';
+import {getDeliveryTypePrice, createPackageTypeTranslatable} from '../utils';
 import {useConfigStore} from '../stores';
 import {SHOWN_SHIPMENT_OPTIONS} from '../data';
 import {useResolvedDeliveryMoments} from './useResolvedDeliveryMoments';
-import {useLanguage} from './useLanguage';
 import {useActiveCarriers} from './useActiveCarriers';
 
 export const useDeliveryMomentOptions = (): ComputedRef<SelectOption[]> => {
@@ -17,16 +16,14 @@ export const useDeliveryMomentOptions = (): ComputedRef<SelectOption[]> => {
   const deliveryMoments = useResolvedDeliveryMoments();
   const activeCarriers = useActiveCarriers();
 
-  const {translate} = useLanguage();
-
   return computed(() => {
     if (PACKAGE_TYPE_DEFAULT !== config.packageType) {
       return activeCarriers.value
-        .filter((carrier) => carrier.hasDelivery.value && carrier.packageTypes.value.has(config.packageType))
+        .filter((carrier) => toValue(carrier.hasAnyDelivery) && toValue(carrier.packageTypes).has(config.packageType))
         .map((carrier) => {
           return {
             carrier: carrier.name,
-            label: translate(`package_type_${config.packageType}`),
+            label: createPackageTypeTranslatable(config.packageType),
             price: getDeliveryTypePrice(DELIVERY_TYPE_DEFAULT, carrier.name),
             value: JSON.stringify({
               carrier: carrier.name,

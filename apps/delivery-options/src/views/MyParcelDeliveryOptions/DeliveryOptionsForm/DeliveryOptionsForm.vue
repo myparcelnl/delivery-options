@@ -17,7 +17,7 @@
       </template>
 
       <template #default="{option}">
-        <b v-text="option.label" />
+        <b v-text="translate(option.label)" />
       </template>
 
       <template #content="{option}">
@@ -66,14 +66,14 @@ const HomeOrPickup = createField({
 
       if (resolvedCarriers.some((carrier) => get(carrier.hasDelivery))) {
         options.push({
-          label: translate(DELIVERY_TITLE),
+          label: DELIVERY_TITLE,
           value: HOME_OR_PICKUP_HOME,
         });
       }
 
       if (PACKAGE_TYPE_DEFAULT === config.packageType && resolvedCarriers.some((carrier) => get(carrier.hasPickup))) {
         options.push({
-          label: translate(PICKUP_TITLE),
+          label: PICKUP_TITLE,
           value: HOME_OR_PICKUP_PICKUP,
           ecoFriendly: Infinity,
         });

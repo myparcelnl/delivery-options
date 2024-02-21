@@ -54,3 +54,13 @@ export const DAYS_IN_WEEK = 7;
 export const NBSP = '\u00A0';
 
 export const CARRIER_IDENTIFIER_SEPARATOR = ':';
+
+export const API_DATE_FORMAT = 'y-MM-d kk:mm:ss';
+
+export const DEFAULT_TIMEZONE_TYPE = 3;
+
+export const DEFAULT_TIMEZONE = 'Europe/Amsterdam';
+
+export const DELIVERY_TIMEFRAME_TYPE_START = 'start';
+
+export const DELIVERY_TIMEFRAME_TYPE_END = 'end';

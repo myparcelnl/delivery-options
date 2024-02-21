@@ -1,11 +1,11 @@
 import {reactive, ref} from 'vue';
 import {get} from '@vueuse/core';
-import {type CarrierOptions} from '@myparcel-do/shared';
+import {type CarrierConfiguration} from '@myparcel-do/shared';
 import {createField} from '@myparcel/vue-form-builder';
 import {getCarrierSettingsKey} from '../utils';
 import {type SettingsField} from '../types';
 
-export const generateConfigItemField = (item: SettingsField, carrier: CarrierOptions) => {
+export const generateConfigItemField = (item: SettingsField, carrier: CarrierConfiguration) => {
   return createField({
     ...item.field,
     ref: ref(get(item.field.ref)),

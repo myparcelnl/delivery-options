@@ -16,7 +16,7 @@
         </template>
 
         <template #default="{option}">
-          <span v-text="option.label" />
+          <span v-text="translate(option.label)" />
         </template>
       </GroupInput>
     </CarrierBox>
@@ -34,7 +34,7 @@ import {
   type WithElement,
 } from '@myparcel-do/shared';
 import {FIELD_DELIVERY_MOMENT} from '../../../../data';
-import {useOptionsGroupedByCarrier, useSelectedDeliveryDate} from '../../../../composables';
+import {useOptionsGroupedByCarrier, useSelectedDeliveryDate, useLanguage} from '../../../../composables';
 import {GroupInput} from '../../../../components';
 
 // eslint-disable-next-line vue/no-unused-properties
@@ -45,6 +45,7 @@ const propRefs = toRefs(props);
 const model = useVModel(props, undefined, emit);
 
 const date = useSelectedDeliveryDate();
+const {translate} = useLanguage();
 
 const {options, grouped} = useOptionsGroupedByCarrier(propRefs.element);
 

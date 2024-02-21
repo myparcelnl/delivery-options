@@ -1,18 +1,16 @@
 import {format} from 'date-fns';
 import {type DeliveryOption} from '@myparcel/sdk';
 import {DeliveryTypeName, PackageTypeName, ShipmentOptionName} from '@myparcel/constants';
-import {getTimeframe} from './getTimeframe';
+import {createDeliveryTimeframe} from '../../../utils';
+import {createTimestamp} from '../../../../utils';
+import {DELIVERY_TIMEFRAME_TYPE_END, DELIVERY_TIMEFRAME_TYPE_START} from '../../../../data';
 import {getShipmentOptions} from './getShipmentOptions';
 
 export const getDeliveryOptionsEntry = (today: Date, isExtraDropOffDay: boolean, isSameDay = false): DeliveryOption => {
   const formattedDate = format(today, 'yyyy-MM-dd');
 
   return {
-    date: {
-      date: `${formattedDate} 00:00:00.000000`,
-      timezone_type: 3,
-      timezone: 'Europe/Amsterdam',
-    },
+    date: createTimestamp(`${formattedDate} 00:00:00.000000`),
     possibilities: [
       // @ts-expect-error todo
       ...(isExtraDropOffDay
@@ -22,8 +20,8 @@ export const getDeliveryOptionsEntry = (today: Date, isExtraDropOffDay: boolean,
               type: DeliveryTypeName.Morning,
               package_type: PackageTypeName.Package,
               delivery_time_frames: [
-                getTimeframe(`${formattedDate} 8:00:00.000000`, 'start'),
-                getTimeframe(`${formattedDate} 12:00:00.000000`, 'end'),
+                createDeliveryTimeframe(`${formattedDate} 8:00:00.000000`, DELIVERY_TIMEFRAME_TYPE_START),
+                createDeliveryTimeframe(`${formattedDate} 12:00:00.000000`, DELIVERY_TIMEFRAME_TYPE_END),
               ],
               shipment_options: getShipmentOptions([ShipmentOptionName.OnlyRecipient]),
             },
@@ -37,8 +35,8 @@ export const getDeliveryOptionsEntry = (today: Date, isExtraDropOffDay: boolean,
               type: DeliveryTypeName.Evening,
               package_type: PackageTypeName.Package,
               delivery_time_frames: [
-                getTimeframe(`${formattedDate} 18:00:00.000000`, 'start'),
-                getTimeframe(`${formattedDate} 22:00:00.000000`, 'end'),
+                createDeliveryTimeframe(`${formattedDate} 18:00:00.000000`, DELIVERY_TIMEFRAME_TYPE_START),
+                createDeliveryTimeframe(`${formattedDate} 22:00:00.000000`, DELIVERY_TIMEFRAME_TYPE_END),
               ],
               shipment_options: getShipmentOptions([ShipmentOptionName.OnlyRecipient]),
             },
@@ -49,9 +47,9 @@ export const getDeliveryOptionsEntry = (today: Date, isExtraDropOffDay: boolean,
         package_type: PackageTypeName.Package,
         delivery_time_frames: [
           // @ts-expect-error todo
-          getTimeframe(`${formattedDate} 08:30:00.000000`, 'start'),
+          createDeliveryTimeframe(`${formattedDate} 08:30:00.000000`, DELIVERY_TIMEFRAME_TYPE_START),
           // @ts-expect-error todo
-          getTimeframe(`${formattedDate} 18:00:00.000000`, 'end'),
+          createDeliveryTimeframe(`${formattedDate} 18:00:00.000000`, DELIVERY_TIMEFRAME_TYPE_END),
         ],
         shipment_options: getShipmentOptions(isSameDay ? [ShipmentOptionName.SameDayDelivery] : []),
       },

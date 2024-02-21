@@ -11,7 +11,7 @@
         </span>
 
         <slot :option="option">
-          <span v-text="option.label" />
+          <span v-text="translate(option.label)" />
         </slot>
 
         <EcoFriendlyLabel
@@ -39,8 +39,11 @@
 import {type SelectOption, type SelectOptionValue} from '@myparcel-do/shared';
 import {EcoFriendlyLabel, PriceTag} from '../../common';
 import {type GroupInputSlots} from '../../../types';
+import {useLanguage} from '../../../composables';
 
 defineSlots<GroupInputSlots<T>>();
 
 defineProps<{options: SelectOption<T>[]; id: string}>();
+
+const {translate} = useLanguage();
 </script>

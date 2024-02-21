@@ -1,4 +1,5 @@
-import {get} from '@vueuse/core';
+import {toValue} from 'vue';
+import {get} from 'radash';
 import {
   AddressField,
   CarrierSetting,
@@ -27,7 +28,7 @@ export const createGetDeliveryOptionsParameters = (
     PackageTypeName.Package,
   );
 
-  return {
+  const parameters: EndpointParameters<GetDeliveryOptions> = {
     platform: config.platform ?? PlatformName.MyParcel,
     carrier: resolveCarrierName(carrier.identifier),
     package_type: carrier.packageTypes.value.has(packageType) ? packageType : PackageTypeName.Package,
@@ -37,15 +38,21 @@ export const createGetDeliveryOptionsParameters = (
     dropoff_days: calculateDropOffDays(carrier),
     dropoff_delay: carrier.get(CarrierSetting.DropOffDelay, DROP_OFF_DELAY_DEFAULT),
 
-    same_day_delivery: get(carrier.features).has(CarrierSetting.AllowSameDayDelivery),
-    monday_delivery: get(carrier.features).has(CarrierSetting.AllowMondayDelivery),
-    saturday_delivery: get(carrier.features).has(CarrierSetting.AllowSaturdayDelivery),
+    same_day_delivery: toValue(carrier.features).has(CarrierSetting.AllowSameDayDelivery),
+    monday_delivery: toValue(carrier.features).has(CarrierSetting.AllowMondayDelivery),
+    saturday_delivery: toValue(carrier.features).has(CarrierSetting.AllowSaturdayDelivery),
 
-    cc: address?.[AddressField.Country] ?? '',
-    city: address?.[AddressField.City] ?? '',
-    postal_code: address?.[AddressField.PostalCode] ?? '',
-    street: address?.[AddressField.Street] ?? '',
+    cc: get(address, AddressField.Country, ''),
+    city: get(address, AddressField.City, ''),
+    postal_code: get(address, AddressField.PostalCode, ''),
+    street: get(address, AddressField.Street, ''),
 
     include: 'shipment_options',
   };
+
+  return Object.fromEntries(
+    Object.entries(parameters).filter(([key]) => {
+      return !carrier.config.value.unsupportedParameters?.includes(key);
+    }),
+  ) as EndpointParameters<GetDeliveryOptions>;
 };

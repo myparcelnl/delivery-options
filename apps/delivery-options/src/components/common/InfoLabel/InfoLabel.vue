@@ -22,7 +22,7 @@
 
 <script lang="ts" setup>
 import {computed} from 'vue';
-import {hasSlotContent} from '../../../utils/hasSlotContent';
+import {hasSlotContent} from '../../../utils';
 
 const VARIANT_GREEN = 'green';
 

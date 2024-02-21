@@ -1,11 +1,11 @@
 import {onMounted, type Ref, watch, type WritableComputedRef} from 'vue';
 import {get} from '@vueuse/core';
 import {toArray} from '@myparcel/ts-utils';
-import {type SelectInputModelValue, type SelectOptionWithLabel} from '../../types';
+import {type SelectInputModelValue, type SelectOption} from '../../types';
 
 export const useInputOptions = <T extends SelectInputModelValue>(
   model: WritableComputedRef<T>,
-  options: Ref<SelectOptionWithLabel<T>[]>,
+  options: Ref<SelectOption<T>[]>,
 ): void => {
   onMounted(() => {
     watch(

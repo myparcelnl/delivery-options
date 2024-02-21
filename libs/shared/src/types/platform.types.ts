@@ -1,3 +1,4 @@
+import {type DeliveryOptionsParameters} from '@myparcel/sdk';
 import {type CarrierName} from '@myparcel/constants';
 import {
   type SubscriptionType,
@@ -26,23 +27,33 @@ export type SubscriptionId = string | undefined;
 
 export type ConfigPriceKey = Extract<ConfigKey, `price${string}`>;
 
-export interface CarrierOptions {
+export interface CarrierConfiguration {
   addressFields?: string[];
   deliveryCountries?: string[];
   deliveryTypes: SupportedDeliveryTypeName[];
+
   /**
    * Enable to use empty delivery options (without fetching) for this carrier in all countries that are not in
    * getCountriesForDelivery.
    */
   fakeDelivery?: boolean;
+
+  /**
+   * Countries to NOT use fake delivery for if fakeDelivery is enabled.
+   */
+  fakeDeliveryBlacklist?: string[];
   features?: ConfigKey[];
   name: CarrierName;
   packageTypes: SupportedPackageTypeName[];
   pickupCountries?: string[];
   shipmentOptions?: SupportedShipmentOptionName[];
   subscription: SubscriptionType;
+  /**
+   * Parameters that are not supported by the carrier and should be removed from the request.
+   */
+  unsupportedParameters?: (keyof DeliveryOptionsParameters | string)[];
 }
 
-export interface PlatformOptions {
-  carriers: CarrierOptions[];
+export interface PlatformConfiguration {
+  carriers: CarrierConfiguration[];
 }

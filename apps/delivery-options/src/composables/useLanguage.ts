@@ -1,7 +1,8 @@
 import {computed, type ComputedRef, reactive} from 'vue';
 import {get} from 'radash';
-import {useMemoize} from '@vueuse/core';
-import {useLogger} from '@myparcel-do/shared';
+import {useMemoize, isDef} from '@vueuse/core';
+import {useLogger, type AnyTranslatable} from '@myparcel-do/shared';
+import {isTranslatable, resolveTranslatable} from '../utils';
 import {useConfigStore} from '../stores';
 
 interface UseLanguage {
@@ -9,7 +10,7 @@ interface UseLanguage {
 
   setLocale(locale: string): void;
   setStrings(strings: Record<string, string>): void;
-  translate(key: string): string;
+  translate(translatable: AnyTranslatable): string;
 }
 
 const state = reactive<{
@@ -18,21 +19,25 @@ const state = reactive<{
   strings: {},
 });
 
-const translate = (key: string): string => {
-  if (Object.keys(state.strings).length === 0) {
-    return key;
+const translate = useMemoize((translatable: AnyTranslatable): string => {
+  const resolvedKey = resolveTranslatable(translatable);
+
+  if (Object.keys(state.strings).length === 0 || !isTranslatable(translatable)) {
+    return resolvedKey;
   }
 
-  const translation = get(state.strings, key, key);
+  const translation = get<string | undefined>(state.strings, resolvedKey);
 
-  if (!translation) {
+  if (!isDef(translation)) {
     const logger = useLogger();
 
-    if (import.meta.env.DEV) logger.error(`Missing translation: "${key}"`);
+    if (import.meta.env.DEV) logger.error(`Missing translation: "${resolvedKey}"`);
+
+    return resolvedKey;
   }
 
   return translation;
-};
+});
 
 export const useLanguage = useMemoize((): UseLanguage => {
   const config = useConfigStore();
@@ -47,7 +52,7 @@ export const useLanguage = useMemoize((): UseLanguage => {
     translate,
 
     setStrings(strings: Record<string, string>): void {
-      state.strings = Object.freeze(strings);
+      state.strings = Object.freeze({...strings});
     },
   } as UseLanguage;
 });

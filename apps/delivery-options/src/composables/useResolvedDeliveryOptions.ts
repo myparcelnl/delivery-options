@@ -1,21 +1,64 @@
 /* eslint-disable max-nested-callbacks */
 import {toValue, computed} from 'vue';
+import {addDays} from 'date-fns';
 import {useMemoize} from '@vueuse/core';
-import {useDeliveryOptionsRequest, computedAsync, addLoadingProperty} from '@myparcel-do/shared';
-import {createGetDeliveryOptionsParameters, getResolvedDeliveryType} from '../utils';
+import {
+  useDeliveryOptionsRequest,
+  computedAsync,
+  addLoadingProperty,
+  PACKAGE_TYPE_DEFAULT,
+  DELIVERY_TYPE_DEFAULT,
+  createTimestamp,
+  type AnyTranslatable,
+} from '@myparcel-do/shared';
+import {type Replace} from '@myparcel/ts-utils';
+import {type DeliveryOption, type DeliveryPossibility, type DeliveryTimeFrame} from '@myparcel/sdk';
+import {
+  createGetDeliveryOptionsParameters,
+  getResolvedDeliveryType,
+  createUntranslatable,
+  createDeliveryTypeTranslatable,
+} from '../utils';
 import {type SelectedDeliveryMoment} from '../types';
 import {useTimeRange} from './useTimeRange';
 import {useActiveCarriers} from './useActiveCarriers';
+
+const createFakeDeliveryDates = (): Replace<
+  DeliveryOption,
+  'possibilities',
+  Replace<DeliveryPossibility, 'delivery_time_frames', DeliveryTimeFrame[]>[]
+>[] => {
+  const date = new Date();
+  const tomorrow = addDays(date, 1);
+
+  return [
+    {
+      date: createTimestamp(tomorrow),
+      possibilities: [
+        {
+          type: DELIVERY_TYPE_DEFAULT,
+          package_type: PACKAGE_TYPE_DEFAULT,
+          delivery_time_frames: [],
+          shipment_options: [],
+        },
+      ],
+    },
+  ];
+};
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const useResolvedDeliveryOptions = useMemoize(() => {
   const carriers = useActiveCarriers();
 
-  const asyncComputed = computedAsync(async () => {
+  const asyncComputed = computedAsync<SelectedDeliveryMoment[]>(async () => {
     const resolvedDates = await Promise.all(
       toValue(carriers)
-        .filter((carrier) => toValue(carrier.hasDelivery))
+        .filter((carrier) => toValue(carrier.hasAnyDelivery))
         .map(async (carrier) => {
+          if (!toValue(carrier.hasDelivery)) {
+            return Promise.resolve({carrier, dates: createFakeDeliveryDates()});
+          }
+
           const params = createGetDeliveryOptionsParameters(carrier);
           const query = useDeliveryOptionsRequest(params);
 
@@ -29,12 +72,16 @@ export const useResolvedDeliveryOptions = useMemoize(() => {
       dates.forEach((dateOption) => {
         dateOption.possibilities.forEach((datePossibility) => {
           const [start, end] = datePossibility.delivery_time_frames;
-          const timeRange = useTimeRange(start.date_time.date, end.date_time.date);
+
+          const timeString: AnyTranslatable =
+            start && end
+              ? createUntranslatable(useTimeRange(start.date_time.date, end.date_time.date).value)
+              : createDeliveryTypeTranslatable(datePossibility.type);
 
           acc.push({
             carrier: carrier.identifier,
             date: dateOption.date.date,
-            time: timeRange.value,
+            time: timeString,
             deliveryType: getResolvedDeliveryType(dateOption.date.date, datePossibility.type),
             packageType: datePossibility.package_type,
             shipmentOptions: datePossibility.shipment_options,

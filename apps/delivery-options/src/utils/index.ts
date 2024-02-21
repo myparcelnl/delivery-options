@@ -12,6 +12,7 @@ export * from './getResolvedCarrier';
 export * from './getResolvedDeliveryType';
 export * from './getResolvedValue';
 export * from './hasSlotContent';
+export * from './language';
 export * from './padStart';
 export * from './parseJson';
 export * from './showDeveloperInfo';
