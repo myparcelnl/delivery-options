@@ -82,7 +82,7 @@ export type InputCarrierSettingsObject = Partial<Record<CarrierIdentifier, Input
 
 export type CarrierSettingsObject = Partial<Record<CarrierIdentifier, CarrierSettings>>;
 
-export interface DeliveryOptionsConfig extends CarrierSettings {
+export interface DeliveryOptionsConfig extends Partial<Record<ConfigSetting, unknown>>, CarrierSettings {
   apiBaseUrl: string;
 
   carrierSettings: CarrierSettingsObject;

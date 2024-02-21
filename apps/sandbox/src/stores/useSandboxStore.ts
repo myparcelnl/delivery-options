@@ -1,5 +1,5 @@
-import {toRaw} from 'vue';
-import {construct, get as objGet} from 'radash';
+import {toRaw, toValue} from 'vue';
+import {construct, get} from 'radash';
 import {defineStore} from 'pinia';
 import {type RemovableRef, useLocalStorage} from '@vueuse/core';
 import {
@@ -16,7 +16,6 @@ import {
   KEY_STRINGS,
   type SupportedPlatformName,
 } from '@myparcel-do/shared';
-import {PlatformName} from '@myparcel/constants';
 import {getDefaultSandboxAddress, getDefaultSandboxCarrierSettings, getDefaultSandboxConfig} from '../config';
 import {useLanguage} from '../composables';
 
@@ -26,7 +25,6 @@ export const useSandboxStore = defineStore('sandbox', {
   state: (): {
     address: RemovableRef<DeliveryOptionsAddress>;
     carrierSettings: InputCarrierSettingsObject;
-    carrierToggle: RemovableRef<string[]>;
     config: RemovableRef<ConfigWithoutCarrierSettings>;
     platform: SupportedPlatformName;
   } => {
@@ -37,12 +35,11 @@ export const useSandboxStore = defineStore('sandbox', {
     const config = useLocalStorage<ConfigWithoutCarrierSettings>(KEY_CONFIG, getDefaultSandboxConfig);
     const address = useLocalStorage<DeliveryOptionsAddress>(KEY_ADDRESS, getDefaultSandboxAddress);
 
-    const initialPlatform = objGet(config.value, `${KEY_CONFIG}.${ConfigSetting.Platform}`, PlatformName.MyParcel);
+    const initialPlatform = get(toValue(config), `${KEY_CONFIG}.${ConfigSetting.Platform}`, DEFAULT_PLATFORM);
 
     return {
       address,
       carrierSettings,
-      carrierToggle: useLocalStorage<string[]>('carrierToggle', []),
       config,
       platform: initialPlatform ?? DEFAULT_PLATFORM,
     };

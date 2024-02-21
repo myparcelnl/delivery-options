@@ -1,6 +1,6 @@
-import {OptionType} from '@myparcel-do/shared';
+import {OptionType} from '../data';
 
-export const getDefaultValueForType = (type?: OptionType) => {
+export const getDefaultValueForType = (type?: OptionType): unknown => {
   switch (type) {
     case OptionType.Boolean:
       return false;

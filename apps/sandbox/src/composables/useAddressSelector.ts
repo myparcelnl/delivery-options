@@ -1,8 +1,15 @@
-import {computed, onUnmounted, watch, type Ref} from 'vue';
+import {computed, onUnmounted, watch, type Ref, toValue} from 'vue';
 import {useLocalStorage} from '@vueuse/core';
 import {AddressField, type DeliveryOptionsAddress, KEY_ADDRESS} from '@myparcel-do/shared';
 import {useForm} from '@myparcel/vue-form-builder';
-import {GERMANY, FRANCE, UNITED_KINGDOM, UNITED_STATES_OF_AMERICA, BELGIUM} from '@myparcel/constants/countries';
+import {
+  GERMANY,
+  FRANCE,
+  UNITED_KINGDOM,
+  UNITED_STATES_OF_AMERICA,
+  BELGIUM,
+  NETHERLANDS,
+} from '@myparcel/constants/countries';
 import {getDefaultSandboxAddress} from '../config';
 
 const KEY_ADDRESS_TYPE = 'addressType';
@@ -52,11 +59,11 @@ interface UseAddressSelector {
 export const useAddressSelector = (): UseAddressSelector => {
   const form = useForm();
 
-  const selectedAddress = useLocalStorage(KEY_ADDRESS_TYPE, form.values[KEY_ADDRESS]?.[AddressField.Country], {
+  const selectedAddress = useLocalStorage(KEY_ADDRESS_TYPE, NETHERLANDS, {
     writeDefaults: true,
   });
 
-  const isCustom = computed(() => selectedAddress.value === ADDRESS_TYPE_CUSTOM);
+  const isCustom = computed(() => toValue(selectedAddress) === ADDRESS_TYPE_CUSTOM);
 
   onUnmounted(
     watch(selectedAddress, (value) => {

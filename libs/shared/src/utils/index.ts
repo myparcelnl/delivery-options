@@ -8,6 +8,7 @@ export * from './defineConfig';
 export * from './getAllConfigOptions';
 export * from './getCarrierConfiguration';
 export * from './getConfigKey';
+export * from './getDefaultValueForType';
 export * from './getDeliveryTypeConfigMap';
 export * from './getPackageTypePriceKey';
 export * from './getPlatformConfig';

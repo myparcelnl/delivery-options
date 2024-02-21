@@ -44,8 +44,9 @@ describe('handleDeprecatedOptions', () => {
 
         const resolved = handleDeprecatedOptions(config);
 
-        expect(Object.keys(resolved)).not.toContain(CarrierSetting.AllowDeliveryOptions);
+        expect(Object.keys(resolved)).toContain(CarrierSetting.AllowDeliveryOptions);
         expect(Object.keys(resolved)).toContain(CarrierSetting.AllowStandardDelivery);
+        expect(resolved[CarrierSetting.AllowDeliveryOptions]).toBe(value);
         expect(resolved[CarrierSetting.AllowStandardDelivery]).toBe(value);
       },
     );

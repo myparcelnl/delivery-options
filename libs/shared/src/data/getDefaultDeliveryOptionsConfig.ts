@@ -8,6 +8,8 @@ import {
 } from './settingsConsts';
 import {getDefaultCarrierSettings} from './getDefaultCarrierSettings';
 import {CarrierSetting, ConfigSetting, PickupLocationsView} from './enums';
+import {DAY_MONDAY, DAY_TUESDAY, DAY_WEDNESDAY, DAY_THURSDAY, DAY_FRIDAY} from './constants';
+import {KEY_CARRIER_SETTINGS} from './config';
 
 export const getDefaultDeliveryOptionsConfig = (): ResolvedDeliveryOptionsConfig => {
   const lang = useNavigatorLanguage();
@@ -27,7 +29,7 @@ export const getDefaultDeliveryOptionsConfig = (): ResolvedDeliveryOptionsConfig
     [CarrierSetting.PackageType]: PACKAGE_TYPE_DEFAULT,
 
     // Drop-off
-    [CarrierSetting.DropOffDays]: [1, 2, 3, 4, 5],
+    [CarrierSetting.DropOffDays]: [DAY_MONDAY, DAY_TUESDAY, DAY_WEDNESDAY, DAY_THURSDAY, DAY_FRIDAY],
     [CarrierSetting.DeliveryDaysWindow]: DELIVERY_DAYS_WINDOW_DEFAULT,
     [CarrierSetting.DropOffDelay]: DROP_OFF_DELAY_DEFAULT,
 
@@ -58,6 +60,6 @@ export const getDefaultDeliveryOptionsConfig = (): ResolvedDeliveryOptionsConfig
       maxZoom: 19,
     }),
 
-    carrierSettings: {},
+    [KEY_CARRIER_SETTINGS]: {},
   };
 };

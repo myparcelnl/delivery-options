@@ -2,17 +2,18 @@ import {
   type CarrierIdentifier,
   type CarrierSettings,
   type CarrierSettingsKey,
-  type ConfigKey,
   type DeliveryOptionsConfig,
+  KEY_CARRIER_SETTINGS,
+  type ConfigSetting,
 } from '@myparcel-do/shared';
 import {useConfigStore} from '../stores';
 
-type ResolvedValue<T extends ConfigKey | CarrierSettingsKey> = T extends ConfigKey
+type ResolvedValue<T extends ConfigSetting | CarrierSettingsKey> = T extends ConfigSetting
   ? DeliveryOptionsConfig[T]
   : CarrierSettings[T];
 
 export const getResolvedValue = <
-  T extends ConfigKey | CarrierSettingsKey,
+  T extends ConfigSetting | CarrierSettingsKey,
   Default extends NonNullable<ResolvedValue<T>>,
 >(
   key: T,
@@ -29,5 +30,5 @@ export const getResolvedValue = <
   }
 
   // @ts-expect-error todo
-  return config.carrierSettings[carrierIdentifier]?.[key] ?? generalValue;
+  return config[KEY_CARRIER_SETTINGS]?.[carrierIdentifier]?.[key] ?? generalValue;
 };

@@ -1,32 +1,14 @@
+import {isEnumValue} from '@myparcel/ts-utils';
+import {getAllConfigOptions, getDefaultValueForType} from '../utils';
 import {type CarrierSettings} from '../types';
+import {CarrierSetting} from './enums';
 
 export const getDefaultCarrierSettings = (): CarrierSettings => {
-  return Object.freeze({
-    allowDeliveryOptions: undefined,
-    allowEveningDelivery: undefined,
-    allowMondayDelivery: undefined,
-    allowMorningDelivery: undefined,
-    allowOnlyRecipient: undefined,
-    allowPickupLocations: undefined,
-    allowSameDayDelivery: undefined,
-    allowSaturdayDelivery: undefined,
-    allowSignature: undefined,
-    allowStandardDelivery: undefined,
-    deliveryDaysWindow: undefined,
-    dropOffDays: undefined,
-    dropOffDelay: undefined,
-    packageType: undefined,
-    priceEveningDelivery: undefined,
-    priceMondayDelivery: undefined,
-    priceMorningDelivery: undefined,
-    priceOnlyRecipient: undefined,
-    pricePackageTypeDigitalStamp: undefined,
-    pricePackageTypeMailbox: undefined,
-    pricePickup: undefined,
-    priceSameDayDelivery: undefined,
-    priceSaturdayDelivery: undefined,
-    priceSignature: undefined,
-    priceStandardDelivery: undefined,
-    showDeliveryDate: undefined,
-  });
+  const allOptions = getAllConfigOptions();
+
+  return Object.fromEntries(
+    allOptions
+      .filter((option) => isEnumValue(option.key, CarrierSetting))
+      .map((option) => [option.key, getDefaultValueForType(option.type)]),
+  );
 };

@@ -5,12 +5,12 @@ import {
   getConfigKey,
   resolveCarrierName,
   type SupportedDeliveryTypeName,
-  type SupportedPackageTypeName,
   type SupportedPlatformName,
   type SupportedShipmentOptionName,
   useCarrierRequest,
   waitForRequestData,
   useCarrier,
+  type ConfigSetting,
 } from '@myparcel-do/shared';
 import {DeliveryTypeName} from '@myparcel/constants';
 import {type ResolvedCarrier} from '../types';
@@ -20,10 +20,11 @@ import {getResolvedValue} from './getResolvedValue';
 const DELIVERY_TYPES = [DeliveryTypeName.Standard, DeliveryTypeName.Evening, DeliveryTypeName.Morning];
 
 const resolveOption = (
-  input: SupportedPackageTypeName | SupportedDeliveryTypeName | SupportedShipmentOptionName,
+  input: SupportedDeliveryTypeName | SupportedShipmentOptionName,
   carrierIdentifier?: CarrierIdentifier,
 ) => {
   const key = getConfigKey(input);
+
   return Boolean(key && getResolvedValue(key, carrierIdentifier));
 };
 
@@ -50,7 +51,9 @@ const cb = async (
   });
 
   const features = computed(() => {
-    return filterSet(config.features.value, (option) => getResolvedValue(option, carrierIdentifier));
+    return filterSet(config.features.value, (option) => {
+      return Boolean(getResolvedValue(option as ConfigSetting, carrierIdentifier));
+    });
   });
 
   const hasDelivery = computed(() => {

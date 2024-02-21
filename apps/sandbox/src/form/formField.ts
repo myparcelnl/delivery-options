@@ -1,4 +1,5 @@
 import {markRaw, type Ref, ref} from 'vue';
+import {getDefaultValueForType} from '@myparcel-do/shared';
 import {
   type ComponentProps,
   createField,
@@ -6,7 +7,7 @@ import {
   type ModularCreatedElement,
 } from '@myparcel/vue-form-builder';
 import {type MakeOptional} from '@myparcel/ts-utils';
-import {findSandboxOption, getDefaultValueForType} from '../utils';
+import {findSandboxOption} from '../utils';
 
 interface FormFieldInput<T, Props extends ComponentProps = ComponentProps>
   extends MakeOptional<InteractiveElementConfiguration<T, Props>, 'ref'> {
