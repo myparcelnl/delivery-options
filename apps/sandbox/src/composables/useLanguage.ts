@@ -1,4 +1,4 @@
-import {computed, reactive, type Ref, ref} from 'vue';
+import {computed, reactive, type Ref} from 'vue';
 import {camel} from 'radash';
 import {useLocalStorage, useMemoize, usePreferredLanguages} from '@vueuse/core';
 import {
@@ -27,12 +27,18 @@ interface UseLanguage {
   translate(translatable: AnyTranslatable): string;
 }
 
-const language = useLocalStorage('language', ref<LanguageDefinition>(), {
-  serializer: {
-    read: JSON.parse,
-    write: JSON.stringify,
-  },
-});
+const getInitialLanguage = (): string => {
+  const preferredLanguages = usePreferredLanguages();
+  const supportedLanguage = [...AVAILABLE_LANGUAGES]
+    .sort((languageA, languageB) => {
+      return preferredLanguages.value.indexOf(languageA.code) - preferredLanguages.value.indexOf(languageB.code);
+    })
+    .find((language) => preferredLanguages.value.includes(language.code));
+
+  return (supportedLanguage ?? AVAILABLE_LANGUAGES[0]).code;
+};
+
+const language = useLocalStorage('language', getInitialLanguage);
 
 const state = reactive<{
   initialized: boolean;
@@ -61,7 +67,7 @@ const translate = useMemoize(
       return resolvedKey;
     }
 
-    const result = state.translations[language.value.code]?.[resolvedKey];
+    const result = state.translations[language.value]?.[resolvedKey];
 
     if (!result) {
       if (import.meta.env.DEV) {
@@ -84,20 +90,13 @@ const translate = useMemoize(
   },
   {
     getKey: (translatable) => {
-      return `${language.value.code}_${JSON.stringify(translatable)}`;
+      return `${language.value}_${JSON.stringify(translatable)}`;
     },
   },
 );
 
 const initializeLanguage = async (): Promise<void> => {
-  const preferredLanguages = usePreferredLanguages();
-  const supportedLanguage = [...AVAILABLE_LANGUAGES]
-    .sort((a, b) => preferredLanguages.value.indexOf(a.code) - preferredLanguages.value.indexOf(b.code))
-    .find((language) => preferredLanguages.value.includes(language.code));
-
-  language.value = supportedLanguage ?? AVAILABLE_LANGUAGES[0];
-
-  await setLanguage(language.value.code);
+  await setLanguage(language.value);
 
   state.initialized = true;
 };
@@ -113,7 +112,7 @@ const setLanguage = async (languageCode: string) => {
 
   state.translations[supportedLanguage.code] = await loadLanguage(supportedLanguage);
 
-  language.value = supportedLanguage;
+  language.value = supportedLanguage.code;
 
   state.loading = false;
 };
@@ -142,16 +141,18 @@ export const useLanguage = (): UseLanguage => {
 
       const resolvedKey = resolveTranslatable(translatable);
 
-      return !!state.translations[language.value.code]?.[resolvedKey];
+      return !!state.translations[language.value]?.[resolvedKey];
     },
 
     setLanguage,
 
-    language,
+    language: computed(() => {
+      return AVAILABLE_LANGUAGES.find((lang) => lang.code === language.value) ?? AVAILABLE_LANGUAGES[0];
+    }),
     loading: computed(() => state.loading),
     availableLanguages: AVAILABLE_LANGUAGES,
     strings: computed(() => {
-      const translations = state.translations[language.value.code] ?? {};
+      const translations = state.translations[language.value] ?? {};
 
       return Object.fromEntries(
         Object.entries(translations)
