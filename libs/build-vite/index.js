@@ -19,6 +19,7 @@ const createCommonViteConfig = (env) => {
         all: true,
         enabled: false,
         reporter: ['clover', 'text', ...(isProd ? [] : ['html'])],
+        include: ['src/**'],
       },
       environment: 'happy-dom',
       include: ['src/**/*.spec.ts'],
