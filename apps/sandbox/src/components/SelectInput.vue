@@ -48,7 +48,7 @@
             v-text="element.props.placeholder ? translate(element.props.placeholder) : ''" />
 
           <span class="mp-pb-3 mp-pt-5">
-            <span v-text="currentOption?.label ?? NBSP" />
+            <span v-text="currentOption?.label ? translate(currentOption.label) : NBSP" />
           </span>
         </span>
 
@@ -87,7 +87,7 @@
           role="option"
           @mouseup.stop="() => selectOption(option)"
           @mouseover.stop="cursor = index">
-          <span v-text="option.label" />
+          <span v-text="translate(option.label)" />
         </div>
       </div>
     </div>
@@ -136,7 +136,12 @@ const currentOption = computed<SelectOption | undefined>(() => {
 
 const filteredOptions = computed<SelectOption[]>(() => {
   return options.value.filter((option) => {
-    return !searchText.value || option.label?.toLowerCase().includes(searchText.value?.toLowerCase() ?? '');
+    return (
+      !searchText.value ||
+      translate(option.label)
+        ?.toLowerCase()
+        .includes(searchText.value?.toLowerCase() ?? '')
+    );
   });
 });
 
