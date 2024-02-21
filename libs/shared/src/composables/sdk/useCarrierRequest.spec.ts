@@ -1,5 +1,5 @@
+import {toValue} from 'vue';
 import {describe, expect, it} from 'vitest';
-import {get} from '@vueuse/core';
 import {type Carrier} from '@myparcel/sdk';
 import {CarrierName} from '@myparcel/constants';
 import {useCarrierRequest} from './useCarrierRequest';
@@ -11,7 +11,7 @@ describe('useCarrierRequest', () => {
 
     await query.load();
 
-    const carrier = get(query.data) as Carrier | undefined;
+    const carrier = toValue(query.data) as Carrier | undefined;
 
     expect(carrier).toBeInstanceOf(Object);
     expect(carrier?.name).toBe(carrierName);

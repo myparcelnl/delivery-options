@@ -1,5 +1,5 @@
+import {toValue} from 'vue';
 import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest';
-import {get} from '@vueuse/core';
 import {useRequestStorage} from './useRequestStorage';
 import {useRequest} from './useRequest';
 
@@ -27,8 +27,8 @@ describe('useRequest', () => {
   it('waits for async result', () => {
     const query = useTestQuery();
 
-    expect(get(query.data)).toBe(null);
-    expect(get(query.loading)).toBe(true);
+    expect(toValue(query.data)).toBe(null);
+    expect(toValue(query.loading)).toBe(true);
 
     expect(query.load()).toBeInstanceOf(Promise);
   });
@@ -39,13 +39,13 @@ describe('useRequest', () => {
 
     await vi.runAllTimersAsync();
 
-    expect(get(query.data)).toBe('tada');
-    expect(get(query.loading)).toBe(false);
+    expect(toValue(query.data)).toBe('tada');
+    expect(toValue(query.loading)).toBe(false);
     await expect(query.load()).resolves.toBe(undefined);
 
     // Ensure that the result is cached:
     const query2 = useTestQuery();
-    expect(get(query2.data)).toBe('tada');
+    expect(toValue(query2.data)).toBe('tada');
   });
 
   it('uses onSuccess callback', async () => {

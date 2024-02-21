@@ -1,7 +1,7 @@
-import {capitalize, computed, type MaybeRef, type ComputedRef} from 'vue';
+import {capitalize, computed, type MaybeRef, type ComputedRef, toValue} from 'vue';
 import {isString} from 'radash';
 import {addDays, isBefore, differenceInCalendarDays, startOfDay} from 'date-fns';
-import {type DateLike, get, normalizeDate, useMemoize} from '@vueuse/core';
+import {type DateLike, normalizeDate, useMemoize} from '@vueuse/core';
 import {stringToDate} from '../utils';
 import {useLanguage} from './useLanguage';
 
@@ -47,19 +47,19 @@ export const useDateFormat = (date: MaybeRef<DateLike>): FormattedDateInstance =
   const {locale} = useLanguage();
 
   const resolvedDate = computed(() => {
-    const resolvedDate = get(date);
+    const resolvedDate = toValue(date);
 
     return isString(resolvedDate) ? stringToDate(resolvedDate) : normalizeDate(resolvedDate);
   });
 
   const relative = computed(() => {
-    const format = createRelativeDateFormatter(get(locale));
+    const format = createRelativeDateFormatter(toValue(locale));
 
     return format(resolvedDate.value);
   });
 
   const weekday = computed(() => {
-    const format = createDateFormatter(get(locale), {weekday: FORMAT_LONG});
+    const format = createDateFormatter(toValue(locale), {weekday: FORMAT_LONG});
 
     if (isBefore(resolvedDate.value, addDays(Date.now(), 2))) {
       return capitalize(relative.value);
@@ -69,13 +69,13 @@ export const useDateFormat = (date: MaybeRef<DateLike>): FormattedDateInstance =
   });
 
   const day = computed(() => {
-    const format = createDateFormatter(get(locale), {day: FORMAT_NUMERIC});
+    const format = createDateFormatter(toValue(locale), {day: FORMAT_NUMERIC});
 
     return format(resolvedDate.value);
   });
 
   const time = computed(() => {
-    const format = createDateFormatter(get(locale), {
+    const format = createDateFormatter(toValue(locale), {
       hour: FORMAT_NUMERIC,
       minute: FORMAT_NUMERIC,
     });
@@ -84,7 +84,7 @@ export const useDateFormat = (date: MaybeRef<DateLike>): FormattedDateInstance =
   });
 
   const standard = computed(() => {
-    const format = createDateFormatter(get(locale), {
+    const format = createDateFormatter(toValue(locale), {
       weekday: FORMAT_LONG,
       day: FORMAT_NUMERIC,
       month: FORMAT_LONG,
@@ -94,7 +94,7 @@ export const useDateFormat = (date: MaybeRef<DateLike>): FormattedDateInstance =
   });
 
   const month = computed(() => {
-    const format = createDateFormatter(get(locale), {month: FORMAT_LONG});
+    const format = createDateFormatter(toValue(locale), {month: FORMAT_LONG});
 
     return format(resolvedDate.value);
   });

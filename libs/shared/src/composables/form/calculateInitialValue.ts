@@ -1,5 +1,4 @@
-import {type WritableComputedRef} from 'vue';
-import {get} from '@vueuse/core';
+import {type WritableComputedRef, toValue} from 'vue';
 import {type OneOrMore, toArray} from '@myparcel/ts-utils';
 import {type SelectInputModelValue, type SelectOption} from '../../types';
 
@@ -8,7 +7,7 @@ export const calculateInitialValue = <T extends OneOrMore<SelectInputModelValue>
   options: SelectOption<T>[],
 ): T | null => {
   const allowedValues = options.map((option) => option.value);
-  const currentValue = get(model);
+  const currentValue = toValue(model);
 
   const disabled = options.filter((option) => option.disabled);
 

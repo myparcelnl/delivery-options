@@ -1,5 +1,4 @@
-import {computed, type ComputedRef, onMounted, watch, type WritableComputedRef} from 'vue';
-import {get} from '@vueuse/core';
+import {computed, type ComputedRef, onMounted, watch, type WritableComputedRef, toValue} from 'vue';
 import {
   type InputProps,
   type OptionsProps,
@@ -39,7 +38,7 @@ export const useInputWithOptionsContext = <Type extends SelectInputModelValue>(
 
         model.value = value;
       },
-      {immediate: Number(get(options)?.length) > 0},
+      {immediate: Number(toValue(options)?.length) > 0},
     );
   });
 

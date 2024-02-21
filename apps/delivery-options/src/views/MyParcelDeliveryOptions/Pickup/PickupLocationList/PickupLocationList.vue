@@ -3,8 +3,7 @@
 </template>
 
 <script lang="ts" setup>
-import {computed} from 'vue';
-import {get} from '@vueuse/core';
+import {computed, toValue} from 'vue';
 import {PickupLocationsView, type SelectOption} from '@myparcel-do/shared';
 import {createField} from '@myparcel/vue-form-builder';
 import {FIELD_PICKUP_LOCATION} from '../../../../data';
@@ -16,7 +15,7 @@ const pickupLocations = useResolvedPickupLocations();
 const {locationCode} = useSelectedPickupLocation();
 
 const options = computed<SelectOption[]>(() => {
-  return (get(pickupLocations.value) ?? []).map((option) => ({
+  return (toValue(pickupLocations.value) ?? []).map((option) => ({
     label: option.locationName,
     carrier: option.carrier,
     value: option.locationCode,

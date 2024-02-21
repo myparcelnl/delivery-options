@@ -11,8 +11,7 @@
 </template>
 
 <script lang="ts" setup>
-import {computed} from 'vue';
-import {get} from '@vueuse/core';
+import {computed, toValue} from 'vue';
 import {
   CarrierBox,
   type FullCarrier,
@@ -31,7 +30,7 @@ const availableCarriers = useAvailableCarriers();
 
 const carrierSections = computed<(FullCarrier & {sections: SettingsSection[]})[]>(() => {
   return (
-    get(availableCarriers)?.map(({carrier}) => ({
+    toValue(availableCarriers)?.map(({carrier}) => ({
       ...carrier.value,
       sections: getConfigSandboxSections(`${KEY_CARRIER_SETTINGS}.${carrier.value.name}`),
     })) ?? []

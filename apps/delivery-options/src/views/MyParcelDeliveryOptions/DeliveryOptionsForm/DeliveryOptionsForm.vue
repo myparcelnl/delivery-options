@@ -33,8 +33,7 @@
 </template>
 
 <script lang="ts" setup>
-import {computed, ref} from 'vue';
-import {get} from '@vueuse/core';
+import {computed, ref, toValue} from 'vue';
 import {DELIVERY_TITLE, PICKUP_TITLE, RadioInput, type SelectOption, PACKAGE_TYPE_DEFAULT} from '@myparcel-do/shared';
 import {createField} from '@myparcel/vue-form-builder';
 import PickupLocations from '../Pickup/PickupLocations.vue';
@@ -62,16 +61,19 @@ const HomeOrPickup = createField({
   props: {
     options: computed(() => {
       const options: SelectOption[] = [];
-      const resolvedCarriers = get(carriers) ?? [];
+      const resolvedCarriers = toValue(carriers) ?? [];
 
-      if (resolvedCarriers.some((carrier) => get(carrier.hasAnyDelivery))) {
+      if (resolvedCarriers.some((carrier) => toValue(carrier.hasAnyDelivery))) {
         options.push({
           label: DELIVERY_TITLE,
           value: HOME_OR_PICKUP_HOME,
         });
       }
 
-      if (PACKAGE_TYPE_DEFAULT === config.packageType && resolvedCarriers.some((carrier) => get(carrier.hasPickup))) {
+      if (
+        PACKAGE_TYPE_DEFAULT === config.packageType &&
+        resolvedCarriers.some((carrier) => toValue(carrier.hasPickup))
+      ) {
         options.push({
           label: PICKUP_TITLE,
           value: HOME_OR_PICKUP_PICKUP,
@@ -85,7 +87,7 @@ const HomeOrPickup = createField({
 });
 
 const currentComponent = computed(() => {
-  const current = get(HomeOrPickup.ref);
+  const current = toValue(HomeOrPickup.ref);
 
   return current === HOME_OR_PICKUP_PICKUP ? PickupLocations : HomeDelivery;
 });

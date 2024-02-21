@@ -1,5 +1,4 @@
-import {type MaybeRef} from 'vue';
-import {get} from '@vueuse/core';
+import {type MaybeRef, toValue} from 'vue';
 import {type EndpointResponse, type GetCarrier} from '@myparcel/sdk';
 import {type CarrierName} from '@myparcel/constants';
 import {useSdk} from '../useSdk';
@@ -10,9 +9,9 @@ import {useRequest} from './useRequest';
 export const useCarrierRequest = (
   carrier: MaybeRef<CarrierName>,
 ): RequestHandler<EndpointResponse<GetCarrier>[number]> => {
-  return useRequest([REQUEST_KEY_CARRIERS, get(carrier)], async () => {
+  return useRequest([REQUEST_KEY_CARRIERS, toValue(carrier)], async () => {
     const sdk = useSdk();
 
-    return (await sdk.getCarrier({path: {carrier: get(carrier)}}))?.[0];
+    return (await sdk.getCarrier({path: {carrier: toValue(carrier)}}))?.[0];
   });
 };

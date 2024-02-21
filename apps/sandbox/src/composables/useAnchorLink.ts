@@ -1,6 +1,5 @@
-import {type MaybeRef, onUnmounted, type Ref, ref} from 'vue';
+import {type MaybeRef, onUnmounted, type Ref, ref, toValue} from 'vue';
 import {snake} from 'radash';
-import {get} from '@vueuse/core';
 
 const links = ref(new Map<string, string>());
 
@@ -11,19 +10,19 @@ interface UseAnchorLink {
 }
 
 export const useAnchorLink = (): UseAnchorLink => {
-  const toAnchor = (key: Ref<string> | string): string => snake(get(key));
+  const toAnchor = (key: Ref<string> | string): string => snake(toValue(key));
 
   const register = (key: MaybeRef<string>, label?: string): string => {
     const anchor = toAnchor(key);
 
-    links.value.set(anchor, get(label) ?? get(key));
+    links.value.set(anchor, toValue(label) ?? toValue(key));
 
     onUnmounted(() => {
-      if (!links.value.has(get(key))) {
+      if (!links.value.has(toValue(key))) {
         return;
       }
 
-      links.value.delete(get(key));
+      links.value.delete(toValue(key));
     });
 
     return anchor;

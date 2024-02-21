@@ -1,4 +1,4 @@
-import {get} from '@vueuse/core';
+import {toValue} from 'vue';
 import {
   type CheckboxGroupEmits,
   type CheckboxGroupModelValue,
@@ -21,7 +21,7 @@ export const useCheckboxGroupContext = <T extends CheckboxGroupModelValue = Chec
 
   const createUpdateHandler = (option: SelectOption<T>) => {
     return (toggle: boolean) => {
-      const newModel = [...get(context.model)];
+      const newModel = [...toValue(context.model)];
 
       if (toggle) {
         // @ts-expect-error todo

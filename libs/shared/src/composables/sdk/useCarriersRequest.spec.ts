@@ -1,5 +1,5 @@
+import {toValue} from 'vue';
 import {describe, expect, it} from 'vitest';
-import {get} from '@vueuse/core';
 import {type Carrier} from '@myparcel/sdk';
 import {REQUEST_KEY_CARRIERS} from '../../data';
 import {fakeCarriersResponse} from '../../__tests__';
@@ -14,7 +14,7 @@ describe('useCarriersRequest', () => {
 
     const query = useCarriersRequest();
     await query.load();
-    const result = get(query.data);
+    const result = toValue(query.data);
 
     expect(result).toHaveLength(amountOfCarriers);
 
@@ -33,7 +33,7 @@ describe('useCarriersRequest', () => {
     const query = useCarriersRequest();
     await query.load();
 
-    const carriers = get(query.data) as Carrier[];
+    const carriers = toValue(query.data) as Carrier[];
 
     const requestClient = useRequestStorage();
 

@@ -15,8 +15,8 @@
 
 <script lang="ts" setup>
 import '../../assets/index.scss';
-import {computed, onMounted, ref, toRefs, watch} from 'vue';
-import {get, useEventListener} from '@vueuse/core';
+import {computed, onMounted, ref, toRefs, watch, toValue} from 'vue';
+import {useEventListener} from '@vueuse/core';
 import {useLogger, useApiExceptions} from '@myparcel-do/shared';
 import {getConfigFromWindow} from '../../utils';
 import {type DeliveryOptionsEmits, type DeliveryOptionsProps} from '../../types';
@@ -69,7 +69,7 @@ onMounted(() => {
 watch(
   propRefs.configuration,
   (value) => {
-    const resolvedValue = get(value);
+    const resolvedValue = toValue(value);
 
     if (!resolvedValue) {
       return;

@@ -17,8 +17,7 @@
 </template>
 
 <script lang="ts" setup>
-import {computed, markRaw, onUnmounted, reactive, ref, toRefs, watch} from 'vue';
-import {get} from '@vueuse/core';
+import {computed, markRaw, onUnmounted, reactive, ref, toRefs, watch, toValue} from 'vue';
 import {
   DROP_OFF_CUTOFF_TIME,
   DROP_OFF_SAME_DAY_CUTOFF_TIME,
@@ -81,8 +80,8 @@ const weekdayOptions = computed<SelectOption[]>(() =>
 const nestedComponents = weekdays.value.map((weekday, index) => {
   const common = {
     component: markRaw(FormTimeInput),
-    visibleWhen: () => get(days).includes(String(index)),
-    disabledWhen: () => !get(days).includes(String(index)),
+    visibleWhen: () => toValue(days).includes(String(index)),
+    disabledWhen: () => !toValue(days).includes(String(index)),
   } satisfies Partial<InteractiveElementConfiguration>;
 
   return [

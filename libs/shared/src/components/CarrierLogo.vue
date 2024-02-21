@@ -18,8 +18,7 @@
 </template>
 
 <script lang="ts" setup>
-import {computed, onUnmounted, reactive, ref, toRefs, watch} from 'vue';
-import {get} from '@vueuse/core';
+import {computed, onUnmounted, reactive, ref, toRefs, watch, toValue} from 'vue';
 import {type CarrierName} from '@myparcel/constants';
 import {createAssetUrl} from '../utils';
 import {useCarrierRequest} from '../composables';
@@ -37,8 +36,8 @@ const request = computed(() => reactive(useCarrierRequest(propRefs.carrier.value
 const unwatch = watch(
   request,
   (request) => {
-    data.value = get(request.data);
-    src.value = createAssetUrl(get(data).meta.logo_svg);
+    data.value = toValue(request.data);
+    src.value = createAssetUrl(toValue(data).meta.logo_svg);
   },
   {deep: true, immediate: true},
 );

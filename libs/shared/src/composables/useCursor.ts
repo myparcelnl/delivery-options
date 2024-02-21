@@ -1,5 +1,4 @@
-import {type MaybeRef, type Ref, ref} from 'vue';
-import {get} from '@vueuse/core';
+import {type MaybeRef, type Ref, ref, toValue} from 'vue';
 
 interface UseCursorOptions {
   items: MaybeRef<unknown[]>;
@@ -23,15 +22,15 @@ export const useCursor = ({items, onChange}: UseCursorOptions): UseCursor => {
 
   const previous = () => {
     if (cursor.value === CURSOR_NONE) {
-      cursor.value = get(items).length;
+      cursor.value = toValue(items).length;
     }
 
-    cursor.value = (cursor.value - 1 + get(items).length) % get(items).length;
+    cursor.value = (cursor.value - 1 + toValue(items).length) % toValue(items).length;
     onChange?.(cursor.value);
   };
 
   const next = () => {
-    cursor.value = (cursor.value + 1) % get(items).length;
+    cursor.value = (cursor.value + 1) % toValue(items).length;
     onChange?.(cursor.value);
   };
 
