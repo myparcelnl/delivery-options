@@ -3,7 +3,8 @@
 // eslint-disable-next-line id-length
 import L from 'leaflet';
 import {useMemoize} from '@vueuse/core';
-import {createAssetUrl, type FullCarrier} from '@myparcel-do/shared';
+import {createAssetUrl} from '@myparcel-do/shared';
+import {type Carrier} from '@myparcel/sdk';
 
 const CARRIER_MARKER_TEMPLATE = `
   <div class="mp-relative mp-w-12">
@@ -20,11 +21,11 @@ const CARRIER_MARKER_TEMPLATE = `
   </div>`;
 
 export const createCarrierMarkerIcon = useMemoize(
-  (carrier: FullCarrier): string => {
+  (carrier: Carrier): string => {
     return L.Util.template(CARRIER_MARKER_TEMPLATE, {
       iconAlt: carrier.human,
       iconUrl: createAssetUrl(carrier.meta.logo_svg),
     });
   },
-  {getKey: (carrier: FullCarrier) => carrier.name},
+  {getKey: (carrier: Carrier) => carrier.name},
 );

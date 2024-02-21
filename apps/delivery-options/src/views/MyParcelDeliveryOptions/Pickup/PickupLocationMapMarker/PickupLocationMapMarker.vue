@@ -9,10 +9,11 @@
 import {computed, toRefs} from 'vue';
 import {type MarkerOptions} from 'leaflet';
 import {isDef} from '@vueuse/core';
+import {useCarrierRequest, resolveCarrierName} from '@myparcel-do/shared';
 import {createCarrierMarkerIcon} from '../../../../utils';
 import {useDeliveryOptionsForm} from '../../../../form';
 import {FIELD_PICKUP_LOCATION, MAP_MARKER_CLASS_PREFIX} from '../../../../data';
-import {usePickupLocation, useResolvedCarrier} from '../../../../composables';
+import {usePickupLocation} from '../../../../composables';
 import {LeafletMarker} from '../../../../components';
 
 const props = defineProps<{locationCode: string; active: boolean}>();
@@ -33,20 +34,22 @@ const center = computed(() => {
 
 const carrierIdentifier = computed(() => pickupLocation.value.carrier);
 
-const resolvedCarrier = useResolvedCarrier(carrierIdentifier);
+const carrier = useCarrierRequest(carrierIdentifier);
 
 const options = computed<MarkerOptions>(() => {
-  if (!isDef(pickupLocation.value) || !isDef(resolvedCarrier.value)) {
+  if (carrier.loading.value || !isDef(pickupLocation.value)) {
     return {};
   }
+
+  const carrierName = resolveCarrierName(carrierIdentifier.value);
 
   return {
     title: pickupLocation.value.locationName,
     icon: L.divIcon({
       // eslint-disable-next-line no-magic-numbers,@typescript-eslint/no-magic-numbers
       iconAnchor: [24, 58],
-      className: `${MAP_MARKER_CLASS_PREFIX} ${MAP_MARKER_CLASS_PREFIX}--${resolvedCarrier.value?.name}`,
-      html: resolvedCarrier.loading.value ? '' : createCarrierMarkerIcon(resolvedCarrier.value),
+      className: `${MAP_MARKER_CLASS_PREFIX} ${MAP_MARKER_CLASS_PREFIX}--${carrierName}`,
+      html: createCarrierMarkerIcon(carrier.data.value),
     }),
   };
 });
