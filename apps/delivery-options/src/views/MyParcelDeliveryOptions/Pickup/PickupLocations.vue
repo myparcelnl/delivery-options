@@ -19,7 +19,7 @@
 </template>
 
 <script lang="ts" setup>
-import {computed, ref, watch} from 'vue';
+import {computed, ref, watch, onUnmounted} from 'vue';
 import {PickupLocationsView} from '@myparcel-do/shared';
 import {useConfigStore} from '../../../stores';
 import {useDeliveryOptionsForm} from '../../../form';
@@ -44,27 +44,19 @@ const currentComponent = computed(() =>
 
 const immediate = locations.value.length > 0;
 
-const selectInitialPickupLocation = (value) => {
-  if (!value.length) {
-    return;
-  }
+onUnmounted(
+  watch(
+    locations,
+    (value) => {
+      if (!value.length) {
+        return;
+      }
 
-  const [firstLocation] = locations.value;
+      const [firstLocation] = value;
 
-  if (form.instance.values[FIELD_PICKUP_LOCATION]) {
-    if (!immediate) {
-      unwatch();
-    }
-
-    return;
-  }
-
-  form.instance.setValue(FIELD_PICKUP_LOCATION, firstLocation.locationCode);
-
-  if (!immediate) {
-    unwatch();
-  }
-};
-
-const unwatch = watch(locations, selectInitialPickupLocation, {immediate});
+      form.instance.setValue(FIELD_PICKUP_LOCATION, firstLocation.locationCode);
+    },
+    {immediate, deep: true},
+  ),
+);
 </script>

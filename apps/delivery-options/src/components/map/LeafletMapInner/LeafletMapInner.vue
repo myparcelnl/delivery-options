@@ -10,8 +10,8 @@
 /* eslint-disable new-cap */
 import {computed, onActivated, onMounted, onUnmounted, provide, ref, toRefs, watch} from 'vue';
 import {isString} from 'radash';
-import {type Control, type Map, type Marker, type TileLayer} from 'leaflet';
-import {isDef, useDebounceFn, useScriptTag, useStyleTag} from '@vueuse/core';
+import {type Control, type Map, type Marker, type TileLayer, type LatLng} from 'leaflet';
+import {isDef, useScriptTag, useStyleTag, useDebounceFn} from '@vueuse/core';
 import {type MapTileLayerData} from '@myparcel-do/shared';
 import {type LeafletMapProps} from '../../../types';
 import {useConfigStore} from '../../../stores';
@@ -53,12 +53,18 @@ const tileLayerData = computed<MapTileLayerData>(() => {
   return config.pickupLocationsMapTileLayerData;
 });
 
+const getActiveMarkerLatLng = (): undefined | LatLng => {
+  const activeMarker = markers.value.find((marker) => marker.getElement()?.classList.contains(MAP_MARKER_CLASS_ACTIVE));
+
+  return activeMarker?.getLatLng();
+};
+
 const fitBounds = useDebounceFn(() => {
   const group = new L.featureGroup(markers.value as Marker[]);
 
+  map.value?.setView(getActiveMarkerLatLng() ?? props.center, props.zoom);
   map.value?.fitBounds(group.getBounds());
-  map.value?.off('layeradd', fitBounds);
-}, 100);
+}, 50);
 
 onMounted(() => {
   if (!isDef(container.value)) {
@@ -82,6 +88,7 @@ onMounted(() => {
   scale.value?.addTo(map.value);
 
   map.value.on('layeradd', fitBounds);
+  map.value.on('layerremove', fitBounds);
 });
 
 onUnmounted(() => {
@@ -90,12 +97,7 @@ onUnmounted(() => {
 
 onUnmounted(watch(propRefs.zoom, () => map.value?.setZoom(propRefs.zoom.value)));
 
-// Center active marker on activation of the component.
 onActivated(() => {
-  const activeMarker = markers.value.find((marker) => marker.getElement()?.classList.contains(MAP_MARKER_CLASS_ACTIVE));
-
-  if (isDef(activeMarker)) {
-    map.value?.panTo(activeMarker.getLatLng());
-  }
+  map.value?.panTo(getActiveMarkerLatLng() ?? propRefs.center.value);
 });
 </script>

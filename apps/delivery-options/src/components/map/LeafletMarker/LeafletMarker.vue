@@ -52,7 +52,7 @@ const addMarker = (): void => {
   if (isDef(marker.value)) {
     marker.value.options = options.value;
   } else {
-    marker.value = L.marker(center.value, options.value);
+    marker.value = L.marker(center.value, options.value) as Marker;
 
     if (!isDef(marker.value)) {
       return;
@@ -83,5 +83,7 @@ onUnmounted(() => {
   }
 
   map?.value?.removeLayer(marker.value);
+  // eslint-disable-next-line no-underscore-dangle
+  markers.value = markers.value.filter((item) => item._leaflet_id !== marker.value?._leaflet_id);
 });
 </script>

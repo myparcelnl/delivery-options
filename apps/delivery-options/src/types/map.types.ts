@@ -10,6 +10,9 @@ export interface LeafletMapProps {
 }
 
 export interface Marker extends Omit<L.Marker, 'on'> {
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  _leaflet_id: number;
+
   on(event: ElementEvent.Keydown, callback: (event: LeafletKeyboardEvent) => void): void;
   on(event: ElementEvent.Click, callback: (event: LeafletMouseEvent) => void): void;
 

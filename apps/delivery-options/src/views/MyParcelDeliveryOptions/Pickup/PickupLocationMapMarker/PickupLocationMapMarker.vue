@@ -32,23 +32,21 @@ const center = computed(() => {
   return [Number(latitude), Number(longitude)];
 });
 
-const carrierIdentifier = computed(() => pickupLocation.value.carrier);
+const carrierName = computed(() => resolveCarrierName(pickupLocation.value.carrier));
 
-const carrier = useCarrierRequest(carrierIdentifier);
+const carrier = useCarrierRequest(carrierName);
 
 const options = computed<MarkerOptions>(() => {
-  if (carrier.loading.value || !isDef(pickupLocation.value)) {
+  if (carrier.loading.value || !carrier.data.value || !pickupLocation.value) {
     return {};
   }
-
-  const carrierName = resolveCarrierName(carrierIdentifier.value);
 
   return {
     title: pickupLocation.value.locationName,
     icon: L.divIcon({
       // eslint-disable-next-line no-magic-numbers,@typescript-eslint/no-magic-numbers
       iconAnchor: [24, 58],
-      className: `${MAP_MARKER_CLASS_PREFIX} ${MAP_MARKER_CLASS_PREFIX}--${carrierName}`,
+      className: `${MAP_MARKER_CLASS_PREFIX} ${MAP_MARKER_CLASS_PREFIX}--${carrierName.value}`,
       html: createCarrierMarkerIcon(carrier.data.value),
     }),
   };
