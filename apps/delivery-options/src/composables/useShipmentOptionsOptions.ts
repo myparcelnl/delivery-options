@@ -10,7 +10,6 @@ import {getConfigPriceKey, getResolvedValue} from '../utils';
 import {useSelectedDeliveryMoment} from './useSelectedDeliveryMoment';
 import {useResolvedDeliveryOptions} from './useResolvedDeliveryOptions';
 import {useResolvedCarrier} from './useResolvedCarrier';
-import {useLanguage} from './useLanguage';
 import {useFeatures} from './useFeatures';
 
 const TRANSLATION_MAP = Object.freeze({
@@ -23,7 +22,6 @@ export const useShipmentOptionsOptions = (): ComputedRef<SelectOption[]> => {
 
   const deliveryOptions = useResolvedDeliveryOptions();
   const deliveryMoment = useSelectedDeliveryMoment();
-  const {translate} = useLanguage();
 
   return computed(() => {
     const hasNoDeliveryOptions = deliveryOptions.loading.value || !deliveryOptions.value.length;
@@ -48,7 +46,7 @@ export const useShipmentOptionsOptions = (): ComputedRef<SelectOption[]> => {
         const priceKey = getConfigPriceKey(name);
 
         return {
-          label: translate(TRANSLATION_MAP[name]),
+          label: TRANSLATION_MAP[name],
           value: name,
           disabled: hasOnlyOneOption,
           selected: hasOnlyOneOption ? match?.schema.enum[0] : false,

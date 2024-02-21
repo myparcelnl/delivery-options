@@ -4,8 +4,12 @@ import {CustomDeliveryType, DAY_MONDAY, DAY_SATURDAY, type SupportedDeliveryType
 import {DeliveryTypeName} from '@myparcel/constants';
 
 export const getResolvedDeliveryType = useMemoize(
-  (date: string, deliveryType: DeliveryTypeName): SupportedDeliveryTypeName => {
+  (date: string | undefined, deliveryType: DeliveryTypeName): SupportedDeliveryTypeName => {
     if (deliveryType !== DeliveryTypeName.Standard) {
+      return deliveryType;
+    }
+
+    if (!date) {
       return deliveryType;
     }
 

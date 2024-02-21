@@ -88,17 +88,16 @@ const next = () => {
 };
 
 watch(
-  [dates, model],
-  ([dates, value]) => {
-    if (!dates?.length) {
-      return;
-    }
+  dates,
+  (dates) => {
+    model.value = dates[0]?.date;
+  },
+  {immediate: dates.value.length > 0},
+);
 
-    if (!value) {
-      model.value = dates[0]?.date;
-      return;
-    }
-
+watch(
+  model,
+  (value) => {
     form?.instance.setValue(FIELD_DELIVERY_DATE, value);
   },
   {immediate: dates.value.length > 0},

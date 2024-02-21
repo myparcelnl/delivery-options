@@ -14,7 +14,7 @@ export const useResolvedDeliveryDates = useMemoize((): ComputedRef<ResolvedDeliv
     }
 
     return deliveryOptions.value.reduce((acc, option) => {
-      if (!acc.some((item) => item.date === option.date)) {
+      if (option.date && !acc.some((item) => item.date === option.date)) {
         acc.push(option as ResolvedDeliveryOptions);
       }
 

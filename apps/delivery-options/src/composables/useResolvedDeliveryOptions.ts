@@ -1,6 +1,5 @@
 /* eslint-disable max-nested-callbacks */
 import {toValue, computed} from 'vue';
-import {addDays} from 'date-fns';
 import {useMemoize} from '@vueuse/core';
 import {
   useDeliveryOptionsRequest,
@@ -8,7 +7,6 @@ import {
   addLoadingProperty,
   PACKAGE_TYPE_DEFAULT,
   DELIVERY_TYPE_DEFAULT,
-  createTimestamp,
   type AnyTranslatable,
 } from '@myparcel-do/shared';
 import {type Replace} from '@myparcel/ts-utils';
@@ -28,12 +26,9 @@ const createFakeDeliveryDates = (): Replace<
   'possibilities',
   Replace<DeliveryPossibility, 'delivery_time_frames', DeliveryTimeFrame[]>[]
 >[] => {
-  const date = new Date();
-  const tomorrow = addDays(date, 1);
-
   return [
     {
-      date: createTimestamp(tomorrow),
+      date: null,
       possibilities: [
         {
           type: DELIVERY_TYPE_DEFAULT,
@@ -64,7 +59,9 @@ export const useResolvedDeliveryOptions = useMemoize(() => {
 
           await query.load();
 
-          return {carrier, dates: toValue(query.data) ?? []};
+          const dates = toValue(query.data);
+
+          return {carrier, dates: dates?.length ? dates : createFakeDeliveryDates()};
         }),
     );
 
@@ -80,9 +77,9 @@ export const useResolvedDeliveryOptions = useMemoize(() => {
 
           acc.push({
             carrier: carrier.identifier,
-            date: dateOption.date.date,
+            date: dateOption.date?.date,
             time: timeString,
-            deliveryType: getResolvedDeliveryType(dateOption.date.date, datePossibility.type),
+            deliveryType: getResolvedDeliveryType(dateOption.date?.date, datePossibility.type),
             packageType: datePossibility.package_type,
             shipmentOptions: datePossibility.shipment_options,
           });

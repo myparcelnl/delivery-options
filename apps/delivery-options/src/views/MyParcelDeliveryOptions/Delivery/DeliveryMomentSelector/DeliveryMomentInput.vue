@@ -59,6 +59,6 @@ watch(
     const [first] = toValue(options);
     model.value = first.value;
   },
-  {immediate: options.value.length > 0},
+  {immediate: options.value.length > 0, deep: true},
 );
 </script>
