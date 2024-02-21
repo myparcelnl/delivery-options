@@ -1,8 +1,7 @@
 import {computed, type ComputedRef, reactive} from 'vue';
 import {get} from 'radash';
 import {useMemoize, isDef} from '@vueuse/core';
-import {useLogger, type AnyTranslatable} from '@myparcel-do/shared';
-import {isTranslatable, resolveTranslatable} from '../utils';
+import {useLogger, type AnyTranslatable, resolveTranslatable, isTranslatable} from '@myparcel-do/shared';
 import {useConfigStore} from '../stores';
 
 interface UseLanguage {

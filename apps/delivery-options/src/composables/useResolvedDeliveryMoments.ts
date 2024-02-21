@@ -1,5 +1,5 @@
 import {computed, type ComputedRef} from 'vue';
-import {resolveTranslatable} from '../utils';
+import {resolveTranslatable} from '@myparcel-do/shared';
 import {type ResolvedDeliveryOptions} from '../types';
 import {useSelectedDeliveryDate} from './useSelectedDeliveryDate';
 import {useResolvedDeliveryOptions} from './useResolvedDeliveryOptions';

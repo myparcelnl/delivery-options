@@ -7,7 +7,6 @@ export interface Untranslatable extends BaseTranslatable {
 }
 
 export interface Translatable extends BaseTranslatable {
-  params?: Record<string, string>;
   plain?: false;
 }
 

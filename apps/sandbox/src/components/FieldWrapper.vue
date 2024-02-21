@@ -7,7 +7,7 @@
         :for="id"
         class="mp-items-center mp-overflow-x-scroll mp-whitespace-nowrap">
         <slot name="label">
-          {{ element.label }}
+          {{ translate(element.label) }}
         </slot>
       </label>
 

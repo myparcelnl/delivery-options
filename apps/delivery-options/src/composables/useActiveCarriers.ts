@@ -50,5 +50,5 @@ export const useActiveCarriers = useMemoize((): ComputedAsync<ResolvedCarrier[]>
     );
 
     return resolvedCarriers.filter((carrier) => toValue(carrier.hasAnyDelivery) || toValue(carrier.hasPickup));
-  });
+  }, []);
 });

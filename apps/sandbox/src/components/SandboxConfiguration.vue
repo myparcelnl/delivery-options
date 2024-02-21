@@ -38,12 +38,8 @@ const nameRef = toRef(platform, 'name');
 const forms = reactive({});
 
 const renderForPlatform = (platform: SupportedPlatformName): CreatedForm => {
-  const {translate} = useLanguage();
-
   return markRaw(
     createForm(`configuration.${platform}`, {
-      renderLabel: translate,
-
       form: {
         attributes: {
           class: 'mp-grid mp-gap-4 mp-mb-4',

@@ -9,6 +9,7 @@
 <script lang="ts" setup>
 import {KEY_CONFIG, CarrierSetting} from '@myparcel-do/shared';
 import {PackageTypeName} from '@myparcel/constants';
+import {createOptionTranslatable, createPackageTypeTranslatable} from '../utils';
 import {formField, formSection} from '../form';
 import {useLanguage} from '../composables';
 import {SandboxSettingsSection, FormRadioGroupInput} from './form';
@@ -22,12 +23,12 @@ const section = formSection({
     formField({
       key: KEY_CONFIG,
       name: CarrierSetting.PackageType,
-      label: `option_${CarrierSetting.PackageType}`,
+      label: createOptionTranslatable(CarrierSetting.PackageType),
       component: FormRadioGroupInput,
       wrapper: false,
       props: {
         options: [PackageTypeName.Package, PackageTypeName.Mailbox, PackageTypeName.DigitalStamp].map((value) => ({
-          label: translate(`package_type_${value}`),
+          label: createPackageTypeTranslatable(value),
           value,
         })),
       },

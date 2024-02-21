@@ -1,7 +1,12 @@
 import {computed, reactive, type Ref, ref} from 'vue';
 import {camel} from 'radash';
 import {useLocalStorage, useMemoize, usePreferredLanguages} from '@vueuse/core';
-import {type DeliveryOptionsStrings} from '@myparcel-do/shared';
+import {
+  type DeliveryOptionsStrings,
+  resolveTranslatable,
+  type AnyTranslatable,
+  isTranslatable,
+} from '@myparcel-do/shared';
 import {type LanguageDefinition} from '../types';
 import {AVAILABLE_LANGUAGES} from '../constants';
 
@@ -13,13 +18,13 @@ interface UseLanguage {
   loading: Ref<boolean>;
   strings: Ref<DeliveryOptionsStrings>;
 
-  has(key: string): boolean;
+  has(translatable: AnyTranslatable): boolean;
 
   load(): Promise<void>;
 
   setLanguage(languageCode: string): Promise<void>;
 
-  translate(key: string): string;
+  translate(translatable: AnyTranslatable): string;
 }
 
 const language = useLocalStorage('language', ref<LanguageDefinition>(), {
@@ -49,16 +54,22 @@ const loadLanguage = useMemoize(async (language: LanguageDefinition): Promise<Tr
 });
 
 const translate = useMemoize(
-  (key: string): string => {
-    const result = state.translations[language.value.code]?.[key];
+  (translatable: AnyTranslatable): string => {
+    const resolvedKey = resolveTranslatable(translatable);
+
+    if (!isTranslatable(translatable)) {
+      return resolvedKey;
+    }
+
+    const result = state.translations[language.value.code]?.[resolvedKey];
 
     if (!result) {
       if (import.meta.env.DEV) {
         // eslint-disable-next-line no-console
-        console.error('Missing translation:', key);
+        console.error('Missing translation:', resolvedKey);
       }
 
-      return key;
+      return resolvedKey;
     }
 
     const matches = result.match(/@:([^" ]+)/g);
@@ -72,8 +83,8 @@ const translate = useMemoize(
     return result;
   },
   {
-    getKey: (key) => {
-      return `${language.value.code}_${key}`;
+    getKey: (translatable) => {
+      return `${language.value.code}_${JSON.stringify(translatable)}`;
     },
   },
 );
@@ -124,8 +135,14 @@ export const useLanguage = (): UseLanguage => {
     load,
     translate,
 
-    has(key: string): boolean {
-      return !!state.translations[language.value.code]?.[key];
+    has(translatable: undefined | AnyTranslatable): boolean {
+      if (!translatable) {
+        return false;
+      }
+
+      const resolvedKey = resolveTranslatable(translatable);
+
+      return !!state.translations[language.value.code]?.[resolvedKey];
     },
 
     setLanguage,

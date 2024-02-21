@@ -1,4 +1,4 @@
-import {type Untranslatable} from '@myparcel-do/shared';
+import {type Untranslatable} from '../../types';
 import {createTranslatable} from './createTranslatable';
 
 export const createUntranslatable = (string: string): Untranslatable => ({

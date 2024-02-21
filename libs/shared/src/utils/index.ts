@@ -16,6 +16,7 @@ export * from './getPlatformConfig';
 export * from './getShipmentOptionConfigMap';
 export * from './isCustomEvent';
 export * from './isPastTime';
+export * from './language';
 export * from './resolveCarrierName';
 export * from './resolveConfigOption';
 export * from './splitCarrierIdentifier';

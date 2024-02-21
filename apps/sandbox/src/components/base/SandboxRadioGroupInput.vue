@@ -11,7 +11,7 @@
           :value="option.value"
           type="radio" />
 
-        <span v-text="option.label" />
+        <span v-text="translate(option.label)" />
       </label>
     </li>
   </ul>
@@ -20,10 +20,13 @@
 <script generic="T extends RadioGroupModelValue" lang="ts" setup>
 import {useVModel} from '@vueuse/core';
 import {type RadioGroupEmits, type RadioGroupModelValue, type RadioGroupProps, RadioInput} from '@myparcel-do/shared';
+import {useLanguage} from '../../composables';
 
 // eslint-disable-next-line vue/no-unused-properties
 const props = defineProps<RadioGroupProps<T>>();
 const emit = defineEmits<RadioGroupEmits<T>>();
 
 const model = useVModel(props, undefined, emit);
+
+const {translate} = useLanguage();
 </script>

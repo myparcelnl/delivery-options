@@ -30,7 +30,7 @@ const Platform = createField<PlatformName>({
   props: {
     options: SUPPORTED_PLATFORMS.map((platform) => ({
       value: platform,
-      label: translate(`platform_${platform}`),
+      label: `platform_${platform}`,
     })) satisfies SelectOption[],
   },
 });

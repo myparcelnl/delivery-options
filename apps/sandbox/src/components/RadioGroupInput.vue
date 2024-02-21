@@ -10,7 +10,7 @@
         type="radio"
         v-bind="elementProps" />
 
-      <span v-text="option.label" />
+      <span v-text="translate(option.label)" />
     </label>
   </div>
 </template>
@@ -24,10 +24,13 @@ import {
   useRadioGroupContext,
   type WithElement,
 } from '@myparcel-do/shared';
+import {useLanguage} from '../composables';
 
 // eslint-disable-next-line vue/no-unused-properties
 const props = defineProps<WithElement<RadioGroupProps<T>>>();
 const emit = defineEmits<RadioGroupEmits<T>>();
 
 const {id, model, options, elementProps} = useRadioGroupContext(props, emit);
+
+const {translate} = useLanguage();
 </script>

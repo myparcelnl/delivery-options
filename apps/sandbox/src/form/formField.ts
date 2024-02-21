@@ -1,5 +1,5 @@
 import {markRaw, type Ref, ref} from 'vue';
-import {getDefaultValueForType} from '@myparcel-do/shared';
+import {getDefaultValueForType, type AnyTranslatable} from '@myparcel-do/shared';
 import {
   type ComponentProps,
   createField,
@@ -7,11 +7,12 @@ import {
   type ModularCreatedElement,
 } from '@myparcel/vue-form-builder';
 import {type MakeOptional} from '@myparcel/ts-utils';
-import {findSandboxOption} from '../utils';
+import {findSandboxOption, createOptionTranslatable} from '../utils';
 
-interface FormFieldInput<T, Props extends ComponentProps = ComponentProps>
-  extends MakeOptional<InteractiveElementConfiguration<T, Props>, 'ref'> {
+export interface FormFieldInput<T, Props extends ComponentProps = ComponentProps>
+  extends MakeOptional<Omit<InteractiveElementConfiguration<T, Props>, 'label'>, 'ref'> {
   key?: string;
+  label?: AnyTranslatable;
 }
 
 export const formField = <T, Props extends ComponentProps = ComponentProps>(
@@ -20,16 +21,15 @@ export const formField = <T, Props extends ComponentProps = ComponentProps>(
   const fullName: string = [input.key, input.name].filter(Boolean).join('.');
 
   const fullOption = findSandboxOption(input.name);
-  const optionLabel = `option_${input.name}`;
-
   return markRaw(
     createField<T>({
-      label: optionLabel,
+      // @ts-expect-error todo
+      label: createOptionTranslatable(input.name),
       ref: ref(getDefaultValueForType(fullOption?.type)) as Ref<T>,
       ...input,
       name: fullName,
       props: {
-        description: `${optionLabel}_description`,
+        description: createOptionTranslatable(`${input.name}_description`),
         ...(input.props ?? {}),
       },
     }),
