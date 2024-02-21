@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-magic-numbers */
 import {
   type CarrierSettingsObject,
   getDefaultCarrierSettings,
@@ -5,7 +6,12 @@ import {
   SUPPORTED_PLATFORMS,
   getPlatformConfig,
 } from '@myparcel-do/shared';
-import {CarrierName} from '@myparcel/constants';
+
+const numberBetween = (min: number, max: number): number => {
+  const number = Math.random() * (max - min) + min;
+
+  return Number(number.toFixed(2));
+};
 
 export const getDefaultSandboxCarrierSettings = (): CarrierSettingsObject => {
   const defaultCarrierSettings = getDefaultCarrierSettings();
@@ -14,34 +20,33 @@ export const getDefaultSandboxCarrierSettings = (): CarrierSettingsObject => {
     .flat()
     .map((carrier) => carrier.name);
 
-  const carrierSettings = Object.fromEntries(allSupportedCarriers.map((carrier) => [carrier, defaultCarrierSettings]));
-
-  return {
-    ...carrierSettings,
-
-    [CarrierName.PostNl]: {
-      ...defaultCarrierSettings,
-      [CarrierSetting.PricePickup]: -1,
-      [CarrierSetting.AllowDeliveryOptions]: true,
-      [CarrierSetting.AllowStandardDelivery]: true,
-      [CarrierSetting.PriceStandardDelivery]: 5.95,
-      [CarrierSetting.AllowMorningDelivery]: true,
-      [CarrierSetting.PriceMorningDelivery]: 4,
-      [CarrierSetting.AllowEveningDelivery]: true,
-      [CarrierSetting.PriceEveningDelivery]: 5,
-      [CarrierSetting.AllowSameDayDelivery]: true,
-      [CarrierSetting.PriceSameDayDelivery]: 6,
-      [CarrierSetting.AllowMondayDelivery]: true,
-      [CarrierSetting.PriceMondayDelivery]: 7,
-      [CarrierSetting.AllowSaturdayDelivery]: true,
-      [CarrierSetting.PriceSaturdayDelivery]: 8,
-      [CarrierSetting.PricePackageTypeDigitalStamp]: 3.29,
-      [CarrierSetting.PricePackageTypeMailbox]: 3.49,
-      [CarrierSetting.AllowOnlyRecipient]: true,
-      [CarrierSetting.PriceOnlyRecipient]: 0.59,
-      [CarrierSetting.AllowSignature]: true,
-      [CarrierSetting.PriceSignature]: 0.49,
-      [CarrierSetting.AllowPickupLocations]: true,
-    },
-  };
+  return Object.fromEntries(
+    allSupportedCarriers.map((carrier) => [
+      carrier,
+      {
+        ...defaultCarrierSettings,
+        [CarrierSetting.PricePickup]: numberBetween(-2, 0),
+        [CarrierSetting.AllowDeliveryOptions]: true,
+        [CarrierSetting.AllowStandardDelivery]: true,
+        [CarrierSetting.PriceStandardDelivery]: numberBetween(5, 7),
+        [CarrierSetting.AllowMorningDelivery]: true,
+        [CarrierSetting.PriceMorningDelivery]: numberBetween(7, 10),
+        [CarrierSetting.AllowEveningDelivery]: true,
+        [CarrierSetting.PriceEveningDelivery]: numberBetween(7, 9),
+        [CarrierSetting.AllowSameDayDelivery]: true,
+        [CarrierSetting.PriceSameDayDelivery]: numberBetween(8, 12),
+        [CarrierSetting.AllowMondayDelivery]: true,
+        [CarrierSetting.PriceMondayDelivery]: numberBetween(6, 8),
+        [CarrierSetting.AllowSaturdayDelivery]: true,
+        [CarrierSetting.PriceSaturdayDelivery]: numberBetween(6, 8),
+        [CarrierSetting.PricePackageTypeDigitalStamp]: numberBetween(2, 4),
+        [CarrierSetting.PricePackageTypeMailbox]: numberBetween(3, 5),
+        [CarrierSetting.AllowOnlyRecipient]: true,
+        [CarrierSetting.PriceOnlyRecipient]: numberBetween(0.1, 0.9),
+        [CarrierSetting.AllowSignature]: true,
+        [CarrierSetting.PriceSignature]: numberBetween(0.1, 0.9),
+        [CarrierSetting.AllowPickupLocations]: true,
+      },
+    ]),
+  );
 };
