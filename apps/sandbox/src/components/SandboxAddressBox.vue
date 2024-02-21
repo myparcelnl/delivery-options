@@ -65,6 +65,9 @@ const section = formSection({
       label: LABEL_PREFIX + AddressField.Country,
       component: FormSelectInput,
       wrapper: false,
+      attributes: {
+        class: 'mp-mb-4',
+      },
       props: {
         placeholder: 'choose_country',
         autocomplete: 'country',
