@@ -1,5 +1,4 @@
-import {computed, type ComputedRef} from 'vue';
-import {get} from '@vueuse/core';
+import {computed, type ComputedRef, toValue} from 'vue';
 import {
   ONLY_RECIPIENT_TITLE,
   type SelectOption,
@@ -34,12 +33,15 @@ export const useShipmentOptionsOptions = (): ComputedRef<SelectOption[]> => {
       return [];
     }
 
+    const carrierShipmentOptions = toValue(resolvedCarrier.value?.shipmentOptions);
+    const momentShipmentOptions = toValue(deliveryMoment)?.shipmentOptions;
+
     return availableShipmentOptions.value
       .filter((option) => {
-        return get(get(resolvedCarrier)?.shipmentOptions)?.has(option);
+        return carrierShipmentOptions?.has(option) && momentShipmentOptions?.some(({name}) => name === option);
       })
       .map((name) => {
-        const match = get(deliveryMoment.value)?.shipmentOptions?.find((option) => option.name === name);
+        const match = momentShipmentOptions?.find((option) => option.name === name);
 
         const hasOnlyOneOption = match?.schema.enum.length === 1;
 
