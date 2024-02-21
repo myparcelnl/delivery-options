@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel/delivery-options-v6.0.0-alpha.14](https://github.com/myparcelnl/delivery-options/compare/v6.0.0-alpha.13...v6.0.0-alpha.14) (2024-02-21)
+
+
+### :bug: Bug Fixes
+
+* **pickup:** fix error when unwatcher is called too soon ([740ec65](https://github.com/myparcelnl/delivery-options/commit/740ec6526ece0e5ec8db8956c150d15f826a66bc))
+* **pickup:** select and pan to correct markers on address change ([4862ccd](https://github.com/myparcelnl/delivery-options/commit/4862ccd9069ef7483ccc1af682085aaa725e698a))
+
 ## [@myparcel/delivery-options-v6.0.0-alpha.13](https://github.com/myparcelnl/delivery-options/compare/v6.0.0-alpha.12...v6.0.0-alpha.13) (2024-02-21)
 
 
