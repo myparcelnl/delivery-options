@@ -2,7 +2,7 @@ import {afterEach, beforeEach, describe, expect, it, type MockInstance, vi} from
 import {RENDER_DELIVERY_OPTIONS, UPDATE_DELIVERY_OPTIONS} from './data';
 import {createDiv, dispatchEvent} from './__tests__';
 
-describe.todo('main', () => {
+describe('main', () => {
   const unmountSpy: MockInstance = vi.fn();
   const mountSpy: MockInstance = vi.fn();
 
@@ -51,7 +51,7 @@ describe.todo('main', () => {
     expect(mountSpy).toHaveBeenCalledTimes(1);
   });
 
-  it.each([
+  it.todo.each([
     ['using Event', undefined],
     ['using CustomEvent', {selector: '#test'}],
   ])(`creates app when ${RENDER_DELIVERY_OPTIONS} is dispatched %s`, async (_, detail) => {
