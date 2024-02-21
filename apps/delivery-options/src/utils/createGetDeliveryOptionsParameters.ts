@@ -52,7 +52,7 @@ export const createGetDeliveryOptionsParameters = (
 
   return Object.fromEntries(
     Object.entries(parameters).filter(([key]) => {
-      return !carrier.config.value.unsupportedParameters?.includes(key);
+      return !carrier.config.value?.unsupportedParameters?.includes(key);
     }),
   ) as EndpointParameters<GetDeliveryOptions>;
 };
