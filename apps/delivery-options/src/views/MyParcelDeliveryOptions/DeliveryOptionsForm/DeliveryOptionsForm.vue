@@ -64,7 +64,7 @@ const HomeOrPickup = createField({
       const options: SelectOption[] = [];
       const resolvedCarriers = get(carriers) ?? [];
 
-      if (resolvedCarriers.some((carrier) => get(carrier.hasDelivery))) {
+      if (resolvedCarriers.some((carrier) => get(carrier.hasAnyDelivery))) {
         options.push({
           label: DELIVERY_TITLE,
           value: HOME_OR_PICKUP_HOME,
