@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel/delivery-options-v6.0.0-alpha.13](https://github.com/myparcelnl/delivery-options/compare/v6.0.0-alpha.12...v6.0.0-alpha.13) (2024-02-21)
+
+
+### :bug: Bug Fixes
+
+* improve switching between carriers and countries ([c0221ab](https://github.com/myparcelnl/delivery-options/commit/c0221ab485813a8c0106660bcc7da42ac72ab839))
+* **pickup:** fix carrier logos not showing in pickup ([4c28314](https://github.com/myparcelnl/delivery-options/commit/4c28314286f758f33482d52b008b8bf634854918))
+* **pickup:** remove unsupported pickup countries from dhlparcelconnect ([8b55b04](https://github.com/myparcelnl/delivery-options/commit/8b55b04ecc37ab10407efab0f3c3b8a7d1c441d3))
+* reduce unnecessary outgoing events ([e52f15b](https://github.com/myparcelnl/delivery-options/commit/e52f15b4c61bc967a96bd54c9ce28be7df35cb0d))
+
 ## [@myparcel/delivery-options-v6.0.0-alpha.12](https://github.com/myparcelnl/delivery-options/compare/v6.0.0-alpha.11...v6.0.0-alpha.12) (2024-02-21)
 
 
