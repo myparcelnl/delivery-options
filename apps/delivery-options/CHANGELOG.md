@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel/delivery-options-v6.0.0-alpha.15](https://github.com/myparcelnl/delivery-options/compare/v6.0.0-alpha.14...v6.0.0-alpha.15) (2024-02-21)
+
+
+### :bug: Bug Fixes
+
+* **strings:** fix delivery and package type translations ([5db8005](https://github.com/myparcelnl/delivery-options/commit/5db8005719970fff497187c726198319befe8d16))
+
 ## [@myparcel/delivery-options-v6.0.0-alpha.14](https://github.com/myparcelnl/delivery-options/compare/v6.0.0-alpha.13...v6.0.0-alpha.14) (2024-02-21)
 
 
