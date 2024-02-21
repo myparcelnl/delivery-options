@@ -45,8 +45,8 @@ const options = computed<MarkerOptions>(() => {
     icon: L.divIcon({
       // eslint-disable-next-line no-magic-numbers,@typescript-eslint/no-magic-numbers
       iconAnchor: [24, 58],
-      className: `${MAP_MARKER_CLASS_PREFIX} ${MAP_MARKER_CLASS_PREFIX}--${resolvedCarrier.value.name}`,
-      html: createCarrierMarkerIcon(resolvedCarrier.value),
+      className: `${MAP_MARKER_CLASS_PREFIX} ${MAP_MARKER_CLASS_PREFIX}--${resolvedCarrier.value?.name}`,
+      html: resolvedCarrier.loading.value ? '' : createCarrierMarkerIcon(resolvedCarrier.value),
     }),
   };
 });
