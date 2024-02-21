@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel/delivery-options-v6.0.0-alpha.12](https://github.com/myparcelnl/delivery-options/compare/v6.0.0-alpha.11...v6.0.0-alpha.12) (2024-02-21)
+
+
+### :bug: Bug Fixes
+
+* **delivery:** do not show shipment options that are unavailable ([111448a](https://github.com/myparcelnl/delivery-options/commit/111448af87b332a185c7ecb510c4879616915489))
+* **delivery:** fix ups not working ([c9f3664](https://github.com/myparcelnl/delivery-options/commit/c9f366453f4b05cfcf113ac9341dcfbf888428e9))
+* **pickup:** fix type error when carrier is not loaded yet ([13885df](https://github.com/myparcelnl/delivery-options/commit/13885df75154b507b5e050f2a0e6388e4daaa8d4))
+
 ## [@myparcel/delivery-options-v6.0.0-alpha.11](https://github.com/myparcelnl/delivery-options/compare/v6.0.0-alpha.10...v6.0.0-alpha.11) (2024-02-21)
 
 
