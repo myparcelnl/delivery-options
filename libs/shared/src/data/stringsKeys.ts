@@ -43,8 +43,6 @@ export const PICKUP_TITLE = 'pickupTitle';
 
 export const SIGNATURE_TITLE = 'signatureTitle';
 
-export const CHOOSE_DATE = 'chooseDate';
-
 export const PICKUP_LOCATIONS_LIST_BUTTON = 'pickupLocationsListButton';
 
 export const PICKUP_LOCATIONS_MAP_BUTTON = 'pickupLocationsMapButton';

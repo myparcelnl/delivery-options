@@ -44,8 +44,8 @@
               'mp-text-xs': currentOption,
               'mp-text-md mp-top-1/2 mp-transform mp--translate-y-1/2': !currentOption,
             }"
-            class="mp-absolute mp-top-0 mp-transition-all"
-            v-text="element.props.placeholder" />
+            class="mp-absolute mp-top-0 mp-transition-all mp-whitespace-nowrap"
+            v-text="element.props.placeholder ? translate(element.props.placeholder) : ''" />
 
           <span class="mp-pb-3 mp-pt-5">
             <span v-text="currentOption?.label ?? NBSP" />
@@ -113,6 +113,7 @@ import {
   Loader,
   NBSP,
 } from '@myparcel-do/shared';
+import {useLanguage} from '../composables';
 
 type T = SelectInputModelValue;
 
@@ -121,6 +122,8 @@ const props = defineProps<WithElement<SelectInputProps<T>> & {loading?: boolean}
 const emit = defineEmits<SelectInputEmits<T>>();
 
 const {model, options} = useSelectInputContext(props, emit);
+
+const {translate} = useLanguage();
 
 const selectWrapper = ref<HTMLElement | null>(null);
 const optionsWrapper = ref<HTMLElement | null>(null);

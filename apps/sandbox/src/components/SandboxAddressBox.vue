@@ -66,7 +66,7 @@ const section = formSection({
       component: FormSelectInput,
       wrapper: false,
       props: {
-        placeholder: translate('choose_date'),
+        placeholder: 'choose_country',
         autocomplete: 'country',
         loading: computed(() => !countries.value.length),
         options: countries,

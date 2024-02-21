@@ -26,7 +26,6 @@ const section = formSection({
       component: FormRadioGroupInput,
       wrapper: false,
       props: {
-        placeholder: translate('choose_date'),
         options: [PackageTypeName.Package, PackageTypeName.Mailbox, PackageTypeName.DigitalStamp].map((value) => ({
           label: translate(`package_type_${value}`),
           value,
