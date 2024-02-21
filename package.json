@@ -54,6 +54,7 @@
   },
   "prettier": "@myparcel/prettier-config",
   "resolutions": {
+    "@myparcel/constants": "^2.0.0",
     "eslint-plugin-prettier": "^4.2.1"
   },
   "devDependencies": {
