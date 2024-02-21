@@ -42,6 +42,8 @@ const currentComponent = computed(() =>
   mode.value === PickupLocationsView.List ? PickupLocationListWrapper : PickupLocationMapWrapper,
 );
 
+const immediate = locations.value.length > 0;
+
 const selectInitialPickupLocation = (value) => {
   if (!value.length) {
     return;
@@ -50,14 +52,19 @@ const selectInitialPickupLocation = (value) => {
   const [firstLocation] = locations.value;
 
   if (form.instance.values[FIELD_PICKUP_LOCATION]) {
-    unwatch();
+    if (!immediate) {
+      unwatch();
+    }
+
     return;
   }
 
   form.instance.setValue(FIELD_PICKUP_LOCATION, firstLocation.locationCode);
 
-  unwatch();
+  if (!immediate) {
+    unwatch();
+  }
 };
 
-const unwatch = watch(locations, selectInitialPickupLocation, {immediate: locations.value.length > 0});
+const unwatch = watch(locations, selectInitialPickupLocation, {immediate});
 </script>
