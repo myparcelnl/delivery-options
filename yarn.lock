@@ -767,8 +767,9 @@ __metadata:
     vite: "npm:^5.0.0"
     vite-plugin-custom-tsconfig: "npm:^1.0.0"
     vite-plugin-inspect: "npm:^0.7.42"
+    vitest: "npm:^1.0.0"
     vue: "npm:^3.3.4"
-    vue-tsc: "npm:^1.8.5"
+    vue-tsc: "npm:^1.8.0"
   languageName: unknown
   linkType: soft
 
@@ -13592,7 +13593,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vue-tsc@npm:^1.8.0, vue-tsc@npm:^1.8.26, vue-tsc@npm:^1.8.5":
+"vue-tsc@npm:^1.8.0, vue-tsc@npm:^1.8.26":
   version: 1.8.27
   resolution: "vue-tsc@npm:1.8.27"
   dependencies:
