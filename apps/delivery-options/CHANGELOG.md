@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel/delivery-options-v6.0.0-alpha.16](https://github.com/myparcelnl/delivery-options/compare/v6.0.0-alpha.15...v6.0.0-alpha.16) (2024-02-21)
+
+
+### :bug: Bug Fixes
+
+* fix carriers with "fake" delivery not showing ([710731c](https://github.com/myparcelnl/delivery-options/commit/710731c610d4350865420479512bc5729db4ab59))
+* improve translations logic and reusability ([3140717](https://github.com/myparcelnl/delivery-options/commit/31407177ea308873b5a66d56c26733182ca53fc4))
+
 ## [@myparcel/delivery-options-v6.0.0-alpha.15](https://github.com/myparcelnl/delivery-options/compare/v6.0.0-alpha.14...v6.0.0-alpha.15) (2024-02-21)
 
 
