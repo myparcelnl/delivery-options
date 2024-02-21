@@ -10,6 +10,7 @@ import {
 import {DeliveryTypeName, PackageTypeName, ShipmentOptionName} from '@myparcel/constants';
 import {useSelectedPickupLocation} from '../useSelectedPickupLocation';
 import {useSelectedDeliveryMoment} from '../useSelectedDeliveryMoment';
+import {useResolvedDeliveryOptions} from '../useResolvedDeliveryOptions';
 import {getResolvedValue, parseJson} from '../../utils';
 import {type SelectedDeliveryMoment} from '../../types';
 import {useDeliveryOptionsForm} from '../../form';
@@ -24,13 +25,14 @@ const DELIVERY_DELIVERY_TYPES: readonly SupportedDeliveryTypeName[] = Object.fre
 export const useResolvedValues = (): ComputedRef<PickupOutput | DeliveryOutput | undefined> => {
   const {instance: form} = useDeliveryOptionsForm();
 
+  const deliveryOptions = useResolvedDeliveryOptions();
   const pickupLocation = useSelectedPickupLocation();
   const deliveryMoment = useSelectedDeliveryMoment();
 
   return computed(() => {
     const {values} = form;
 
-    if (!pickupLocation.location.value && !deliveryMoment.value) {
+    if (deliveryOptions.loading.value || (!pickupLocation.location.value && !deliveryMoment.value)) {
       return undefined;
     }
 
