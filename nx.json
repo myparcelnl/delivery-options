@@ -66,16 +66,13 @@
       "outputs": ["{projectRoot}/.eslintcache", "{projectRoot}/src/**/*"]
     },
     "test:coverage": {
-      "dependsOn": ["^build"],
       "inputs": ["test"],
       "outputs": ["{projectRoot}/coverage"]
     },
     "test:run": {
-      "dependsOn": ["^build"],
       "inputs": ["test"]
     },
     "test:update": {
-      "dependsOn": ["^build"],
       "inputs": ["test"],
       "outputs": ["{projectRoot}/src/__tests__/__snapshots__"]
     }
