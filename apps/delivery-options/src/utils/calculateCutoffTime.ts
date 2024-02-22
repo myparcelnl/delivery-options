@@ -1,16 +1,36 @@
-import {CarrierSetting, CUTOFF_TIME_DEFAULT, isPastTime, type TimestampString} from '@myparcel-do/shared';
+import {toValue} from 'vue';
+import {getDay} from 'date-fns';
+import {
+  CarrierSetting,
+  CUTOFF_TIME_DEFAULT,
+  isPastTime,
+  type TimestampString,
+  CUTOFF_TIME_SAME_DAY_DEFAULT,
+  type DropOffEntryObject,
+  CustomDeliveryType,
+} from '@myparcel-do/shared';
 import {type ResolvedCarrier} from '../types';
 
+const END_OF_DAY_CUTOFF_TIME = '23:59';
+
+const getDefaultCutoffTime = (carrier: ResolvedCarrier): TimestampString => {
+  return carrier.get(CarrierSetting.CutoffTime, CUTOFF_TIME_DEFAULT) as TimestampString;
+};
+
+const getSameDayCutoffTime = (carrier: ResolvedCarrier): TimestampString => {
+  return carrier.get(CarrierSetting.CutoffTimeSameDay, CUTOFF_TIME_SAME_DAY_DEFAULT) as TimestampString;
+};
+
 export const calculateCutoffTime = (carrier: ResolvedCarrier): TimestampString => {
-  const hasSameDayDelivery = carrier.get(CarrierSetting.AllowSameDayDelivery, false);
+  const dropOffDays = carrier.get(CarrierSetting.DropOffDays, []) as DropOffEntryObject[];
+  const today = getDay(new Date());
+  const dropOffDay = dropOffDays.find((dropOffDay) => today === dropOffDay.weekday);
 
-  if (hasSameDayDelivery) {
-    const sameDayCutoffTime = carrier.get(CarrierSetting.CutoffTimeSameDay, CUTOFF_TIME_DEFAULT) as TimestampString;
+  if (toValue(carrier.deliveryTypes).has(CustomDeliveryType.SameDay)) {
+    const sameDayCutoffTime = dropOffDay?.[CarrierSetting.CutoffTimeSameDay] ?? getSameDayCutoffTime(carrier);
 
-    if (!isPastTime(sameDayCutoffTime)) {
-      return sameDayCutoffTime;
-    }
+    return isPastTime(sameDayCutoffTime) ? END_OF_DAY_CUTOFF_TIME : sameDayCutoffTime;
   }
 
-  return carrier.get(CarrierSetting.CutoffTime, CUTOFF_TIME_DEFAULT) as TimestampString;
+  return dropOffDay?.cutoffTime ?? getDefaultCutoffTime(carrier);
 };

@@ -36,8 +36,6 @@ describe('createGetDeliveryOptionsParameters', () => {
       carrier: CarrierName.PostNl,
       config: {
         [CarrierSetting.AllowMondayDelivery]: true,
-        [CarrierSetting.AllowSaturdayDelivery]: true,
-        [CarrierSetting.AllowSameDayDelivery]: true,
         [CarrierSetting.CutoffTime]: '13:00',
         [CarrierSetting.DeliveryDaysWindow]: 6,
         [CarrierSetting.DropOffDays]: [1, 4, 5],
@@ -62,11 +60,9 @@ describe('createGetDeliveryOptionsParameters', () => {
       platform: PlatformName.MyParcel,
       carrier: CarrierName.DhlForYou,
       config: {
-        [CarrierSetting.AllowMondayDelivery]: true,
-        [CarrierSetting.AllowSaturdayDelivery]: true,
         [CarrierSetting.AllowSameDayDelivery]: true,
         [CarrierSetting.CutoffTime]: '16:00',
-        [CarrierSetting.CutoffTimeSameDay]: '10:00',
+        [CarrierSetting.CutoffTimeSameDay]: '12:30',
         [CarrierSetting.DeliveryDaysWindow]: 4,
         [CarrierSetting.DropOffDays]: [0, 2, 3, 4],
         [CarrierSetting.DropOffDelay]: 0,
@@ -76,7 +72,7 @@ describe('createGetDeliveryOptionsParameters', () => {
         platform: PlatformName.MyParcel,
         carrier: CarrierName.DhlForYou,
         package_type: PackageTypeName.Package,
-        cutoff_time: '16:00',
+        cutoff_time: '12:30',
         deliverydays_window: 4,
         dropoff_days: '0;2;3;4',
         dropoff_delay: 0,
@@ -88,7 +84,7 @@ describe('createGetDeliveryOptionsParameters', () => {
     },
   ] satisfies TestInput[])('returns the correct parameters', async ({carrier, platform, config, output}) => {
     expect.assertions(1);
-    vi.setSystemTime('2021-06-01T17:00:00');
+    vi.setSystemTime('2021-06-01T10:00:00');
 
     const configuration = mockDeliveryOptionsConfig(
       getMockDeliveryOptionsConfiguration({[KEY_CONFIG]: {platform, [KEY_CARRIER_SETTINGS]: {[carrier]: {...config}}}}),

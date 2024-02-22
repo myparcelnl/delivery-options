@@ -2,12 +2,14 @@ import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest';
 import {createPinia, setActivePinia} from 'pinia';
 import {
   CUTOFF_TIME_DEFAULT,
-  DAY_MONDAY,
-  DAY_TUESDAY,
-  DROP_OFF_CUTOFF_TIME,
-  DROP_OFF_SAME_DAY_CUTOFF_TIME,
+  getDefaultCarrierSettings,
+  KEY_CONFIG,
+  CarrierSetting,
+  KEY_CARRIER_SETTINGS,
+  CUTOFF_TIME_SAME_DAY_DEFAULT,
+  type TimestampString,
+  DAY_FRIDAY,
   DROP_OFF_WEEKDAY,
-  type InputDeliveryOptionsConfig,
 } from '@myparcel-do/shared';
 import {CarrierName} from '@myparcel/constants';
 import {useCurrentPlatform} from '../composables';
@@ -15,14 +17,14 @@ import {mockDeliveryOptionsConfig} from '../__tests__';
 import {getResolvedCarrier} from './getResolvedCarrier';
 import {calculateCutoffTime} from './calculateCutoffTime';
 
-interface TestInput {
-  config: Partial<InputDeliveryOptionsConfig>;
-  date: Date;
-  result: string;
-  when: string;
-}
+const getCalculatedCutoffTime = async (): Promise<TimestampString> => {
+  const platform = useCurrentPlatform();
+  const resolvedCarrier = await getResolvedCarrier(CarrierName.DhlForYou, platform.name.value);
 
-describe.skip('calculateCutoffTime', () => {
+  return calculateCutoffTime(resolvedCarrier);
+};
+
+describe('calculateCutoffTime', () => {
   const TUESDAY_08_00 = new Date('2021-01-04T08:00:00.000Z') as Readonly<Date>;
   const TUESDAY_14_00 = new Date('2021-01-04T14:00:00.000Z') as Readonly<Date>;
   const TUESDAY_20_00 = new Date('2021-01-04T20:00:00.000Z') as Readonly<Date>;
@@ -32,102 +34,124 @@ describe.skip('calculateCutoffTime', () => {
 
   beforeEach(() => {
     setActivePinia(createPinia());
+    vi.setSystemTime(TUESDAY_08_00);
+
+    mockDeliveryOptionsConfig({[KEY_CONFIG]: getDefaultCarrierSettings()});
   });
 
   afterEach(() => {
     vi.setSystemTime(vi.getRealSystemTime());
   });
 
-  it.each([
-    {
-      when: 'default config is used',
-      date: TUESDAY_08_00,
-      config: {},
-      result: CUTOFF_TIME_DEFAULT,
-    },
-    {
-      when: 'it is set globally and no carrier specific cutoff time is set',
-      date: TUESDAY_08_00,
-      config: {cutoffTime: '17:00'},
-      result: '17:00',
-    },
-    {
-      when: 'it is set in the carrier',
-      date: TUESDAY_08_00,
-      config: {cutoffTime: '17:00', carrierSettings: {[CarrierName.PostNl]: {cutoffTime: '15:00'}}},
-      result: '15:00',
-    },
-    {
-      when: 'same day delivery is disabled',
-      date: TUESDAY_08_00,
-      config: {cutoffTimeSameDay: '10:00', cutoffTime: '17:00', allowSameDayDelivery: false},
-      result: '17:00',
-    },
-    {
-      when: 'same day delivery is enabled and its cutoff time is before the current time',
-      date: TUESDAY_08_00,
-      config: {cutoffTimeSameDay: '10:00', cutoffTime: '17:00', allowSameDayDelivery: true},
-      result: '10:00',
-    },
-
-    {
-      when: 'same day delivery is enabled but its cutoff time is after the current time',
-      date: TUESDAY_14_00,
-      config: {cutoffTimeSameDay: '10:00', cutoffTime: '17:00', allowSameDayDelivery: true},
-      result: '17:00',
-    },
-
-    {
-      when: 'drop off days for today are passed',
-      date: TUESDAY_08_00,
-      config: {
-        dropOffDays: [
-          {
-            [DROP_OFF_WEEKDAY]: DAY_MONDAY,
-            [DROP_OFF_CUTOFF_TIME]: '15:00',
-            [DROP_OFF_SAME_DAY_CUTOFF_TIME]: '09:00',
-          },
-          {
-            [DROP_OFF_WEEKDAY]: DAY_TUESDAY,
-            [DROP_OFF_CUTOFF_TIME]: '17:00',
-            [DROP_OFF_SAME_DAY_CUTOFF_TIME]: '09:00',
-          },
-        ],
-      },
-      result: '17:00',
-    },
-
-    {
-      when: 'drop off days for today are passed and same day cutoff time has not passed',
-      date: TUESDAY_08_00,
-      config: {
-        allowSameDayDelivery: true,
-        dropOffDays: [
-          {
-            [DROP_OFF_WEEKDAY]: DAY_MONDAY,
-            [DROP_OFF_CUTOFF_TIME]: '15:00',
-            [DROP_OFF_SAME_DAY_CUTOFF_TIME]: '09:00',
-          },
-          {
-            [DROP_OFF_WEEKDAY]: DAY_TUESDAY,
-            [DROP_OFF_CUTOFF_TIME]: '17:00',
-            [DROP_OFF_SAME_DAY_CUTOFF_TIME]: '09:00',
-          },
-        ],
-      },
-      result: '09:00',
-    },
-  ] satisfies TestInput[])(`returns $result when $when`, async ({result, date, config}) => {
+  it('returns the default cutoff time when nothing is passed', async () => {
     expect.assertions(1);
-    vi.setSystemTime(date.getTime());
 
-    mockDeliveryOptionsConfig({config});
+    expect(await getCalculatedCutoffTime()).toBe(CUTOFF_TIME_DEFAULT);
+  });
 
-    const platform = useCurrentPlatform();
+  it('returns the global cutoff time', async () => {
+    expect.assertions(1);
 
-    const resolvedCarrier = await getResolvedCarrier(CarrierName.PostNl, platform.name.value);
-    const actual = calculateCutoffTime(resolvedCarrier);
+    mockDeliveryOptionsConfig({[KEY_CONFIG]: {[CarrierSetting.CutoffTime]: '17:00'}});
 
-    expect(actual).toBe(result);
+    expect(await getCalculatedCutoffTime()).toBe('17:00');
+  });
+
+  it('returns the carrier specific cutoff time', async () => {
+    expect.assertions(1);
+
+    mockDeliveryOptionsConfig({
+      [KEY_CONFIG]: {
+        [CarrierSetting.CutoffTime]: '17:00',
+        [KEY_CARRIER_SETTINGS]: {
+          [CarrierName.DhlForYou]: {
+            [CarrierSetting.CutoffTime]: '15:00',
+          },
+        },
+      },
+    });
+
+    expect(await getCalculatedCutoffTime()).toBe('15:00');
+  });
+
+  it('returns the default same day cutoff time when same day delivery is enabled', async () => {
+    expect.assertions(1);
+
+    mockDeliveryOptionsConfig({
+      [KEY_CONFIG]: {
+        [CarrierSetting.AllowSameDayDelivery]: true,
+      },
+    });
+
+    expect(await getCalculatedCutoffTime()).toBe(CUTOFF_TIME_SAME_DAY_DEFAULT);
+  });
+
+  it('returns the custom same day cutoff time when same day delivery is enabled', async () => {
+    expect.assertions(1);
+
+    mockDeliveryOptionsConfig({
+      [KEY_CONFIG]: {
+        [CarrierSetting.AllowSameDayDelivery]: true,
+        [CarrierSetting.CutoffTimeSameDay]: '12:00',
+      },
+    });
+
+    expect(await getCalculatedCutoffTime()).toBe('12:00');
+  });
+
+  it('returns 23:59 when same day delivery is enabled and its cutoff time has passed', async () => {
+    expect.assertions(1);
+
+    vi.setSystemTime(TUESDAY_20_00);
+
+    mockDeliveryOptionsConfig({
+      [KEY_CONFIG]: {
+        [CarrierSetting.AllowSameDayDelivery]: true,
+        [CarrierSetting.CutoffTimeSameDay]: '12:00',
+      },
+    });
+
+    expect(await getCalculatedCutoffTime()).toBe('23:59');
+  });
+
+  it('returns specific cutoff time for current day if passed', async () => {
+    expect.assertions(1);
+
+    vi.setSystemTime(FRIDAY_08_00);
+
+    mockDeliveryOptionsConfig({
+      [KEY_CONFIG]: {
+        [CarrierSetting.DropOffDays]: [
+          {
+            [DROP_OFF_WEEKDAY]: DAY_FRIDAY,
+            [CarrierSetting.CutoffTime]: '14:30',
+            [CarrierSetting.CutoffTimeSameDay]: '08:45',
+          },
+        ],
+      },
+    });
+
+    expect(await getCalculatedCutoffTime()).toBe('14:30');
+  });
+
+  it('returns specific same day cutoff time for current day if passed', async () => {
+    expect.assertions(1);
+
+    vi.setSystemTime(FRIDAY_08_00);
+
+    mockDeliveryOptionsConfig({
+      [KEY_CONFIG]: {
+        [CarrierSetting.AllowSameDayDelivery]: true,
+        [CarrierSetting.DropOffDays]: [
+          {
+            [DROP_OFF_WEEKDAY]: DAY_FRIDAY,
+            [CarrierSetting.CutoffTime]: '14:30',
+            [CarrierSetting.CutoffTimeSameDay]: '08:45',
+          },
+        ],
+      },
+    });
+
+    expect(await getCalculatedCutoffTime()).toBe('08:45');
   });
 });

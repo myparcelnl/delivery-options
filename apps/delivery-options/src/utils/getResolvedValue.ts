@@ -22,7 +22,7 @@ export const getResolvedValue = <
 ): Default extends any ? NonNullable<ResolvedValue<T>> | Default : ResolvedValue<T> => {
   const config = useConfigStore();
 
-  const generalValue = config[key] ?? defaultValue;
+  const generalValue = config.$state[key] ?? defaultValue;
 
   if (!carrierIdentifier) {
     // @ts-expect-error todo
@@ -30,5 +30,5 @@ export const getResolvedValue = <
   }
 
   // @ts-expect-error todo
-  return config[KEY_CARRIER_SETTINGS]?.[carrierIdentifier]?.[key] ?? generalValue;
+  return config.$state[KEY_CARRIER_SETTINGS]?.[carrierIdentifier]?.[key] ?? generalValue;
 };
