@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel/delivery-options-v6.0.0-alpha.17](https://github.com/myparcelnl/delivery-options/compare/v6.0.0-alpha.16...v6.0.0-alpha.17) (2024-02-22)
+
+
+### :bug: Bug Fixes
+
+* **config:** always use resolved drop off entry objects ([ca275d5](https://github.com/myparcelnl/delivery-options/commit/ca275d570ccef97c3341660137299ab93c19faa9))
+
 ## [@myparcel/delivery-options-v6.0.0-alpha.16](https://github.com/myparcelnl/delivery-options/compare/v6.0.0-alpha.15...v6.0.0-alpha.16) (2024-02-21)
 
 
