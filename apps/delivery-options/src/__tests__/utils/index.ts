@@ -3,6 +3,7 @@ export * from './dispatchEvent';
 export * from './getFakePickupLocation';
 export * from './getMockDeliveryOptionsConfiguration';
 export * from './mockDeliveryOptionsConfig';
+export * from './mockDeliveryOptionsForm';
 export * from './mockResolvedDeliveryOption';
 export * from './mockSelectedDeliveryOptions';
 export * from './waitForDeliveryOptions';

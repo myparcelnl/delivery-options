@@ -1,5 +1,6 @@
 import {beforeEach, describe, expect, it} from 'vitest';
 import {createPinia, setActivePinia} from 'pinia';
+import {flushPromises} from '@vue/test-utils';
 import {
   CarrierSetting,
   type DeliveryOptionsOutput,
@@ -7,41 +8,65 @@ import {
   KEY_CARRIER_SETTINGS,
   KEY_CONFIG,
   useCarrierRequest,
+  ConfigSetting,
 } from '@myparcel-do/shared';
 import {type Replace} from '@myparcel/ts-utils';
 import {CarrierName, DeliveryTypeName, PackageTypeName, ShipmentOptionName} from '@myparcel/constants';
+import {useSelectedDeliveryMoment} from '../useSelectedDeliveryMoment';
+import {useResolvedDeliveryOptions} from '../useResolvedDeliveryOptions';
 import {type SelectedDeliveryMoment} from '../../types';
-import {HOME_OR_PICKUP_HOME, HOME_OR_PICKUP_PICKUP} from '../../data';
-import {waitForPickupLocations} from '../../__tests__/utils/waitForPickupLocations';
-import {waitForDeliveryOptions} from '../../__tests__/utils/waitForDeliveryOptions';
-import {getMockDeliveryOptionsConfiguration, mockDeliveryOptionsConfig} from '../../__tests__';
+import {useDeliveryOptionsForm} from '../../form';
+import {
+  HOME_OR_PICKUP_HOME,
+  HOME_OR_PICKUP_PICKUP,
+  FIELD_HOME_OR_PICKUP,
+  FIELD_PICKUP_LOCATION,
+  FIELD_SHIPMENT_OPTIONS,
+  FIELD_DELIVERY_DATE,
+  FIELD_DELIVERY_MOMENT,
+} from '../../data';
+import {
+  waitForPickupLocations,
+  waitForDeliveryOptions,
+  getMockDeliveryOptionsConfiguration,
+  mockDeliveryOptionsConfig,
+  mockSelectedDeliveryOptions,
+  mockDeliveryOptionsForm,
+} from '../../__tests__';
+import {useResolvedValues} from './useResolvedValues';
 
 interface TestInput {
   external: DeliveryOptionsOutput;
   internal: InternalOutput;
+  name: string;
 }
+
+const DEFAULT_DATE = '2021-01-01 00:00:00';
 
 const createInternalOutput = (
   overrides: Partial<Replace<InternalOutput, 'deliveryMoment', Partial<SelectedDeliveryMoment>>> = {},
 ): InternalOutput => {
   return {
-    homeOrPickup: HOME_OR_PICKUP_HOME,
-    deliveryDate: '2021-01-01',
-    shipmentOptions: [],
+    [FIELD_HOME_OR_PICKUP]: HOME_OR_PICKUP_HOME,
+    [FIELD_DELIVERY_DATE]: DEFAULT_DATE,
+    [FIELD_SHIPMENT_OPTIONS]: [],
     ...overrides,
-    deliveryMoment: JSON.stringify({
+    [FIELD_DELIVERY_MOMENT]: JSON.stringify({
       carrier: CarrierName.PostNl,
+      date: overrides[FIELD_DELIVERY_MOMENT]?.date ?? overrides[FIELD_DELIVERY_DATE] ?? DEFAULT_DATE,
       deliveryType: DeliveryTypeName.Standard,
       packageType: PackageTypeName.Package,
+      shipmentOptions: [],
+      time: '',
       ...overrides.deliveryMoment,
-    }),
+    } satisfies SelectedDeliveryMoment),
   };
 };
 
 const createExternalOutput = (overrides: Partial<DeliveryOptionsOutput> = {}): DeliveryOptionsOutput => {
   return {
     carrier: CarrierName.PostNl,
-    date: '2021-01-01',
+    date: DEFAULT_DATE,
     deliveryType: DeliveryTypeName.Standard,
     isPickup: false,
     packageType: PackageTypeName.Package,
@@ -50,9 +75,13 @@ const createExternalOutput = (overrides: Partial<DeliveryOptionsOutput> = {}): D
   } as DeliveryOptionsOutput;
 };
 
-describe.skip('convertOutput', () => {
+describe('convertOutput', () => {
   beforeEach(async () => {
     setActivePinia(createPinia());
+
+    useDeliveryOptionsForm.clear();
+    useResolvedDeliveryOptions.clear();
+    useSelectedDeliveryMoment.clear();
 
     mockDeliveryOptionsConfig(
       getMockDeliveryOptionsConfiguration({
@@ -71,13 +100,17 @@ describe.skip('convertOutput', () => {
       }),
     );
 
-    await useCarrierRequest(CarrierName.PostNl).load();
-    await waitForDeliveryOptions();
-    await waitForPickupLocations();
+    await Promise.all([
+      mockDeliveryOptionsForm(),
+      useCarrierRequest(CarrierName.PostNl).load(),
+      waitForDeliveryOptions(),
+      waitForPickupLocations(),
+    ]);
   });
 
   it.each([
     {
+      name: 'default values',
       internal: createInternalOutput(),
       external: createExternalOutput({
         shipmentOptions: {
@@ -88,13 +121,14 @@ describe.skip('convertOutput', () => {
     },
 
     {
+      name: 'onlyRecipient',
       internal: createInternalOutput({
-        deliveryDate: '2023-12-31',
-        deliveryMoment: {
+        [FIELD_DELIVERY_DATE]: '2023-12-31',
+        [FIELD_DELIVERY_MOMENT]: {
           carrier: CarrierName.DhlForYou,
           deliveryType: DeliveryTypeName.Morning,
         },
-        shipmentOptions: [ShipmentOptionName.Signature],
+        [FIELD_SHIPMENT_OPTIONS]: [ShipmentOptionName.Signature],
       }),
 
       external: createExternalOutput({
@@ -111,35 +145,45 @@ describe.skip('convertOutput', () => {
     },
 
     {
+      name: 'pickup',
       internal: createInternalOutput({
-        homeOrPickup: HOME_OR_PICKUP_PICKUP,
-        pickupLocation: '176688',
+        [FIELD_HOME_OR_PICKUP]: HOME_OR_PICKUP_PICKUP,
+        [FIELD_PICKUP_LOCATION]: '176688',
       }),
 
       external: createExternalOutput({
         isPickup: true,
         date: undefined,
         deliveryType: DeliveryTypeName.Pickup,
-        pickupLocation: expect.any(Object),
+        pickupLocation: expect.objectContaining({
+          locationCode: '176688',
+        }),
       }),
     },
-  ] satisfies TestInput[])('converts internal output to external output', ({internal, external}) => {
+  ] satisfies TestInput[])('converts internal output to external output with $name', async ({internal, external}) => {
     expect.assertions(1);
 
-    const converted = convertOutput(internal);
+    mockSelectedDeliveryOptions(internal);
+    await flushPromises();
 
-    expect(converted).toEqual(external);
+    const resolvedValues = useResolvedValues();
+
+    expect(resolvedValues.value).toEqual(external);
   });
 
-  it('should not expose delivery date if it is disabled', () => {
-    mockDeliveryOptionsConfig({
-      config: {
-        showDeliveryDate: false,
-      },
-    });
+  it('should not expose delivery date if it is disabled', async () => {
+    mockDeliveryOptionsConfig({[KEY_CONFIG]: {[ConfigSetting.ShowDeliveryDate]: true}});
+    mockSelectedDeliveryOptions();
+    await flushPromises();
 
-    const output = convertOutput(createInternalOutput());
+    const resolvedValues = useResolvedValues();
 
-    expect(output.date).toBeUndefined();
+    expect(resolvedValues.value).toBeDefined();
+    expect(resolvedValues.value?.date).toBeDefined();
+
+    mockDeliveryOptionsConfig({[KEY_CONFIG]: {[ConfigSetting.ShowDeliveryDate]: false}});
+    await flushPromises();
+
+    expect(resolvedValues.value?.date).toBeUndefined();
   });
 });
