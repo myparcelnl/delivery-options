@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel/delivery-options-v6.0.0-alpha.18](https://github.com/myparcelnl/delivery-options/compare/v6.0.0-alpha.17...v6.0.0-alpha.18) (2024-02-22)
+
+
+### :bug: Bug Fixes
+
+* **delivery:** fix bugs in cutoff time calculation ([028a8c8](https://github.com/myparcelnl/delivery-options/commit/028a8c8b1b88640883a0d729b859b63a9c2155f4))
+
 ## [@myparcel/delivery-options-v6.0.0-alpha.17](https://github.com/myparcelnl/delivery-options/compare/v6.0.0-alpha.16...v6.0.0-alpha.17) (2024-02-22)
 
 
