@@ -11,6 +11,8 @@ import {CarrierSetting, ConfigSetting, PickupLocationsView} from './enums';
 import {DAY_MONDAY, DAY_TUESDAY, DAY_WEDNESDAY, DAY_THURSDAY, DAY_FRIDAY} from './constants';
 import {KEY_CARRIER_SETTINGS} from './config';
 
+const DEFAULT_DROP_OFF_DAYS = [DAY_MONDAY, DAY_TUESDAY, DAY_WEDNESDAY, DAY_THURSDAY, DAY_FRIDAY] as const;
+
 export const getDefaultDeliveryOptionsConfig = (): ResolvedDeliveryOptionsConfig => {
   const lang = useNavigatorLanguage();
 
@@ -29,7 +31,7 @@ export const getDefaultDeliveryOptionsConfig = (): ResolvedDeliveryOptionsConfig
     [CarrierSetting.PackageType]: PACKAGE_TYPE_DEFAULT,
 
     // Drop-off
-    [CarrierSetting.DropOffDays]: [DAY_MONDAY, DAY_TUESDAY, DAY_WEDNESDAY, DAY_THURSDAY, DAY_FRIDAY],
+    [CarrierSetting.DropOffDays]: DEFAULT_DROP_OFF_DAYS.map((weekday) => ({weekday})),
     [CarrierSetting.DeliveryDaysWindow]: DELIVERY_DAYS_WINDOW_DEFAULT,
     [CarrierSetting.DropOffDelay]: DROP_OFF_DELAY_DEFAULT,
 

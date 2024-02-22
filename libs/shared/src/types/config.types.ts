@@ -58,7 +58,7 @@ export interface CarrierSettings extends Partial<Record<CarrierSettingsKey, unkn
   cutoffTime?: TimestampString;
   cutoffTimeSameDay?: TimestampString;
   deliveryDaysWindow?: number;
-  dropOffDays?: DropOffEntry[];
+  dropOffDays?: DropOffEntryObject[];
   dropOffDelay?: number;
   packageType?: SupportedPackageTypeName;
   priceEveningDelivery?: Price;

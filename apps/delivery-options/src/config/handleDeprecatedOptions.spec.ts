@@ -11,6 +11,8 @@ import {
   DeprecatedCarrierSetting,
   type DropOffEntry,
   type InputDeliveryOptionsConfig,
+  DROP_OFF_WEEKDAY,
+  type DropOffEntryObject,
 } from '@myparcel-do/shared';
 import {handleDeprecatedOptions} from './handleDeprecatedOptions';
 
@@ -79,18 +81,12 @@ describe('handleDeprecatedOptions', () => {
       ]);
 
       expect(resolved.dropOffDays).toEqual([
-        DAY_MONDAY,
-        DAY_TUESDAY,
-        DAY_THURSDAY,
-        {
-          weekday: DAY_FRIDAY,
-          cutoffTime: '12:00',
-        },
-        {
-          weekday: DAY_SATURDAY,
-          cutoffTime: '13:00',
-        },
-      ] satisfies DropOffEntry[]);
+        {[DROP_OFF_WEEKDAY]: DAY_MONDAY},
+        {[DROP_OFF_WEEKDAY]: DAY_TUESDAY},
+        {[DROP_OFF_WEEKDAY]: DAY_THURSDAY},
+        {[DROP_OFF_WEEKDAY]: DAY_FRIDAY, [CarrierSetting.CutoffTime]: '12:00'},
+        {[DROP_OFF_WEEKDAY]: DAY_SATURDAY, [CarrierSetting.CutoffTime]: '13:00'},
+      ] satisfies DropOffEntryObject[]);
     });
 
     it('ignores and removes deprecated values if drop off days are passed as DropOffEntry objects without related days', () => {
@@ -100,8 +96,8 @@ describe('handleDeprecatedOptions', () => {
         [CarrierSetting.CutoffTimeSameDay]: '08:00',
         [CarrierSetting.DropOffDays]: [
           {
-            weekday: DAY_TUESDAY,
-            cutoffTime: '08:00',
+            [DROP_OFF_WEEKDAY]: DAY_TUESDAY,
+            [CarrierSetting.CutoffTime]: '08:00',
           },
         ],
       } satisfies InputDeliveryOptionsConfig;
@@ -115,8 +111,8 @@ describe('handleDeprecatedOptions', () => {
 
       expect(validated.dropOffDays).toEqual([
         {
-          weekday: DAY_TUESDAY,
-          cutoffTime: '08:00',
+          [DROP_OFF_WEEKDAY]: DAY_TUESDAY,
+          [CarrierSetting.CutoffTime]: '08:00',
         },
       ] satisfies DropOffEntry[]);
     });

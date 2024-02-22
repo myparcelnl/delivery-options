@@ -17,11 +17,21 @@ exports[`getDefaultConfigForPlatform > should return the correct default config 
   "currency": "EUR",
   "deliveryDaysWindow": 7,
   "dropOffDays": [
-    1,
-    2,
-    3,
-    4,
-    5,
+    {
+      "weekday": 1,
+    },
+    {
+      "weekday": 2,
+    },
+    {
+      "weekday": 3,
+    },
+    {
+      "weekday": 4,
+    },
+    {
+      "weekday": 5,
+    },
   ],
   "dropOffDelay": 1,
   "locale": "en-US",
@@ -64,11 +74,21 @@ exports[`getDefaultConfigForPlatform > should return the correct default config 
   "currency": "EUR",
   "deliveryDaysWindow": 7,
   "dropOffDays": [
-    1,
-    2,
-    3,
-    4,
-    5,
+    {
+      "weekday": 1,
+    },
+    {
+      "weekday": 2,
+    },
+    {
+      "weekday": 3,
+    },
+    {
+      "weekday": 4,
+    },
+    {
+      "weekday": 5,
+    },
   ],
   "dropOffDelay": 1,
   "locale": "en-US",

@@ -15,19 +15,20 @@ import {
   type InputDeliveryOptionsConfig,
   useLogger,
   type Weekday,
+  type DropOffEntryObject,
 } from '@myparcel-do/shared';
 import {toArray} from '@myparcel/ts-utils';
 
-const parseDropOffDays = (value?: string | DropOffEntry[]): DropOffEntry[] => {
-  let array: DropOffEntry[] = [];
+const parseDropOffDays = (value?: string | DropOffEntry[]): DropOffEntryObject[] => {
+  let array: (Weekday | `${Weekday}` | DropOffEntryObject)[] = [];
 
   if (isString(value)) {
-    array = toArray(value, ';').map(Number) as Weekday[];
+    array = toArray(value, ';') as (Weekday | `${Weekday}`)[];
   } else if (Array.isArray(value)) {
-    array = value.map((item) => (isString(item) ? Number(item) : item)) as DropOffEntry[];
+    array = value.map((item) => item);
   }
 
-  return array;
+  return array.map((item): DropOffEntryObject => ({[DROP_OFF_WEEKDAY]: Number(item) as Weekday}));
 };
 
 type ResolvedInputConfig<Input extends InputDeliveryOptionsConfig | InputCarrierSettings> =
@@ -70,16 +71,16 @@ export const handleDeprecatedOptions = <Input extends InputDeliveryOptionsConfig
       `${CarrierSetting.DropOffDays} with objects containing ${DROP_OFF_CUTOFF_TIME}`,
     );
 
-    resolvedConfig[CarrierSetting.DropOffDays] = (resolvedConfig.dropOffDays ?? []).map((weekday) => {
-      if (weekday !== DAY_FRIDAY && weekday !== DAY_SATURDAY) {
-        return weekday;
+    resolvedConfig[CarrierSetting.DropOffDays] = (resolvedConfig.dropOffDays ?? []).map((entry) => {
+      if (entry.weekday !== DAY_FRIDAY && entry.weekday !== DAY_SATURDAY) {
+        return entry;
       }
 
       return {
-        [DROP_OFF_WEEKDAY]: weekday,
-        [DROP_OFF_CUTOFF_TIME]: weekday === DAY_FRIDAY ? fridayCutoffTime : saturdayCutoffTime,
+        ...entry,
+        [DROP_OFF_CUTOFF_TIME]: entry.weekday === DAY_FRIDAY ? fridayCutoffTime : saturdayCutoffTime,
       };
-    }) satisfies DropOffEntry[];
+    }) satisfies DropOffEntryObject[];
   }
 
   return resolvedConfig;
