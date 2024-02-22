@@ -28,7 +28,7 @@ import {
   UNITED_KINGDOM,
 } from '@myparcel/constants/countries';
 import {CarrierName, DeliveryTypeName, PackageTypeName, ShipmentOptionName} from '@myparcel/constants';
-import {type PlatformConfiguration} from '../types';
+import {type PlatformConfiguration, CustomDeliveryType} from '../types';
 import {AddressField, CarrierSetting, SubscriptionType} from '../data';
 
 // eslint-disable-next-line max-lines-per-function
@@ -43,33 +43,24 @@ export const getMyParcelConfig = (): PlatformConfiguration => ({
         DeliveryTypeName.Morning,
         DeliveryTypeName.Evening,
         DeliveryTypeName.Pickup,
+        CustomDeliveryType.Monday,
       ],
       deliveryCountries: [NETHERLANDS, BELGIUM],
       pickupCountries: [NETHERLANDS, BELGIUM],
       fakeDelivery: true,
       shipmentOptions: [ShipmentOptionName.OnlyRecipient, ShipmentOptionName.Signature],
-      features: [
-        CarrierSetting.AllowMondayDelivery,
-        CarrierSetting.DeliveryDaysWindow,
-        CarrierSetting.DropOffDays,
-        CarrierSetting.DropOffDelay,
-      ],
+      features: [CarrierSetting.DeliveryDaysWindow, CarrierSetting.DropOffDays, CarrierSetting.DropOffDelay],
       addressFields: [AddressField.PostalCode, AddressField.Street, AddressField.City],
     },
     {
       name: CarrierName.DhlForYou,
       subscription: SubscriptionType.Optional,
       packageTypes: [PackageTypeName.Package, PackageTypeName.Mailbox],
-      deliveryTypes: [DeliveryTypeName.Standard, DeliveryTypeName.Pickup],
+      deliveryTypes: [DeliveryTypeName.Standard, DeliveryTypeName.Pickup, CustomDeliveryType.SameDay],
       deliveryCountries: [NETHERLANDS, BELGIUM],
       pickupCountries: [NETHERLANDS],
       shipmentOptions: [ShipmentOptionName.OnlyRecipient, ShipmentOptionName.Signature],
-      features: [
-        CarrierSetting.AllowSameDayDelivery,
-        CarrierSetting.DeliveryDaysWindow,
-        CarrierSetting.DropOffDelay,
-        CarrierSetting.DropOffDays,
-      ],
+      features: [CarrierSetting.DeliveryDaysWindow, CarrierSetting.DropOffDays, CarrierSetting.DropOffDelay],
       addressFields: [AddressField.City, AddressField.PostalCode],
     },
     {

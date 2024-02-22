@@ -16,9 +16,9 @@ exports[`getPlatformConfig > gets config for platform belgie 1`] = `
       "deliveryTypes": [
         "standard",
         "pickup",
+        "saturday",
       ],
       "features": [
-        "allowSaturdayDelivery",
         "deliveryDaysWindow",
         "dropOffDays",
         "dropOffDelay",
@@ -154,10 +154,10 @@ exports[`getPlatformConfig > gets config for platform myparcel 1`] = `
         "morning",
         "evening",
         "pickup",
+        "monday",
       ],
       "fakeDelivery": true,
       "features": [
-        "allowMondayDelivery",
         "deliveryDaysWindow",
         "dropOffDays",
         "dropOffDelay",
@@ -190,12 +190,12 @@ exports[`getPlatformConfig > gets config for platform myparcel 1`] = `
       "deliveryTypes": [
         "standard",
         "pickup",
+        "same_day",
       ],
       "features": [
-        "allowSameDayDelivery",
         "deliveryDaysWindow",
-        "dropOffDelay",
         "dropOffDays",
+        "dropOffDelay",
       ],
       "name": "dhlforyou",
       "packageTypes": [

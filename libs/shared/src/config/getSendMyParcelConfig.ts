@@ -27,7 +27,7 @@ import {
   UNITED_KINGDOM,
 } from '@myparcel/constants/countries';
 import {CarrierName, DeliveryTypeName, PackageTypeName, ShipmentOptionName} from '@myparcel/constants';
-import {type PlatformConfiguration} from '../types';
+import {type PlatformConfiguration, CustomDeliveryType} from '../types';
 import {AddressField, CarrierSetting, SubscriptionType} from '../data';
 
 // eslint-disable-next-line max-lines-per-function
@@ -37,15 +37,10 @@ export const getSendMyParcelConfig = (): PlatformConfiguration => ({
       name: CarrierName.Bpost,
       subscription: SubscriptionType.Never,
       packageTypes: [PackageTypeName.Package],
-      deliveryTypes: [DeliveryTypeName.Standard, DeliveryTypeName.Pickup],
+      deliveryTypes: [DeliveryTypeName.Standard, DeliveryTypeName.Pickup, CustomDeliveryType.Saturday],
       deliveryCountries: [BELGIUM, NETHERLANDS],
       pickupCountries: [BELGIUM, NETHERLANDS],
-      features: [
-        CarrierSetting.AllowSaturdayDelivery,
-        CarrierSetting.DeliveryDaysWindow,
-        CarrierSetting.DropOffDays,
-        CarrierSetting.DropOffDelay,
-      ],
+      features: [CarrierSetting.DeliveryDaysWindow, CarrierSetting.DropOffDays, CarrierSetting.DropOffDelay],
       addressFields: [AddressField.PostalCode, AddressField.Street, AddressField.City],
       shipmentOptions: [ShipmentOptionName.OnlyRecipient, ShipmentOptionName.Signature],
     },
