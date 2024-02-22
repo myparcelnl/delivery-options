@@ -13,42 +13,32 @@ const createDateFromTimestamp = (currentTime: TimestampString): Date => {
   return date;
 };
 
+const TABLE = [
+  ['00:00', '00:00', true],
+  ['00:00', '09:30', false],
+  ['07:45', '12:30', false],
+  ['09:29', '09:30', false],
+  ['09:30', '09:30', true],
+  ['12:45', '09:30', true],
+  ['13:00', '09:30', true],
+] as const;
+
 describe('isPastTime', () => {
   afterEach(() => {
     vi.setSystemTime(vi.getRealSystemTime());
   });
 
-  it.each`
-    currentTime | checkTime  | passed
-    ${'00:00'}  | ${'09:30'} | ${false}
-    ${'09:29'}  | ${'09:30'} | ${false}
-    ${'09:30'}  | ${'09:30'} | ${true}
-    ${'12:00'}  | ${'09:30'} | ${true}
-    ${'12:00'}  | ${'12:30'} | ${false}
-  `(
-    'returns $passed when checking if $currentTime is past $checkTime via system time',
-    ({currentTime, checkTime, passed}) => {
-      const now = createDateFromTimestamp(currentTime);
+  it.each(TABLE)('%s >= %s = %s (system time)', (currentTime, checkTime, passed) => {
+    const now = createDateFromTimestamp(currentTime);
 
-      vi.setSystemTime(now);
+    vi.setSystemTime(now);
 
-      expect(isPastTime(checkTime)).toBe(passed);
-    },
-  );
+    expect(isPastTime(checkTime)).toBe(passed);
+  });
 
-  it.each`
-    currentTime | checkTime  | passed
-    ${'00:00'}  | ${'09:30'} | ${false}
-    ${'09:29'}  | ${'09:30'} | ${false}
-    ${'09:30'}  | ${'09:30'} | ${true}
-    ${'12:00'}  | ${'09:30'} | ${true}
-    ${'12:00'}  | ${'12:30'} | ${false}
-  `(
-    'returns $passed when checking if $currentTime is past $checkTime via parameter',
-    ({currentTime, checkTime, passed}) => {
-      const now = createDateFromTimestamp(currentTime);
+  it.each(TABLE)('%s >= %s = %s (parameter)', (currentTime, checkTime, passed) => {
+    const now = createDateFromTimestamp(currentTime);
 
-      expect(isPastTime(checkTime, now)).toBe(passed);
-    },
-  );
+    expect(isPastTime(checkTime, now)).toBe(passed);
+  });
 });

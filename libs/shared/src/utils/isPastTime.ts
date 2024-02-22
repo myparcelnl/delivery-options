@@ -1,11 +1,13 @@
 import {type TimestampString} from '../types';
 import {splitTimestamp} from './splitTimestamp';
 
+const MINUTES_TO_HOURS = 60;
+
 export const isPastTime = (time: TimestampString, now: Date = new Date()): boolean => {
   const [hours, minutes] = splitTimestamp(time);
 
-  const isPastHour = now.getHours() > Number(hours);
-  const isPastMinute = now.getMinutes() >= Number(minutes);
+  const nowMinutes = now.getHours() * MINUTES_TO_HOURS + now.getMinutes();
+  const timeMinutes = Number(hours) * MINUTES_TO_HOURS + Number(minutes);
 
-  return isPastHour || isPastMinute;
+  return nowMinutes >= timeMinutes;
 };
