@@ -531,7 +531,7 @@ Object {
         "allowPackageTypeMailbox",
       ],
       Array [
-        "allowPackageTypePacket",
+        "allowPackageTypePackageSmall",
       ],
       Array [
         "allowMondayDelivery",
@@ -593,7 +593,7 @@ Object {
       "allowPackageTypeMailbox",
     ],
     Array [
-      "allowPackageTypePacket",
+      "allowPackageTypePackageSmall",
     ],
     Array [
       "allowMondayDelivery",
