@@ -11,9 +11,6 @@ import {
   ConfigSetting,
 } from '@myparcel-do/shared';
 import {CarrierName, DeliveryTypeName, PackageTypeName, ShipmentOptionName} from '@myparcel/constants';
-import {useSelectedDeliveryMoment} from '../useSelectedDeliveryMoment';
-import {useResolvedDeliveryOptions} from '../useResolvedDeliveryOptions';
-import {useDeliveryOptionsForm} from '../../form';
 import {
   HOME_OR_PICKUP_PICKUP,
   FIELD_HOME_OR_PICKUP,
@@ -40,13 +37,9 @@ interface TestInput {
   name: string;
 }
 
-describe('convertOutput', () => {
+describe('useResolvedValues', () => {
   beforeEach(async () => {
     setActivePinia(createPinia());
-
-    useDeliveryOptionsForm.clear();
-    useResolvedDeliveryOptions.clear();
-    useSelectedDeliveryMoment.clear();
 
     mockDeliveryOptionsConfig(
       getMockDeliveryOptionsConfiguration({
@@ -54,10 +47,12 @@ describe('convertOutput', () => {
           [KEY_CARRIER_SETTINGS]: {
             [CarrierName.PostNl]: {
               [CarrierSetting.AllowDeliveryOptions]: true,
+              [CarrierSetting.AllowStandardDelivery]: true,
               [CarrierSetting.AllowPickupLocations]: true,
             },
             [CarrierName.DhlForYou]: {
               [CarrierSetting.AllowDeliveryOptions]: true,
+              [CarrierSetting.AllowStandardDelivery]: true,
               [CarrierSetting.AllowPickupLocations]: true,
             },
           },
