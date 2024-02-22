@@ -10,14 +10,11 @@ import {
   useCarrierRequest,
   ConfigSetting,
 } from '@myparcel-do/shared';
-import {type Replace} from '@myparcel/ts-utils';
 import {CarrierName, DeliveryTypeName, PackageTypeName, ShipmentOptionName} from '@myparcel/constants';
 import {useSelectedDeliveryMoment} from '../useSelectedDeliveryMoment';
 import {useResolvedDeliveryOptions} from '../useResolvedDeliveryOptions';
-import {type SelectedDeliveryMoment} from '../../types';
 import {useDeliveryOptionsForm} from '../../form';
 import {
-  HOME_OR_PICKUP_HOME,
   HOME_OR_PICKUP_PICKUP,
   FIELD_HOME_OR_PICKUP,
   FIELD_PICKUP_LOCATION,
@@ -25,6 +22,8 @@ import {
   FIELD_DELIVERY_DATE,
   FIELD_DELIVERY_MOMENT,
 } from '../../data';
+import {createInternalOutput} from '../../__tests__/utils/createInternalOutput';
+import {createExternalOutput} from '../../__tests__/utils/createExternalOutput';
 import {
   waitForPickupLocations,
   waitForDeliveryOptions,
@@ -40,40 +39,6 @@ interface TestInput {
   internal: InternalOutput;
   name: string;
 }
-
-const DEFAULT_DATE = '2021-01-01 00:00:00';
-
-const createInternalOutput = (
-  overrides: Partial<Replace<InternalOutput, 'deliveryMoment', Partial<SelectedDeliveryMoment>>> = {},
-): InternalOutput => {
-  return {
-    [FIELD_HOME_OR_PICKUP]: HOME_OR_PICKUP_HOME,
-    [FIELD_DELIVERY_DATE]: DEFAULT_DATE,
-    [FIELD_SHIPMENT_OPTIONS]: [],
-    ...overrides,
-    [FIELD_DELIVERY_MOMENT]: JSON.stringify({
-      carrier: CarrierName.PostNl,
-      date: overrides[FIELD_DELIVERY_MOMENT]?.date ?? overrides[FIELD_DELIVERY_DATE] ?? DEFAULT_DATE,
-      deliveryType: DeliveryTypeName.Standard,
-      packageType: PackageTypeName.Package,
-      shipmentOptions: [],
-      time: '',
-      ...overrides.deliveryMoment,
-    } satisfies SelectedDeliveryMoment),
-  };
-};
-
-const createExternalOutput = (overrides: Partial<DeliveryOptionsOutput> = {}): DeliveryOptionsOutput => {
-  return {
-    carrier: CarrierName.PostNl,
-    date: DEFAULT_DATE,
-    deliveryType: DeliveryTypeName.Standard,
-    isPickup: false,
-    packageType: PackageTypeName.Package,
-    shipmentOptions: {},
-    ...overrides,
-  } as DeliveryOptionsOutput;
-};
 
 describe('convertOutput', () => {
   beforeEach(async () => {

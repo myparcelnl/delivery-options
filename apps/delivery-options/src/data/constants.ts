@@ -22,7 +22,7 @@ export const MAP_MARKER_CLASS_PREFIX = 'mp__carrier-marker';
 
 export const SHOWN_OPENING_HOURS = 3;
 
-export const OUTPUT_EVENT_DEBOUNCE_DELAY = 50;
+export const OUTPUT_EVENT_DEBOUNCE_DELAY = 10;
 
 export const DATES_SHOWN_SM = 2;
 

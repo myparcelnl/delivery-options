@@ -4,10 +4,12 @@ import {usePickupLocation} from './usePickupLocation';
 
 const selectedPickupLocation = ref();
 
-export const useSelectedPickupLocation = (): {
-  locationCode: Ref<string>;
+interface UseSelectedPickupLocation {
   location: ComputedRef<ResolvedPickupLocation | undefined>;
-} => {
+  locationCode: Ref<string | undefined>;
+}
+
+export const useSelectedPickupLocation = (): UseSelectedPickupLocation => {
   return {
     locationCode: selectedPickupLocation,
     location: computed(() => {
