@@ -1,4 +1,4 @@
-import {beforeEach, describe, expect, it} from 'vitest';
+import {beforeEach, describe, expect, it, vi, afterEach} from 'vitest';
 import {assign} from 'radash';
 import {createPinia, setActivePinia} from 'pinia';
 import {
@@ -24,6 +24,10 @@ interface TestInput {
 describe('createGetDeliveryOptionsParameters', () => {
   beforeEach(() => {
     setActivePinia(createPinia());
+  });
+
+  afterEach(() => {
+    vi.setSystemTime(vi.getRealSystemTime());
   });
 
   it.each([
@@ -84,6 +88,8 @@ describe('createGetDeliveryOptionsParameters', () => {
     },
   ] satisfies TestInput[])('returns the correct parameters', async ({carrier, platform, config, output}) => {
     expect.assertions(1);
+    vi.setSystemTime('2021-06-01T17:00:00');
+
     const configuration = mockDeliveryOptionsConfig(
       getMockDeliveryOptionsConfiguration({[KEY_CONFIG]: {platform, [KEY_CARRIER_SETTINGS]: {[carrier]: {...config}}}}),
     );
