@@ -1,6 +1,6 @@
 import {isNumber} from 'radash';
 import {isOfType} from '@myparcel/ts-utils';
-import {type DropOffEntryObject} from '../types';
+import {type DropOffEntryObject, type CustomValidator} from '../types';
 import {
   CarrierSetting,
   DAY_SATURDAY,
@@ -19,6 +19,10 @@ const DROP_OFF_KEYS = [
   DROP_OFF_CUTOFF_TIME,
   DROP_OFF_SAME_DAY_CUTOFF_TIME,
 ] as const satisfies (keyof DropOffEntryObject)[];
+
+const validateTime = (time: string | undefined, timeValidator: CustomValidator): boolean => {
+  return time ? timeValidator.validate(time) : true;
+};
 
 export const validateDropOffDays = defineValidator(() => {
   return {
@@ -43,10 +47,8 @@ export const validateDropOffDays = defineValidator(() => {
 
           return (
             rangeValidator.validate(item[DROP_OFF_WEEKDAY]) &&
-            (item.cutoffTime ? timeValidator.validate(item.cutoffTime) : true) &&
-            (item[CarrierSetting.CutoffTimeSameDay]
-              ? timeValidator.validate(item[CarrierSetting.CutoffTimeSameDay])
-              : true)
+            validateTime(item[CarrierSetting.CutoffTime], timeValidator) &&
+            validateTime(item[CarrierSetting.CutoffTimeSameDay], timeValidator)
           );
         })
       );
