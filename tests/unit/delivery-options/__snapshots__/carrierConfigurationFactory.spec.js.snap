@@ -403,6 +403,7 @@ Object {
     "LV",
     "LT",
     "LU",
+    "NL",
     "PL",
     "PT",
     "SK",
@@ -435,6 +436,10 @@ Object {
         "allowDeliveryOptions",
         "priceStandardDelivery",
       ],
+      Array [
+        "allowPickupLocations",
+        "pricePickup",
+      ],
     ],
   },
   "getDefaultRequestParameters": Array [
@@ -448,6 +453,10 @@ Object {
     Array [
       "allowDeliveryOptions",
       "priceStandardDelivery",
+    ],
+    Array [
+      "allowPickupLocations",
+      "pricePickup",
     ],
   ],
 }

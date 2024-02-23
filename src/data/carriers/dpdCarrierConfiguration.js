@@ -85,6 +85,7 @@ export class DpdCarrierConfiguration extends AbstractCarrierConfiguration {
       LATVIA,
       LITHUANIA,
       LUXEMBOURG,
+      NETHERLANDS,
       POLAND,
       PORTUGAL,
       SLOVAKIA,
@@ -98,6 +99,7 @@ export class DpdCarrierConfiguration extends AbstractCarrierConfiguration {
     return {
       [MYPARCEL]: [
         FEATURES.FEATURES_DELIVERY,
+        FEATURES.FEATURES_PICKUP,
       ], [SENDMYPARCEL]: [
         FEATURES.FEATURES_DELIVERY,
         FEATURES.FEATURES_PICKUP,
