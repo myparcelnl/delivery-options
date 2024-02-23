@@ -1,3 +1,3 @@
-import {type SettingsSection} from '../types';
+import {type SettingsSection, type SettingsGroup} from '../types';
 
-export const formSection = (input: SettingsSection): SettingsSection => input;
+export const formSection = <I extends SettingsSection | SettingsGroup>(input: I): I => input;

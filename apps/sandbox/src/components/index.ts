@@ -5,8 +5,6 @@ export * from './base';
 export * from './form';
 export * from './layout';
 
-export {default as AutoAnchor} from './AutoAnchor.vue';
-
 export {default as CButton} from './CButton.vue';
 
 export {default as ColorModeSwitcher} from './ColorModeSwitcher.vue';

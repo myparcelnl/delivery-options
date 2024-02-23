@@ -1,8 +1,6 @@
 <template>
   <Box>
-    <h2>Features</h2>
-
-    <SandboxSettingsSection :section="section" />
+    <SandboxSettingsEntry :field="section" />
   </Box>
 </template>
 
@@ -20,11 +18,11 @@ import {
 } from '@myparcel-do/shared';
 import {formField, formSection} from '../form';
 import FormDropOffSelector from './form/input/FormDropOffSelector.vue';
-import {FormNumberInput, FormRadioGroupInput, SandboxSettingsSection} from './form';
+import {FormNumberInput, FormRadioGroupInput, SandboxSettingsEntry} from './form';
 import {Box} from './Box';
 
 const section = formSection({
-  label: 'general',
+  key: 'general',
   fields: [
     formField({
       key: KEY_CONFIG,

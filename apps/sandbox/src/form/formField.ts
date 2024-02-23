@@ -6,13 +6,13 @@ import {
   type InteractiveElementConfiguration,
   type ModularCreatedElement,
 } from '@myparcel/vue-form-builder';
-import {type MakeOptional} from '@myparcel/ts-utils';
 import {findSandboxOption, createOptionTranslatable} from '../utils';
 
-export interface FormFieldInput<T, Props extends ComponentProps = ComponentProps>
-  extends MakeOptional<Omit<InteractiveElementConfiguration<T, Props>, 'label'>, 'ref'> {
+export interface FormFieldInput<T = unknown, Props extends ComponentProps = ComponentProps>
+  extends Omit<InteractiveElementConfiguration<T, Props>, 'label' | 'ref'> {
   key?: string;
   label?: AnyTranslatable;
+  ref?: Ref<T>;
 }
 
 export const formField = <T, Props extends ComponentProps = ComponentProps>(

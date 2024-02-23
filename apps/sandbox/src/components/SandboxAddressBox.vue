@@ -1,8 +1,6 @@
 <template>
   <Box class="mp-gap-2 mp-grid">
-    <AutoAnchor name="address">
-      <h2 v-text="translate('address')" />
-    </AutoAnchor>
+    <h2 v-text="translate('address')" />
 
     <div class="mp-gap-2 mp-grid mp-grid-cols-2">
       <AddressPresetBox
@@ -40,7 +38,6 @@ import {formField, formSection} from '../form';
 import {useAddressSelector, useLanguage} from '../composables';
 import {FormSelectInput, SandboxSettingsSection, FormTextInput} from './form';
 import {Box} from './Box';
-import AutoAnchor from './AutoAnchor.vue';
 import AddressPresetBox from './AddressPresetBox.vue';
 
 const {translate} = useLanguage();

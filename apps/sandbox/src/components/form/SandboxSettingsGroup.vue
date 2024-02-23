@@ -1,5 +1,5 @@
 <template>
-  <component :is="`h${level}`">
+  <component :is="`h${level + 1}`">
     {{ translate(field.key) }}
   </component>
 

@@ -5,8 +5,8 @@ import {
   DROP_OFF_CUTOFF_TIME,
   DROP_OFF_SAME_DAY_CUTOFF_TIME,
   DROP_OFF_WEEKDAY,
-  getDefaultDeliveryOptionsConfig,
   type InputDeliveryOptionsConfig,
+  getDefaultDeliveryOptionsConfig,
 } from '@myparcel-do/shared';
 
 export const getDefaultSandboxConfig = (): InputDeliveryOptionsConfig => {
