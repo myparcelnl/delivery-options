@@ -20,6 +20,8 @@ export default defineConfig(({mode}) => {
     },
 
     build: {
+      minify: isProd,
+      sourcemap: !isProd,
       rollupOptions: {
         external: ['vue'],
       },
