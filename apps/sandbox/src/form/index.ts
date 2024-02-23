@@ -8,6 +8,5 @@ export * from './generateConfigItemField';
 export * from './getAllSandboxConfigOptions';
 export * from './getComponent';
 export * from './getConfigSandboxSections';
-export * from './getSandboxConfigurationGroups';
 export * from './getStringsSandboxSections';
 export * from './resolveSandboxSection';
