@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.13.0](https://github.com/myparcelnl/delivery-options/compare/v5.12.0...v5.13.0) (2024-02-26)
+
+
+### :sparkles: New Features
+
+* **dpd:** add netherlands for pickup ([#206](https://github.com/myparcelnl/delivery-options/issues/206)) ([b826ffe](https://github.com/myparcelnl/delivery-options/commit/b826ffea22af4d304b459a239a90f3196075ddfd))
+
 ## [5.12.0](https://github.com/myparcelnl/delivery-options/compare/v5.11.2...v5.12.0) (2024-01-18)
 
 
