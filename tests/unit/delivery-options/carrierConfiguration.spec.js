@@ -4,7 +4,7 @@ import {
   FEATURES_PICKUP,
   FEATURES_SATURDAY_DELIVERY,
 } from '@/data/carrierFeatures';
-import { PACKAGE_TYPE_DIGITAL_STAMP, PACKAGE_TYPE_MAILBOX } from '@/data/keys/settingsConsts';
+import { PACKAGE_TYPE_DIGITAL_STAMP, PACKAGE_TYPE_MAILBOX, PACKAGE_TYPE_PACKAGE_SMALL } from '@/data/keys/settingsConsts';
 import { AbstractCarrierConfiguration } from '@/data/carriers/abstractCarrierConfiguration';
 import { MYPARCEL } from '@/data/keys/platformKeys';
 
@@ -60,6 +60,7 @@ describe('CarrierConfiguration', () => {
     expect(config.allowsPackageTypeIn(PACKAGE_TYPE_DIGITAL_STAMP, 'NL')).toBe(false);
     expect(config.allowsPackageTypeIn(PACKAGE_TYPE_MAILBOX, 'NL')).toBe(true);
     expect(config.allowsPackageTypeIn(PACKAGE_TYPE_MAILBOX, 'BE')).toBe(true);
+    expect(config.allowsPackageTypeIn(PACKAGE_TYPE_PACKAGE_SMALL, 'NL')).toBe(false);
     expect(config.allowsPackageTypeIn('NonExistentType', 'NL')).toBe(false);
   });
 
