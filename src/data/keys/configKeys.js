@@ -37,8 +37,10 @@ export const PRICE_STANDARD_DELIVERY = 'priceStandardDelivery';
  */
 export const ALLOW_PACKAGE_TYPE_DIGITAL_STAMP = 'allowPackageTypeDigitalStamp';
 export const ALLOW_PACKAGE_TYPE_MAILBOX = 'allowPackageTypeMailbox';
+export const ALLOW_PACKAGE_TYPE_PACKAGE_SMALL = 'allowPackageTypePackageSmall';
 export const PRICE_PACKAGE_TYPE_DIGITAL_STAMP = 'pricePackageTypeDigitalStamp';
 export const PRICE_PACKAGE_TYPE_MAILBOX = 'pricePackageTypeMailbox';
+export const PRICE_PACKAGE_TYPE_PACKAGE_SMALL = 'pricePackageTypePackageSmall';
 
 /*
  * For use with Monday delivery.

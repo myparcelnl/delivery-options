@@ -6,6 +6,7 @@ import * as PLATFORMS from '@/data/keys/platformKeys';
 export const DEFAULT_PLATFORM = PLATFORMS.MYPARCEL;
 
 export const PACKAGE_TYPE_PACKAGE = 'package';
+export const PACKAGE_TYPE_PACKAGE_SMALL = 'package_small';
 export const PACKAGE_TYPE_DIGITAL_STAMP = 'digital_stamp';
 export const PACKAGE_TYPE_MAILBOX = 'mailbox';
 
@@ -43,5 +44,9 @@ export const PACKAGE_TYPE_OPTIONS = [
   {
     text: 'package_types.digital_stamp',
     value: PACKAGE_TYPE_DIGITAL_STAMP,
+  },
+  {
+    text: 'package_types.package_small',
+    value: PACKAGE_TYPE_PACKAGE_SMALL,
   },
 ];

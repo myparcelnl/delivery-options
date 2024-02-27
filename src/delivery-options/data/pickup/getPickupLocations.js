@@ -1,7 +1,7 @@
 import * as STRINGS from '@/data/keys/stringsKeys';
 import { PICKUP, formConfigPickup } from '@/config/formConfig';
 import { PACKAGE_TYPE } from '@/data/keys/configKeys';
-import { PACKAGE_TYPE_PACKAGE } from '@/data/keys/settingsConsts';
+import { PACKAGE_TYPE_PACKAGE, PACKAGE_TYPE_PACKAGE_SMALL } from '@/data/keys/settingsConsts';
 import { configBus } from '../../config/configBus';
 import { createPickupOptions } from '@/delivery-options/data/pickup/createPickupOptions';
 import { getPriceLabelFromFormConfig } from '@/delivery-options/data/prices/getPriceLabelFromFormConfig';
@@ -12,7 +12,7 @@ import { getPriceLabelFromFormConfig } from '@/delivery-options/data/prices/getP
  * @returns {Object|undefined}
  */
 export function getPickupLocations() {
-  if (!configBus.carrierDataWithPickupLocations.length || configBus.get(PACKAGE_TYPE) !== PACKAGE_TYPE_PACKAGE) {
+  if (!configBus.carrierDataWithPickupLocations.length || ![PACKAGE_TYPE_PACKAGE, PACKAGE_TYPE_PACKAGE_SMALL].includes(configBus.get(PACKAGE_TYPE))) {
     return;
   }
 

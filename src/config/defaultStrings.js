@@ -43,6 +43,7 @@ export const getDefaultStrings = () => ({
 
   [STRINGS.PACKAGE_TYPE_DIGITAL_STAMP]: 'Digitale postzegel',
   [STRINGS.PACKAGE_TYPE_MAILBOX]: 'Brievenbuspakje',
+  [STRINGS.PACKAGE_TYPE_PACKAGE_SMALL]: 'Klein pakket',
 
   [STRINGS.ERROR_3212]: '{} is verplicht.',
   [STRINGS.ERROR_3224]: '',

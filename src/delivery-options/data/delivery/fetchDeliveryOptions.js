@@ -29,6 +29,7 @@ export function fetchDeliveryOptions(carrier = configBus.currentCarrier, platfor
     .hasFeature([
       CONFIG.ALLOW_PACKAGE_TYPE_MAILBOX,
       CONFIG.ALLOW_PACKAGE_TYPE_DIGITAL_STAMP,
+      CONFIG.ALLOW_PACKAGE_TYPE_PACKAGE_SMALL,
     ]);
 
   return fetchFromEndpoint(

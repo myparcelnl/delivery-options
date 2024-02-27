@@ -43,6 +43,7 @@ export const PICKUP_LOCATIONS_MAP_BUTTON = 'pickupLocationsMapButton';
 
 export const PACKAGE_TYPE_DIGITAL_STAMP = 'packageTypeDigitalStamp';
 export const PACKAGE_TYPE_MAILBOX = 'packageTypeMailbox';
+export const PACKAGE_TYPE_PACKAGE_SMALL = 'packageTypePackageSmall';
 
 export const ERROR_3212 = 'error3212';
 export const ERROR_3224 = 'error3224';

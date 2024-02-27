@@ -531,6 +531,9 @@ Object {
         "allowPackageTypeMailbox",
       ],
       Array [
+        "allowPackageTypePackageSmall",
+      ],
+      Array [
         "allowMondayDelivery",
         "saturdayCutoffTime",
       ],
@@ -588,6 +591,9 @@ Object {
     ],
     Array [
       "allowPackageTypeMailbox",
+    ],
+    Array [
+      "allowPackageTypePackageSmall",
     ],
     Array [
       "allowMondayDelivery",
