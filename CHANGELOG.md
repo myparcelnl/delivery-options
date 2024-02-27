@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.14.0](https://github.com/myparcelnl/delivery-options/compare/v5.13.0...v5.14.0) (2024-02-27)
+
+
+### :sparkles: New Features
+
+* add package type packet ([#204](https://github.com/myparcelnl/delivery-options/issues/204)) ([c545873](https://github.com/myparcelnl/delivery-options/commit/c5458739e33ae376d9e70db9790407280ed07837))
+
 ## [5.13.0](https://github.com/myparcelnl/delivery-options/compare/v5.12.0...v5.13.0) (2024-02-26)
 
 
