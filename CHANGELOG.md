@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [5.14.1](https://github.com/myparcelnl/delivery-options/compare/v5.14.0...v5.14.1) (2024-03-01)
+
+
+### :bug: Bug Fixes
+
+* fix price error for package types other than package ([#207](https://github.com/myparcelnl/delivery-options/issues/207)) ([e86a6a4](https://github.com/myparcelnl/delivery-options/commit/e86a6a4c88d5ecf8bf75c013a86568255df1764c))
+
 ## [5.14.0](https://github.com/myparcelnl/delivery-options/compare/v5.13.0...v5.14.0) (2024-02-27)
 
 
