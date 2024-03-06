@@ -9,7 +9,7 @@ export const useDeliveryOptionsRequest = (
 ): RequestHandler<EndpointResponse<GetDeliveryOptions>> => {
   return useRequest(
     [REQUEST_KEY_DELIVERY_OPTIONS, parameters],
-    async () => {
+    () => {
       const sdk = useSdk();
 
       return sdk.getDeliveryOptions({parameters});
