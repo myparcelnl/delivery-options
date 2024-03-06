@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel/delivery-options-v6.0.0-alpha.22](https://github.com/myparcelnl/delivery-options/compare/v6.0.0-alpha.21...v6.0.0-alpha.22) (2024-03-06)
+
+
+### :bug: Bug Fixes
+
+* **dates:** fix timezone issues in dates ([788396a](https://github.com/myparcelnl/delivery-options/commit/788396af305f624ac69a521d47471b46f50654b4))
+
 ## [@myparcel/delivery-options-v6.0.0-alpha.21](https://github.com/myparcelnl/delivery-options/compare/v6.0.0-alpha.20...v6.0.0-alpha.21) (2024-03-06)
 
 
