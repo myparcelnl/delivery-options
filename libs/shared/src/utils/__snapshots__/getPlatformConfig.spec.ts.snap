@@ -26,6 +26,7 @@ exports[`getPlatformConfig > gets config for platform belgie 1`] = `
       "name": "bpost",
       "packageTypes": [
         "package",
+        "mailbox",
       ],
       "pickupCountries": [
         "BE",
