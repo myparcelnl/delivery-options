@@ -26,7 +26,7 @@ const sampleAddresses = Object.freeze([
   {
     [AddressField.Country]: GERMANY,
     [AddressField.City]: 'Berlin',
-    [AddressField.PostalCode]: '10115',
+    [AddressField.PostalCode]: '10119',
     [AddressField.Street]: 'Torstraße 1',
   },
   {
