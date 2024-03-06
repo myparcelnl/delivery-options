@@ -5,7 +5,7 @@
     <div class="mp-flex mp-flex-col mp-gap-2">
       <label
         :for="id"
-        class="mp-items-center mp-overflow-x-scroll mp-whitespace-nowrap">
+        class="mp-items-center mp-whitespace-nowrap">
         <slot name="label">
           {{ translate(element.label) }}
         </slot>
