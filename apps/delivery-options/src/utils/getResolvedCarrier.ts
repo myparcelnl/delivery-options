@@ -11,6 +11,7 @@ import {
   waitForRequestData,
   useCarrier,
   type ConfigSetting,
+  CarrierSetting,
 } from '@myparcel-do/shared';
 import {DeliveryTypeName} from '@myparcel/constants';
 import {type ResolvedCarrier} from '../types';
@@ -62,6 +63,7 @@ const cb = async (
 
   const hasDelivery = computed(() => {
     return (
+      getResolvedValue(CarrierSetting.AllowDeliveryOptions, carrierIdentifier) &&
       config.deliveryCountries.value.has(address.cc) &&
       DELIVERY_TYPES.some((deliveryType) => {
         const configKey = getConfigKey(deliveryType);
