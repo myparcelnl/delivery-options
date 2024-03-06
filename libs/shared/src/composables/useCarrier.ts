@@ -1,12 +1,12 @@
-import {type MaybeRef, computed, toValue, type ComputedRef, type Ref} from 'vue';
-import {asyncComputed} from '@vueuse/core';
-import {type Carrier} from '@myparcel/sdk';
+import {type MaybeRef, computed, toValue, type ComputedRef} from 'vue';
 import {
   resolveCarrierName,
   waitForRequestData,
   getCarrierConfiguration,
   getConfigKey,
   getPackageTypePriceKey,
+  type ComputedAsync,
+  computedAsync,
 } from '../utils';
 import {
   type CarrierIdentifier,
@@ -15,6 +15,7 @@ import {
   type SupportedDeliveryTypeName,
   type SupportedShipmentOptionName,
   type CarrierConfiguration,
+  type CarrierWithIdentifier,
 } from '../types';
 import {useCarrierRequest} from './sdk';
 
@@ -24,7 +25,7 @@ interface UseCarrierOptions {
 }
 
 export interface UseCarrier {
-  carrier: Ref<Carrier & {identifier: CarrierIdentifier}>;
+  carrier: ComputedAsync<CarrierWithIdentifier>;
   config: ComputedRef<CarrierConfiguration | undefined>;
   deliveryCountries: ComputedRef<Set<string>>;
   deliveryTypes: ComputedRef<Set<SupportedDeliveryTypeName>>;
@@ -36,6 +37,7 @@ export interface UseCarrier {
   shipmentOptions: ComputedRef<Set<SupportedShipmentOptionName>>;
 }
 
+// eslint-disable-next-line max-lines-per-function
 export const useCarrier = (options: UseCarrierOptions): UseCarrier => {
   const carrierName = computed(() => {
     const identifier = toValue(options.carrierIdentifier);
@@ -47,17 +49,23 @@ export const useCarrier = (options: UseCarrierOptions): UseCarrier => {
     return resolveCarrierName(identifier);
   });
 
-  const apiCarrier = asyncComputed(async () => {
-    if (!carrierName.value) return undefined;
+  const apiCarrier = computedAsync(
+    async () => {
+      if (!carrierName.value) return undefined;
 
-    const apiCarrier = await waitForRequestData(useCarrierRequest, [carrierName.value]);
+      const apiCarrier = await waitForRequestData(useCarrierRequest, [carrierName.value]);
 
-    if (!apiCarrier) {
-      throw new Error();
-    }
+      if (!apiCarrier) {
+        throw new Error();
+      }
 
-    return apiCarrier;
-  });
+      return {...apiCarrier, name: carrierName.value, identifier: toValue(options.carrierIdentifier)};
+    },
+    {
+      name: carrierName.value,
+      identifier: toValue(options.carrierIdentifier),
+    } as CarrierWithIdentifier,
+  );
 
   const config = computed(() => {
     if (!carrierName.value) return undefined;
@@ -82,14 +90,9 @@ export const useCarrier = (options: UseCarrierOptions): UseCarrier => {
     ]);
   });
 
-  const carrier = computed(() => ({
-    ...apiCarrier.value,
-    name: carrierName.value,
-    identifier: toValue(options.carrierIdentifier),
-  }));
-
   return {
-    carrier: carrier as Ref<Carrier & {identifier: CarrierIdentifier}>,
+    // @ts-expect-error todo
+    carrier: apiCarrier,
 
     config,
 

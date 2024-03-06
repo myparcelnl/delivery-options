@@ -40,19 +40,19 @@ const cb = async (
 ): Promise<ResolvedCarrier> => {
   await waitForRequestData(useCarrierRequest, [resolveCarrierName(carrierIdentifier)]);
 
-  const config = useCarrier({carrierIdentifier, platformName});
+  const carrier = useCarrier({carrierIdentifier, platformName});
   const address = useAddressStore();
 
   const deliveryTypes = computed(() => {
-    return filterSet(config.deliveryTypes.value, (option) => resolveOption(option, carrierIdentifier));
+    return filterSet(carrier.deliveryTypes.value, (option) => resolveOption(option, carrierIdentifier));
   });
 
   const shipmentOptions = computed(() => {
-    return filterSet(config.shipmentOptions.value, (option) => resolveOption(option, carrierIdentifier));
+    return filterSet(carrier.shipmentOptions.value, (option) => resolveOption(option, carrierIdentifier));
   });
 
   const features = computed(() => {
-    return filterSet(config.features.value, (option) => {
+    return filterSet(carrier.features.value, (option) => {
       return Boolean(getResolvedValue(option as ConfigSetting, carrierIdentifier));
     });
   });
@@ -60,16 +60,16 @@ const cb = async (
   const hasFakeDelivery = computed(() => {
     return (
       getResolvedValue(CarrierSetting.AllowDeliveryOptions, carrierIdentifier) &&
-      config.fakeDelivery.value &&
-      !config.deliveryCountries.value.has(address.cc) &&
-      !config.fakeDeliveryBlacklist.value.has(address.cc)
+      carrier.fakeDelivery.value &&
+      !carrier.deliveryCountries.value.has(address.cc) &&
+      !carrier.fakeDeliveryBlacklist.value.has(address.cc)
     );
   });
 
   const hasDelivery = computed(() => {
     return (
       getResolvedValue(CarrierSetting.AllowDeliveryOptions, carrierIdentifier) &&
-      config.deliveryCountries.value.has(address.cc) &&
+      carrier.deliveryCountries.value.has(address.cc) &&
       DELIVERY_TYPES.some((deliveryType) => {
         const configKey = getConfigKey(deliveryType);
         const value = getResolvedValue(configKey, carrierIdentifier);
@@ -82,18 +82,19 @@ const cb = async (
   const hasPickup = computed(() => {
     const address = useAddressStore();
 
-    return deliveryTypes.value.has(DeliveryTypeName.Pickup) && config.pickupCountries.value.has(address.cc);
+    return deliveryTypes.value.has(DeliveryTypeName.Pickup) && carrier.pickupCountries.value.has(address.cc);
   });
 
   return {
-    ...config.carrier.value,
+    ...carrier.carrier.value,
 
-    config: config.config,
+    carrier: carrier.carrier,
+    config: carrier.config,
 
-    pickupCountries: config.pickupCountries,
-    deliveryCountries: config.deliveryCountries,
+    pickupCountries: carrier.pickupCountries,
+    deliveryCountries: carrier.deliveryCountries,
     deliveryTypes,
-    packageTypes: config.packageTypes,
+    packageTypes: carrier.packageTypes,
     shipmentOptions,
 
     features,

@@ -9,11 +9,14 @@ import {
   type SupportedPackageTypeName,
   type SupportedShipmentOptionName,
   type CarrierConfiguration,
+  type CarrierWithIdentifier,
+  type ComputedAsync,
 } from '@myparcel-do/shared';
 import {type Carrier} from '@myparcel/sdk';
 
 export type ResolvedCarrier = Carrier & {
   identifier: CarrierIdentifier;
+  carrier: ComputedAsync<CarrierWithIdentifier>;
   config: ComputedRef<CarrierConfiguration | undefined>;
   pickupCountries: ComputedRef<Set<string>>;
   deliveryCountries: ComputedRef<Set<string>>;
