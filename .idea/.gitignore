@@ -12,3 +12,5 @@
 !./misc.xml
 !./modules.xml
 !./vcs.xml
+# GitHub Copilot persisted chat sessions
+/copilot/chatSessions
