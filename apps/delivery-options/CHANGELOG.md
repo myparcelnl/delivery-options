@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel/delivery-options-v6.0.0-alpha.19](https://github.com/myparcelnl/delivery-options/compare/v6.0.0-alpha.18...v6.0.0-alpha.19) (2024-03-06)
+
+
+### :bug: Bug Fixes
+
+* fix carrier not being disabled when allowDeliveryOptions is off ([4268673](https://github.com/myparcelnl/delivery-options/commit/426867300efad0f94b57b989a55dede3de791816))
+
 ## [@myparcel/delivery-options-v6.0.0-alpha.18](https://github.com/myparcelnl/delivery-options/compare/v6.0.0-alpha.17...v6.0.0-alpha.18) (2024-02-22)
 
 
