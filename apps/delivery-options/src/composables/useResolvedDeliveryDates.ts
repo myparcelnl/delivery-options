@@ -13,12 +13,20 @@ export const useResolvedDeliveryDates = useMemoize((): ComputedRef<ResolvedDeliv
       return [];
     }
 
-    return deliveryOptions.value.reduce((acc, option) => {
-      if (option.date && !acc.some((item) => item.date === option.date)) {
-        acc.push(option as ResolvedDeliveryOptions);
-      }
+    return deliveryOptions.value
+      .reduce((acc, option) => {
+        if (option.date && !acc.some((item) => item.date === option.date)) {
+          acc.push(option as ResolvedDeliveryOptions);
+        }
 
-      return acc;
-    }, [] as ResolvedDeliveryOptions[]);
+        return acc;
+      }, [] as ResolvedDeliveryOptions[])
+      .sort((itemA, itemB) => {
+        if (itemA.date && itemB.date) {
+          return itemA.date.localeCompare(itemB.date);
+        }
+
+        return 0;
+      });
   });
 });
