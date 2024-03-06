@@ -8,9 +8,9 @@ import {getNextDeliveryOption} from './delivery-options';
 /**
  * Generate an array of delivery options much like the actual API response.
  */
-export const fakeDeliveryOptionsResponse = (
+export const fakeDeliveryOptionsResponse = async (
   args: EndpointParameters<GetDeliveryOptions>,
-): EndpointResponse<GetDeliveryOptions> => {
+): Promise<EndpointResponse<GetDeliveryOptions>> => {
   const resolvedArgs: ResolvedMockDeliveryOptionsParameters = {
     carrier: args.carrier as CarrierIdentifier,
     cutoffTime: args.cutoff_time ?? '16:00',
