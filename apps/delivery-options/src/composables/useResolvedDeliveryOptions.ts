@@ -11,20 +11,22 @@ import {
   createUntranslatable,
 } from '@myparcel-do/shared';
 import {type Replace} from '@myparcel/ts-utils';
-import {type DeliveryOption, type DeliveryPossibility, type DeliveryTimeFrame} from '@myparcel/sdk';
+import {type Timestamp, type DeliveryOption, type DeliveryPossibility, type DeliveryTimeFrame} from '@myparcel/sdk';
 import {createGetDeliveryOptionsParameters, getResolvedDeliveryType, createDeliveryTypeTranslatable} from '../utils';
 import {type SelectedDeliveryMoment} from '../types';
 import {useTimeRange} from './useTimeRange';
 import {useActiveCarriers} from './useActiveCarriers';
 
-const createFakeDeliveryDates = (): Replace<
-  DeliveryOption,
-  'possibilities',
-  Replace<DeliveryPossibility, 'delivery_time_frames', DeliveryTimeFrame[]>[]
->[] => {
+type FakeDeliveryDates = Replace<
+  Replace<DeliveryOption, 'possibilities', Replace<DeliveryPossibility, 'delivery_time_frames', DeliveryTimeFrame[]>[]>,
+  'date',
+  Timestamp | undefined
+>;
+
+const createFakeDeliveryDates = (): FakeDeliveryDates[] => {
   return [
     {
-      date: null,
+      date: undefined,
       possibilities: [
         {
           type: DELIVERY_TYPE_DEFAULT,

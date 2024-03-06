@@ -11,7 +11,7 @@ import {type DeliveryTypeName, type PackageTypeName} from '@myparcel/constants';
 
 export interface ResolvedDeliveryOptions {
   carrier: CarrierIdentifier;
-  date: string;
+  date: undefined | string;
   deliveryType: DeliveryTypeName;
   packageType: PackageTypeName;
   shipmentOptions: DeepReadonly<DeliveryOption['possibilities'][number]['shipment_options']>;
