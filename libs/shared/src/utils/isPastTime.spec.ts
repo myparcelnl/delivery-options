@@ -1,4 +1,5 @@
 import {afterEach, describe, expect, it, vi} from 'vitest';
+import {setMinutes, setHours} from 'date-fns';
 import {type TimestampString} from '../types';
 import {splitTimestamp} from './splitTimestamp';
 import {isPastTime} from './isPastTime';
@@ -8,9 +9,7 @@ const createDateFromTimestamp = (currentTime: TimestampString): Date => {
 
   const date = new Date(vi.getRealSystemTime());
 
-  date.setHours(Number(hours));
-  date.setMinutes(Number(minutes));
-  return date;
+  return setMinutes(setHours(date, Number(hours)), Number(minutes));
 };
 
 const TABLE = [

@@ -1,4 +1,4 @@
-import {addDays} from 'date-fns';
+import {addDays, getDay} from 'date-fns';
 import {createUtcDate} from './createUtcDate';
 
 /**
@@ -7,9 +7,9 @@ import {createUtcDate} from './createUtcDate';
 export const createNextDate = (weekday: number): Date => {
   const date = createUtcDate();
 
-  if (date.getUTCDay() === weekday) {
+  if (getDay(date) === weekday) {
     return date;
   }
 
-  return addDays(date, (weekday + 7 - date.getUTCDay()) % 7);
+  return addDays(date, (weekday + 7 - getDay(date)) % 7);
 };

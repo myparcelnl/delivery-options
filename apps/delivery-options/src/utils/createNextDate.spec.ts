@@ -11,8 +11,6 @@ import {
 import {createUtcDate} from './createUtcDate';
 import {createNextDate} from './createNextDate';
 
-// create utc date of 2023-12-27 15:00:00
-
 describe('createNextDate', () => {
   afterEach(() => {
     vi.setSystemTime(vi.getRealSystemTime());

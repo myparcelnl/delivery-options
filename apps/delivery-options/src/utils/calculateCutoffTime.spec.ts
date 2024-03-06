@@ -25,12 +25,12 @@ const getCalculatedCutoffTime = async (): Promise<TimestampString> => {
 };
 
 describe('calculateCutoffTime', () => {
-  const TUESDAY_08_00 = new Date('2021-01-04T08:00:00.000Z') as Readonly<Date>;
-  const TUESDAY_14_00 = new Date('2021-01-04T14:00:00.000Z') as Readonly<Date>;
-  const TUESDAY_20_00 = new Date('2021-01-04T20:00:00.000Z') as Readonly<Date>;
-  const FRIDAY_08_00 = new Date('2021-01-08T08:00:00.000Z') as Readonly<Date>;
-  const FRIDAY_14_00 = new Date('2021-01-08T14:00:00.000Z') as Readonly<Date>;
-  const FRIDAY_20_00 = new Date('2021-01-08T20:00:00.000Z') as Readonly<Date>;
+  const TUESDAY_08_00 = new Date('2021-01-04T08:00') as Readonly<Date>;
+  const TUESDAY_14_00 = new Date('2021-01-04T14:00') as Readonly<Date>;
+  const TUESDAY_20_00 = new Date('2021-01-04T20:00') as Readonly<Date>;
+  const FRIDAY_08_00 = new Date('2021-01-08T08:00') as Readonly<Date>;
+  const FRIDAY_14_00 = new Date('2021-01-08T14:00') as Readonly<Date>;
+  const FRIDAY_20_00 = new Date('2021-01-08T20:00') as Readonly<Date>;
 
   beforeEach(() => {
     setActivePinia(createPinia());
