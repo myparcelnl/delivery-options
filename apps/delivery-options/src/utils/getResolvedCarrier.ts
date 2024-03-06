@@ -58,7 +58,12 @@ const cb = async (
   });
 
   const hasFakeDelivery = computed(() => {
-    return config.fakeDelivery.value && !config.fakeDeliveryBlacklist.value.has(address.cc);
+    return (
+      getResolvedValue(CarrierSetting.AllowDeliveryOptions, carrierIdentifier) &&
+      config.fakeDelivery.value &&
+      !config.deliveryCountries.value.has(address.cc) &&
+      !config.fakeDeliveryBlacklist.value.has(address.cc)
+    );
   });
 
   const hasDelivery = computed(() => {
