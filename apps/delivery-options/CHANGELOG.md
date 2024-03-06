@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel/delivery-options-v6.0.0-alpha.23](https://github.com/myparcelnl/delivery-options/compare/v6.0.0-alpha.22...v6.0.0-alpha.23) (2024-03-06)
+
+
+### :sparkles: New Features
+
+* **pickup:** show price on selected pickup location in map view ([1ed14ff](https://github.com/myparcelnl/delivery-options/commit/1ed14ff02e27b995a69799035db2ab0eed9516d2))
+
 ## [@myparcel/delivery-options-v6.0.0-alpha.22](https://github.com/myparcelnl/delivery-options/compare/v6.0.0-alpha.21...v6.0.0-alpha.22) (2024-03-06)
 
 
