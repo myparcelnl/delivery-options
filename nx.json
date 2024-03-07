@@ -2,9 +2,9 @@
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "npmScope": "myparcel-do",
   "affected": {
-    "defaultBase": "alpha"
+    "defaultBase": "beta"
   },
-  "defaultBase": "alpha",
+  "defaultBase": "beta",
   "namedInputs": {
     "default": [
       "{workspaceRoot}/tsconfig.*.json",
