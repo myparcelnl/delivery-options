@@ -37,7 +37,12 @@ export const getMyParcelConfig = (): PlatformConfiguration => ({
     {
       name: CarrierName.PostNl,
       subscription: SubscriptionType.Optional,
-      packageTypes: [PackageTypeName.Package, PackageTypeName.Mailbox, PackageTypeName.DigitalStamp],
+      packageTypes: [
+        PackageTypeName.Package,
+        PackageTypeName.Mailbox,
+        PackageTypeName.DigitalStamp,
+        PackageTypeName.PackageSmall,
+      ],
       deliveryTypes: [
         DeliveryTypeName.Standard,
         DeliveryTypeName.Morning,

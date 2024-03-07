@@ -34,6 +34,7 @@ const extended = Object.freeze([
 
   {key: CarrierSetting.PricePackageTypeMailbox, parents: [CarrierSetting.AllowDeliveryOptions]},
   {key: CarrierSetting.PricePackageTypeDigitalStamp, parents: [CarrierSetting.AllowDeliveryOptions]},
+  {key: CarrierSetting.PricePackageTypePackageSmall, parents: [CarrierSetting.AllowDeliveryOptions]},
 
   /* Pickup */
   {key: CarrierSetting.PricePickup, parents: [CarrierSetting.AllowPickupLocations]},

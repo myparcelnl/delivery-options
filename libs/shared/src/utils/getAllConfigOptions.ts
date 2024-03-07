@@ -32,6 +32,7 @@ export const getAllConfigOptions = useMemoize((): ConfigOption[] => [
 
   ...declareOptionWithPrice(PackageTypeName.Mailbox, CarrierSetting.PricePackageTypeMailbox),
   ...declareOptionWithPrice(PackageTypeName.DigitalStamp, CarrierSetting.PricePackageTypeDigitalStamp),
+  ...declareOptionWithPrice(PackageTypeName.PackageSmall, CarrierSetting.PricePackageTypePackageSmall),
 
   declareOption({
     key: CarrierSetting.DropOffDelay,

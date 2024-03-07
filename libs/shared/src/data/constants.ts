@@ -17,6 +17,7 @@ export const SUPPORTED_PACKAGE_TYPES = [
   PackageTypeName.Package,
   PackageTypeName.Mailbox,
   PackageTypeName.DigitalStamp,
+  PackageTypeName.PackageSmall,
 ] as const;
 
 export const DEFAULT_PLATFORM = PlatformName.MyParcel;

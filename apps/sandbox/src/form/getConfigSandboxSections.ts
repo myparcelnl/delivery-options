@@ -24,7 +24,11 @@ const CONFIG_GROUPS = Object.freeze([
       },
       {
         name: OptionGroup.PackageTypes,
-        items: [CarrierSetting.PricePackageTypeMailbox, CarrierSetting.PricePackageTypeDigitalStamp],
+        items: [
+          CarrierSetting.PricePackageTypeMailbox,
+          CarrierSetting.PricePackageTypeDigitalStamp,
+          CarrierSetting.PricePackageTypePackageSmall,
+        ],
       },
     ],
   },

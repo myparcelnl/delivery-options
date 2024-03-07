@@ -7,8 +7,7 @@
 </template>
 
 <script lang="ts" setup>
-import {KEY_CONFIG, CarrierSetting} from '@myparcel-do/shared';
-import {PackageTypeName} from '@myparcel/constants';
+import {KEY_CONFIG, CarrierSetting, SUPPORTED_PACKAGE_TYPES} from '@myparcel-do/shared';
 import {createOptionTranslatable, createPackageTypeTranslatable} from '../utils';
 import {formField, formSection} from '../form';
 import {useLanguage} from '../composables';
@@ -27,10 +26,7 @@ const section = formSection({
       component: FormRadioGroupInput,
       wrapper: false,
       props: {
-        options: [PackageTypeName.Package, PackageTypeName.Mailbox, PackageTypeName.DigitalStamp].map((value) => ({
-          label: createPackageTypeTranslatable(value),
-          value,
-        })),
+        options: SUPPORTED_PACKAGE_TYPES.map((value) => ({label: createPackageTypeTranslatable(value), value})),
       },
     }),
   ],

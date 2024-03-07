@@ -2,17 +2,11 @@ import {PackageTypeName} from '@myparcel/constants';
 import {type ConfigPriceKey, type SupportedPackageTypeName} from '../types';
 import {CarrierSetting} from '../data';
 
-export const getPackageTypePriceKey = (packageType: SupportedPackageTypeName): ConfigPriceKey => {
-  switch (packageType) {
-    case PackageTypeName.Package:
-      return CarrierSetting.PriceStandardDelivery;
+const map = Object.freeze({
+  [PackageTypeName.Package]: CarrierSetting.PriceStandardDelivery,
+  [PackageTypeName.Mailbox]: CarrierSetting.PricePackageTypeMailbox,
+  [PackageTypeName.DigitalStamp]: CarrierSetting.PricePackageTypeDigitalStamp,
+  [PackageTypeName.PackageSmall]: CarrierSetting.PricePackageTypePackageSmall,
+} satisfies Record<SupportedPackageTypeName, CarrierSetting>);
 
-    case PackageTypeName.Mailbox:
-      return CarrierSetting.PricePackageTypeMailbox;
-    case PackageTypeName.DigitalStamp:
-      return CarrierSetting.PricePackageTypeDigitalStamp;
-
-    default:
-      throw new Error(`Unknown package type: ${packageType}`);
-  }
-};
+export const getPackageTypePriceKey = (packageType: SupportedPackageTypeName): ConfigPriceKey => map[packageType];
