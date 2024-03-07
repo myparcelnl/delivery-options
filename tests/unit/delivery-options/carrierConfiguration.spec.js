@@ -62,6 +62,7 @@ describe('CarrierConfiguration', () => {
     expect(config.allowsPackageTypeIn(PACKAGE_TYPE_MAILBOX, 'NL')).toBe(true);
     expect(config.allowsPackageTypeIn(PACKAGE_TYPE_MAILBOX, 'BE')).toBe(true);
     expect(config.allowsPackageTypeIn(PACKAGE_TYPE_PACKAGE_SMALL, 'NL')).toBe(true);
+    expect(config.allowsPackageTypeIn(PACKAGE_TYPE_PACKAGE_SMALL, 'BE')).toBe(false);
     expect(config.allowsPackageTypeIn('NonExistentType', 'NL')).toBe(false);
   });
 
