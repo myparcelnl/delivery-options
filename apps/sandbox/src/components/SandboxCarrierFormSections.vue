@@ -12,28 +12,27 @@
 
 <script lang="ts" setup>
 import {computed, toValue} from 'vue';
-import {
-  CarrierBox,
-  type FullCarrier,
-  KEY_CARRIER_SETTINGS,
-  useCarriersRequest,
-  waitForRequestData,
-} from '@myparcel-do/shared';
+import {CarrierBox, KEY_CARRIER_SETTINGS, useCarriersRequest, waitForRequestData} from '@myparcel-do/shared';
+import {type CarrierName} from '@myparcel/constants';
 import {type SettingsSection} from '../types';
 import {getConfigSandboxSections} from '../form';
-import {useAvailableCarriers} from '../composables';
+import {useCurrentPlatform} from '../composables';
 import {SandboxSettingsSection} from './form';
 
 await waitForRequestData(useCarriersRequest);
 
-const availableCarriers = useAvailableCarriers();
+const platform = useCurrentPlatform();
 
-const carrierSections = computed<(FullCarrier & {sections: SettingsSection[]})[]>(() => {
+const carrierSections = computed<{name: CarrierName; sections: SettingsSection[]}[]>(() => {
+  const {carriers} = toValue(platform.config);
+
   return (
-    toValue(availableCarriers)?.map(({carrier}) => ({
-      ...carrier.value,
-      sections: getConfigSandboxSections(`${KEY_CARRIER_SETTINGS}.${carrier.value.name}`),
-    })) ?? []
+    carriers.map((carrier) => {
+      return {
+        name: carrier.name,
+        sections: getConfigSandboxSections(`${KEY_CARRIER_SETTINGS}.${carrier.name}`),
+      };
+    }) ?? []
   );
 });
 </script>

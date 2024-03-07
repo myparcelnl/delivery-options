@@ -35,13 +35,11 @@ export const useSandboxStore = defineStore('sandbox', {
     const config = useLocalStorage<ConfigWithoutCarrierSettings>(KEY_CONFIG, getDefaultSandboxConfig);
     const address = useLocalStorage<DeliveryOptionsAddress>(KEY_ADDRESS, getDefaultSandboxAddress);
 
-    const initialPlatform = get(toValue(config), `${KEY_CONFIG}.${ConfigSetting.Platform}`, DEFAULT_PLATFORM);
-
     return {
       address,
       carrierSettings,
       config,
-      platform: initialPlatform ?? DEFAULT_PLATFORM,
+      platform: get(toValue(config), ConfigSetting.Platform, DEFAULT_PLATFORM),
     };
   },
 

@@ -1,4 +1,5 @@
 import {type MaybeRef, computed, toValue, type ComputedRef} from 'vue';
+import {useMemoize} from '@vueuse/core';
 import {
   resolveCarrierName,
   waitForRequestData,
@@ -38,7 +39,7 @@ export interface UseCarrier {
 }
 
 // eslint-disable-next-line max-lines-per-function
-export const useCarrier = (options: UseCarrierOptions): UseCarrier => {
+export const useCarrier = useMemoize((options: UseCarrierOptions): UseCarrier => {
   const carrierName = computed(() => {
     const identifier = toValue(options.carrierIdentifier);
 
@@ -107,4 +108,4 @@ export const useCarrier = (options: UseCarrierOptions): UseCarrier => {
 
     features,
   };
-};
+});

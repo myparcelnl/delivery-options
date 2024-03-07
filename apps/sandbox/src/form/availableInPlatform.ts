@@ -9,6 +9,7 @@ import {
   resolveCarrierName,
   type CarrierIdentifier,
   type SupportedPlatformName,
+  usePlatform,
 } from '@myparcel-do/shared';
 import {isEnumValue} from '@myparcel/ts-utils';
 import {CarrierName} from '@myparcel/constants';
@@ -36,6 +37,12 @@ export const availableInCarrier = useMemoize((fieldName: string, platformName: S
 
   if (!carrierIdentifier || !isEnumValue(resolveCarrierName(carrierIdentifier), CarrierName)) {
     return true;
+  }
+
+  const {hasCarrier} = usePlatform(platformName);
+
+  if (!hasCarrier(carrierIdentifier)) {
+    return false;
   }
 
   const {features} = useCarrier({carrierIdentifier, platformName});
