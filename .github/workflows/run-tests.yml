@@ -9,6 +9,7 @@ on:
 
     paths-ignore:
       - ./**/*.md
+      - ./.idea/**
 
   merge_group:
 
