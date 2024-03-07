@@ -1,4 +1,5 @@
 import {addDays, getDay} from 'date-fns';
+import {DAYS_IN_WEEK} from '@myparcel-do/shared';
 import {createUtcDate} from './createUtcDate';
 
 /**
@@ -11,5 +12,5 @@ export const createNextDate = (weekday: number): Date => {
     return date;
   }
 
-  return addDays(date, (weekday + 7 - getDay(date)) % 7);
+  return addDays(date, (weekday + DAYS_IN_WEEK - getDay(date)) % DAYS_IN_WEEK);
 };
