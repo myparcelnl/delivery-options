@@ -77,7 +77,11 @@ export const useResolvedDeliveryOptions = useMemoize(() => {
             carrier: carrier.identifier,
             date: dateOption.date?.date,
             time: timeString,
-            deliveryType: getResolvedDeliveryType(dateOption.date?.date, datePossibility.type),
+            deliveryType: getResolvedDeliveryType(
+              carrier.config.value?.deliveryTypes ?? [],
+              dateOption.date?.date,
+              datePossibility.type,
+            ),
             packageType: datePossibility.package_type,
             shipmentOptions: datePossibility.shipment_options,
           });

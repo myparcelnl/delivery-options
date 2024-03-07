@@ -1,5 +1,5 @@
 import {toValue} from 'vue';
-import {get} from 'radash';
+import {get, shake} from 'radash';
 import {
   AddressField,
   CarrierSetting,
@@ -7,6 +7,7 @@ import {
   DROP_OFF_DELAY_DEFAULT,
   type SupportedPackageTypeName,
   resolveCarrierName,
+  PACKAGE_TYPE_DEFAULT,
 } from '@myparcel-do/shared';
 import {type EndpointParameters, type GetDeliveryOptions} from '@myparcel/sdk';
 import {PackageTypeName, PlatformName} from '@myparcel/constants';
@@ -28,19 +29,19 @@ export const createGetDeliveryOptionsParameters = (
     PackageTypeName.Package,
   );
 
-  const parameters: EndpointParameters<GetDeliveryOptions> = {
+  const parameters = shake({
     platform: config.platform ?? PlatformName.MyParcel,
     carrier: resolveCarrierName(carrier.identifier),
-    package_type: carrier.packageTypes.value.has(packageType) ? packageType : PackageTypeName.Package,
+    package_type: carrier.packageTypes.value.has(packageType) ? packageType : PACKAGE_TYPE_DEFAULT,
 
     cutoff_time: calculateCutoffTime(carrier),
     deliverydays_window: carrier.get(CarrierSetting.DeliveryDaysWindow, DELIVERY_DAYS_WINDOW_DEFAULT),
     dropoff_days: calculateDropOffDays(carrier),
     dropoff_delay: carrier.get(CarrierSetting.DropOffDelay, DROP_OFF_DELAY_DEFAULT),
 
-    same_day_delivery: toValue(carrier.features).has(CarrierSetting.AllowSameDayDelivery),
-    monday_delivery: toValue(carrier.features).has(CarrierSetting.AllowMondayDelivery),
-    saturday_delivery: toValue(carrier.features).has(CarrierSetting.AllowSaturdayDelivery),
+    same_day_delivery: toValue(carrier.features).has(CarrierSetting.AllowSameDayDelivery) || undefined,
+    monday_delivery: toValue(carrier.features).has(CarrierSetting.AllowMondayDelivery) || undefined,
+    saturday_delivery: toValue(carrier.features).has(CarrierSetting.AllowSaturdayDelivery) || undefined,
 
     cc: get(address, AddressField.Country, ''),
     city: get(address, AddressField.City, ''),
@@ -48,7 +49,7 @@ export const createGetDeliveryOptionsParameters = (
     street: get(address, AddressField.Street, ''),
 
     include: 'shipment_options',
-  };
+  } satisfies EndpointParameters<GetDeliveryOptions>);
 
   return Object.fromEntries(
     Object.entries(parameters).filter(([key]) => {
