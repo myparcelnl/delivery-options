@@ -168,6 +168,7 @@ exports[`getPlatformConfig > gets config for platform myparcel 1`] = `
         "package",
         "mailbox",
         "digital_stamp",
+        "package_small",
       ],
       "pickupCountries": [
         "NL",
