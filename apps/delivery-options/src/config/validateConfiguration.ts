@@ -21,6 +21,10 @@ import {
   validateIsString,
   validateIsTime,
   validateIsValue,
+  defineConfig,
+  KEY_ADDRESS,
+  KEY_CONFIG,
+  KEY_STRINGS,
 } from '@myparcel-do/shared';
 import {isEnumValue} from '@myparcel/ts-utils';
 import {PackageTypeName} from '@myparcel/constants';
@@ -139,9 +143,9 @@ const validateConfig = (input: InputDeliveryOptionsConfig): DeliveryOptionsConfi
 };
 
 export const validateConfiguration = (input: InputDeliveryOptionsConfiguration): DeliveryOptionsConfiguration => {
-  return {
-    address: filterConfig({...input.address}, addressOptions),
-    config: validateConfig({...input.config}),
-    strings: {...input.strings},
-  } as unknown as DeliveryOptionsConfiguration;
+  return defineConfig({
+    [KEY_ADDRESS]: filterConfig({...input[KEY_ADDRESS]}, addressOptions),
+    [KEY_CONFIG]: validateConfig({...input[KEY_CONFIG]}),
+    [KEY_STRINGS]: {...input[KEY_STRINGS]},
+  }) as unknown as DeliveryOptionsConfiguration;
 };

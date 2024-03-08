@@ -1,3 +1,3 @@
-import {type DeliveryOptionsConfiguration} from '../types';
+import {type InputDeliveryOptionsConfiguration} from '../types';
 
-export const defineConfig = (config: DeliveryOptionsConfiguration): DeliveryOptionsConfiguration => config;
+export const defineConfig = <Config extends InputDeliveryOptionsConfiguration>(config: Config): Config => config;
