@@ -70,7 +70,7 @@ export class AbstractCarrierConfiguration {
       case PACKAGE_TYPE_PACKAGE:
         return true;
       case PACKAGE_TYPE_PACKAGE_SMALL:
-        return ![NETHERLANDS, BELGIUM].includes(country) && this.hasFeature(ALLOW_PACKAGE_TYPE_PACKAGE_SMALL);
+        return BELGIUM !== country && this.hasFeature(ALLOW_PACKAGE_TYPE_PACKAGE_SMALL);
       case PACKAGE_TYPE_MAILBOX:
         return this.hasFeature(ALLOW_PACKAGE_TYPE_MAILBOX);
       case PACKAGE_TYPE_DIGITAL_STAMP:

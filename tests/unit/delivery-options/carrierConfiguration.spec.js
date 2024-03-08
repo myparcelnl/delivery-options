@@ -3,6 +3,7 @@ import {
   FEATURES_PACKAGE_TYPE_MAILBOX,
   FEATURES_PICKUP,
   FEATURES_SATURDAY_DELIVERY,
+  FEATURES_PACKAGE_TYPE_PACKAGE_SMALL,
 } from '@/data/carrierFeatures';
 import { PACKAGE_TYPE_DIGITAL_STAMP, PACKAGE_TYPE_MAILBOX, PACKAGE_TYPE_PACKAGE_SMALL } from '@/data/keys/settingsConsts';
 import { AbstractCarrierConfiguration } from '@/data/carriers/abstractCarrierConfiguration';
@@ -36,6 +37,7 @@ class MockCarrierConfiguration extends AbstractCarrierConfiguration {
         FEATURES_DELIVERY,
         FEATURES_PICKUP,
         FEATURES_PACKAGE_TYPE_MAILBOX,
+        FEATURES_PACKAGE_TYPE_PACKAGE_SMALL,
       ],
     };
   }
@@ -60,7 +62,7 @@ describe('CarrierConfiguration', () => {
     expect(config.allowsPackageTypeIn(PACKAGE_TYPE_DIGITAL_STAMP, 'NL')).toBe(false);
     expect(config.allowsPackageTypeIn(PACKAGE_TYPE_MAILBOX, 'NL')).toBe(true);
     expect(config.allowsPackageTypeIn(PACKAGE_TYPE_MAILBOX, 'BE')).toBe(true);
-    expect(config.allowsPackageTypeIn(PACKAGE_TYPE_PACKAGE_SMALL, 'NL')).toBe(false);
+    expect(config.allowsPackageTypeIn(PACKAGE_TYPE_PACKAGE_SMALL, 'NL')).toBe(true);
     expect(config.allowsPackageTypeIn(PACKAGE_TYPE_PACKAGE_SMALL, 'BE')).toBe(false);
     expect(config.allowsPackageTypeIn('NonExistentType', 'NL')).toBe(false);
   });
