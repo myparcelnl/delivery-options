@@ -5,7 +5,7 @@
   "description": "Stripped down npm publish plugin which supports workspace dependencies",
   "repository": {
     "type": "git",
-    "url": "https://github.com/myparcelnl/delivery-options.git",
+    "url": "git+https://github.com/myparcelnl/delivery-options.git",
     "directory": "libs/semantic-release-plugin"
   },
   "main": "dist/index.mjs",

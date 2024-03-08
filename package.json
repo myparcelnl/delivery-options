@@ -6,7 +6,7 @@
   "homepage": "https://myparcelnl.github.io/delivery-options",
   "repository": {
     "type": "git",
-    "url": "https://github.com/myparcelnl/delivery-options.git"
+    "url": "git+https://github.com/myparcelnl/delivery-options.git"
   },
   "license": "MIT",
   "author": "Edie Lemoine <edie@myparcel.nl>",

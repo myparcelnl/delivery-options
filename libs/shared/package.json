@@ -5,7 +5,7 @@
   "description": "",
   "repository": {
     "type": "git",
-    "url": "https://github.com/myparcelnl/delivery-options.git",
+    "url": "git+https://github.com/myparcelnl/delivery-options.git",
     "directory": "libs/shared"
   },
   "license": "MIT",
