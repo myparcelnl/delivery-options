@@ -2,7 +2,8 @@ import {
   FEATURES_DELIVERY,
   FEATURES_PACKAGE_TYPE_MAILBOX,
   FEATURES_PICKUP,
-  FEATURES_SATURDAY_DELIVERY, FEATURES_PACKAGE_TYPE_PACKAGE_SMALL,
+  FEATURES_SATURDAY_DELIVERY,
+  FEATURES_PACKAGE_TYPE_PACKAGE_SMALL,
 } from '@/data/carrierFeatures';
 import { PACKAGE_TYPE_DIGITAL_STAMP, PACKAGE_TYPE_MAILBOX, PACKAGE_TYPE_PACKAGE_SMALL } from '@/data/keys/settingsConsts';
 import { AbstractCarrierConfiguration } from '@/data/carriers/abstractCarrierConfiguration';
