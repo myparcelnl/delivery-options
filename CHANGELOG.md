@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.15.0](https://github.com/myparcelnl/delivery-options/compare/v5.14.1...v5.15.0) (2024-03-08)
+
+
+### :sparkles: New Features
+
+* allow package small for nl and be ([#208](https://github.com/myparcelnl/delivery-options/issues/208)) ([a9b14c6](https://github.com/myparcelnl/delivery-options/commit/a9b14c697e1c037edb9960c9d4c3a8eb973cd9e2))
+
 ### [5.14.1](https://github.com/myparcelnl/delivery-options/compare/v5.14.0...v5.14.1) (2024-03-01)
 
 
