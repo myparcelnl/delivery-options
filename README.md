@@ -34,6 +34,7 @@ The app was rewritten from scratch, to be able to upgrade all underlying technol
 - The app can now be used as a Vue component in any Vue 3 app.
 - TypeScript support.
 - More exported methods, constants, types and interfaces.
+- Package type `package_small` is now supported.
 
 **Breaking changes**
 
