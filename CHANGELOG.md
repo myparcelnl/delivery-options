@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [5.15.1](https://github.com/myparcelnl/delivery-options/compare/v5.15.0...v5.15.1) (2024-03-12)
+
+
+### :bug: Bug Fixes
+
+* add package small price to carrier override list ([#209](https://github.com/myparcelnl/delivery-options/issues/209)) ([e1a95e7](https://github.com/myparcelnl/delivery-options/commit/e1a95e7106cea4ba4f927378b4ffb07d1495f71b))
+
 ## [5.15.0](https://github.com/myparcelnl/delivery-options/compare/v5.14.1...v5.15.0) (2024-03-08)
 
 
