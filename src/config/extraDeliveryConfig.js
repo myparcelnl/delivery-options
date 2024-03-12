@@ -16,6 +16,12 @@ export const SUNDAY = 0;
  */
 export const extraDeliveryConfig = [
   {
+    cutoffTime: CONFIG.SUNDAY_CUTOFF_TIME,
+    deliveryDay: MONDAY,
+    dropOffDay: SUNDAY,
+    requires: FEATURES_MONDAY_DELIVERY,
+  },
+  {
     cutoffTime: CONFIG.SATURDAY_CUTOFF_TIME,
     deliveryDay: MONDAY,
     dropOffDay: SATURDAY,
