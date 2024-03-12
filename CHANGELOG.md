@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.16.0](https://github.com/myparcelnl/delivery-options/compare/v5.15.1...v5.16.0) (2024-03-12)
+
+
+### :sparkles: New Features
+
+* add sunday cutoff time ([#210](https://github.com/myparcelnl/delivery-options/issues/210)) ([cde3efe](https://github.com/myparcelnl/delivery-options/commit/cde3efefbafe0371ec5972fbb8a797063e5cccbb))
+
 ### [5.15.1](https://github.com/myparcelnl/delivery-options/compare/v5.15.0...v5.15.1) (2024-03-12)
 
 
