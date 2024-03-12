@@ -15,7 +15,9 @@ export function getExtraDropOffDay(configBus = realConfigBus) {
   return extraDeliveryConfig.find((setting) => {
     const allowedForCarrierAndPlatform = carrierConfiguration.hasFeature(setting.requires);
     const requiredOptionsPresent = setting.requires.every(configBus.get);
+    const dropOffDays = configBus.get(CONFIG.DROP_OFF_DAYS);
+    const theRightDay = dropOffDays && dropOffDays.includes(setting.dropOffDay);
 
-    return allowedForCarrierAndPlatform && requiredOptionsPresent;
+    return allowedForCarrierAndPlatform && requiredOptionsPresent && theRightDay;
   });
 }

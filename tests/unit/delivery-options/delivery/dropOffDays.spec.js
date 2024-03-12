@@ -14,27 +14,30 @@ describe('Delivery moments', () => {
   });
 
   test.each`
-    platform        | carrier     | weekday      | expected
-    ${MYPARCEL}     | ${POSTNL}   | ${MONDAY}    | ${false}
-    ${MYPARCEL}     | ${POSTNL}   | ${TUESDAY}   | ${false}
-    ${MYPARCEL}     | ${POSTNL}   | ${WEDNESDAY} | ${false}
-    ${MYPARCEL}     | ${POSTNL}   | ${THURSDAY}  | ${false}
-    ${MYPARCEL}     | ${POSTNL}   | ${FRIDAY}    | ${false}
-    ${MYPARCEL}     | ${POSTNL}   | ${SATURDAY}  | ${true}
-    ${MYPARCEL}     | ${POSTNL}   | ${SUNDAY}    | ${false}
-    ${SENDMYPARCEL} | ${BPOST}    | ${MONDAY}    | ${false}
-    ${SENDMYPARCEL} | ${BPOST}    | ${TUESDAY}   | ${false}
-    ${SENDMYPARCEL} | ${BPOST}    | ${WEDNESDAY} | ${false}
-    ${SENDMYPARCEL} | ${BPOST}    | ${THURSDAY}  | ${false}
-    ${SENDMYPARCEL} | ${BPOST}    | ${FRIDAY}    | ${true}
-    ${SENDMYPARCEL} | ${BPOST}    | ${SATURDAY}  | ${false}
-    ${SENDMYPARCEL} | ${BPOST}    | ${SUNDAY}    | ${false}
-    ${SENDMYPARCEL} | ${DPD}      | ${FRIDAY}    | ${false}
-    ${SENDMYPARCEL} | ${POSTNL}   | ${FRIDAY}    | ${false}
+    platform        | carrier     | weekday      | dropOffDays              | expected 
+    ${MYPARCEL}     | ${POSTNL}   | ${MONDAY}    | ${[0, 1, 2, 3, 4, 5, 6]} |${false}
+    ${MYPARCEL}     | ${POSTNL}   | ${TUESDAY}   | ${[0, 1, 2, 3, 4, 5, 6]} | ${false}
+    ${MYPARCEL}     | ${POSTNL}   | ${WEDNESDAY} | ${[0, 1, 2, 3, 4, 5, 6]} | ${false}
+    ${MYPARCEL}     | ${POSTNL}   | ${THURSDAY}  | ${[0, 1, 2, 3, 4, 5, 6]} | ${false}
+    ${MYPARCEL}     | ${POSTNL}   | ${FRIDAY}    | ${[0, 1, 2, 3, 4, 5, 6]} | ${false}
+    ${MYPARCEL}     | ${POSTNL}   | ${SATURDAY}  | ${[0, 1, 2, 3, 4, 5, 6]} | ${false}
+    ${MYPARCEL}     | ${POSTNL}   | ${SATURDAY}  | ${[1, 2, 3, 4, 5, 6]}    | ${true} 
+    ${MYPARCEL}     | ${POSTNL}   | ${SUNDAY}    | ${[0, 1, 2, 3, 4, 5, 6]} | ${true}
+    ${MYPARCEL}     | ${POSTNL}   | ${SUNDAY}    | ${[1, 2, 3, 4, 5, 6]}    | ${false} 
+    ${SENDMYPARCEL} | ${BPOST}    | ${MONDAY}    | ${[0, 1, 2, 3, 4, 5, 6]} | ${false}
+    ${SENDMYPARCEL} | ${BPOST}    | ${TUESDAY}   | ${[0, 1, 2, 3, 4, 5, 6]} | ${false}
+    ${SENDMYPARCEL} | ${BPOST}    | ${WEDNESDAY} | ${[0, 1, 2, 3, 4, 5, 6]} | ${false}
+    ${SENDMYPARCEL} | ${BPOST}    | ${THURSDAY}  | ${[0, 1, 2, 3, 4, 5, 6]} | ${false}
+    ${SENDMYPARCEL} | ${BPOST}    | ${FRIDAY}    | ${[0, 1, 2, 3, 4, 5, 6]} | ${true}
+    ${SENDMYPARCEL} | ${BPOST}    | ${SATURDAY}  | ${[0, 1, 2, 3, 4, 5, 6]} | ${false}
+    ${SENDMYPARCEL} | ${BPOST}    | ${SUNDAY}    | ${[0, 1, 2, 3, 4, 5, 6]} | ${false}
+    ${SENDMYPARCEL} | ${DPD}      | ${FRIDAY}    | ${[0, 1, 2, 3, 4, 5, 6]} | ${false}
+    ${SENDMYPARCEL} | ${POSTNL}   | ${FRIDAY}    | ${[0, 1, 2, 3, 4, 5, 6]} | ${false}
   `('handles extra dropoff day for $platform, $carrier on day $weekday correctly', ({
     platform,
     carrier,
     weekday,
+    dropOffDays,
     expected,
   }) => {
     const date = dayjs().weekday(weekday).set('h', 10).set('m', 0).toDate();
@@ -43,7 +46,7 @@ describe('Delivery moments', () => {
     const configBus = mockConfigBus({
       [CONFIG.KEY]: {
         [CONFIG.PLATFORM]: platform,
-        [CONFIG.DROP_OFF_DAYS]: [0, 1, 2, 3, 4, 5, 6],
+        [CONFIG.DROP_OFF_DAYS]: dropOffDays,
         [CONFIG.CARRIER_SETTINGS]: {
           [carrier]: {
             [CONFIG.ALLOW_DELIVERY_OPTIONS]: true,

@@ -228,6 +228,15 @@ export const createSettings = memoize((platform) => {
                 inAnyCarrier(CONFIG.ALLOW_MONDAY_DELIVERY),
               ],
             },
+            {
+              key: CONFIG.KEY,
+              name: CONFIG.SUNDAY_CUTOFF_TIME,
+              component: CTimepicker,
+              conditions: [
+                inAnyCarrier(CONFIG.ALLOW_DELIVERY_OPTIONS),
+                inAnyCarrier(CONFIG.ALLOW_MONDAY_DELIVERY),
+              ],
+            },
           ],
         }),
         ...ifAnyCarrierAllows(CONFIG.ALLOW_SATURDAY_DELIVERY, {
