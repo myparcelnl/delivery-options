@@ -47,6 +47,7 @@ export const PRICE_PACKAGE_TYPE_PACKAGE_SMALL = 'pricePackageTypePackageSmall';
  */
 export const ALLOW_MONDAY_DELIVERY = 'allowMondayDelivery';
 export const SATURDAY_CUTOFF_TIME = 'saturdayCutoffTime';
+export const SUNDAY_CUTOFF_TIME = 'sundayCutoffTime';
 
 /*
  * For use with Saturday delivery.
