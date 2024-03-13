@@ -1,11 +1,7 @@
 import {isEnumValue} from '@myparcel/ts-utils';
 import {DeliveryTypeName, ShipmentOptionName} from '@myparcel/constants';
-import {
-  type ConfigKey,
-  CustomDeliveryType,
-  type SupportedDeliveryTypeName,
-  type SupportedShipmentOptionName,
-} from '../types';
+import {type ConfigKey, type SupportedDeliveryTypeName, type SupportedShipmentOptionName} from '../types';
+import {CustomDeliveryType} from '../data';
 import {getShipmentOptionConfigMap} from './getShipmentOptionConfigMap';
 import {getDeliveryTypeConfigMap} from './getDeliveryTypeConfigMap';
 

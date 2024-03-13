@@ -116,3 +116,9 @@ export enum ElementEvent {
   Keydown = 'keydown',
   Click = 'click',
 }
+
+export enum CustomDeliveryType {
+  SameDay = 'same_day',
+  Monday = 'monday',
+  Saturday = 'saturday',
+}
