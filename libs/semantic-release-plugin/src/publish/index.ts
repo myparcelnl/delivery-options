@@ -1,5 +1,6 @@
 import {getPackageJson, hasErrors, throwIfHasErrors} from '../utils';
 import {type PublishCmd} from '../types';
+import {updatePackageJsonDependencyVersions} from './updatePackageJsonDependencyVersions';
 import {publishNpmPackage} from './publishNpmPackage';
 import {gitPush} from './gitPush';
 
@@ -15,11 +16,15 @@ export const publish: PublishCmd = async (pluginConfig, context) => {
   }
 
   if (!hasErrors()) {
-    for (const additionalPackage of pluginConfig.additionalPackages ?? []) {
-      await publishNpmPackage({...context, cwd: additionalPackage});
+    for (const packageCwd of [context.cwd, ...(pluginConfig.additionalPackages ?? [])]) {
+      await updatePackageJsonDependencyVersions(pluginConfig, {...context, cwd: packageCwd});
     }
+  }
 
-    await publishNpmPackage(context);
+  if (!hasErrors()) {
+    for (const packageCwd of [context.cwd, ...(pluginConfig.additionalPackages ?? [])]) {
+      await publishNpmPackage({...context, cwd: packageCwd});
+    }
   }
 
   throwIfHasErrors();

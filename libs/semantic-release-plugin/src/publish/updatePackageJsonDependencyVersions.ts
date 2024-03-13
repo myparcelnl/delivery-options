@@ -1,6 +1,6 @@
 import {throwIfHasErrors} from '../utils';
 import {type PluginConfig, type ContextWithNextRelease} from '../types';
-import {updateWorkspaceDependencies} from './updateWorkspaceDependencies';
+import {updateWorkspaceDependencies} from '../prepare/updateWorkspaceDependencies';
 
 export const updatePackageJsonDependencyVersions = async (
   pluginConfig: PluginConfig,

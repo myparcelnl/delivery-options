@@ -17,7 +17,7 @@ export const updateWorkspaceDependencies = async (context: ContextWithNextReleas
     ...devDependencies.map(([name]) => ['devDependencies', name]),
   ];
 
-  const updates = itemsToUpdate.map(([type, name]) => `${type}.${name}=workspace:^${nextRelease.version}`);
+  const updates = itemsToUpdate.map(([type, name]) => `${type}.${name}=^${nextRelease.version}`);
 
   if (updates.length > 0) {
     logger.log(`Updating workspace dependencies versions in package.json for ${pkg.name}`);
