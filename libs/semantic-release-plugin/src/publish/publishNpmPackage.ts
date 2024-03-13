@@ -1,8 +1,10 @@
-import {getPackageJson, executeWithErrorHandling} from '../utils';
+import {getPackageJson, executeWithErrorHandling, throwIfHasErrors} from '../utils';
 import {type ContextWithNextRelease} from '../types';
 import {getChannel} from './getChannel';
 
 export const publishNpmPackage = async (context: ContextWithNextRelease): Promise<void> => {
+  throwIfHasErrors();
+
   const {env, cwd, logger, nextRelease} = context;
 
   const pkg = await getPackageJson(context.cwd);

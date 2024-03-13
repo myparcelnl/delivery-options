@@ -48,7 +48,7 @@
     "typecheck": "vue-tsc --project tsconfig.base.json --noEmit"
   },
   "dependencies": {
-    "@myparcel-do/shared": "workspace:*",
+    "@myparcel-do/shared": "workspace:^6.0.0-beta.2",
     "@myparcel/constants": "^2.0.0",
     "@myparcel/sdk": "^3.0.0",
     "@myparcel/ts-utils": "^1.12.0",

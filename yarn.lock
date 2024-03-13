@@ -785,7 +785,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@myparcel-do/shared@workspace:*, @myparcel-do/shared@workspace:libs/shared":
+"@myparcel-do/shared@workspace:*, @myparcel-do/shared@workspace:^6.0.0-beta.2, @myparcel-do/shared@workspace:libs/shared":
   version: 0.0.0-use.local
   resolution: "@myparcel-do/shared@workspace:libs/shared"
   dependencies:
@@ -1035,7 +1035,7 @@ __metadata:
     "@histoire/plugin-vue": "npm:^0.17.6"
     "@myparcel-do/build-vite": "workspace:*"
     "@myparcel-do/semantic-release-plugin": "workspace:*"
-    "@myparcel-do/shared": "workspace:*"
+    "@myparcel-do/shared": "workspace:^6.0.0-beta.2"
     "@myparcel/constants": "npm:^2.0.0"
     "@myparcel/sdk": "npm:^3.0.0"
     "@myparcel/semantic-release-config": "npm:^5.0.0"
