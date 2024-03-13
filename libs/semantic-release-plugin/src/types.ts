@@ -1,6 +1,10 @@
 import {type DebugLogger} from 'node:util';
 
-interface PluginConfig {
+export interface PluginConfig {
+  /**
+   * Directories of additional packages to publish.
+   */
+  additionalPackages?: string[];
   npmPublish?: boolean;
   pkgRoot?: string;
 }

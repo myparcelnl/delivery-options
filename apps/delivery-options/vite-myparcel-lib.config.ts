@@ -1,4 +1,4 @@
-import {copyFileSync} from 'node:fs';
+import {writeFileSync} from 'node:fs';
 import dts from 'vite-plugin-dts';
 import {mergeConfig, type UserConfig} from 'vite';
 import {createViteConfig} from '@myparcel-do/build-vite';
@@ -15,8 +15,8 @@ export default createViteConfig((env) => {
           entryRoot: 'src',
           rollupTypes: true,
           afterBuild: () => {
-            // To please publint, we need to copy the .d.ts file to .d.cts
-            copyFileSync('dist/index.d.ts', 'dist/index.d.cts');
+            // To please publint, we need to also have a .d.cts file
+            writeFileSync('dist/index.d.cts', "export * from './index';");
           },
         }),
     ],

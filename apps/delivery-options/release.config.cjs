@@ -1,4 +1,5 @@
 /* eslint-disable no-template-curly-in-string */
+const path = require('node:path');
 const {
   addChangelogPlugin,
   addCommitAnalyzerPlugin,
@@ -24,7 +25,12 @@ module.exports = {
     /*
      * Includes npm and git functionality
      */
-    '@myparcel-do/semantic-release-plugin',
+    [
+      '@myparcel-do/semantic-release-plugin',
+      {
+        additionalPackages: [path.resolve(__dirname, '../../libs/shared')],
+      },
+    ],
 
     addGitHubPlugin(),
   ],

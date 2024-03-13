@@ -1,11 +1,10 @@
 import {getPackageJson, hasErrors, throwIfHasErrors} from '../utils';
 import {type PublishCmd} from '../types';
-import {removeWorkspaceDependencies} from './removeWorkspaceDependencies';
 import {publishNpmPackage} from './publishNpmPackage';
 import {gitPush} from './gitPush';
 
 export const publish: PublishCmd = async (pluginConfig, context) => {
-  const pkg = await getPackageJson(context);
+  const pkg = await getPackageJson(context.cwd);
   const {logger} = context;
 
   await gitPush(context);
@@ -15,9 +14,11 @@ export const publish: PublishCmd = async (pluginConfig, context) => {
     return;
   }
 
-  await removeWorkspaceDependencies(context);
-
   if (!hasErrors()) {
+    for (const additionalPackage of pluginConfig.additionalPackages ?? []) {
+      await publishNpmPackage({...context, cwd: additionalPackage});
+    }
+
     await publishNpmPackage(context);
   }
 
