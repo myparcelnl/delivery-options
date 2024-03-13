@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel/delivery-options-v6.0.0-beta.4](https://github.com/myparcelnl/delivery-options/compare/v6.0.0-beta.3...v6.0.0-beta.4) (2024-03-13)
+
+
+### :bug: Bug Fixes
+
+* **pickup:** disable pickup for carrier if it throws error ([297d74e](https://github.com/myparcelnl/delivery-options/commit/297d74ee716ce7abbcc9278b51e10da8c4e8ee40))
+
 ## [@myparcel/delivery-options-v6.0.0-beta.3](https://github.com/myparcelnl/delivery-options/compare/v6.0.0-beta.2...v6.0.0-beta.3) (2024-03-13)
 
 

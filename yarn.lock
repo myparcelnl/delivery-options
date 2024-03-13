@@ -695,7 +695,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@myparcel-do/build-vite@workspace:*, @myparcel-do/build-vite@workspace:^6.0.0-beta.3, @myparcel-do/build-vite@workspace:libs/build-vite":
+"@myparcel-do/build-vite@workspace:*, @myparcel-do/build-vite@workspace:^6.0.0-beta.4, @myparcel-do/build-vite@workspace:libs/build-vite":
   version: 0.0.0-use.local
   resolution: "@myparcel-do/build-vite@workspace:libs/build-vite"
   dependencies:
@@ -773,7 +773,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@myparcel-do/semantic-release-plugin@workspace:^6.0.0-beta.3, @myparcel-do/semantic-release-plugin@workspace:libs/semantic-release-plugin":
+"@myparcel-do/semantic-release-plugin@workspace:^6.0.0-beta.4, @myparcel-do/semantic-release-plugin@workspace:libs/semantic-release-plugin":
   version: 0.0.0-use.local
   resolution: "@myparcel-do/semantic-release-plugin@workspace:libs/semantic-release-plugin"
   dependencies:
@@ -785,13 +785,13 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@myparcel-do/shared@workspace:*, @myparcel-do/shared@workspace:^6.0.0-beta.3, @myparcel-do/shared@workspace:libs/shared":
+"@myparcel-do/shared@workspace:*, @myparcel-do/shared@workspace:^6.0.0-beta.4, @myparcel-do/shared@workspace:libs/shared":
   version: 0.0.0-use.local
   resolution: "@myparcel-do/shared@workspace:libs/shared"
   dependencies:
-    "@myparcel-do/build-vite": "workspace:^6.0.0-beta.3"
-    "@myparcel-do/semantic-release-plugin": "workspace:^6.0.0-beta.3"
-    "@myparcel-do/shared": "workspace:^6.0.0-beta.3"
+    "@myparcel-do/build-vite": "workspace:^6.0.0-beta.4"
+    "@myparcel-do/semantic-release-plugin": "workspace:^6.0.0-beta.4"
+    "@myparcel-do/shared": "workspace:^6.0.0-beta.4"
     "@myparcel/constants": "npm:^2.0.0"
     "@myparcel/sdk": "npm:^3.3.1"
     "@myparcel/ts-utils": "npm:^1.12.0"
@@ -1036,9 +1036,9 @@ __metadata:
   resolution: "@myparcel/delivery-options@workspace:apps/delivery-options"
   dependencies:
     "@histoire/plugin-vue": "npm:^0.17.6"
-    "@myparcel-do/build-vite": "workspace:^6.0.0-beta.3"
-    "@myparcel-do/semantic-release-plugin": "workspace:^6.0.0-beta.3"
-    "@myparcel-do/shared": "workspace:^6.0.0-beta.3"
+    "@myparcel-do/build-vite": "workspace:^6.0.0-beta.4"
+    "@myparcel-do/semantic-release-plugin": "workspace:^6.0.0-beta.4"
+    "@myparcel-do/shared": "workspace:^6.0.0-beta.4"
     "@myparcel/constants": "npm:^2.0.0"
     "@myparcel/sdk": "npm:^3.0.0"
     "@myparcel/semantic-release-config": "npm:^5.0.0"
