@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel/delivery-options-v6.0.0-beta.2](https://github.com/myparcelnl/delivery-options/compare/v6.0.0-beta.1...v6.0.0-beta.2) (2024-03-13)
+
+
+### :bug: Bug Fixes
+
+* **deps:** move leaflet to prod dependencies ([1f70228](https://github.com/myparcelnl/delivery-options/commit/1f7022864326c9b471bc1cb3e7c1d71e63d66c65))
+* use correct type in defineConfig helper ([a6bb13c](https://github.com/myparcelnl/delivery-options/commit/a6bb13cb0026e98d2816ebd9be2e5e7d8a659360))
+
 ## [@myparcel/delivery-options-v6.0.0-beta.1](https://github.com/myparcelnl/delivery-options/compare/v5.11.0...v6.0.0-beta.1) (2024-03-07)
 
 
