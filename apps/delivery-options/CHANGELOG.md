@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel/delivery-options-v6.0.0-beta.6](https://github.com/myparcelnl/delivery-options/compare/v6.0.0-beta.5...v6.0.0-beta.6) (2024-03-13)
+
+
+### :sparkles: New Features
+
+* **exports:** export more types and variables ([9f86eed](https://github.com/myparcelnl/delivery-options/commit/9f86eedb461a9814965ba0e0071d6fd604592b42))
+
 ## [@myparcel/delivery-options-v6.0.0-beta.5](https://github.com/myparcelnl/delivery-options/compare/v6.0.0-beta.4...v6.0.0-beta.5) (2024-03-13)
 
 
