@@ -2,11 +2,11 @@
   "extends": "@vue/tsconfig/tsconfig.dom.json",
   "compilerOptions": {
     "noEmitOnError": false,
-    "skipLibCheck": true,
     "types": ["node", "vite/client"]
   },
   "include": [],
   "exclude": [
+    "**/*.snap",
     "**/*.spec.*",
     "**/*.test.*",
     "**/__mocks__",

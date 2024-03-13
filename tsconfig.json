@@ -1,5 +1,5 @@
 {
-  "extends": ["./tsconfig.base.json", "./tsconfig.paths.json"],
+  "extends": "./tsconfig.base.json",
   "include": ["./*", "apps/**/*", "libs/**/*"],
   "exclude": ["**/*.snap"]
 }

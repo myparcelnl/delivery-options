@@ -14,11 +14,11 @@
   "exports": {
     ".": {
       "import": "./src/index.ts",
-      "require": "./src/index.tss"
+      "require": "./src/index.ts"
     },
     "./testing": {
       "import": "./src/__tests__/index.ts",
-      "require": "./src/__tests__/index.tss"
+      "require": "./src/__tests__/index.ts"
     }
   },
   "main": "./src/index.ts",

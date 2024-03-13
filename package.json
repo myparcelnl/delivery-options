@@ -3,7 +3,7 @@
   "version": "6.0.0-beta.1",
   "private": true,
   "description": "MyParcel delivery options module for checkouts.",
-  "homepage": "https://myparcelnl.github.io/delivery-options",
+  "homepage": "https://developer.myparcel.nl/documentation/60.delivery-options.html/",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/myparcelnl/delivery-options.git"
@@ -11,11 +11,6 @@
   "license": "MIT",
   "author": "Edie Lemoine <edie@myparcel.nl>",
   "type": "module",
-  "main": "dist/myparcel.js",
-  "types": "types/index.d.ts",
-  "directories": {
-    "test": "tests"
-  },
   "workspaces": [
     "apps/*",
     "libs/*"
@@ -55,7 +50,8 @@
   "prettier": "@myparcel/prettier-config",
   "resolutions": {
     "@myparcel/constants": "^2.0.0",
-    "eslint-plugin-prettier": "^4.2.1"
+    "eslint-plugin-prettier": "^4.2.1",
+    "typescript": "^5.4.0"
   },
   "devDependencies": {
     "@myparcel-eslint/eslint-config-esnext": "^1.3.0",
@@ -94,7 +90,10 @@
     },
     "files": [
       {
-        "path": "apps/delivery-options/dist/*.js"
+        "path": "apps/delivery-options/dist/myparcel.lib.js"
+      },
+      {
+        "path": "apps/delivery-options/dist/style.css"
       }
     ]
   }
