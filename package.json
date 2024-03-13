@@ -37,9 +37,9 @@
     "ws:test:coverage": "cd $0 && vitest run --coverage --passWithNoTests",
     "ws:test:run": "cd $0 && vitest run --passWithNoTests",
     "ws:test:update": "cd $0 && vitest run -u --passWithNoTests",
-    "ws:ts:build": "cd $0 && tsc --project tsconfig.base.json --declaration --emitDeclarationOnly --declarationDir dist",
+    "ws:ts:build": "cd $0 && tsc --project tsconfig.base.json --declaration --emitDeclarationOnly --noEmit false --declarationDir dist",
     "ws:ts:typecheck": "cd $0 && tsc --project tsconfig.base.json --noEmit",
-    "ws:vue:build": "cd $0 && vue-tsc --project tsconfig.base.json --declaration --emitDeclarationOnly --declarationDir dist",
+    "ws:vue:build": "cd $0 && vue-tsc --project tsconfig.base.json --declaration --emitDeclarationOnly --noEmit false --declarationDir dist",
     "ws:vue:typecheck": "cd $0 && vue-tsc --project tsconfig.base.json --noEmit"
   },
   "lint-staged": {
