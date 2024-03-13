@@ -6,8 +6,6 @@ import {
   KEY_CONFIG,
   KEY_CARRIER_SETTINGS,
   CustomDeliveryType,
-  waitForRequestData,
-  useCarrierRequest,
   KEY_ADDRESS,
   AddressField,
 } from '@myparcel-do/shared';
@@ -17,50 +15,61 @@ import {mockDeliveryOptionsConfig, getMockDeliveryOptionsConfiguration} from '..
 import {getResolvedCarrier} from './getResolvedCarrier';
 
 describe('getResolvedCarrier', () => {
-  beforeEach(async () => {
+  beforeEach(() => {
     setActivePinia(createPinia());
-
-    await waitForRequestData(useCarrierRequest, [CarrierName.DhlForYou]);
   });
 
   afterEach(() => {
     getResolvedCarrier.clear();
   });
 
-  it('exposes delivery types, filtered by config', async () => {
-    const carrier = await getResolvedCarrier(CarrierName.DhlForYou, PlatformName.MyParcel);
+  describe('delivery types', () => {
+    it('exposes delivery types', async () => {
+      const carrier = await getResolvedCarrier(CarrierName.DhlForYou, PlatformName.MyParcel);
 
-    mockDeliveryOptionsConfig(
-      getMockDeliveryOptionsConfiguration({
-        [KEY_CONFIG]: {
-          [KEY_CARRIER_SETTINGS]: {
-            [CarrierName.DhlForYou]: {
-              [CarrierSetting.AllowPickupLocations]: false,
-              [CarrierSetting.AllowSameDayDelivery]: false,
+      mockDeliveryOptionsConfig(
+        getMockDeliveryOptionsConfiguration({
+          [KEY_CONFIG]: {
+            [KEY_CARRIER_SETTINGS]: {
+              [CarrierName.DhlForYou]: {
+                [CarrierSetting.AllowPickupLocations]: false,
+                [CarrierSetting.AllowSameDayDelivery]: false,
+              },
             },
           },
-        },
-      }),
-    );
+        }),
+      );
 
-    expect(carrier.deliveryTypes.value).toEqual(new Set([DeliveryTypeName.Standard]));
+      expect(carrier.deliveryTypes.value).toEqual(new Set([DeliveryTypeName.Standard]));
+    });
 
-    mockDeliveryOptionsConfig(
-      getMockDeliveryOptionsConfiguration({
-        [KEY_CONFIG]: {
-          [KEY_CARRIER_SETTINGS]: {
-            [CarrierName.DhlForYou]: {
-              [CarrierSetting.AllowPickupLocations]: true,
-              [CarrierSetting.AllowSameDayDelivery]: true,
+    it('filters delivery types by config', async () => {
+      const carrier = await getResolvedCarrier(CarrierName.DhlForYou, PlatformName.MyParcel);
+      mockDeliveryOptionsConfig(
+        getMockDeliveryOptionsConfiguration({
+          [KEY_CONFIG]: {
+            [KEY_CARRIER_SETTINGS]: {
+              [CarrierName.DhlForYou]: {
+                [CarrierSetting.AllowPickupLocations]: true,
+                [CarrierSetting.AllowSameDayDelivery]: true,
+              },
             },
           },
-        },
-      }),
-    );
+        }),
+      );
 
-    expect(carrier.deliveryTypes.value).toEqual(
-      new Set([CustomDeliveryType.SameDay, DeliveryTypeName.Pickup, DeliveryTypeName.Standard]),
-    );
+      expect(carrier.deliveryTypes.value).toEqual(
+        new Set([CustomDeliveryType.SameDay, DeliveryTypeName.Pickup, DeliveryTypeName.Standard]),
+      );
+    });
+
+    it('filters delivery types by disabledDeliveryTypes', async () => {
+      const carrier = await getResolvedCarrier(CarrierName.DhlForYou, PlatformName.MyParcel);
+
+      carrier.disabledDeliveryTypes.value.add(DeliveryTypeName.Standard);
+
+      expect(carrier.deliveryTypes.value).toEqual(new Set([CustomDeliveryType.SameDay, DeliveryTypeName.Pickup]));
+    });
   });
 
   it('exposes package types', async () => {

@@ -1,4 +1,4 @@
-import {computed} from 'vue';
+import {computed, ref} from 'vue';
 import {useMemoize} from '@vueuse/core';
 import {
   type CarrierIdentifier,
@@ -43,8 +43,12 @@ const cb = async (
   const carrier = useCarrier({carrierIdentifier, platformName});
   const address = useAddressStore();
 
+  const disabledDeliveryTypes = ref(new Set<SupportedDeliveryTypeName>());
+
   const deliveryTypes = computed(() => {
-    return filterSet(carrier.deliveryTypes.value, (option) => resolveOption(option, carrierIdentifier));
+    return filterSet(carrier.deliveryTypes.value, (option) => {
+      return !disabledDeliveryTypes.value.has(option) && resolveOption(option, carrierIdentifier);
+    });
   });
 
   const shipmentOptions = computed(() => {
@@ -103,6 +107,8 @@ const cb = async (
     hasDelivery,
     hasFakeDelivery,
     hasPickup,
+
+    disabledDeliveryTypes,
 
     get(key, defaultValue) {
       return getResolvedValue(key, carrierIdentifier, defaultValue);

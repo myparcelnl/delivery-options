@@ -1,4 +1,4 @@
-import {type ComputedRef} from 'vue';
+import {type ComputedRef, type Ref} from 'vue';
 import {
   type CarrierIdentifier,
   type CarrierSettings,
@@ -21,6 +21,7 @@ export type ResolvedCarrier = Carrier & {
   pickupCountries: ComputedRef<Set<string>>;
   deliveryCountries: ComputedRef<Set<string>>;
   deliveryTypes: ComputedRef<Set<SupportedDeliveryTypeName>>;
+  disabledDeliveryTypes: Ref<Set<SupportedDeliveryTypeName>>;
   packageTypes: ComputedRef<Set<SupportedPackageTypeName>>;
   shipmentOptions: ComputedRef<Set<SupportedShipmentOptionName>>;
   features: ComputedRef<Set<string>>;

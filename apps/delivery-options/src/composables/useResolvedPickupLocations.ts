@@ -1,6 +1,7 @@
 import {get, useMemoize} from '@vueuse/core';
 import {PickupLocationType, usePickupLocationsRequest, computedAsync} from '@myparcel-do/shared';
 import {type PickupLocation} from '@myparcel/sdk';
+import {DeliveryTypeName} from '@myparcel/constants';
 import {createGetDeliveryOptionsParameters} from '../utils';
 import {type ResolvedCarrier, type ResolvedPickupLocation} from '../types';
 import {useActiveCarriers} from './useActiveCarriers';
@@ -44,7 +45,15 @@ const loadPickupLocations = async (carrier: ResolvedCarrier) => {
 
   await query.load();
 
-  return (get(query.data) ?? []).map((location) => formatPickupLocation(carrier, location as PickupLocation));
+  const locations = get(query.data) ?? [];
+
+  if (!locations.length) {
+    // Delete the pickup delivery type if there are no pickup locations to hide pickup after a failed request
+    carrier.disabledDeliveryTypes.value.add(DeliveryTypeName.Pickup);
+    return [];
+  }
+
+  return locations.map((location) => formatPickupLocation(carrier, location as PickupLocation));
 };
 
 export const useResolvedPickupLocations = useMemoize(() => {
