@@ -17,13 +17,10 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: 'Run tests'
-        #language=sh
-        run: |
-          yarn nx run-many \
-            --runner="cloud" \
-            --output-style="static" \
-            --target="test:coverage"
+      - uses: myparcelnl/actions/nx-run-many@v4
+        with:
+          prefix: 'yarn'
+          target: 'test:coverage'
 
       - uses: codecov/codecov-action@v4
         if: matrix.node-version == vars.NODE_VERSION

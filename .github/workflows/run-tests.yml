@@ -31,13 +31,10 @@ jobs:
         with:
           node-version: ${{ vars.NODE_VERSION }}
 
-      - name: 'Run typecheck'
-        # language=sh
-        run: |
-          yarn nx run-many \
-            --runner="cloud" \
-            --output-style="static" \
-            --target="typecheck"
+      - uses: myparcelnl/actions/nx-run-many@v4
+        with:
+          prefix: 'yarn'
+          target: 'typecheck'
 
   bundlewatch:
     runs-on: ubuntu-22.04
@@ -48,14 +45,10 @@ jobs:
         with:
           node-version: ${{ vars.NODE_VERSION }}
 
-      - name: 'Build'
-        shell: bash
-        # language=sh
-        run: |
-          yarn nx run-many \
-            --runner="cloud" \
-            --output-style="static" \
-            --target="build"
+      - uses: myparcelnl/actions/nx-run-many@v4
+        with:
+          prefix: 'yarn'
+          target: 'build'
 
       - uses: myparcelnl/actions/bundlewatch@v4
         with:

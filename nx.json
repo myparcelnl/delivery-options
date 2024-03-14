@@ -8,7 +8,6 @@
   "namedInputs": {
     "default": [
       "{workspaceRoot}/tsconfig.*.json",
-      "!{projectRoot}/release.config.cjs",
       "{projectRoot}/*.cjs",
       "{projectRoot}/*.html",
       "{projectRoot}/*.js",
@@ -18,6 +17,7 @@
       "{projectRoot}/public/**/*",
       "{projectRoot}/src/**/*",
       "{projectRoot}/tsconfig.*.json",
+      "!{projectRoot}/release.config.cjs",
       "!{projectRoot}/histoire.*"
     ],
     "lint": [
@@ -89,14 +89,6 @@
           "test:run",
           "test:coverage"
         ],
-        "parallel": 10
-      }
-    },
-    "cloud": {
-      "runner": "nx-cloud",
-      "options": {
-        "accessToken": "ZDk5NTE5ZWItMmYxYy00ZjNmLThjMzItMmM0MjIwZTU1M2Y3fHJlYWQtd3JpdGU=",
-        "cacheableOperations": ["build", "test:coverage", "typecheck"],
         "parallel": 10
       }
     }
