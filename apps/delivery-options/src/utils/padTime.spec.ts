@@ -1,7 +1,7 @@
 import {describe, expect, it} from 'vitest';
-import {padStart} from './padStart';
+import {padTime} from './padTime';
 
-describe('padStart', () => {
+describe('padTime', () => {
   it.each([
     [1, 2, '01'],
     [1, 3, '001'],
@@ -10,6 +10,6 @@ describe('padStart', () => {
     ['3', 3, '003'],
     ['3', 5, '00003'],
   ])('should pad %s to length %s', (number, length, expected) => {
-    expect(padStart(number, length)).toBe(expected);
+    expect(padTime(number, length)).toBe(expected);
   });
 });

@@ -1,10 +1,8 @@
-import {padStart} from './padStart';
-
-const DATE_PADDING = 2;
+import {padTime} from './padTime';
 
 export const toTime = (date: Date | string): string => {
   if (date instanceof Date) {
-    return `${padStart(date.getHours(), DATE_PADDING)}:${padStart(date.getMinutes(), DATE_PADDING)}`;
+    return `${padTime(date.getHours())}:${padTime(date.getMinutes())}`;
   }
 
   return toTime(new Date(date));

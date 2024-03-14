@@ -13,7 +13,7 @@ export * from './getResolvedDeliveryType';
 export * from './getResolvedValue';
 export * from './hasSlotContent';
 export * from './language';
-export * from './padStart';
+export * from './padTime';
 export * from './parseJson';
 export * from './showDeveloperInfo';
 export * from './stringToDate';
