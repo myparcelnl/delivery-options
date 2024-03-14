@@ -81,7 +81,7 @@ exports[`exports > exports from index.ts 1`] = `
   "getResolvedDeliveryType",
   "getResolvedValue",
   "hasSlotContent",
-  "padStart",
+  "padTime",
   "parseJson",
   "showDeveloperInfo",
   "stringToDate",

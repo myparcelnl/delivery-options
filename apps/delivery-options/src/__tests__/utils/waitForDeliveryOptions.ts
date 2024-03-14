@@ -1,3 +1,4 @@
+import {flushPromises} from '@vue/test-utils';
 import {waitFor} from '@testing-library/vue';
 import {waitForRequestData, useDeliveryOptionsRequest, type SupportedPlatformName} from '@myparcel-do/shared';
 import {type DeliveryOption} from '@myparcel/sdk';
@@ -15,8 +16,10 @@ export const waitForDeliveryOptions = async (
 
   const [data] = await Promise.all([
     waitForRequestData(useDeliveryOptionsRequest, [createGetDeliveryOptionsParameters(resolvedCarrier)]),
-    waitFor(() => options.value.length > 0, {timeout: 1000}),
+    waitFor(() => !options.loading.value, {timeout: 1000}),
   ]);
+
+  await flushPromises();
 
   return data;
 };

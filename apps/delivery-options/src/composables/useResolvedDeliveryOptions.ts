@@ -65,7 +65,17 @@ export const useResolvedDeliveryOptions = useMemoize(() => {
 
     return resolvedDates.reduce((acc: SelectedDeliveryMoment[], {carrier, dates}) => {
       dates.forEach((dateOption) => {
-        dateOption.possibilities.forEach((datePossibility) => {
+        /**
+         * Sort the possibilities by start date.
+         */
+        const possibilities = [...dateOption.possibilities].sort((optionA, optionB) => {
+          const startA = optionA.delivery_time_frames[0]?.date_time.date;
+          const startB = optionB.delivery_time_frames[0]?.date_time.date;
+
+          return startA.localeCompare(startB);
+        });
+
+        possibilities.forEach((datePossibility) => {
           const [start, end] = datePossibility.delivery_time_frames;
 
           const timeString: AnyTranslatable =

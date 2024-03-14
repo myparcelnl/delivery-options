@@ -1,3 +1,4 @@
+export * from './createDeliveryPossibility';
 export * from './createDiv';
 export * from './dispatchEvent';
 export * from './getFakePickupLocation';

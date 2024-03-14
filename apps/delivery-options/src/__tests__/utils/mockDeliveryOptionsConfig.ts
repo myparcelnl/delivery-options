@@ -19,6 +19,7 @@ export const mockDeliveryOptionsConfig = <I extends RecursivePartial<DeliveryOpt
         [KEY_CARRIER_SETTINGS]: {
           [CarrierName.PostNl]: {
             [CarrierSetting.AllowDeliveryOptions]: true,
+            [CarrierSetting.AllowStandardDelivery]: true,
           },
         },
       },
