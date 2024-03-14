@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel/delivery-options-v6.0.0-beta.7](https://github.com/myparcelnl/delivery-options/compare/v6.0.0-beta.6...v6.0.0-beta.7) (2024-03-14)
+
+
+### :bug: Bug Fixes
+
+* sort delivery moments by time ([521ec94](https://github.com/myparcelnl/delivery-options/commit/521ec94c314baf0db364cdf4244fa98fc18f48e3))
+
 ## [@myparcel/delivery-options-v6.0.0-beta.6](https://github.com/myparcelnl/delivery-options/compare/v6.0.0-beta.5...v6.0.0-beta.6) (2024-03-13)
 
 
