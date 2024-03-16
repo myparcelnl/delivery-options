@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [5.16.1](https://github.com/myparcelnl/delivery-options/compare/v5.16.0...v5.16.1) (2024-03-16)
+
+
+### :bug: Bug Fixes
+
+* allow cutoff times per carrier ([#211](https://github.com/myparcelnl/delivery-options/issues/211)) ([418b55c](https://github.com/myparcelnl/delivery-options/commit/418b55c075f4d231b71c78ccb12ddb6c1b166d6e))
+
 ## [5.16.0](https://github.com/myparcelnl/delivery-options/compare/v5.15.1...v5.16.0) (2024-03-12)
 
 
