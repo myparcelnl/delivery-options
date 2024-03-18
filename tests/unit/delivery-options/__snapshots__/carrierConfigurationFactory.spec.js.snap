@@ -536,6 +536,7 @@ Object {
       Array [
         "allowMondayDelivery",
         "saturdayCutoffTime",
+        "sundayCutoffTime",
       ],
       Array [
         "allowPickupLocations",
@@ -559,6 +560,12 @@ Object {
       ],
       Array [
         "cutoffTime",
+      ],
+      Array [
+        "sundayCutoffTime",
+      ],
+      Array [
+        "saturdayCutoffTime",
       ],
     ],
   },
@@ -598,6 +605,7 @@ Object {
     Array [
       "allowMondayDelivery",
       "saturdayCutoffTime",
+      "sundayCutoffTime",
     ],
     Array [
       "allowPickupLocations",
@@ -621,6 +629,12 @@ Object {
     ],
     Array [
       "cutoffTime",
+    ],
+    Array [
+      "sundayCutoffTime",
+    ],
+    Array [
+      "saturdayCutoffTime",
     ],
   ],
 }
