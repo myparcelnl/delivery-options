@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [5.16.2](https://github.com/myparcelnl/delivery-options/compare/v5.16.1...v5.16.2) (2024-03-20)
+
+
+### :bug: Bug Fixes
+
+* actually allow saturday and sunday cutoff times per carrier ([#212](https://github.com/myparcelnl/delivery-options/issues/212)) ([9fe4403](https://github.com/myparcelnl/delivery-options/commit/9fe4403b4ab56e72a85fd4aef1de4111ad381601))
+
 ### [5.16.1](https://github.com/myparcelnl/delivery-options/compare/v5.16.0...v5.16.1) (2024-03-16)
 
 
