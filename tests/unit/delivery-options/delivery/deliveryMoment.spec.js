@@ -88,7 +88,9 @@ describe('Delivery moments', () => {
       },
     });
     expect(deliveryMoments).toEqual([
+      FORM.DELIVERY_MORNING,
       FORM.DELIVERY_STANDARD,
+      FORM.DELIVERY_EVENING,
     ]);
   });
 
