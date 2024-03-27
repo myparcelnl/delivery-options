@@ -134,6 +134,35 @@ describe('calculateCutoffTime', () => {
     expect(await getCalculatedCutoffTime()).toBe('14:30');
   });
 
+  it('returns carrier specific cutoff time for current day if passed', async () => {
+    expect.assertions(1);
+
+    vi.setSystemTime(FRIDAY_08_00);
+
+    mockDeliveryOptionsConfig({
+      [KEY_CONFIG]: {
+        [CarrierSetting.DropOffDays]: [
+          {
+            [DROP_OFF_WEEKDAY]: DAY_FRIDAY,
+            [CarrierSetting.CutoffTime]: '14:30',
+          },
+        ],
+        [KEY_CARRIER_SETTINGS]: {
+          [CarrierName.DhlForYou]: {
+            [CarrierSetting.DropOffDays]: [
+              {
+                [DROP_OFF_WEEKDAY]: DAY_FRIDAY,
+                [CarrierSetting.CutoffTime]: '14:29',
+              },
+            ],
+          },
+        },
+      },
+    });
+
+    expect(await getCalculatedCutoffTime()).toBe('14:29');
+  });
+
   it('returns specific same day cutoff time for current day if passed', async () => {
     expect.assertions(1);
 
