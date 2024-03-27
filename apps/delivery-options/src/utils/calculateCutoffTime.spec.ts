@@ -17,20 +17,17 @@ import {mockDeliveryOptionsConfig} from '../__tests__';
 import {getResolvedCarrier} from './getResolvedCarrier';
 import {calculateCutoffTime} from './calculateCutoffTime';
 
-const getCalculatedCutoffTime = async (): Promise<TimestampString> => {
+const getCalculatedCutoffTime = (): TimestampString => {
   const platform = useCurrentPlatform();
-  const resolvedCarrier = await getResolvedCarrier(CarrierName.DhlForYou, platform.name.value);
+  const resolvedCarrier = getResolvedCarrier(CarrierName.DhlForYou, platform.name.value);
 
   return calculateCutoffTime(resolvedCarrier);
 };
 
 describe('calculateCutoffTime', () => {
   const TUESDAY_08_00 = new Date('2021-01-04T08:00') as Readonly<Date>;
-  const TUESDAY_14_00 = new Date('2021-01-04T14:00') as Readonly<Date>;
   const TUESDAY_20_00 = new Date('2021-01-04T20:00') as Readonly<Date>;
   const FRIDAY_08_00 = new Date('2021-01-08T08:00') as Readonly<Date>;
-  const FRIDAY_14_00 = new Date('2021-01-08T14:00') as Readonly<Date>;
-  const FRIDAY_20_00 = new Date('2021-01-08T20:00') as Readonly<Date>;
 
   beforeEach(() => {
     setActivePinia(createPinia());
@@ -43,21 +40,21 @@ describe('calculateCutoffTime', () => {
     vi.setSystemTime(vi.getRealSystemTime());
   });
 
-  it('returns the default cutoff time when nothing is passed', async () => {
+  it('returns the default cutoff time when nothing is passed', () => {
     expect.assertions(1);
 
-    expect(await getCalculatedCutoffTime()).toBe(CUTOFF_TIME_DEFAULT);
+    expect(getCalculatedCutoffTime()).toBe(CUTOFF_TIME_DEFAULT);
   });
 
-  it('returns the global cutoff time', async () => {
+  it('returns the global cutoff time', () => {
     expect.assertions(1);
 
     mockDeliveryOptionsConfig({[KEY_CONFIG]: {[CarrierSetting.CutoffTime]: '17:00'}});
 
-    expect(await getCalculatedCutoffTime()).toBe('17:00');
+    expect(getCalculatedCutoffTime()).toBe('17:00');
   });
 
-  it('returns the carrier specific cutoff time', async () => {
+  it('returns the carrier specific cutoff time', () => {
     expect.assertions(1);
 
     mockDeliveryOptionsConfig({
@@ -71,10 +68,10 @@ describe('calculateCutoffTime', () => {
       },
     });
 
-    expect(await getCalculatedCutoffTime()).toBe('15:00');
+    expect(getCalculatedCutoffTime()).toBe('15:00');
   });
 
-  it('returns the default same day cutoff time when same day delivery is enabled', async () => {
+  it('returns the default same day cutoff time when same day delivery is enabled', () => {
     expect.assertions(1);
 
     mockDeliveryOptionsConfig({
@@ -83,10 +80,10 @@ describe('calculateCutoffTime', () => {
       },
     });
 
-    expect(await getCalculatedCutoffTime()).toBe(CUTOFF_TIME_SAME_DAY_DEFAULT);
+    expect(getCalculatedCutoffTime()).toBe(CUTOFF_TIME_SAME_DAY_DEFAULT);
   });
 
-  it('returns the custom same day cutoff time when same day delivery is enabled', async () => {
+  it('returns the custom same day cutoff time when same day delivery is enabled', () => {
     expect.assertions(1);
 
     mockDeliveryOptionsConfig({
@@ -96,10 +93,10 @@ describe('calculateCutoffTime', () => {
       },
     });
 
-    expect(await getCalculatedCutoffTime()).toBe('12:00');
+    expect(getCalculatedCutoffTime()).toBe('12:00');
   });
 
-  it('returns 23:59 when same day delivery is enabled and its cutoff time has passed', async () => {
+  it('returns 23:59 when same day delivery is enabled and its cutoff time has passed', () => {
     expect.assertions(1);
 
     vi.setSystemTime(TUESDAY_20_00);
@@ -111,10 +108,10 @@ describe('calculateCutoffTime', () => {
       },
     });
 
-    expect(await getCalculatedCutoffTime()).toBe('23:59');
+    expect(getCalculatedCutoffTime()).toBe('23:59');
   });
 
-  it('returns specific cutoff time for current day if passed', async () => {
+  it('returns specific cutoff time for current day if passed', () => {
     expect.assertions(1);
 
     vi.setSystemTime(FRIDAY_08_00);
@@ -131,10 +128,10 @@ describe('calculateCutoffTime', () => {
       },
     });
 
-    expect(await getCalculatedCutoffTime()).toBe('14:30');
+    expect(getCalculatedCutoffTime()).toBe('14:30');
   });
 
-  it('returns carrier specific cutoff time for current day if passed', async () => {
+  it('returns carrier specific cutoff time for current day if passed', () => {
     expect.assertions(1);
 
     vi.setSystemTime(FRIDAY_08_00);
@@ -160,10 +157,10 @@ describe('calculateCutoffTime', () => {
       },
     });
 
-    expect(await getCalculatedCutoffTime()).toBe('14:29');
+    expect(getCalculatedCutoffTime()).toBe('14:29');
   });
 
-  it('returns specific same day cutoff time for current day if passed', async () => {
+  it('returns specific same day cutoff time for current day if passed', () => {
     expect.assertions(1);
 
     vi.setSystemTime(FRIDAY_08_00);
@@ -181,6 +178,25 @@ describe('calculateCutoffTime', () => {
       },
     });
 
-    expect(await getCalculatedCutoffTime()).toBe('08:45');
+    expect(getCalculatedCutoffTime()).toBe('08:45');
+  });
+
+  it('supports string weekdays in dropOffDays', () => {
+    expect.assertions(1);
+
+    vi.setSystemTime(FRIDAY_08_00);
+
+    mockDeliveryOptionsConfig({
+      [KEY_CONFIG]: {
+        [CarrierSetting.DropOffDays]: [
+          {
+            [DROP_OFF_WEEKDAY]: `${DAY_FRIDAY}`,
+            [CarrierSetting.CutoffTime]: '11:29',
+          },
+        ],
+      },
+    });
+
+    expect(getCalculatedCutoffTime()).toBe('11:29');
   });
 });

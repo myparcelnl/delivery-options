@@ -23,8 +23,10 @@ const getSameDayCutoffTime = (carrier: UseResolvedCarrier): TimestampString => {
 
 export const calculateCutoffTime = (carrier: UseResolvedCarrier): TimestampString => {
   const dropOffDays = carrier.get(CarrierSetting.DropOffDays, []) as DropOffEntryObject[];
+
   const today = getDay(new Date());
-  const dropOffDay = dropOffDays.find((dropOffDay) => today === dropOffDay.weekday);
+
+  const dropOffDay = dropOffDays.find((dropOffDay) => today === Number(dropOffDay.weekday));
 
   if (toValue(carrier.deliveryTypes).has(CustomDeliveryType.SameDay)) {
     const sameDayCutoffTime = dropOffDay?.[CarrierSetting.CutoffTimeSameDay] ?? getSameDayCutoffTime(carrier);
