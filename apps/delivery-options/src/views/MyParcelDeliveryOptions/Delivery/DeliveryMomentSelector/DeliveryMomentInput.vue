@@ -34,7 +34,7 @@ import {
   type WithElement,
 } from '@myparcel-do/shared';
 import {FIELD_DELIVERY_MOMENT} from '../../../../data';
-import {useOptionsGroupedByCarrier, useSelectedDeliveryDate, useLanguage} from '../../../../composables';
+import {useOptionsGroupedByCarrier, useLanguage, useSelectedValues} from '../../../../composables';
 import {GroupInput} from '../../../../components';
 
 // eslint-disable-next-line vue/no-unused-properties
@@ -44,13 +44,13 @@ const propRefs = toRefs(props);
 
 const model = useVModel(props, undefined, emit);
 
-const date = useSelectedDeliveryDate();
+const {deliveryDate} = useSelectedValues();
 const {translate} = useLanguage();
 
 const {options, grouped} = useOptionsGroupedByCarrier(propRefs.element);
 
 watch(
-  [options, date],
+  [options, deliveryDate],
   () => {
     if (!options.value.length > 0) {
       return;

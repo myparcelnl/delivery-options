@@ -25,13 +25,13 @@ export const useShipmentOptionsOptions = (): ComputedRef<SelectOption[]> => {
 
   return computed(() => {
     const hasNoDeliveryOptions = deliveryOptions.loading.value || !deliveryOptions.value.length;
-    const resolvedCarrier = useResolvedCarrier(deliveryMoment.value?.carrier);
+    const {carrier, shipmentOptions} = useResolvedCarrier(deliveryMoment.value?.carrier);
 
-    if (hasNoDeliveryOptions || !resolvedCarrier.value) {
+    if (hasNoDeliveryOptions || !carrier.value) {
       return [];
     }
 
-    const carrierShipmentOptions = toValue(resolvedCarrier.value?.shipmentOptions);
+    const carrierShipmentOptions = toValue(shipmentOptions);
     const momentShipmentOptions = toValue(deliveryMoment)?.shipmentOptions;
 
     return availableShipmentOptions.value
@@ -50,7 +50,7 @@ export const useShipmentOptionsOptions = (): ComputedRef<SelectOption[]> => {
           value: name,
           disabled: hasOnlyOneOption,
           selected: hasOnlyOneOption ? match?.schema.enum[0] : false,
-          price: getResolvedValue(priceKey, resolvedCarrier.value?.identifier) ?? undefined,
+          price: getResolvedValue(priceKey, carrier.value?.identifier) ?? undefined,
         } satisfies SelectOption;
       });
   });

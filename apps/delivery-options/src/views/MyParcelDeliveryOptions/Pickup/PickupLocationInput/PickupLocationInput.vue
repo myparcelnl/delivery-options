@@ -6,14 +6,14 @@
 import {TextInput} from '@myparcel-do/shared';
 import {createField} from '@myparcel/vue-form-builder';
 import {FIELD_PICKUP_LOCATION} from '../../../../data';
-import {useSelectedPickupLocation} from '../../../../composables';
+import {useSelectedValues} from '../../../../composables';
 
-const {locationCode} = useSelectedPickupLocation();
+const {pickupLocation} = useSelectedValues();
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const Location = createField({
   name: FIELD_PICKUP_LOCATION,
-  ref: locationCode,
+  ref: pickupLocation,
   component: TextInput,
   attributes: {type: 'hidden'},
 });

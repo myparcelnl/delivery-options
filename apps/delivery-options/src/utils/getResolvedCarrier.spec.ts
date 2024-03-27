@@ -1,5 +1,5 @@
 /* eslint-disable max-nested-callbacks */
-import {describe, it, expect, beforeEach, afterEach} from 'vitest';
+import {describe, it, expect, beforeEach} from 'vitest';
 import {setActivePinia, createPinia} from 'pinia';
 import {
   CarrierSetting,
@@ -19,13 +19,9 @@ describe('getResolvedCarrier', () => {
     setActivePinia(createPinia());
   });
 
-  afterEach(() => {
-    getResolvedCarrier.clear();
-  });
-
   describe('delivery types', () => {
-    it('exposes delivery types', async () => {
-      const carrier = await getResolvedCarrier(CarrierName.DhlForYou, PlatformName.MyParcel);
+    it('exposes delivery types', () => {
+      const carrier = getResolvedCarrier(CarrierName.DhlForYou, PlatformName.MyParcel);
 
       mockDeliveryOptionsConfig(
         getMockDeliveryOptionsConfiguration({
@@ -43,8 +39,8 @@ describe('getResolvedCarrier', () => {
       expect(carrier.deliveryTypes.value).toEqual(new Set([DeliveryTypeName.Standard]));
     });
 
-    it('filters delivery types by config', async () => {
-      const carrier = await getResolvedCarrier(CarrierName.DhlForYou, PlatformName.MyParcel);
+    it('filters delivery types by config', () => {
+      const carrier = getResolvedCarrier(CarrierName.DhlForYou, PlatformName.MyParcel);
       mockDeliveryOptionsConfig(
         getMockDeliveryOptionsConfiguration({
           [KEY_CONFIG]: {
@@ -63,8 +59,8 @@ describe('getResolvedCarrier', () => {
       );
     });
 
-    it('filters delivery types by disabledDeliveryTypes', async () => {
-      const carrier = await getResolvedCarrier(CarrierName.DhlForYou, PlatformName.MyParcel);
+    it('filters delivery types by disabledDeliveryTypes', () => {
+      const carrier = getResolvedCarrier(CarrierName.DhlForYou, PlatformName.MyParcel);
 
       carrier.disabledDeliveryTypes.value.add(DeliveryTypeName.Standard);
 
@@ -72,14 +68,14 @@ describe('getResolvedCarrier', () => {
     });
   });
 
-  it('exposes package types', async () => {
-    const carrier = await getResolvedCarrier(CarrierName.DhlForYou, PlatformName.MyParcel);
+  it('exposes package types', () => {
+    const carrier = getResolvedCarrier(CarrierName.DhlForYou, PlatformName.MyParcel);
 
     expect(carrier.packageTypes.value).toEqual(new Set([PackageTypeName.Package, PackageTypeName.Mailbox]));
   });
 
-  it('exposes shipment options, filtered by config', async () => {
-    const carrier = await getResolvedCarrier(CarrierName.DhlForYou, PlatformName.MyParcel);
+  it('exposes shipment options, filtered by config', () => {
+    const carrier = getResolvedCarrier(CarrierName.DhlForYou, PlatformName.MyParcel);
 
     expect(carrier.shipmentOptions.value).toEqual(
       new Set([ShipmentOptionName.OnlyRecipient, ShipmentOptionName.Signature]),
@@ -100,8 +96,8 @@ describe('getResolvedCarrier', () => {
     expect(carrier.shipmentOptions.value).toEqual(new Set([ShipmentOptionName.OnlyRecipient]));
   });
 
-  it('exposes features, filtered by config', async () => {
-    const carrier = await getResolvedCarrier(CarrierName.DhlForYou, PlatformName.MyParcel);
+  it('exposes features, filtered by config', () => {
+    const carrier = getResolvedCarrier(CarrierName.DhlForYou, PlatformName.MyParcel);
 
     expect(carrier.features.value).toEqual(
       new Set([
@@ -142,8 +138,8 @@ describe('getResolvedCarrier', () => {
   });
 
   describe('hasDelivery', () => {
-    it('returns true if any delivery type is enabled', async () => {
-      const carrier = await getResolvedCarrier(CarrierName.DhlForYou, PlatformName.MyParcel);
+    it('returns true if any delivery type is enabled', () => {
+      const carrier = getResolvedCarrier(CarrierName.DhlForYou, PlatformName.MyParcel);
 
       mockDeliveryOptionsConfig(
         getMockDeliveryOptionsConfiguration({
@@ -161,14 +157,14 @@ describe('getResolvedCarrier', () => {
       expect(carrier.hasDelivery.value).toEqual(true);
     });
 
-    it('returns false if no delivery types are enabled', async () => {
-      const carrier = await getResolvedCarrier(CarrierName.DhlForYou, PlatformName.MyParcel);
+    it('returns false if no delivery types are enabled', () => {
+      const carrier = getResolvedCarrier(CarrierName.DhlForYou, PlatformName.MyParcel);
 
       expect(carrier.hasDelivery.value).toEqual(false);
     });
 
-    it('returns false if no delivery types are available in the current country', async () => {
-      const carrier = await getResolvedCarrier(CarrierName.DhlForYou, PlatformName.MyParcel);
+    it('returns false if no delivery types are available in the current country', () => {
+      const carrier = getResolvedCarrier(CarrierName.DhlForYou, PlatformName.MyParcel);
 
       mockDeliveryOptionsConfig(
         getMockDeliveryOptionsConfiguration({
@@ -191,22 +187,22 @@ describe('getResolvedCarrier', () => {
   });
 
   describe('hasFakeDelivery', () => {
-    it('returns true if fakeDelivery is available', async () => {
-      const carrier = await getResolvedCarrier(CarrierName.PostNl, PlatformName.MyParcel);
+    it('returns true if fakeDelivery is available', () => {
+      const carrier = getResolvedCarrier(CarrierName.PostNl, PlatformName.MyParcel);
 
       expect(carrier.hasFakeDelivery.value).toEqual(true);
     });
 
-    it('returns false if fake delivery is not available', async () => {
-      const carrier = await getResolvedCarrier(CarrierName.DhlForYou, PlatformName.MyParcel);
+    it('returns false if fake delivery is not available', () => {
+      const carrier = getResolvedCarrier(CarrierName.DhlForYou, PlatformName.MyParcel);
 
       expect(carrier.hasFakeDelivery.value).toEqual(false);
     });
   });
 
   describe('hasAnyDelivery', () => {
-    it('returns true if any delivery type is available', async () => {
-      const carrier = await getResolvedCarrier(CarrierName.DhlForYou, PlatformName.MyParcel);
+    it('returns true if any delivery type is available', () => {
+      const carrier = getResolvedCarrier(CarrierName.DhlForYou, PlatformName.MyParcel);
 
       mockDeliveryOptionsConfig(
         getMockDeliveryOptionsConfiguration({
@@ -224,22 +220,22 @@ describe('getResolvedCarrier', () => {
       expect(carrier.hasAnyDelivery.value).toEqual(true);
     });
 
-    it('returns true if fake delivery is available', async () => {
-      const carrier = await getResolvedCarrier(CarrierName.PostNl, PlatformName.MyParcel);
+    it('returns true if fake delivery is available', () => {
+      const carrier = getResolvedCarrier(CarrierName.PostNl, PlatformName.MyParcel);
 
       expect(carrier.hasAnyDelivery.value).toEqual(true);
     });
 
-    it('returns false if fake delivery and regular delivery are both not available', async () => {
-      const carrier = await getResolvedCarrier(CarrierName.DhlForYou, PlatformName.MyParcel);
+    it('returns false if fake delivery and regular delivery are both not available', () => {
+      const carrier = getResolvedCarrier(CarrierName.DhlForYou, PlatformName.MyParcel);
 
       expect(carrier.hasFakeDelivery.value).toEqual(false);
     });
   });
 
   describe('hasPickup', () => {
-    it('returns true if pickup is enabled', async () => {
-      const carrier = await getResolvedCarrier(CarrierName.DhlForYou, PlatformName.MyParcel);
+    it('returns true if pickup is enabled', () => {
+      const carrier = getResolvedCarrier(CarrierName.DhlForYou, PlatformName.MyParcel);
 
       mockDeliveryOptionsConfig(
         getMockDeliveryOptionsConfiguration({
@@ -256,15 +252,15 @@ describe('getResolvedCarrier', () => {
       expect(carrier.hasPickup.value).toEqual(true);
     });
 
-    it('returns false if pickup is not enabled', async () => {
-      const carrier = await getResolvedCarrier(CarrierName.DhlForYou, PlatformName.MyParcel);
+    it('returns false if pickup is not enabled', () => {
+      const carrier = getResolvedCarrier(CarrierName.DhlForYou, PlatformName.MyParcel);
 
       expect(carrier.hasPickup.value).toEqual(false);
     });
   });
 
   describe('"get" method', () => {
-    it('gets value from carrier config', async () => {
+    it('gets value from carrier config', () => {
       expect.assertions(1);
 
       mockDeliveryOptionsConfig(
@@ -280,13 +276,13 @@ describe('getResolvedCarrier', () => {
         }),
       );
 
-      const postNl = await getResolvedCarrier(CarrierName.DhlForYou, PlatformName.MyParcel);
+      const postNl = getResolvedCarrier(CarrierName.DhlForYou, PlatformName.MyParcel);
       const result = postNl.get(CarrierSetting.CutoffTimeSameDay);
 
       expect(result).toBe('11:00');
     });
 
-    it('gets fallback from global config', async () => {
+    it('gets fallback from global config', () => {
       expect.assertions(1);
 
       mockDeliveryOptionsConfig(
@@ -302,7 +298,7 @@ describe('getResolvedCarrier', () => {
         }),
       );
 
-      const postnl = await getResolvedCarrier(CarrierName.DhlForYou, PlatformName.MyParcel);
+      const postnl = getResolvedCarrier(CarrierName.DhlForYou, PlatformName.MyParcel);
       const result = postnl.get(CarrierSetting.CutoffTimeSameDay);
 
       expect(result).toBe('12:00');

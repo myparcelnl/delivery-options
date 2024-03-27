@@ -2,10 +2,12 @@
   <div
     v-show="show"
     ref="wrapper">
-    <DeliveryOptionsForm
-      v-if="ready"
-      v-show="!hasExceptions"
-      class="myparcel-delivery-options" />
+    <Suspense>
+      <DeliveryOptionsForm
+        v-if="ready"
+        v-show="!hasExceptions"
+        class="myparcel-delivery-options" />
+    </Suspense>
 
     <KeepAlive>
       <Errors v-if="hasExceptions" />

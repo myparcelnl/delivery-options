@@ -9,14 +9,14 @@ import {
   type ComputedAsync,
 } from '@myparcel-do/shared';
 import {getResolvedCarrier} from '../utils';
-import {type ResolvedCarrier} from '../types';
 import {useConfigStore} from '../stores';
+import {type UseResolvedCarrier} from './useResolvedCarrier';
 import {useCurrentPlatform} from './useCurrentPlatform';
 
 /**
  * Get the carriers that are currently active in the delivery options config.
  */
-export const useActiveCarriers = useMemoize((): ComputedAsync<ResolvedCarrier[]> => {
+export const useActiveCarriers = useMemoize((): ComputedAsync<UseResolvedCarrier[]> => {
   const config = useConfigStore();
   const platform = useCurrentPlatform();
 

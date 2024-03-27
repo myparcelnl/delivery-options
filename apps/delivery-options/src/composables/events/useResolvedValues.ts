@@ -8,13 +8,12 @@ import {
   type DeliveryDeliveryType,
 } from '@myparcel-do/shared';
 import {DeliveryTypeName, PackageTypeName, ShipmentOptionName} from '@myparcel/constants';
+import {useSelectedValues} from '../useSelectedValues';
 import {useSelectedPickupLocation} from '../useSelectedPickupLocation';
-import {useSelectedDeliveryMoment} from '../useSelectedDeliveryMoment';
 import {useResolvedDeliveryOptions} from '../useResolvedDeliveryOptions';
 import {getResolvedValue, parseJson} from '../../utils';
 import {type SelectedDeliveryMoment} from '../../types';
-import {useDeliveryOptionsForm} from '../../form';
-import {FIELD_DELIVERY_MOMENT, FIELD_SHIPMENT_OPTIONS} from '../../data';
+import {FIELD_DELIVERY_MOMENT, FIELD_SHIPMENT_OPTIONS, HOME_OR_PICKUP_PICKUP} from '../../data';
 
 const DELIVERY_DELIVERY_TYPES: readonly SupportedDeliveryTypeName[] = Object.freeze([
   DeliveryTypeName.Morning,
@@ -23,20 +22,19 @@ const DELIVERY_DELIVERY_TYPES: readonly SupportedDeliveryTypeName[] = Object.fre
 ]);
 
 export const useResolvedValues = (): ComputedRef<PickupOutput | DeliveryOutput | undefined> => {
-  const {instance: form} = useDeliveryOptionsForm();
-
+  const selectedValues = useSelectedValues();
   const deliveryOptions = useResolvedDeliveryOptions();
   const pickupLocation = useSelectedPickupLocation();
-  const deliveryMoment = useSelectedDeliveryMoment();
 
   return computed(() => {
-    const {values} = form;
-
-    if (deliveryOptions.loading.value || (!pickupLocation.location.value && !deliveryMoment.value)) {
+    if (
+      deliveryOptions.loading.value ||
+      (!selectedValues.pickupLocation.value && !selectedValues.deliveryMoment.value)
+    ) {
       return undefined;
     }
 
-    if (isDef(pickupLocation.location.value)) {
+    if (selectedValues.homeOrPickup.value === HOME_OR_PICKUP_PICKUP && isDef(pickupLocation.location.value)) {
       const {carrier, openingHours, ...location} = pickupLocation.location.value;
 
       return {
@@ -50,9 +48,9 @@ export const useResolvedValues = (): ComputedRef<PickupOutput | DeliveryOutput |
       } satisfies PickupOutput;
     }
 
-    const parsedMoment = parseJson<SelectedDeliveryMoment>(values[FIELD_DELIVERY_MOMENT]);
+    const parsedMoment = parseJson<SelectedDeliveryMoment>(selectedValues[FIELD_DELIVERY_MOMENT].value);
     const showDeliveryDate = getResolvedValue(ConfigSetting.ShowDeliveryDate);
-    const shipmentOptions = values[FIELD_SHIPMENT_OPTIONS] ?? [];
+    const shipmentOptions = selectedValues[FIELD_SHIPMENT_OPTIONS].value ?? [];
 
     const deliveryType: DeliveryDeliveryType = DELIVERY_DELIVERY_TYPES.includes(parsedMoment.deliveryType)
       ? (parsedMoment.deliveryType as DeliveryDeliveryType)

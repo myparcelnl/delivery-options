@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="!languageReady"
+    v-if="!loaded"
     class="mp-flex mp-h-[100vh] mp-items-center mp-justify-center mp-w-[100vw]">
     <DotsLoader />
   </div>
@@ -28,6 +28,7 @@
 
 <script lang="ts" setup>
 import {ref, onMounted, onActivated} from 'vue';
+import {waitForRequestData, useCarriersRequest} from '@myparcel-do/shared';
 import {useColorMode, useLanguage} from './composables';
 import SandboxHeader from './components/layout/SandboxHeader.vue';
 import SandboxFooter from './components/layout/SandboxFooter.vue';
@@ -41,13 +42,14 @@ useColorMode();
 
 const {load} = useLanguage();
 
-const languageReady = ref(false);
+const loaded = ref(false);
 
-const waitForLanguage = async () => {
+const waitForLoad = async () => {
   await load();
-  languageReady.value = true;
+  await waitForRequestData(useCarriersRequest);
+  loaded.value = true;
 };
 
-onMounted(waitForLanguage);
-onActivated(waitForLanguage);
+onMounted(waitForLoad);
+onActivated(waitForLoad);
 </script>

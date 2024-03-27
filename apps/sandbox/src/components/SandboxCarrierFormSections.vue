@@ -12,14 +12,12 @@
 
 <script lang="ts" setup>
 import {computed, toValue} from 'vue';
-import {CarrierBox, KEY_CARRIER_SETTINGS, useCarriersRequest, waitForRequestData} from '@myparcel-do/shared';
+import {CarrierBox, KEY_CARRIER_SETTINGS} from '@myparcel-do/shared';
 import {type CarrierName} from '@myparcel/constants';
 import {type SettingsSection} from '../types';
 import {getConfigSandboxSections} from '../form';
 import {useCurrentPlatform} from '../composables';
 import {SandboxSettingsSection} from './form';
-
-await waitForRequestData(useCarriersRequest);
 
 const platform = useCurrentPlatform();
 

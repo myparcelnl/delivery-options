@@ -3,18 +3,19 @@ import {PickupLocationType, usePickupLocationsRequest, computedAsync} from '@myp
 import {type PickupLocation} from '@myparcel/sdk';
 import {DeliveryTypeName} from '@myparcel/constants';
 import {createGetDeliveryOptionsParameters} from '../utils';
-import {type ResolvedCarrier, type ResolvedPickupLocation} from '../types';
+import {type ResolvedPickupLocation} from '../types';
+import {type UseResolvedCarrier} from './useResolvedCarrier';
 import {useActiveCarriers} from './useActiveCarriers';
 
 const sortByDistance = (locationA: ResolvedPickupLocation, locationB: ResolvedPickupLocation): number => {
   return Number(locationA.distance) - Number(locationB.distance);
 };
 
-const formatPickupLocation = (carrier: ResolvedCarrier, option: PickupLocation): ResolvedPickupLocation => {
+const formatPickupLocation = (carrier: UseResolvedCarrier, option: PickupLocation): ResolvedPickupLocation => {
   const {location, address} = option;
 
   return {
-    carrier: carrier.identifier,
+    carrier: carrier.carrier.value.identifier,
 
     type: option.address.number_suffix === 'PBA' ? PickupLocationType.Locker : PickupLocationType.Default,
     distance: Number(location.distance),
@@ -39,7 +40,7 @@ const formatPickupLocation = (carrier: ResolvedCarrier, option: PickupLocation):
   };
 };
 
-const loadPickupLocations = async (carrier: ResolvedCarrier) => {
+const loadPickupLocations = async (carrier: UseResolvedCarrier) => {
   const params = createGetDeliveryOptionsParameters(carrier);
   const query = usePickupLocationsRequest(params);
 

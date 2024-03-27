@@ -90,7 +90,7 @@ describe('getDeliveryTypePrice', () => {
         },
       });
 
-      const option = mockResolvedDeliveryOption({deliveryType, carrier});
+      const option = mockResolvedDeliveryOption({deliveryType, carrier: carrier.identifier});
 
       expect(getDeliveryTypePrice(option.deliveryType, carrier.identifier)).toBe(result);
     },

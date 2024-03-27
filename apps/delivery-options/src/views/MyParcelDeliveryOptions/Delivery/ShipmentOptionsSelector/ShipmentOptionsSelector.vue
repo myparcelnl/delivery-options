@@ -12,11 +12,18 @@
 </template>
 
 <script lang="ts" setup>
-import {computed, ref, toValue} from 'vue';
+import {computed, toValue} from 'vue';
 import {createField} from '@myparcel/vue-form-builder';
 import {FIELD_SHIPMENT_OPTIONS} from '../../../../data';
-import {useShipmentOptionsOptions, useFeatures, useResolvedDeliveryOptions} from '../../../../composables';
+import {
+  useShipmentOptionsOptions,
+  useFeatures,
+  useResolvedDeliveryOptions,
+  useSelectedValues,
+} from '../../../../composables';
 import {GroupInputLoader, CheckboxGroupInput, RadioButtonLoader} from '../../../../components';
+
+const {shipmentOptions} = useSelectedValues();
 
 const deliveryOptions = useResolvedDeliveryOptions();
 const options = useShipmentOptionsOptions();
@@ -29,7 +36,7 @@ const loading = computed(() => toValue(deliveryOptions.loading));
 const ShipmentOptions = createField({
   name: FIELD_SHIPMENT_OPTIONS,
   component: CheckboxGroupInput,
-  ref: ref([]),
+  ref: shipmentOptions,
   props: {options},
 });
 </script>

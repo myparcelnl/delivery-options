@@ -24,5 +24,5 @@ const propRefs = toRefs(props);
 
 const {translate} = useLanguage();
 
-const pickupLocation = usePickupLocation(propRefs.locationCode);
+const {pickupLocation} = usePickupLocation(propRefs.locationCode);
 </script>

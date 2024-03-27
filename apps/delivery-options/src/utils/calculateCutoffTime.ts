@@ -9,19 +9,19 @@ import {
   type DropOffEntryObject,
   CustomDeliveryType,
 } from '@myparcel-do/shared';
-import {type ResolvedCarrier} from '../types';
+import {type UseResolvedCarrier} from '../composables';
 
 const END_OF_DAY_CUTOFF_TIME = '23:59';
 
-const getDefaultCutoffTime = (carrier: ResolvedCarrier): TimestampString => {
+const getDefaultCutoffTime = (carrier: UseResolvedCarrier): TimestampString => {
   return carrier.get(CarrierSetting.CutoffTime, CUTOFF_TIME_DEFAULT) as TimestampString;
 };
 
-const getSameDayCutoffTime = (carrier: ResolvedCarrier): TimestampString => {
+const getSameDayCutoffTime = (carrier: UseResolvedCarrier): TimestampString => {
   return carrier.get(CarrierSetting.CutoffTimeSameDay, CUTOFF_TIME_SAME_DAY_DEFAULT) as TimestampString;
 };
 
-export const calculateCutoffTime = (carrier: ResolvedCarrier): TimestampString => {
+export const calculateCutoffTime = (carrier: UseResolvedCarrier): TimestampString => {
   const dropOffDays = carrier.get(CarrierSetting.DropOffDays, []) as DropOffEntryObject[];
   const today = getDay(new Date());
   const dropOffDay = dropOffDays.find((dropOffDay) => today === dropOffDay.weekday);

@@ -46,9 +46,13 @@
 import {computed, ref, watch, toValue} from 'vue';
 import {useVModel} from '@vueuse/core';
 import {type TextInputEmits, type TextInputProps, type WithElement, Loader} from '@myparcel-do/shared';
-import {useDeliveryOptionsForm} from '../../../../form';
-import {FIELD_DELIVERY_DATE, DATES_SHOWN_MD, DATES_SHOWN_SM} from '../../../../data';
-import {useBreakpoints, useResolvedDeliveryDates, useResolvedDeliveryOptions} from '../../../../composables';
+import {DATES_SHOWN_MD, DATES_SHOWN_SM} from '../../../../data';
+import {
+  useBreakpoints,
+  useResolvedDeliveryDates,
+  useResolvedDeliveryOptions,
+  useSelectedValues,
+} from '../../../../composables';
 import {CaretLeftIcon, CaretRightIcon, IconButton} from '../../../../components';
 import DateBlock from './DateBlock.vue';
 
@@ -60,7 +64,6 @@ const model = useVModel(props, undefined, emit);
 
 const deliveryOptions = useResolvedDeliveryOptions();
 const dates = useResolvedDeliveryDates();
-const form = useDeliveryOptionsForm();
 
 const cursor = ref(0);
 
@@ -95,10 +98,12 @@ watch(
   {immediate: dates.value.length > 0},
 );
 
+const {deliveryDate} = useSelectedValues();
+
 watch(
   model,
   (value) => {
-    form?.instance.setValue(FIELD_DELIVERY_DATE, value);
+    deliveryDate.value = value;
   },
   {immediate: dates.value.length > 0},
 );

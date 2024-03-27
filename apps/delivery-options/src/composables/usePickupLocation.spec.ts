@@ -27,7 +27,7 @@ describe.concurrent.skip('usePickupLocation', (it) => {
     expect.assertions(2);
     const {setLocale} = useLanguage();
 
-    const pickupLocation = usePickupLocation('397882');
+    const {pickupLocation} = usePickupLocation('397882');
     await flushPromises();
 
     const {distance} = pickupLocation.value ?? {};
@@ -44,13 +44,13 @@ describe.concurrent.skip('usePickupLocation', (it) => {
     const now = createUtcDate('2023-12-27');
     vi.setSystemTime(now);
 
-    const pickupLocation = usePickupLocation('217862');
+    const {pickupLocation} = usePickupLocation('217862');
     await flushPromises();
 
-    const {openingHours} = pickupLocation;
+    const {openingHours} = pickupLocation.value;
 
     // Expect to be ordered by closest date
-    expect(openingHours.value).toEqual([
+    expect(openingHours).toEqual([
       {weekday: 'vandaag', timeString: '10:00 – 19:00', date: createUtcDate('2023-12-27')},
       {weekday: 'morgen', timeString: '10:00 – 19:00', date: createUtcDate('2023-12-28')},
       {weekday: 'vrijdag', timeString: '10:00 – 18:00', date: createUtcDate('2023-12-29')},
@@ -62,7 +62,7 @@ describe.concurrent.skip('usePickupLocation', (it) => {
 
     setLocale('en-US');
 
-    expect(openingHours.value).toEqual([
+    expect(openingHours).toEqual([
       {weekday: 'today', timeString: '10:00 AM – 7:00 PM', date: createUtcDate('2023-12-27')},
       {weekday: 'tomorrow', timeString: '10:00 AM – 7:00 PM', date: createUtcDate('2023-12-28')},
       {weekday: 'Friday', timeString: '10:00 AM – 6:00 PM', date: createUtcDate('2023-12-29')},

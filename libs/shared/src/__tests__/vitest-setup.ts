@@ -63,7 +63,7 @@ vi.mock('@vueuse/core', async (importOriginal) => {
 });
 
 afterEach(() => {
-   useRequestStorage().clear();
+  useRequestStorage().clear();
 
   afterEachHooks.forEach(hook => hook());
 

@@ -2,13 +2,13 @@
   <div class="mp-flex mp-flex-col mp-gap-2">
     <div class="mp-flex mp-gap-2 mp-items-center">
       <CarrierLogo
-        v-if="carrierName"
-        :carrier="carrierName" />
+        v-if="pickupLocation.carrier"
+        :carrier="pickupLocation.carrier" />
 
-      <b v-text="human" />
+      <b v-text="carrier.human" />
 
       <PriceTag
-        v-if="price"
+        v-if="price !== undefined"
         :price="price"
         class="mp-ml-auto" />
     </div>
@@ -24,22 +24,28 @@
 </template>
 
 <script lang="ts" setup>
-import {computed, toRefs} from 'vue';
-import {CarrierLogo, resolveCarrierName, CarrierSetting} from '@myparcel-do/shared';
+import {toRefs, ref, computed} from 'vue';
+import {watchImmediate} from '@vueuse/core';
+import {CarrierLogo, CarrierSetting} from '@myparcel-do/shared';
 import PickupLocationOpeningHours from '../PickupLocationOpeningHours/PickupLocationOpeningHours.vue';
 import PickupLocationName from '../PickupLocationList/PickupLocationName.vue';
-import {usePickupLocation, useResolvedCarrier} from '../../../../composables';
+import {usePickupLocation} from '../../../../composables';
 import {PriceTag} from '../../../../components';
 
 const props = defineProps<{locationCode: string; expanded?: boolean}>();
 const propRefs = toRefs(props);
 
-const location = usePickupLocation(propRefs.locationCode);
+const {pickupLocation, resolvedCarrier} = usePickupLocation(propRefs.locationCode);
 
-const carrierName = computed(() => resolveCarrierName(location.value.carrier));
+const price = ref();
 
-const resolvedCarrier = useResolvedCarrier(location.value.carrier);
+const carrier = computed(() => resolvedCarrier.value.carrier.value);
 
-const human = computed(() => resolvedCarrier.value?.carrier.value?.human);
-const price = computed(() => resolvedCarrier.value?.get(CarrierSetting.PricePickup));
+watchImmediate(propRefs.locationCode, () => {
+  if (!resolvedCarrier.value) {
+    return;
+  }
+
+  price.value = resolvedCarrier.value.get(CarrierSetting.PricePickup);
+});
 </script>

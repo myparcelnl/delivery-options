@@ -9,18 +9,19 @@
 import {computed, toRefs} from 'vue';
 import {type MarkerOptions} from 'leaflet';
 import {isDef} from '@vueuse/core';
-import {useCarrierRequest, resolveCarrierName} from '@myparcel-do/shared';
 import {createCarrierMarkerIcon} from '../../../../utils';
 import {useDeliveryOptionsForm} from '../../../../form';
-import {FIELD_PICKUP_LOCATION, MAP_MARKER_CLASS_PREFIX} from '../../../../data';
-import {usePickupLocation} from '../../../../composables';
+import {MAP_MARKER_CLASS_PREFIX} from '../../../../data';
+import {usePickupLocation, useResolvedCarrier, useSelectedValues} from '../../../../composables';
 import {LeafletMarker} from '../../../../components';
 
 const props = defineProps<{locationCode: string; active: boolean}>();
 const propRefs = toRefs(props);
 
 const form = useDeliveryOptionsForm();
-const pickupLocation = usePickupLocation(propRefs.locationCode);
+
+const {pickupLocation} = usePickupLocation(propRefs.locationCode);
+const carrier = useResolvedCarrier(pickupLocation.value.carrier);
 
 const center = computed(() => {
   if (!isDef(pickupLocation.value)) {
@@ -32,12 +33,10 @@ const center = computed(() => {
   return [Number(latitude), Number(longitude)];
 });
 
-const carrierName = computed(() => resolveCarrierName(pickupLocation.value.carrier));
-
-const carrier = useCarrierRequest(carrierName);
-
 const options = computed<MarkerOptions>(() => {
-  if (carrier.loading.value || !carrier.data.value || !pickupLocation.value) {
+  const resolvedCarrier = carrier.carrier.value;
+
+  if (!pickupLocation.value || !resolvedCarrier) {
     return {};
   }
 
@@ -46,13 +45,15 @@ const options = computed<MarkerOptions>(() => {
     icon: L.divIcon({
       // eslint-disable-next-line no-magic-numbers,@typescript-eslint/no-magic-numbers
       iconAnchor: [24, 58],
-      className: `${MAP_MARKER_CLASS_PREFIX} ${MAP_MARKER_CLASS_PREFIX}--${carrierName.value}`,
-      html: createCarrierMarkerIcon(carrier.data.value),
+      className: `${MAP_MARKER_CLASS_PREFIX} ${MAP_MARKER_CLASS_PREFIX}--${resolvedCarrier?.name}`,
+      html: createCarrierMarkerIcon(resolvedCarrier),
     }),
   };
 });
 
+const {pickupLocation: selectedPickupLocation} = useSelectedValues();
+
 const onClick = () => {
-  form.instance.setValue(FIELD_PICKUP_LOCATION, pickupLocation.value.locationCode);
+  selectedPickupLocation.value = pickupLocation.value.locationCode;
 };
 </script>

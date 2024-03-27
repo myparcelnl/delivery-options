@@ -84,7 +84,7 @@ export const useResolvedDeliveryOptions = useMemoize(() => {
               : createDeliveryTypeTranslatable(datePossibility.type);
 
           acc.push({
-            carrier: carrier.identifier,
+            carrier: carrier.carrier.value.identifier,
             date: dateOption.date?.date,
             time: timeString,
             deliveryType: getResolvedDeliveryType(
@@ -104,7 +104,7 @@ export const useResolvedDeliveryOptions = useMemoize(() => {
 
   const final = computed(() => {
     return asyncComputed.value.filter((option) => {
-      const carrier = carriers.value.find((carrier) => carrier.name === option.carrier);
+      const carrier = carriers.value.find(({carrier}) => carrier.value.name === option.carrier);
 
       return carrier?.deliveryTypes.value.has(option.deliveryType);
     });

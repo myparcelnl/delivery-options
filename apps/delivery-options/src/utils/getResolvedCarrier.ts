@@ -1,21 +1,17 @@
 import {computed, ref} from 'vue';
-import {useMemoize} from '@vueuse/core';
 import {
   type CarrierIdentifier,
   getConfigKey,
-  resolveCarrierName,
   type SupportedDeliveryTypeName,
   type SupportedPlatformName,
   type SupportedShipmentOptionName,
-  useCarrierRequest,
-  waitForRequestData,
   useCarrier,
   type ConfigSetting,
   CarrierSetting,
 } from '@myparcel-do/shared';
 import {DeliveryTypeName} from '@myparcel/constants';
-import {type ResolvedCarrier} from '../types';
 import {useAddressStore} from '../stores';
+import {type UseResolvedCarrier} from '../composables';
 import {getResolvedValue} from './getResolvedValue';
 
 const DELIVERY_TYPES = [DeliveryTypeName.Standard, DeliveryTypeName.Evening, DeliveryTypeName.Morning];
@@ -34,12 +30,10 @@ const filterSet = <T>(set: Set<T>, cb: (value: T) => boolean) => {
 };
 
 // eslint-disable-next-line max-lines-per-function
-const cb = async (
-  carrierIdentifier: CarrierIdentifier,
+export const getResolvedCarrier = (
+  carrierIdentifier: CarrierIdentifier | undefined,
   platformName: SupportedPlatformName,
-): Promise<ResolvedCarrier> => {
-  await waitForRequestData(useCarrierRequest, [resolveCarrierName(carrierIdentifier)]);
-
+): UseResolvedCarrier => {
   const carrier = useCarrier({carrierIdentifier, platformName});
   const address = useAddressStore();
 
@@ -90,8 +84,6 @@ const cb = async (
   });
 
   return {
-    ...carrier.carrier.value,
-
     carrier: carrier.carrier,
     config: carrier.config,
 
@@ -115,5 +107,3 @@ const cb = async (
     },
   };
 };
-
-export const getResolvedCarrier = useMemoize(cb);

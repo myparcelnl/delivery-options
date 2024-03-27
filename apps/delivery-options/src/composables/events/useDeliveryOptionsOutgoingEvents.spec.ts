@@ -46,7 +46,7 @@ describe('useDeliveryOptionsOutgoingEvents', () => {
     [FIELD_DELIVERY_MOMENT]: {date: '2023-01-02 16:00:00', time: '16:00'},
   });
 
-  beforeEach(() => {
+  beforeEach(async () => {
     vi.useFakeTimers();
     setActivePinia(createPinia());
     dispatchEventSpy.mockImplementation(() => true);

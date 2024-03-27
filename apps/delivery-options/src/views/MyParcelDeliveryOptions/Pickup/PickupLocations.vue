@@ -22,9 +22,7 @@
 import {computed, ref, watch, onUnmounted} from 'vue';
 import {PickupLocationsView} from '@myparcel-do/shared';
 import {useConfigStore} from '../../../stores';
-import {useDeliveryOptionsForm} from '../../../form';
-import {FIELD_PICKUP_LOCATION} from '../../../data';
-import {useLanguage, useResolvedPickupLocations} from '../../../composables';
+import {useLanguage, useResolvedPickupLocations, useSelectedValues} from '../../../composables';
 import {DoButton} from '../../../components';
 import PickupLocationMapWrapper from './PickupLocationMap/PickupLocationMapWrapper.vue';
 import PickupLocationListWrapper from './PickupLocationList/PickupLocationListWrapper.vue';
@@ -32,7 +30,6 @@ import PickupLocationInput from './PickupLocationInput/PickupLocationInput.vue';
 
 const config = useConfigStore();
 const locations = useResolvedPickupLocations();
-const form = useDeliveryOptionsForm();
 
 const mode = ref<PickupLocationsView>(config.pickupLocationsDefaultView);
 
@@ -44,6 +41,8 @@ const currentComponent = computed(() =>
 
 const immediate = locations.value.length > 0;
 
+const {pickupLocation: selectedPickupLocation} = useSelectedValues();
+
 onUnmounted(
   watch(
     locations,
@@ -54,7 +53,7 @@ onUnmounted(
 
       const [firstLocation] = value;
 
-      form.instance.setValue(FIELD_PICKUP_LOCATION, firstLocation.locationCode);
+      selectedPickupLocation.value = firstLocation.locationCode;
     },
     {immediate, deep: true},
   ),

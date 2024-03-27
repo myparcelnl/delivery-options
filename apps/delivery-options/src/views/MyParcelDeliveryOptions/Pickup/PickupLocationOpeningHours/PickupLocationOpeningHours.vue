@@ -38,7 +38,7 @@ const propRefs = toRefs(props);
 
 const {translate} = useLanguage();
 
-const pickupLocation = usePickupLocation(propRefs.locationCode);
+const {pickupLocation} = usePickupLocation(propRefs.locationCode);
 
 const mutableShowAll = ref(false);
 const resolvedShowAll = computed(() => props.expanded || mutableShowAll.value);

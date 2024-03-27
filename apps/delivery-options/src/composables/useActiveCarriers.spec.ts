@@ -17,7 +17,6 @@ import {
 } from '@myparcel-do/shared';
 import {NETHERLANDS, BELGIUM, FRANCE} from '@myparcel/constants/countries';
 import {CarrierName, PlatformName} from '@myparcel/constants';
-import {getResolvedCarrier} from '../utils';
 import {mockDeliveryOptionsConfig} from '../__tests__';
 import {useActiveCarriers} from './useActiveCarriers';
 
@@ -71,7 +70,6 @@ describe('useActiveCarriers', () => {
     async (platformName, countryCode, expectedOrder) => {
       expect.assertions(1);
 
-      getResolvedCarrier.clear();
       useActiveCarriers.clear();
 
       const carrierSettings = Object.fromEntries(
@@ -103,7 +101,7 @@ describe('useActiveCarriers', () => {
       );
       await flushPromises();
 
-      expect(toValue(carriers).map((carrier) => carrier.identifier)).toStrictEqual(expectedOrder);
+      expect(toValue(carriers).map((carrier) => carrier.carrier.value.identifier)).toStrictEqual(expectedOrder);
     },
   );
 });

@@ -33,16 +33,26 @@
 </template>
 
 <script lang="ts" setup>
-import {computed, ref, toValue} from 'vue';
-import {DELIVERY_TITLE, PICKUP_TITLE, RadioInput, type SelectOption, PACKAGE_TYPE_DEFAULT} from '@myparcel-do/shared';
+import {computed, toValue} from 'vue';
+import {
+  DELIVERY_TITLE,
+  PICKUP_TITLE,
+  RadioInput,
+  type SelectOption,
+  PACKAGE_TYPE_DEFAULT,
+  waitForRequestData,
+  useCarriersRequest,
+} from '@myparcel-do/shared';
 import {createField} from '@myparcel/vue-form-builder';
 import PickupLocations from '../Pickup/PickupLocations.vue';
 import HomeDelivery from '../Delivery/HomeDelivery.vue';
 import {useConfigStore} from '../../../stores';
 import {useDeliveryOptionsForm} from '../../../form';
 import {FIELD_HOME_OR_PICKUP, HOME_OR_PICKUP_HOME, HOME_OR_PICKUP_PICKUP} from '../../../data';
-import {useActiveCarriers, useLanguage} from '../../../composables';
+import {useActiveCarriers, useLanguage, useSelectedValues} from '../../../composables';
 import {CaretRightIcon, RadioGroupInput} from '../../../components';
+
+await waitForRequestData(useCarriersRequest);
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const Form = useDeliveryOptionsForm();
@@ -50,8 +60,7 @@ const carriers = useActiveCarriers();
 const config = useConfigStore();
 
 const {translate} = useLanguage();
-
-const homeOrPickup = ref();
+const {homeOrPickup, pickupLocation} = useSelectedValues();
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const HomeOrPickup = createField({

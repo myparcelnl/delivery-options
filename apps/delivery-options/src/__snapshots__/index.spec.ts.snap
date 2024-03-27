@@ -109,9 +109,9 @@ exports[`exports > exports from index.ts 1`] = `
   "useResolvedDeliveryOptions",
   "useResolvedPickupLocations",
   "useResolvedValues",
-  "useSelectedDeliveryDate",
   "useSelectedDeliveryMoment",
   "useSelectedPickupLocation",
+  "useSelectedValues",
   "useShipmentOptionsOptions",
   "useTimeRange",
 ]
