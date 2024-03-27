@@ -39,7 +39,7 @@
 </template>
 
 <script generic="T" lang="ts" setup>
-import {computed, onActivated, ref} from 'vue';
+import {computed, onActivated, ref, onMounted} from 'vue';
 import {
   CarrierBox,
   DEFAULT_MAX_PAGE_ITEMS,
@@ -87,9 +87,8 @@ const loadMoreIfInvisible = (): void => {
   loadMoreIfInvisible();
 };
 
-onActivated(() => {
-  loadMoreIfInvisible();
-});
+onActivated(loadMoreIfInvisible);
+onMounted(loadMoreIfInvisible);
 
 const filteredOptions = computed(() => props.options.slice(0, shown.value));
 
