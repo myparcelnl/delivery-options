@@ -21,12 +21,19 @@
 
 <script generic="T extends CheckboxGroupModelValue" lang="ts" setup>
 import {useVModel} from '@vueuse/core';
-import {type CheckboxGroupEmits, type CheckboxGroupModelValue, type CheckboxGroupProps} from '@myparcel-do/shared';
+import {
+  type CheckboxGroupEmits,
+  type CheckboxGroupModelValue,
+  type CheckboxGroupProps,
+  type SelectOption,
+} from '@myparcel-do/shared';
 import SandboxCheckboxInput from './SandboxCheckboxInput.vue';
 
 // eslint-disable-next-line vue/no-unused-properties
 const props = defineProps<CheckboxGroupProps<T>>();
 const emit = defineEmits<CheckboxGroupEmits<T>>();
+
+defineSlots<{default(props: {option: SelectOption<string>}): unknown}>();
 
 const model = useVModel(props, undefined, emit);
 </script>
