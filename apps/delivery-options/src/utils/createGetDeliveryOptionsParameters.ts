@@ -5,15 +5,13 @@ import {
   CarrierSetting,
   DELIVERY_DAYS_WINDOW_DEFAULT,
   DROP_OFF_DELAY_DEFAULT,
-  type SupportedPackageTypeName,
   resolveCarrierName,
-  PACKAGE_TYPE_DEFAULT,
 } from '@myparcel-do/shared';
 import {type EndpointParameters, type GetDeliveryOptions} from '@myparcel/sdk';
-import {PackageTypeName, PlatformName} from '@myparcel/constants';
+import {PlatformName} from '@myparcel/constants';
 import {useAddressStore, useConfigStore} from '../stores';
 import {type UseResolvedCarrier} from '../composables';
-import {getResolvedValue} from './getResolvedValue';
+import {calculatePackageType} from './calculatePackageType';
 import {calculateDropOffDays} from './calculateDropOffDays';
 import {calculateCutoffTime} from './calculateCutoffTime';
 
@@ -25,16 +23,12 @@ export const createGetDeliveryOptionsParameters = (
 
   const {carrier} = resolvedCarrier;
 
-  const packageType: SupportedPackageTypeName = getResolvedValue(
-    CarrierSetting.PackageType,
-    carrier.value.identifier,
-    PackageTypeName.Package,
-  );
+  const resolvedPackageType = calculatePackageType(resolvedCarrier);
 
   const parameters = shake({
     platform: config.platform ?? PlatformName.MyParcel,
     carrier: resolveCarrierName(carrier.value.identifier),
-    package_type: resolvedCarrier.packageTypes.value.has(packageType) ? packageType : PACKAGE_TYPE_DEFAULT,
+    package_type: resolvedPackageType,
 
     cutoff_time: calculateCutoffTime(resolvedCarrier),
     deliverydays_window: resolvedCarrier.get(CarrierSetting.DeliveryDaysWindow, DELIVERY_DAYS_WINDOW_DEFAULT),
