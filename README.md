@@ -11,7 +11,7 @@ This is the MyParcel delivery options module for use in any e-commerce platform'
 
 ## Documentation
 
-Read the [documentation].
+Read the [documentation]. For a quick start and to see the Delivery Options in action, see the [sandbox].
 
 ## Contributing
 
@@ -23,44 +23,12 @@ See the [GitHub releases page] or [CHANGELOG.md].
 
 ## Upgrading
 
-### v5 to v6
-
-The app was rewritten from scratch, to be able to upgrade all underlying technologies and to improve the performance and stability. The existing behavior will mostly continue to work, so you can upgrade to v6 without huge changes. However, there are some breaking changes and deprecations, so please read the following list carefully.
-
-**Improvements**
-
-- A beautiful new design.
-- Vastly improved performance and stability.
-- The app can now be used as a Vue component in any Vue 3 app.
-- TypeScript support.
-- More exported methods, constants, types and interfaces.
-- Package type `package_small` is now supported.
-
-**Breaking changes**
-
-- It's no longer possible to set `showDeliveryDate` per carrier. This is now a global setting only.
-- The CSS is no longer bundled, so you must manually include `dist/style.css`. This does not apply if you're using the Vue component.
-
-**Deprecated**
-
-- `cutoffTime` is deprecated, use `dropOffDays` instead
-- Rather than relying on `allowDeliveryOptions`, use `allowStandardDelivery` instead.
-
-> ⚠️ **Note:** The existing behavior will continue to work throughout v6 but will be removed/changed in the next major version.
-
-**New features**
-
-- It's now possible to set separate cutoff times per day and per carrier.
-
-**Internal changes**
-
-- The app is now written in TypeScript.
-- Upgraded from Vue 2 to Vue 3.
-- Upgraded from Vue CLI to Vite.
+See [Upgrading].
 
 [CHANGELOG.md]: ./apps/delivery-options/CHANGELOG.md
 [Github releases page]: https://github.com/myparcelnl/delivery-options/releases
 [MyParcel]: https://myparcel.nl
 [SendMyParcel]: https://sendmyparcel.be
 [documentation]: https://developer.myparcel.nl/documentation/60.delivery-options.html
-[sandbox]: https://myparcelnl.github.io/delivery-options
+[Upgrading]: https://developer.myparcel.nl/documentation/61.delivery-options-beta.html#upgrading
+[sandbox]: https://beta--myparcel-delivery-options.netlify.app/
