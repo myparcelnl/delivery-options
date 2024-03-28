@@ -5,6 +5,7 @@ export * from './useCarrier';
 export * from './useCarriers';
 export * from './useClickOutside';
 export * from './useCursor';
+export * from './useLoadMore';
 export * from './useLogger';
 export * from './useOpenState';
 export * from './usePlatform';

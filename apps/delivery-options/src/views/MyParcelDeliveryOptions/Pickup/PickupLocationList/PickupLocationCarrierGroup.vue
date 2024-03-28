@@ -30,7 +30,7 @@
     </GroupInput>
 
     <DoButton
-      v-if="options?.length > shown"
+      v-if="hasMore"
       link
       @click="loadMore">
       {{ translate(SHOW_MORE_LOCATIONS) }}
@@ -39,13 +39,14 @@
 </template>
 
 <script generic="T" lang="ts" setup>
-import {computed, onActivated, ref, onMounted} from 'vue';
+import {computed, toRefs} from 'vue';
 import {
   CarrierBox,
   DEFAULT_MAX_PAGE_ITEMS,
   RadioInput,
   type SelectOption,
   SHOW_MORE_LOCATIONS,
+  useLoadMore,
 } from '@myparcel-do/shared';
 import {type CarrierName, DeliveryTypeName} from '@myparcel/constants';
 import {getDeliveryTypePrice} from '../../../../utils';
@@ -54,43 +55,29 @@ import {GroupInput, DoButton, PriceTag} from '../../../../components';
 import PickupLocationListItem from './PickupLocationListItem.vue';
 import PickupLocationDetails from './PickupLocationDetails.vue';
 
-const props = defineProps<{
-  carrier: CarrierName;
-  options: SelectOption<T>[];
-}>();
-
-const shown = ref(DEFAULT_MAX_PAGE_ITEMS);
+const props = defineProps<{carrier: CarrierName; options: SelectOption<T>[]}>();
+const propRefs = toRefs(props);
 
 const {locationCode, location} = useSelectedPickupLocation();
-
 const {translate} = useLanguage();
 
-const loadMore = () => {
-  shown.value += DEFAULT_MAX_PAGE_ITEMS;
-};
+const {
+  items: filteredOptions,
+  loadMore,
+  hasMore,
+} = useLoadMore({
+  items: propRefs.options,
+  start: DEFAULT_MAX_PAGE_ITEMS,
+  step: DEFAULT_MAX_PAGE_ITEMS,
+  isSelected(option) {
+    // Skip loading for other carriers
+    if (location.value?.carrier !== props.carrier) {
+      return true;
+    }
 
-/**
- * Load more pickup locations if the current selected pickup location is not visible.
- */
-const loadMoreIfInvisible = (): void => {
-  const locationCarrier = location.value?.carrier;
-
-  if (
-    !locationCode.value ||
-    locationCarrier !== props.carrier ||
-    filteredOptions.value.find((option) => option.value === locationCode.value)
-  ) {
-    return;
-  }
-
-  loadMore();
-  loadMoreIfInvisible();
-};
-
-onActivated(loadMoreIfInvisible);
-onMounted(loadMoreIfInvisible);
-
-const filteredOptions = computed(() => props.options.slice(0, shown.value));
+    return locationCode.value === option.value;
+  },
+});
 
 const price = computed(() => {
   return getDeliveryTypePrice(DeliveryTypeName.Pickup, props.carrier);
