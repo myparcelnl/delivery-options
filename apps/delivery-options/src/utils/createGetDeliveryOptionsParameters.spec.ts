@@ -78,6 +78,23 @@ describe('createGetDeliveryOptionsParameters', () => {
         include: 'shipment_options',
       },
     },
+
+    // TODO: remove this once the dpd workaround is removed
+    {
+      platform: PlatformName.MyParcel,
+      carrier: CarrierName.Dpd,
+      config: {},
+      output: {
+        // Expect package_type to be removed
+        carrier: CarrierName.Dpd,
+        cutoff_time: '16:00',
+        deliverydays_window: 7,
+        dropoff_days: '1;2;3;4;5',
+        dropoff_delay: 1,
+        include: 'shipment_options',
+        platform: PlatformName.MyParcel,
+      },
+    },
   ] satisfies TestInput[])('returns the correct parameters', async ({carrier, platform, config, output}) => {
     expect.assertions(1);
     vi.setSystemTime('2021-06-01T10:00:00');
