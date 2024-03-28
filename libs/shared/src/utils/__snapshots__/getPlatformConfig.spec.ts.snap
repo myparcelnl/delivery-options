@@ -173,6 +173,9 @@ exports[`getPlatformConfig > gets config for platform myparcel 1`] = `
       "pickupCountries": [
         "NL",
         "BE",
+        "DK",
+        "SE",
+        "DE",
       ],
       "shipmentOptions": [
         "only_recipient",
