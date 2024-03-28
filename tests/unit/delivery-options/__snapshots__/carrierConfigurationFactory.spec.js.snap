@@ -471,7 +471,10 @@ Object {
   ],
   "countriesForPickup": Array [
     "BE",
+    "DK",
+    "DE",
     "NL",
+    "SE",
   ],
   "features": Object {
     "belgie": Array [
