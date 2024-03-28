@@ -51,7 +51,7 @@ export const getMyParcelConfig = (): PlatformConfiguration => ({
         CustomDeliveryType.Monday,
       ],
       deliveryCountries: [NETHERLANDS, BELGIUM],
-      pickupCountries: [NETHERLANDS, BELGIUM],
+      pickupCountries: [NETHERLANDS, BELGIUM, DENMARK, SWEDEN, GERMANY],
       fakeDelivery: true,
       shipmentOptions: [ShipmentOptionName.OnlyRecipient, ShipmentOptionName.Signature],
       features: [CarrierSetting.DeliveryDaysWindow, CarrierSetting.DropOffDays, CarrierSetting.DropOffDelay],
