@@ -1,6 +1,6 @@
-import {computed, onUnmounted, watch, type Ref, toValue} from 'vue';
+import {computed, onUnmounted, watch, type Ref, toValue, type ComputedRef} from 'vue';
 import {useLocalStorage} from '@vueuse/core';
-import {AddressField, type DeliveryOptionsAddress, KEY_ADDRESS} from '@myparcel-do/shared';
+import {AddressField, type DeliveryOptionsAddress, KEY_ADDRESS, useLoadMore} from '@myparcel-do/shared';
 import {useForm} from '@myparcel/vue-form-builder';
 import {
   GERMANY,
@@ -9,8 +9,13 @@ import {
   UNITED_STATES_OF_AMERICA,
   BELGIUM,
   NETHERLANDS,
+  SWEDEN,
+  DENMARK,
 } from '@myparcel/constants/countries';
 import {getDefaultSandboxAddress} from '../config';
+
+const ADDRESSES_START_AMOUNT = 6;
+const ADDRESSES_LOAD_STEP = 2;
 
 const KEY_ADDRESS_TYPE = 'addressType';
 const ADDRESS_TYPE_CUSTOM = 'custom';
@@ -47,15 +52,31 @@ const sampleAddresses = Object.freeze([
     [AddressField.PostalCode]: '10001',
     [AddressField.Street]: '5th Avenue 1',
   },
+  {
+    [AddressField.Country]: SWEDEN,
+    [AddressField.City]: 'Stockholm',
+    [AddressField.PostalCode]: '111 29',
+    [AddressField.Street]: 'Drottninggatan 1',
+  },
+  {
+    [AddressField.Country]: DENMARK,
+    [AddressField.City]: 'København',
+    [AddressField.PostalCode]: '1577',
+    [AddressField.Street]: 'Bernstorffsgade 7',
+  },
 ]) satisfies readonly DeliveryOptionsAddress[];
 
 interface UseAddressSelector {
+  addresses: ComputedRef<DeliveryOptionsAddress[]>;
   customValue: typeof ADDRESS_TYPE_CUSTOM;
-  isCustom: ReturnType<typeof computed>;
-  sampleAddresses: typeof sampleAddresses;
+  hasMore: ComputedRef<boolean>;
+  isCustom: ComputedRef<boolean>;
   selectedAddress: Ref<string>;
+
+  loadMore(): void;
 }
 
+// eslint-disable-next-line max-lines-per-function
 export const useAddressSelector = (): UseAddressSelector => {
   const form = useForm();
 
@@ -84,10 +105,23 @@ export const useAddressSelector = (): UseAddressSelector => {
     }),
   );
 
+  const {
+    items: addresses,
+    hasMore,
+    loadMore,
+  } = useLoadMore({
+    items: sampleAddresses,
+    step: ADDRESSES_LOAD_STEP,
+    start: ADDRESSES_START_AMOUNT,
+    isSelected: (item) => item[AddressField.Country] === toValue(selectedAddress),
+  });
+
   return {
-    selectedAddress,
-    sampleAddresses,
-    isCustom,
+    addresses,
     customValue: ADDRESS_TYPE_CUSTOM,
+    isCustom,
+    selectedAddress,
+    hasMore,
+    loadMore,
   };
 };

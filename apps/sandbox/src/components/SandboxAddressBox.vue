@@ -4,10 +4,18 @@
 
     <div class="mp-gap-2 mp-grid mp-grid-cols-2">
       <AddressPresetBox
-        v-for="address in sampleAddresses"
+        v-for="address in addresses"
         :key="address"
         v-model="selectedAddress"
         :address="address" />
+
+      <a
+        v-if="hasMore"
+        class="mp-col-span-2 mp-mx-auto mp-place-self-center"
+        href="#"
+        @click.prevent="loadMore">
+        {{ translate('more') }}
+      </a>
     </div>
 
     <Box @click="isCustom ? null : (selectedAddress = customValue)">
@@ -42,7 +50,7 @@ import AddressPresetBox from './AddressPresetBox.vue';
 
 const {translate} = useLanguage();
 
-const {isCustom, sampleAddresses, selectedAddress, customValue} = useAddressSelector();
+const {isCustom, addresses, selectedAddress, customValue, hasMore, loadMore} = useAddressSelector();
 
 const countries = computed(() => {
   return ALL_COUNTRIES.map((country) => ({
