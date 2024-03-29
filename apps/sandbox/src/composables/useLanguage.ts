@@ -7,6 +7,7 @@ import {
   type AnyTranslatable,
   isTranslatable,
 } from '@myparcel-do/shared';
+import {createAssetUrl} from '../utils/createAssetUrl';
 import {type LanguageDefinition} from '../types';
 import {AVAILABLE_LANGUAGES} from '../constants';
 
@@ -52,8 +53,8 @@ const state = reactive<{
 
 const loadLanguage = useMemoize(async (language: LanguageDefinition): Promise<TranslationsObject> => {
   const [resultA, resultB] = await Promise.all([
-    fetch(`/translations/${language.code}.json`),
-    fetch(`/translations/delivery-options/${language.code}.json`),
+    fetch(createAssetUrl(`translations/${language.code}.json`)),
+    fetch(createAssetUrl(`translations/delivery-options/${language.code}.json`)),
   ]);
 
   return {...(await resultA.json()), ...(await resultB.json())};
