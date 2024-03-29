@@ -27,7 +27,7 @@
     "test:coverage": "nx run-many -t test:coverage --output-style=stream",
     "test:run": "nx run-many -t test:run --output-style=stream",
     "test:update": "nx run-many -t test:update --output-style=stream",
-    "translations:import": "nx run-many -t translations:import --output-style=stream",
+    "translations:import": "yarn workspace @myparcel-do/sandbox run translations:import",
     "typecheck": "nx run-many -t typecheck",
     "watch": "nx run-many -t watch --output-style=stream --parallel=99",
     "ws:clean": "cd $0 && rimraf dist coverage .eslintcache tsconfig.build.tsbuildinfo",

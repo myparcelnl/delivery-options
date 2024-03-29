@@ -42,23 +42,20 @@ jobs:
         with:
           node-version: ${{ vars.NODE_VERSION }}
 
-      - uses: myparcelnl/actions/nx-cache@v4
-
       - name: 'Import translations'
         shell: bash
         # language=bash
         run: |
-          yarn nx run-many \
-            --output-style="static" \
-            --target="translations:import"
+          yarn translations:import
 
       - name: 'Build'
-        shell: bash
-        # language=bash
-        run: |
-          yarn nx run-many \
-            --output-style="static" \
-            --target="build"
+        uses: myparcelnl/actions/nx-run-many@v4
+        with:
+          target: 'build'
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: apps/sandbox/dist
 
       - name: 'Release'
         working-directory: apps/delivery-options
@@ -69,25 +66,18 @@ jobs:
           GITHUB_TOKEN: ${{ steps.credentials.outputs.token }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      # TODO: uncomment when on main
-      #      - uses: actions/upload-pages-artifact@v1
-      #        with:
-      #          path: apps/sandbox/dist
-
-  # TODO: uncomment when on main
-  #  deploy:
-  #    needs: release
-  #    runs-on: ubuntu-22.04
-  #    permissions:
-  #      pages: write
-  #      id-token: write
-  #    environment:
-  #      name: github-pages
-  #      url: ${{ steps.deployment.outputs.page_url }}
-  #    steps:
-  #      - name: Deploy to GitHub Pages
-  #        id: deployment
-  #        uses: actions/deploy-pages@v1
+  deploy:
+    needs: release
+    runs-on: ubuntu-22.04
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/deploy-pages@v3
+        id: deployment
 
   rebase-prs:
     needs: release

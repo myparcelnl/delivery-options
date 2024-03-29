@@ -19,7 +19,6 @@ jobs:
 
       - uses: myparcelnl/actions/nx-run-many@v4
         with:
-          prefix: 'yarn'
           target: 'test:coverage'
 
       - uses: codecov/codecov-action@v4

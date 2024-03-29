@@ -3,7 +3,7 @@
 [![NPM](https://img.shields.io/npm/v/@myparcel/delivery-options?style=for-the-badge)](https://www.npmjs.com/package/@myparcel/delivery-options/)
 [![Coverage Status](https://img.shields.io/codecov/c/github/myparcelnl/delivery-options?logo=codecov&style=for-the-badge)](https://codecov.io/gh/myparcelnl/delivery-options)
 
-[![Sandbox](https://img.shields.io/badge/-Sandbox-lightblue?style=for-the-badge&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAA3NCSVQICAjb4U/gAAAACXBIWXMAAADIAAAAyAEU/dc7AAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAAGxQTFRF////KysrLhcXKxUrIiIiHh4eJCQkIyMjICAgJBskIyMjIiIiICAgIx0jJCAgJCAgIh4iIR4hJB8fIh4gIx8fIx8gIx8hIx8gJB8gIyAgIx8gIx8gIh8gIx8gIx8gIx8gIx8fIx8gIx8gIx8gvcsSrgAAACN0Uk5TAAYLDA8RFRYYHB0mKCw/QERFaoaav8TO0NLn6fT2+Pn7/f5ZFmViAAAAeElEQVQYV42NSxaCQAwEW1QQQUBA5M9A3/+OZhgybK1F3qtapAFPvpHsEZRNK3xfyCYjBRUdbyDsbBjWIhWS3TtDcD5eWA+nzYfdkeUanFtcuDm/XjREvfV4+WjA8y4nZYtz5f8wmocPBRugppmVlaVM1SOVoQrwA9cyDpymMUbnAAAAAElFTkSuQmCC)](https://beta--myparcel-delivery-options.netlify.app/)
+[![Sandbox](https://img.shields.io/badge/-Sandbox-lightblue?style=for-the-badge&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAA3NCSVQICAjb4U/gAAAACXBIWXMAAADIAAAAyAEU/dc7AAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAAGxQTFRF////KysrLhcXKxUrIiIiHh4eJCQkIyMjICAgJBskIyMjIiIiICAgIx0jJCAgJCAgIh4iIR4hJB8fIh4gIx8fIx8gIx8hIx8gJB8gIyAgIx8gIx8gIh8gIx8gIx8gIx8gIx8fIx8gIx8gIx8gvcsSrgAAACN0Uk5TAAYLDA8RFRYYHB0mKCw/QERFaoaav8TO0NLn6fT2+Pn7/f5ZFmViAAAAeElEQVQYV42NSxaCQAwEW1QQQUBA5M9A3/+OZhgybK1F3qtapAFPvpHsEZRNK3xfyCYjBRUdbyDsbBjWIhWS3TtDcD5eWA+nzYfdkeUanFtcuDm/XjREvfV4+WjA8y4nZYtz5f8wmocPBRugppmVlaVM1SOVoQrwA9cyDpymMUbnAAAAAElFTkSuQmCC)](https://myparcelnl.github.io/delivery-options/)
 
 ## Introduction
 
@@ -30,5 +30,5 @@ See [Upgrading].
 [MyParcel]: https://myparcel.nl
 [SendMyParcel]: https://sendmyparcel.be
 [documentation]: https://developer.myparcel.nl/documentation/60.delivery-options.html
-[Upgrading]: https://developer.myparcel.nl/documentation/61.delivery-options-beta.html#upgrading
-[sandbox]: https://beta--myparcel-delivery-options.netlify.app/
+[Upgrading]: https://developer.myparcel.nl/documentation/60.delivery-options.html#upgrading
+[sandbox]: https://myparcelnl.github.io/delivery-options/
