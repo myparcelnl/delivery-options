@@ -1,0 +1,41 @@
+{
+  "name": "@myparcel-do/build-vite",
+  "version": "6.0.0-beta.7",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/myparcelnl/delivery-options.git",
+    "directory": "libs/build-vite"
+  },
+  "license": "MIT",
+  "type": "module",
+  "exports": "./index.js",
+  "main": "./index.js",
+  "module": "./index.js",
+  "types": "./index.d.ts",
+  "scripts": {
+    "lint": "run ws:lint \"$(pwd)\"",
+    "lint:fix": "run ws:lint:fix \"$(pwd)\""
+  },
+  "dependencies": {
+    "@vitejs/plugin-vue": "^5.0.0",
+    "@vitest/coverage-v8": "^1.0.0",
+    "happy-dom": "^13.0.0",
+    "typescript": "^5.2.0",
+    "vite": "^5.0.0",
+    "vite-plugin-custom-tsconfig": "^1.0.0",
+    "vite-plugin-dts": "^3.6.0",
+    "vitest": "^1.0.0",
+    "vue": "^3.3.0",
+    "vue-tsc": "^2.0.0"
+  },
+  "devDependencies": {
+    "@myparcel/ts-utils": "^1.12.0"
+  },
+  "engines": {
+    "node": ">=16"
+  },
+  "volta": {
+    "extends": "../../package.json"
+  }
+}

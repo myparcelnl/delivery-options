@@ -1,31 +1,29 @@
-name: 'Run tests 🧪'
+name: '🔸 Run tests 🧪'
 
 on:
-  pull_request:
-    branches:
-      - main
-      - alpha
-      - beta
-
-  merge_group:
-
-concurrency:
-    group: ${{ github.workflow }}-${{ github.ref }}
-    cancel-in-progress: true
+  workflow_call:
 
 jobs:
   test:
+    name: 'Run unit tests'
     runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        node-version: [18, 20]
     steps:
-      - uses: actions/checkout@v3
-      - uses: ./.github/actions/test
-        with:
-          codecov-token: ${{ secrets.CODECOV_TOKEN }}
+      - uses: actions/checkout@v4
 
-  build:
-    runs-on: ubuntu-22.04
-    steps:
-      - uses: actions/checkout@v3
-      - uses: ./.github/actions/build
+      - uses: myparcelnl/actions/yarn-install@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          node-version: ${{ matrix.node-version }}
+
+      - uses: myparcelnl/actions/nx-run-many@v4
+        with:
+          prefix: 'yarn'
+          target: 'test:coverage'
+
+      - uses: codecov/codecov-action@v4
+        if: matrix.node-version == vars.NODE_VERSION
+        with:
+          files: coverage/clover.xml
+          token: ${{ secrets.CODECOV_TOKEN }}

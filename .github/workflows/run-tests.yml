@@ -1,0 +1,55 @@
+name: 'Run tests 🧪'
+
+on:
+  pull_request:
+    branches:
+      - main
+      - beta
+      - alpha
+
+    paths-ignore:
+      - ./**/*.md
+      - ./.idea/**
+
+  merge_group:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    uses: ./.github/workflows/test.yml
+    secrets: inherit
+
+  typecheck:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: myparcelnl/actions/yarn-install@v4
+        with:
+          node-version: ${{ vars.NODE_VERSION }}
+
+      - uses: myparcelnl/actions/nx-run-many@v4
+        with:
+          prefix: 'yarn'
+          target: 'typecheck'
+
+  bundlewatch:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: myparcelnl/actions/yarn-install@v4
+        with:
+          node-version: ${{ vars.NODE_VERSION }}
+
+      - uses: myparcelnl/actions/nx-run-many@v4
+        with:
+          prefix: 'yarn'
+          target: 'build'
+
+      - uses: myparcelnl/actions/bundlewatch@v4
+        with:
+          token: ${{ secrets.BUNDLEWATCH_TOKEN }}

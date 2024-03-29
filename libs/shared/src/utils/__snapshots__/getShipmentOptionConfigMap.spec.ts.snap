@@ -1,0 +1,8 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`getShipmentOptionConfigMap > should return the correct config map 1`] = `
+{
+  "only_recipient": "allowOnlyRecipient",
+  "signature": "allowSignature",
+}
+`;

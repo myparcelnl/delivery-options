@@ -1,0 +1,5 @@
+@layer base {
+  input, select, textarea {
+    @apply focus:mp-outline-2 focus:mp-ring-0 mp-outline-goldfish-500;
+  }
+}

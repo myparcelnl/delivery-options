@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      href="/vite.svg"
+      rel="icon"
+      type="image/svg+xml" />
+    <meta
+      content="width=device-width, initial-scale=1.0"
+      name="viewport" />
+    <title>MyParcel Delivery Options Sandbox</title>
+    <script>
+      (function () {
+        var DARK = 'dark';
+        var LIGHT = 'light';
+        var colorScheme =
+          localStorage.getItem('vueuse-color-scheme') ||
+          (window.matchMedia('(prefers-color-scheme: dark)').matches
+            ? DARK
+            : LIGHT);
+
+        document.documentElement.setAttribute(
+          'class',
+          colorScheme === DARK ? 'mp-dark' : LIGHT,
+        );
+      })();
+    </script>
+  </head>
+  <body
+    class="mp-bg-white dark:mp-bg-gray-900 mp-text-gray-950 dark:mp-text-gray-200">
+    <script type="importmap">
+      {
+        "imports": {
+          "vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js"
+        }
+      }
+    </script>
+
+    <div id="app"></div>
+    <script
+      src="/src/main.ts"
+      type="module"></script>
+  </body>
+</html>

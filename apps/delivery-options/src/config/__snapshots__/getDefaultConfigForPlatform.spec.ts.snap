@@ -1,0 +1,117 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`getDefaultConfigForPlatform > should return the correct default config for platform belgie 1`] = `
+{
+  "allowDeliveryOptions": true,
+  "allowEveningDelivery": true,
+  "allowMondayDelivery": true,
+  "allowMorningDelivery": true,
+  "allowOnlyRecipient": true,
+  "allowPickupLocations": true,
+  "allowSameDayDelivery": true,
+  "allowSaturdayDelivery": false,
+  "allowSignature": true,
+  "allowStandardDelivery": true,
+  "apiBaseUrl": "https://api.myparcel.nl",
+  "carrierSettings": {},
+  "currency": "EUR",
+  "deliveryDaysWindow": 7,
+  "dropOffDays": [
+    {
+      "weekday": 1,
+    },
+    {
+      "weekday": 2,
+    },
+    {
+      "weekday": 3,
+    },
+    {
+      "weekday": 4,
+    },
+    {
+      "weekday": 5,
+    },
+  ],
+  "dropOffDelay": 1,
+  "locale": "en-US",
+  "packageType": "package",
+  "pickupLocationsDefaultView": "list",
+  "pickupLocationsMapTileLayerData": "{"url":"https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png","attribution":"&copy; <a href=\\"https://www.openstreetmap.org/copyright\\">OpenStreetMap</a> contributors, Tiles style by <a href=\\"https://www.hotosm.org/\\" target=\\"_blank\\">Humanitarian OpenStreetMap Team</a> hosted by <a href=\\"https://openstreetmap.fr/\\" target=\\"_blank\\">OpenStreetMap France</a>","maxZoom":19}",
+  "pickupShowDistance": false,
+  "platform": "belgie",
+  "priceEveningDelivery": 0,
+  "priceMondayDelivery": 0,
+  "priceMorningDelivery": 0,
+  "priceOnlyRecipient": 0,
+  "pricePackageTypeDigitalStamp": 0,
+  "pricePackageTypeMailbox": 0,
+  "pricePackageTypePackageSmall": 0,
+  "pricePickup": 0,
+  "priceSameDayDelivery": 0,
+  "priceSaturdayDelivery": 0,
+  "priceSignature": 0,
+  "priceStandardDelivery": 0,
+  "showDeliveryDate": true,
+  "showPriceSurcharge": false,
+  "showPrices": true,
+}
+`;
+
+exports[`getDefaultConfigForPlatform > should return the correct default config for platform myparcel 1`] = `
+{
+  "allowDeliveryOptions": true,
+  "allowEveningDelivery": true,
+  "allowMondayDelivery": true,
+  "allowMorningDelivery": true,
+  "allowOnlyRecipient": true,
+  "allowPickupLocations": true,
+  "allowSameDayDelivery": true,
+  "allowSaturdayDelivery": false,
+  "allowSignature": true,
+  "allowStandardDelivery": true,
+  "apiBaseUrl": "https://api.myparcel.nl",
+  "carrierSettings": {},
+  "currency": "EUR",
+  "deliveryDaysWindow": 7,
+  "dropOffDays": [
+    {
+      "weekday": 1,
+    },
+    {
+      "weekday": 2,
+    },
+    {
+      "weekday": 3,
+    },
+    {
+      "weekday": 4,
+    },
+    {
+      "weekday": 5,
+    },
+  ],
+  "dropOffDelay": 1,
+  "locale": "en-US",
+  "packageType": "package",
+  "pickupLocationsDefaultView": "map",
+  "pickupLocationsMapTileLayerData": "{"url":"https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png","attribution":"&copy; <a href=\\"https://www.openstreetmap.org/copyright\\">OpenStreetMap</a> contributors, Tiles style by <a href=\\"https://www.hotosm.org/\\" target=\\"_blank\\">Humanitarian OpenStreetMap Team</a> hosted by <a href=\\"https://openstreetmap.fr/\\" target=\\"_blank\\">OpenStreetMap France</a>","maxZoom":19}",
+  "pickupShowDistance": true,
+  "platform": "myparcel",
+  "priceEveningDelivery": 0,
+  "priceMondayDelivery": 0,
+  "priceMorningDelivery": 0,
+  "priceOnlyRecipient": 0,
+  "pricePackageTypeDigitalStamp": 0,
+  "pricePackageTypeMailbox": 0,
+  "pricePackageTypePackageSmall": 0,
+  "pricePickup": 0,
+  "priceSameDayDelivery": 0,
+  "priceSaturdayDelivery": 0,
+  "priceSignature": 0,
+  "priceStandardDelivery": 0,
+  "showDeliveryDate": true,
+  "showPriceSurcharge": false,
+  "showPrices": true,
+}
+`;

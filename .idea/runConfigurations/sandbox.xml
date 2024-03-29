@@ -1,0 +1,12 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="sandbox" type="JavaScriptTestRunnerVitest">
+    <config value="$PROJECT_DIR$/apps/sandbox/vite.config.ts" />
+    <node-interpreter value="project" />
+    <vitest-package value="$PROJECT_DIR$/node_modules/vitest" />
+    <working-dir value="$PROJECT_DIR$/apps/sandbox" />
+    <vitest-options value="--watch --coverage" />
+    <envs />
+    <scope-kind value="ALL" />
+    <method v="2" />
+  </configuration>
+</component>

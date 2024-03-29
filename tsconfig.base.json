@@ -1,0 +1,18 @@
+{
+  "extends": "@vue/tsconfig/tsconfig.dom.json",
+  "compilerOptions": {
+    "noEmitOnError": false,
+    "types": ["node", "vite/client"]
+  },
+  "include": [],
+  "exclude": [
+    "**/*.snap",
+    "**/*.spec.*",
+    "**/*.test.*",
+    "**/__mocks__",
+    "**/__tests__",
+    "**/__snapshots__",
+    "**/dist",
+    "**/node_modules"
+  ]
+}

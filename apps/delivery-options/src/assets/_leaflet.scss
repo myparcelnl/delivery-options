@@ -1,0 +1,24 @@
+@use "sass:math";
+
+/*
+ * Animates marker movement. Taken from https://gist.github.com/meule/777d9a8a42e2c99a3386
+ */
+.leaflet-marker-pane > * {
+  @apply mp-transition-transform;
+}
+
+.leaflet-container .leaflet-control-attribution {
+  @apply mp-max-w-prose;
+}
+
+@each $carrier, $color in $carriers {
+  .leaflet-marker-pane .mp__carrier-marker--#{$carrier}.active {
+    // Always show active markers on top
+    @apply mp-z-[9999] #{!important};
+
+    path {
+      @apply mp-transition-colors;
+      fill: $color !important;
+    }
+  }
+}

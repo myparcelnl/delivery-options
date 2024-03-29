@@ -1,0 +1,56 @@
+@font-face {
+  font-family: "ProximaNova";
+  src: url("https://backoffice.myparcel.nl/static/myparcel-nederland/skin/fonts/proxima-nova/proxima-nova-regular.woff2") format("woff2"), url("https://backoffice.myparcel.nl/static/myparcel-nederland/skin/fonts/proxima-nova/proxima-nova-regular.woff") format("woff"), url("https://backoffice.myparcel.nl/static/myparcel-nederland/skin/fonts/proxima-nova/proxima-nova-regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "ProximaNova";
+  src: url("https://backoffice.myparcel.nl/static/myparcel-nederland/skin/fonts/proxima-nova/proxima-nova-light.woff2") format("woff2"), url("https://backoffice.myparcel.nl/static/myparcel-nederland/skin/fonts/proxima-nova/proxima-nova-light.woff") format("woff"), url("https://backoffice.myparcel.nl/static/myparcel-nederland/skin/fonts/proxima-nova/proxima-nova-light.ttf") format("truetype");
+  font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "ProximaNova";
+  src: url("https://backoffice.myparcel.nl/static/myparcel-nederland/skin/fonts/proxima-nova/proxima-nova-bold.woff2") format("woff2"), url("https://backoffice.myparcel.nl/static/myparcel-nederland/skin/fonts/proxima-nova/proxima-nova-bold.woff") format("woff"), url("https://backoffice.myparcel.nl/static/myparcel-nederland/skin/fonts/proxima-nova/proxima-nova-bold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  @apply mp-font-bold mp-mt-4 mp-mb-2 mp-font-sans;
+}
+
+h1 {
+  @apply mp-text-h1;
+}
+
+h2 {
+  @apply mp-text-h2;
+}
+
+h3 {
+  @apply mp-text-h3;
+}
+
+h4 {
+  @apply mp-text-h4;
+}
+
+h5 {
+  @apply mp-text-h5;
+}
+
+h6 {
+  @apply mp-text-h6;
+}
+
+a:not(.reset) {
+  @apply mp-text-goldfish-500 hover:mp-text-goldfish-700;
+}
+
+b {
+  @apply mp-font-bold;
+}

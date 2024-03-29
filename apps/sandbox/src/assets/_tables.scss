@@ -1,0 +1,21 @@
+table {
+  @apply mp-w-full mp-border-collapse mp-table-auto mp-text-left mp-rounded-lg mp-overflow-hidden mp-bg-white dark:mp-bg-gray-800;
+}
+
+thead {
+  @apply mp-bg-gray-100 dark:mp-bg-gray-700;
+}
+
+tfoot {
+  @apply mp-bg-gray-100 dark:mp-bg-gray-700;
+}
+
+tr {
+  &:not(:last-of-type) {
+    @apply mp-border-b-2;
+  }
+}
+
+td, th {
+  @apply mp-py-2 mp-px-4;
+}
