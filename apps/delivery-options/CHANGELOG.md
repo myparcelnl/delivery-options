@@ -5,545 +5,114 @@ All notable changes to this project will be documented in this file. See
 
 ## [@myparcel/delivery-options-v6.0.0](https://github.com/myparcelnl/delivery-options/compare/v5.17.0...v6.0.0) (2024-03-29)
 
+The app was rewritten from scratch to be able to upgrade all underlying technologies and to improve the performance and stability. The existing behavior will mostly continue to work, so you can upgrade to v6 without huge changes. However, there are some breaking changes and deprecations, so please read the following list carefully.
 
-### ⚠ BREAKING CHANGES
+### :sparkles: New features
 
-* **release:** v6.0.0 release
-* add new boilerplate
+- It's now possible to set separate cutoff times per day and per carrier.
+- Package type `package_small` is now supported.
+- You can now pass custom cutoff times per day (and optionally per carrier).
+- It's now possible to disable standard delivery but keep showing morning and/or evening delivery.
 
-* **release:** release v6.0 ([694bc36](https://github.com/myparcelnl/delivery-options/commit/694bc36bb87e29e65a65be65f16109bc5f7da0c3))
+### :zap: Other improvements
 
+- A beautiful new design.
+- Vastly improved performance and stability.
+- The app can now be used as a Vue component in any Vue 3 app.
+- TypeScript support.
+- Many more exported methods, constants, types and interfaces.
 
-### wip
-
-* add new boilerplate ([0286f8e](https://github.com/myparcelnl/delivery-options/commit/0286f8e3895c1b6453265079261228ef4d35beaf))
-
-
-### :sparkles: New Features
-
-* add "show more" to opening hours ([014d35c](https://github.com/myparcelnl/delivery-options/commit/014d35ca98ce9d89dfa92d0cd3c73ba9a130ddaa))
-* add active state to pickup map markers ([80bf0ac](https://github.com/myparcelnl/delivery-options/commit/80bf0ac0d9e8f70edb4e4122739a78c0f1b4811c))
-* add basic error handling ([6e9e9d8](https://github.com/myparcelnl/delivery-options/commit/6e9e9d8f0a220cffd644aca69374a318a68771d4))
-* add chunk of delivery options ([1ec5d8f](https://github.com/myparcelnl/delivery-options/commit/1ec5d8fb2a5012adccee54601cedaf3287252739))
-* add correct icons ([58aabf7](https://github.com/myparcelnl/delivery-options/commit/58aabf7cfc32f06caa2aeb1658ba88f097a5d71c))
-* add drop off possibilities ([e20f63b](https://github.com/myparcelnl/delivery-options/commit/e20f63b06bbfc81b6b08ae5c1c5511f84e0a3d34))
-* add huge chunk of sandbox ([8b16252](https://github.com/myparcelnl/delivery-options/commit/8b16252be31dfc70e1bbff3f52f9d9263932e050))
-* add initial myparcel.js usage ([4ab7284](https://github.com/myparcelnl/delivery-options/commit/4ab728457d5554af3adaeebce5449f967032d32a))
-* add initial pickup list ([c9b1055](https://github.com/myparcelnl/delivery-options/commit/c9b105549afa0161d01c5790eed83c9b6fea2688))
-* add missing translation keys ([bf96e53](https://github.com/myparcelnl/delivery-options/commit/bf96e534d0a6948227c5a688144f8d6c0ab5c480))
-* add parcel locker indicators ([c6a6831](https://github.com/myparcelnl/delivery-options/commit/c6a683112ca98b144498833682942ad374dd0d57))
-* add pickup map details ([14acfa3](https://github.com/myparcelnl/delivery-options/commit/14acfa3fc1a091543669a854df28c57e324d4f46))
-* capitalize opening hours ([f0e5240](https://github.com/myparcelnl/delivery-options/commit/f0e5240ed311c7edb0f00832017578134526f997))
-* **carriers:** filter and sort carriers ([79bb531](https://github.com/myparcelnl/delivery-options/commit/79bb53112150770db3b6d06ff467b364f2d666cb))
-* **delivery-options:** do not expose delivery date if it's turned off ([c037903](https://github.com/myparcelnl/delivery-options/commit/c03790339b90250f05ac46b0cce93a6c7c22583b))
-* **design:** add loader to pickup map and list ([099205c](https://github.com/myparcelnl/delivery-options/commit/099205c22c3e535638f21b8ca441c1cb9a0e8d8e))
-* **design:** hide date arrows if all dates are visible ([c73273b](https://github.com/myparcelnl/delivery-options/commit/c73273bc91419f0a090fb937b7c60bf610edf1f8))
-* **design:** make pickup map responsive ([033414e](https://github.com/myparcelnl/delivery-options/commit/033414ee5cf4f6ef93c1159838313dd3aea15f17))
-* **design:** show proper loaders for delivery when changing config ([463f41f](https://github.com/myparcelnl/delivery-options/commit/463f41fcb3ed334280223b90738afb99f8872fc7))
-* **design:** update date selector design ([e48ed68](https://github.com/myparcelnl/delivery-options/commit/e48ed68d5dde3fd45005c1e0855c71e594611c2b))
-* **design:** update delivery moment selector design ([af6d9b3](https://github.com/myparcelnl/delivery-options/commit/af6d9b3a20be927ce1a30b3c4c15747338ce62fa))
-* **design:** update pickup list selector design ([085b9bb](https://github.com/myparcelnl/delivery-options/commit/085b9bb9db9ee2c6e6e62a5a81989660587a7601))
-* **design:** update some colors and paddings ([744aa0e](https://github.com/myparcelnl/delivery-options/commit/744aa0ed7e82cd1803c680e542a9a92f873e4715))
-* **design:** use carets for delivery and pickup choice ([01c333e](https://github.com/myparcelnl/delivery-options/commit/01c333e464e3f6f0228030e756ba96e7418e1308))
-* **events:** add show and hide events ([9ae883b](https://github.com/myparcelnl/delivery-options/commit/9ae883b02af145024a7b87a42370fa46ab3188ce))
-* **exports:** export more types and variables ([9f86eed](https://github.com/myparcelnl/delivery-options/commit/9f86eedb461a9814965ba0e0071d6fd604592b42))
-* handle deprecated allowDeliveryOptions behavior ([f025951](https://github.com/myparcelnl/delivery-options/commit/f0259516235a859ed22e80629861babf449f0f0c))
-* handle deprecated cutoff and dropoff options ([11d2c79](https://github.com/myparcelnl/delivery-options/commit/11d2c79fce8c67fa80f89d3b2ad4ca75df86141a))
-* implement translations ([44f0a88](https://github.com/myparcelnl/delivery-options/commit/44f0a881728a5a66ee6f95a1c85a3179c4f1e14f))
-* improve list and map toggle and add load more button ([6471228](https://github.com/myparcelnl/delivery-options/commit/64712287196ee170dc4b95606c3176f16b54770a))
-* improve pickup location emit logic ([36a0577](https://github.com/myparcelnl/delivery-options/commit/36a057763fb81f2e2fe31712acff2dac882cbd02))
-* improve sandbox grouping ([6d6e58a](https://github.com/myparcelnl/delivery-options/commit/6d6e58aafd5862e47798ff54ed1fa8dc32659d4b))
-* pass language to delivery options ([87b80d5](https://github.com/myparcelnl/delivery-options/commit/87b80d560042b5aa2b8008594aed6ec7339df427))
-* **pickup:** export location distance ([3af47b9](https://github.com/myparcelnl/delivery-options/commit/3af47b9dddc573823a129f833c36f5902d68c4ce))
-* **pickup:** make selected location visible when coming from map ([1f48bb8](https://github.com/myparcelnl/delivery-options/commit/1f48bb8a6483b7fcf5fe8a1617dd48d8b77ffe6c))
-* **pickup:** show price on selected pickup location in map view ([1ed14ff](https://github.com/myparcelnl/delivery-options/commit/1ed14ff02e27b995a69799035db2ab0eed9516d2))
-* render initial map view ([2f05523](https://github.com/myparcelnl/delivery-options/commit/2f05523380a8f396a3e104836c107332d53327dd))
-* render map markers ([6ec4a5e](https://github.com/myparcelnl/delivery-options/commit/6ec4a5ea846ff816c90123bee22b8f00975f3825))
-* separate allowDeliveryOptions and allowStandardDelivery ([8d3f84e](https://github.com/myparcelnl/delivery-options/commit/8d3f84ee02560ba0622af7468c0acbb572821fe2))
-* show carrier in pickup locations ([5c1f1a2](https://github.com/myparcelnl/delivery-options/commit/5c1f1a2fb1e840fe9dc9e7efa942a4d0d38e4beb))
-* support mailbox and digital stamp ([b49e0d4](https://github.com/myparcelnl/delivery-options/commit/b49e0d4804e0e0a4e2944b87ebc3ee05934755fe))
-* validate delivery options config ([1569f33](https://github.com/myparcelnl/delivery-options/commit/1569f33de4338714405b308f00ca7b8e4deee179))
-
-
-### :bug: Bug Fixes
-
-* add loaders to delivery options ([f74ccfb](https://github.com/myparcelnl/delivery-options/commit/f74ccfba34cccdea04836accc585c737a45bde6d))
-* change padding in radio group tabs ([e3fcf10](https://github.com/myparcelnl/delivery-options/commit/e3fcf1072eb914f978c323b49ccbd72af998d2e4))
-* clean up business logic ([95f1a81](https://github.com/myparcelnl/delivery-options/commit/95f1a811966f695e63dd515af7a4ed7dc09b8fba))
-* **config:** always use resolved drop off entry objects ([ca275d5](https://github.com/myparcelnl/delivery-options/commit/ca275d570ccef97c3341660137299ab93c19faa9))
-* **config:** improve default configurations ([f72a7b7](https://github.com/myparcelnl/delivery-options/commit/f72a7b796f4c174e936763b8a0c82bbac5031e2a))
-* **dates:** fix timezone issues in dates ([788396a](https://github.com/myparcelnl/delivery-options/commit/788396af305f624ac69a521d47471b46f50654b4))
-* **delivery-options:** fix date format locale ([125dbe8](https://github.com/myparcelnl/delivery-options/commit/125dbe805fd6380fa7af16bbccecb89f5bc354ec))
-* **delivery:** do not show shipment options that are unavailable ([111448a](https://github.com/myparcelnl/delivery-options/commit/111448af87b332a185c7ecb510c4879616915489))
-* **delivery:** fix bugs in cutoff time calculation ([028a8c8](https://github.com/myparcelnl/delivery-options/commit/028a8c8b1b88640883a0d729b859b63a9c2155f4))
-* **delivery:** fix ups not working ([c9f3664](https://github.com/myparcelnl/delivery-options/commit/c9f366453f4b05cfcf113ac9341dcfbf888428e9))
-* **deps:** move leaflet to prod dependencies ([1f70228](https://github.com/myparcelnl/delivery-options/commit/1f7022864326c9b471bc1cb3e7c1d71e63d66c65))
-* **deps:** update package.json ([8aea92a](https://github.com/myparcelnl/delivery-options/commit/8aea92a4285379de2eccbd1b824cb395cb18abf1))
-* **deps:** update workspace versions in package.json ([0dbdd22](https://github.com/myparcelnl/delivery-options/commit/0dbdd228c7e3e04c01d6af340c5db0111ef33239))
-* **design:** fix date loader not showing ([0397d1b](https://github.com/myparcelnl/delivery-options/commit/0397d1bddd502c00895524d403c1475c9b0b13d4))
-* **design:** improve date select design ([467d3df](https://github.com/myparcelnl/delivery-options/commit/467d3df924f295a787bc4b7ac162a351191e721d))
-* fix browser saved settings not being honored ([6b08c26](https://github.com/myparcelnl/delivery-options/commit/6b08c263930cf3902c8961a7ca292a56df0f7170))
-* fix carrier not being disabled when allowDeliveryOptions is off ([4268673](https://github.com/myparcelnl/delivery-options/commit/426867300efad0f94b57b989a55dede3de791816))
-* fix carriers with "fake" delivery not showing ([710731c](https://github.com/myparcelnl/delivery-options/commit/710731c610d4350865420479512bc5729db4ab59))
-* fix date options translations not being reactive ([6a0d3c6](https://github.com/myparcelnl/delivery-options/commit/6a0d3c6d37c9efaf750ffb5459f501e86e8486c0))
-* fix date parsing and formatting ([dff03d8](https://github.com/myparcelnl/delivery-options/commit/dff03d870f38aca130ad9b66d6514cd6d52ec6d7))
-* fix delivery moment not being updated ([2ce6882](https://github.com/myparcelnl/delivery-options/commit/2ce688225e5f6c5b0269d45a625d97d36ea32b25))
-* fix dpd not working ([2ddc67b](https://github.com/myparcelnl/delivery-options/commit/2ddc67b2c9fc4524633fa0e19ca7f3a463a0cd34))
-* fix drop-off days not being sent to api correctly ([f40ae0a](https://github.com/myparcelnl/delivery-options/commit/f40ae0a56ad6a7f406e31c35bdfa4a4044b11fa9))
-* fix fake delivery carriers wrongly showing ([cf1e99c](https://github.com/myparcelnl/delivery-options/commit/cf1e99c3220c7c62618e3bead252c9386b117842))
-* fix relative dates being wrong ([bbc4712](https://github.com/myparcelnl/delivery-options/commit/bbc4712b9dd902a28b379760b72cc918a336facc))
-* get prices of other package types correctly ([32a40dc](https://github.com/myparcelnl/delivery-options/commit/32a40dc390c96cf59c234f4403b52f9c83a44bf0))
-* improve look and add prices for shipment options ([5fa9a86](https://github.com/myparcelnl/delivery-options/commit/5fa9a867fee0ed9ff3eb440144c0e7fb92ba59b7))
-* improve marker events ([ac6706e](https://github.com/myparcelnl/delivery-options/commit/ac6706e79b98aa74866ce3b9f72c09af6610bf2f))
-* improve rendering via events behavior ([1970c35](https://github.com/myparcelnl/delivery-options/commit/1970c35dd9f1adebf5b411e5b649c1cb87feeb61))
-* improve switching between carriers and countries ([c0221ab](https://github.com/myparcelnl/delivery-options/commit/c0221ab485813a8c0106660bcc7da42ac72ab839))
-* improve translations logic and reusability ([3140717](https://github.com/myparcelnl/delivery-options/commit/31407177ea308873b5a66d56c26733182ca53fc4))
-* improve unmounting on subsequent render event ([d503122](https://github.com/myparcelnl/delivery-options/commit/d503122f7b6f16265c7ff82e9887b13e8382b2d6))
-* **pickup:** disable pickup for carrier if it throws error ([297d74e](https://github.com/myparcelnl/delivery-options/commit/297d74ee716ce7abbcc9278b51e10da8c4e8ee40))
-* **pickup:** fix carrier information not updating properly on map ([636af74](https://github.com/myparcelnl/delivery-options/commit/636af74a98e783ffa86390fafcedf881d61a1a78))
-* **pickup:** fix carrier logos not showing in pickup ([4c28314](https://github.com/myparcelnl/delivery-options/commit/4c28314286f758f33482d52b008b8bf634854918))
-* **pickup:** fix details not being refreshed when using map ([9e98205](https://github.com/myparcelnl/delivery-options/commit/9e982056ca619aeebf1589e6075f75aa9bb1f605))
-* **pickup:** fix error when switching from delivery to pickup ([402d524](https://github.com/myparcelnl/delivery-options/commit/402d524b9d67e366b04498219660bed3e175485f))
-* **pickup:** fix error when unwatcher is called too soon ([740ec65](https://github.com/myparcelnl/delivery-options/commit/740ec6526ece0e5ec8db8956c150d15f826a66bc))
-* **pickup:** fix list being broken when starting on map ([e2dde2e](https://github.com/myparcelnl/delivery-options/commit/e2dde2ec6cb7457820de7d592112ff076c2d4be7))
-* **pickup:** fix list not loading until visible on mount ([34c2ead](https://github.com/myparcelnl/delivery-options/commit/34c2ead191906ee3162e51da10829b8831035274))
-* **pickup:** fix map not working ([5f513ad](https://github.com/myparcelnl/delivery-options/commit/5f513ade1cbee2413ce67f46ab7687e1341ca5d6))
-* **pickup:** fix pickup output values ([fbfb98f](https://github.com/myparcelnl/delivery-options/commit/fbfb98f26ab45d9d59b7a0e114140a9d5cbb4012))
-* **pickup:** fix type error when carrier is not loaded yet ([13885df](https://github.com/myparcelnl/delivery-options/commit/13885df75154b507b5e050f2a0e6388e4daaa8d4))
-* **pickup:** improve appearance of pickup details ([a1d0bb0](https://github.com/myparcelnl/delivery-options/commit/a1d0bb0f8e61d062dd5f130e63bf9a87b9514a4f))
-* **pickup:** improve centering of markers ([5b9b3c2](https://github.com/myparcelnl/delivery-options/commit/5b9b3c29c7baa1e28ad1bdf8b7ea47e3996b0de2))
-* **pickup:** improve map hooks ([ea077b6](https://github.com/myparcelnl/delivery-options/commit/ea077b64d7c6e963a5bc32ab8a7b0dc3383287f5))
-* **pickup:** improve marker style ([4e2cb24](https://github.com/myparcelnl/delivery-options/commit/4e2cb2467509babc23eddff8abfe23e4e1f69a54))
-* **pickup:** keep selected marker on top ([50fa1ed](https://github.com/myparcelnl/delivery-options/commit/50fa1ed65d651a7c1a81191b483345bce7e68553))
-* **pickup:** make opening hours respond to locale changes ([918b8dc](https://github.com/myparcelnl/delivery-options/commit/918b8dc7bb5d9dff96f080c0cd679826c7621b07))
-* **pickup:** make pickup map properly interactive ([e1ebf6f](https://github.com/myparcelnl/delivery-options/commit/e1ebf6f291db7bcb56bc71e00e838771d1e63783))
-* **pickup:** make pickup respond to locale change ([553cc12](https://github.com/myparcelnl/delivery-options/commit/553cc1217dd05f23e5fd9d95f3731af025f32f7b))
-* **pickup:** mark initial location as active when switching to map ([2a2e99c](https://github.com/myparcelnl/delivery-options/commit/2a2e99cb70733f679dd08eb0257f74b9c52198e4))
-* **pickup:** reduce width of attribution box ([9ae5e75](https://github.com/myparcelnl/delivery-options/commit/9ae5e756e3252a0014d1ce8ed4c986b2ab7d6f4c))
-* **pickup:** remove unsupported pickup countries from dhlparcelconnect ([8b55b04](https://github.com/myparcelnl/delivery-options/commit/8b55b04ecc37ab10407efab0f3c3b8a7d1c441d3))
-* **pickup:** select and pan to correct markers on address change ([4862ccd](https://github.com/myparcelnl/delivery-options/commit/4862ccd9069ef7483ccc1af682085aaa725e698a))
-* **pickup:** select first location on switch to pickup ([0f1a3c0](https://github.com/myparcelnl/delivery-options/commit/0f1a3c01e9c849ecdd0d8ed160fdf1385d821cc6))
-* **pickup:** show pickup locations sorted by distance ([c94f722](https://github.com/myparcelnl/delivery-options/commit/c94f72252b368e563f03fe2521bd4a5dedb00b35))
-* **pickup:** show prices in pickup locations list ([70b77a5](https://github.com/myparcelnl/delivery-options/commit/70b77a523f2340b59d0152ce80a53d6f5b4f4660))
-* **pickup:** sort carriers by defined order ([68e74d5](https://github.com/myparcelnl/delivery-options/commit/68e74d5882a4a278fc67d7fa7c72ed3ed4abfba4))
-* reduce unnecessary outgoing events ([e52f15b](https://github.com/myparcelnl/delivery-options/commit/e52f15b4c61bc967a96bd54c9ce28be7df35cb0d))
-* remove tailwind base from delivery options styles ([ee339bf](https://github.com/myparcelnl/delivery-options/commit/ee339bf55bf8c437f25003c6f153be9e72d2d7bf))
-* restore commented code ([05f4035](https://github.com/myparcelnl/delivery-options/commit/05f40354b859890d3657f2150b1be20a36563dfa))
-* show correct prices on monday, saturday and same-day delivery ([fa07cd7](https://github.com/myparcelnl/delivery-options/commit/fa07cd7058dbd1f50ed2a1c47f41d4af98e76245))
-* show delivery dates in correct order ([612ba86](https://github.com/myparcelnl/delivery-options/commit/612ba866ddeb6aba34b1039b1363e46b81b0defa))
-* show prices on shipment options ([ca79a76](https://github.com/myparcelnl/delivery-options/commit/ca79a7628d8ecb9856c149c28ca2fc9faf269404))
-* show same-day delivery when enabled ([59f19bc](https://github.com/myparcelnl/delivery-options/commit/59f19bc1ccc858a6c786b0d8f9278121ff4d0672))
-* sort delivery moments by time ([521ec94](https://github.com/myparcelnl/delivery-options/commit/521ec94c314baf0db364cdf4244fa98fc18f48e3))
-* **strings:** fix delivery and package type translations ([5db8005](https://github.com/myparcelnl/delivery-options/commit/5db8005719970fff497187c726198319befe8d16))
-* support drop off weekdays as string ([b336646](https://github.com/myparcelnl/delivery-options/commit/b33664685820b723a2aae5e957842ab11adb26c1))
-* support saturday and monday delivery if allowed by default ([87d039c](https://github.com/myparcelnl/delivery-options/commit/87d039c651c84751ed09c5c6a4046034c47c6d21))
-* update deprecated config parsing ([6710ddf](https://github.com/myparcelnl/delivery-options/commit/6710ddf2a10a84880a56ececa39deb1bb84c86ee))
-* update drop off possibilities to match pdk ([226960c](https://github.com/myparcelnl/delivery-options/commit/226960c351884fb29401646b3fc7b26e484d866b))
-* update options and their validation ([4b9cd52](https://github.com/myparcelnl/delivery-options/commit/4b9cd522943cf8a40a8a1de5016ef635b584016c))
-* use correct type in defineConfig helper ([a6bb13c](https://github.com/myparcelnl/delivery-options/commit/a6bb13cb0026e98d2816ebd9be2e5e7d8a659360))
-
-
-### :zap: Performance Improvements
-
-* only use resolved carriers in delivery options ([95afee3](https://github.com/myparcelnl/delivery-options/commit/95afee386bc449e0e12819dd603cd7a2213c1444))
-* reduce bundle size ([0ab6f2d](https://github.com/myparcelnl/delivery-options/commit/0ab6f2dc7b601d57f1b46b0f963fd2e44e3b58e0))
-* reduce bundle size ([d3ddc5e](https://github.com/myparcelnl/delivery-options/commit/d3ddc5eb0f56701d68bf09711ea9f81e54387418))
-* remove excess css classes ([b064101](https://github.com/myparcelnl/delivery-options/commit/b064101e4b1a9fed17ed03b21a12679d70a43649))
-* remove unnecessary class ([0009b6e](https://github.com/myparcelnl/delivery-options/commit/0009b6ec4f86db5602e386b32f2df7ad19046ba3))
-
-## [@myparcel/delivery-options-v6.0.0-beta.7](https://github.com/myparcelnl/delivery-options/compare/v6.0.0-beta.6...v6.0.0-beta.7) (2024-03-14)
-
-
-### :bug: Bug Fixes
-
-* sort delivery moments by time ([521ec94](https://github.com/myparcelnl/delivery-options/commit/521ec94c314baf0db364cdf4244fa98fc18f48e3))
-
-## [@myparcel/delivery-options-v6.0.0-beta.6](https://github.com/myparcelnl/delivery-options/compare/v6.0.0-beta.5...v6.0.0-beta.6) (2024-03-13)
-
-
-### :sparkles: New Features
-
-* **exports:** export more types and variables ([9f86eed](https://github.com/myparcelnl/delivery-options/commit/9f86eedb461a9814965ba0e0071d6fd604592b42))
-
-## [@myparcel/delivery-options-v6.0.0-beta.5](https://github.com/myparcelnl/delivery-options/compare/v6.0.0-beta.4...v6.0.0-beta.5) (2024-03-13)
-
-
-### :bug: Bug Fixes
-
-* **deps:** update package.json ([8aea92a](https://github.com/myparcelnl/delivery-options/commit/8aea92a4285379de2eccbd1b824cb395cb18abf1))
-
-## [@myparcel/delivery-options-v6.0.0-beta.4](https://github.com/myparcelnl/delivery-options/compare/v6.0.0-beta.3...v6.0.0-beta.4) (2024-03-13)
-
-
-### :bug: Bug Fixes
-
-* **pickup:** disable pickup for carrier if it throws error ([297d74e](https://github.com/myparcelnl/delivery-options/commit/297d74ee716ce7abbcc9278b51e10da8c4e8ee40))
-
-## [@myparcel/delivery-options-v6.0.0-beta.3](https://github.com/myparcelnl/delivery-options/compare/v6.0.0-beta.2...v6.0.0-beta.3) (2024-03-13)
-
-
-### :bug: Bug Fixes
-
-* **deps:** update workspace versions in package.json ([0dbdd22](https://github.com/myparcelnl/delivery-options/commit/0dbdd228c7e3e04c01d6af340c5db0111ef33239))
-
-## [@myparcel/delivery-options-v6.0.0-beta.2](https://github.com/myparcelnl/delivery-options/compare/v6.0.0-beta.1...v6.0.0-beta.2) (2024-03-13)
-
-
-### :bug: Bug Fixes
-
-* **deps:** move leaflet to prod dependencies ([1f70228](https://github.com/myparcelnl/delivery-options/commit/1f7022864326c9b471bc1cb3e7c1d71e63d66c65))
-* use correct type in defineConfig helper ([a6bb13c](https://github.com/myparcelnl/delivery-options/commit/a6bb13cb0026e98d2816ebd9be2e5e7d8a659360))
-
-## [@myparcel/delivery-options-v6.0.0-beta.1](https://github.com/myparcelnl/delivery-options/compare/v5.11.0...v6.0.0-beta.1) (2024-03-07)
-
-
-### ⚠ BREAKING CHANGES
-
-* add new boilerplate
-
-### wip
-
-* add new boilerplate ([0286f8e](https://github.com/myparcelnl/delivery-options/commit/0286f8e3895c1b6453265079261228ef4d35beaf))
-
-
-### :sparkles: New Features
-
-* add "show more" to opening hours ([014d35c](https://github.com/myparcelnl/delivery-options/commit/014d35ca98ce9d89dfa92d0cd3c73ba9a130ddaa))
-* add active state to pickup map markers ([80bf0ac](https://github.com/myparcelnl/delivery-options/commit/80bf0ac0d9e8f70edb4e4122739a78c0f1b4811c))
-* add basic error handling ([6e9e9d8](https://github.com/myparcelnl/delivery-options/commit/6e9e9d8f0a220cffd644aca69374a318a68771d4))
-* add chunk of delivery options ([1ec5d8f](https://github.com/myparcelnl/delivery-options/commit/1ec5d8fb2a5012adccee54601cedaf3287252739))
-* add correct icons ([58aabf7](https://github.com/myparcelnl/delivery-options/commit/58aabf7cfc32f06caa2aeb1658ba88f097a5d71c))
-* add drop off possibilities ([e20f63b](https://github.com/myparcelnl/delivery-options/commit/e20f63b06bbfc81b6b08ae5c1c5511f84e0a3d34))
-* add huge chunk of sandbox ([8b16252](https://github.com/myparcelnl/delivery-options/commit/8b16252be31dfc70e1bbff3f52f9d9263932e050))
-* add initial myparcel.js usage ([4ab7284](https://github.com/myparcelnl/delivery-options/commit/4ab728457d5554af3adaeebce5449f967032d32a))
-* add initial pickup list ([c9b1055](https://github.com/myparcelnl/delivery-options/commit/c9b105549afa0161d01c5790eed83c9b6fea2688))
-* add missing translation keys ([bf96e53](https://github.com/myparcelnl/delivery-options/commit/bf96e534d0a6948227c5a688144f8d6c0ab5c480))
-* add parcel locker indicators ([c6a6831](https://github.com/myparcelnl/delivery-options/commit/c6a683112ca98b144498833682942ad374dd0d57))
-* add pickup map details ([14acfa3](https://github.com/myparcelnl/delivery-options/commit/14acfa3fc1a091543669a854df28c57e324d4f46))
-* capitalize opening hours ([f0e5240](https://github.com/myparcelnl/delivery-options/commit/f0e5240ed311c7edb0f00832017578134526f997))
-* **carriers:** filter and sort carriers ([79bb531](https://github.com/myparcelnl/delivery-options/commit/79bb53112150770db3b6d06ff467b364f2d666cb))
-* **delivery-options:** do not expose delivery date if it's turned off ([c037903](https://github.com/myparcelnl/delivery-options/commit/c03790339b90250f05ac46b0cce93a6c7c22583b))
-* **design:** add loader to pickup map and list ([099205c](https://github.com/myparcelnl/delivery-options/commit/099205c22c3e535638f21b8ca441c1cb9a0e8d8e))
-* **design:** hide date arrows if all dates are visible ([c73273b](https://github.com/myparcelnl/delivery-options/commit/c73273bc91419f0a090fb937b7c60bf610edf1f8))
-* **design:** make pickup map responsive ([033414e](https://github.com/myparcelnl/delivery-options/commit/033414ee5cf4f6ef93c1159838313dd3aea15f17))
-* **design:** show proper loaders for delivery when changing config ([463f41f](https://github.com/myparcelnl/delivery-options/commit/463f41fcb3ed334280223b90738afb99f8872fc7))
-* **design:** update date selector design ([e48ed68](https://github.com/myparcelnl/delivery-options/commit/e48ed68d5dde3fd45005c1e0855c71e594611c2b))
-* **design:** update delivery moment selector design ([af6d9b3](https://github.com/myparcelnl/delivery-options/commit/af6d9b3a20be927ce1a30b3c4c15747338ce62fa))
-* **design:** update pickup list selector design ([085b9bb](https://github.com/myparcelnl/delivery-options/commit/085b9bb9db9ee2c6e6e62a5a81989660587a7601))
-* **design:** update some colors and paddings ([744aa0e](https://github.com/myparcelnl/delivery-options/commit/744aa0ed7e82cd1803c680e542a9a92f873e4715))
-* **design:** use carets for delivery and pickup choice ([01c333e](https://github.com/myparcelnl/delivery-options/commit/01c333e464e3f6f0228030e756ba96e7418e1308))
-* **events:** add show and hide events ([9ae883b](https://github.com/myparcelnl/delivery-options/commit/9ae883b02af145024a7b87a42370fa46ab3188ce))
-* handle deprecated allowDeliveryOptions behavior ([f025951](https://github.com/myparcelnl/delivery-options/commit/f0259516235a859ed22e80629861babf449f0f0c))
-* handle deprecated cutoff and dropoff options ([11d2c79](https://github.com/myparcelnl/delivery-options/commit/11d2c79fce8c67fa80f89d3b2ad4ca75df86141a))
-* implement translations ([44f0a88](https://github.com/myparcelnl/delivery-options/commit/44f0a881728a5a66ee6f95a1c85a3179c4f1e14f))
-* improve list and map toggle and add load more button ([6471228](https://github.com/myparcelnl/delivery-options/commit/64712287196ee170dc4b95606c3176f16b54770a))
-* improve pickup location emit logic ([36a0577](https://github.com/myparcelnl/delivery-options/commit/36a057763fb81f2e2fe31712acff2dac882cbd02))
-* improve sandbox grouping ([6d6e58a](https://github.com/myparcelnl/delivery-options/commit/6d6e58aafd5862e47798ff54ed1fa8dc32659d4b))
-* pass language to delivery options ([87b80d5](https://github.com/myparcelnl/delivery-options/commit/87b80d560042b5aa2b8008594aed6ec7339df427))
-* **pickup:** export location distance ([3af47b9](https://github.com/myparcelnl/delivery-options/commit/3af47b9dddc573823a129f833c36f5902d68c4ce))
-* **pickup:** make selected location visible when coming from map ([1f48bb8](https://github.com/myparcelnl/delivery-options/commit/1f48bb8a6483b7fcf5fe8a1617dd48d8b77ffe6c))
-* **pickup:** show price on selected pickup location in map view ([1ed14ff](https://github.com/myparcelnl/delivery-options/commit/1ed14ff02e27b995a69799035db2ab0eed9516d2))
-* render initial map view ([2f05523](https://github.com/myparcelnl/delivery-options/commit/2f05523380a8f396a3e104836c107332d53327dd))
-* render map markers ([6ec4a5e](https://github.com/myparcelnl/delivery-options/commit/6ec4a5ea846ff816c90123bee22b8f00975f3825))
-* separate allowDeliveryOptions and allowStandardDelivery ([8d3f84e](https://github.com/myparcelnl/delivery-options/commit/8d3f84ee02560ba0622af7468c0acbb572821fe2))
-* show carrier in pickup locations ([5c1f1a2](https://github.com/myparcelnl/delivery-options/commit/5c1f1a2fb1e840fe9dc9e7efa942a4d0d38e4beb))
-* support mailbox and digital stamp ([b49e0d4](https://github.com/myparcelnl/delivery-options/commit/b49e0d4804e0e0a4e2944b87ebc3ee05934755fe))
-* validate delivery options config ([1569f33](https://github.com/myparcelnl/delivery-options/commit/1569f33de4338714405b308f00ca7b8e4deee179))
-
-
-### :bug: Bug Fixes
-
-* add loaders to delivery options ([f74ccfb](https://github.com/myparcelnl/delivery-options/commit/f74ccfba34cccdea04836accc585c737a45bde6d))
-* change padding in radio group tabs ([e3fcf10](https://github.com/myparcelnl/delivery-options/commit/e3fcf1072eb914f978c323b49ccbd72af998d2e4))
-* clean up business logic ([95f1a81](https://github.com/myparcelnl/delivery-options/commit/95f1a811966f695e63dd515af7a4ed7dc09b8fba))
-* **config:** always use resolved drop off entry objects ([ca275d5](https://github.com/myparcelnl/delivery-options/commit/ca275d570ccef97c3341660137299ab93c19faa9))
-* **config:** improve default configurations ([f72a7b7](https://github.com/myparcelnl/delivery-options/commit/f72a7b796f4c174e936763b8a0c82bbac5031e2a))
-* **dates:** fix timezone issues in dates ([788396a](https://github.com/myparcelnl/delivery-options/commit/788396af305f624ac69a521d47471b46f50654b4))
-* **delivery-options:** fix date format locale ([125dbe8](https://github.com/myparcelnl/delivery-options/commit/125dbe805fd6380fa7af16bbccecb89f5bc354ec))
-* **delivery:** do not show shipment options that are unavailable ([111448a](https://github.com/myparcelnl/delivery-options/commit/111448af87b332a185c7ecb510c4879616915489))
-* **delivery:** fix bugs in cutoff time calculation ([028a8c8](https://github.com/myparcelnl/delivery-options/commit/028a8c8b1b88640883a0d729b859b63a9c2155f4))
-* **delivery:** fix ups not working ([c9f3664](https://github.com/myparcelnl/delivery-options/commit/c9f366453f4b05cfcf113ac9341dcfbf888428e9))
-* **design:** fix date loader not showing ([0397d1b](https://github.com/myparcelnl/delivery-options/commit/0397d1bddd502c00895524d403c1475c9b0b13d4))
-* **design:** improve date select design ([467d3df](https://github.com/myparcelnl/delivery-options/commit/467d3df924f295a787bc4b7ac162a351191e721d))
-* fix browser saved settings not being honored ([6b08c26](https://github.com/myparcelnl/delivery-options/commit/6b08c263930cf3902c8961a7ca292a56df0f7170))
-* fix carrier not being disabled when allowDeliveryOptions is off ([4268673](https://github.com/myparcelnl/delivery-options/commit/426867300efad0f94b57b989a55dede3de791816))
-* fix carriers with "fake" delivery not showing ([710731c](https://github.com/myparcelnl/delivery-options/commit/710731c610d4350865420479512bc5729db4ab59))
-* fix date options translations not being reactive ([6a0d3c6](https://github.com/myparcelnl/delivery-options/commit/6a0d3c6d37c9efaf750ffb5459f501e86e8486c0))
-* fix date parsing and formatting ([dff03d8](https://github.com/myparcelnl/delivery-options/commit/dff03d870f38aca130ad9b66d6514cd6d52ec6d7))
-* fix delivery moment not being updated ([2ce6882](https://github.com/myparcelnl/delivery-options/commit/2ce688225e5f6c5b0269d45a625d97d36ea32b25))
-* fix drop-off days not being sent to api correctly ([f40ae0a](https://github.com/myparcelnl/delivery-options/commit/f40ae0a56ad6a7f406e31c35bdfa4a4044b11fa9))
-* fix fake delivery carriers wrongly showing ([cf1e99c](https://github.com/myparcelnl/delivery-options/commit/cf1e99c3220c7c62618e3bead252c9386b117842))
-* fix relative dates being wrong ([bbc4712](https://github.com/myparcelnl/delivery-options/commit/bbc4712b9dd902a28b379760b72cc918a336facc))
-* get prices of other package types correctly ([32a40dc](https://github.com/myparcelnl/delivery-options/commit/32a40dc390c96cf59c234f4403b52f9c83a44bf0))
-* improve look and add prices for shipment options ([5fa9a86](https://github.com/myparcelnl/delivery-options/commit/5fa9a867fee0ed9ff3eb440144c0e7fb92ba59b7))
-* improve marker events ([ac6706e](https://github.com/myparcelnl/delivery-options/commit/ac6706e79b98aa74866ce3b9f72c09af6610bf2f))
-* improve rendering via events behavior ([1970c35](https://github.com/myparcelnl/delivery-options/commit/1970c35dd9f1adebf5b411e5b649c1cb87feeb61))
-* improve switching between carriers and countries ([c0221ab](https://github.com/myparcelnl/delivery-options/commit/c0221ab485813a8c0106660bcc7da42ac72ab839))
-* improve translations logic and reusability ([3140717](https://github.com/myparcelnl/delivery-options/commit/31407177ea308873b5a66d56c26733182ca53fc4))
-* improve unmounting on subsequent render event ([d503122](https://github.com/myparcelnl/delivery-options/commit/d503122f7b6f16265c7ff82e9887b13e8382b2d6))
-* **pickup:** fix carrier logos not showing in pickup ([4c28314](https://github.com/myparcelnl/delivery-options/commit/4c28314286f758f33482d52b008b8bf634854918))
-* **pickup:** fix details not being refreshed when using map ([9e98205](https://github.com/myparcelnl/delivery-options/commit/9e982056ca619aeebf1589e6075f75aa9bb1f605))
-* **pickup:** fix error when switching from delivery to pickup ([402d524](https://github.com/myparcelnl/delivery-options/commit/402d524b9d67e366b04498219660bed3e175485f))
-* **pickup:** fix error when unwatcher is called too soon ([740ec65](https://github.com/myparcelnl/delivery-options/commit/740ec6526ece0e5ec8db8956c150d15f826a66bc))
-* **pickup:** fix list being broken when starting on map ([e2dde2e](https://github.com/myparcelnl/delivery-options/commit/e2dde2ec6cb7457820de7d592112ff076c2d4be7))
-* **pickup:** fix map not working ([5f513ad](https://github.com/myparcelnl/delivery-options/commit/5f513ade1cbee2413ce67f46ab7687e1341ca5d6))
-* **pickup:** fix pickup output values ([fbfb98f](https://github.com/myparcelnl/delivery-options/commit/fbfb98f26ab45d9d59b7a0e114140a9d5cbb4012))
-* **pickup:** fix type error when carrier is not loaded yet ([13885df](https://github.com/myparcelnl/delivery-options/commit/13885df75154b507b5e050f2a0e6388e4daaa8d4))
-* **pickup:** improve appearance of pickup details ([a1d0bb0](https://github.com/myparcelnl/delivery-options/commit/a1d0bb0f8e61d062dd5f130e63bf9a87b9514a4f))
-* **pickup:** improve centering of markers ([5b9b3c2](https://github.com/myparcelnl/delivery-options/commit/5b9b3c29c7baa1e28ad1bdf8b7ea47e3996b0de2))
-* **pickup:** improve map hooks ([ea077b6](https://github.com/myparcelnl/delivery-options/commit/ea077b64d7c6e963a5bc32ab8a7b0dc3383287f5))
-* **pickup:** improve marker style ([4e2cb24](https://github.com/myparcelnl/delivery-options/commit/4e2cb2467509babc23eddff8abfe23e4e1f69a54))
-* **pickup:** keep selected marker on top ([50fa1ed](https://github.com/myparcelnl/delivery-options/commit/50fa1ed65d651a7c1a81191b483345bce7e68553))
-* **pickup:** make opening hours respond to locale changes ([918b8dc](https://github.com/myparcelnl/delivery-options/commit/918b8dc7bb5d9dff96f080c0cd679826c7621b07))
-* **pickup:** make pickup map properly interactive ([e1ebf6f](https://github.com/myparcelnl/delivery-options/commit/e1ebf6f291db7bcb56bc71e00e838771d1e63783))
-* **pickup:** make pickup respond to locale change ([553cc12](https://github.com/myparcelnl/delivery-options/commit/553cc1217dd05f23e5fd9d95f3731af025f32f7b))
-* **pickup:** mark initial location as active when switching to map ([2a2e99c](https://github.com/myparcelnl/delivery-options/commit/2a2e99cb70733f679dd08eb0257f74b9c52198e4))
-* **pickup:** reduce width of attribution box ([9ae5e75](https://github.com/myparcelnl/delivery-options/commit/9ae5e756e3252a0014d1ce8ed4c986b2ab7d6f4c))
-* **pickup:** remove unsupported pickup countries from dhlparcelconnect ([8b55b04](https://github.com/myparcelnl/delivery-options/commit/8b55b04ecc37ab10407efab0f3c3b8a7d1c441d3))
-* **pickup:** select and pan to correct markers on address change ([4862ccd](https://github.com/myparcelnl/delivery-options/commit/4862ccd9069ef7483ccc1af682085aaa725e698a))
-* **pickup:** select first location on switch to pickup ([0f1a3c0](https://github.com/myparcelnl/delivery-options/commit/0f1a3c01e9c849ecdd0d8ed160fdf1385d821cc6))
-* **pickup:** show pickup locations sorted by distance ([c94f722](https://github.com/myparcelnl/delivery-options/commit/c94f72252b368e563f03fe2521bd4a5dedb00b35))
-* **pickup:** show prices in pickup locations list ([70b77a5](https://github.com/myparcelnl/delivery-options/commit/70b77a523f2340b59d0152ce80a53d6f5b4f4660))
-* **pickup:** sort carriers by defined order ([68e74d5](https://github.com/myparcelnl/delivery-options/commit/68e74d5882a4a278fc67d7fa7c72ed3ed4abfba4))
-* reduce unnecessary outgoing events ([e52f15b](https://github.com/myparcelnl/delivery-options/commit/e52f15b4c61bc967a96bd54c9ce28be7df35cb0d))
-* remove tailwind base from delivery options styles ([ee339bf](https://github.com/myparcelnl/delivery-options/commit/ee339bf55bf8c437f25003c6f153be9e72d2d7bf))
-* restore commented code ([05f4035](https://github.com/myparcelnl/delivery-options/commit/05f40354b859890d3657f2150b1be20a36563dfa))
-* show correct prices on monday, saturday and same-day delivery ([fa07cd7](https://github.com/myparcelnl/delivery-options/commit/fa07cd7058dbd1f50ed2a1c47f41d4af98e76245))
-* show delivery dates in correct order ([612ba86](https://github.com/myparcelnl/delivery-options/commit/612ba866ddeb6aba34b1039b1363e46b81b0defa))
-* show prices on shipment options ([ca79a76](https://github.com/myparcelnl/delivery-options/commit/ca79a7628d8ecb9856c149c28ca2fc9faf269404))
-* show same-day delivery when enabled ([59f19bc](https://github.com/myparcelnl/delivery-options/commit/59f19bc1ccc858a6c786b0d8f9278121ff4d0672))
-* **strings:** fix delivery and package type translations ([5db8005](https://github.com/myparcelnl/delivery-options/commit/5db8005719970fff497187c726198319befe8d16))
-* support saturday and monday delivery if allowed by default ([87d039c](https://github.com/myparcelnl/delivery-options/commit/87d039c651c84751ed09c5c6a4046034c47c6d21))
-* update deprecated config parsing ([6710ddf](https://github.com/myparcelnl/delivery-options/commit/6710ddf2a10a84880a56ececa39deb1bb84c86ee))
-* update drop off possibilities to match pdk ([226960c](https://github.com/myparcelnl/delivery-options/commit/226960c351884fb29401646b3fc7b26e484d866b))
-* update options and their validation ([4b9cd52](https://github.com/myparcelnl/delivery-options/commit/4b9cd522943cf8a40a8a1de5016ef635b584016c))
-
-
-### :zap: Performance Improvements
-
-* only use resolved carriers in delivery options ([95afee3](https://github.com/myparcelnl/delivery-options/commit/95afee386bc449e0e12819dd603cd7a2213c1444))
-* reduce bundle size ([0ab6f2d](https://github.com/myparcelnl/delivery-options/commit/0ab6f2dc7b601d57f1b46b0f963fd2e44e3b58e0))
-* reduce bundle size ([d3ddc5e](https://github.com/myparcelnl/delivery-options/commit/d3ddc5eb0f56701d68bf09711ea9f81e54387418))
-* remove excess css classes ([b064101](https://github.com/myparcelnl/delivery-options/commit/b064101e4b1a9fed17ed03b21a12679d70a43649))
-* remove unnecessary class ([0009b6e](https://github.com/myparcelnl/delivery-options/commit/0009b6ec4f86db5602e386b32f2df7ad19046ba3))
-
-## [@myparcel/delivery-options-v6.0.0-alpha.23](https://github.com/myparcelnl/delivery-options/compare/v6.0.0-alpha.22...v6.0.0-alpha.23) (2024-03-06)
-
-
-### :sparkles: New Features
-
-* **pickup:** show price on selected pickup location in map view ([1ed14ff](https://github.com/myparcelnl/delivery-options/commit/1ed14ff02e27b995a69799035db2ab0eed9516d2))
-
-## [@myparcel/delivery-options-v6.0.0-alpha.22](https://github.com/myparcelnl/delivery-options/compare/v6.0.0-alpha.21...v6.0.0-alpha.22) (2024-03-06)
-
-
-### :bug: Bug Fixes
-
-* **dates:** fix timezone issues in dates ([788396a](https://github.com/myparcelnl/delivery-options/commit/788396af305f624ac69a521d47471b46f50654b4))
-
-## [@myparcel/delivery-options-v6.0.0-alpha.21](https://github.com/myparcelnl/delivery-options/compare/v6.0.0-alpha.20...v6.0.0-alpha.21) (2024-03-06)
-
-
-### :bug: Bug Fixes
-
-* fix fake delivery carriers wrongly showing ([cf1e99c](https://github.com/myparcelnl/delivery-options/commit/cf1e99c3220c7c62618e3bead252c9386b117842))
-
-## [@myparcel/delivery-options-v6.0.0-alpha.20](https://github.com/myparcelnl/delivery-options/compare/v6.0.0-alpha.19...v6.0.0-alpha.20) (2024-03-06)
-
-
-### :bug: Bug Fixes
-
-* show delivery dates in correct order ([612ba86](https://github.com/myparcelnl/delivery-options/commit/612ba866ddeb6aba34b1039b1363e46b81b0defa))
-
-## [@myparcel/delivery-options-v6.0.0-alpha.19](https://github.com/myparcelnl/delivery-options/compare/v6.0.0-alpha.18...v6.0.0-alpha.19) (2024-03-06)
-
-
-### :bug: Bug Fixes
-
-* fix carrier not being disabled when allowDeliveryOptions is off ([4268673](https://github.com/myparcelnl/delivery-options/commit/426867300efad0f94b57b989a55dede3de791816))
-
-## [@myparcel/delivery-options-v6.0.0-alpha.18](https://github.com/myparcelnl/delivery-options/compare/v6.0.0-alpha.17...v6.0.0-alpha.18) (2024-02-22)
-
-
-### :bug: Bug Fixes
-
-* **delivery:** fix bugs in cutoff time calculation ([028a8c8](https://github.com/myparcelnl/delivery-options/commit/028a8c8b1b88640883a0d729b859b63a9c2155f4))
-
-## [@myparcel/delivery-options-v6.0.0-alpha.17](https://github.com/myparcelnl/delivery-options/compare/v6.0.0-alpha.16...v6.0.0-alpha.17) (2024-02-22)
-
-
-### :bug: Bug Fixes
-
-* **config:** always use resolved drop off entry objects ([ca275d5](https://github.com/myparcelnl/delivery-options/commit/ca275d570ccef97c3341660137299ab93c19faa9))
-
-## [@myparcel/delivery-options-v6.0.0-alpha.16](https://github.com/myparcelnl/delivery-options/compare/v6.0.0-alpha.15...v6.0.0-alpha.16) (2024-02-21)
-
-
-### :bug: Bug Fixes
-
-* fix carriers with "fake" delivery not showing ([710731c](https://github.com/myparcelnl/delivery-options/commit/710731c610d4350865420479512bc5729db4ab59))
-* improve translations logic and reusability ([3140717](https://github.com/myparcelnl/delivery-options/commit/31407177ea308873b5a66d56c26733182ca53fc4))
-
-## [@myparcel/delivery-options-v6.0.0-alpha.15](https://github.com/myparcelnl/delivery-options/compare/v6.0.0-alpha.14...v6.0.0-alpha.15) (2024-02-21)
-
-
-### :bug: Bug Fixes
-
-* **strings:** fix delivery and package type translations ([5db8005](https://github.com/myparcelnl/delivery-options/commit/5db8005719970fff497187c726198319befe8d16))
-
-## [@myparcel/delivery-options-v6.0.0-alpha.14](https://github.com/myparcelnl/delivery-options/compare/v6.0.0-alpha.13...v6.0.0-alpha.14) (2024-02-21)
-
-
-### :bug: Bug Fixes
-
-* **pickup:** fix error when unwatcher is called too soon ([740ec65](https://github.com/myparcelnl/delivery-options/commit/740ec6526ece0e5ec8db8956c150d15f826a66bc))
-* **pickup:** select and pan to correct markers on address change ([4862ccd](https://github.com/myparcelnl/delivery-options/commit/4862ccd9069ef7483ccc1af682085aaa725e698a))
-
-## [@myparcel/delivery-options-v6.0.0-alpha.13](https://github.com/myparcelnl/delivery-options/compare/v6.0.0-alpha.12...v6.0.0-alpha.13) (2024-02-21)
-
-
-### :bug: Bug Fixes
-
-* improve switching between carriers and countries ([c0221ab](https://github.com/myparcelnl/delivery-options/commit/c0221ab485813a8c0106660bcc7da42ac72ab839))
-* **pickup:** fix carrier logos not showing in pickup ([4c28314](https://github.com/myparcelnl/delivery-options/commit/4c28314286f758f33482d52b008b8bf634854918))
-* **pickup:** remove unsupported pickup countries from dhlparcelconnect ([8b55b04](https://github.com/myparcelnl/delivery-options/commit/8b55b04ecc37ab10407efab0f3c3b8a7d1c441d3))
-* reduce unnecessary outgoing events ([e52f15b](https://github.com/myparcelnl/delivery-options/commit/e52f15b4c61bc967a96bd54c9ce28be7df35cb0d))
-
-## [@myparcel/delivery-options-v6.0.0-alpha.12](https://github.com/myparcelnl/delivery-options/compare/v6.0.0-alpha.11...v6.0.0-alpha.12) (2024-02-21)
-
-
-### :bug: Bug Fixes
-
-* **delivery:** do not show shipment options that are unavailable ([111448a](https://github.com/myparcelnl/delivery-options/commit/111448af87b332a185c7ecb510c4879616915489))
-* **delivery:** fix ups not working ([c9f3664](https://github.com/myparcelnl/delivery-options/commit/c9f366453f4b05cfcf113ac9341dcfbf888428e9))
-* **pickup:** fix type error when carrier is not loaded yet ([13885df](https://github.com/myparcelnl/delivery-options/commit/13885df75154b507b5e050f2a0e6388e4daaa8d4))
-
-## [@myparcel/delivery-options-v6.0.0-alpha.11](https://github.com/myparcelnl/delivery-options/compare/v6.0.0-alpha.10...v6.0.0-alpha.11) (2024-02-21)
-
-
-### :bug: Bug Fixes
-
-* **config:** improve default configurations ([f72a7b7](https://github.com/myparcelnl/delivery-options/commit/f72a7b796f4c174e936763b8a0c82bbac5031e2a))
-
-## [@myparcel/delivery-options-v6.0.0-alpha.10](https://github.com/myparcelnl/delivery-options/compare/v6.0.0-alpha.9...v6.0.0-alpha.10) (2024-02-16)
-
-
-### :sparkles: New Features
-
-* handle deprecated allowDeliveryOptions behavior ([f025951](https://github.com/myparcelnl/delivery-options/commit/f0259516235a859ed22e80629861babf449f0f0c))
-
-
-### :bug: Bug Fixes
-
-* **design:** fix date loader not showing ([0397d1b](https://github.com/myparcelnl/delivery-options/commit/0397d1bddd502c00895524d403c1475c9b0b13d4))
-* get prices of other package types correctly ([32a40dc](https://github.com/myparcelnl/delivery-options/commit/32a40dc390c96cf59c234f4403b52f9c83a44bf0))
-
-
-### :zap: Performance Improvements
-
-* remove excess css classes ([b064101](https://github.com/myparcelnl/delivery-options/commit/b064101e4b1a9fed17ed03b21a12679d70a43649))
-
-## [@myparcel/delivery-options-v6.0.0-alpha.9](https://github.com/myparcelnl/delivery-options/compare/v6.0.0-alpha.8...v6.0.0-alpha.9) (2024-02-14)
-
-
-### :sparkles: New Features
-
-* separate allowDeliveryOptions and allowStandardDelivery ([8d3f84e](https://github.com/myparcelnl/delivery-options/commit/8d3f84ee02560ba0622af7468c0acbb572821fe2))
-* support mailbox and digital stamp ([b49e0d4](https://github.com/myparcelnl/delivery-options/commit/b49e0d4804e0e0a4e2944b87ebc3ee05934755fe))
-
-## [@myparcel/delivery-options-v6.0.0-alpha.8](https://github.com/myparcelnl/delivery-options/compare/v6.0.0-alpha.7...v6.0.0-alpha.8) (2024-02-14)
-
-
-### :bug: Bug Fixes
-
-* show same-day delivery when enabled ([59f19bc](https://github.com/myparcelnl/delivery-options/commit/59f19bc1ccc858a6c786b0d8f9278121ff4d0672))
-
-## [@myparcel/delivery-options-v6.0.0-alpha.7](https://github.com/myparcelnl/delivery-options/compare/v6.0.0-alpha.6...v6.0.0-alpha.7) (2024-02-14)
-
-
-### :bug: Bug Fixes
-
-* **pickup:** show prices in pickup locations list ([70b77a5](https://github.com/myparcelnl/delivery-options/commit/70b77a523f2340b59d0152ce80a53d6f5b4f4660))
-* show correct prices on monday, saturday and same-day delivery ([fa07cd7](https://github.com/myparcelnl/delivery-options/commit/fa07cd7058dbd1f50ed2a1c47f41d4af98e76245))
-
-## [@myparcel/delivery-options-v6.0.0-alpha.6](https://github.com/myparcelnl/delivery-options/compare/v6.0.0-alpha.5...v6.0.0-alpha.6) (2024-02-14)
-
-
-### :bug: Bug Fixes
-
-* show prices on shipment options ([ca79a76](https://github.com/myparcelnl/delivery-options/commit/ca79a7628d8ecb9856c149c28ca2fc9faf269404))
-
-## [@myparcel/delivery-options-v6.0.0-alpha.5](https://github.com/myparcelnl/delivery-options/compare/v6.0.0-alpha.4...v6.0.0-alpha.5) (2024-02-09)
-
-
-### :sparkles: New Features
-
-* **design:** add loader to pickup map and list ([099205c](https://github.com/myparcelnl/delivery-options/commit/099205c22c3e535638f21b8ca441c1cb9a0e8d8e))
-* **design:** update some colors and paddings ([744aa0e](https://github.com/myparcelnl/delivery-options/commit/744aa0ed7e82cd1803c680e542a9a92f873e4715))
-
-
-### :bug: Bug Fixes
-
-* **pickup:** fix map not working ([5f513ad](https://github.com/myparcelnl/delivery-options/commit/5f513ade1cbee2413ce67f46ab7687e1341ca5d6))
-* **pickup:** select first location on switch to pickup ([0f1a3c0](https://github.com/myparcelnl/delivery-options/commit/0f1a3c01e9c849ecdd0d8ed160fdf1385d821cc6))
-* **pickup:** sort carriers by defined order ([68e74d5](https://github.com/myparcelnl/delivery-options/commit/68e74d5882a4a278fc67d7fa7c72ed3ed4abfba4))
-
-## [@myparcel/delivery-options-v6.0.0-alpha.4](https://github.com/myparcelnl/delivery-options/compare/v6.0.0-alpha.3...v6.0.0-alpha.4) (2024-02-09)
-
-
-### :sparkles: New Features
-
-* **design:** hide date arrows if all dates are visible ([c73273b](https://github.com/myparcelnl/delivery-options/commit/c73273bc91419f0a090fb937b7c60bf610edf1f8))
-
-## [@myparcel/delivery-options-v6.0.0-alpha.3](https://github.com/myparcelnl/delivery-options/compare/v6.0.0-alpha.2...v6.0.0-alpha.3) (2024-02-09)
-
-
-### :sparkles: New Features
-
-* **design:** show proper loaders for delivery when changing config ([463f41f](https://github.com/myparcelnl/delivery-options/commit/463f41fcb3ed334280223b90738afb99f8872fc7))
-
-## [@myparcel/delivery-options-v6.0.0-alpha.2](https://github.com/myparcelnl/delivery-options/compare/v6.0.0-alpha.1...v6.0.0-alpha.2) (2024-02-08)
-
-
-### :sparkles: New Features
-
-* add basic error handling ([6e9e9d8](https://github.com/myparcelnl/delivery-options/commit/6e9e9d8f0a220cffd644aca69374a318a68771d4))
-
-## [@myparcel/delivery-options-v6.0.0-alpha.1](https://github.com/myparcelnl/delivery-options/compare/v5.11.0...v6.0.0-alpha.1) (2024-02-08)
-
-### ⚠ BREAKING CHANGES
+### :boom: Breaking changes
 
 - It's no longer possible to set `showDeliveryDate` per carrier. This is now a global setting only.
 - The CSS is no longer bundled, so you must manually include `dist/style.css`. This does not apply if you're using the Vue component.
+- The `unselect_delivery_options` event has been removed. If you need this feature, please [let us know].
+
+### :wastebasket: Deprecated
+
+- `cutoffTime` is deprecated, use `dropOffDays` instead
+- Rather than relying on `allowDeliveryOptions` only, use `allowStandardDelivery` as well.
+
+> The existing behavior will continue to work throughout v6 but will be removed/changed in the next major version.
+
+### :building_construction: Notable internal changes
+
+- The app is now fully written in TypeScript.
+- Upgraded from Vue 2 to Vue 3.
+- Upgraded from Vue CLI to Vite.
+- Upgraded from Jest to Vitest.
+
+## [5.17.0](https://github.com/myparcelnl/delivery-options/compare/v5.16.2...v5.17.0) (2024-03-28)
 
 ### :sparkles: New Features
 
-- It's now possible to set separate cutoff times per day and per carrier via `dropOffDays`.
-- A beautiful new design.
-- The app can now be used as a Vue component in any Vue 3 app.
-- TypeScript support.
-- More exported methods, constants, types and interfaces.
+- add pudo countries for postnl ([#205](https://github.com/myparcelnl/delivery-options/issues/205)) ([e88904d](https://github.com/myparcelnl/delivery-options/commit/e88904d4b5988978fa11325286cb272e8df98284))
+
+### [5.16.2](https://github.com/myparcelnl/delivery-options/compare/v5.16.1...v5.16.2) (2024-03-20)
 
 ### :bug: Bug Fixes
 
-- The app was rewritten from scratch intending to fix all known issues.
+- actually allow saturday and sunday cutoff times per carrier ([#212](https://github.com/myparcelnl/delivery-options/issues/212)) ([9fe4403](https://github.com/myparcelnl/delivery-options/commit/9fe4403b4ab56e72a85fd4aef1de4111ad381601))
 
-### :zap: Performance Improvements
+### [5.16.1](https://github.com/myparcelnl/delivery-options/compare/v5.16.0...v5.16.1) (2024-03-16)
 
-- Vastly improved performance and stability.
-- Upgraded from Vue 2 to Vue 3.
+### :bug: Bug Fixes
 
-### :wrench: Internal Changes
+- allow cutoff times per carrier ([#211](https://github.com/myparcelnl/delivery-options/issues/211)) ([418b55c](https://github.com/myparcelnl/delivery-options/commit/418b55c075f4d231b71c78ccb12ddb6c1b166d6e))
 
-- Upgraded from Vue CLI to Vite.
-- The app is now written in TypeScript.
+## [5.16.0](https://github.com/myparcelnl/delivery-options/compare/v5.15.1...v5.16.0) (2024-03-12)
 
-### New Deprecations
+### :sparkles: New Features
 
-- `cutoffTime` is deprecated, use `dropOffDays` instead
-- Rather than relying on `allowDeliveryOptions`, use `allowStandardDelivery` instead.
+- add sunday cutoff time ([#210](https://github.com/myparcelnl/delivery-options/issues/210)) ([cde3efe](https://github.com/myparcelnl/delivery-options/commit/cde3efefbafe0371ec5972fbb8a797063e5cccbb))
 
-> ⚠️ **Note:** The existing behavior will continue to work throughout v6 but will be removed/changed in the next major version.
+### [5.15.1](https://github.com/myparcelnl/delivery-options/compare/v5.15.0...v5.15.1) (2024-03-12)
+
+### :bug: Bug Fixes
+
+- add package small price to carrier override list ([#209](https://github.com/myparcelnl/delivery-options/issues/209)) ([e1a95e7](https://github.com/myparcelnl/delivery-options/commit/e1a95e7106cea4ba4f927378b4ffb07d1495f71b))
+
+## [5.15.0](https://github.com/myparcelnl/delivery-options/compare/v5.14.1...v5.15.0) (2024-03-08)
+
+### :sparkles: New Features
+
+- allow package small for nl and be ([#208](https://github.com/myparcelnl/delivery-options/issues/208)) ([a9b14c6](https://github.com/myparcelnl/delivery-options/commit/a9b14c697e1c037edb9960c9d4c3a8eb973cd9e2))
+
+### [5.14.1](https://github.com/myparcelnl/delivery-options/compare/v5.14.0...v5.14.1) (2024-03-01)
+
+### :bug: Bug Fixes
+
+- fix price error for package types other than package ([#207](https://github.com/myparcelnl/delivery-options/issues/207)) ([e86a6a4](https://github.com/myparcelnl/delivery-options/commit/e86a6a4c88d5ecf8bf75c013a86568255df1764c))
+
+## [5.14.0](https://github.com/myparcelnl/delivery-options/compare/v5.13.0...v5.14.0) (2024-02-27)
+
+### :sparkles: New Features
+
+- add package type packet ([#204](https://github.com/myparcelnl/delivery-options/issues/204)) ([c545873](https://github.com/myparcelnl/delivery-options/commit/c5458739e33ae376d9e70db9790407280ed07837))
+
+## [5.13.0](https://github.com/myparcelnl/delivery-options/compare/v5.12.0...v5.13.0) (2024-02-26)
+
+### :sparkles: New Features
+
+- **dpd:** add netherlands for pickup ([#206](https://github.com/myparcelnl/delivery-options/issues/206)) ([b826ffe](https://github.com/myparcelnl/delivery-options/commit/b826ffea22af4d304b459a239a90f3196075ddfd))
+
+## [5.12.0](https://github.com/myparcelnl/delivery-options/compare/v5.11.2...v5.12.0) (2024-01-18)
+
+### :sparkles: New Features
+
+- add blacklist for delivery countries ([#203](https://github.com/myparcelnl/delivery-options/issues/203)) ([5386e5c](https://github.com/myparcelnl/delivery-options/commit/5386e5c423b8d2bb9b27ba3381a9b862ebef876b))
+
+### [5.11.2](https://github.com/myparcelnl/delivery-options/compare/v5.11.1...v5.11.2) (2023-12-15)
+
+### :bug: Bug Fixes
+
+- dpd pickup error ([#202](https://github.com/myparcelnl/delivery-options/issues/202)) ([2e2ec9e](https://github.com/myparcelnl/delivery-options/commit/2e2ec9ea698c5ec4df533337217d2a3525681a9c))
+
+### [5.11.1](https://github.com/myparcelnl/delivery-options/compare/v5.11.0...v5.11.1) (2023-10-30)
+
+### :bug: Bug Fixes
+
+- fix config change not reloading carriers ([#201](https://github.com/myparcelnl/delivery-options/issues/201)) ([b835d08](https://github.com/myparcelnl/delivery-options/commit/b835d080077fec305843735761e76c90e75cfbdf))
 
 ## [5.11.0](https://github.com/myparcelnl/delivery-options/compare/v5.10.1...v5.11.0) (2023-10-11)
 
