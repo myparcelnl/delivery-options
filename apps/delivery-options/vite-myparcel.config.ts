@@ -1,10 +1,13 @@
 import {mergeConfig, type UserConfig} from 'vite';
 import {createViteConfig} from '@myparcel-do/build-vite';
 import baseConfig from './vite.config';
+import {skipScssPlugin} from './skip-scss-plugin';
 import {getSharedConfig, createFilenameFormatter} from './private';
 
 export default createViteConfig((env) => {
   return mergeConfig(baseConfig(env), {
+    plugins: [skipScssPlugin()],
+
     build: {
       emptyOutDir: false,
       lib: {
