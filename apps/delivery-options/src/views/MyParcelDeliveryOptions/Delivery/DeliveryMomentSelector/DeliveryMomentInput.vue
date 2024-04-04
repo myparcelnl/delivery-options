@@ -23,7 +23,7 @@
   </div>
 </template>
 
-<script generic="T extends string | null" lang="ts" setup>
+<script lang="ts" setup>
 import {toRefs, watch, toValue} from 'vue';
 import {useVModel} from '@vueuse/core';
 import {
@@ -33,13 +33,16 @@ import {
   RadioInput,
   type WithElement,
 } from '@myparcel-do/shared';
+import {DeliveryTypeName} from '@myparcel/constants';
+import {parseJson} from '../../../../utils';
+import {type SelectedDeliveryMoment} from '../../../../types';
 import {FIELD_DELIVERY_MOMENT} from '../../../../data';
 import {useOptionsGroupedByCarrier, useLanguage, useSelectedValues} from '../../../../composables';
 import {GroupInput} from '../../../../components';
 
 // eslint-disable-next-line vue/no-unused-properties
-const props = defineProps<WithElement<RadioGroupProps<T>>>();
-const emit = defineEmits<RadioGroupEmits<T>>();
+const props = defineProps<WithElement<RadioGroupProps>>();
+const emit = defineEmits<RadioGroupEmits>();
 const propRefs = toRefs(props);
 
 const model = useVModel(props, undefined, emit);
@@ -47,7 +50,8 @@ const model = useVModel(props, undefined, emit);
 const {deliveryDate} = useSelectedValues();
 const {translate} = useLanguage();
 
-const {options, grouped} = useOptionsGroupedByCarrier(propRefs.element);
+// @ts-expect-error todo: fix types
+const {options, grouped} = useOptionsGroupedByCarrier<string>(propRefs.element);
 
 watch(
   [options, deliveryDate],
@@ -56,8 +60,13 @@ watch(
       return;
     }
 
-    const [first] = toValue(options);
-    model.value = first.value;
+    const resolvedOptions = toValue(options);
+
+    const firstStandardDelivery = resolvedOptions.find((option) => {
+      return parseJson<SelectedDeliveryMoment>(option.value).deliveryType === DeliveryTypeName.Standard;
+    });
+
+    model.value = firstStandardDelivery?.value ?? resolvedOptions[0]?.value;
   },
   {immediate: options.value.length > 0, deep: true},
 );
