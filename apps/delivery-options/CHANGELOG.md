@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel/delivery-options-v6.0.1](https://github.com/myparcelnl/delivery-options/compare/v6.0.0...v6.0.1) (2024-04-05)
+
+
+### :bug: Bug Fixes
+
+* **style:** remove excess styles from bundle ([4fbf3ba](https://github.com/myparcelnl/delivery-options/commit/4fbf3baad27141929c2e1eeea4a1e69efe9b51e4))
+
 ## [@myparcel/delivery-options-v6.0.0](https://github.com/myparcelnl/delivery-options/compare/v5.17.0...v6.0.0) (2024-03-29)
 
 The app was rewritten from scratch to be able to upgrade all underlying technologies and to improve the performance and stability. The existing behavior will mostly continue to work, so you can upgrade to v6 without huge changes. However, there are some breaking changes and deprecations, so please read the following list carefully.
