@@ -21,6 +21,6 @@ jobs:
     secrets: inherit
 
   rebase-prs:
-    needs: release
-    uses: ./.github/workflows/--rebase-prs.yml
+    needs: test
+    uses: ./.github/workflows/rebase-prs.yml
     secrets: inherit

@@ -82,5 +82,5 @@ jobs:
 
   rebase-prs:
     needs: release
-    uses: ./.github/workflows/--rebase-prs.yml
+    uses: ./.github/workflows/rebase-prs.yml
     secrets: inherit
