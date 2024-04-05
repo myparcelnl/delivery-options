@@ -1,8 +1,6 @@
-name: 'Release new version 🚀'
+name: 'On push ⚙️'
 
 on:
-  workflow_dispatch:
-
   push:
     branches:
       - main
@@ -22,85 +20,7 @@ jobs:
     uses: ./.github/workflows/test.yml
     secrets: inherit
 
-  release:
-    runs-on: ubuntu-22.04
-    needs:
-      - test
-    steps:
-      - uses: myparcelnl/actions/setup-git-credentials@v4
-        id: credentials
-        with:
-          app-id: ${{ secrets.MYPARCEL_APP_ID }}
-          private-key: ${{ secrets.MYPARCEL_APP_PRIVATE_KEY }}
-
-      - uses: actions/checkout@v4
-        with:
-          token: ${{ steps.credentials.outputs.token }}
-          fetch-depth: 0
-
-      - uses: myparcelnl/actions/yarn-install@v4
-        with:
-          node-version: ${{ vars.NODE_VERSION }}
-
-      - name: 'Import translations'
-        shell: bash
-        # language=bash
-        run: |
-          yarn translations:import
-
-      - name: 'Build'
-        uses: myparcelnl/actions/nx-run-many@v4
-        with:
-          target: 'build'
-
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: apps/sandbox/dist
-
-      - name: 'Release'
-        working-directory: apps/delivery-options
-        # language=bash
-        run: |
-          npx semantic-release
-        env:
-          GITHUB_TOKEN: ${{ steps.credentials.outputs.token }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-  deploy:
-    needs: release
-    runs-on: ubuntu-22.04
-    permissions:
-      pages: write
-      id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - uses: myparcelnl/actions/setup-git-credentials@v4
-        id: credentials
-        with:
-          app-id: ${{ secrets.MYPARCEL_APP_ID }}
-          private-key: ${{ secrets.MYPARCEL_APP_PRIVATE_KEY }}
-
-      - uses: actions/deploy-pages@v4
-        id: deployment
-        with:
-          token: ${{ steps.credentials.outputs.token }}
-
   rebase-prs:
     needs: release
-    if: always()
-    runs-on: ubuntu-22.04
-    steps:
-      - uses: myparcelnl/actions/setup-git-credentials@v4
-        id: credentials
-        with:
-          app-id: ${{ secrets.MYPARCEL_APP_ID }}
-          private-key: ${{ secrets.MYPARCEL_APP_PRIVATE_KEY }}
-
-      - uses: peter-evans/rebase@v3
-        with:
-          token: ${{ steps.credentials.outputs.token }}
-          base: ${{ github.ref_name }}
-          exclude-drafts: true
-          exclude-labels: 'dependencies'
+    uses: ./.github/workflows/--rebase-prs.yml
+    secrets: inherit
