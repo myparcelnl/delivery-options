@@ -17,4 +17,6 @@ export const setConfiguration = (config: InputDeliveryOptionsConfiguration): voi
   addressStore.$patch(validated.address);
 
   language.setStrings(validated.strings);
+
+  window.MyParcelConfig = validated;
 };
