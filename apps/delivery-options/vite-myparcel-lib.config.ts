@@ -2,6 +2,7 @@ import {writeFileSync} from 'node:fs';
 import dts from 'vite-plugin-dts';
 import {mergeConfig, type UserConfig} from 'vite';
 import {createViteConfig} from '@myparcel-do/build-vite';
+import {codecovVitePlugin} from '@codecov/vite-plugin';
 import baseConfig from './vite.config';
 import {skipScssPlugin} from './skip-scss-plugin';
 import {getSharedConfig, createFilenameFormatter} from './private';
@@ -11,6 +12,11 @@ export default createViteConfig((env) => {
 
   return mergeConfig(baseConfig(env), {
     plugins: [
+      codecovVitePlugin({
+        enableBundleAnalysis: process.env.CODECOV_TOKEN !== undefined,
+        bundleName: '@myparcel/delivery-options',
+        uploadToken: process.env.CODECOV_TOKEN,
+      }),
       skipScssPlugin(),
       isProd &&
         dts({

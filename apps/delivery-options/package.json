@@ -61,6 +61,7 @@
     "vue": "^3.3.0"
   },
   "devDependencies": {
+    "@codecov/vite-plugin": "^0.0.1-beta.5",
     "@histoire/plugin-vue": "^0.17.6",
     "@myparcel-do/build-vite": "workspace:*",
     "@myparcel-do/semantic-release-plugin": "workspace:*",
