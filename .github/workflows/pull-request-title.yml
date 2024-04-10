@@ -1,4 +1,4 @@
-name: 'Lint pull request title'
+name: 'Validate pull request title'
 
 on:
   pull_request:
@@ -13,7 +13,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  lint:
+  validate:
     runs-on: ubuntu-22.04
     steps:
       - uses: myparcelnl/actions/pr-validate-title-conventional@v4
