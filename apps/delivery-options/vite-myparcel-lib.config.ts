@@ -1,6 +1,7 @@
 import {writeFileSync} from 'node:fs';
 import dts from 'vite-plugin-dts';
 import {mergeConfig, type UserConfig} from 'vite';
+import {isCI} from 'ci-info';
 import {createViteConfig} from '@myparcel-do/build-vite';
 import {codecovVitePlugin} from '@codecov/vite-plugin';
 import baseConfig from './vite.config';
@@ -30,6 +31,7 @@ export default createViteConfig((env) => {
     ],
 
     build: {
+      sourcemap: !isCI && isProd,
       emptyOutDir: false,
       lib: {
         entry: 'src/main.ts',
