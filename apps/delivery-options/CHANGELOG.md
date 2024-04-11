@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel/delivery-options-v6.0.2](https://github.com/myparcelnl/delivery-options/compare/v6.0.1...v6.0.2) (2024-04-11)
+
+
+### :bug: Bug Fixes
+
+* **build:** fix typescript error when importing delivery options ([bf8af9f](https://github.com/myparcelnl/delivery-options/commit/bf8af9f45d3c68b9bd4aef116c2d5a3e1b66714b))
+
 ## [@myparcel/delivery-options-v6.0.1](https://github.com/myparcelnl/delivery-options/compare/v6.0.0...v6.0.1) (2024-04-05)
 
 
