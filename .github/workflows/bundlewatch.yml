@@ -1,0 +1,22 @@
+name: 'Run bundlewatch'
+
+on:
+  workflow_call:
+
+jobs:
+  bundlewatch:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: myparcelnl/actions/yarn-install@v4
+        with:
+          node-version: ${{ vars.NODE_VERSION }}
+
+      - uses: myparcelnl/actions/nx-run-many@v4
+        with:
+          target: 'build'
+
+      - uses: myparcelnl/actions/bundlewatch@v4
+        with:
+          token: ${{ secrets.BUNDLEWATCH_TOKEN }}

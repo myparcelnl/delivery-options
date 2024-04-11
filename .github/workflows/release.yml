@@ -12,13 +12,19 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  bundlewatch:
+    uses: ./.github/workflows/bundlewatch.yml
+    secrets: inherit
+
   test:
     uses: ./.github/workflows/test.yml
     secrets: inherit
 
   release:
     runs-on: ubuntu-22.04
-    needs: test
+    needs:
+      - test
+      - bundlewatch
     steps:
       - uses: myparcelnl/actions/setup-git-credentials@v4
         id: credentials

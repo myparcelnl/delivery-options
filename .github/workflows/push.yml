@@ -16,11 +16,17 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  bundlewatch:
+    uses: ./.github/workflows/bundlewatch.yml
+    secrets: inherit
+
   test:
     uses: ./.github/workflows/test.yml
     secrets: inherit
 
   rebase-prs:
-    needs: test
+    needs:
+      - test
+      - bundlewatch
     uses: ./.github/workflows/rebase-prs.yml
     secrets: inherit
