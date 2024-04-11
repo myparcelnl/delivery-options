@@ -7,6 +7,8 @@
   "defaultBase": "main",
   "namedInputs": {
     "default": [
+      "{workspaceRoot}/package.json",
+      "{workspaceRoot}/yarn.lock",
       "{workspaceRoot}/tsconfig.*.json",
       "{projectRoot}/*.cjs",
       "{projectRoot}/*.html",
