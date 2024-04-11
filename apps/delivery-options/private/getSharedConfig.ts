@@ -1,5 +1,6 @@
 import {fileURLToPath} from 'node:url';
 import {type UserConfig, type ConfigEnv} from 'vite';
+import {resolveAlias} from '@myparcel-do/build-vite';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const getSharedConfig = ({mode}: ConfigEnv) => {
@@ -12,9 +13,13 @@ export const getSharedConfig = ({mode}: ConfigEnv) => {
     },
 
     resolve: {
-      alias: {
-        pinia: fileURLToPath(new URL('../../../node_modules/pinia/dist/pinia.prod.cjs', import.meta.url)),
-      },
+      alias: [
+        ...resolveAlias,
+        {
+          find: 'pinia',
+          replacement: fileURLToPath(new URL('../../../node_modules/pinia/dist/pinia.prod.cjs', import.meta.url)),
+        },
+      ],
     },
   } satisfies Partial<UserConfig>;
 };

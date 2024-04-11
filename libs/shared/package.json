@@ -11,25 +11,16 @@
   "sideEffects": false,
   "type": "module",
   "exports": {
-    ".": {
-      "import": "./src/index.ts",
-      "require": "./src/index.ts"
-    },
-    "./testing": {
-      "import": "./src/__tests__/index.ts",
-      "require": "./src/__tests__/index.ts"
-    }
+    ".": "./dist/index.js",
+    "./testing": "./dist/testing.js"
   },
-  "main": "./src/index.ts",
-  "module": "./src/index.ts",
   "types": "./dist/index.d.ts",
   "files": [
-    "./src",
     "./dist"
   ],
   "scripts": {
-    "build": "run ws:vue:build \"$(pwd)\"",
-    "build:dev": "run ws:vue:build \"$(pwd)\"",
+    "build": "vite build",
+    "build:dev": "vite build --mode development",
     "clean": "run ws:clean \"$(pwd)\"",
     "lint": "run ws:lint \"$(pwd)\"",
     "lint:fix": "run ws:lint:fix \"$(pwd)\"",
@@ -37,7 +28,7 @@
     "test:coverage": "run ws:test:coverage \"$(pwd)\"",
     "test:run": "run ws:test:run \"$(pwd)\"",
     "test:update": "run ws:test:update \"$(pwd)\"",
-    "typecheck": "run ws:vue:typecheck \"$(pwd)\""
+    "typecheck": "vue-tsc --project tsconfig.base.json --noEmit"
   },
   "dependencies": {
     "@myparcel-do/shared": "workspace:*",

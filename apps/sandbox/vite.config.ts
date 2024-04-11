@@ -1,6 +1,7 @@
 import {defineConfig} from 'vitest/config';
 import customTsConfig from 'vite-plugin-custom-tsconfig';
 import vue from '@vitejs/plugin-vue';
+import {resolveAlias} from '@myparcel-do/build-vite';
 
 export const PORT = 9860;
 
@@ -32,9 +33,7 @@ export default defineConfig(({mode}) => {
     },
 
     resolve: {
-      alias: {
-        '@myparcel/delivery-options': `${dirname}/../delivery-options/src`,
-      },
+      alias: resolveAlias,
     },
 
     define: {

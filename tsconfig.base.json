@@ -2,6 +2,11 @@
   "extends": "@vue/tsconfig/tsconfig.dom.json",
   "compilerOptions": {
     "noEmitOnError": false,
+    "paths": {
+      "@myparcel/delivery-options": ["./apps/delivery-options/src"],
+      "@myparcel-do/shared/testing": ["./libs/shared/src/__tests__"],
+      "@myparcel-do/*": ["./libs/*/src"]
+    },
     "types": ["node", "vite/client"]
   },
   "include": [],

@@ -2,23 +2,26 @@ import {DeliveryTypeName, PackageTypeName, PlatformName, ShipmentOptionName} fro
 import {type DropOffEntryObject} from '../types';
 import {CarrierSetting} from './enums';
 
-export const SUPPORTED_PLATFORMS = [PlatformName.MyParcel, PlatformName.SendMyParcel] as const;
+export const SUPPORTED_PLATFORMS = Object.freeze([PlatformName.MyParcel, PlatformName.SendMyParcel]);
 
-export const SUPPORTED_DELIVERY_TYPES = [
+export const SUPPORTED_DELIVERY_TYPES = Object.freeze([
   DeliveryTypeName.Standard,
   DeliveryTypeName.Evening,
   DeliveryTypeName.Morning,
   DeliveryTypeName.Pickup,
-] as const;
+]);
 
-export const SUPPORTED_SHIPMENT_OPTIONS = [ShipmentOptionName.OnlyRecipient, ShipmentOptionName.Signature] as const;
+export const SUPPORTED_SHIPMENT_OPTIONS = Object.freeze([
+  ShipmentOptionName.OnlyRecipient,
+  ShipmentOptionName.Signature,
+]);
 
-export const SUPPORTED_PACKAGE_TYPES = [
+export const SUPPORTED_PACKAGE_TYPES = Object.freeze([
   PackageTypeName.Package,
   PackageTypeName.Mailbox,
   PackageTypeName.DigitalStamp,
   PackageTypeName.PackageSmall,
-] as const;
+]);
 
 export const DEFAULT_PLATFORM = PlatformName.MyParcel;
 
