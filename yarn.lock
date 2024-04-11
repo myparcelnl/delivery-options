@@ -782,7 +782,7 @@ __metadata:
     autoprefixer: "npm:^10.4.16"
     pinia: "npm:^2.1.7"
     postcss: "npm:^8.4.31"
-    radash: "npm:^11.0.0"
+    radash: "npm:^12.0.0"
     sass: "npm:^1.69.3"
     tailwindcss: "npm:^3.3.3"
     typescript: "npm:^5.2.0"
@@ -1087,7 +1087,7 @@ __metadata:
     leaflet: "npm:^1.9.4"
     pinia: "npm:^2.1.7"
     postcss: "npm:^8.0.0"
-    radash: "npm:^11.0.0"
+    radash: "npm:^12.0.0"
     semantic-release: "npm:^23.0.0"
     semantic-release-monorepo: "npm:^8.0.1"
     semver: "npm:^7.6.0"
@@ -11229,13 +11229,6 @@ __metadata:
   version: 4.0.1
   resolution: "quick-lru@npm:4.0.1"
   checksum: f9b1596fa7595a35c2f9d913ac312fede13d37dc8a747a51557ab36e11ce113bbe88ef4c0154968845559a7709cb6a7e7cbe75f7972182451cd45e7f057a334d
-  languageName: node
-  linkType: hard
-
-"radash@npm:^11.0.0":
-  version: 11.0.0
-  resolution: "radash@npm:11.0.0"
-  checksum: 5bfb5c44b9cb12b6242a51d93facf32fac217e0e2c86f229ae11a5d12b33e558c3d771e81415f08b88790c2384ed297e3b83d2735bc631f858312ca9c9323afa
   languageName: node
   linkType: hard
 
