@@ -2,7 +2,8 @@
   <ul>
     <li
       v-for="error in (exceptions as ErrorResponse['errors'])"
-      :key="error.message">
+      :key="error.message"
+      class="before:mp-absolute before:mp-bg-red-500 before:mp-h-full before:mp-inset-0 before:mp-w-1 mp-bg-opacity-5 mp-bg-red-500 mp-border mp-overflow-hidden mp-px-6 mp-py-4 mp-relative mp-rounded-lg">
       <span v-text="translate(`error${error.code}`)" />
     </li>
   </ul>
