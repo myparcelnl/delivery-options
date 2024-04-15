@@ -13,7 +13,7 @@ export default defineConfig(({mode}) => {
   return {
     plugins: [vue(), customTsConfig({tsConfigPath: 'tsconfig.base.json'})],
 
-    base: isProd ? '/delivery-options/' : '/',
+    base: isProd && !process.env.NETLIFY ? '/delivery-options/' : '/',
 
     server: {
       port: PORT,
