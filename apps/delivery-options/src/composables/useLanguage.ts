@@ -1,7 +1,14 @@
 import {computed, type ComputedRef, reactive} from 'vue';
 import {get} from 'radash';
 import {useMemoize, isDef} from '@vueuse/core';
-import {useLogger, type AnyTranslatable, resolveTranslatable, isTranslatable} from '@myparcel-do/shared';
+import {
+  useLogger,
+  type AnyTranslatable,
+  resolveTranslatable,
+  isTranslatable,
+  type TranslatableWithArgs,
+} from '@myparcel-do/shared';
+import {isOfType} from '@myparcel/ts-utils';
 import {useConfigStore} from '../stores';
 
 interface UseLanguage {
@@ -33,6 +40,21 @@ const translate = useMemoize((translatable: AnyTranslatable): string => {
     if (import.meta.env.DEV) logger.error(`Missing translation: "${resolvedKey}"`);
 
     return resolvedKey;
+  }
+
+  const replacers = translation.match(/\{(.+?)}/g);
+
+  if (replacers?.length && isOfType<TranslatableWithArgs>(translatable, 'args')) {
+    return replacers.toReversed().reduce((string, match) => {
+      const argKey = match.slice(1, -1);
+      const matchingArg = translatable?.args?.[argKey];
+
+      if (!matchingArg) {
+        return string;
+      }
+
+      return string.replace(match, translate(matchingArg));
+    }, translation);
   }
 
   return translation;
