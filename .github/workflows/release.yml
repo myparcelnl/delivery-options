@@ -11,6 +11,9 @@ concurrency:
   group: '${{ github.workflow }}-${{ github.ref }}'
   cancel-in-progress: true
 
+env:
+  CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
 jobs:
   bundlewatch:
     uses: ./.github/workflows/bundlewatch.yml

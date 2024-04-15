@@ -3,6 +3,9 @@ name: 'Run bundlewatch'
 on:
   workflow_call:
 
+env:
+  CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
 jobs:
   bundlewatch:
     runs-on: ubuntu-22.04
