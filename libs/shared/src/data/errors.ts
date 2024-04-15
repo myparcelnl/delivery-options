@@ -18,6 +18,8 @@ export const ERROR_NO_DELIVERY_OPTIONS_FOUND = 3721;
 
 export const ERROR_UNSUPPORTED_CARRIER = 3728;
 
+export const ERROR_ADDRESS_CAN_NOT_BE_SPLIT = 3731;
+
 export const ERROR_WADDEN_ISLANDS = 3753;
 
 /**
@@ -31,3 +33,7 @@ export const IGNORED_ERRORS = Object.freeze([
   ERROR_INVALID_COUNTRY_CODE,
   ERROR_INVALID_CARRIER_PLATFORM_COMBINATION,
 ]);
+
+export const ERROR_REPLACE_MAP: Record<number, number> = Object.freeze({
+  [ERROR_ADDRESS_CAN_NOT_BE_SPLIT]: ERROR_ADDRESS_UNKNOWN,
+});

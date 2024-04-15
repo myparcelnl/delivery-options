@@ -45,7 +45,9 @@ const translate = useMemoize((translatable: AnyTranslatable): string => {
   const replacers = translation.match(/\{(.+?)}/g);
 
   if (replacers?.length && isOfType<TranslatableWithArgs>(translatable, 'args')) {
-    return replacers.toReversed().reduce((string, match) => {
+    replacers.reverse();
+
+    return replacers.reduce((string, match) => {
       const argKey = match.slice(1, -1);
       const matchingArg = translatable?.args?.[argKey];
 

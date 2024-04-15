@@ -2,7 +2,7 @@ import {ref, type Ref, computed, type ComputedRef} from 'vue';
 import {useMemoize} from '@vueuse/core';
 import {type ApiException, type ErrorResponse} from '@myparcel/sdk';
 import {type RequestKey, type AnyTranslatable} from '../types';
-import {IGNORED_ERRORS, ERROR_MISSING_REQUIRED_PARAMETER} from '../data';
+import {IGNORED_ERRORS, ERROR_MISSING_REQUIRED_PARAMETER, ERROR_REPLACE_MAP} from '../data';
 
 const exceptions = ref<ParsedError[]>([]);
 
@@ -19,27 +19,28 @@ interface UseErrors {
 }
 
 const parseError = (error: ErrorResponse['errors'][number]): ParsedError => {
-  if (error.code === ERROR_MISSING_REQUIRED_PARAMETER) {
-    const strings = error.message.split(' ');
+  const resolvedCode = ERROR_REPLACE_MAP[error.code] ?? error.code;
 
-    return {
-      code: error.code,
-      label: {
-        key: `error${error.code}`,
-        args: {
-          field: {
-            key: strings?.[0],
-            plain: true,
-          },
+  const resolvedError: ParsedError = {
+    code: resolvedCode,
+    label: `error${resolvedCode}`,
+  };
+
+  if (resolvedCode === ERROR_MISSING_REQUIRED_PARAMETER) {
+    const words = error.message.split(' ');
+
+    resolvedError.label = {
+      key: `error${resolvedCode}`,
+      args: {
+        field: {
+          key: words[0],
+          plain: true,
         },
       },
     };
   }
 
-  return {
-    code: error.code,
-    label: `error${error.code}`,
-  };
+  return resolvedError;
 };
 
 export const useApiExceptions = useMemoize((): UseErrors => {
