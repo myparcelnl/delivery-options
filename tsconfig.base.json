@@ -1,12 +1,14 @@
 {
   "extends": "@vue/tsconfig/tsconfig.dom.json",
   "compilerOptions": {
+    "target": "ESNext",
     "noEmitOnError": false,
     "paths": {
       "@myparcel/delivery-options": ["./apps/delivery-options/src"],
       "@myparcel-do/shared/testing": ["./libs/shared/src/__tests__"],
       "@myparcel-do/*": ["./libs/*/src"]
     },
+    "lib": ["ES2023.Array", "ESNext", "DOM", "DOM.Iterable"],
     "types": ["node", "vite/client"]
   },
   "include": [],
