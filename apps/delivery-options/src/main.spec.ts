@@ -1,31 +1,15 @@
 import {afterEach, beforeEach, describe, expect, it, type MockInstance, vi} from 'vitest';
+import {KEY_CONFIG, KEY_STRINGS, KEY_CARRIER_SETTINGS, CarrierSetting, KEY_ADDRESS} from '@myparcel-do/shared';
+import {CarrierName} from '@myparcel/constants';
 import {RENDER_DELIVERY_OPTIONS, UPDATE_DELIVERY_OPTIONS} from './data';
-import {createDiv, dispatchEvent} from './__tests__';
+import {createDiv, dispatchEvent, getMockDeliveryOptionsConfiguration} from './__tests__';
 
 describe('main', () => {
   const unmountSpy: MockInstance = vi.fn();
   const mountSpy: MockInstance = vi.fn();
 
   beforeEach(async () => {
-    mountSpy.mockImplementation((selector: string): void => {
-      const element = document.querySelector<HTMLDivElement>(selector)!;
-
-      element.__vue_app__ = {unmount: unmountSpy};
-    });
-
-    vi.doMock('vue', async (importOriginal) => {
-      // eslint-disable-next-line @typescript-eslint/consistent-type-imports
-      const actual = await importOriginal<typeof import('vue')>();
-
-      return {
-        ...actual,
-        createApp: () => ({
-          use: vi.fn(),
-          mount: mountSpy,
-          unmount: unmountSpy,
-        }),
-      };
-    });
+    document.body.innerHTML = '';
 
     await import('./main');
 
@@ -45,10 +29,33 @@ describe('main', () => {
     expect.assertions(2);
 
     await dispatchEvent(UPDATE_DELIVERY_OPTIONS, detail);
-    expect(mountSpy).toHaveBeenCalledTimes(1);
-
     await dispatchEvent(UPDATE_DELIVERY_OPTIONS, detail);
-    expect(mountSpy).toHaveBeenCalledTimes(1);
+
+    const selector = detail?.selector ?? '#myparcel-delivery-options';
+
+    expect(document.querySelectorAll(selector)).toHaveLength(1);
+    expect(document.querySelector(selector)?.hasAttribute('data-v-app')).toBeTruthy();
+  });
+
+  it('exposes config on window object after booting', async () => {
+    expect.assertions(2);
+
+    await dispatchEvent(
+      UPDATE_DELIVERY_OPTIONS,
+      getMockDeliveryOptionsConfiguration({
+        [KEY_CONFIG]: {
+          [KEY_CARRIER_SETTINGS]: {
+            [CarrierName.PostNl]: {
+              [CarrierSetting.AllowDeliveryOptions]: true,
+              [CarrierSetting.AllowStandardDelivery]: true,
+            },
+          },
+        },
+      }),
+    );
+
+    expect(global.window.MyParcelConfig).toBeDefined();
+    expect(Object.keys(global.window.MyParcelConfig)).toEqual([KEY_ADDRESS, KEY_CONFIG, KEY_STRINGS]);
   });
 
   it.todo.each([
