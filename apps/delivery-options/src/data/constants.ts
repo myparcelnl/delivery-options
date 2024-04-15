@@ -29,7 +29,10 @@ export const FIELD_SHIPMENT_OPTIONS = 'shipmentOptions';
  */
 export const FIELD_PICKUP_LOCATION = 'pickupLocation';
 
-export const SHOWN_SHIPMENT_OPTIONS = [ShipmentOptionName.Signature, ShipmentOptionName.OnlyRecipient] as const;
+export const SHOWN_SHIPMENT_OPTIONS = Object.freeze<ShipmentOptionName[]>([
+  ShipmentOptionName.Signature,
+  ShipmentOptionName.OnlyRecipient,
+]);
 
 export const MAP_MARKER_CLASS_ACTIVE = 'active';
 

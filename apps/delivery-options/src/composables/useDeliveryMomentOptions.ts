@@ -1,17 +1,12 @@
 import {type ComputedRef, computed, toValue} from 'vue';
-import {
-  type SelectOption,
-  PACKAGE_TYPE_DEFAULT,
-  DELIVERY_TYPE_DEFAULT,
-  type SupportedShipmentOptionName,
-} from '@myparcel-do/shared';
+import {type SelectOption, PACKAGE_TYPE_DEFAULT, DELIVERY_TYPE_DEFAULT} from '@myparcel-do/shared';
 import {getDeliveryTypePrice, createPackageTypeTranslatable} from '../utils';
 import {useConfigStore} from '../stores';
 import {SHOWN_SHIPMENT_OPTIONS} from '../data';
 import {useResolvedDeliveryMoments} from './useResolvedDeliveryMoments';
 import {useActiveCarriers} from './useActiveCarriers';
 
-export const useDeliveryMomentOptions = (): ComputedRef<SelectOption[]> => {
+export const useDeliveryMomentOptions = (): ComputedRef<SelectOption<string>[]> => {
   const config = useConfigStore();
   const deliveryMoments = useResolvedDeliveryMoments();
   const activeCarriers = useActiveCarriers();
@@ -21,12 +16,14 @@ export const useDeliveryMomentOptions = (): ComputedRef<SelectOption[]> => {
       return activeCarriers.value
         .filter((carrier) => toValue(carrier.hasAnyDelivery) && toValue(carrier.packageTypes).has(config.packageType))
         .map((carrier) => {
+          const resolvedCarrier = toValue(carrier.carrier);
+
           return {
-            carrier: carrier.name,
+            carrier: resolvedCarrier.name,
             label: createPackageTypeTranslatable(config.packageType),
-            price: getDeliveryTypePrice(DELIVERY_TYPE_DEFAULT, carrier.name),
+            price: getDeliveryTypePrice(DELIVERY_TYPE_DEFAULT, resolvedCarrier.name),
             value: JSON.stringify({
-              carrier: carrier.name,
+              carrier: resolvedCarrier.name,
               date: null,
               deliveryType: DELIVERY_TYPE_DEFAULT,
               packageType: config.packageType,
@@ -48,9 +45,7 @@ export const useDeliveryMomentOptions = (): ComputedRef<SelectOption[]> => {
           date: option.date,
           deliveryType: option.deliveryType,
           packageType: option.packageType,
-          shipmentOptions: option.shipmentOptions.filter((option) =>
-            SHOWN_SHIPMENT_OPTIONS.includes(option.name as SupportedShipmentOptionName),
-          ),
+          shipmentOptions: option.shipmentOptions.filter((option) => SHOWN_SHIPMENT_OPTIONS.includes(option.name)),
         }),
       };
     });
