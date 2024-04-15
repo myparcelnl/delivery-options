@@ -7,22 +7,18 @@ jobs:
   test:
     name: 'Run unit tests'
     runs-on: ubuntu-22.04
-    strategy:
-      matrix:
-        node-version: [18, 20]
     steps:
       - uses: actions/checkout@v4
 
       - uses: myparcelnl/actions/yarn-install@v4
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: ${{ vars.NODE_VERSION }}
 
       - uses: myparcelnl/actions/nx-run-many@v4
         with:
           target: 'test:coverage'
 
       - uses: codecov/codecov-action@v4
-        if: matrix.node-version == vars.NODE_VERSION
         with:
           files: coverage/clover.xml
           token: ${{ secrets.CODECOV_TOKEN }}
