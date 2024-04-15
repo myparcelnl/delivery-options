@@ -22,19 +22,15 @@ const setup = async (packageType?: SupportedPackageTypeName): Promise<ComputedRe
   mockDeliveryOptionsConfig({
     [KEY_CONFIG]: {
       [ConfigSetting.ShowDeliveryDate]: true,
+      [CarrierSetting.AllowDeliveryOptions]: true,
+      [CarrierSetting.AllowStandardDelivery]: true,
+      [CarrierSetting.AllowEveningDelivery]: true,
+      [CarrierSetting.AllowMorningDelivery]: true,
+      [CarrierSetting.AllowSignature]: true,
+      [CarrierSetting.AllowOnlyRecipient]: true,
       [KEY_CARRIER_SETTINGS]: {
-        [CarrierName.PostNl]: {
-          [CarrierSetting.AllowDeliveryOptions]: true,
-          [CarrierSetting.AllowStandardDelivery]: true,
-          [CarrierSetting.AllowEveningDelivery]: true,
-          [CarrierSetting.AllowMorningDelivery]: true,
-        },
-        [CarrierName.DhlForYou]: {
-          [CarrierSetting.AllowDeliveryOptions]: true,
-          [CarrierSetting.AllowStandardDelivery]: true,
-          [CarrierSetting.AllowEveningDelivery]: true,
-          [CarrierSetting.AllowMorningDelivery]: true,
-        },
+        [CarrierName.PostNl]: {},
+        [CarrierName.DhlForYou]: {},
       },
       // TODO: allow optional key to be passed with undefined as value
       ...(packageType ? {[CarrierSetting.PackageType]: packageType} : {}),
@@ -77,6 +73,7 @@ describe('useDeliveryMomentOptions', () => {
     'returns delivery moment options for different package types',
     async (packageType) => {
       expect.assertions(8);
+
       const options = await setup(packageType);
 
       expect(options.value).toHaveLength(1);
