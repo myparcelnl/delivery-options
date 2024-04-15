@@ -1,5 +1,5 @@
-# --- Only frontend developers ---
-*  @myparcelnl/frontend
+# --- Only integration developers ---
+*  @myparcelnl/integration
 
 # --- Both integration and frontend developers ---
 *.json  @myparcelnl/integration @myparcelnl/frontend
