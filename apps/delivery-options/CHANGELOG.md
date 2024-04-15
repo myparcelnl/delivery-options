@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel/delivery-options-v6.1.0](https://github.com/myparcelnl/delivery-options/compare/v6.0.2...v6.1.0) (2024-04-15)
+
+
+### :sparkles: New Features
+
+* **design:** add styling to errors ([a143d55](https://github.com/myparcelnl/delivery-options/commit/a143d554927094f42ac1aecc744e1b095eb44887))
+
+
+### :bug: Bug Fixes
+
+* expose validated config on window object ([#215](https://github.com/myparcelnl/delivery-options/issues/215)) ([d717532](https://github.com/myparcelnl/delivery-options/commit/d71753240e4fbdaa4dd7e5717383c01f66cdf909))
+* fix non-default package types not working ([#216](https://github.com/myparcelnl/delivery-options/issues/216)) ([1fb7b7c](https://github.com/myparcelnl/delivery-options/commit/1fb7b7c81c9149a17386be667cec818ee841bbdb))
+* select standard delivery initially ([#214](https://github.com/myparcelnl/delivery-options/issues/214)) ([0e67095](https://github.com/myparcelnl/delivery-options/commit/0e67095597e299ebd44e141609b32a8c130d93ce))
+
 ## [@myparcel/delivery-options-v6.0.2](https://github.com/myparcelnl/delivery-options/compare/v6.0.1...v6.0.2) (2024-04-11)
 
 
