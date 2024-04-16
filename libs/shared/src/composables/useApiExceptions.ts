@@ -1,4 +1,4 @@
-import {ref, type Ref, computed, type ComputedRef} from 'vue';
+import {ref, type Ref, computed, type ComputedRef, capitalize} from 'vue';
 import {useMemoize} from '@vueuse/core';
 import {type ApiException, type ErrorResponse} from '@myparcel/sdk';
 import {type RequestKey, type AnyTranslatable} from '../types';
@@ -33,7 +33,7 @@ const parseError = (error: ErrorResponse['errors'][number]): ParsedError => {
       key: `error${resolvedCode}`,
       args: {
         field: {
-          key: words[0],
+          key: capitalize(words[0]),
           plain: true,
         },
       },
