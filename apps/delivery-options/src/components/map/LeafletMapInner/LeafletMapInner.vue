@@ -37,10 +37,10 @@ provide('tileLayer', tileLayer);
 provide('scale', scale);
 provide('markers', markers);
 
-const css = await (await fetch('https://unpkg.com/leaflet@1.9.4/dist/leaflet.css')).text();
+const css = await (await fetch('https://cdn.jsdelivr.net/npm/leaflet@1/dist/leaflet.min.css')).text();
 useStyleTag(css);
 
-const tag = useScriptTag('https://unpkg.com/leaflet@1.9.4/dist/leaflet.js');
+const tag = useScriptTag('https://cdn.jsdelivr.net/npm/leaflet@1/dist/leaflet.js');
 await tag.load();
 
 const config = useConfigStore();
