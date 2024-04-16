@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel/delivery-options-v6.1.1](https://github.com/myparcelnl/delivery-options/compare/v6.1.0...v6.1.1) (2024-04-16)
+
+
+### :bug: Bug Fixes
+
+* **errors:** properly translate missing field error ([#217](https://github.com/myparcelnl/delivery-options/issues/217)) ([18379a4](https://github.com/myparcelnl/delivery-options/commit/18379a41f741bbceeef7f48dcf092b1fc20e0d18))
+* **pickup:** fix errors when creating map markers ([#221](https://github.com/myparcelnl/delivery-options/issues/221)) ([d2a1dc9](https://github.com/myparcelnl/delivery-options/commit/d2a1dc9d156c1679078d0b020d6c5363f3dc940e))
+
 ## [@myparcel/delivery-options-v6.1.0](https://github.com/myparcelnl/delivery-options/compare/v6.0.2...v6.1.0) (2024-04-15)
 
 
