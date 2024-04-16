@@ -90,7 +90,7 @@ describe('useApiExceptions', () => {
           key: `error${ERROR_MISSING_REQUIRED_PARAMETER}`,
           args: {
             field: {
-              key: 'city',
+              key: 'City',
               plain: true,
             },
           },

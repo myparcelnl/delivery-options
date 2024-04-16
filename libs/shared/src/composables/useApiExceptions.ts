@@ -19,21 +19,21 @@ interface UseErrors {
 }
 
 const parseError = (error: ErrorResponse['errors'][number]): ParsedError => {
-  const resolvedCode = ERROR_REPLACE_MAP[error.code] ?? error.code;
-
+  const translationKey = `error${error.code}`;
   const resolvedError: ParsedError = {
-    code: resolvedCode,
-    label: `error${resolvedCode}`,
+    code: error.code,
+    label: translationKey,
   };
 
-  if (resolvedCode === ERROR_MISSING_REQUIRED_PARAMETER) {
+  if (error.code === ERROR_MISSING_REQUIRED_PARAMETER) {
     const words = error.message.split(' ');
+    const fieldName = words[0];
 
     resolvedError.label = {
-      key: `error${resolvedCode}`,
+      key: translationKey,
       args: {
         field: {
-          key: capitalize(words[0]),
+          key: capitalize(fieldName.replace(/_/g, ' ')),
           plain: true,
         },
       },
@@ -53,14 +53,17 @@ export const useApiExceptions = useMemoize((): UseErrors => {
   return {
     addException(requestKey, exception) {
       exception.data.errors.forEach((error) => {
-        const isIgnored = IGNORED_ERRORS.includes(error.code);
-        const isAlreadyPresent = exceptions.value.some((exception) => exception.code === error.code);
+        const resolvedErrorCode = ERROR_REPLACE_MAP[error.code] ?? error.code;
+
+        const isIgnored = IGNORED_ERRORS.includes(resolvedErrorCode);
+
+        const isAlreadyPresent = exceptions.value.some((exception) => exception.code === resolvedErrorCode);
 
         if (isIgnored || isAlreadyPresent) {
           return;
         }
 
-        exceptions.value.push(parseError(error));
+        exceptions.value.push(parseError({...error, code: resolvedErrorCode}));
       });
     },
     clear,
