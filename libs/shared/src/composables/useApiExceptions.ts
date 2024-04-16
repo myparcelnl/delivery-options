@@ -1,8 +1,9 @@
-import {ref, type Ref, computed, type ComputedRef, capitalize} from 'vue';
+import {ref, type Ref, computed, type ComputedRef} from 'vue';
+import {camel} from 'radash';
 import {useMemoize} from '@vueuse/core';
 import {type ApiException, type ErrorResponse} from '@myparcel/sdk';
 import {type RequestKey, type AnyTranslatable} from '../types';
-import {IGNORED_ERRORS, ERROR_MISSING_REQUIRED_PARAMETER, ERROR_REPLACE_MAP} from '../data';
+import {IGNORED_ERRORS, ERROR_MISSING_REQUIRED_PARAMETER, ERROR_REPLACE_MAP, NUMBER, STREET} from '../data';
 
 const exceptions = ref<ParsedError[]>([]);
 
@@ -27,15 +28,11 @@ const parseError = (error: ErrorResponse['errors'][number]): ParsedError => {
 
   if (error.code === ERROR_MISSING_REQUIRED_PARAMETER) {
     const words = error.message.split(' ');
-    const fieldName = words[0];
 
     resolvedError.label = {
       key: translationKey,
       args: {
-        field: {
-          key: capitalize(fieldName.replace(/_/g, ' ')),
-          plain: true,
-        },
+        field: camel(words[0] === NUMBER ? STREET : words[0]),
       },
     };
   }

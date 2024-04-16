@@ -76,9 +76,13 @@ describe('useApiExceptions', () => {
     expect(exceptions.value).toEqual([]);
   });
 
-  it(`adds arguments to exception with code ${ERROR_MISSING_REQUIRED_PARAMETER}`, () => {
+  it.each([
+    ['city', 'city'],
+    ['street', 'street'],
+    ['number', 'street'],
+  ])(`adds arguments to exception with code ${ERROR_MISSING_REQUIRED_PARAMETER}`, (field, finalKey) => {
     const {addException, exceptions, hasExceptions} = useApiExceptions();
-    const exception = createException(ERROR_MISSING_REQUIRED_PARAMETER, 'city is required');
+    const exception = createException(ERROR_MISSING_REQUIRED_PARAMETER, `${field} is required`);
 
     addException(['test'], exception);
 
@@ -89,10 +93,7 @@ describe('useApiExceptions', () => {
         label: {
           key: `error${ERROR_MISSING_REQUIRED_PARAMETER}`,
           args: {
-            field: {
-              key: 'City',
-              plain: true,
-            },
+            field: finalKey,
           },
         } satisfies TranslatableWithArgs,
       },
