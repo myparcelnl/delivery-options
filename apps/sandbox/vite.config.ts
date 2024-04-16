@@ -1,5 +1,6 @@
 import {defineConfig} from 'vitest/config';
 import customTsConfig from 'vite-plugin-custom-tsconfig';
+import {isCI} from 'ci-info';
 import vue from '@vitejs/plugin-vue';
 import {resolveAlias} from '@myparcel-do/build-vite';
 
@@ -13,7 +14,7 @@ export default defineConfig(({mode}) => {
   return {
     plugins: [vue(), customTsConfig({tsConfigPath: 'tsconfig.base.json'})],
 
-    base: isProd && !process.env.NETLIFY ? '/delivery-options/' : '/',
+    base: isProd && isCI && !process.env.NETLIFY ? '/delivery-options/' : '/',
 
     server: {
       port: PORT,
