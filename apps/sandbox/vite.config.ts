@@ -23,13 +23,13 @@ export default defineConfig(({mode}) => {
       minify: isProd,
       sourcemap: !isProd,
       rollupOptions: {
-        external: ['vue'],
+        external: ['vue', 'leaflet'],
+        output: {
+          globals: {
+            leaflet: 'L',
+          },
+        },
       },
-    },
-
-    optimizeDeps: {
-      // Optimizing this dependency causes the element and form injection keys to be mismatched.
-      exclude: ['@myparcel/vue-form-builder'],
     },
 
     resolve: {
