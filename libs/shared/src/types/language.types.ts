@@ -10,4 +10,8 @@ export interface Translatable extends BaseTranslatable {
   plain?: false;
 }
 
-export type AnyTranslatable = string | Translatable | Untranslatable;
+export interface TranslatableWithArgs extends Translatable {
+  args: Record<string, AnyTranslatable>;
+}
+
+export type AnyTranslatable = string | Translatable | TranslatableWithArgs | Untranslatable;

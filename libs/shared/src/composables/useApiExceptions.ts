@@ -1,17 +1,44 @@
 import {ref, type Ref, computed, type ComputedRef} from 'vue';
+import {camel} from 'radash';
 import {useMemoize} from '@vueuse/core';
 import {type ApiException, type ErrorResponse} from '@myparcel/sdk';
-import {type RequestKey} from '../types';
-import {IGNORED_ERRORS} from '../data';
+import {type RequestKey, type AnyTranslatable} from '../types';
+import {IGNORED_ERRORS, ERROR_MISSING_REQUIRED_PARAMETER, ERROR_REPLACE_MAP, NUMBER, STREET} from '../data';
 
-const exceptions = ref<ErrorResponse['errors']>([]);
+const exceptions = ref<ParsedError[]>([]);
+
+type ParsedError = {
+  code: number;
+  label: AnyTranslatable;
+};
 
 interface UseErrors {
-  exceptions: Ref<ErrorResponse['errors']>;
+  exceptions: Ref<ParsedError[]>;
   hasExceptions: ComputedRef<boolean>;
   addException(requestKey: RequestKey, exception: ApiException): void;
   clear(): void;
 }
+
+const parseError = (error: ErrorResponse['errors'][number]): ParsedError => {
+  const translationKey = `error${error.code}`;
+  const resolvedError: ParsedError = {
+    code: error.code,
+    label: translationKey,
+  };
+
+  if (error.code === ERROR_MISSING_REQUIRED_PARAMETER) {
+    const words = error.message.split(' ');
+
+    resolvedError.label = {
+      key: translationKey,
+      args: {
+        field: camel(words[0] === NUMBER ? STREET : words[0]),
+      },
+    };
+  }
+
+  return resolvedError;
+};
 
 export const useApiExceptions = useMemoize((): UseErrors => {
   const clear = (): void => {
@@ -23,18 +50,21 @@ export const useApiExceptions = useMemoize((): UseErrors => {
   return {
     addException(requestKey, exception) {
       exception.data.errors.forEach((error) => {
-        const isIgnored = IGNORED_ERRORS.includes(error.code);
-        const isAlreadyPresent = exceptions.value.some((exception) => exception.code === error.code);
+        const resolvedErrorCode = ERROR_REPLACE_MAP[error.code] ?? error.code;
+
+        const isIgnored = IGNORED_ERRORS.includes(resolvedErrorCode);
+
+        const isAlreadyPresent = exceptions.value.some((exception) => exception.code === resolvedErrorCode);
 
         if (isIgnored || isAlreadyPresent) {
           return;
         }
 
-        exceptions.value.push(error);
+        exceptions.value.push(parseError({...error, code: resolvedErrorCode}));
       });
     },
     clear,
     exceptions,
     hasExceptions,
-  } as UseErrors;
+  } satisfies UseErrors;
 });
