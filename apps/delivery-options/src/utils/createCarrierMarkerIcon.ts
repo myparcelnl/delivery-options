@@ -1,7 +1,6 @@
 // noinspection HtmlUnknownTarget
 
 // eslint-disable-next-line id-length
-import L from 'leaflet';
 import {useMemoize} from '@vueuse/core';
 import {createAssetUrl} from '@myparcel-do/shared';
 import {type Carrier} from '@myparcel/sdk';

@@ -9,3 +9,6 @@ declare module '*.vue' {
 }
 
 declare const __CLASS_BASE__: string;
+
+// Declared here to avoid "TS2686: L refers to a UMD global, but the current file is a module. Consider adding an import instead." error.
+declare const L;
