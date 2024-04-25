@@ -5,8 +5,7 @@ import {isCI} from 'ci-info';
 import {createViteConfig} from '@myparcel-do/build-vite';
 import {codecovVitePlugin} from '@codecov/vite-plugin';
 import baseConfig from './vite.config';
-import {skipScssPlugin} from './skip-scss-plugin';
-import {getSharedConfig, createFilenameFormatter} from './private';
+import {getSharedConfig, createFilenameFormatter, skipCssPlugin} from './private';
 
 export default createViteConfig((env) => {
   const isProd = env.mode === 'production';
@@ -18,7 +17,7 @@ export default createViteConfig((env) => {
         bundleName: '@myparcel/delivery-options',
         uploadToken: process.env.CODECOV_TOKEN,
       }),
-      skipScssPlugin(),
+      skipCssPlugin(),
       isProd &&
         dts({
           entryRoot: 'src',
