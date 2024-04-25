@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel/delivery-options-v6.1.2](https://github.com/myparcelnl/delivery-options/compare/v6.1.1...v6.1.2) (2024-04-25)
+
+
+### :bug: Bug Fixes
+
+* **design:** add missing css to improve look and feel ([#222](https://github.com/myparcelnl/delivery-options/issues/222)) ([ea42989](https://github.com/myparcelnl/delivery-options/commit/ea429895db1c534427909063cd02cc0d4850370d))
+
 ## [@myparcel/delivery-options-v6.1.1](https://github.com/myparcelnl/delivery-options/compare/v6.1.0...v6.1.1) (2024-04-16)
 
 
