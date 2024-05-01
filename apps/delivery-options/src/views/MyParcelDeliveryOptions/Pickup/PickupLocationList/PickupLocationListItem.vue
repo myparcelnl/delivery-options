@@ -1,13 +1,15 @@
 <template>
-  <div class="mp-flex-grow">
-    <PickupLocationName :location-code="locationCode" />
-  </div>
+  <template v-if="pickupLocation">
+    <div class="mp-flex-grow">
+      <PickupLocationName :location-code="locationCode" />
+    </div>
 
-  <span v-text="distance" />
+    <span v-text="distance" />
 
-  <CarrierLogo
-    v-if="pickupLocation.carrier"
-    :carrier="pickupLocation.carrier" />
+    <CarrierLogo
+      v-if="pickupLocation.carrier"
+      :carrier="pickupLocation.carrier" />
+  </template>
 </template>
 
 <script lang="ts" setup>
@@ -21,7 +23,7 @@ const propRefs = toRefs(props);
 
 const {pickupLocation} = usePickupLocation(propRefs.locationCode);
 
-const plainDistance = computed(() => pickupLocation.value.distance);
+const plainDistance = computed(() => pickupLocation.value?.distance);
 
 const distance = useFormatDistance(plainDistance);
 </script>

@@ -10,7 +10,7 @@
 /* eslint-disable new-cap */
 import {computed, onActivated, onMounted, onUnmounted, provide, ref, toRefs, watch} from 'vue';
 import {isString} from 'radash';
-import {type Control, type Map, type Marker, type TileLayer, type LatLng} from 'leaflet';
+import {type Control, type Map, type Marker, type TileLayer, type LatLng, type FeatureGroup} from 'leaflet';
 import {isDef, useScriptTag, useStyleTag, useDebounceFn} from '@vueuse/core';
 import {type MapTileLayerData} from '@myparcel-do/shared';
 import {type LeafletMapProps} from '../../../types';
@@ -64,10 +64,15 @@ const fitBounds = useDebounceFn(() => {
     return;
   }
 
-  const group = new L.featureGroup(markers.value as Marker[]);
+  const group: FeatureGroup = new L.featureGroup(markers.value as Marker[]);
 
   map.value?.setView(getActiveMarkerLatLng() ?? props.center, props.zoom);
-  map.value?.fitBounds(group.getBounds());
+
+  const bounds = group.getBounds();
+
+  if (bounds.isValid()) {
+    map.value?.fitBounds(bounds);
+  }
 }, 50);
 
 onMounted(() => {

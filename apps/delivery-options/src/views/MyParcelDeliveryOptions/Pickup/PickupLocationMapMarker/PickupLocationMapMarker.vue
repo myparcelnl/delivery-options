@@ -21,7 +21,8 @@ const propRefs = toRefs(props);
 const form = useDeliveryOptionsForm();
 
 const {pickupLocation} = usePickupLocation(propRefs.locationCode);
-const carrier = useResolvedCarrier(pickupLocation.value.carrier);
+
+const carrier = useResolvedCarrier(pickupLocation.value?.carrier);
 
 const center = computed(() => {
   if (!isDef(pickupLocation.value)) {
@@ -34,7 +35,7 @@ const center = computed(() => {
 });
 
 const options = computed<MarkerOptions>(() => {
-  const resolvedCarrier = carrier.carrier.value;
+  const resolvedCarrier = carrier?.carrier.value;
 
   if (!pickupLocation.value || !resolvedCarrier) {
     return {};
@@ -54,6 +55,6 @@ const options = computed<MarkerOptions>(() => {
 const {pickupLocation: selectedPickupLocation} = useSelectedValues();
 
 const onClick = () => {
-  selectedPickupLocation.value = pickupLocation.value.locationCode;
+  selectedPickupLocation.value = pickupLocation.value?.locationCode;
 };
 </script>

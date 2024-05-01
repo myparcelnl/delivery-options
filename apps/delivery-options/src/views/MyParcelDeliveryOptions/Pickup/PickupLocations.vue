@@ -22,15 +22,15 @@
 import {computed, ref, watch, onUnmounted} from 'vue';
 import {PickupLocationsView} from '@myparcel-do/shared';
 import {useConfigStore} from '../../../stores';
-import {useLanguage, useResolvedPickupLocations, useSelectedValues} from '../../../composables';
+import {useLanguage, useResolvedPickupLocations, useSelectedValues, useActiveCarriers} from '../../../composables';
 import {DoButton} from '../../../components';
 import PickupLocationMapWrapper from './PickupLocationMap/PickupLocationMapWrapper.vue';
 import PickupLocationListWrapper from './PickupLocationList/PickupLocationListWrapper.vue';
 import PickupLocationInput from './PickupLocationInput/PickupLocationInput.vue';
 
 const config = useConfigStore();
-const locations = useResolvedPickupLocations();
 
+const locations = useResolvedPickupLocations();
 const mode = ref<PickupLocationsView>(config.pickupLocationsDefaultView);
 
 const {translate} = useLanguage();
@@ -42,6 +42,12 @@ const currentComponent = computed(() =>
 const immediate = locations.value.length > 0;
 
 const {pickupLocation: selectedPickupLocation} = useSelectedValues();
+
+// Clear the carries and locations memoize cache, otherwise reactivity issues may occur on mount with different config.
+onUnmounted(() => {
+  useActiveCarriers.clear();
+  useResolvedPickupLocations.clear();
+});
 
 onUnmounted(
   watch(
