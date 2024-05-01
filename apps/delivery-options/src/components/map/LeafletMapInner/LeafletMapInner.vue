@@ -60,6 +60,10 @@ const getActiveMarkerLatLng = (): undefined | LatLng => {
 };
 
 const fitBounds = useDebounceFn(() => {
+  if (!container.value) {
+    return;
+  }
+
   const group = new L.featureGroup(markers.value as Marker[]);
 
   map.value?.setView(getActiveMarkerLatLng() ?? props.center, props.zoom);
