@@ -35,7 +35,6 @@ export const getResolvedCarrier = (
   platformName: SupportedPlatformName,
 ): UseResolvedCarrier => {
   const carrier = useCarrier({carrierIdentifier, platformName});
-  const address = useAddressStore();
 
   const disabledDeliveryTypes = ref(new Set<SupportedDeliveryTypeName>());
 
@@ -56,18 +55,20 @@ export const getResolvedCarrier = (
   });
 
   const hasFakeDelivery = computed(() => {
+    const {cc} = useAddressStore(); // Only when defined here is the cc not stale
     return (
       getResolvedValue(CarrierSetting.AllowDeliveryOptions, carrierIdentifier) &&
       carrier.fakeDelivery.value &&
-      !carrier.deliveryCountries.value.has(address.cc) &&
-      !carrier.fakeDeliveryBlacklist.value.has(address.cc)
+      !carrier.deliveryCountries.value.has(cc) &&
+      !carrier.fakeDeliveryBlacklist.value.has(cc)
     );
   });
 
   const hasDelivery = computed(() => {
+    const {cc} = useAddressStore(); // Only when defined here is the cc not stale
     return (
       getResolvedValue(CarrierSetting.AllowDeliveryOptions, carrierIdentifier) &&
-      carrier.deliveryCountries.value.has(address.cc) &&
+      carrier.deliveryCountries.value.has(cc) &&
       DELIVERY_TYPES.some((deliveryType) => {
         const configKey = getConfigKey(deliveryType);
         const value = getResolvedValue(configKey, carrierIdentifier);
@@ -78,9 +79,8 @@ export const getResolvedCarrier = (
   });
 
   const hasPickup = computed(() => {
-    const address = useAddressStore();
-
-    return deliveryTypes.value.has(DeliveryTypeName.Pickup) && carrier.pickupCountries.value.has(address.cc);
+    const {cc} = useAddressStore(); // Only when defined here is the cc not stale
+    return deliveryTypes.value.has(DeliveryTypeName.Pickup) && carrier.pickupCountries.value.has(cc);
   });
 
   return {
