@@ -401,6 +401,7 @@ exports[`getPlatformConfig > gets config for platform myparcel 1`] = `
       "name": "dpd",
       "packageTypes": [
         "package",
+        "mailbox",
       ],
       "pickupCountries": [
         "AT",
