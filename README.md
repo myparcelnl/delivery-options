@@ -17,17 +17,6 @@ Read the [documentation]. For a quick start and to see the Delivery Options in a
 
 Please read our [contribution guidelines](CONTRIBUTING.md)
 
-## Development
-
-### Pre-requisites
-
-Run `yarn` to install the dependencies. Then run `yarn translations:import` to import the translations.
-
-### Running the sandbox
-
-Run `yarn serve` to start the sandbox and development server for the delivery options at the same time.
-It outputs both the sandbox and the delivery options server URLs, so check both to see which you need.
-
 ## Changelog
 
 See the [GitHub releases page] or [CHANGELOG.md].
