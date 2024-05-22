@@ -21,7 +21,7 @@ Please read our [contribution guidelines](CONTRIBUTING.md)
 
 ### Pre-requisites
 
-Run `yarn` to install the dependencies. Then run `yarn translations:import` to import the translations from the MyParcel API.
+Run `yarn` to install the dependencies. Then run `yarn translations:import` to import the translations.
 
 ### Running the sandbox
 
