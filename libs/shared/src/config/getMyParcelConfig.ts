@@ -188,7 +188,7 @@ export const getMyParcelConfig = (): PlatformConfiguration => ({
     {
       name: CarrierName.Dpd,
       subscription: SubscriptionType.Required,
-      packageTypes: [PackageTypeName.Package],
+      packageTypes: [PackageTypeName.Package, PackageTypeName.Mailbox],
       deliveryTypes: [DeliveryTypeName.Standard, DeliveryTypeName.Pickup],
       deliveryCountries: [
         AUSTRIA,
