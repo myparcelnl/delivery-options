@@ -32,6 +32,7 @@ export const IGNORED_ERRORS = Object.freeze([
   0,
   ERROR_INVALID_COUNTRY_CODE,
   ERROR_INVALID_CARRIER_PLATFORM_COMBINATION,
+  ERROR_COUNTRY_NOT_SUPPORTED_BY_CARRIER,
 ]);
 
 export const ERROR_REPLACE_MAP: Record<number, number> = Object.freeze({
