@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel/delivery-options-v6.1.3](https://github.com/myparcelnl/delivery-options/compare/v6.1.2...v6.1.3) (2024-05-23)
+
+
+### :bug: Bug Fixes
+
+* **pickup:** fix map not reloading on address change ([#223](https://github.com/myparcelnl/delivery-options/issues/223)) ([0a65fb4](https://github.com/myparcelnl/delivery-options/commit/0a65fb442e176302fdb98b247105b64ed25b907f))
+
 ## [@myparcel/delivery-options-v6.1.2](https://github.com/myparcelnl/delivery-options/compare/v6.1.1...v6.1.2) (2024-04-25)
 
 
