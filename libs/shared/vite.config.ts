@@ -1,6 +1,7 @@
 import dts from 'vite-plugin-dts';
 import {isCI} from 'ci-info';
 import {createViteConfig} from '@myparcel-do/build-vite';
+import {version} from './package.json';
 
 const dirname = new URL('.', import.meta.url).pathname;
 
@@ -19,6 +20,10 @@ export default createViteConfig((env) => {
         },
         formats: ['es'],
       },
+    },
+
+    define: {
+      __VERSION__: JSON.stringify(version),
     },
 
     test: {

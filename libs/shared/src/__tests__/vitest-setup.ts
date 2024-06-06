@@ -1,17 +1,10 @@
 /* eslint-disable */
 import {afterEach, vi} from 'vitest';
-import {mockGetCarrier, mockGetCarriers, mockGetDeliveryOptions, mockGetPickupLocations} from './mocks';
-import {
-  type AbstractPublicEndpoint,
-  type EndpointResponse,
-  GetCarrier,
-  GetCarriers,
-  GetDeliveryOptions,
-  GetPickupLocations,
-  type Options,
-} from '@myparcel/sdk';
+import type {ClientConfig} from '@myparcel/sdk';
+import {type AbstractPublicEndpoint, type EndpointResponse, type Options} from '@myparcel/sdk';
 import {cleanup} from '@testing-library/vue';
 import {useRequestStorage} from '../composables';
+import {useMockSdk} from './useMockSdk';
 
 const { afterEachHooks } = vi.hoisted(() => {
   return {afterEachHooks: [] as (() => void)[]};
@@ -23,24 +16,18 @@ vi.mock('@myparcel/sdk', async (importOriginal) => {
   return {
     ...original,
     FetchClient: class FetchClient extends original.FetchClient {
+      constructor(config?: ClientConfig) {
+        super(config);
+
+        const {clientConfig} = useMockSdk();
+
+        clientConfig.value = config;
+      }
+
       public doRequest<E extends AbstractPublicEndpoint<any>>(endpoint: E, options: Options<E>): Promise<EndpointResponse<E>> {
-        if (endpoint instanceof GetCarrier) {
-          return Promise.resolve(mockGetCarrier(endpoint, options));
-        }
+        const {doRequest} = useMockSdk();
 
-        if (endpoint instanceof GetCarriers) {
-          return Promise.resolve(mockGetCarriers(endpoint, options));
-        }
-
-        if (endpoint instanceof GetDeliveryOptions) {
-          return Promise.resolve(mockGetDeliveryOptions(endpoint, options));
-        }
-
-        if (endpoint instanceof GetPickupLocations) {
-          return Promise.resolve(mockGetPickupLocations(endpoint, options));
-        }
-
-        throw new Error(`Unknown request: ${endpoint.name}`);
+        return doRequest(endpoint, options);
       }
     },
   };
@@ -64,6 +51,7 @@ vi.mock('@vueuse/core', async (importOriginal) => {
 
 afterEach(() => {
   useRequestStorage().clear();
+  useMockSdk().reset();
 
   afterEachHooks.forEach(hook => hook());
 
