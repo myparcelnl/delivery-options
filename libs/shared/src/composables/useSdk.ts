@@ -1,3 +1,4 @@
+import {ref, type Ref, readonly, type DeepReadonly} from 'vue';
 import {useMemoize} from '@vueuse/core';
 import {
   createPublicSdk,
@@ -6,15 +7,35 @@ import {
   GetCarriers,
   GetDeliveryOptions,
   GetPickupLocations,
+  type ClientConfig,
+  type MyParcelSdk,
 } from '@myparcel/sdk';
 
-export const useSdk = useMemoize(() => {
-  return createPublicSdk(
-    new FetchClient({
-      headers: {
-        'X-User-Agent': `MyParcelDeliveryOptions/${__VERSION__}`,
-      },
-    }),
-    [new GetCarrier(), new GetCarriers(), new GetDeliveryOptions(), new GetPickupLocations()],
-  );
+type Endpoints = GetCarrier | GetCarriers | GetDeliveryOptions | GetPickupLocations;
+
+interface UseSdk {
+  sdk: DeepReadonly<Ref<MyParcelSdk<Endpoints>>>;
+  initialize(config?: ClientConfig): void;
+}
+
+export const useSdk = useMemoize((): UseSdk => {
+  const sdk = ref();
+
+  const initialize = (config?: ClientConfig) => {
+    sdk.value = createPublicSdk(
+      new FetchClient({
+        ...config,
+        headers: {
+          ...config?.headers,
+          'X-User-Agent': `MyParcelDeliveryOptions/${__VERSION__}`,
+        },
+      }),
+      [new GetCarrier(), new GetCarriers(), new GetDeliveryOptions(), new GetPickupLocations()],
+    );
+  };
+
+  return {
+    initialize,
+    sdk: readonly(sdk),
+  };
 });

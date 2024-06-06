@@ -9,9 +9,9 @@ export const useCarriersRequest = (): RequestHandler<EndpointResponse<GetCarrier
   return useRequest(
     [REQUEST_KEY_CARRIERS],
     async () => {
-      const sdk = useSdk();
+      const {sdk} = useSdk();
 
-      return sdk.getCarriers();
+      return sdk.value.getCarriers();
     },
     {
       fallback: [],

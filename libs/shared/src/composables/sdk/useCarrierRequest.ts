@@ -10,8 +10,8 @@ export const useCarrierRequest = (
   carrier: MaybeRef<CarrierName>,
 ): RequestHandler<EndpointResponse<GetCarrier>[number]> => {
   return useRequest([REQUEST_KEY_CARRIERS, toValue(carrier)], async () => {
-    const sdk = useSdk();
+    const {sdk} = useSdk();
 
-    return (await sdk.getCarrier({path: {carrier: toValue(carrier)}}))?.[0];
+    return (await sdk.value.getCarrier({path: {carrier: toValue(carrier)}}))?.[0];
   });
 };

@@ -3,6 +3,8 @@
     <component
       :is="Form.Component"
       v-if="Form.Component">
+      <SandboxSuperSecretBox v-if="superSecretValue === 1" />
+
       <SandboxPlatformBox />
 
       <SandboxAddressBox />
@@ -18,10 +20,12 @@
 
 <script lang="ts" setup>
 import {computed, markRaw, reactive, toRef, watch} from 'vue';
+import {useLocalStorage} from '@vueuse/core';
 import {crushObject, type SupportedPlatformName} from '@myparcel-do/shared';
 import {type CreatedForm, createForm} from '@myparcel/vue-form-builder';
 import {useSandboxStore} from '../stores';
 import {useCurrentPlatform, useLanguage} from '../composables';
+import SandboxSuperSecretBox from './SandboxSuperSecretBox.vue';
 import SandboxPlatformBox from './SandboxPlatformBox.vue';
 import SandboxPackageTypeBox from './SandboxPackageTypeBox.vue';
 import SandboxFeaturesBox from './SandboxFeaturesBox.vue';
@@ -69,4 +73,6 @@ watch(
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const Form = computed<CreatedForm>(() => forms[nameRef.value]);
+
+const superSecretValue = useLocalStorage('wham_lastchristmas', 0);
 </script>

@@ -28,7 +28,7 @@
 
 <script lang="ts" setup>
 import {ref, onMounted, onActivated} from 'vue';
-import {waitForRequestData, useCarriersRequest} from '@myparcel-do/shared';
+import {waitForRequestData, useCarriersRequest, useSdk} from '@myparcel-do/shared';
 import {useColorMode, useLanguage} from './composables';
 import SandboxHeader from './components/layout/SandboxHeader.vue';
 import SandboxFooter from './components/layout/SandboxFooter.vue';
@@ -45,6 +45,10 @@ const {load} = useLanguage();
 const loaded = ref(false);
 
 const waitForLoad = async () => {
+  const {initialize} = useSdk();
+
+  initialize();
+
   await load();
   await waitForRequestData(useCarriersRequest);
   loaded.value = true;

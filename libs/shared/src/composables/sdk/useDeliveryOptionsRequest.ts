@@ -10,9 +10,9 @@ export const useDeliveryOptionsRequest = (
   return useRequest(
     [REQUEST_KEY_DELIVERY_OPTIONS, parameters],
     () => {
-      const sdk = useSdk();
+      const {sdk} = useSdk();
 
-      return sdk.getDeliveryOptions({parameters});
+      return sdk.value.getDeliveryOptions({parameters});
     },
     {fallback: []},
   );

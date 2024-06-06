@@ -10,9 +10,9 @@ export const usePickupLocationsRequest = (
   return useRequest(
     [REQUEST_KEY_PICKUP_LOCATIONS, parameters],
     () => {
-      const sdk = useSdk();
+      const {sdk} = useSdk();
 
-      return sdk.getPickupLocations({parameters});
+      return sdk.value.getPickupLocations({parameters});
     },
     {fallback: []},
   );
