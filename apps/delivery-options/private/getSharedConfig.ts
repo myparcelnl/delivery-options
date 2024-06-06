@@ -10,6 +10,8 @@ export const getSharedConfig = ({mode}: ConfigEnv) => {
       'process.env.NODE_ENV': JSON.stringify(mode),
       __VERSION__: JSON.stringify(version),
       __CLASS_BASE__: JSON.stringify('myparcel-delivery-options'),
+      __URL_DOCUMENTATION__: JSON.stringify('https://developer.myparcel.nl/documentation/60.delivery-options.html'),
+      __URL_SANDBOX__: JSON.stringify('https://myparcelnl.github.io/delivery-options/'),
     },
 
     resolve: {
