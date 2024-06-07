@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel/delivery-options-v6.1.4](https://github.com/myparcelnl/delivery-options/compare/v6.1.3...v6.1.4) (2024-06-07)
+
+
+### :bug: Bug Fixes
+
+* **api:** add correct version to user agent header ([#226](https://github.com/myparcelnl/delivery-options/issues/226)) ([65c5460](https://github.com/myparcelnl/delivery-options/commit/65c5460248da5d7896637069362cd7cafa5baed9))
+
 ## [@myparcel/delivery-options-v6.1.3](https://github.com/myparcelnl/delivery-options/compare/v6.1.2...v6.1.3) (2024-05-23)
 
 
