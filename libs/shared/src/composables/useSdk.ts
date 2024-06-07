@@ -12,7 +12,7 @@ export const useSdk = useMemoize(() => {
   return createPublicSdk(
     new FetchClient({
       headers: {
-        'X-User-Agent': 'MyParcelDeliveryOptions/1.0.0',
+        'X-User-Agent': `MyParcelDeliveryOptions/${__VERSION__}`,
       },
     }),
     [new GetCarrier(), new GetCarriers(), new GetDeliveryOptions(), new GetPickupLocations()],

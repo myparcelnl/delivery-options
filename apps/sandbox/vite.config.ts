@@ -3,6 +3,7 @@ import customTsConfig from 'vite-plugin-custom-tsconfig';
 import {isCI} from 'ci-info';
 import vue from '@vitejs/plugin-vue';
 import {resolveAlias} from '@myparcel-do/build-vite';
+import {version} from './package.json';
 
 export const PORT = 9860;
 
@@ -39,6 +40,8 @@ export default defineConfig(({mode}) => {
 
     define: {
       'process.env.NODE_ENV': JSON.stringify(mode),
+      __VERSION__: JSON.stringify(version),
+      __CLASS_BASE__: JSON.stringify('myparcel-delivery-options'),
     },
 
     test: {
