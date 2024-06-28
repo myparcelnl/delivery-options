@@ -43,8 +43,6 @@ const doTestSetup = async (config: RecursivePartial<InputDeliveryOptionsConfigur
 
   const carrierSettings = {
     [CarrierSetting.AllowDeliveryOptions]: true,
-    [CarrierSetting.AllowMondayDelivery]: true,
-    [CarrierSetting.AllowSameDayDelivery]: true,
     [CarrierSetting.AllowEveningDelivery]: true,
     [CarrierSetting.AllowMorningDelivery]: true,
     [CarrierSetting.AllowStandardDelivery]: true,
