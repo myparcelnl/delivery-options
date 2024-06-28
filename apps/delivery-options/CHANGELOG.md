@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel/delivery-options-v6.1.5](https://github.com/myparcelnl/delivery-options/compare/v6.1.4...v6.1.5) (2024-06-28)
+
+
+### :bug: Bug Fixes
+
+* fix custom carriers not showing in fake delivery ([#229](https://github.com/myparcelnl/delivery-options/issues/229)) ([907fc17](https://github.com/myparcelnl/delivery-options/commit/907fc176885ad3bea7e874da88f74f01da6ce1e0))
+
 ## [@myparcel/delivery-options-v6.1.4](https://github.com/myparcelnl/delivery-options/compare/v6.1.3...v6.1.4) (2024-06-07)
 
 
