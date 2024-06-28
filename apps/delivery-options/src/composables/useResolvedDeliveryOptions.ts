@@ -9,6 +9,7 @@ import {
   DELIVERY_TYPE_DEFAULT,
   type AnyTranslatable,
   createUntranslatable,
+  resolveCarrierName,
 } from '@myparcel-do/shared';
 import {type Replace} from '@myparcel/ts-utils';
 import {type Timestamp, type DeliveryOption, type DeliveryPossibility, type DeliveryTimeFrame} from '@myparcel/sdk';
@@ -104,7 +105,8 @@ export const useResolvedDeliveryOptions = useMemoize(() => {
 
   const final = computed(() => {
     return asyncComputed.value.filter((option) => {
-      const carrier = carriers.value.find(({carrier}) => carrier.value.name === option.carrier);
+      const carrierName = resolveCarrierName(option.carrier);
+      const carrier = carriers.value.find(({carrier}) => carrier.value.name === carrierName);
 
       return carrier?.deliveryTypes.value.has(option.deliveryType);
     });
