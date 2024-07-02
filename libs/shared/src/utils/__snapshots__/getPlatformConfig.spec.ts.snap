@@ -46,6 +46,7 @@ exports[`getPlatformConfig > gets config for platform belgie 1`] = `
       "deliveryTypes": [
         "standard",
         "pickup",
+        "saturday",
       ],
       "fakeDelivery": true,
       "features": [

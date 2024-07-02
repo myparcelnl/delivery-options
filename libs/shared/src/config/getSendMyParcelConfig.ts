@@ -49,7 +49,7 @@ export const getSendMyParcelConfig = (): PlatformConfiguration => ({
       name: CarrierName.PostNl,
       subscription: SubscriptionType.Never,
       packageTypes: [PackageTypeName.Package],
-      deliveryTypes: [DeliveryTypeName.Standard, DeliveryTypeName.Pickup],
+      deliveryTypes: [DeliveryTypeName.Standard, DeliveryTypeName.Pickup, CustomDeliveryType.Saturday],
       deliveryCountries: [BELGIUM, NETHERLANDS],
       pickupCountries: [BELGIUM, NETHERLANDS],
       shipmentOptions: [ShipmentOptionName.OnlyRecipient, ShipmentOptionName.Signature],
