@@ -33,7 +33,6 @@ exports[`getPlatformConfig > gets config for platform belgie 1`] = `
         "NL",
       ],
       "shipmentOptions": [
-        "only_recipient",
         "signature",
       ],
       "subscription": 0,
@@ -61,6 +60,7 @@ exports[`getPlatformConfig > gets config for platform belgie 1`] = `
         "NL",
       ],
       "shipmentOptions": [
+        "only_recipient",
         "signature",
       ],
       "subscription": 0,
