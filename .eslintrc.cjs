@@ -28,6 +28,7 @@ module.exports = {
         'vue/no-undef-components': ['error', {ignorePatterns: ['story', 'variant']}],
         'vue/no-setup-props-destructure': 'off',
         'id-length': ['warn', {exceptions: ['_', 'i', 'j', 'k', 'v', 'x', 'y', 'z', 'L']}],
+        'no-bitwise': 'off',
       },
     },
     {
@@ -38,6 +39,7 @@ module.exports = {
         '@typescript-eslint/no-misused-promises': 'off',
         'class-methods-use-this': 'off',
         'id-length': ['warn', {exceptions: ['_', 'i', 'j', 'k', 'v', 'x', 'y', 'z', 'L']}],
+        'no-bitwise': 'off',
       },
     },
     {
