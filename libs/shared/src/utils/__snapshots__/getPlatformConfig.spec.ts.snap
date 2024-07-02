@@ -18,6 +18,7 @@ exports[`getPlatformConfig > gets config for platform belgie 1`] = `
         "pickup",
         "saturday",
       ],
+      "fakeDelivery": true,
       "features": [
         "deliveryDaysWindow",
         "dropOffDays",
@@ -46,6 +47,7 @@ exports[`getPlatformConfig > gets config for platform belgie 1`] = `
         "standard",
         "pickup",
       ],
+      "fakeDelivery": true,
       "features": [
         "deliveryDaysWindow",
         "dropOffDays",
