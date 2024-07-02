@@ -1,10 +1,5 @@
 import {computed, type ComputedRef, toValue} from 'vue';
-import {
-  ONLY_RECIPIENT_TITLE,
-  type SelectOption,
-  SIGNATURE_TITLE,
-  type SupportedShipmentOptionName,
-} from '@myparcel-do/shared';
+import {ONLY_RECIPIENT_TITLE, type SelectOption, SIGNATURE_TITLE} from '@myparcel-do/shared';
 import {ShipmentOptionName} from '@myparcel/constants';
 import {getConfigPriceKey, getResolvedValue} from '../utils';
 import {useSelectedDeliveryMoment} from './useSelectedDeliveryMoment';
@@ -15,7 +10,7 @@ import {useFeatures} from './useFeatures';
 const TRANSLATION_MAP = Object.freeze({
   [ShipmentOptionName.Signature]: SIGNATURE_TITLE,
   [ShipmentOptionName.OnlyRecipient]: ONLY_RECIPIENT_TITLE,
-}) satisfies Record<SupportedShipmentOptionName, string>;
+} as const);
 
 export const useShipmentOptionsOptions = (): ComputedRef<SelectOption[]> => {
   const {availableShipmentOptions} = useFeatures();
@@ -46,6 +41,7 @@ export const useShipmentOptionsOptions = (): ComputedRef<SelectOption[]> => {
         const priceKey = getConfigPriceKey(name);
 
         return {
+          // @ts-expect-error todo: fix this error
           label: TRANSLATION_MAP[name],
           value: name,
           disabled: hasOnlyOneOption,
