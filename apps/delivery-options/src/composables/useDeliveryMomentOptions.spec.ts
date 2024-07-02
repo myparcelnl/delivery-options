@@ -3,14 +3,12 @@ import {describe, it, expect, beforeEach} from 'vitest';
 import {setActivePinia, createPinia} from 'pinia';
 import {flushPromises} from '@vue/test-utils';
 import {
-  KEY_CONFIG,
-  ConfigSetting,
-  CarrierSetting,
-  KEY_CARRIER_SETTINGS,
-  DELIVERY_TYPE_DEFAULT,
-  PACKAGE_TYPE_DEFAULT,
   type SupportedPackageTypeName,
   type SelectOption,
+  KEY_CONFIG,
+  CarrierSetting,
+  ConfigSetting,
+  KEY_CARRIER_SETTINGS,
 } from '@myparcel-do/shared';
 import {CarrierName, PackageTypeName} from '@myparcel/constants';
 import {parseJson} from '../utils';
@@ -28,8 +26,16 @@ const setup = async (packageType?: SupportedPackageTypeName): Promise<ComputedRe
       [CarrierSetting.AllowMorningDelivery]: true,
       [CarrierSetting.AllowSignature]: true,
       [CarrierSetting.AllowOnlyRecipient]: true,
+      [CarrierSetting.PriceStandardDelivery]: 3,
       [KEY_CARRIER_SETTINGS]: {
-        [CarrierName.PostNl]: {},
+        [CarrierName.PostNl]: {
+          [CarrierSetting.PricePackageTypePackageSmall]: 6,
+        },
+        [`${CarrierName.PostNl}:123`]: {
+          [CarrierSetting.PriceStandardDelivery]: 456,
+          [CarrierSetting.PricePackageTypeMailbox]: 5,
+          [CarrierSetting.PricePackageTypeDigitalStamp]: 4,
+        },
         [CarrierName.DhlForYou]: {},
       },
       // TODO: allow optional key to be passed with undefined as value
@@ -49,47 +55,23 @@ describe('useDeliveryMomentOptions', () => {
     setActivePinia(createPinia());
   });
 
-  it('returns delivery moment options', async () => {
-    expect.assertions(8);
-    const options = await setup();
+  it.each([
+    PackageTypeName.Package,
+    PackageTypeName.Mailbox,
+    PackageTypeName.DigitalStamp,
+    PackageTypeName.PackageSmall,
+  ])('returns delivery moment options with package type %s', async (packageType) => {
+    expect.assertions(2);
 
-    expect(options.value).toHaveLength(1);
+    const options = await setup(packageType);
 
-    options.value.forEach((option) => {
-      expect(Object.keys(option)).toEqual(['carrier', 'label', 'price', 'value']);
-      expect(option.value).toBeTypeOf('string');
+    expect(options.value).toHaveLength(2);
 
-      const parsedValue = parseJson<SelectedDeliveryMoment>(option.value);
+    const resolved = options.value.map((option) => ({
+      ...option,
+      value: parseJson<SelectedDeliveryMoment>(option.value),
+    }));
 
-      expect(parsedValue.carrier).toBe(CarrierName.PostNl);
-      expect(parsedValue.time).not.toBeNull();
-      expect(parsedValue.deliveryType).toBe(DELIVERY_TYPE_DEFAULT);
-      expect(parsedValue.packageType).toBe(PACKAGE_TYPE_DEFAULT);
-      expect(parsedValue.shipmentOptions).toEqual([]);
-    });
+    expect(resolved).toMatchSnapshot();
   });
-
-  it.each([PackageTypeName.Mailbox, PackageTypeName.DigitalStamp, PackageTypeName.PackageSmall])(
-    'returns delivery moment options for different package types',
-    async (packageType) => {
-      expect.assertions(8);
-
-      const options = await setup(packageType);
-
-      expect(options.value).toHaveLength(1);
-
-      options.value.forEach((option) => {
-        expect(Object.keys(option)).toEqual(['carrier', 'label', 'price', 'value']);
-        expect(option.value).toBeTypeOf('string');
-
-        const parsedValue = parseJson<SelectedDeliveryMoment>(option.value);
-
-        expect(parsedValue.carrier).toBe(CarrierName.PostNl);
-        expect(parsedValue.time).toBeNull();
-        expect(parsedValue.deliveryType).toBe(DELIVERY_TYPE_DEFAULT);
-        expect(parsedValue.packageType).toBe(packageType);
-        expect(parsedValue.shipmentOptions).toEqual([]);
-      });
-    },
-  );
 });
