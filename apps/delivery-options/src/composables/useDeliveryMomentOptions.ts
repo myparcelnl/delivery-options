@@ -16,14 +16,14 @@ export const useDeliveryMomentOptions = (): ComputedRef<SelectOption<string>[]> 
       return activeCarriers.value
         .filter((carrier) => toValue(carrier.hasAnyDelivery) && toValue(carrier.packageTypes).has(config.packageType))
         .map((carrier) => {
-          const resolvedCarrier = toValue(carrier.carrier);
+          const carrierIdentifier = toValue(carrier.carrier).identifier;
 
           return {
-            carrier: resolvedCarrier.name,
+            carrier: carrierIdentifier,
             label: createPackageTypeTranslatable(config.packageType),
-            price: getDeliveryTypePrice(DELIVERY_TYPE_DEFAULT, resolvedCarrier.name),
+            price: getDeliveryTypePrice(DELIVERY_TYPE_DEFAULT, carrierIdentifier),
             value: JSON.stringify({
-              carrier: resolvedCarrier.name,
+              carrier: carrierIdentifier,
               date: null,
               deliveryType: DELIVERY_TYPE_DEFAULT,
               packageType: config.packageType,
