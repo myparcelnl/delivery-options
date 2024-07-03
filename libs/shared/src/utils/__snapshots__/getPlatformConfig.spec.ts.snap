@@ -18,6 +18,7 @@ exports[`getPlatformConfig > gets config for platform belgie 1`] = `
         "pickup",
         "saturday",
       ],
+      "fakeDelivery": true,
       "features": [
         "deliveryDaysWindow",
         "dropOffDays",
@@ -33,7 +34,6 @@ exports[`getPlatformConfig > gets config for platform belgie 1`] = `
         "NL",
       ],
       "shipmentOptions": [
-        "only_recipient",
         "signature",
       ],
       "subscription": 0,
@@ -46,7 +46,9 @@ exports[`getPlatformConfig > gets config for platform belgie 1`] = `
       "deliveryTypes": [
         "standard",
         "pickup",
+        "saturday",
       ],
+      "fakeDelivery": true,
       "features": [
         "deliveryDaysWindow",
         "dropOffDays",
@@ -61,6 +63,7 @@ exports[`getPlatformConfig > gets config for platform belgie 1`] = `
         "NL",
       ],
       "shipmentOptions": [
+        "only_recipient",
         "signature",
       ],
       "subscription": 0,
