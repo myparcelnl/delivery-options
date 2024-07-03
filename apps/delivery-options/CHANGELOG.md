@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel/delivery-options-v6.1.6](https://github.com/myparcelnl/delivery-options/compare/v6.1.5...v6.1.6) (2024-07-03)
+
+
+### :bug: Bug Fixes
+
+* **types:** explicitly re-export types to avoid TS4023 ([cf6fc10](https://github.com/myparcelnl/delivery-options/commit/cf6fc106a0ec586d4ee6ff54e48f73cc37c7ba24))
+
 ## [@myparcel/delivery-options-v6.1.5](https://github.com/myparcelnl/delivery-options/compare/v6.1.4...v6.1.5) (2024-06-28)
 
 
