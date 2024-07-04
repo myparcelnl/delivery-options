@@ -35,10 +35,10 @@
     "ws:clean": "cd $0 && rimraf dist coverage .eslintcache tsconfig.build.tsbuildinfo",
     "ws:lint": "eslint --cache $0",
     "ws:lint:fix": "eslint --cache --fix $0",
-    "ws:test": "cd $0 && vitest --passWithNoTests",
-    "ws:test:coverage": "cd $0 && vitest run --coverage --passWithNoTests",
-    "ws:test:run": "cd $0 && vitest run --passWithNoTests",
-    "ws:test:update": "cd $0 && vitest run -u --passWithNoTests"
+    "ws:test": "cd $0 && vitest",
+    "ws:test:coverage": "cd $0 && vitest run --coverage",
+    "ws:test:run": "cd $0 && vitest run",
+    "ws:test:update": "cd $0 && vitest run -u"
   },
   "lint-staged": {
     "*.{json,md,yml}": "prettier --write",
