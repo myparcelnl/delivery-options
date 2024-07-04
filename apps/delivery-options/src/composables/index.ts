@@ -10,6 +10,7 @@ export * from './useLanguage';
 export * from './useMostEcoFriendly';
 export * from './useOptionsGroupedByCarrier';
 export * from './usePickupLocation';
+export * from './usePickupLocationsMap';
 export * from './useProvideElementWidth';
 export * from './useResolvedCarrier';
 export * from './useResolvedDeliveryDates';

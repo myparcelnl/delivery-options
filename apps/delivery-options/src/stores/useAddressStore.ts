@@ -10,4 +10,9 @@ export const useAddressStore = defineStore('address', {
       [AddressField.PostalCode]: '',
     };
   },
+  actions: {
+    update(address: DeliveryOptionsAddress): void {
+      this.$patch(address);
+    },
+  },
 });

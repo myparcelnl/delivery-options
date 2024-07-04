@@ -3,18 +3,28 @@
 
   <KeepAlive>
     <PickupLocationMap
-      v-if="pickupLocations.length"
+      v-if="loadedOnce"
       v-show="!loading" />
   </KeepAlive>
 </template>
 
 <script lang="ts" setup>
-import {computed} from 'vue';
+import {ref, watch} from 'vue';
 import {useResolvedPickupLocations} from '../../../../composables';
 import PickupLocationMapLoader from './PickupLocationMapLoader.vue';
 import PickupLocationMap from './PickupLocationMap.vue';
 
-const pickupLocations = useResolvedPickupLocations();
+const {locations} = useResolvedPickupLocations();
 
-const loading = computed(() => !pickupLocations.value.length || pickupLocations.loading.value);
+const loading = ref(true);
+const loadedOnce = ref(false);
+
+const unwatch = watch(locations.loading, (value) => {
+  loading.value = value;
+
+  if (!value) {
+    unwatch();
+    loadedOnce.value = true;
+  }
+});
 </script>

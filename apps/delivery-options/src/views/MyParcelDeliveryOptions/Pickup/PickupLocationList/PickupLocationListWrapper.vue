@@ -2,7 +2,7 @@
   <PickupLocationListLoader v-show="loading" />
 
   <PickupLocationList
-    v-if="pickupLocations?.length"
+    v-if="locations?.length"
     v-show="!loading" />
 </template>
 
@@ -12,7 +12,7 @@ import {useResolvedPickupLocations} from '../../../../composables';
 import PickupLocationListLoader from './PickupLocationListLoader.vue';
 import PickupLocationList from './PickupLocationList.vue';
 
-const pickupLocations = useResolvedPickupLocations();
+const {locations} = useResolvedPickupLocations();
 
-const loading = computed(() => pickupLocations.loading.value || !pickupLocations.value.length);
+const loading = computed(() => locations.loading.value && !locations.value.length);
 </script>

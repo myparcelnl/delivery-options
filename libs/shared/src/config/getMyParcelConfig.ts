@@ -1,3 +1,4 @@
+/* eslint-disable max-lines-per-function */
 import {
   AUSTRIA,
   BELGIUM,
@@ -29,9 +30,8 @@ import {
 } from '@myparcel/constants/countries';
 import {CarrierName, DeliveryTypeName, PackageTypeName, ShipmentOptionName} from '@myparcel/constants';
 import {type PlatformConfiguration} from '../types';
-import {AddressField, CarrierSetting, SubscriptionType, CustomDeliveryType} from '../data';
+import {AddressField, CarrierSetting, SubscriptionType, CustomDeliveryType, ConfigSetting} from '../data';
 
-// eslint-disable-next-line max-lines-per-function
 export const getMyParcelConfig = (): PlatformConfiguration => ({
   carriers: [
     {
@@ -54,7 +54,12 @@ export const getMyParcelConfig = (): PlatformConfiguration => ({
       pickupCountries: [NETHERLANDS, BELGIUM, DENMARK, SWEDEN, GERMANY],
       fakeDelivery: true,
       shipmentOptions: [ShipmentOptionName.OnlyRecipient, ShipmentOptionName.Signature],
-      features: [CarrierSetting.DeliveryDaysWindow, CarrierSetting.DropOffDays, CarrierSetting.DropOffDelay],
+      features: [
+        CarrierSetting.DeliveryDaysWindow,
+        CarrierSetting.DropOffDays,
+        CarrierSetting.DropOffDelay,
+        ConfigSetting.PickupMapAllowLoadMore,
+      ],
       addressFields: [AddressField.PostalCode, AddressField.Street, AddressField.City],
     },
     {

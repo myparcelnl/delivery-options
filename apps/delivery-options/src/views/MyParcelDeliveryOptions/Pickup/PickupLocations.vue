@@ -30,7 +30,7 @@ import PickupLocationInput from './PickupLocationInput/PickupLocationInput.vue';
 
 const config = useConfigStore();
 
-const locations = useResolvedPickupLocations();
+const {locations} = useResolvedPickupLocations();
 const mode = ref<PickupLocationsView>(config.pickupLocationsDefaultView);
 
 const {translate} = useLanguage();

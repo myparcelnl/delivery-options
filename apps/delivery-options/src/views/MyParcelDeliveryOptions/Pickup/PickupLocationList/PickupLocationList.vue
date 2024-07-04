@@ -10,12 +10,12 @@ import {FIELD_PICKUP_LOCATION} from '../../../../data';
 import {useResolvedPickupLocations, useSelectedValues} from '../../../../composables';
 import PickupListInput from './PickupListInput.vue';
 
-const pickupLocations = useResolvedPickupLocations();
+const {locations} = useResolvedPickupLocations();
 
 const {pickupLocation} = useSelectedValues();
 
 const options = computed<SelectOption[]>(() => {
-  return (toValue(pickupLocations.value) ?? []).map((option) => ({
+  return (toValue(locations.value) ?? []).map((option) => ({
     label: option.locationName,
     carrier: option.carrier,
     value: option.locationCode,

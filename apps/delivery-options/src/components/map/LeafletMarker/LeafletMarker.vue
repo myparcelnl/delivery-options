@@ -5,24 +5,22 @@
 </template>
 
 <script lang="ts" setup>
-import {inject, onUnmounted, type Ref, ref, toRefs, watch} from 'vue';
-import {type Map, type MarkerOptions} from 'leaflet';
-import {isDef} from '@vueuse/core';
+import {onUnmounted, ref, toRefs, watch, onMounted, toValue} from 'vue';
+import {type MarkerOptions} from 'leaflet';
+import {isDef, watchOnce} from '@vueuse/core';
 import {ElementEvent} from '@myparcel-do/shared';
-import {type Marker} from '../../../types';
+import {type MapMarker} from '../../../types';
 import {MAP_MARKER_CLASS_ACTIVE} from '../../../data';
+import {usePickupLocationsMap} from '../../../composables';
 
 const props = defineProps<{center: [number, number]; options: MarkerOptions; active?: boolean}>();
 const propRefs = toRefs(props);
 
-const emit = defineEmits<(event: ElementEvent.Click, marker: Marker) => void>();
+const emit = defineEmits<(event: ElementEvent.Click, marker: MapMarker) => void>();
 
-// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-const map = inject<Ref<Map | undefined>>('map')!;
-// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-const markers = inject<Ref<Marker[]>>('markers')!;
+const {map, markers, loaded: mapLoaded} = usePickupLocationsMap();
 
-const marker = ref<Marker>();
+const marker = ref<MapMarker>();
 
 const onMarkerClick = (): void => {
   if (!isDef(marker.value)) {
@@ -52,14 +50,13 @@ const addMarker = (): void => {
   if (isDef(marker.value)) {
     marker.value.options = options.value;
   } else {
-    marker.value = L.marker(center.value, options.value) as Marker;
+    marker.value = L.marker(center.value, options.value) as MapMarker;
 
-    if (!isDef(marker.value)) {
-      return;
-    }
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const markerValue = toValue(marker)!;
 
-    marker.value.on(ElementEvent.Click, onMarkerClick);
-    marker.value.on(ElementEvent.Keydown, (event) => {
+    markerValue.on(ElementEvent.Click, onMarkerClick);
+    markerValue.on(ElementEvent.Keydown, (event) => {
       if (!['Enter', 'Space'].includes(event.originalEvent.key)) {
         return;
       }
@@ -67,22 +64,31 @@ const addMarker = (): void => {
       onMarkerClick();
     });
 
-    markers.value.push(marker.value);
+    markers.value.push(markerValue);
 
-    map?.value?.addLayer(marker.value);
+    // @ts-expect-error todo: fix leaflet type errors
+    map.value?.addLayer(markerValue);
   }
 
   watch(propRefs.active, setActive, {immediate: true});
 };
 
-onUnmounted(watch([propRefs.options, map], addMarker, {immediate: true}));
+onMounted(() => {
+  if (mapLoaded.value) {
+    addMarker();
+  } else {
+    watchOnce(mapLoaded, addMarker);
+  }
+});
 
 onUnmounted(() => {
   if (!isDef(marker.value)) {
     return;
   }
 
-  map?.value?.removeLayer(marker.value);
+  // @ts-expect-error todo: fix leaflet type errors
+  map.value?.removeLayer(marker.value);
+
   // eslint-disable-next-line no-underscore-dangle
   markers.value = markers.value.filter((item) => item._leaflet_id !== marker.value?._leaflet_id);
 });

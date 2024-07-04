@@ -15,7 +15,7 @@
       <Suspense>
         <template #default>
           <PickupLocationMapMarker
-            v-for="location in pickupLocations"
+            v-for="location in locations"
             :key="location.locationCode"
             :active="locationCode === location.locationCode"
             :location-code="location.locationCode" />
@@ -38,17 +38,34 @@
 </template>
 
 <script lang="ts" setup>
+import {onUnmounted} from 'vue';
 import PickupLocationMapMarker from '../PickupLocationMapMarker/PickupLocationMapMarker.vue';
+import {useAddressStore} from '../../../../stores';
 import {useDeliveryOptionsForm} from '../../../../form';
-import {useBreakpoints, useResolvedPickupLocations, useSelectedPickupLocation} from '../../../../composables';
+import {
+  useBreakpoints,
+  useResolvedPickupLocations,
+  useSelectedPickupLocation,
+  useSelectedValues,
+} from '../../../../composables';
 import {LeafletMap} from '../../../../components';
 import PickupLocationDetails from './PickupLocationDetails.vue';
 
-const pickupLocations = useResolvedPickupLocations();
-
-const {instance: form} = useDeliveryOptionsForm();
-
+const {locations, reset} = useResolvedPickupLocations();
+const addressStore = useAddressStore();
 const {locationCode} = useSelectedPickupLocation();
-
+const {instance: form} = useDeliveryOptionsForm();
 const {md} = useBreakpoints();
+const selectedValues = useSelectedValues();
+
+/**
+ * When the address changes, reset the pickup locations array and selected pickup location.
+ */
+const removeAddressHook = addressStore.$onAction(() => {
+  reset();
+
+  selectedValues.pickupLocation.value = undefined;
+});
+
+onUnmounted(removeAddressHook);
 </script>

@@ -1,5 +1,4 @@
-import {type LeafletKeyboardEvent, type LeafletMouseEvent} from 'leaflet';
-import {type ElementEvent} from '@myparcel-do/shared';
+import {type Marker} from 'leaflet';
 
 export interface LeafletMapProps {
   center?: [number, number];
@@ -9,12 +8,9 @@ export interface LeafletMapProps {
   zoom?: number;
 }
 
-export interface Marker extends Omit<L.Marker, 'on'> {
+export interface MapMarker extends Marker {
   // eslint-disable-next-line @typescript-eslint/naming-convention
   _leaflet_id: number;
-
-  on(event: ElementEvent.Keydown, callback: (event: LeafletKeyboardEvent) => void): void;
-  on(event: ElementEvent.Click, callback: (event: LeafletMouseEvent) => void): void;
-
-  on(event: string, callback: (event: L.LeafletEvent) => void): void;
 }
+
+export type LatLng = undefined | [number, number];
