@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel/delivery-options-v6.1.7](https://github.com/myparcelnl/delivery-options/compare/v6.1.6...v6.1.7) (2024-07-04)
+
+
+### :bug: Bug Fixes
+
+* fix contract carrier behavior when using non-default package type ([#230](https://github.com/myparcelnl/delivery-options/issues/230)) ([55980b9](https://github.com/myparcelnl/delivery-options/commit/55980b9b1b9ec153e8097ce9a3c90bcf0c5ff33f))
+
 ## [@myparcel/delivery-options-v6.1.6](https://github.com/myparcelnl/delivery-options/compare/v6.1.5...v6.1.6) (2024-07-03)
 
 
