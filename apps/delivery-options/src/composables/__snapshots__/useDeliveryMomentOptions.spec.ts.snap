@@ -1,0 +1,143 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`useDeliveryMomentOptions > returns delivery moment options with package type digital_stamp 1`] = `
+[
+  {
+    "carrier": "postnl",
+    "label": {
+      "key": "packageTypeDigitalStamp",
+    },
+    "price": 0,
+    "value": {
+      "carrier": "postnl",
+      "date": null,
+      "deliveryType": "standard",
+      "packageType": "digital_stamp",
+      "shipmentOptions": [],
+      "time": null,
+    },
+  },
+  {
+    "carrier": "postnl:123",
+    "label": {
+      "key": "packageTypeDigitalStamp",
+    },
+    "price": 4,
+    "value": {
+      "carrier": "postnl:123",
+      "date": null,
+      "deliveryType": "standard",
+      "packageType": "digital_stamp",
+      "shipmentOptions": [],
+      "time": null,
+    },
+  },
+]
+`;
+
+exports[`useDeliveryMomentOptions > returns delivery moment options with package type mailbox 1`] = `
+[
+  {
+    "carrier": "postnl",
+    "label": {
+      "key": "packageTypeMailbox",
+    },
+    "price": 0,
+    "value": {
+      "carrier": "postnl",
+      "date": null,
+      "deliveryType": "standard",
+      "packageType": "mailbox",
+      "shipmentOptions": [],
+      "time": null,
+    },
+  },
+  {
+    "carrier": "postnl:123",
+    "label": {
+      "key": "packageTypeMailbox",
+    },
+    "price": 5,
+    "value": {
+      "carrier": "postnl:123",
+      "date": null,
+      "deliveryType": "standard",
+      "packageType": "mailbox",
+      "shipmentOptions": [],
+      "time": null,
+    },
+  },
+]
+`;
+
+exports[`useDeliveryMomentOptions > returns delivery moment options with package type package 1`] = `
+[
+  {
+    "carrier": "postnl",
+    "label": {
+      "key": "deliveryStandardTitle",
+    },
+    "price": 3,
+    "value": {
+      "carrier": "postnl",
+      "deliveryType": "standard",
+      "packageType": "package",
+      "shipmentOptions": [],
+      "time": {
+        "key": "deliveryStandardTitle",
+      },
+    },
+  },
+  {
+    "carrier": "postnl:123",
+    "label": {
+      "key": "deliveryStandardTitle",
+    },
+    "price": 456,
+    "value": {
+      "carrier": "postnl:123",
+      "deliveryType": "standard",
+      "packageType": "package",
+      "shipmentOptions": [],
+      "time": {
+        "key": "deliveryStandardTitle",
+      },
+    },
+  },
+]
+`;
+
+exports[`useDeliveryMomentOptions > returns delivery moment options with package type package_small 1`] = `
+[
+  {
+    "carrier": "postnl",
+    "label": {
+      "key": "packageTypePackageSmall",
+    },
+    "price": 6,
+    "value": {
+      "carrier": "postnl",
+      "date": null,
+      "deliveryType": "standard",
+      "packageType": "package_small",
+      "shipmentOptions": [],
+      "time": null,
+    },
+  },
+  {
+    "carrier": "postnl:123",
+    "label": {
+      "key": "packageTypePackageSmall",
+    },
+    "price": 0,
+    "value": {
+      "carrier": "postnl:123",
+      "date": null,
+      "deliveryType": "standard",
+      "packageType": "package_small",
+      "shipmentOptions": [],
+      "time": null,
+    },
+  },
+]
+`;
