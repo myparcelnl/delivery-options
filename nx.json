@@ -35,13 +35,6 @@
       "!{projectRoot}/**/__mocks__/**/*",
       "!{projectRoot}/**/__tests__/**/*"
     ],
-    "production": [
-      "default",
-      "!{projectRoot}/**/*.snap",
-      "!{projectRoot}/**/*.spec.*",
-      "!{projectRoot}/**/*.test.*",
-      "!{projectRoot}/tsconfig.spec.json"
-    ],
     "test": ["default"]
   },
   "targetDefaults": {
