@@ -15,11 +15,27 @@ env:
   CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
 jobs:
+  prepare:
+    runs-on: ubuntu-22.04
+    outputs:
+      has-refs: ${{ steps.has-refs.outputs.has-refs }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: myparcelnl/actions/has-refs-between@v4
+        id: has-refs
+
   bundlewatch:
+    needs: prepare
+    if: steps.prepare.outputs.has-refs == 'true'
     uses: ./.github/workflows/bundlewatch.yml
     secrets: inherit
 
   test:
+    needs: prepare
+    if: steps.prepare.outputs.has-refs == 'true'
     uses: ./.github/workflows/test.yml
     secrets: inherit
 
