@@ -18,10 +18,11 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  bundlewatch:
-    uses: ./.github/workflows/bundlewatch.yml
+  build:
+    uses: ./.github/workflows/build.yml
     secrets: inherit
 
   test:
+    needs: build
     uses: ./.github/workflows/test.yml
     secrets: inherit

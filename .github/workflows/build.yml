@@ -1,4 +1,4 @@
-name: 'Run bundlewatch'
+name: 'Build and run bundlewatch'
 
 on:
   workflow_call:
@@ -7,7 +7,7 @@ env:
   CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
 jobs:
-  bundlewatch:
+  build:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4

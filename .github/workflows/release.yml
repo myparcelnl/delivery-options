@@ -2,6 +2,10 @@ name: 'Release new version 🚀'
 
 on:
   workflow_dispatch:
+    inputs:
+      force:
+        description: 'Skip checking for new commits and run all jobs'
+        type: 'boolean'
 
   schedule:
     # every day at 18:00 UTC
@@ -27,15 +31,14 @@ jobs:
       - uses: myparcelnl/actions/has-refs-between@v4
         id: has-refs
 
-  bundlewatch:
+  build:
     needs: prepare
-    if: steps.prepare.outputs.has-refs == 'true'
-    uses: ./.github/workflows/bundlewatch.yml
+    if: inputs.force == 'true' || needs.prepare.outputs.has-refs == 'true'
+    uses: ./.github/workflows/build.yml
     secrets: inherit
 
   test:
-    needs: prepare
-    if: steps.prepare.outputs.has-refs == 'true'
+    needs: build
     uses: ./.github/workflows/test.yml
     secrets: inherit
 
@@ -43,7 +46,7 @@ jobs:
     runs-on: ubuntu-22.04
     needs:
       - test
-      - bundlewatch
+      - build
     steps:
       - uses: myparcelnl/actions/setup-git-credentials@v4
         id: credentials
