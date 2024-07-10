@@ -13,12 +13,12 @@
       "{projectRoot}/*.cjs",
       "{projectRoot}/*.html",
       "{projectRoot}/*.js",
+      "{projectRoot}/*.json",
       "{projectRoot}/*.mjs",
       "{projectRoot}/*.ts",
-      "{projectRoot}/package.json",
+      "{projectRoot}/*.tsbuildinfo",
       "{projectRoot}/public/**/*",
       "{projectRoot}/src/**/*",
-      "{projectRoot}/tsconfig.*.json",
       "!{projectRoot}/release.config.cjs",
       "!{projectRoot}/histoire.*"
     ],
@@ -37,10 +37,12 @@
     ],
     "production": [
       "default",
-      "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
+      "!{projectRoot}/**/*.snap",
+      "!{projectRoot}/**/*.spec.*",
+      "!{projectRoot}/**/*.test.*",
       "!{projectRoot}/tsconfig.spec.json"
     ],
-    "test": ["default", "{projectRoot}/**/*.snap"]
+    "test": ["default"]
   },
   "targetDefaults": {
     "build": {
