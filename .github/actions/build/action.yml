@@ -1,0 +1,16 @@
+name: 'Build'
+description: 'Build the project'
+
+runs:
+  using: composite
+  steps:
+    - name: 'Import translations'
+      shell: bash
+      # language=bash
+      run: |
+        yarn translations:import
+
+    - name: 'Build'
+      uses: myparcelnl/actions/nx-run-many@v4
+      with:
+        target: 'build'

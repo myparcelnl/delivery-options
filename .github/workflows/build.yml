@@ -16,9 +16,7 @@ jobs:
         with:
           node-version: ${{ vars.NODE_VERSION }}
 
-      - uses: myparcelnl/actions/nx-run-many@v4
-        with:
-          target: 'build'
+      - uses: ./.github/actions/build
 
       - uses: myparcelnl/actions/bundlewatch@v4
         with:
