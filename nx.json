@@ -6,7 +6,7 @@
   },
   "defaultBase": "main",
   "namedInputs": {
-    "default": [
+    "sharedGlobals": [
       "{workspaceRoot}/package.json",
       "{workspaceRoot}/yarn.lock",
       "{workspaceRoot}/tsconfig.*.json",
@@ -16,7 +16,6 @@
       "{projectRoot}/*.json",
       "{projectRoot}/*.mjs",
       "{projectRoot}/*.ts",
-      "{projectRoot}/*.tsbuildinfo",
       "{projectRoot}/public/**/*",
       "{projectRoot}/src/**/*",
       "!{projectRoot}/release.config.cjs",
@@ -27,27 +26,30 @@
       "{workspaceRoot}/.eslintignore",
       "{workspaceRoot}/.eslintrc.cjs"
     ],
-    "prod": [
-      "default",
+    "production": [
+      "sharedGlobals",
       "!{projectRoot}/**/*.snap",
       "!{projectRoot}/**/*.spec.*",
       "!{projectRoot}/**/*.test.*",
       "!{projectRoot}/**/__mocks__/**/*",
       "!{projectRoot}/**/__tests__/**/*"
     ],
-    "test": ["default"]
+    "test": [
+      "sharedGlobals",
+      "{workspaceRoot}/libs/shared/src/__tests__/vitest-setup.ts"
+    ]
   },
   "targetDefaults": {
     "build": {
       "dependsOn": ["^build"],
-      "inputs": ["prod", "^prod"],
+      "inputs": ["production", "^production"],
       "outputs": [
         "{projectRoot}/dist",
         "{projectRoot}/tsconfig.build.tsbuildinfo"
       ]
     },
     "build:dev": {
-      "inputs": ["prod", "^prod"],
+      "inputs": ["production", "^production"],
       "dependsOn": ["^build:dev"],
       "outputs": [
         "{projectRoot}/dist",

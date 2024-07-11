@@ -1,0 +1,2 @@
+# NX silently ignores files that are in .gitignore files, manually exclude them here to re-include them in the dependency graph.
+!apps/sandbox/public/translations/**/*.json
