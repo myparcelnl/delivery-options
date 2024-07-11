@@ -75,7 +75,7 @@
   },
   "packageManager": "yarn@4.3.1",
   "volta": {
-    "node": "20.9.0"
+    "node": "20.15.1"
   },
   "bundlewatch": {
     "ci": {
