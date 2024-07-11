@@ -79,6 +79,7 @@
   },
   "bundlewatch": {
     "ci": {
+      "repoBranchBase": "main",
       "trackBranches": [
         "main",
         "alpha",
