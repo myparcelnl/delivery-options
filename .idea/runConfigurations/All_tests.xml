@@ -1,0 +1,8 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="All tests" type="CompoundRunConfigurationType">
+    <toRun name="delivery-options" type="JavaScriptTestRunnerVitest" />
+    <toRun name="sandbox" type="JavaScriptTestRunnerVitest" />
+    <toRun name="shared" type="JavaScriptTestRunnerVitest" />
+    <method v="2" />
+  </configuration>
+</component>

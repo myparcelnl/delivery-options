@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="shared" type="JavaScriptTestRunnerVitest">
-    <config value="$PROJECT_DIR$/libs/shared/vitest.config.ts" />
+    <config value="$PROJECT_DIR$/libs/shared/vite.config.ts" />
     <node-interpreter value="project" />
     <vitest-package value="$PROJECT_DIR$/node_modules/vitest" />
     <working-dir value="$PROJECT_DIR$/libs/shared" />
