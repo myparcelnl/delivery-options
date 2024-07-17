@@ -18,15 +18,14 @@ export default createViteConfig((env) => {
         uploadToken: process.env.CODECOV_TOKEN,
       }),
       skipCssPlugin(),
-      isProd &&
-        dts({
-          entryRoot: 'src',
-          rollupTypes: true,
-          afterBuild: () => {
-            // To please publint, we need to also have a .d.cts file
-            writeFileSync('dist/index.d.cts', "export * from './index';");
-          },
-        }),
+      dts({
+        entryRoot: 'src',
+        rollupTypes: true,
+        afterBuild: () => {
+          // To please publint, we need to also have a .d.cts file
+          writeFileSync('dist/index.d.cts', "export * from './index';");
+        },
+      }),
     ],
 
     build: {
