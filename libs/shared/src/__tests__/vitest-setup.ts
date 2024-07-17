@@ -1,10 +1,11 @@
 /* eslint-disable */
-import {afterEach, vi} from 'vitest';
+import {afterEach, vi, beforeEach} from 'vitest';
 import type {ClientConfig} from '@myparcel/sdk';
 import {type AbstractPublicEndpoint, type EndpointResponse, type Options} from '@myparcel/sdk';
 import {cleanup} from '@testing-library/vue';
 import {useRequestStorage} from '../composables';
 import {useMockSdk} from './useMockSdk';
+import {mockConsole, resetConsole} from './utils';
 
 const { afterEachHooks } = vi.hoisted(() => {
   return {afterEachHooks: [] as (() => void)[]};
@@ -49,6 +50,10 @@ vi.mock('@vueuse/core', async (importOriginal) => {
   };
 });
 
+beforeEach(() => {
+  mockConsole();
+});
+
 afterEach(() => {
   useRequestStorage().clear();
   useMockSdk().reset();
@@ -56,4 +61,5 @@ afterEach(() => {
   afterEachHooks.forEach(hook => hook());
 
   cleanup();
+  resetConsole();
 });

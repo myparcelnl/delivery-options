@@ -1,12 +1,9 @@
 /* eslint-disable no-console */
 import {afterEach, describe, expect, it, vi} from 'vitest';
+import {consoleLogSpy, consoleWarnSpy, consoleErrorSpy} from '@myparcel-do/shared/testing';
 import {useLogger} from './useLogger';
 
 describe('useLogger', () => {
-  const logSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
-  const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
-  const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
-
   afterEach(() => {
     vi.resetAllMocks();
   });
@@ -16,7 +13,7 @@ describe('useLogger', () => {
 
     logger.debug('test');
 
-    expect(logSpy).toHaveBeenCalled();
+    expect(consoleLogSpy).toHaveBeenCalled();
   });
 
   it('logs warning messages', () => {
@@ -24,7 +21,7 @@ describe('useLogger', () => {
 
     logger.warning('test');
 
-    expect(warnSpy).toHaveBeenCalled();
+    expect(consoleWarnSpy).toHaveBeenCalled();
   });
 
   it('logs error messages', () => {
@@ -32,7 +29,7 @@ describe('useLogger', () => {
 
     logger.error('test');
 
-    expect(errorSpy).toHaveBeenCalled();
+    expect(consoleErrorSpy).toHaveBeenCalled();
   });
 
   it('logs deprecated messages', () => {
@@ -40,7 +37,7 @@ describe('useLogger', () => {
 
     logger.deprecated('test');
 
-    expect(warnSpy).toHaveBeenCalled();
+    expect(consoleWarnSpy).toHaveBeenCalled();
   });
 
   it('logs deprecated messages with replacement', () => {
@@ -48,6 +45,6 @@ describe('useLogger', () => {
 
     logger.deprecated('test', 'replacement');
 
-    expect(warnSpy).toHaveBeenCalled();
+    expect(consoleWarnSpy).toHaveBeenCalled();
   });
 });
