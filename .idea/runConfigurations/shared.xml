@@ -4,7 +4,6 @@
     <node-interpreter value="project" />
     <vitest-package value="$PROJECT_DIR$/node_modules/vitest" />
     <working-dir value="$PROJECT_DIR$/libs/shared" />
-    <vitest-options value="--watch --coverage" />
     <envs />
     <scope-kind value="ALL" />
     <method v="2" />
