@@ -18,6 +18,7 @@
     "typecheck": "vue-tsc --project tsconfig.base.json --noEmit"
   },
   "dependencies": {
+    "@myparcel-do/shared": "workspace:*",
     "@myparcel/constants": "^2.0.0",
     "@myparcel/delivery-options": "workspace:*",
     "@myparcel/sdk": "^3.2.0",
@@ -32,7 +33,6 @@
   "devDependencies": {
     "@edielemoine/google-docs-importer": "^2.0.0",
     "@myparcel-do/build-vite": "workspace:*",
-    "@myparcel-do/shared": "workspace:*",
     "@testing-library/vue": "^8.0.1",
     "@vitejs/plugin-vue": "^5.0.0",
     "autoprefixer": "^10.4.16",
