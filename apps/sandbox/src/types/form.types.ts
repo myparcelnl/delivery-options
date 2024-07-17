@@ -1,5 +1,5 @@
 import {type ConfigKey} from '@myparcel-do/shared';
-import {type AnyElementConfiguration, type ModularCreatedElement} from '@myparcel/vue-form-builder';
+import {type ModularCreatedElement} from '@myparcel/vue-form-builder';
 import {type ReadonlyOr} from '@myparcel/ts-utils';
 
 export interface SettingsSection {
@@ -17,10 +17,6 @@ export interface SettingsGroup {
 }
 
 export type SettingsField = ModularCreatedElement;
-
-export type FieldOrSection = (SettingsField | AnyElementConfiguration) | SettingsSection;
-
-export type ResolvedFieldOrSection<T extends FieldOrSection> = T extends AnyElementConfiguration ? SettingsField : T;
 
 export interface SandboxOptionGroup {
   children?: SandboxOptionGroup[];

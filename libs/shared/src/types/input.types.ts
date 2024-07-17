@@ -19,20 +19,12 @@ export type CurrencyInputProps = InputProps<CurrencyInputModelValue>;
 
 export type CurrencyInputEmits = ElementEmits<number>;
 
-export type CodeEditorModelValue = string;
-
-export type CodeEditorProps = InputProps<CodeEditorModelValue>;
-
-export type CodeEditorEmits = ElementEmits<CodeEditorModelValue>;
-
 export type SelectInputModelValue = SelectOptionValue;
 
 export type SelectInputProps<T extends SelectInputModelValue> = InputProps<T> &
   OptionsProps<T> & {placeholder?: string};
 
 export type SelectInputEmits<T extends SelectInputModelValue> = ElementEmits<T>;
-
-export type MultiSelectInputModelValue = SelectOptionValue[];
 
 export type NumberInputModelValue = string | number;
 

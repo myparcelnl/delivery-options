@@ -18,8 +18,6 @@ export type SupportedShipmentOptionName = (typeof SUPPORTED_SHIPMENT_OPTIONS)[nu
 
 export type SupportedPackageTypeName = (typeof SUPPORTED_PACKAGE_TYPES)[number];
 
-export type SubscriptionId = string | undefined;
-
 export type ConfigPriceKey = Extract<ConfigKey, `price${string}`>;
 
 export interface CarrierConfiguration {

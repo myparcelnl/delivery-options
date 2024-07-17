@@ -1,19 +1,4 @@
 /**
- * Sent by configBus when a setting is updated.
- */
-export const UPDATE = 'update';
-
-/**
- * Sent by configBus after a setting is updated (by `UPDATE`).
- */
-export const AFTER_UPDATE = 'after_update';
-
-/**
- * Sent by configBus when an error has occurred.
- */
-export const ERROR = 'error';
-
-/**
  * This event is used to change the config after the initialization.
  */
 export const UPDATE_CONFIG_IN = 'myparcel_update_config';

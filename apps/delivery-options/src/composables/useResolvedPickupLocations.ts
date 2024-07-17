@@ -58,15 +58,7 @@ const loadPickupLocations = async (carrier: UseResolvedCarrier) => {
   return locations.map((location) => formatPickupLocation(carrier, location as PickupLocation));
 };
 
-const pickupMemoizeOpts = {
-  getKey() {
-    // Cache per address, so the locations are reloaded when the address changes
-    // Not ideal, but otherwise the address would have to be passed as a parameter to the composable
-    return JSON.stringify(useAddressStore().$state);
-  },
-};
-
-export const useResolvedPickupLocations = useMemoize(() => {
+const callback = () => {
   const carriers = useActiveCarriers();
 
   return computedAsync<ResolvedPickupLocation[]>(async () => {
@@ -78,4 +70,12 @@ export const useResolvedPickupLocations = useMemoize(() => {
 
     return result.map((locations) => locations.sort(sortByDistance)).flat(1);
   }, []);
-}, pickupMemoizeOpts);
+};
+
+export const useResolvedPickupLocations = useMemoize(callback, {
+  getKey() {
+    // Cache per address, so the locations are reloaded when the address changes
+    // Not ideal, but otherwise the address would have to be passed as a parameter to the composable
+    return JSON.stringify(useAddressStore().$state);
+  },
+});

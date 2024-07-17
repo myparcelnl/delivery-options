@@ -37,14 +37,3 @@ export const fakeDeliveryOptionsResponse = async (
 
   return Promise.all(promises);
 };
-
-export const deliveryOptionsResponseInvalidPostalCode = (): void => {
-  throw {
-    errors: [
-      {
-        code: 3505,
-        message: 'Invalid postal code',
-      },
-    ],
-  };
-};

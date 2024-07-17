@@ -4,7 +4,6 @@ export * from './createExternalOutput';
 export * from './createInternalOutput';
 export * from './createTestConfiguration';
 export * from './dispatchEvent';
-export * from './getFakePickupLocation';
 export * from './getMockDeliveryOptionsConfiguration';
 export * from './mockDeliveryOptionsConfig';
 export * from './mockDeliveryOptionsForm';

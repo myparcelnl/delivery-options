@@ -57,14 +57,6 @@ export enum PickupLocationsView {
   List = 'list',
 }
 
-export enum ComponentName {
-  Button = 'Button',
-  Checkbox = 'Checkbox',
-  Radio = 'Radio',
-  Select = 'Select',
-  Text = 'Text',
-}
-
 export enum AddressField {
   Country = 'cc',
   City = 'city',
