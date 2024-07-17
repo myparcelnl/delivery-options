@@ -73,9 +73,9 @@
     "rimraf": "^6.0.0",
     "typescript": "5.4.5"
   },
-  "packageManager": "yarn@4.3.1",
   "volta": {
-    "node": "20.15.1"
+    "node": "20.15.1",
+    "yarn": "4.3.1"
   },
   "bundlewatch": {
     "ci": {

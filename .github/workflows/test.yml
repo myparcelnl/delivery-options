@@ -11,8 +11,6 @@ jobs:
       - uses: actions/checkout@v4
 
       - uses: myparcelnl/actions/yarn-install@v4
-        with:
-          node-version: ${{ vars.NODE_VERSION }}
 
       - uses: myparcelnl/actions/nx-run-many@v4
         with:

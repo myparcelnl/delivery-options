@@ -60,8 +60,6 @@ jobs:
           fetch-depth: 0
 
       - uses: myparcelnl/actions/yarn-install@v4
-        with:
-          node-version: ${{ vars.NODE_VERSION }}
 
       - uses: ./.github/actions/build
 
