@@ -1,13 +1,14 @@
-import {ref, toValue, onUnmounted, computed, watch, type ComputedRef} from 'vue';
+import {ref, toValue, onUnmounted, computed, type ComputedRef} from 'vue';
 import {useMemoize, watchImmediate} from '@vueuse/core';
 import {
   PickupLocationType,
   usePickupLocationsRequest,
   computedAsync,
   type ComputedAsync,
-  addLoadingProperty,
   usePickupLocationsByLatLngRequest,
   ConfigSetting,
+  addLoadingProperties,
+  watchUntil,
 } from '@myparcel-do/shared';
 import {type PickupLocation} from '@myparcel/sdk';
 import {DeliveryTypeName} from '@myparcel/constants';
@@ -121,25 +122,16 @@ const callback = (): UseResolvedPickupLocations => {
     allLocations.value = [...duplicatesFiltered, ...newLocations];
   });
 
-  const locations = addLoadingProperty(
+  const locations = addLoadingProperties(
     computed(() => allLocations.value.sort(sortByDistance)),
+    currentLocations.load,
     currentLocations.loading,
   );
 
   const loadMoreLocations = async (latitude: number, longitude: number): Promise<void> => {
     latLng.value = [latitude, longitude];
 
-    // Wait for new locations to be loaded to allow awaiting this method
-    return new Promise((resolve) => {
-      const unwatchLoading = watch(locations.loading, (isLoading) => {
-        if (isLoading) {
-          return;
-        }
-
-        resolve();
-        unwatchLoading();
-      });
-    });
+    return watchUntil(locations.loading, {condition: (loading) => !loading});
   };
 
   onUnmounted(unwatchLocations);

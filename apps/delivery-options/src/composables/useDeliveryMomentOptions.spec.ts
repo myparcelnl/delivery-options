@@ -13,7 +13,7 @@ import {
 import {CarrierName, PackageTypeName} from '@myparcel/constants';
 import {parseJson} from '../utils';
 import {type SelectedDeliveryMoment} from '../types';
-import {mockSelectedDeliveryOptions, mockDeliveryOptionsConfig} from '../__tests__';
+import {mockSelectedDeliveryOptions, mockDeliveryOptionsConfig, waitForDeliveryOptions} from '../__tests__';
 import {useDeliveryMomentOptions} from './useDeliveryMomentOptions';
 
 const setup = async (packageType?: SupportedPackageTypeName): Promise<ComputedRef<SelectOption<string>[]>> => {
@@ -45,6 +45,7 @@ const setup = async (packageType?: SupportedPackageTypeName): Promise<ComputedRe
   mockSelectedDeliveryOptions();
 
   const options = useDeliveryMomentOptions();
+  await waitForDeliveryOptions();
   await flushPromises();
 
   return options;

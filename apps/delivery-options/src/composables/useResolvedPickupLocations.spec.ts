@@ -1,6 +1,5 @@
 import {describe, it, beforeEach, expect} from 'vitest';
 import {createPinia, setActivePinia} from 'pinia';
-import {useCarrierRequest} from '@myparcel-do/shared';
 import {CarrierName} from '@myparcel/constants';
 import {
   mockDeliveryOptionsConfig,
@@ -16,12 +15,7 @@ describe('useResolvedPickupLocations', () => {
 
     mockDeliveryOptionsConfig();
 
-    await Promise.all([
-      mockDeliveryOptionsForm(),
-      useCarrierRequest(CarrierName.PostNl).load(),
-      waitForDeliveryOptions(),
-      waitForPickupLocations(),
-    ]);
+    await Promise.all([mockDeliveryOptionsForm(), waitForDeliveryOptions(), waitForPickupLocations()]);
   });
 
   it('loads pickup locations', () => {

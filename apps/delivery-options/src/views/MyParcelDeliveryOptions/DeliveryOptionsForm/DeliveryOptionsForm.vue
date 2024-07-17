@@ -59,8 +59,10 @@ const Form = useDeliveryOptionsForm();
 const carriers = useActiveCarriers();
 const config = useConfigStore();
 
+void carriers.load();
+
 const {translate} = useLanguage();
-const {homeOrPickup, pickupLocation} = useSelectedValues();
+const {homeOrPickup} = useSelectedValues();
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const HomeOrPickup = createField({

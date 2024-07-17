@@ -28,12 +28,15 @@ import PickupLocationMapWrapper from './PickupLocationMap/PickupLocationMapWrapp
 import PickupLocationListWrapper from './PickupLocationList/PickupLocationListWrapper.vue';
 import PickupLocationInput from './PickupLocationInput/PickupLocationInput.vue';
 
-const config = useConfigStore();
-
 const {locations} = useResolvedPickupLocations();
-const mode = ref<PickupLocationsView>(config.pickupLocationsDefaultView);
 
+// Load pickup locations
+void locations.load();
+
+const config = useConfigStore();
 const {translate} = useLanguage();
+
+const mode = ref<PickupLocationsView>(config.pickupLocationsDefaultView);
 
 const currentComponent = computed(() =>
   mode.value === PickupLocationsView.List ? PickupLocationListWrapper : PickupLocationMapWrapper,

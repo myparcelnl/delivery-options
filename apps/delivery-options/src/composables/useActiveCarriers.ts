@@ -20,7 +20,7 @@ export const useActiveCarriers = useMemoize((): ComputedAsync<UseResolvedCarrier
   const config = useConfigStore();
   const platform = useCurrentPlatform();
 
-  return computedAsync(async () => {
+  const callback = async () => {
     const carrierNames = platform.config.value.carriers.map((carrier) => carrier.name);
     const entries = Object.entries(config.carrierSettings) as [CarrierIdentifier, CarrierSettings][];
 
@@ -50,5 +50,7 @@ export const useActiveCarriers = useMemoize((): ComputedAsync<UseResolvedCarrier
     );
 
     return resolvedCarriers.filter((carrier) => toValue(carrier.hasAnyDelivery) || toValue(carrier.hasPickup));
-  }, []);
+  };
+
+  return computedAsync(callback, [], {immediate: true});
 });
