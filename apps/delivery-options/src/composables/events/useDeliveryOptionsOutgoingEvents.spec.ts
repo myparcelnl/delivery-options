@@ -5,9 +5,12 @@ import {CustomEvent} from 'happy-dom';
 import {flushPromises} from '@vue/test-utils';
 import {render, type RenderResult} from '@testing-library/vue';
 import {FIELD_DELIVERY_MOMENT, FIELD_DELIVERY_DATE, UPDATED_DELIVERY_OPTIONS} from '../../data';
-import {createInternalOutput} from '../../__tests__/utils/createInternalOutput';
-import {createExternalOutput} from '../../__tests__/utils/createExternalOutput';
-import {mockDeliveryOptionsForm, mockSelectedDeliveryOptions} from '../../__tests__';
+import {
+  createInternalOutput,
+  createExternalOutput,
+  mockDeliveryOptionsForm,
+  mockSelectedDeliveryOptions,
+} from '../../__tests__';
 import {useDeliveryOptionsOutgoingEvents} from './useDeliveryOptionsOutgoingEvents';
 
 /**

@@ -12,8 +12,13 @@ import {
   type SupportedPackageTypeName,
 } from '@myparcel-do/shared';
 import {CarrierName, DeliveryTypeName, PackageTypeName} from '@myparcel/constants';
-import {createTestConfiguration} from '../__tests__/utils/createTestConfiguration';
-import {defineCarrier, mockDeliveryOptionsConfig, mockResolvedDeliveryOption, TestValue} from '../__tests__';
+import {
+  createTestConfiguration,
+  defineCarrier,
+  mockDeliveryOptionsConfig,
+  mockResolvedDeliveryOption,
+  TestValue,
+} from '../__tests__';
 import {getDeliveryTypePrice} from './getDeliveryTypePrice';
 
 interface TestInput {

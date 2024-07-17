@@ -19,9 +19,9 @@ import {
   FIELD_DELIVERY_DATE,
   FIELD_DELIVERY_MOMENT,
 } from '../../data';
-import {createInternalOutput} from '../../__tests__/utils/createInternalOutput';
-import {createExternalOutput} from '../../__tests__/utils/createExternalOutput';
 import {
+  createInternalOutput,
+  createExternalOutput,
   waitForPickupLocations,
   waitForDeliveryOptions,
   getMockDeliveryOptionsConfiguration,
