@@ -66,6 +66,7 @@ export const useCarrier = useMemoize((options: UseCarrierOptions): UseCarrier =>
       name: carrierName.value,
       identifier: toValue(options.carrierIdentifier),
     } as CarrierWithIdentifier,
+    {immediate: true},
   );
 
   const config = computed(() => {

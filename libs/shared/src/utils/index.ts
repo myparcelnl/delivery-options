@@ -22,3 +22,8 @@ export * from './resolveConfigOption';
 export * from './splitCarrierIdentifier';
 export * from './splitTimestamp';
 export * from './waitForRequestData';
+export {addLoadingProperties} from './addLoadingProperties';
+
+export {addProperty} from './addProperty';
+
+export {watchUntil} from './watchUntil';

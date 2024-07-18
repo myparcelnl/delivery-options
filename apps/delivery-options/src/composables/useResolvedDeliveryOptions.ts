@@ -4,12 +4,13 @@ import {useMemoize} from '@vueuse/core';
 import {
   useDeliveryOptionsRequest,
   computedAsync,
-  addLoadingProperty,
   PACKAGE_TYPE_DEFAULT,
   DELIVERY_TYPE_DEFAULT,
   type AnyTranslatable,
   createUntranslatable,
   resolveCarrierName,
+  type ComputedAsync,
+  addLoadingProperties,
 } from '@myparcel-do/shared';
 import {type Replace} from '@myparcel/ts-utils';
 import {type Timestamp, type DeliveryOption, type DeliveryPossibility, type DeliveryTimeFrame} from '@myparcel/sdk';
@@ -40,8 +41,10 @@ const createFakeDeliveryDates = (): FakeDeliveryDates[] => {
   ];
 };
 
+type UseResolvedDeliveryOptions = ComputedAsync<SelectedDeliveryMoment[]>;
+
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const useResolvedDeliveryOptions = useMemoize(() => {
+const callback = (): UseResolvedDeliveryOptions => {
   const carriers = useActiveCarriers();
 
   const asyncComputed = computedAsync<SelectedDeliveryMoment[]>(async () => {
@@ -112,5 +115,7 @@ export const useResolvedDeliveryOptions = useMemoize(() => {
     });
   });
 
-  return addLoadingProperty(final, asyncComputed.loading);
-});
+  return addLoadingProperties(final, asyncComputed.load, asyncComputed.loading);
+};
+
+export const useResolvedDeliveryOptions = useMemoize(callback);

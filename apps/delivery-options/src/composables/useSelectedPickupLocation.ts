@@ -1,4 +1,4 @@
-import {type Ref, type ComputedRef, computed} from 'vue';
+import {type Ref, type ComputedRef} from 'vue';
 import {type ResolvedPickupLocation} from '../types';
 import {useSelectedValues} from './useSelectedValues';
 import {usePickupLocation} from './usePickupLocation';
@@ -10,16 +10,7 @@ interface UseSelectedPickupLocation {
 
 export const useSelectedPickupLocation = (): UseSelectedPickupLocation => {
   const {pickupLocation: locationCode} = useSelectedValues();
-
-  const pickupLocation = computed(() => {
-    if (!locationCode.value) {
-      return undefined;
-    }
-
-    const {pickupLocation: result} = usePickupLocation(locationCode.value);
-
-    return result.value;
-  });
+  const {pickupLocation} = usePickupLocation(locationCode);
 
   return {
     location: pickupLocation,

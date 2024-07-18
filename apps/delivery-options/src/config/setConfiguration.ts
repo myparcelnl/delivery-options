@@ -14,7 +14,7 @@ export const setConfiguration = (config: InputDeliveryOptionsConfiguration): voi
   clear();
 
   configStore.update(validated.config);
-  addressStore.$patch(validated.address);
+  addressStore.update(validated.address);
 
   language.setStrings(validated.strings);
 

@@ -9,7 +9,12 @@
 </template>
 
 <script lang="ts" setup>
+import {useResolvedDeliveryOptions} from '../../../composables';
 import ShipmentOptionsSelector from './ShipmentOptionsSelector/ShipmentOptionsSelector.vue';
 import DeliveryMomentSelector from './DeliveryMomentSelector/DeliveryMomentSelector.vue';
 import DeliveryDateSelector from './DeliveryDateSelector/DeliveryDateSelector.vue';
+
+const deliveryOptions = useResolvedDeliveryOptions();
+
+void deliveryOptions.load();
 </script>

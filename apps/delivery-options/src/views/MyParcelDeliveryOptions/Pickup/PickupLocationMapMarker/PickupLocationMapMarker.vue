@@ -10,7 +10,6 @@ import {computed, toRefs} from 'vue';
 import {type MarkerOptions} from 'leaflet';
 import {isDef} from '@vueuse/core';
 import {createCarrierMarkerIcon} from '../../../../utils';
-import {useDeliveryOptionsForm} from '../../../../form';
 import {MAP_MARKER_CLASS_PREFIX} from '../../../../data';
 import {usePickupLocation, useResolvedCarrier, useSelectedValues} from '../../../../composables';
 import {LeafletMarker} from '../../../../components';
@@ -18,11 +17,11 @@ import {LeafletMarker} from '../../../../components';
 const props = defineProps<{locationCode: string; active: boolean}>();
 const propRefs = toRefs(props);
 
-const form = useDeliveryOptionsForm();
-
 const {pickupLocation} = usePickupLocation(propRefs.locationCode);
 
-const carrier = useResolvedCarrier(pickupLocation.value?.carrier);
+const carrierName = computed(() => pickupLocation.value?.carrier);
+
+const carrier = useResolvedCarrier(carrierName);
 
 const center = computed(() => {
   if (!isDef(pickupLocation.value)) {

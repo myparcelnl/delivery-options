@@ -17,6 +17,7 @@ import {calculateCutoffTime} from './calculateCutoffTime';
 
 export const createGetDeliveryOptionsParameters = (
   resolvedCarrier: UseResolvedCarrier,
+  additionalParameters?: undefined | Partial<EndpointParameters<GetDeliveryOptions>>,
 ): EndpointParameters<GetDeliveryOptions> => {
   const config = useConfigStore();
   const address = useAddressStore();
@@ -45,11 +46,15 @@ export const createGetDeliveryOptionsParameters = (
     street: get(address, AddressField.Street, ''),
 
     include: 'shipment_options',
+
+    ...additionalParameters,
   } satisfies EndpointParameters<GetDeliveryOptions>);
 
   return Object.fromEntries(
     Object.entries(parameters).filter(([key]) => {
-      return !resolvedCarrier.config.value?.unsupportedParameters?.includes(key);
+      const config = toValue(resolvedCarrier.config);
+
+      return !config?.unsupportedParameters?.includes(key);
     }),
   ) as EndpointParameters<GetDeliveryOptions>;
 };

@@ -4,7 +4,7 @@ import {flushPromises} from '@vue/test-utils';
 import {CLOSED} from '@myparcel-do/shared';
 import {createUtcDate} from '../utils';
 import {mockDeliveryOptionsConfig, waitForPickupLocations} from '../__tests__';
-import {getFullPickupLocation, usePickupLocation} from './usePickupLocation';
+import {usePickupLocation} from './usePickupLocation';
 import {useLanguage} from './useLanguage';
 
 describe.concurrent.skip('usePickupLocation', (it) => {
@@ -19,7 +19,6 @@ describe.concurrent.skip('usePickupLocation', (it) => {
   });
 
   afterEach(() => {
-    getFullPickupLocation.clear();
     vi.setSystemTime(vi.getRealSystemTime());
   });
 
@@ -47,7 +46,8 @@ describe.concurrent.skip('usePickupLocation', (it) => {
     const {pickupLocation} = usePickupLocation('217862');
     await flushPromises();
 
-    const {openingHours} = pickupLocation.value;
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const {openingHours} = pickupLocation.value!;
 
     // Expect to be ordered by closest date
     expect(openingHours).toEqual([

@@ -59,4 +59,9 @@ export const getAllConfigOptions = useMemoize((): ConfigOption[] => [
     key: ConfigSetting.PickupLocationsMapTileLayerData,
     type: OptionType.String,
   }),
+
+  declareOption({
+    key: ConfigSetting.PickupMapAllowLoadMore,
+    type: OptionType.Boolean,
+  }),
 ]);

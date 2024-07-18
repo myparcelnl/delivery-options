@@ -1,8 +1,8 @@
-import {waitFor} from '@testing-library/vue';
+import {type PromiseOr} from '@myparcel/ts-utils';
 import {useResolvedPickupLocations} from '../../composables';
 
-export const waitForPickupLocations = async (): Promise<void> => {
-  const locations = useResolvedPickupLocations();
+export const waitForPickupLocations = (): PromiseOr<void> => {
+  const {locations} = useResolvedPickupLocations();
 
-  await waitFor(() => locations.value.length > 0, {timeout: 1000});
+  return locations.load();
 };

@@ -12,6 +12,8 @@ export const useCarrierRequest = (
   return useRequest([REQUEST_KEY_CARRIERS, toValue(carrier)], async () => {
     const sdk = useSdk();
 
-    return (await sdk.getCarrier({path: {carrier: toValue(carrier)}}))?.[0];
+    const carriers = await sdk.getCarrier({path: {carrier: toValue(carrier)}});
+
+    return carriers?.[0];
   });
 };

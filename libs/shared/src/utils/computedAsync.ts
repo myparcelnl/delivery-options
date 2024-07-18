@@ -1,22 +1,46 @@
-import {type Ref, ref} from 'vue';
+import {ref, toValue, type ComputedRef} from 'vue';
 import {type AsyncComputedOnCancel, type AsyncComputedOptions, asyncComputed} from '@vueuse/core';
-import {addLoadingProperty} from './addLoadingProperty';
+import {watchUntil} from './watchUntil';
+import {type WithLoadingProperties, addLoadingProperties} from './addLoadingProperties';
 
-export interface ComputedAsync<T> extends Ref<T> {
-  loading: Ref<boolean>;
-}
+export type ComputedAsync<T> = WithLoadingProperties<ComputedRef<T>>;
 
 export const computedAsync = <T>(
   callback: (onCancel: AsyncComputedOnCancel) => T | Promise<T>,
   initialState?: T,
-  optionsOrRef?: Ref<boolean> | AsyncComputedOptions,
+  options?: AsyncComputedOptions & {immediate?: boolean},
 ): ComputedAsync<T> => {
+  const enabled = ref(false);
   const loading = ref(false);
 
-  const computed = asyncComputed(callback, initialState, {
-    ...optionsOrRef,
-    evaluating: loading,
-  });
+  const computed = asyncComputed(
+    async (onCancel) => {
+      if (!toValue(enabled)) {
+        return initialState;
+      }
 
-  return addLoadingProperty(computed, loading);
+      return callback(onCancel);
+    },
+    initialState,
+    {
+      ...options,
+      evaluating: loading,
+    },
+  );
+
+  const finalComputed = addLoadingProperties(
+    computed,
+    async () => {
+      enabled.value = true;
+
+      return watchUntil(computed);
+    },
+    loading,
+  );
+
+  if (options?.immediate) {
+    void finalComputed.load();
+  }
+
+  return finalComputed as ComputedAsync<T>;
 };

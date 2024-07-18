@@ -3,6 +3,7 @@ export * from './calculateDropOffDays';
 export * from './calculatePackageType';
 export * from './createCarrierMarkerIcon';
 export * from './createGetDeliveryOptionsParameters';
+export * from './createLatLngParameters';
 export * from './createNextDate';
 export * from './createUtcDate';
 export * from './getConfigFromWindow';

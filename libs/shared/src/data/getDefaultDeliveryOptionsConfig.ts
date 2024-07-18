@@ -49,6 +49,7 @@ export const getDefaultDeliveryOptionsConfig = (): ResolvedDeliveryOptionsConfig
     [CarrierSetting.AllowPickupLocations]: true,
 
     [ConfigSetting.PickupLocationsDefaultView]: PickupLocationsView.Map,
+    [ConfigSetting.PickupMapAllowLoadMore]: true,
     [ConfigSetting.PickupShowDistance]: true,
 
     /**

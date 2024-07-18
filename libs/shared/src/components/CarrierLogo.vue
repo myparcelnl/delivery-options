@@ -35,9 +35,11 @@ const request = computed(() => reactive(useCarrierRequest(resolveCarrierName(pro
 
 const unwatch = watch(
   request,
-  (request) => {
-    data.value = toValue(request.data);
-    src.value = createAssetUrl(toValue(data).meta.logo_svg);
+  (value) => {
+    const resolvedValue = toValue(value.data);
+
+    data.value = resolvedValue;
+    src.value = createAssetUrl(resolvedValue?.meta.logo_svg);
   },
   {deep: true, immediate: true},
 );
