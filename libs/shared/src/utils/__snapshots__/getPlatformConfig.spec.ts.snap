@@ -37,6 +37,9 @@ exports[`getPlatformConfig > gets config for platform belgie 1`] = `
         "signature",
       ],
       "subscription": 0,
+      "unsupportedParameters": [
+        "package_type",
+      ],
     },
     {
       "deliveryCountries": [
