@@ -44,6 +44,10 @@ export const getSendMyParcelConfig = (): PlatformConfiguration => ({
       addressFields: [AddressField.PostalCode, AddressField.Street, AddressField.City],
       shipmentOptions: [ShipmentOptionName.Signature],
       fakeDelivery: true,
+      /**
+       * API returns a 500 error when package_type is passed, even though it's valid for belgie + bpost.
+       */
+      unsupportedParameters: ['package_type'],
     },
     {
       name: CarrierName.PostNl,
