@@ -6,6 +6,7 @@ import {createViteConfig} from '@myparcel-do/build-vite';
 import {codecovVitePlugin} from '@codecov/vite-plugin';
 import baseConfig from './vite.config';
 import {getSharedConfig, createFilenameFormatter, skipCssPlugin} from './private';
+import packageJson from './package.json';
 
 export default createViteConfig((env) => {
   const isProd = env.mode === 'production';
@@ -14,7 +15,7 @@ export default createViteConfig((env) => {
     plugins: [
       codecovVitePlugin({
         enableBundleAnalysis: process.env.CODECOV_TOKEN !== undefined,
-        bundleName: '@myparcel/delivery-options',
+        bundleName: packageJson.name,
         uploadToken: process.env.CODECOV_TOKEN,
       }),
       skipCssPlugin(),

@@ -1,4 +1,4 @@
-name: 'Build and run bundlewatch'
+name: 'Build'
 
 on:
   workflow_call:
@@ -15,7 +15,3 @@ jobs:
       - uses: myparcelnl/actions/yarn-install@v4
 
       - uses: ./.github/actions/build
-
-      - uses: myparcelnl/actions/bundlewatch@v4
-        with:
-          token: ${{ secrets.BUNDLEWATCH_TOKEN }}

@@ -77,23 +77,5 @@
   "volta": {
     "node": "20.15.1",
     "yarn": "4.3.1"
-  },
-  "bundlewatch": {
-    "ci": {
-      "repoBranchBase": "main",
-      "trackBranches": [
-        "main",
-        "alpha",
-        "beta"
-      ]
-    },
-    "files": [
-      {
-        "path": "apps/delivery-options/dist/myparcel.lib.js"
-      },
-      {
-        "path": "apps/delivery-options/dist/style.css"
-      }
-    ]
   }
 }
