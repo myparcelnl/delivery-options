@@ -28,7 +28,7 @@ import {
 } from '@myparcel/constants/countries';
 import {CarrierName, DeliveryTypeName, PackageTypeName, ShipmentOptionName} from '@myparcel/constants';
 import {type PlatformConfiguration} from '../types';
-import {AddressField, CarrierSetting, SubscriptionType, CustomDeliveryType, ConfigSetting} from '../data';
+import {AddressField, CarrierSetting, SubscriptionType, CustomDeliveryType} from '../data';
 
 // eslint-disable-next-line max-lines-per-function
 export const getSendMyParcelConfig = (): PlatformConfiguration => ({
@@ -53,12 +53,7 @@ export const getSendMyParcelConfig = (): PlatformConfiguration => ({
       deliveryCountries: [BELGIUM, NETHERLANDS],
       pickupCountries: [BELGIUM, NETHERLANDS],
       shipmentOptions: [ShipmentOptionName.OnlyRecipient, ShipmentOptionName.Signature],
-      features: [
-        CarrierSetting.DeliveryDaysWindow,
-        CarrierSetting.DropOffDays,
-        CarrierSetting.DropOffDelay,
-        ConfigSetting.PickupMapAllowLoadMore,
-      ],
+      features: [CarrierSetting.DeliveryDaysWindow, CarrierSetting.DropOffDays, CarrierSetting.DropOffDelay],
       fakeDelivery: true,
     },
     {

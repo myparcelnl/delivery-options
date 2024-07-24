@@ -53,7 +53,6 @@ exports[`getPlatformConfig > gets config for platform belgie 1`] = `
         "deliveryDaysWindow",
         "dropOffDays",
         "dropOffDelay",
-        "pickupMapAllowLoadMore",
       ],
       "name": "postnl",
       "packageTypes": [
