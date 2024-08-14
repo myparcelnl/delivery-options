@@ -1,10 +1,13 @@
 <template>
-  <Loader.Wrapper>
+  <Loader.Wrapper class="mp-overflow-hidden mp-rounded-2xl">
     <Loader.Base
-      :class="{
-        'mp-h-[400px]': md,
-        'mp-h-[300px]': !md,
-      }" />
+      :class="[
+        'mp-flex-grow',
+        {
+          'mp-h-[400px]': md,
+          'mp-h-[300px]': !md,
+        },
+      ]" />
   </Loader.Wrapper>
 </template>
 
