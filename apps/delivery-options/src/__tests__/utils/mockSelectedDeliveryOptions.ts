@@ -45,7 +45,10 @@ export const mockSelectedDeliveryOptions = (values?: Partial<MockInternalOutput>
     [FIELD_DELIVERY_MOMENT]: resolvedDeliveryMoment,
   } satisfies InternalOutput;
 
-  form.setValues(resolvedValues);
+  Object.entries(resolvedValues).forEach(([key, value]) => {
+    // @ts-expect-error todo
+    form.values[key] = value;
+  });
 
   const {locationCode} = useSelectedPickupLocation();
 

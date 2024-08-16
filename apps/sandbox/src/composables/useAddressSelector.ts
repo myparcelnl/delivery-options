@@ -94,14 +94,10 @@ export const useAddressSelector = (): UseAddressSelector => {
 
       const matchingAddress = sampleAddresses.find((address) => address[AddressField.Country] === value);
 
-      const obj = Object.values(AddressField).reduce((acc, key: AddressField) => {
+      Object.values(AddressField).forEach((key: AddressField) => {
         // @ts-expect-error todo
-        acc[`${KEY_ADDRESS}.${key}`] = matchingAddress?.[key];
-
-        return acc;
-      }, {} as Record<string, string>);
-
-      form.setValues(obj);
+        form.values[`${KEY_ADDRESS}.${key}`] = matchingAddress?.[key];
+      });
     }),
   );
 
