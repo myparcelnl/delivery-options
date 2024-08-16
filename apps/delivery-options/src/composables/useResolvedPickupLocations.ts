@@ -14,7 +14,6 @@ import {type PickupLocation} from '@myparcel/sdk';
 import {DeliveryTypeName} from '@myparcel/constants';
 import {createLatLngParameters, createGetDeliveryOptionsParameters} from '../utils';
 import {type ResolvedPickupLocation, type LatLng} from '../types';
-import {useAddressStore} from '../stores';
 import {type UseResolvedCarrier} from './useResolvedCarrier';
 import {useActiveCarriers} from './useActiveCarriers';
 
@@ -147,14 +146,4 @@ const callback = (): UseResolvedPickupLocations => {
   };
 };
 
-export const useResolvedPickupLocations = useMemoize(callback, {
-  /**
-   * Cache per address, so the locations are reloaded when the address changes. Not ideal, but otherwise the address
-   * would have to be passed as a parameter to the composable
-   */
-  getKey() {
-    const addressStore = useAddressStore();
-
-    return JSON.stringify(addressStore.$state);
-  },
-});
+export const useResolvedPickupLocations = useMemoize(callback);
