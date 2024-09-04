@@ -78,8 +78,8 @@ const {
     return locationCode.value === option.value;
   },
 });
-
+const carrierIdentifier = location.value?.carrier;
 const price = computed(() => {
-  return getDeliveryTypePrice(DeliveryTypeName.Pickup, props.carrier);
+  return getDeliveryTypePrice(DeliveryTypeName.Pickup, carrierIdentifier);
 });
 </script>
