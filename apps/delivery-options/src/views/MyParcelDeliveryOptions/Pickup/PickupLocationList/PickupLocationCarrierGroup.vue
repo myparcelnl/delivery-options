@@ -1,5 +1,5 @@
 <template>
-  <CarrierBox :carrier="carrier">
+  <CarrierBox :carrier="carrierName">
     <template #heading>
       <PriceTag
         :price="price"
@@ -47,15 +47,18 @@ import {
   type SelectOption,
   SHOW_MORE_LOCATIONS,
   useLoadMore,
+  type CarrierIdentifier,
+  resolveCarrierName,
 } from '@myparcel-do/shared';
-import {type CarrierName, DeliveryTypeName} from '@myparcel/constants';
+import {DeliveryTypeName} from '@myparcel/constants';
 import {getDeliveryTypePrice} from '../../../../utils';
 import {useLanguage, useSelectedPickupLocation} from '../../../../composables';
 import {GroupInput, DoButton, PriceTag} from '../../../../components';
 import PickupLocationListItem from './PickupLocationListItem.vue';
 import PickupLocationDetails from './PickupLocationDetails.vue';
 
-const props = defineProps<{carrier: CarrierName; options: SelectOption<T>[]}>();
+const props = defineProps<{carrier: CarrierIdentifier; options: SelectOption<T>[]}>();
+const carrierName = resolveCarrierName(props.carrier);
 const propRefs = toRefs(props);
 
 const {locationCode, location} = useSelectedPickupLocation();
@@ -79,6 +82,6 @@ const {
   },
 });
 const price = computed(() => {
-  return getDeliveryTypePrice(DeliveryTypeName.Pickup, props.options[0]?.carrier);
+  return getDeliveryTypePrice(DeliveryTypeName.Pickup, props.carrier);
 });
 </script>
