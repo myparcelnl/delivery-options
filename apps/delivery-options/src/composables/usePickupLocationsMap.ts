@@ -1,7 +1,7 @@
 import {type Ref, ref, computed, watch, toRef, toValue, type ComputedRef} from 'vue';
 import {isString} from 'radash';
 import {type Map, type TileLayer, type Control} from 'leaflet';
-import {isDef, useDebounceFn, useMemoize} from '@vueuse/core';
+import {isDef, useDebounceFn} from '@vueuse/core';
 import {type MapTileLayerData, ConfigSetting} from '@myparcel-do/shared';
 import {type LeafletMapProps, type MapMarker} from '../types';
 import {useConfigStore} from '../stores';
@@ -26,47 +26,64 @@ interface UsePickupLocationsMap {
 
 const LEAFLET_DEFAULT_ZOOM = 14;
 
+/**
+ * The Leaflet map instance.
+ */
+const map = ref<Map>();
+
+/**
+ * The Leaflet tile layer instance.
+ */
+const tileLayer = ref<TileLayer>();
+
+/**
+ * The markers that are displayed on the map.
+ */
+const markers = ref<MapMarker[]>([]);
+
+/**
+ * The Leaflet scale control instance.
+ */
+const scaleControl = ref<Control.Scale>();
+
+/**
+ * The center of the map.
+ */
+const center = ref<NonNullable<LeafletMapProps['center']>>([0, 0]);
+
+/**
+ * The zoom level of the map.
+ */
+const zoom = ref<NonNullable<LeafletMapProps['zoom']>>(LEAFLET_DEFAULT_ZOOM);
+
+/**
+ * The element that the map is rendered in.
+ */
+const container = ref<HTMLElement | undefined>();
+
+const loaded = computed(() => {
+  return (
+    Boolean(toValue(container)) &&
+    Boolean(toValue(map)) &&
+    Boolean(toValue(tileLayer)) &&
+    Boolean(toValue(scaleControl))
+  );
+});
+
+const activeMarker = computed<MapMarker | undefined>(() => {
+  return toValue(markers).find((marker) => {
+    const element = marker.getElement();
+
+    return element?.classList.contains(MAP_MARKER_CLASS_ACTIVE);
+  }) as MapMarker | undefined;
+});
+
+const mutableShowLoadMoreButton = ref<boolean>(false);
+
 // eslint-disable-next-line max-lines-per-function
-export const usePickupLocationsMap = useMemoize((): UsePickupLocationsMap => {
+export const usePickupLocationsMap = (): UsePickupLocationsMap => {
   const {carriersWithPickup} = useResolvedPickupLocations();
   const config = useConfigStore();
-
-  /**
-   * The element that the map is rendered in.
-   */
-  const container = ref<HTMLElement | undefined>();
-
-  /**
-   * The Leaflet map instance.
-   */
-  const map = ref<Map>();
-
-  /**
-   * The Leaflet tile layer instance.
-   */
-  const tileLayer = ref<TileLayer>();
-
-  /**
-   * The markers that are displayed on the map.
-   */
-  const markers = ref<MapMarker[]>([]);
-
-  /**
-   * The Leaflet scale control instance.
-   */
-  const scaleControl = ref<Control.Scale>();
-
-  /**
-   * The center of the map.
-   */
-  const center = ref<NonNullable<LeafletMapProps['center']>>([0, 0]);
-
-  /**
-   * The zoom level of the map.
-   */
-  const zoom = ref<NonNullable<LeafletMapProps['zoom']>>(LEAFLET_DEFAULT_ZOOM);
-
-  const mutableShowLoadMoreButton = ref<boolean>(false);
 
   const showLoadMoreButton = computed({
     get() {
@@ -125,6 +142,9 @@ export const usePickupLocationsMap = useMemoize((): UsePickupLocationsMap => {
 
     return () => {
       map.value?.remove();
+      // Reset any leaflet-bound values to their initial state.
+      tileLayer.value = undefined;
+      scaleControl.value = undefined;
       unwatchZoom();
     };
   };
@@ -144,23 +164,6 @@ export const usePickupLocationsMap = useMemoize((): UsePickupLocationsMap => {
     }
   }, 100);
 
-  const loaded = computed(() => {
-    return (
-      Boolean(toValue(container)) &&
-      Boolean(toValue(map)) &&
-      Boolean(toValue(tileLayer)) &&
-      Boolean(toValue(scaleControl))
-    );
-  });
-
-  const activeMarker = computed<MapMarker | undefined>(() => {
-    return toValue(markers).find((marker) => {
-      const element = marker.getElement();
-
-      return element?.classList.contains(MAP_MARKER_CLASS_ACTIVE);
-    }) as MapMarker | undefined;
-  });
-
   return {
     fitBounds,
     initializeMap,
@@ -174,4 +177,4 @@ export const usePickupLocationsMap = useMemoize((): UsePickupLocationsMap => {
     showLoadMoreButton,
     tileLayer,
   };
-});
+};
