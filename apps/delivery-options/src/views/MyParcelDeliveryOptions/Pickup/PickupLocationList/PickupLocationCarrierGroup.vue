@@ -58,7 +58,11 @@ import PickupLocationListItem from './PickupLocationListItem.vue';
 import PickupLocationDetails from './PickupLocationDetails.vue';
 
 const props = defineProps<{carrier: CarrierIdentifier; options: SelectOption<T>[]}>();
-const carrierName = resolveCarrierName(props.carrier);
+
+const carrierName = computed(() => {
+  return resolveCarrierName(props.carrier);
+});
+
 const propRefs = toRefs(props);
 
 const {locationCode, location} = useSelectedPickupLocation();
