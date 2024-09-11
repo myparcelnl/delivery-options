@@ -2,12 +2,17 @@ import {
   ALLOW_PACKAGE_TYPE_DIGITAL_STAMP,
   ALLOW_PACKAGE_TYPE_MAILBOX,
   ALLOW_PACKAGE_TYPE_PACKAGE_SMALL,
-} from '@/data/keys/configKeys';
-import {BELGIUM, NETHERLANDS} from '@myparcel/js-sdk/dist/constant/countries-iso2';
-import { CITY, POSTAL_CODE, STREET } from '../keys/addressKeys';
-import { PACKAGE_TYPE_DIGITAL_STAMP, PACKAGE_TYPE_MAILBOX, PACKAGE_TYPE_PACKAGE, PACKAGE_TYPE_PACKAGE_SMALL } from '@/data/keys/settingsConsts';
-import { flatten } from 'lodash-es';
-import { validatePlatform } from '@/delivery-options/config/validatePlatform';
+} from "@/data/keys/configKeys";
+import { NETHERLANDS } from "@myparcel/js-sdk/dist/constant/countries-iso2";
+import { CITY, POSTAL_CODE, STREET } from "../keys/addressKeys";
+import {
+  PACKAGE_TYPE_DIGITAL_STAMP,
+  PACKAGE_TYPE_MAILBOX,
+  PACKAGE_TYPE_PACKAGE,
+  PACKAGE_TYPE_PACKAGE_SMALL,
+} from "@/data/keys/settingsConsts";
+import { flatten } from "lodash-es";
+import { validatePlatform } from "@/delivery-options/config/validatePlatform";
 
 export class AbstractCarrierConfiguration {
   /**
@@ -34,7 +39,7 @@ export class AbstractCarrierConfiguration {
    * @returns {MyParcel.CarrierName}
    */
   getName() {
-    throw new Error('Not implemented');
+    throw new Error("Not implemented");
   }
 
   /**
@@ -44,8 +49,11 @@ export class AbstractCarrierConfiguration {
    * @returns {boolean}
    */
   allowsDeliveryIn(country) {
-    return this.getCountriesForDelivery().includes(country.toUpperCase())
-      || (this.hasFakeDelivery() && !this.getCountriesBlacklist().includes(country.toUpperCase()));
+    return (
+      this.getCountriesForDelivery().includes(country.toUpperCase()) ||
+      (this.hasFakeDelivery() &&
+        !this.getCountriesBlacklist().includes(country.toUpperCase()))
+    );
   }
 
   /**
@@ -70,11 +78,14 @@ export class AbstractCarrierConfiguration {
       case PACKAGE_TYPE_PACKAGE:
         return true;
       case PACKAGE_TYPE_PACKAGE_SMALL:
-        return BELGIUM !== country && this.hasFeature(ALLOW_PACKAGE_TYPE_PACKAGE_SMALL);
+        return this.hasFeature(ALLOW_PACKAGE_TYPE_PACKAGE_SMALL);
       case PACKAGE_TYPE_MAILBOX:
         return this.hasFeature(ALLOW_PACKAGE_TYPE_MAILBOX);
       case PACKAGE_TYPE_DIGITAL_STAMP:
-        return country === NETHERLANDS && this.hasFeature(ALLOW_PACKAGE_TYPE_DIGITAL_STAMP);
+        return (
+          country === NETHERLANDS &&
+          this.hasFeature(ALLOW_PACKAGE_TYPE_DIGITAL_STAMP)
+        );
       default:
         return false;
     }
@@ -146,7 +157,9 @@ export class AbstractCarrierConfiguration {
     const permissions = flatten(platformFeatures);
 
     if (Array.isArray(features)) {
-      return flatten(features).every((feature) => permissions.includes(feature));
+      return flatten(features).every((feature) =>
+        permissions.includes(feature)
+      );
     }
 
     return permissions.includes(features);
