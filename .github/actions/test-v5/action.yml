@@ -21,8 +21,6 @@ runs:
 
     - uses: myparcelnl/actions/yarn-install@v4
       if: steps.cache-coverage.outputs.cache-hit != 'true'
-      with:
-        node-version: 18
 
     - name: 'Run tests'
       if: steps.cache-coverage.outputs.cache-hit != 'true'

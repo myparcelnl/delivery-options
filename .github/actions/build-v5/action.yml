@@ -5,8 +5,6 @@ runs:
   using: composite
   steps:
     - uses: myparcelnl/actions/yarn-install@v4
-      with:
-        node-version: 18
 
     - name: 'Cache build'
       uses: actions/cache@v4
