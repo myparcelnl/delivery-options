@@ -18,5 +18,3 @@ runs:
       if: steps.cache-build.outputs.cache-hit != 'true'
       run: yarn build
       shell: bash
-      env:
-        NODE_OPTIONS: --openssl-legacy-provider
