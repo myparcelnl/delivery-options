@@ -17,7 +17,7 @@
 </template>
 
 <script lang="ts" setup>
-import {toRefs} from 'vue';
+import {toRefs, computed} from 'vue';
 import {resolveCarrierName} from '../utils';
 import {type CarrierIdentifier} from '../types';
 import {useCarrierRequest} from '../composables';
@@ -26,6 +26,7 @@ import Box from './Box.vue';
 
 const props = defineProps<{carrier: CarrierIdentifier}>();
 const propRefs = toRefs(props);
+const carrierName = computed(() => resolveCarrierName(propRefs.carrier.value));
 
-const {data} = useCarrierRequest(resolveCarrierName(propRefs.carrier.value));
+const {data} = useCarrierRequest(carrierName);
 </script>
