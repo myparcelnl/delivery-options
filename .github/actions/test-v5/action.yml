@@ -1,0 +1,36 @@
+name: 'Run tests'
+description: 'Run tests and upload coverage'
+
+inputs:
+  codecov-token:
+    description: 'Codecov token'
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: 'Cache coverage'
+      uses: actions/cache@v4
+      id: cache-coverage
+      with:
+        path: ./coverage
+        key: ${{ runner.os }}-coverage-${{ hashFiles('**/yarn.lock') }}-${{ hashFiles('**/src') }}
+        restore-keys: |
+          ${{ runner.os }}-coverage-${{ hashFiles('**/yarn.lock') }}
+          ${{ runner.os }}-coverage-
+
+    - uses: myparcelnl/actions/yarn-install@v4
+      if: steps.cache-coverage.outputs.cache-hit != 'true'
+      with:
+        node-version: 18
+
+    - name: 'Run tests'
+      if: steps.cache-coverage.outputs.cache-hit != 'true'
+      run: ./node_modules/.bin/cross-env yarn test:unit --coverage
+      shell: bash
+      env:
+        NODE_ICU_DATA: node_modules/full-icu
+
+    - uses: codecov/codecov-action@v4
+      with:
+        token: ${{ inputs.codecov-token }}
