@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel/delivery-options-v6.2.2](https://github.com/myparcelnl/delivery-options/compare/v6.2.1...v6.2.2) (2024-09-16)
+
+### :bug: Bug Fixes
+
+* **pickup:** fix wrong price when using contract and default carrier ([#238](https://github.com/myparcelnl/delivery-options/issues/238)) ([0644e34](https://github.com/myparcelnl/delivery-options/commit/0644e34a47028d9ff887641623a7d11604dc01ff))
+
 ## [@myparcel/delivery-options-v6.2.1](https://github.com/myparcelnl/delivery-options/compare/v6.2.0...v6.2.1) (2024-08-16)
 
 ### :bug: Bug Fixes

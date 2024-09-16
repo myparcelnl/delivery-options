@@ -1,6 +1,6 @@
 {
   "name": "@myparcel-do/semantic-release-plugin",
-  "version": "6.2.1",
+  "version": "6.2.2",
   "private": true,
   "description": "Stripped down npm publish plugin which supports workspace dependencies",
   "repository": {
