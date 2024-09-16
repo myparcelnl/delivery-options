@@ -2,11 +2,10 @@ import {computed, type ComputedRef, type MaybeRef, toValue} from 'vue';
 import {
   type ElementInstance,
   type MakeRequired,
-  resolveCarrierName,
   type SelectOption,
   type SelectOptionValue,
+  type CarrierIdentifier,
 } from '@myparcel-do/shared';
-import {type CarrierName} from '@myparcel/constants';
 
 type SelectOptionWithCarrier<T extends SelectOptionValue> = MakeRequired<SelectOption<T>, 'carrier'>;
 
@@ -18,13 +17,13 @@ export const useOptionsGroupedByCarrier = <T extends SelectOptionValue>(
   element: MaybeRef<ElementInstance<OptionsProps<T>>>,
 ): {
   options: ComputedRef<SelectOptionWithCarrier<T>[]>;
-  grouped: ComputedRef<[CarrierName, SelectOptionWithCarrier<T>[]][]>;
+  grouped: ComputedRef<[CarrierIdentifier, SelectOptionWithCarrier<T>[]][]>;
 } => {
   const options = computed(() => toValue(element).props.options as SelectOptionWithCarrier<T>[]);
 
   const grouped = computed(() => {
     const groupedOptions = options.value.reduce((acc, option: SelectOptionWithCarrier<T>) => {
-      const group = resolveCarrierName(option.carrier);
+      const group = option.carrier;
 
       if (!acc[group]) {
         acc[group] = [];
@@ -32,9 +31,9 @@ export const useOptionsGroupedByCarrier = <T extends SelectOptionValue>(
 
       acc[group].push(option);
       return acc;
-    }, {} as Record<CarrierName, SelectOptionWithCarrier<T>[]>);
+    }, {} as Record<CarrierIdentifier, SelectOptionWithCarrier<T>[]>);
 
-    return Object.entries(groupedOptions) as [CarrierName, SelectOptionWithCarrier<T>[]][];
+    return Object.entries(groupedOptions) as [CarrierIdentifier, SelectOptionWithCarrier<T>[]][];
   });
 
   return {
