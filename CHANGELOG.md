@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [5.17.1](https://github.com/myparcelnl/delivery-options/compare/v5.17.0...v5.17.1) (2024-09-16)
+
+
+### :bug: Bug Fixes
+
+* fix show correct small package price ([#243](https://github.com/myparcelnl/delivery-options/issues/243)) ([35ffac5](https://github.com/myparcelnl/delivery-options/commit/35ffac5003d0f9862aee43dcf81a27a4e1dd56b0))
+
 ## [5.17.0](https://github.com/myparcelnl/delivery-options/compare/v5.16.2...v5.17.0) (2024-03-28)
 
 
