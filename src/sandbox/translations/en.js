@@ -17,6 +17,7 @@ export const englishTranslations = {
   'main.description': 'This sandbox is made to test different configurations of the MyParcel Delivery Options. On the left you can see all possible options. Change the options and see the results reflected on the right immediately. Open the "@:tab.code" tab to get the code you need to use with the Delivery Options. More information on each setting can be found in our <a href="https://myparcelnl.github.io/api/#8">API documentation</a>.',
   'main.slack_help': ' Do you want to be kept informed of new functionalities or do you need help? You can contact us via <a href="https://myparcelnl.github.io/api/#8">Slack</a>.',
   'package_types.digital_stamp': 'Digital stamp',
+  'package_types.package_small': 'Small parcel',
   'package_types.mailbox': 'Mailbox package',
   'package_types.package': 'Package',
   'pickup_locations.views.list': 'List',
