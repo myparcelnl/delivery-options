@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.18.0](https://github.com/myparcelnl/delivery-options/compare/v5.17.1...v5.18.0) (2024-09-16)
+
+
+### :sparkles: New Features
+
+* allow small parcel to be sent to belgium ([#241](https://github.com/myparcelnl/delivery-options/issues/241)) ([f891670](https://github.com/myparcelnl/delivery-options/commit/f89167028d5a60528edd79c4201ea27842d22174))
+
 ### [5.17.1](https://github.com/myparcelnl/delivery-options/compare/v5.17.0...v5.17.1) (2024-09-16)
 
 
