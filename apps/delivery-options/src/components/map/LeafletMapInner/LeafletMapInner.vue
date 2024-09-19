@@ -25,7 +25,7 @@ const css = asyncComputed(async () => {
 const styleTag = useStyleTag(css);
 const scriptTag = useScriptTag('https://cdn.jsdelivr.net/npm/leaflet@1/dist/leaflet.js');
 
-const {initializeMap, activeMarker, center, map} = usePickupLocationsMap();
+const {initializeMap, activeMarker, center, map, loaded} = usePickupLocationsMap();
 
 onMounted(async () => {
   styleTag.load();
@@ -43,6 +43,8 @@ onUnmounted(() => {
 });
 
 onActivated(() => {
-  map.value?.panTo(toValue(activeMarker)?.getLatLng() ?? toValue(center));
+  if (loaded.value) {
+    map.value?.panTo(toValue(activeMarker)?.getLatLng() ?? toValue(center));
+  }
 });
 </script>

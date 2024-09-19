@@ -1,0 +1,27 @@
+name: 'Run tests (legacy v5) 🧪'
+
+on:
+  pull_request:
+    branches:
+      - v5.x
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ./.github/actions/test-v5
+        with:
+          codecov-token: ${{ secrets.CODECOV_TOKEN }}
+
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ./.github/actions/build-v5
