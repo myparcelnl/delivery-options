@@ -40,6 +40,7 @@ export class DhlForYouCarrierConfiguration extends AbstractCarrierConfiguration 
         FEATURES.FEATURES_PICKUP,
         FEATURES.FEATURES_ONLY_RECIPIENT,
         FEATURES.FEATURES_SIGNATURE,
+        FEATURES.FEATURES_PACKAGE_TYPE_PACKAGE_SMALL,
       ],
     };
   }
