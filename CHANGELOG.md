@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.19.0](https://github.com/myparcelnl/delivery-options/compare/v5.18.0...v5.19.0) (2024-09-27)
+
+
+### :sparkles: New Features
+
+* enable package small for dhlforyou ([#246](https://github.com/myparcelnl/delivery-options/issues/246)) ([a65844a](https://github.com/myparcelnl/delivery-options/commit/a65844a4297ab61da07012c5a66fe0d7fa847bd8))
+
 ## [5.18.0](https://github.com/myparcelnl/delivery-options/compare/v5.17.1...v5.18.0) (2024-09-16)
 
 
