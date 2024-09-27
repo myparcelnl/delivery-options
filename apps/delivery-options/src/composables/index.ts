@@ -1,7 +1,6 @@
 export * from './events';
 export * from './useActiveCarriers';
 export * from './useBreakpoints';
-export * from './useCarrierSettings';
 export * from './useCurrentPlatform';
 export * from './useDateFormat';
 export * from './useFeatures';

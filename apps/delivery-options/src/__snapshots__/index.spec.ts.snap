@@ -87,7 +87,6 @@ exports[`exports > exports from index.ts 1`] = `
   "useActiveCarriers",
   "useAddressStore",
   "useBreakpoints",
-  "useCarrierSettings",
   "useConfigStore",
   "useCurrentPlatform",
   "useDateFormat",
