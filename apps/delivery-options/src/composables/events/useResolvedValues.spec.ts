@@ -9,6 +9,7 @@ import {
   KEY_CONFIG,
   useCarrierRequest,
   ConfigSetting,
+  type InputDeliveryOptionsConfig,
 } from '@myparcel-do/shared';
 import {CarrierName, DeliveryTypeName, PackageTypeName, ShipmentOptionName} from '@myparcel/constants';
 import {
@@ -32,6 +33,7 @@ import {
 import {useResolvedValues} from './useResolvedValues';
 
 interface TestInput {
+  config?: Partial<InputDeliveryOptionsConfig>;
   external: DeliveryOptionsOutput;
   internal: InternalOutput;
   name: string;
@@ -73,15 +75,28 @@ describe('useResolvedValues', () => {
       name: 'default values',
       internal: createInternalOutput(),
       external: createExternalOutput({
-        shipmentOptions: {
+        [FIELD_SHIPMENT_OPTIONS]: {
           onlyRecipient: false,
           signature: false,
         },
       }),
     },
+    {
+      name: 'default values with signature and only recipient disabled',
+      config: {
+        [CarrierSetting.AllowSignature]: false,
+        [CarrierSetting.AllowOnlyRecipient]: false,
+      },
+      internal: createInternalOutput(),
+      external: createExternalOutput(),
+    },
 
     {
-      name: 'onlyRecipient',
+      name: 'onlyRecipient enabled but not selected',
+      config: {
+        [CarrierSetting.AllowOnlyRecipient]: true,
+      },
+
       internal: createInternalOutput({
         [FIELD_DELIVERY_DATE]: '2023-12-31',
         [FIELD_DELIVERY_MOMENT]: {
@@ -106,6 +121,8 @@ describe('useResolvedValues', () => {
 
     {
       name: 'pickup',
+      config: {},
+
       internal: createInternalOutput({
         [FIELD_HOME_OR_PICKUP]: HOME_OR_PICKUP_PICKUP,
         [FIELD_PICKUP_LOCATION]: '176688',
@@ -120,16 +137,20 @@ describe('useResolvedValues', () => {
         }),
       }),
     },
-  ] satisfies TestInput[])('converts internal output to external output with $name', async ({internal, external}) => {
-    expect.assertions(1);
+  ] satisfies TestInput[])(
+    'converts internal output to external output with $name',
+    async ({internal, external, config}) => {
+      expect.assertions(1);
 
-    mockSelectedDeliveryOptions(internal);
-    await flushPromises();
+      mockDeliveryOptionsConfig({[KEY_CONFIG]: config});
+      mockSelectedDeliveryOptions(internal);
+      await flushPromises();
 
-    const resolvedValues = useResolvedValues();
+      const resolvedValues = useResolvedValues();
 
-    expect(resolvedValues.value).toEqual(external);
-  });
+      expect(resolvedValues.value).toEqual(external);
+    },
+  );
 
   it('should not expose delivery date if it is disabled', async () => {
     mockDeliveryOptionsConfig({[KEY_CONFIG]: {[ConfigSetting.ShowDeliveryDate]: true}});

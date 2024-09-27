@@ -5,21 +5,44 @@ import {
   type DeliveryOutput,
   type PickupOutput,
   type SupportedDeliveryTypeName,
-  type DeliveryDeliveryType,
+  type SupportedShipmentOptionName,
+  getConfigKey,
+  type CarrierIdentifier,
 } from '@myparcel-do/shared';
 import {DeliveryTypeName, PackageTypeName, ShipmentOptionName} from '@myparcel/constants';
 import {useSelectedValues} from '../useSelectedValues';
 import {useSelectedPickupLocation} from '../useSelectedPickupLocation';
 import {useResolvedDeliveryOptions} from '../useResolvedDeliveryOptions';
 import {getResolvedValue, parseJson} from '../../utils';
-import {type SelectedDeliveryMoment} from '../../types';
+import {type SelectedDeliveryMomentDelivery} from '../../types';
 import {FIELD_DELIVERY_MOMENT, FIELD_SHIPMENT_OPTIONS, HOME_OR_PICKUP_PICKUP} from '../../data';
 
-const DELIVERY_DELIVERY_TYPES: readonly SupportedDeliveryTypeName[] = Object.freeze([
+const DELIVERY_DELIVERY_TYPES = Object.freeze([
   DeliveryTypeName.Morning,
   DeliveryTypeName.Evening,
   DeliveryTypeName.Standard,
-]);
+] satisfies SupportedDeliveryTypeName[]);
+
+const SHIPMENT_OPTION_OUTPUT_MAP = Object.freeze({
+  [ShipmentOptionName.Signature]: 'signature',
+  [ShipmentOptionName.OnlyRecipient]: 'onlyRecipient',
+} as Record<SupportedShipmentOptionName, keyof DeliveryOutput['shipmentOptions']>);
+
+const createResolvedShipmentOptions = (
+  carrier: CarrierIdentifier,
+  shipmentOptions: string[],
+): DeliveryOutput['shipmentOptions'] => {
+  return Object.entries(SHIPMENT_OPTION_OUTPUT_MAP).reduce((acc, [shipmentOption, objectKey]) => {
+    const enabledKey = getConfigKey(shipmentOption as SupportedShipmentOptionName);
+    const enabled = getResolvedValue(enabledKey, carrier, false);
+
+    if (enabled) {
+      acc[objectKey] = shipmentOptions.includes(shipmentOption);
+    }
+
+    return acc;
+  }, {} as DeliveryOutput['shipmentOptions']);
+};
 
 export const useResolvedValues = (): ComputedRef<PickupOutput | DeliveryOutput | undefined> => {
   const selectedValues = useSelectedValues();
@@ -48,12 +71,12 @@ export const useResolvedValues = (): ComputedRef<PickupOutput | DeliveryOutput |
       } satisfies PickupOutput;
     }
 
-    const parsedMoment = parseJson<SelectedDeliveryMoment>(selectedValues[FIELD_DELIVERY_MOMENT].value);
+    const parsedMoment = parseJson<SelectedDeliveryMomentDelivery>(selectedValues[FIELD_DELIVERY_MOMENT].value);
     const showDeliveryDate = getResolvedValue(ConfigSetting.ShowDeliveryDate);
     const shipmentOptions = selectedValues[FIELD_SHIPMENT_OPTIONS].value ?? [];
 
-    const deliveryType: DeliveryDeliveryType = DELIVERY_DELIVERY_TYPES.includes(parsedMoment.deliveryType)
-      ? (parsedMoment.deliveryType as DeliveryDeliveryType)
+    const deliveryType = DELIVERY_DELIVERY_TYPES.includes(parsedMoment.deliveryType)
+      ? parsedMoment.deliveryType
       : DeliveryTypeName.Standard;
 
     return {
@@ -62,10 +85,7 @@ export const useResolvedValues = (): ComputedRef<PickupOutput | DeliveryOutput |
       deliveryType,
       isPickup: false,
       packageType: parsedMoment.packageType,
-      shipmentOptions: {
-        signature: shipmentOptions.includes(ShipmentOptionName.Signature) ?? false,
-        onlyRecipient: shipmentOptions.includes(ShipmentOptionName.OnlyRecipient) ?? false,
-      },
+      shipmentOptions: createResolvedShipmentOptions(parsedMoment.carrier, shipmentOptions),
     } satisfies DeliveryOutput;
   });
 };
