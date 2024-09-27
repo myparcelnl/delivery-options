@@ -1,12 +1,25 @@
-import {type Plugin} from 'vite';
+import {type Plugin, createLogger} from 'vite';
 
-export const skipCssPlugin = (): Plugin => ({
-  name: 'skip-css',
-  transform(_, id) {
-    if (id.endsWith('.scss') || id.endsWith('.css')) {
+const PLUGIN_NAME = 'skip-css';
+export const skipCssPlugin = (): Plugin => {
+  const buildAnyway = Boolean(process.env.BUILD_CSS ?? false);
+
+  const logger = createLogger(undefined, {prefix: PLUGIN_NAME});
+
+  if (buildAnyway) {
+    logger.info('Building CSS files because BUILD_CSS is set.');
+  }
+
+  return {
+    name: PLUGIN_NAME,
+    transform(_, id) {
+      const isCssFile = id.endsWith('.scss') || id.endsWith('.css');
+
+      if (buildAnyway || !isCssFile) {
+        return null;
+      }
+
       return '';
-    }
-
-    return null;
-  },
-});
+    },
+  };
+};

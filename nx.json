@@ -16,6 +16,7 @@
       "{projectRoot}/*.json",
       "{projectRoot}/*.mjs",
       "{projectRoot}/*.ts",
+      "{projectRoot}/private/**/*",
       "{projectRoot}/public/**/*",
       "{projectRoot}/src/**/*",
       "!{projectRoot}/release.config.cjs",

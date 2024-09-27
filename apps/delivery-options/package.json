@@ -32,8 +32,8 @@
     "build:dev": "run build:default:dev && run build:myparcel:dev && run build:myparcel-lib:dev",
     "build:myparcel": "vite build -c vite-myparcel.config.ts",
     "build:myparcel-lib": "vite build -c vite-myparcel-lib.config.ts",
-    "build:myparcel-lib:dev": "run build:myparcel-lib -- --mode development",
-    "build:myparcel:dev": "run build:myparcel -- --mode development",
+    "build:myparcel-lib:dev": "BUILD_CSS=1 run build:myparcel-lib -- --mode development",
+    "build:myparcel:dev": "BUILD_CSS=1 run build:myparcel -- --mode development",
     "clean": "run ws:clean \"$(pwd)\"",
     "lint": "run ws:lint \"$(pwd)\"",
     "lint:fix": "run ws:lint:fix \"$(pwd)\"",
@@ -46,7 +46,8 @@
     "test:run": "run ws:test:run \"$(pwd)\"",
     "test:update": "run ws:test:update \"$(pwd)\"",
     "typecheck": "vue-tsc --project tsconfig.base.json --noEmit",
-    "watch": "vite build -c vite-myparcel-lib.config.ts --mode development --watch"
+    "watch:myparcel": "BUILD_CSS=1 vite build -c vite-myparcel-lib.config.ts --watch --mode development",
+    "watch:myparcel-lib": "BUILD_CSS=1 vite build -c vite-myparcel.config.ts --watch --mode development"
   },
   "dependencies": {
     "@myparcel-do/shared": "workspace:*",
