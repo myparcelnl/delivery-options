@@ -231,6 +231,9 @@ Object {
         "allowSignature",
         "priceSignature",
       ],
+      Array [
+        "allowPackageTypePackageSmall",
+      ],
     ],
   },
   "getDefaultRequestParameters": Array [
@@ -272,6 +275,9 @@ Object {
     Array [
       "allowSignature",
       "priceSignature",
+    ],
+    Array [
+      "allowPackageTypePackageSmall",
     ],
   ],
 }
