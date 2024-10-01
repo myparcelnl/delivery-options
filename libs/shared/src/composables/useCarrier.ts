@@ -36,6 +36,7 @@ export interface UseCarrier {
   packageTypes: ComputedRef<Set<SupportedPackageTypeName>>;
   pickupCountries: ComputedRef<Set<string>>;
   shipmentOptions: ComputedRef<Set<SupportedShipmentOptionName>>;
+  smallPackagePickupCountries: ComputedRef<Set<string>>;
 }
 
 // eslint-disable-next-line max-lines-per-function
@@ -92,6 +93,8 @@ export const useCarrier = useMemoize((options: UseCarrierOptions): UseCarrier =>
     ]);
   });
 
+  const smallPackagePickupCountries = computed(() => new Set(config.value?.smallPackagePickupCountries ?? []));
+
   return {
     // @ts-expect-error todo
     carrier: apiCarrier,
@@ -106,6 +109,7 @@ export const useCarrier = useMemoize((options: UseCarrierOptions): UseCarrier =>
     packageTypes,
     deliveryTypes,
     shipmentOptions,
+    smallPackagePickupCountries,
 
     features,
   };

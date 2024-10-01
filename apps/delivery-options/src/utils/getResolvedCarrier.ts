@@ -83,11 +83,17 @@ export const getResolvedCarrier = (
     return deliveryTypes.value.has(DeliveryTypeName.Pickup) && carrier.pickupCountries.value.has(cc);
   });
 
+  const hasSmallPackagePickup = computed(() => {
+    const {cc} = useAddressStore(); // Only when defined here is the cc not stale
+    return deliveryTypes.value.has(DeliveryTypeName.Pickup) && carrier.smallPackagePickupCountries.value.has(cc);
+  });
+
   return {
     carrier: carrier.carrier,
     config: carrier.config,
 
     pickupCountries: carrier.pickupCountries,
+    smallPackagePickupCountries: carrier.smallPackagePickupCountries,
     deliveryCountries: carrier.deliveryCountries,
     deliveryTypes,
     packageTypes: carrier.packageTypes,
@@ -99,6 +105,7 @@ export const getResolvedCarrier = (
     hasDelivery,
     hasFakeDelivery,
     hasPickup,
+    hasSmallPackagePickup,
 
     disabledDeliveryTypes,
 

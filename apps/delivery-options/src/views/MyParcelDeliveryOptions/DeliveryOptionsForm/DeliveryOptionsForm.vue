@@ -42,6 +42,7 @@ import {
   PACKAGE_TYPE_DEFAULT,
   waitForRequestData,
   useCarriersRequest,
+  PACKAGE_TYPE_SMALL,
 } from '@myparcel-do/shared';
 import {createField} from '@myparcel/vue-form-builder';
 import PickupLocations from '../Pickup/PickupLocations.vue';
@@ -81,14 +82,16 @@ const HomeOrPickup = createField({
         });
       }
 
-      if (
-        PACKAGE_TYPE_DEFAULT === config.packageType &&
-        resolvedCarriers.some((carrier) => toValue(carrier.hasPickup))
-      ) {
+      const usePickup =
+        PACKAGE_TYPE_DEFAULT === config.packageType && resolvedCarriers.some((carrier) => toValue(carrier.hasPickup));
+      const useSmallPickup =
+        PACKAGE_TYPE_SMALL === config.packageType &&
+        resolvedCarriers.some((carrier) => toValue(carrier.hasSmallPackagePickup));
+
+      if (usePickup || useSmallPickup) {
         options.push({
           label: PICKUP_TITLE,
           value: HOME_OR_PICKUP_PICKUP,
-          ecoFriendly: Infinity,
         });
       }
 
