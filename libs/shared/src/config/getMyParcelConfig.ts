@@ -52,6 +52,7 @@ export const getMyParcelConfig = (): PlatformConfiguration => ({
       ],
       deliveryCountries: [NETHERLANDS, BELGIUM],
       pickupCountries: [NETHERLANDS, BELGIUM, DENMARK, SWEDEN, GERMANY],
+      smallPackagePickupCountries: [NETHERLANDS, BELGIUM],
       fakeDelivery: true,
       shipmentOptions: [ShipmentOptionName.OnlyRecipient, ShipmentOptionName.Signature],
       features: [
@@ -65,10 +66,11 @@ export const getMyParcelConfig = (): PlatformConfiguration => ({
     {
       name: CarrierName.DhlForYou,
       subscription: SubscriptionType.Optional,
-      packageTypes: [PackageTypeName.Package, PackageTypeName.Mailbox],
+      packageTypes: [PackageTypeName.Package, PackageTypeName.Mailbox, PackageTypeName.PackageSmall],
       deliveryTypes: [DeliveryTypeName.Standard, DeliveryTypeName.Pickup, CustomDeliveryType.SameDay],
       deliveryCountries: [NETHERLANDS, BELGIUM],
       pickupCountries: [NETHERLANDS],
+      smallPackagePickupCountries: [NETHERLANDS, BELGIUM],
       shipmentOptions: [ShipmentOptionName.OnlyRecipient, ShipmentOptionName.Signature],
       features: [CarrierSetting.DeliveryDaysWindow, CarrierSetting.DropOffDays, CarrierSetting.DropOffDelay],
       addressFields: [AddressField.City, AddressField.PostalCode],
