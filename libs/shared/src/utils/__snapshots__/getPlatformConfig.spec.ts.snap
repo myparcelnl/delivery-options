@@ -347,15 +347,15 @@ exports[`getPlatformConfig > gets config for platform myparcel 1`] = `
         "SK",
         "ES",
         "CZ",
+        "NL",
+        "BE",
       ],
       "deliveryTypes": [
         "standard",
         "pickup",
       ],
       "fakeDelivery": true,
-      "fakeDeliveryBlacklist": [
-        "NL",
-      ],
+      "fakeDeliveryBlacklist": [],
       "name": "ups",
       "packageTypes": [
         "package",
