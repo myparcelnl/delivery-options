@@ -1,5 +1,12 @@
 import {afterEach, beforeEach, describe, expect, it, type MockInstance, vi} from 'vitest';
-import {KEY_CONFIG, KEY_STRINGS, KEY_CARRIER_SETTINGS, CarrierSetting, KEY_ADDRESS} from '@myparcel-do/shared';
+import {
+  KEY_CONFIG,
+  KEY_STRINGS,
+  KEY_CARRIER_SETTINGS,
+  CarrierSetting,
+  KEY_ADDRESS,
+  PACKAGE_TYPE_SMALL,
+} from '@myparcel-do/shared';
 import {CarrierName} from '@myparcel/constants';
 import {RENDER_DELIVERY_OPTIONS, UPDATE_DELIVERY_OPTIONS} from './data';
 import {createDiv, dispatchEvent, getMockDeliveryOptionsConfiguration} from './__tests__';
@@ -53,6 +60,26 @@ describe('main', () => {
         },
       }),
     );
+
+    expect(global.window.MyParcelConfig).toBeDefined();
+    expect(Object.keys(global.window.MyParcelConfig)).toEqual([KEY_ADDRESS, KEY_CONFIG, KEY_STRINGS]);
+  });
+
+  it('exposes config with small package on window object after booting', async () => {
+    expect.assertions(2);
+
+    const mockConfig = getMockDeliveryOptionsConfiguration({
+      [KEY_CONFIG]: {
+        [KEY_CARRIER_SETTINGS]: {
+          [CarrierName.PostNl]: {
+            [CarrierSetting.AllowDeliveryOptions]: true,
+            [CarrierSetting.AllowStandardDelivery]: true,
+          },
+        },
+      },
+    });
+    mockConfig.config.packageType = PACKAGE_TYPE_SMALL;
+    await dispatchEvent(UPDATE_DELIVERY_OPTIONS, mockConfig);
 
     expect(global.window.MyParcelConfig).toBeDefined();
     expect(Object.keys(global.window.MyParcelConfig)).toEqual([KEY_ADDRESS, KEY_CONFIG, KEY_STRINGS]);
