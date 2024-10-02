@@ -4,6 +4,7 @@ import {
   type OutputPickupLocation,
   type SupportedDeliveryTypeName,
   type AnyTranslatable,
+  type DeliveryDeliveryType,
 } from '@myparcel-do/shared';
 import {type Replace} from '@myparcel/ts-utils';
 import {type DeliveryOption, type StartEndDate} from '@myparcel/sdk';
@@ -28,7 +29,11 @@ export interface ResolvedPickupLocation extends OutputPickupLocation {
   openingHours: OpeningHoursEntry[];
 }
 
-export interface SelectedDeliveryMoment
-  extends Replace<Omit<ResolvedDeliveryOptions, 'carrier'>, 'deliveryType', SupportedDeliveryTypeName> {
+export interface SelectedDeliveryMoment<T extends SupportedDeliveryTypeName = SupportedDeliveryTypeName>
+  extends Replace<Omit<ResolvedDeliveryOptions, 'carrier'>, 'deliveryType', T> {
   carrier: CarrierIdentifier;
 }
+
+export type SelectedDeliveryMomentDelivery = SelectedDeliveryMoment<DeliveryDeliveryType>;
+
+export type SelectedDeliveryMomentPickup = SelectedDeliveryMoment<DeliveryTypeName.Pickup>;

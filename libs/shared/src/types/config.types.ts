@@ -191,4 +191,4 @@ export type ResolvedConfigOption<O extends ConfigKey | ConfigOption> = O extends
 
 export type CarrierSettingsKey = CarrierSetting;
 
-export type ConfigKey = ConfigSetting | CarrierSettingsKey | SupportedPackageTypeName;
+export type ConfigKey = ConfigSetting | CarrierSettingsKey;
