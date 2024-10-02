@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel/delivery-options-v6.2.4](https://github.com/myparcelnl/delivery-options/compare/v6.2.3...v6.2.4) (2024-10-02)
+
+### :bug: Bug Fixes
+
+* don't output false for shipment options that are disabled ([#247](https://github.com/myparcelnl/delivery-options/issues/247)) ([1cba349](https://github.com/myparcelnl/delivery-options/commit/1cba349db61d4974937f0c6ed709024ffa74a189))
+
 ## [@myparcel/delivery-options-v6.2.3](https://github.com/myparcelnl/delivery-options/compare/v6.2.2...v6.2.3) (2024-09-19)
 
 ### :bug: Bug Fixes
