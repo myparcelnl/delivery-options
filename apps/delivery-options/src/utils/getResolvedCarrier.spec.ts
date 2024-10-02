@@ -261,6 +261,32 @@ describe('getResolvedCarrier', () => {
     });
   });
 
+  describe('hasSmallPickup', () => {
+    it('returns true if pickup is enabled', () => {
+      const carrier = getResolvedCarrier(CarrierName.DhlForYou, PlatformName.MyParcel);
+
+      mockDeliveryOptionsConfig(
+        getMockDeliveryOptionsConfiguration({
+          [KEY_CONFIG]: {
+            [KEY_CARRIER_SETTINGS]: {
+              [CarrierName.PostNl]: {
+                [CarrierSetting.AllowPickupLocations]: true,
+              },
+            },
+          },
+        }),
+      );
+
+      expect(carrier.hasSmallPackagePickup.value).toEqual(true);
+    });
+
+    it('returns false if pickup is not enabled', () => {
+      const carrier = getResolvedCarrier(CarrierName.DhlForYou, PlatformName.MyParcel);
+
+      expect(carrier.hasSmallPackagePickup.value).toEqual(false);
+    });
+  });
+
   describe('"get" method', () => {
     it('gets value from carrier config', () => {
       expect.assertions(1);
