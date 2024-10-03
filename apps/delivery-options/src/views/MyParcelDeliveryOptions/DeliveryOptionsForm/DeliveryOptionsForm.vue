@@ -39,10 +39,8 @@ import {
   PICKUP_TITLE,
   RadioInput,
   type SelectOption,
-  PACKAGE_TYPE_DEFAULT,
   waitForRequestData,
   useCarriersRequest,
-  PACKAGE_TYPE_SMALL,
 } from '@myparcel-do/shared';
 import {createField} from '@myparcel/vue-form-builder';
 import PickupLocations from '../Pickup/PickupLocations.vue';
@@ -52,6 +50,7 @@ import {useDeliveryOptionsForm} from '../../../form';
 import {FIELD_HOME_OR_PICKUP, HOME_OR_PICKUP_HOME, HOME_OR_PICKUP_PICKUP} from '../../../data';
 import {useActiveCarriers, useLanguage, useSelectedValues} from '../../../composables';
 import {CaretRightIcon, RadioGroupInput} from '../../../components';
+import {getHasPickupForPackage} from '../../../utils/getHasPickupForPackage';
 
 await waitForRequestData(useCarriersRequest);
 
@@ -82,15 +81,7 @@ const HomeOrPickup = createField({
         });
       }
 
-      if (PACKAGE_TYPE_DEFAULT === config.packageType && resolvedCarriers.some((carrier) => toValue(carrier.hasPickup))) {
-        options.push({
-          label: PICKUP_TITLE,
-          value: HOME_OR_PICKUP_PICKUP,
-          ecoFriendly: Infinity,
-        });
-      }
-
-      if (PACKAGE_TYPE_SMALL === config.packageType && resolvedCarriers.some((carrier) => toValue(carrier.hasSmallPackagePickup))) {
+      if (resolvedCarriers.some((carrier) => getHasPickupForPackage(carrier, config.packageType))) {
         options.push({
           label: PICKUP_TITLE,
           value: HOME_OR_PICKUP_PICKUP,

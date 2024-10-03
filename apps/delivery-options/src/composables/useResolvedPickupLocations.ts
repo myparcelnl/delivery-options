@@ -9,10 +9,10 @@ import {
   ConfigSetting,
   addLoadingProperties,
   watchUntil,
-  PACKAGE_TYPE_SMALL,
 } from '@myparcel-do/shared';
 import {type PickupLocation} from '@myparcel/sdk';
 import {DeliveryTypeName} from '@myparcel/constants';
+import {getHasPickupForPackage} from '../utils/getHasPickupForPackage';
 import {createLatLngParameters, createGetDeliveryOptionsParameters} from '../utils';
 import {type ResolvedPickupLocation, type LatLng} from '../types';
 import {useConfigStore} from '../stores';
@@ -95,9 +95,7 @@ const callback = (): UseResolvedPickupLocations => {
   const config = useConfigStore();
 
   const carriersWithPickup = computed(() =>
-    toValue(carriers).filter((carrier) =>
-      PACKAGE_TYPE_SMALL === config.packageType ? toValue(carrier.hasSmallPackagePickup) : toValue(carrier.hasPickup),
-    ),
+    toValue(carriers).filter((carrier) => getHasPickupForPackage(carrier, config.packageType)),
   );
 
   const currentLocations = computedAsync<ResolvedPickupLocation[]>(async () => {
