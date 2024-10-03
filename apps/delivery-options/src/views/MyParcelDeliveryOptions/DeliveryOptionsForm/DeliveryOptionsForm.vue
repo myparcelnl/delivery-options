@@ -82,16 +82,19 @@ const HomeOrPickup = createField({
         });
       }
 
-      const usePickup =
-        PACKAGE_TYPE_DEFAULT === config.packageType && resolvedCarriers.some((carrier) => toValue(carrier.hasPickup));
-      const useSmallPickup =
-        PACKAGE_TYPE_SMALL === config.packageType &&
-        resolvedCarriers.some((carrier) => toValue(carrier.hasSmallPackagePickup));
-
-      if (usePickup || useSmallPickup) {
+      if (PACKAGE_TYPE_DEFAULT === config.packageType && resolvedCarriers.some((carrier) => toValue(carrier.hasPickup))) {
         options.push({
           label: PICKUP_TITLE,
           value: HOME_OR_PICKUP_PICKUP,
+          ecoFriendly: Infinity,
+        });
+      }
+
+      if (PACKAGE_TYPE_SMALL === config.packageType && resolvedCarriers.some((carrier) => toValue(carrier.hasSmallPackagePickup))) {
+        options.push({
+          label: PICKUP_TITLE,
+          value: HOME_OR_PICKUP_PICKUP,
+          ecoFriendly: Infinity,
         });
       }
 
