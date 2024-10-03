@@ -9,12 +9,13 @@ import {
   getConfigKey,
   type CarrierIdentifier,
 } from '@myparcel-do/shared';
-import {DeliveryTypeName, PackageTypeName, ShipmentOptionName} from '@myparcel/constants';
+import {DeliveryTypeName, ShipmentOptionName} from '@myparcel/constants';
 import {useSelectedValues} from '../useSelectedValues';
 import {useSelectedPickupLocation} from '../useSelectedPickupLocation';
 import {useResolvedDeliveryOptions} from '../useResolvedDeliveryOptions';
 import {getResolvedValue, parseJson} from '../../utils';
 import {type SelectedDeliveryMomentDelivery} from '../../types';
+import {useConfigStore} from '../../stores';
 import {FIELD_DELIVERY_MOMENT, FIELD_SHIPMENT_OPTIONS, HOME_OR_PICKUP_PICKUP} from '../../data';
 
 const DELIVERY_DELIVERY_TYPES = Object.freeze([
@@ -59,13 +60,14 @@ export const useResolvedValues = (): ComputedRef<PickupOutput | DeliveryOutput |
 
     if (selectedValues.homeOrPickup.value === HOME_OR_PICKUP_PICKUP && isDef(pickupLocation.location.value)) {
       const {carrier, openingHours, ...location} = pickupLocation.location.value;
+      const config = useConfigStore();
 
       return {
         carrier,
         date: undefined,
         deliveryType: DeliveryTypeName.Pickup,
         isPickup: true,
-        packageType: PackageTypeName.Package,
+        packageType: config.packageType,
         pickupLocation: location,
         shipmentOptions: {},
       } satisfies PickupOutput;
