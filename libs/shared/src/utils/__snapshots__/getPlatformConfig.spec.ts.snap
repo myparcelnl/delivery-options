@@ -217,7 +217,6 @@ exports[`getPlatformConfig > gets config for platform myparcel 1`] = `
       "packageTypes": [
         "package",
         "mailbox",
-        "package_small",
       ],
       "pickupCountries": [
         "NL",
@@ -225,10 +224,6 @@ exports[`getPlatformConfig > gets config for platform myparcel 1`] = `
       "shipmentOptions": [
         "only_recipient",
         "signature",
-      ],
-      "smallPackagePickupCountries": [
-        "NL",
-        "BE",
       ],
       "subscription": -1,
     },
