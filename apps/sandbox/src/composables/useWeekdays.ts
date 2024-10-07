@@ -1,4 +1,5 @@
 import {computed, type ComputedRef} from 'vue';
+import {setDay} from 'date-fns';
 import {useLanguage} from './useLanguage';
 
 export const useWeekdays = (): ComputedRef<string[]> => {
@@ -6,8 +7,7 @@ export const useWeekdays = (): ComputedRef<string[]> => {
 
   return computed(() => {
     return Array.from({length: 7}, (_, i) => {
-      const date = new Date(0);
-      date.setDate(i + 5);
+      const date = setDay(new Date(), i, {weekStartsOn: 0});
 
       return date.toLocaleDateString(language.language.value.code, {weekday: 'long'});
     });
