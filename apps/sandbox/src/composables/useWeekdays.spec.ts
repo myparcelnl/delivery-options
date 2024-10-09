@@ -16,14 +16,18 @@ describe('useWeekdays', () => {
     vi.restoreAllMocks();
   });
 
-  it('uses weekdays', async () => {
-    expect.assertions(1);
+  it('returns weekdays in English for en-US', async () => {
+    vi.mock('./useLanguage', () => ({
+      useLanguage: vi.fn(() => ({
+        language: {value: {code: 'en-US'}},
+      })),
+    }));
 
     const {useWeekdays} = await import('./useWeekdays');
     await nextTick();
 
-    const Weekdays = useWeekdays();
+    const weekdays = useWeekdays();
 
-    expect(Weekdays.value).toEqual(['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']);
+    expect(weekdays.value).toEqual(['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']);
   });
 });
