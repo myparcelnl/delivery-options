@@ -188,6 +188,10 @@ exports[`getPlatformConfig > gets config for platform myparcel 1`] = `
         "only_recipient",
         "signature",
       ],
+      "smallPackagePickupCountries": [
+        "NL",
+        "BE",
+      ],
       "subscription": -1,
     },
     {

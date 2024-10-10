@@ -30,6 +30,7 @@ export type UseResolvedCarrier = {
   hasFakeDelivery: ComputedRef<boolean>;
   hasAnyDelivery: ComputedRef<boolean>;
   hasPickup: ComputedRef<boolean>;
+  hasSmallPackagePickup: ComputedRef<boolean>;
   get<Key extends ConfigKey | CarrierSettingsKey>(
     key: Key,
     defaultValue?: NonNullable<Key extends ConfigKey ? DeliveryOptionsConfig[Key] : CarrierSettings[Key]>,

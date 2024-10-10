@@ -40,6 +40,7 @@ export interface CarrierConfiguration {
   packageTypes: SupportedPackageTypeName[];
   pickupCountries?: string[];
   shipmentOptions?: SupportedShipmentOptionName[];
+  smallPackagePickupCountries?: string[];
   subscription: SubscriptionType;
   /**
    * Parameters that are not supported by the carrier and should be removed from the request.

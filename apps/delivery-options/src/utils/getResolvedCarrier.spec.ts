@@ -68,10 +68,23 @@ describe('getResolvedCarrier', () => {
     });
   });
 
-  it('exposes package types', () => {
+  it('exposes package types DHL For You', () => {
     const carrier = getResolvedCarrier(CarrierName.DhlForYou, PlatformName.MyParcel);
 
     expect(carrier.packageTypes.value).toEqual(new Set([PackageTypeName.Package, PackageTypeName.Mailbox]));
+  });
+
+  it('exposes package types PostNL', () => {
+    const carrier = getResolvedCarrier(CarrierName.PostNl, PlatformName.MyParcel);
+
+    expect(carrier.packageTypes.value).toEqual(
+      new Set([
+        PackageTypeName.Package,
+        PackageTypeName.Mailbox,
+        PackageTypeName.PackageSmall,
+        PackageTypeName.DigitalStamp,
+      ]),
+    );
   });
 
   it('exposes shipment options, filtered by config', () => {
@@ -256,6 +269,32 @@ describe('getResolvedCarrier', () => {
       const carrier = getResolvedCarrier(CarrierName.DhlForYou, PlatformName.MyParcel);
 
       expect(carrier.hasPickup.value).toEqual(false);
+    });
+  });
+
+  describe('hasSmallPickup', () => {
+    it('returns true if pickup is enabled', () => {
+      const carrier = getResolvedCarrier(CarrierName.PostNl, PlatformName.MyParcel);
+
+      mockDeliveryOptionsConfig(
+        getMockDeliveryOptionsConfiguration({
+          [KEY_CONFIG]: {
+            [KEY_CARRIER_SETTINGS]: {
+              [CarrierName.PostNl]: {
+                [CarrierSetting.AllowPickupLocations]: true,
+              },
+            },
+          },
+        }),
+      );
+
+      expect(carrier.hasSmallPackagePickup.value).toEqual(true);
+    });
+
+    it('returns false if pickup is not enabled', () => {
+      const carrier = getResolvedCarrier(CarrierName.PostNl, PlatformName.MyParcel);
+
+      expect(carrier.hasSmallPackagePickup.value).toEqual(false);
     });
   });
 

@@ -12,8 +12,10 @@ import {
 } from '@myparcel-do/shared';
 import {type PickupLocation} from '@myparcel/sdk';
 import {DeliveryTypeName} from '@myparcel/constants';
+import {getHasPickupForPackage} from '../utils/getHasPickupForPackage';
 import {createLatLngParameters, createGetDeliveryOptionsParameters} from '../utils';
 import {type ResolvedPickupLocation, type LatLng} from '../types';
+import {useConfigStore} from '../stores';
 import {type UseResolvedCarrier} from './useResolvedCarrier';
 import {useActiveCarriers} from './useActiveCarriers';
 
@@ -90,8 +92,11 @@ const callback = (): UseResolvedPickupLocations => {
   const latLng = ref<LatLng>(undefined);
 
   const allLocations = ref<ResolvedPickupLocation[]>([]);
+  const config = useConfigStore();
 
-  const carriersWithPickup = computed(() => toValue(carriers).filter((carrier) => toValue(carrier.hasPickup)));
+  const carriersWithPickup = computed(() =>
+    toValue(carriers).filter((carrier) => getHasPickupForPackage(carrier, config.packageType)),
+  );
 
   const currentLocations = computedAsync<ResolvedPickupLocation[]>(async () => {
     const requests = toValue(carriersWithPickup)

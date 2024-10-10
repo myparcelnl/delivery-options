@@ -3,6 +3,8 @@ import {type SupportedPackageTypeName, type SupportedDeliveryTypeName, type Supp
 
 export const PACKAGE_TYPE_DEFAULT = PackageTypeName.Package satisfies SupportedPackageTypeName;
 
+export const PACKAGE_TYPE_SMALL = PackageTypeName.PackageSmall satisfies SupportedPackageTypeName;
+
 export const DELIVERY_TYPE_DEFAULT = DeliveryTypeName.Standard satisfies SupportedDeliveryTypeName;
 
 export const PLATFORM_DEFAULT = PlatformName.MyParcel satisfies SupportedPlatformName;

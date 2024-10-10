@@ -52,6 +52,7 @@ export const getMyParcelConfig = (): PlatformConfiguration => ({
       ],
       deliveryCountries: [NETHERLANDS, BELGIUM],
       pickupCountries: [NETHERLANDS, BELGIUM, DENMARK, SWEDEN, GERMANY],
+      smallPackagePickupCountries: [NETHERLANDS, BELGIUM],
       fakeDelivery: true,
       shipmentOptions: [ShipmentOptionName.OnlyRecipient, ShipmentOptionName.Signature],
       features: [
