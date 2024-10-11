@@ -1,5 +1,6 @@
 import {type Mock} from 'vitest';
-import {type AbstractEndpoint, type EndpointResponse, type Options} from '@myparcel/sdk';
+import {type PromiseOr} from '@myparcel/ts-utils';
+import {type AbstractEndpoint, type Options, type EndpointResponse} from '@myparcel/sdk';
 import {type CarrierIdentifier, type SupportedPlatformName, type Weekday} from '../types';
 
 export interface MockDeliveryOptionsParameters {
@@ -22,4 +23,6 @@ export interface ExtraDelivery {
   feature: string;
 }
 
-export type SdkMock<E extends AbstractEndpoint> = Mock<[E, Options<E>], EndpointResponse<E>>;
+export type SdkMock<E extends AbstractEndpoint> = Mock<
+  (endpoint: E, options: Options<E>) => PromiseOr<EndpointResponse<E>>
+>;

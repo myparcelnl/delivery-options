@@ -127,7 +127,13 @@ const callback = (): UseResolvedPickupLocations => {
   });
 
   const locations = addLoadingProperties(
-    computed(() => allLocations.value.sort(sortByDistance)),
+    computed(() => {
+      return allLocations.value
+        .filter((location) =>
+          carriersWithPickup.value.some(({carrier}) => carrier.value.identifier === location.carrier),
+        )
+        .sort(sortByDistance);
+    }),
     currentLocations.load,
     currentLocations.loading,
   );
