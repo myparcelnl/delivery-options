@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel/delivery-options-v6.3.0](https://github.com/myparcelnl/delivery-options/compare/v6.2.4...v6.3.0) (2024-10-11)
+
+### :sparkles: New Features
+
+* allow choosing BE pickup points with package_small ([#251](https://github.com/myparcelnl/delivery-options/issues/251)) ([43f83e6](https://github.com/myparcelnl/delivery-options/commit/43f83e6c7579884ec546cdfeefe00d0c267c88a0))
+
 ## [@myparcel/delivery-options-v6.2.4](https://github.com/myparcelnl/delivery-options/compare/v6.2.3...v6.2.4) (2024-10-02)
 
 ### :bug: Bug Fixes
