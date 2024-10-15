@@ -71,7 +71,9 @@ describe('getResolvedCarrier', () => {
   it('exposes package types DHL For You', () => {
     const carrier = getResolvedCarrier(CarrierName.DhlForYou, PlatformName.MyParcel);
 
-    expect(carrier.packageTypes.value).toEqual(new Set([PackageTypeName.Package, PackageTypeName.Mailbox]));
+    expect(carrier.packageTypes.value).toEqual(
+      new Set([PackageTypeName.Package, PackageTypeName.Mailbox, PackageTypeName.PackageSmall]),
+    );
   });
 
   it('exposes package types PostNL', () => {
