@@ -35,7 +35,7 @@
 <script lang="ts" setup>
 import {computed, toValue} from 'vue';
 import {
-  DELIVERY_TITLE,
+  HEADER_DELIVERY_OPTIONS,
   PICKUP_TITLE,
   RadioInput,
   type SelectOption,
@@ -45,12 +45,12 @@ import {
 import {createField} from '@myparcel/vue-form-builder';
 import PickupLocations from '../Pickup/PickupLocations.vue';
 import HomeDelivery from '../Delivery/HomeDelivery.vue';
+import {getHasPickupForPackage} from '../../../utils/getHasPickupForPackage';
 import {useConfigStore} from '../../../stores';
 import {useDeliveryOptionsForm} from '../../../form';
 import {FIELD_HOME_OR_PICKUP, HOME_OR_PICKUP_HOME, HOME_OR_PICKUP_PICKUP} from '../../../data';
 import {useActiveCarriers, useLanguage, useSelectedValues} from '../../../composables';
 import {CaretRightIcon, RadioGroupInput} from '../../../components';
-import {getHasPickupForPackage} from '../../../utils/getHasPickupForPackage';
 
 await waitForRequestData(useCarriersRequest);
 
@@ -76,7 +76,7 @@ const HomeOrPickup = createField({
 
       if (resolvedCarriers.some((carrier) => toValue(carrier.hasAnyDelivery))) {
         options.push({
-          label: DELIVERY_TITLE,
+          label: HEADER_DELIVERY_OPTIONS,
           value: HOME_OR_PICKUP_HOME,
         });
       }
