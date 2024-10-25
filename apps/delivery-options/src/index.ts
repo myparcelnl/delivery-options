@@ -1,27 +1,10 @@
-export type {
-  DeliveryOptionsConfig,
-  DeliveryOptionsConfiguration,
-  DropOffEntry,
-  DropOffEntryObject,
-  FilterableOption,
-  InputCarrierSettings,
-  InputCarrierSettingsObject,
-  InputDeliveryOptionsConfig,
-  InputDeliveryOptionsConfiguration,
-  MapTileLayerData,
-  ResolvedDeliveryOptionsConfig,
-  SupportedDeliveryTypeName,
-  SupportedPackageTypeName,
-  SupportedPlatformName,
-  SupportedShipmentOptionName,
-} from '@myparcel-do/shared';
+export * from './common-index';
 
 export * from './components';
 export * from './composables';
 export * from './data';
 export * from './form';
 export * from './stores';
-export * from './types';
 export * from './utils';
 export * from './views';
 
