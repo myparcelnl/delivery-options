@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel/delivery-options-v6.3.1](https://github.com/myparcelnl/delivery-options/compare/v6.3.0...v6.3.1) (2024-10-25)
+
+### :bug: Bug Fixes
+
+* **exports:** export missing properties in globals in main build ([f559e2f](https://github.com/myparcelnl/delivery-options/commit/f559e2f2146a8b04c9053978915314426b42f86a))
+
 ## [@myparcel/delivery-options-v6.3.0](https://github.com/myparcelnl/delivery-options/compare/v6.2.4...v6.3.0) (2024-10-11)
 
 ### :sparkles: New Features
