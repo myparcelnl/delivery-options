@@ -79,7 +79,7 @@
     "@vue/test-utils": "^2.4.0",
     "ci-info": "^4.0.0",
     "cssnano": "^7.0.0",
-    "happy-dom": "^14.0.0",
+    "happy-dom": "^15.10.1",
     "histoire": "^0.17.6",
     "postcss": "^8.0.0",
     "semantic-release": "^24.0.0",
