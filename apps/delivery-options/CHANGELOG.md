@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel/delivery-options-v6.4.0](https://github.com/myparcelnl/delivery-options/compare/v6.3.1...v6.4.0) (2024-11-07)
+
+### :sparkles: New Features
+
+* support dhlforyou pickup locations correctly ([#254](https://github.com/myparcelnl/delivery-options/issues/254)) ([bdd42a1](https://github.com/myparcelnl/delivery-options/commit/bdd42a15516c3fc5b86d1072e9065863e68b76be))
+
 ## [@myparcel/delivery-options-v6.3.1](https://github.com/myparcelnl/delivery-options/compare/v6.3.0...v6.3.1) (2024-10-25)
 
 ### :bug: Bug Fixes
