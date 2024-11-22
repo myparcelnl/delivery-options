@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel/delivery-options-v6.4.1](https://github.com/myparcelnl/delivery-options/compare/v6.4.0...v6.4.1) (2024-11-22)
+
+### :bug: Bug Fixes
+
+* **pickup:** fix list locations for disabled carriers staying visible ([#248](https://github.com/myparcelnl/delivery-options/issues/248)) ([61f9281](https://github.com/myparcelnl/delivery-options/commit/61f9281f111fd7c90e861291c200577189d521a7))
+
 ## [@myparcel/delivery-options-v6.4.0](https://github.com/myparcelnl/delivery-options/compare/v6.3.1...v6.4.0) (2024-11-07)
 
 ### :sparkles: New Features
