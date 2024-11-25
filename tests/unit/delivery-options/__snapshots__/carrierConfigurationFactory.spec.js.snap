@@ -220,6 +220,9 @@ Object {
         "cutoffTimeSameDay",
       ],
       Array [
+        "allowShowDeliveryDate",
+      ],
+      Array [
         "allowPickupLocations",
         "pricePickup",
       ],
@@ -263,6 +266,9 @@ Object {
       "priceSameDayDelivery",
       "allowSameDayDelivery",
       "cutoffTimeSameDay",
+    ],
+    Array [
+      "allowShowDeliveryDate",
     ],
     Array [
       "allowPickupLocations",
