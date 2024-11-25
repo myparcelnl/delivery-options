@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.20.0](https://github.com/myparcelnl/delivery-options/compare/v5.19.0...v5.20.0) (2024-11-25)
+
+
+### :sparkles: New Features
+
+* allow delivery date for carrier dhlforyou ([#261](https://github.com/myparcelnl/delivery-options/issues/261)) ([9a789ca](https://github.com/myparcelnl/delivery-options/commit/9a789ca3de73e6441407d095f2d50fa34f7c6171))
+
 ## [5.19.0](https://github.com/myparcelnl/delivery-options/compare/v5.18.0...v5.19.0) (2024-09-27)
 
 
