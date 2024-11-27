@@ -4,6 +4,7 @@ exports[`getDefaultConfigForPlatform > should return the correct default config 
 {
   "allowDeliveryOptions": true,
   "allowEveningDelivery": true,
+  "allowExpressDelivery": false,
   "allowMondayDelivery": true,
   "allowMorningDelivery": true,
   "allowOnlyRecipient": true,
@@ -42,6 +43,7 @@ exports[`getDefaultConfigForPlatform > should return the correct default config 
   "pickupShowDistance": false,
   "platform": "belgie",
   "priceEveningDelivery": 0,
+  "priceExpressDelivery": 0,
   "priceMondayDelivery": 0,
   "priceMorningDelivery": 0,
   "priceOnlyRecipient": 0,
@@ -63,6 +65,7 @@ exports[`getDefaultConfigForPlatform > should return the correct default config 
 {
   "allowDeliveryOptions": true,
   "allowEveningDelivery": true,
+  "allowExpressDelivery": false,
   "allowMondayDelivery": true,
   "allowMorningDelivery": true,
   "allowOnlyRecipient": true,
@@ -101,6 +104,7 @@ exports[`getDefaultConfigForPlatform > should return the correct default config 
   "pickupShowDistance": true,
   "platform": "myparcel",
   "priceEveningDelivery": 0,
+  "priceExpressDelivery": 0,
   "priceMondayDelivery": 0,
   "priceMorningDelivery": 0,
   "priceOnlyRecipient": 0,

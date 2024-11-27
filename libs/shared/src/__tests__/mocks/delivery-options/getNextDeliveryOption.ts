@@ -27,6 +27,7 @@ export const getNextDeliveryOption = async (
 
   const canHaveSameDay = carrierInstance.features.value.has(CarrierSetting.AllowSameDayDelivery);
   const hasSameDayDelivery = daysOffset === 0 && canHaveSameDay;
+  const hasExpressDelivery = carrierInstance.features.value.has(CarrierSetting.AllowExpressDelivery);
 
   const extraDelivery = hasSameDayDelivery
     ? undefined
@@ -41,6 +42,6 @@ export const getNextDeliveryOption = async (
 
   return {
     index: daysOffset,
-    data: getDeliveryOptionsEntry(currentDeliveryDate, Boolean(extraDelivery), hasSameDayDelivery),
+    data: getDeliveryOptionsEntry(currentDeliveryDate, Boolean(extraDelivery), hasSameDayDelivery, hasExpressDelivery),
   };
 };

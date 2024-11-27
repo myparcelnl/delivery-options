@@ -29,6 +29,8 @@ export const getDefaultSandboxCarrierSettings = (): CarrierSettingsObject => {
         [CarrierSetting.AllowDeliveryOptions]: true,
         [CarrierSetting.AllowStandardDelivery]: true,
         [CarrierSetting.PriceStandardDelivery]: numberBetween(5, 7),
+        [CarrierSetting.AllowExpressDelivery]: true,
+        [CarrierSetting.PriceExpressDelivery]: numberBetween(10, 15),
         [CarrierSetting.AllowMorningDelivery]: true,
         [CarrierSetting.PriceMorningDelivery]: numberBetween(7, 10),
         [CarrierSetting.AllowEveningDelivery]: true,

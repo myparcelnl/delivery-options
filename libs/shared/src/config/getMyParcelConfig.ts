@@ -163,7 +163,7 @@ export const getMyParcelConfig = (): PlatformConfiguration => ({
       name: CarrierName.Ups,
       subscription: SubscriptionType.Required,
       packageTypes: [PackageTypeName.Package],
-      deliveryTypes: [DeliveryTypeName.Standard, DeliveryTypeName.Pickup],
+      deliveryTypes: [DeliveryTypeName.Standard, DeliveryTypeName.Pickup, DeliveryTypeName.Express],
       deliveryCountries: [
         AUSTRIA,
         BELGIUM,
@@ -189,8 +189,6 @@ export const getMyParcelConfig = (): PlatformConfiguration => ({
         CZECH_REPUBLIC,
       ],
       pickupCountries: [GERMANY],
-      fakeDelivery: true,
-      fakeDeliveryBlacklist: [NETHERLANDS],
       addressFields: [AddressField.PostalCode, AddressField.Street, AddressField.City],
       unsupportedParameters: ['package_type'],
     },

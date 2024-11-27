@@ -6,7 +6,12 @@ import {createTimestamp} from '../../../../utils';
 import {DELIVERY_TIMEFRAME_TYPE_END, DELIVERY_TIMEFRAME_TYPE_START} from '../../../../data';
 import {getShipmentOptions} from './getShipmentOptions';
 
-export const getDeliveryOptionsEntry = (today: Date, isExtraDropOffDay: boolean, isSameDay = false): DeliveryOption => {
+export const getDeliveryOptionsEntry = (
+  today: Date,
+  isExtraDropOffDay: boolean,
+  isSameDay = false,
+  hasExpressDelivery = false,
+): DeliveryOption => {
   const formattedDate = format(today, 'yyyy-MM-dd');
 
   return {
@@ -53,6 +58,22 @@ export const getDeliveryOptionsEntry = (today: Date, isExtraDropOffDay: boolean,
         ],
         shipment_options: getShipmentOptions(isSameDay ? [ShipmentOptionName.SameDayDelivery] : []),
       },
+
+      ...(hasExpressDelivery
+        ? [
+            {
+              type: DeliveryTypeName.Express,
+              package_type: PackageTypeName.Package,
+              delivery_time_frames: [
+                // @ts-expect-error todo
+                createDeliveryTimeframe(`${formattedDate} 08:30:00.000000`, DELIVERY_TIMEFRAME_TYPE_START),
+                // @ts-expect-error todo
+                createDeliveryTimeframe(`${formattedDate} 18:00:00.000000`, DELIVERY_TIMEFRAME_TYPE_END),
+              ],
+              shipment_options: [],
+            },
+          ]
+        : []),
     ],
   };
 };

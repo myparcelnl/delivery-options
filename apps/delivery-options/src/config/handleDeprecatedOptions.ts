@@ -45,11 +45,12 @@ export const handleDeprecatedOptions = <Input extends InputDeliveryOptionsConfig
 
   if (
     isDefined(resolvedConfig[CarrierSetting.AllowDeliveryOptions]) &&
-    !isDefined(resolvedConfig[CarrierSetting.AllowStandardDelivery])
+    !isDefined(resolvedConfig[CarrierSetting.AllowStandardDelivery]) &&
+    !isDefined(resolvedConfig[CarrierSetting.AllowExpressDelivery])
   ) {
     logger.deprecated(
       `Passing only ${CarrierSetting.AllowDeliveryOptions} without ${CarrierSetting.AllowStandardDelivery}`,
-      `${CarrierSetting.AllowDeliveryOptions}: true and ${CarrierSetting.AllowStandardDelivery}: true`,
+      `${CarrierSetting.AllowDeliveryOptions}: true and ${CarrierSetting.AllowStandardDelivery}: true and/or and ${CarrierSetting.AllowExpressDelivery}: true`,
     );
 
     resolvedConfig[CarrierSetting.AllowStandardDelivery] = restConfig[CarrierSetting.AllowDeliveryOptions];

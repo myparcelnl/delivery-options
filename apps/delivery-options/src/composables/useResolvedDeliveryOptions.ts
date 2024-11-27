@@ -1,5 +1,5 @@
 /* eslint-disable max-nested-callbacks */
-import {toValue, computed} from 'vue';
+import {toValue} from 'vue';
 import {useMemoize} from '@vueuse/core';
 import {
   useDeliveryOptionsRequest,
@@ -8,12 +8,11 @@ import {
   DELIVERY_TYPE_DEFAULT,
   type AnyTranslatable,
   createUntranslatable,
-  resolveCarrierName,
   type ComputedAsync,
-  addLoadingProperties,
 } from '@myparcel-do/shared';
 import {type Replace} from '@myparcel/ts-utils';
 import {type Timestamp, type DeliveryOption, type DeliveryPossibility, type DeliveryTimeFrame} from '@myparcel/sdk';
+import {DeliveryTypeName} from '@myparcel/constants';
 import {createGetDeliveryOptionsParameters, getResolvedDeliveryType, createDeliveryTypeTranslatable} from '../utils';
 import {type SelectedDeliveryMoment} from '../types';
 import {useTimeRange} from './useTimeRange';
@@ -47,7 +46,7 @@ type UseResolvedDeliveryOptions = ComputedAsync<SelectedDeliveryMoment[]>;
 const callback = (): UseResolvedDeliveryOptions => {
   const carriers = useActiveCarriers();
 
-  const asyncComputed = computedAsync<SelectedDeliveryMoment[]>(async () => {
+  return computedAsync<SelectedDeliveryMoment[]>(async () => {
     const resolvedDates = await Promise.all(
       toValue(carriers)
         .filter((carrier) => toValue(carrier.hasAnyDelivery))
@@ -87,15 +86,36 @@ const callback = (): UseResolvedDeliveryOptions => {
               ? createUntranslatable(useTimeRange(start.date_time.date, end.date_time.date).value)
               : createDeliveryTypeTranslatable(datePossibility.type);
 
+          const deliveryType = getResolvedDeliveryType(
+            carrier.config.value?.deliveryTypes ?? [],
+            dateOption.date?.date,
+            datePossibility.type,
+          );
+
+          // Skip any type that is not supported by the carrier
+          if (!carrier?.deliveryTypes.value.has(deliveryType)) {
+            return;
+          }
+
+          // Given a possibility with the same start/end timeFrame, don't add the express option if standard is already present.
+          if (
+            deliveryType === DeliveryTypeName.Express &&
+            carrier?.deliveryTypes.value.has(DeliveryTypeName.Standard) &&
+            possibilities.some(
+              (possibility) =>
+                possibility.type === DeliveryTypeName.Standard &&
+                possibility.delivery_time_frames[0]?.date_time.date === start.date_time.date &&
+                possibility.delivery_time_frames[1]?.date_time.date === end.date_time.date,
+            )
+          ) {
+            return;
+          }
+
           acc.push({
             carrier: carrier.carrier.value.identifier,
             date: dateOption.date?.date,
             time: timeString,
-            deliveryType: getResolvedDeliveryType(
-              carrier.config.value?.deliveryTypes ?? [],
-              dateOption.date?.date,
-              datePossibility.type,
-            ),
+            deliveryType,
             packageType: datePossibility.package_type,
             shipmentOptions: datePossibility.shipment_options,
           });
@@ -105,17 +125,6 @@ const callback = (): UseResolvedDeliveryOptions => {
       return acc;
     }, [] as SelectedDeliveryMoment[]);
   }, []);
-
-  const final = computed(() => {
-    return asyncComputed.value.filter((option) => {
-      const carrierName = resolveCarrierName(option.carrier);
-      const carrier = carriers.value.find(({carrier}) => carrier.value.name === carrierName);
-
-      return carrier?.deliveryTypes.value.has(option.deliveryType);
-    });
-  });
-
-  return addLoadingProperties(final, asyncComputed.load, asyncComputed.loading);
 };
 
 export const useResolvedDeliveryOptions = useMemoize(callback);

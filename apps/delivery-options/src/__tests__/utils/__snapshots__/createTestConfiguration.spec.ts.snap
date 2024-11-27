@@ -11,6 +11,7 @@ exports[`createTestConfiguration > creates a default test configuration with uni
   "config": {
     "allowDeliveryOptions": true,
     "allowEveningDelivery": true,
+    "allowExpressDelivery": true,
     "allowMondayDelivery": true,
     "allowMorningDelivery": true,
     "allowOnlyRecipient": true,
@@ -22,6 +23,7 @@ exports[`createTestConfiguration > creates a default test configuration with uni
     "carrierSettings": {
       "bpost": {
         "priceEveningDelivery": 2097168,
+        "priceExpressDelivery": 2097664,
         "priceMondayDelivery": 2097184,
         "priceMorningDelivery": 2097160,
         "priceOnlyRecipient": 2097664,
@@ -36,6 +38,7 @@ exports[`createTestConfiguration > creates a default test configuration with uni
       },
       "bpost:1": {
         "priceEveningDelivery": 2359312,
+        "priceExpressDelivery": 2359808,
         "priceMondayDelivery": 2359328,
         "priceMorningDelivery": 2359304,
         "priceOnlyRecipient": 2359808,
@@ -50,6 +53,7 @@ exports[`createTestConfiguration > creates a default test configuration with uni
       },
       "bpost:2": {
         "priceEveningDelivery": 2621456,
+        "priceExpressDelivery": 2621952,
         "priceMondayDelivery": 2621472,
         "priceMorningDelivery": 2621448,
         "priceOnlyRecipient": 2621952,
@@ -64,6 +68,7 @@ exports[`createTestConfiguration > creates a default test configuration with uni
       },
       "dhl": {
         "priceEveningDelivery": 33554448,
+        "priceExpressDelivery": 33554944,
         "priceMondayDelivery": 33554464,
         "priceMorningDelivery": 33554440,
         "priceOnlyRecipient": 33554944,
@@ -78,6 +83,7 @@ exports[`createTestConfiguration > creates a default test configuration with uni
       },
       "dhl:1": {
         "priceEveningDelivery": 33816592,
+        "priceExpressDelivery": 33817088,
         "priceMondayDelivery": 33816608,
         "priceMorningDelivery": 33816584,
         "priceOnlyRecipient": 33817088,
@@ -92,6 +98,7 @@ exports[`createTestConfiguration > creates a default test configuration with uni
       },
       "dhl:2": {
         "priceEveningDelivery": 34078736,
+        "priceExpressDelivery": 34079232,
         "priceMondayDelivery": 34078752,
         "priceMorningDelivery": 34078728,
         "priceOnlyRecipient": 34079232,
@@ -106,6 +113,7 @@ exports[`createTestConfiguration > creates a default test configuration with uni
       },
       "dhleuroplus": {
         "priceEveningDelivery": 1073741840,
+        "priceExpressDelivery": 1073742336,
         "priceMondayDelivery": 1073741856,
         "priceMorningDelivery": 1073741832,
         "priceOnlyRecipient": 1073742336,
@@ -120,6 +128,7 @@ exports[`createTestConfiguration > creates a default test configuration with uni
       },
       "dhleuroplus:1": {
         "priceEveningDelivery": 1074003984,
+        "priceExpressDelivery": 1074004480,
         "priceMondayDelivery": 1074004000,
         "priceMorningDelivery": 1074003976,
         "priceOnlyRecipient": 1074004480,
@@ -134,6 +143,7 @@ exports[`createTestConfiguration > creates a default test configuration with uni
       },
       "dhleuroplus:2": {
         "priceEveningDelivery": 1074266128,
+        "priceExpressDelivery": 1074266624,
         "priceMondayDelivery": 1074266144,
         "priceMorningDelivery": 1074266120,
         "priceOnlyRecipient": 1074266624,
@@ -148,6 +158,7 @@ exports[`createTestConfiguration > creates a default test configuration with uni
       },
       "dhlforyou": {
         "priceEveningDelivery": 268435472,
+        "priceExpressDelivery": 268435968,
         "priceMondayDelivery": 268435488,
         "priceMorningDelivery": 268435464,
         "priceOnlyRecipient": 268435968,
@@ -162,6 +173,7 @@ exports[`createTestConfiguration > creates a default test configuration with uni
       },
       "dhlforyou:1": {
         "priceEveningDelivery": 268697616,
+        "priceExpressDelivery": 268698112,
         "priceMondayDelivery": 268697632,
         "priceMorningDelivery": 268697608,
         "priceOnlyRecipient": 268698112,
@@ -176,6 +188,7 @@ exports[`createTestConfiguration > creates a default test configuration with uni
       },
       "dhlforyou:2": {
         "priceEveningDelivery": 268959760,
+        "priceExpressDelivery": 268960256,
         "priceMondayDelivery": 268959776,
         "priceMorningDelivery": 268959752,
         "priceOnlyRecipient": 268960256,
@@ -190,6 +203,7 @@ exports[`createTestConfiguration > creates a default test configuration with uni
       },
       "dhlparcelconnect": {
         "priceEveningDelivery": 536870928,
+        "priceExpressDelivery": 536871424,
         "priceMondayDelivery": 536870944,
         "priceMorningDelivery": 536870920,
         "priceOnlyRecipient": 536871424,
@@ -204,6 +218,7 @@ exports[`createTestConfiguration > creates a default test configuration with uni
       },
       "dhlparcelconnect:1": {
         "priceEveningDelivery": 537133072,
+        "priceExpressDelivery": 537133568,
         "priceMondayDelivery": 537133088,
         "priceMorningDelivery": 537133064,
         "priceOnlyRecipient": 537133568,
@@ -218,6 +233,7 @@ exports[`createTestConfiguration > creates a default test configuration with uni
       },
       "dhlparcelconnect:2": {
         "priceEveningDelivery": 537395216,
+        "priceExpressDelivery": 537395712,
         "priceMondayDelivery": 537395232,
         "priceMorningDelivery": 537395208,
         "priceOnlyRecipient": 537395712,
@@ -232,6 +248,7 @@ exports[`createTestConfiguration > creates a default test configuration with uni
       },
       "dpd": {
         "priceEveningDelivery": 8388624,
+        "priceExpressDelivery": 8389120,
         "priceMondayDelivery": 8388640,
         "priceMorningDelivery": 8388616,
         "priceOnlyRecipient": 8389120,
@@ -246,6 +263,7 @@ exports[`createTestConfiguration > creates a default test configuration with uni
       },
       "dpd:1": {
         "priceEveningDelivery": 8650768,
+        "priceExpressDelivery": 8651264,
         "priceMondayDelivery": 8650784,
         "priceMorningDelivery": 8650760,
         "priceOnlyRecipient": 8651264,
@@ -260,6 +278,7 @@ exports[`createTestConfiguration > creates a default test configuration with uni
       },
       "dpd:2": {
         "priceEveningDelivery": 8912912,
+        "priceExpressDelivery": 8913408,
         "priceMondayDelivery": 8912928,
         "priceMorningDelivery": 8912904,
         "priceOnlyRecipient": 8913408,
@@ -274,6 +293,7 @@ exports[`createTestConfiguration > creates a default test configuration with uni
       },
       "postnl": {
         "priceEveningDelivery": 1048592,
+        "priceExpressDelivery": 1049088,
         "priceMondayDelivery": 1048608,
         "priceMorningDelivery": 1048584,
         "priceOnlyRecipient": 1049088,
@@ -288,6 +308,7 @@ exports[`createTestConfiguration > creates a default test configuration with uni
       },
       "postnl:1": {
         "priceEveningDelivery": 1310736,
+        "priceExpressDelivery": 1311232,
         "priceMondayDelivery": 1310752,
         "priceMorningDelivery": 1310728,
         "priceOnlyRecipient": 1311232,
@@ -302,6 +323,7 @@ exports[`createTestConfiguration > creates a default test configuration with uni
       },
       "postnl:2": {
         "priceEveningDelivery": 1572880,
+        "priceExpressDelivery": 1573376,
         "priceMondayDelivery": 1572896,
         "priceMorningDelivery": 1572872,
         "priceOnlyRecipient": 1573376,
@@ -316,6 +338,7 @@ exports[`createTestConfiguration > creates a default test configuration with uni
       },
       "ups": {
         "priceEveningDelivery": 134217744,
+        "priceExpressDelivery": 134218240,
         "priceMondayDelivery": 134217760,
         "priceMorningDelivery": 134217736,
         "priceOnlyRecipient": 134218240,
@@ -330,6 +353,7 @@ exports[`createTestConfiguration > creates a default test configuration with uni
       },
       "ups:1": {
         "priceEveningDelivery": 134479888,
+        "priceExpressDelivery": 134480384,
         "priceMondayDelivery": 134479904,
         "priceMorningDelivery": 134479880,
         "priceOnlyRecipient": 134480384,
@@ -344,6 +368,7 @@ exports[`createTestConfiguration > creates a default test configuration with uni
       },
       "ups:2": {
         "priceEveningDelivery": 134742032,
+        "priceExpressDelivery": 134742528,
         "priceMondayDelivery": 134742048,
         "priceMorningDelivery": 134742024,
         "priceOnlyRecipient": 134742528,
@@ -358,6 +383,7 @@ exports[`createTestConfiguration > creates a default test configuration with uni
       },
     },
     "priceEveningDelivery": 16,
+    "priceExpressDelivery": 512,
     "priceMondayDelivery": 32,
     "priceMorningDelivery": 8,
     "priceOnlyRecipient": 512,
