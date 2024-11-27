@@ -165,6 +165,8 @@ export const getMyParcelConfig = (): PlatformConfiguration => ({
       packageTypes: [PackageTypeName.Package],
       deliveryTypes: [DeliveryTypeName.Standard, DeliveryTypeName.Pickup],
       deliveryCountries: [
+        AUSTRIA,
+        BELGIUM,
         BULGARIA,
         GERMANY,
         ESTONIA,
@@ -177,7 +179,7 @@ export const getMyParcelConfig = (): PlatformConfiguration => ({
         LATVIA,
         LITHUANIA,
         LUXEMBOURG,
-        AUSTRIA,
+        NETHERLANDS,
         POLAND,
         PORTUGAL,
         ROMANIA,
