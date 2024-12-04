@@ -50,6 +50,11 @@ describe('getDeliveryTypePrice', () => {
       result: TestValue.CarrierUps | TestValue.Default,
     },
     {
+      carrier: defineCarrier(CARRIER_UPS),
+      deliveryType: DeliveryTypeName.Express,
+      result: TestValue.CarrierUps | TestValue.DeliveryTypeExpress,
+    },
+    {
       carrier: defineCarrier(CARRIER_POST_NL),
       deliveryType: DeliveryTypeName.Pickup,
       result: TestValue.CarrierPostNl | TestValue.DeliveryTypePickup,

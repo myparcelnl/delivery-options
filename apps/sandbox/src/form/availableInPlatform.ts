@@ -28,6 +28,10 @@ const featureIsEnabled = (
 ): boolean => {
   const {features} = useCarrier({carrierIdentifier, platformName});
 
+  if (!toValue(features)?.size) {
+    return false;
+  }
+
   const isEnabled = toValue(features).has(field);
 
   if (!isEnabled) {

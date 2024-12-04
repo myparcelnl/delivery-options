@@ -4,6 +4,7 @@ import {CarrierSetting, CustomDeliveryType} from '../data';
 
 export const getDeliveryTypeConfigMap = (): Record<SupportedDeliveryTypeName, CarrierSetting> => ({
   [DeliveryTypeName.Standard]: CarrierSetting.AllowStandardDelivery,
+  [DeliveryTypeName.Express]: CarrierSetting.AllowExpressDelivery,
   [DeliveryTypeName.Evening]: CarrierSetting.AllowEveningDelivery,
   [DeliveryTypeName.Morning]: CarrierSetting.AllowMorningDelivery,
   [DeliveryTypeName.Pickup]: CarrierSetting.AllowPickupLocations,

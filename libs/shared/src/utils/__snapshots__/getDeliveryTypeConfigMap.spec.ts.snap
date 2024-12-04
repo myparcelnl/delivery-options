@@ -3,6 +3,7 @@
 exports[`getDeliveryTypeConfigMap > should return the correct config map 1`] = `
 {
   "evening": "allowEveningDelivery",
+  "express": "allowExpressDelivery",
   "monday": "allowMondayDelivery",
   "morning": "allowMorningDelivery",
   "pickup": "allowPickupLocations",

@@ -14,6 +14,9 @@ const DAYS_MAP = Object.freeze<Partial<Record<Weekday, CustomDeliveryType>>>({
   [DAY_SATURDAY]: CustomDeliveryType.Saturday,
 });
 
+/**
+ * Gets an available non-standard delivery type based on the delivery date.
+ */
 export const getResolvedDeliveryType = useMemoize(
   (
     deliveryTypes: SupportedDeliveryTypeName[],

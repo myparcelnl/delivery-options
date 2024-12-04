@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "@myparcel-do/shared": "workspace:*",
-    "@myparcel/constants": "^2.0.0",
+    "@myparcel/constants": "^2.2.0",
     "@myparcel/delivery-options": "workspace:*",
     "@myparcel/sdk": "^3.2.0",
     "@myparcel/ts-utils": "^1.12.0",

@@ -6,6 +6,7 @@ import {getConfigPriceKey} from './getConfigPriceKey';
 describe('getConfigPriceKey', () => {
   it.each([
     [DeliveryTypeName.Standard, CarrierSetting.PriceStandardDelivery],
+    [DeliveryTypeName.Express, CarrierSetting.PriceExpressDelivery],
     [DeliveryTypeName.Evening, CarrierSetting.PriceEveningDelivery],
     [DeliveryTypeName.Morning, CarrierSetting.PriceMorningDelivery],
     [DeliveryTypeName.Pickup, CarrierSetting.PricePickup],

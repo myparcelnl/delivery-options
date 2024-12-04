@@ -55,12 +55,14 @@ export interface CarrierSettings extends Partial<Record<CarrierSettingsKey, unkn
   allowSaturdayDelivery?: boolean;
   allowSignature?: boolean;
   allowStandardDelivery?: boolean | FilterableOption;
+  allowExpressDelivery?: boolean | FilterableOption;
   cutoffTime?: TimestampString;
   cutoffTimeSameDay?: TimestampString;
   deliveryDaysWindow?: number;
   dropOffDays?: DropOffEntryObject[];
   dropOffDelay?: number;
   packageType?: SupportedPackageTypeName;
+  priceExpressDelivery?: Price;
   priceEveningDelivery?: Price;
   priceMondayDelivery?: Price;
   priceMorningDelivery?: Price;

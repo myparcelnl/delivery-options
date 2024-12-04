@@ -46,6 +46,7 @@ export const createTestConfiguration = (): InputDeliveryOptionsConfiguration => 
       [CarrierSetting.AllowSaturdayDelivery]: true,
       [CarrierSetting.AllowSignature]: true,
       [CarrierSetting.AllowStandardDelivery]: true,
+      [CarrierSetting.AllowExpressDelivery]: true,
       ...Object.entries(TEST_VALUE_MAP_PRICES).reduce((acc, [optionKey, priceValue]) => {
         return {...acc, [optionKey]: priceValue};
       }, {}),

@@ -333,6 +333,8 @@ exports[`getPlatformConfig > gets config for platform myparcel 1`] = `
         "city",
       ],
       "deliveryCountries": [
+        "AT",
+        "BE",
         "BG",
         "DE",
         "EE",
@@ -345,7 +347,7 @@ exports[`getPlatformConfig > gets config for platform myparcel 1`] = `
         "LV",
         "LT",
         "LU",
-        "AT",
+        "NL",
         "PL",
         "PT",
         "RO",
@@ -357,10 +359,7 @@ exports[`getPlatformConfig > gets config for platform myparcel 1`] = `
       "deliveryTypes": [
         "standard",
         "pickup",
-      ],
-      "fakeDelivery": true,
-      "fakeDeliveryBlacklist": [
-        "NL",
+        "express",
       ],
       "name": "ups",
       "packageTypes": [
