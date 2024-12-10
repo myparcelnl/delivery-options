@@ -9,13 +9,14 @@ const PACKAGE_TYPE_DEFAULT = [PackageTypeName.Package, PackageTypeName.PackageSm
 
 export const useFeatures = useMemoize(() => {
   const config = useConfigStore();
-  return {
-    availableShipmentOptions: computed(() =>
-      PACKAGE_TYPE_DEFAULT.includes(config.packageType) ? SHOWN_SHIPMENT_OPTIONS : [],
-    ),
 
-    showDeliveryDate: computed(
-      () => PACKAGE_TYPE_DEFAULT.includes(config.packageType) && config[ConfigSetting.ShowDeliveryDate],
-    ),
+  return {
+    availableShipmentOptions: computed(() => {
+      return PACKAGE_TYPE_DEFAULT.includes(config.packageType) ? SHOWN_SHIPMENT_OPTIONS : [];
+    }),
+
+    showDeliveryDate: computed(() => {
+      return PACKAGE_TYPE_DEFAULT.includes(config.packageType) && config[ConfigSetting.ShowDeliveryDate];
+    }),
   };
 });
