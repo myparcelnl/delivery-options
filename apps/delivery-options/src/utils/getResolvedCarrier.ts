@@ -14,7 +14,12 @@ import {useAddressStore} from '../stores';
 import {type UseResolvedCarrier} from '../composables';
 import {getResolvedValue} from './getResolvedValue';
 
-const DELIVERY_TYPES = [DeliveryTypeName.Standard, DeliveryTypeName.Evening, DeliveryTypeName.Morning];
+const DELIVERY_TYPES = [
+  DeliveryTypeName.Standard,
+  DeliveryTypeName.Express,
+  DeliveryTypeName.Evening,
+  DeliveryTypeName.Morning,
+];
 
 const resolveOption = (
   input: SupportedDeliveryTypeName | SupportedShipmentOptionName,

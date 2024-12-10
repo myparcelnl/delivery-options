@@ -19,6 +19,7 @@ export const getAllConfigOptions = useMemoize((): ConfigOption[] => [
   declareOption({key: CarrierSetting.AllowDeliveryOptions, perCarrier: true}),
 
   ...declareOptionWithPrice(CarrierSetting.AllowStandardDelivery, CarrierSetting.PriceStandardDelivery),
+  ...declareOptionWithPrice(CarrierSetting.AllowExpressDelivery, CarrierSetting.PriceExpressDelivery),
   ...declareOptionWithPrice(CarrierSetting.AllowMorningDelivery, CarrierSetting.PriceMorningDelivery),
   ...declareOptionWithPrice(CarrierSetting.AllowEveningDelivery, CarrierSetting.PriceEveningDelivery),
   ...declareOptionWithPrice(CarrierSetting.AllowSameDayDelivery, CarrierSetting.PriceSameDayDelivery),

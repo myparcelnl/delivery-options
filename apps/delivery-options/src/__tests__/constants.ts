@@ -23,6 +23,7 @@ export enum TestValue {
   DeliveryTypeSaturday = 1 << 6,
   DeliveryTypeSameDay = 1 << 7,
   DeliveryTypePickup = 1 << 8,
+  DeliveryTypeExpress = 1 << 9,
 
   // Carriers
   CarrierPostNl = 1 << 20,
@@ -76,4 +77,5 @@ export const TEST_VALUE_MAP_PRICES = Object.freeze({
   [CarrierSetting.PriceSaturdayDelivery]: TestValue.DeliveryTypeSaturday,
   [CarrierSetting.PriceSignature]: TestValue.ShipmentOptionSignature,
   [CarrierSetting.PriceStandardDelivery]: TestValue.Default,
+  [CarrierSetting.PriceExpressDelivery]: TestValue.DeliveryTypeExpress,
 });

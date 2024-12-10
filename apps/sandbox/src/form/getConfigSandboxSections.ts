@@ -11,6 +11,7 @@ const CONFIG_GROUPS = Object.freeze([
         name: OptionGroup.DeliveryMoments,
         items: [
           CarrierSetting.AllowStandardDelivery,
+          CarrierSetting.AllowExpressDelivery,
           CarrierSetting.AllowMorningDelivery,
           CarrierSetting.AllowEveningDelivery,
           CarrierSetting.AllowSameDayDelivery,

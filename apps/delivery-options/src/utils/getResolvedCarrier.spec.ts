@@ -153,14 +153,14 @@ describe('getResolvedCarrier', () => {
   });
 
   describe('hasDelivery', () => {
-    it('returns true if any delivery type is enabled', () => {
-      const carrier = getResolvedCarrier(CarrierName.DhlForYou, PlatformName.MyParcel);
+    it('returns true if only standard delivery type is enabled', () => {
+      const carrier = getResolvedCarrier(CarrierName.Ups, PlatformName.MyParcel);
 
       mockDeliveryOptionsConfig(
         getMockDeliveryOptionsConfiguration({
           [KEY_CONFIG]: {
             [KEY_CARRIER_SETTINGS]: {
-              [CarrierName.DhlForYou]: {
+              [CarrierName.Ups]: {
                 [CarrierSetting.AllowDeliveryOptions]: true,
                 [CarrierSetting.AllowStandardDelivery]: true,
               },
@@ -172,8 +172,28 @@ describe('getResolvedCarrier', () => {
       expect(carrier.hasDelivery.value).toEqual(true);
     });
 
+    it('returns true if only express delivery type is enabled', () => {
+      const carrier = getResolvedCarrier(CarrierName.Ups, PlatformName.MyParcel);
+
+      mockDeliveryOptionsConfig(
+        getMockDeliveryOptionsConfiguration({
+          [KEY_CONFIG]: {
+            [KEY_CARRIER_SETTINGS]: {
+              [CarrierName.Ups]: {
+                [CarrierSetting.AllowDeliveryOptions]: true,
+                [CarrierSetting.AllowStandardDelivery]: false,
+                [CarrierSetting.AllowExpressDelivery]: true,
+              },
+            },
+          },
+        }),
+      );
+
+      expect(carrier.hasDelivery.value).toEqual(true);
+    });
+
     it('returns false if no delivery types are enabled', () => {
-      const carrier = getResolvedCarrier(CarrierName.DhlForYou, PlatformName.MyParcel);
+      const carrier = getResolvedCarrier(CarrierName.Ups, PlatformName.MyParcel);
 
       expect(carrier.hasDelivery.value).toEqual(false);
     });
@@ -217,15 +237,32 @@ describe('getResolvedCarrier', () => {
 
   describe('hasAnyDelivery', () => {
     it('returns true if any delivery type is available', () => {
-      const carrier = getResolvedCarrier(CarrierName.DhlForYou, PlatformName.MyParcel);
+      const carrier = getResolvedCarrier(CarrierName.Ups, PlatformName.MyParcel);
 
       mockDeliveryOptionsConfig(
         getMockDeliveryOptionsConfiguration({
           [KEY_CONFIG]: {
             [KEY_CARRIER_SETTINGS]: {
-              [CarrierName.DhlForYou]: {
+              [CarrierName.Ups]: {
                 [CarrierSetting.AllowDeliveryOptions]: true,
                 [CarrierSetting.AllowStandardDelivery]: true,
+                [CarrierSetting.AllowExpressDelivery]: false,
+              },
+            },
+          },
+        }),
+      );
+
+      expect(carrier.hasAnyDelivery.value).toEqual(true);
+
+      mockDeliveryOptionsConfig(
+        getMockDeliveryOptionsConfiguration({
+          [KEY_CONFIG]: {
+            [KEY_CARRIER_SETTINGS]: {
+              [CarrierName.Ups]: {
+                [CarrierSetting.AllowDeliveryOptions]: true,
+                [CarrierSetting.AllowStandardDelivery]: false,
+                [CarrierSetting.AllowExpressDelivery]: true,
               },
             },
           },
