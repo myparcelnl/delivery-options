@@ -115,3 +115,8 @@ export enum CustomDeliveryType {
   Monday = 'monday',
   Saturday = 'saturday',
 }
+
+export enum LimitedPackageTypeName {
+  Package = 'package',
+  PackageSmall = 'package_small',
+}
