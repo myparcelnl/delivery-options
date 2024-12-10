@@ -1,25 +1,21 @@
 import {computed} from 'vue';
 import {useMemoize} from '@vueuse/core';
-import {ConfigSetting, LimitedPackageTypeName} from '@myparcel-do/shared';
+import {ConfigSetting} from '@myparcel-do/shared';
+import {PackageTypeName} from '@myparcel/constants';
 import {useConfigStore} from '../stores';
 import {SHOWN_SHIPMENT_OPTIONS} from '../data';
 
-const PACKAGE_TYPE_DEFAULT = [LimitedPackageTypeName.Package, LimitedPackageTypeName.PackageSmall];
+const PACKAGE_TYPE_DEFAULT = [PackageTypeName.Package, PackageTypeName.PackageSmall];
 
 export const useFeatures = useMemoize(() => {
   const config = useConfigStore();
   return {
-    availableShipmentOptions: computed(() => {
-      return PACKAGE_TYPE_DEFAULT.includes(config.packageType as unknown as LimitedPackageTypeName)
-        ? SHOWN_SHIPMENT_OPTIONS
-        : [];
-    }),
+    availableShipmentOptions: computed(() =>
+      PACKAGE_TYPE_DEFAULT.includes(config.packageType) ? SHOWN_SHIPMENT_OPTIONS : [],
+    ),
 
-    showDeliveryDate: computed(() => {
-      return (
-        PACKAGE_TYPE_DEFAULT.includes(config.packageType as unknown as LimitedPackageTypeName) &&
-        config[ConfigSetting.ShowDeliveryDate]
-      );
-    }),
+    showDeliveryDate: computed(
+      () => PACKAGE_TYPE_DEFAULT.includes(config.packageType) && config[ConfigSetting.ShowDeliveryDate],
+    ),
   };
 });
