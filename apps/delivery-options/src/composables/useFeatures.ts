@@ -5,18 +5,18 @@ import {PackageTypeName} from '@myparcel/constants';
 import {useConfigStore} from '../stores';
 import {SHOWN_SHIPMENT_OPTIONS} from '../data';
 
-const PACKAGE_TYPE_DEFAULT = [PackageTypeName.Package, PackageTypeName.PackageSmall];
+const SUPPORTED_PACKAGE_TYPES = [PackageTypeName.Package, PackageTypeName.PackageSmall];
 
 export const useFeatures = useMemoize(() => {
   const config = useConfigStore();
 
   return {
     availableShipmentOptions: computed(() => {
-      return PACKAGE_TYPE_DEFAULT.includes(config.packageType) ? SHOWN_SHIPMENT_OPTIONS : [];
+      return SUPPORTED_PACKAGE_TYPES.includes(config.packageType) ? SHOWN_SHIPMENT_OPTIONS : [];
     }),
 
     showDeliveryDate: computed(() => {
-      return PACKAGE_TYPE_DEFAULT.includes(config.packageType) && config[ConfigSetting.ShowDeliveryDate];
+      return SUPPORTED_PACKAGE_TYPES.includes(config.packageType) && config[ConfigSetting.ShowDeliveryDate];
     }),
   };
 });
