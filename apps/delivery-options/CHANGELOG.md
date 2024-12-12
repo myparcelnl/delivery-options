@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel/delivery-options-v6.5.1](https://github.com/myparcelnl/delivery-options/compare/v6.5.0...v6.5.1) (2024-12-12)
+
+### :bug: Bug Fixes
+
+* select delivery date for small package type ([#263](https://github.com/myparcelnl/delivery-options/issues/263)) ([fbd1c43](https://github.com/myparcelnl/delivery-options/commit/fbd1c437a70ffbc188e23d00fd48cc298ac36429))
+
 ## [@myparcel/delivery-options-v6.5.0](https://github.com/myparcelnl/delivery-options/compare/v6.4.2...v6.5.0) (2024-12-10)
 
 ### :sparkles: New Features
