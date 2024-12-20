@@ -31,13 +31,17 @@ export const stringToDate = (date: string): Date => {
   const timeWithoutDate = date.substring(DATE_LENGTH + 1, date.length);
 
   /**
-   * Split the date and time, passing the year, month, day, hours, minutes and seconds as arguments to Date.UTC to
-   *  create a UTC date.
+   * Split the time into individual components and convert them to numbers.
    *
-   * @example 2019 10 15 17 00 00.000000 -> 1573837200000
+   * @example 08:00:00 -> [8, 0, 0]
    */
-  // @ts-expect-error todo
-  const utcDate = Date.UTC(...dateArr, ...timeWithoutDate.split(':'));
+  const [hours, minutes, seconds] = timeWithoutDate.split(':').map(Number);
 
-  return new Date(utcDate);
+  /**
+   * Create a Date object using the parsed year, adjusted month, day, hours, minutes, and seconds.
+   * This avoids any timezone adjustments, treating the input as a plain date and time.
+   *
+   * @example new Date(2019, 9, 15, 8, 0, 0)
+   */
+  return new Date(parseInt(dateArr[0]), parseInt(dateArr[1]), parseInt(dateArr[2]), hours, minutes, seconds);
 };
