@@ -33,7 +33,7 @@ export const stringToDate = (date: string): Date => {
   /**
    * Split the time into individual components and convert them to numbers.
    *
-   * @example ['08', '00', '00'] -> [8, 0, 0]
+   * @example 08:00:00 -> [8, 0, 0]
    */
   const [hours, minutes, seconds] = timeWithoutDate.split(':').map(Number);
 
