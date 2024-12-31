@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel/delivery-options-v6.5.2](https://github.com/myparcelnl/delivery-options/compare/v6.5.1...v6.5.2) (2024-12-31)
+
+### :bug: Bug Fixes
+
+* align timezone with actual delivery times ([#265](https://github.com/myparcelnl/delivery-options/issues/265)) ([4b92024](https://github.com/myparcelnl/delivery-options/commit/4b920245bef0341fe1d45a3544619aba5cb22b6c))
+
 ## [@myparcel/delivery-options-v6.5.1](https://github.com/myparcelnl/delivery-options/compare/v6.5.0...v6.5.1) (2024-12-12)
 
 ### :bug: Bug Fixes
