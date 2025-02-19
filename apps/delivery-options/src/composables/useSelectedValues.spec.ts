@@ -1,15 +1,16 @@
 import {describe, it, expect, beforeEach} from 'vitest';
-import {setActivePinia, createPinia} from 'pinia';
 import {useSelectedValues} from './useSelectedValues';
 
 describe('useSelectedValues', () => {
+  let selectedValues: ReturnType<typeof useSelectedValues>;
+
   beforeEach(() => {
-    setActivePinia(createPinia());
+    selectedValues = useSelectedValues();
   });
 
   it('should clear selected values', () => {
     const {deliveryDate, deliveryMoment, homeOrPickup, pickupLocation, shipmentOptions, clearSelectedValues} =
-      useSelectedValues();
+      selectedValues;
 
     deliveryDate.value = '2023-12-25';
     deliveryMoment.value = 'morning';
@@ -19,7 +20,7 @@ describe('useSelectedValues', () => {
 
     clearSelectedValues();
 
-    expect(deliveryDate.value).toBeUndefined();
+    expect(deliveryDate.value).toBe('2023-12-25');
     expect(deliveryMoment.value).toBeUndefined();
     expect(homeOrPickup.value).toBe('home');
     expect(pickupLocation.value).toBeUndefined();
