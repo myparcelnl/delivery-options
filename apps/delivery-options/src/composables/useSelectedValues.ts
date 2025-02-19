@@ -30,7 +30,10 @@ export const useSelectedValues = useMemoize((): UseSelectedValues => {
   const values = reactive({...initialValues});
 
   const clearSelectedValues = () => {
-    Object.assign(values, initialValues);
+    Object.assign(
+      values,
+      Object.fromEntries(Object.entries(initialValues).filter(([key]) => key !== FIELD_DELIVERY_DATE)),
+    );
   };
 
   return {

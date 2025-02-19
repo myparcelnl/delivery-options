@@ -8,7 +8,6 @@ import {setConfiguration} from '../../config';
 export const useDeliveryOptionsIncomingEvents = (): void => {
   const logger = useLogger();
   const {clearSelectedValues} = useSelectedValues();
-
   const updateConfigFromEvent = (event: Event | CustomEvent<InputDeliveryOptionsConfiguration>) => {
     const hasDetail = isCustomEvent(event);
     const newConfig: InputDeliveryOptionsConfiguration = hasDetail ? event.detail : getConfigFromWindow();
