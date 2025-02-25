@@ -23,13 +23,15 @@ const css = asyncComputed(async () => {
 });
 
 const styleTag = useStyleTag(css);
-const scriptTag = useScriptTag('https://cdn.jsdelivr.net/npm/leaflet@1/dist/leaflet.js');
+const scriptTag = useScriptTag('https://cdn.jsdelivr.net/npm/leaflet@1/dist/leaflet.js', undefined, {
+  manual: true,
+});
+await scriptTag.load();
 
 const {initializeMap, activeMarker, center, map, loaded} = usePickupLocationsMap();
 
 onMounted(async () => {
   styleTag.load();
-  await scriptTag.load();
 
   const teardownMap = initializeMap(container);
 
