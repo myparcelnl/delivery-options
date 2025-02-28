@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel/delivery-options-v6.5.3](https://github.com/myparcelnl/delivery-options/compare/v6.5.2...v6.5.3) (2025-02-28)
+
+### :bug: Bug Fixes
+
+* fix an error when attempting to open pickup locations map ([#268](https://github.com/myparcelnl/delivery-options/issues/268)) ([efaa59e](https://github.com/myparcelnl/delivery-options/commit/efaa59e1191065fafe16aa1d642e6fc7c12783ff))
+
 ## [@myparcel/delivery-options-v6.5.2](https://github.com/myparcelnl/delivery-options/compare/v6.5.1...v6.5.2) (2024-12-31)
 
 ### :bug: Bug Fixes
