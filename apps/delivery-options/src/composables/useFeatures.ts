@@ -1,5 +1,6 @@
 import {computed} from 'vue';
 import {useMemoize} from '@vueuse/core';
+import {config} from '@vue/test-utils';
 import {ConfigSetting} from '@myparcel-do/shared';
 import {PackageTypeName} from '@myparcel/constants';
 import {useConfigStore} from '../stores';
@@ -12,9 +13,10 @@ export const useFeatures = useMemoize(() => {
 
   return {
     availableShipmentOptions: computed(() => {
-      return SUPPORTED_PACKAGE_TYPES.includes(config.packageType) ? SHOWN_SHIPMENT_OPTIONS : [];
-    }),
+      if (!config.packageType) return [];
 
+      return SUPPORTED_PACKAGE_TYPES.includes(config.packageType) ? [...SHOWN_SHIPMENT_OPTIONS] : [];
+    }),
     showDeliveryDate: computed(() => {
       return SUPPORTED_PACKAGE_TYPES.includes(config.packageType) && config[ConfigSetting.ShowDeliveryDate];
     }),
