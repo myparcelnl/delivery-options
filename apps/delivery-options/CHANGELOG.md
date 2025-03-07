@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel/delivery-options-v6.6.0](https://github.com/myparcelnl/delivery-options/compare/v6.5.3...v6.6.0) (2025-03-07)
+
+### :sparkles: New Features
+
+* allow deselecting all delivery options ([#266](https://github.com/myparcelnl/delivery-options/issues/266)) ([36a19fd](https://github.com/myparcelnl/delivery-options/commit/36a19fdc80e583e206c788f17643922dda402b92))
+
 ## [@myparcel/delivery-options-v6.5.3](https://github.com/myparcelnl/delivery-options/compare/v6.5.2...v6.5.3) (2025-02-28)
 
 ### :bug: Bug Fixes
