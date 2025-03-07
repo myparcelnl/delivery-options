@@ -7,8 +7,8 @@ import {useResolvedValues} from './useResolvedValues';
 export const useDeliveryOptionsOutgoingEvents = (emit: DeliveryOptionsEmits): void => {
   const resolvedValues = useResolvedValues();
 
-  const cb = useDebounceFn((values) => {
-    if (!isDef(values)) {
+  const cb = useDebounceFn((values, oldValues) => {
+    if (!isDef(values) && !isDef(oldValues)) {
       return;
     }
 
@@ -17,6 +17,5 @@ export const useDeliveryOptionsOutgoingEvents = (emit: DeliveryOptionsEmits): vo
   }, OUTPUT_EVENT_DEBOUNCE_DELAY);
 
   const unwatch = watch(resolvedValues, cb, {deep: true, immediate: true});
-
   onUnmounted(unwatch);
 };

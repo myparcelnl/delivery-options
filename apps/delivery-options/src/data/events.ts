@@ -38,3 +38,8 @@ export const HIDE_DELIVERY_OPTIONS = 'myparcel_hide_delivery_options';
  * Used to (re)render the entire module.
  */
 export const RENDER_DELIVERY_OPTIONS = 'myparcel_render_delivery_options';
+
+/**
+ * Unselect delivery options
+ */
+export const UNSELECT_DELIVERY_OPTIONS = 'myparcel_unselect_delivery_options';
