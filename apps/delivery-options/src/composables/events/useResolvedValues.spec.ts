@@ -1,5 +1,4 @@
 import {beforeEach, describe, expect, it} from 'vitest';
-import {createPinia, setActivePinia} from 'pinia';
 import {flushPromises} from '@vue/test-utils';
 import {
   CarrierSetting,
@@ -12,6 +11,7 @@ import {
   type InputDeliveryOptionsConfig,
 } from '@myparcel-do/shared';
 import {CarrierName, DeliveryTypeName, PackageTypeName, ShipmentOptionName} from '@myparcel/constants';
+import {useConfigStore} from '../../stores';
 import {
   HOME_OR_PICKUP_PICKUP,
   FIELD_HOME_OR_PICKUP,
@@ -41,7 +41,7 @@ interface TestInput {
 
 describe('useResolvedValues', () => {
   beforeEach(async () => {
-    setActivePinia(createPinia());
+    useConfigStore().reset();
 
     mockDeliveryOptionsConfig(
       getMockDeliveryOptionsConfiguration({

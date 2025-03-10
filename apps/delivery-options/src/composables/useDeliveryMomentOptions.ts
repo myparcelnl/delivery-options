@@ -7,7 +7,7 @@ import {useResolvedDeliveryMoments} from './useResolvedDeliveryMoments';
 import {useActiveCarriers} from './useActiveCarriers';
 
 export const useDeliveryMomentOptions = (): ComputedRef<SelectOption<string>[]> => {
-  const config = useConfigStore();
+  const {state: config} = useConfigStore();
   const deliveryMoments = useResolvedDeliveryMoments();
   const activeCarriers = useActiveCarriers();
 

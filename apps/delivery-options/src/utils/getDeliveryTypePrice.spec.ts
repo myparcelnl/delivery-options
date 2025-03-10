@@ -1,6 +1,5 @@
 import {beforeEach, describe, expect, it} from 'vitest';
 import {assign} from 'radash';
-import {createPinia, setActivePinia} from 'pinia';
 import {CARRIER_POST_NL, CARRIER_DHL_FOR_YOU, CARRIER_UPS} from '@myparcel-do/shared/testing';
 import {
   type CarrierWithIdentifier,
@@ -12,6 +11,7 @@ import {
   type SupportedPackageTypeName,
 } from '@myparcel-do/shared';
 import {CarrierName, DeliveryTypeName, PackageTypeName} from '@myparcel/constants';
+import {useConfigStore} from '../stores';
 import {
   createTestConfiguration,
   defineCarrier,
@@ -30,7 +30,7 @@ interface TestInput {
 
 describe('getDeliveryTypePrice', () => {
   beforeEach(() => {
-    setActivePinia(createPinia());
+    useConfigStore().reset();
   });
 
   it.each([

@@ -1,6 +1,5 @@
 import {beforeEach, describe, expect, it, vi, afterEach} from 'vitest';
 import {assign} from 'radash';
-import {createPinia, setActivePinia} from 'pinia';
 import {
   type CarrierIdentifier,
   CarrierSetting,
@@ -10,6 +9,7 @@ import {
 } from '@myparcel-do/shared';
 import {type EndpointParameters, type GetDeliveryOptions} from '@myparcel/sdk';
 import {CarrierName, PackageTypeName, PlatformName} from '@myparcel/constants';
+import {useConfigStore} from '../stores';
 import {getMockDeliveryOptionsConfiguration, mockDeliveryOptionsConfig} from '../__tests__';
 import {getResolvedCarrier} from './getResolvedCarrier';
 import {createGetDeliveryOptionsParameters} from './createGetDeliveryOptionsParameters';
@@ -23,7 +23,7 @@ interface TestInput {
 
 describe('createGetDeliveryOptionsParameters', () => {
   beforeEach(() => {
-    setActivePinia(createPinia());
+    useConfigStore().reset();
   });
 
   afterEach(() => {

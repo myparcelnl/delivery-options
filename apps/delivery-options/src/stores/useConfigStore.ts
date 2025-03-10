@@ -1,19 +1,40 @@
+import {type DeliveryOptionsStore} from '.';
+import {reactive} from 'vue';
 import {assign} from 'radash';
-import {defineStore} from 'pinia';
-import {type DeliveryOptionsConfig, getDefaultDeliveryOptionsConfig, PLATFORM_DEFAULT} from '@myparcel-do/shared';
+import {
+  getDefaultDeliveryOptionsConfig,
+  PLATFORM_DEFAULT,
+  type DeliveryOptionsConfig,
+  type ResolvedDeliveryOptionsConfig,
+} from '@myparcel-do/shared';
 import {getDefaultConfigForPlatform} from '../config';
 
-/**
- * @see setConfiguration for changing the configuration.
- */
-export const useConfigStore = defineStore('config', {
-  state: getDefaultDeliveryOptionsConfig,
+const initialState = getDefaultDeliveryOptionsConfig();
 
-  actions: {
-    update(configuration: DeliveryOptionsConfig): void {
-      configuration.platform ??= PLATFORM_DEFAULT;
+const state = reactive<ResolvedDeliveryOptionsConfig>({...initialState});
 
-      Object.assign(this, assign(getDefaultConfigForPlatform(configuration.platform), configuration));
-    },
-  },
-});
+function update(configuration: DeliveryOptionsConfig, withDefaults = true): void {
+  if (withDefaults) {
+    configuration.platform ??= PLATFORM_DEFAULT;
+    Object.assign(state, assign(getDefaultConfigForPlatform(configuration.platform), configuration));
+  } else {
+    Object.assign(state, configuration);
+  }
+}
+
+// Reset to the initial state
+function reset(): void {
+  Object.assign(state, initialState);
+}
+
+export const useConfigStore = (): DeliveryOptionsStore<
+  ResolvedDeliveryOptionsConfig,
+  DeliveryOptionsConfig,
+  [boolean]
+> => {
+  return {
+    state,
+    update,
+    reset,
+  };
+};

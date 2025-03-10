@@ -25,13 +25,19 @@ export const mockDeliveryOptionsConfig = <I extends RecursivePartial<DeliveryOpt
       },
     });
 
-  const config = useConfigStore();
-  const address = useAddressStore();
+  const configStore = useConfigStore();
+  const addressStore = useAddressStore();
 
   const validated = validateConfiguration(resolvedInput as DeliveryOptionsConfiguration);
 
-  config.$patch(validated?.[KEY_CONFIG] ?? {});
-  address.$patch(validated?.[KEY_ADDRESS] ?? {});
+  // Do not override existing config with empty carriers if they are not present in the input
+  if (!input?.[KEY_CONFIG]?.[KEY_CARRIER_SETTINGS] && validated?.[KEY_CONFIG]?.[KEY_CARRIER_SETTINGS]) {
+    // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
+    delete validated[KEY_CONFIG][KEY_CARRIER_SETTINGS];
+  }
+
+  configStore.update(validated?.[KEY_CONFIG] ?? {}, false);
+  addressStore.update(validated?.[KEY_ADDRESS] ?? {});
 
   return resolvedInput ?? {};
 };

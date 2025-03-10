@@ -1,13 +1,13 @@
 import {beforeEach, describe, expect, it} from 'vitest';
-import {createPinia, setActivePinia} from 'pinia';
 import {CarrierSetting, KEY_CARRIER_SETTINGS, KEY_CONFIG} from '@myparcel-do/shared';
 import {CarrierName} from '@myparcel/constants';
+import {useConfigStore} from '../stores';
 import {mockDeliveryOptionsConfig} from '../__tests__';
 import {getResolvedValue} from './getResolvedValue';
 
 describe('getResolvedValue', () => {
   beforeEach(() => {
-    setActivePinia(createPinia());
+    useConfigStore().reset();
   });
 
   it('returns the general value when no carrier is given', () => {

@@ -21,7 +21,10 @@ import {computed, onMounted, ref, toRefs, watch, toValue} from 'vue';
 import {useEventListener} from '@vueuse/core';
 import {useLogger, useApiExceptions} from '@myparcel-do/shared';
 import {getConfigFromWindow} from '../../utils';
-import {type DeliveryOptionsEmits, type DeliveryOptionsProps} from '../../types';
+import {
+  type DeliveryOptionsEmits,
+  type DeliveryOptionsProps,
+} from '../../types';
 import {useAddressStore, useConfigStore} from '../../stores';
 import {HIDE_DELIVERY_OPTIONS, SHOW_DELIVERY_OPTIONS} from '../../data';
 import {setConfiguration} from '../../config';
@@ -39,8 +42,8 @@ const emit = defineEmits<DeliveryOptionsEmits>();
 const propRefs = toRefs(props);
 
 const logger = useLogger();
-const config = useConfigStore();
-const address = useAddressStore();
+const {state: config} = useConfigStore();
+const {state: address} = useAddressStore();
 
 const wrapper = ref<HTMLFormElement>();
 
