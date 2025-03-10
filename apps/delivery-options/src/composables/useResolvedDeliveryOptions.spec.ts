@@ -1,6 +1,5 @@
 import {describe, it, expect, beforeEach} from 'vitest';
 import {assign} from 'radash';
-import {setActivePinia, createPinia} from 'pinia';
 import {normalizeDate} from '@vueuse/core';
 import {mockGetDeliveryOptions} from '@myparcel-do/shared/testing';
 import {
@@ -13,6 +12,7 @@ import {
 } from '@myparcel-do/shared';
 import {type RecursivePartial} from '@myparcel/ts-utils';
 import {DeliveryTypeName, CarrierName} from '@myparcel/constants';
+import {useAddressStore, useConfigStore} from '../stores';
 import {
   waitForDeliveryOptions,
   mockDeliveryOptionsConfig,
@@ -108,7 +108,7 @@ const setupUps = async (config: RecursivePartial<InputDeliveryOptionsConfigurati
 describe('useResolvedDeliveryOptions', () => {
   beforeEach(() => {
     useResolvedDeliveryOptions.clear();
-    setActivePinia(createPinia());
+    useConfigStore().reset();
   });
 
   it('sorts options by time', async () => {

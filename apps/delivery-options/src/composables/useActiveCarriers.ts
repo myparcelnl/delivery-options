@@ -17,7 +17,7 @@ import {useCurrentPlatform} from './useCurrentPlatform';
  * Get the carriers that are currently active in the delivery options config.
  */
 export const useActiveCarriers = useMemoize((): ComputedAsync<UseResolvedCarrier[]> => {
-  const config = useConfigStore();
+  const {state: config} = useConfigStore();
   const platform = useCurrentPlatform();
 
   const callback = async () => {

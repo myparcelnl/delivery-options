@@ -15,13 +15,7 @@ export const getSharedConfig = ({mode}: ConfigEnv) => {
     },
 
     resolve: {
-      alias: [
-        ...resolveAlias,
-        {
-          find: 'pinia',
-          replacement: fileURLToPath(new URL('../../../node_modules/pinia/dist/pinia.prod.cjs', import.meta.url)),
-        },
-      ],
+      alias: [...resolveAlias],
     },
   } satisfies Partial<UserConfig>;
 };

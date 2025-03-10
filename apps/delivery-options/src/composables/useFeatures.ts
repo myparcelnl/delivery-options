@@ -8,7 +8,7 @@ import {SHOWN_SHIPMENT_OPTIONS} from '../data';
 const SUPPORTED_PACKAGE_TYPES = [PackageTypeName.Package, PackageTypeName.PackageSmall];
 
 export const useFeatures = useMemoize(() => {
-  const config = useConfigStore();
+  const {state: config} = useConfigStore();
 
   return {
     availableShipmentOptions: computed(() => {

@@ -1,11 +1,11 @@
 import {describe, it, expect, beforeEach, vi} from 'vitest';
-import {setActivePinia, createPinia} from 'pinia';
 import {type AnyTranslatable} from '@myparcel-do/shared';
+import {useAddressStore, useConfigStore} from '../stores';
 import {useLanguage} from './useLanguage';
 
 describe('useLanguage', () => {
   beforeEach(() => {
-    setActivePinia(createPinia());
+    useConfigStore().reset();
     useLanguage.clear();
 
     vi.spyOn(console, 'error');

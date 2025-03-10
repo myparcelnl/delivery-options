@@ -47,8 +47,16 @@ import PickupLocations from '../Pickup/PickupLocations.vue';
 import HomeDelivery from '../Delivery/HomeDelivery.vue';
 import {useConfigStore} from '../../../stores';
 import {useDeliveryOptionsForm} from '../../../form';
-import {FIELD_HOME_OR_PICKUP, HOME_OR_PICKUP_HOME, HOME_OR_PICKUP_PICKUP} from '../../../data';
-import {useActiveCarriers, useLanguage, useSelectedValues} from '../../../composables';
+import {
+  FIELD_HOME_OR_PICKUP,
+  HOME_OR_PICKUP_HOME,
+  HOME_OR_PICKUP_PICKUP,
+} from '../../../data';
+import {
+  useActiveCarriers,
+  useLanguage,
+  useSelectedValues,
+} from '../../../composables';
 import {CaretRightIcon, RadioGroupInput} from '../../../components';
 import {getHasPickupForPackage} from '../../../utils/getHasPickupForPackage';
 
@@ -57,7 +65,7 @@ await waitForRequestData(useCarriersRequest);
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const Form = useDeliveryOptionsForm();
 const carriers = useActiveCarriers();
-const config = useConfigStore();
+const {state: config} = useConfigStore();
 
 void carriers.load();
 
@@ -81,7 +89,11 @@ const HomeOrPickup = createField({
         });
       }
 
-      if (resolvedCarriers.some((carrier) => getHasPickupForPackage(carrier, config.packageType))) {
+      if (
+        resolvedCarriers.some((carrier) =>
+          getHasPickupForPackage(carrier, config.packageType),
+        )
+      ) {
         options.push({
           label: PICKUP_TITLE,
           value: HOME_OR_PICKUP_PICKUP,

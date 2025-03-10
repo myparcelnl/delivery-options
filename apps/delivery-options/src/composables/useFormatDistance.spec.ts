@@ -1,11 +1,11 @@
 import {beforeEach, describe, expect, it} from 'vitest';
-import {createPinia, setActivePinia} from 'pinia';
+import {useConfigStore} from '../stores';
 import {useLanguage} from './useLanguage';
 import {useFormatDistance} from './useFormatDistance';
 
 describe('useFormatDistance', () => {
   beforeEach(() => {
-    setActivePinia(createPinia());
+    useConfigStore().reset();
 
     const {setLocale} = useLanguage();
     setLocale('nl-NL');

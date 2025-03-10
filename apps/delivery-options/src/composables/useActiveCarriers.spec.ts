@@ -1,6 +1,5 @@
 import {toValue} from 'vue';
 import {describe, it, expect, beforeEach} from 'vitest';
-import {setActivePinia, createPinia} from 'pinia';
 import {flushPromises} from '@vue/test-utils';
 import {
   KEY_CARRIER_SETTINGS,
@@ -17,12 +16,15 @@ import {
 } from '@myparcel-do/shared';
 import {NETHERLANDS, BELGIUM, FRANCE} from '@myparcel/constants/countries';
 import {CarrierName, PlatformName} from '@myparcel/constants';
+import {useAddressStore, useConfigStore} from '../stores';
 import {mockDeliveryOptionsConfig} from '../__tests__';
 import {useActiveCarriers} from './useActiveCarriers';
 
 describe('useActiveCarriers', () => {
   beforeEach(() => {
-    setActivePinia(createPinia());
+    // Reset the state
+    useConfigStore().reset();
+    useAddressStore().reset();
   });
 
   const identifiers = [

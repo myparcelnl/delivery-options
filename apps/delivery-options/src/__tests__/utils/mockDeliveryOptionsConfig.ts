@@ -25,13 +25,13 @@ export const mockDeliveryOptionsConfig = <I extends RecursivePartial<DeliveryOpt
       },
     });
 
-  const config = useConfigStore();
-  const address = useAddressStore();
+  const configStore = useConfigStore();
+  const addressStore = useAddressStore();
 
   const validated = validateConfiguration(resolvedInput as DeliveryOptionsConfiguration);
 
-  config.$patch(validated?.[KEY_CONFIG] ?? {});
-  address.$patch(validated?.[KEY_ADDRESS] ?? {});
+  configStore.update(validated?.[KEY_CONFIG] ?? {});
+  addressStore.update(validated?.[KEY_ADDRESS] ?? {});
 
   return resolvedInput ?? {};
 };

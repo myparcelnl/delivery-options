@@ -38,7 +38,7 @@
 </template>
 
 <script lang="ts" setup>
-import {onUnmounted} from 'vue';
+import {onUnmounted, watch} from 'vue';
 import PickupLocationMapMarker from '../PickupLocationMapMarker/PickupLocationMapMarker.vue';
 import {useAddressStore} from '../../../../stores';
 import {useDeliveryOptionsForm} from '../../../../form';
@@ -61,11 +61,13 @@ const selectedValues = useSelectedValues();
 /**
  * When the address changes, reset the pickup locations array and selected pickup location.
  */
-const removeAddressHook = addressStore.$onAction(() => {
+const removeAddressHook = () => {
   reset();
 
   selectedValues.pickupLocation.value = undefined;
-});
+};
+
+watch(addressStore.state, removeAddressHook);
 
 onUnmounted(removeAddressHook);
 </script>

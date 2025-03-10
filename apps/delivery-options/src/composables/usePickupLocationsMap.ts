@@ -83,7 +83,7 @@ const mutableShowLoadMoreButton = ref<boolean>(false);
 // eslint-disable-next-line max-lines-per-function
 export const usePickupLocationsMap = (): UsePickupLocationsMap => {
   const {carriersWithPickup} = useResolvedPickupLocations();
-  const config = useConfigStore();
+  const {state: config} = useConfigStore();
 
   const showLoadMoreButton = computed({
     get() {

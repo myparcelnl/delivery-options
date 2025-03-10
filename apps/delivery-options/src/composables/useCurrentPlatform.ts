@@ -7,7 +7,7 @@ export interface PlatformInstance extends UsePlatform {
 }
 
 export const useCurrentPlatform = (): PlatformInstance => {
-  const config = useConfigStore();
+  const {state: config} = useConfigStore();
 
   const name = computed<SupportedPlatformName>(() => config.platform);
 

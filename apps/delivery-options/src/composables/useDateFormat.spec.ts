@@ -1,12 +1,12 @@
 import {reactive} from 'vue';
 import {afterEach, beforeEach, describe, vi} from 'vitest';
-import {createPinia, setActivePinia} from 'pinia';
+import {useConfigStore} from '../stores';
 import {useLanguage} from './useLanguage';
 import {useDateFormat} from './useDateFormat';
 
 describe.concurrent('useDateFormat', (it) => {
   beforeEach(() => {
-    setActivePinia(createPinia());
+    useConfigStore().reset();
 
     const {setLocale} = useLanguage();
     setLocale('nl-NL');

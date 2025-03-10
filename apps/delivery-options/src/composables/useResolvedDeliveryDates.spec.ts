@@ -1,5 +1,4 @@
 import {describe, it, expect, beforeEach, afterEach} from 'vitest';
-import {setActivePinia, createPinia} from 'pinia';
 import {addDays} from 'date-fns';
 import {mockGetDeliveryOptions, createDate} from '@myparcel-do/shared/testing';
 import {
@@ -11,6 +10,7 @@ import {
   createTimestamp,
 } from '@myparcel-do/shared';
 import {CarrierName} from '@myparcel/constants';
+import {useAddressStore, useConfigStore} from '../stores';
 import {mockDeliveryOptionsConfig, waitForDeliveryOptions, getMockDeliveryOptionsConfiguration} from '../__tests__';
 import {useResolvedDeliveryDates} from './useResolvedDeliveryDates';
 
@@ -33,7 +33,7 @@ const SHARED_CONFIG = getMockDeliveryOptionsConfiguration({
 
 describe('useResolvedDeliveryDates', () => {
   beforeEach(() => {
-    setActivePinia(createPinia());
+    useConfigStore().reset();
   });
 
   afterEach(() => {

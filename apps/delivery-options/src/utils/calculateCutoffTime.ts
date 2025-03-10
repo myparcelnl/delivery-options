@@ -30,7 +30,6 @@ export const calculateCutoffTime = (carrier: UseResolvedCarrier): TimestampStrin
 
   if (toValue(carrier.deliveryTypes).has(CustomDeliveryType.SameDay)) {
     const sameDayCutoffTime = dropOffDay?.[CarrierSetting.CutoffTimeSameDay] ?? getSameDayCutoffTime(carrier);
-
     return isPastTime(sameDayCutoffTime) ? END_OF_DAY_CUTOFF_TIME : sameDayCutoffTime;
   }
 

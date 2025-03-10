@@ -9,7 +9,7 @@ import {getResolvedValue} from './getResolvedValue';
 import {getConfigPriceKey} from './getConfigPriceKey';
 
 export const getDeliveryTypePrice = (deliveryType: SupportedDeliveryTypeName, carrier?: CarrierIdentifier): number => {
-  const config = useConfigStore();
+  const {state: config} = useConfigStore();
 
   const priceKey =
     PACKAGE_TYPE_DEFAULT === config.packageType

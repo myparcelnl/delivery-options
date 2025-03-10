@@ -92,7 +92,7 @@ const callback = (): UseResolvedPickupLocations => {
   const latLng = ref<LatLng>(undefined);
 
   const allLocations = ref<ResolvedPickupLocation[]>([]);
-  const config = useConfigStore();
+  const {state: config} = useConfigStore();
 
   const carriersWithPickup = computed(() =>
     toValue(carriers).filter((carrier) => getHasPickupForPackage(carrier, config.packageType)),

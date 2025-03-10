@@ -1,7 +1,7 @@
 import {describe, it, expect, beforeEach, vi} from 'vitest';
-import {setActivePinia, createPinia} from 'pinia';
 import {CustomEvent} from 'happy-dom';
 import {useSelectedValues} from '../useSelectedValues';
+import {useConfigStore} from '../../stores';
 import {UNSELECT_DELIVERY_OPTIONS} from '../../data';
 import {useDeliveryOptionsIncomingEvents} from './useDeliveryOptionsIncomingEvents';
 
@@ -9,7 +9,7 @@ describe('useDeliveryOptionsIncomingEvents', () => {
   let clearSelectedValues: jest.Mock;
 
   beforeEach(() => {
-    setActivePinia(createPinia());
+    useConfigStore().reset();
     clearSelectedValues = vi.fn();
     vi.spyOn(useSelectedValues(), 'clearSelectedValues').mockImplementation(clearSelectedValues);
     useDeliveryOptionsIncomingEvents();
