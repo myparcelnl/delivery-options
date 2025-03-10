@@ -31,8 +31,12 @@ export const useShipmentOptionsOptions = (): ComputedRef<SelectOption[]> => {
 
     return availableShipmentOptions.value
       .filter((option) => {
-        return carrierShipmentOptions?.has(option) && momentShipmentOptions?.some(({name}) => name === option);
+        return (
+          carrierShipmentOptions?.has(option) &&
+          (momentShipmentOptions.length === 0 || momentShipmentOptions.some(({name}) => name === option))
+        );
       })
+
       .map((name) => {
         const match = momentShipmentOptions?.find((option) => option.name === name);
 
