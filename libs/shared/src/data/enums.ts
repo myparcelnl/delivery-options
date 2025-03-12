@@ -73,7 +73,7 @@ export enum OptionGroup {
   PackageTypes = 'packageTypes',
   Delivery = 'delivery',
   DeliveryMoments = 'deliveryMoments',
-  ShipmentOptions = 'shipmentOptions',
+  ShipmentOptionsPerPackageType = 'shipmentOptionsPerPackageType',
   Feature = 'feature',
   DropOff = 'dropOff',
   Pickup = 'pickup',

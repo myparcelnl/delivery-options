@@ -1,4 +1,4 @@
-import {computed, ref} from 'vue';
+import {computed, ref, toValue} from 'vue';
 import {
   type CarrierIdentifier,
   getConfigKey,
@@ -50,8 +50,12 @@ export const getResolvedCarrier = (
     });
   });
 
-  const shipmentOptions = computed(() => {
-    return filterSet(carrier.shipmentOptions.value, (option) => resolveOption(option, carrierIdentifier));
+  const shipmentOptionsPerPackageType = computed(() => {
+    return Object.fromEntries(
+      Object.entries(toValue(carrier.shipmentOptionsPerPackageType)).map(([packageType, options]) => {
+        return [packageType, filterSet(options, (option) => resolveOption(option, carrierIdentifier))];
+      }),
+    );
   });
 
   const features = computed(() => {
@@ -101,7 +105,7 @@ export const getResolvedCarrier = (
     deliveryCountries: carrier.deliveryCountries,
     deliveryTypes,
     packageTypes: carrier.packageTypes,
-    shipmentOptions,
+    shipmentOptionsPerPackageType,
 
     features,
 

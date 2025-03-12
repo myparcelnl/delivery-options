@@ -29,6 +29,13 @@ const SHIPMENT_OPTION_OUTPUT_MAP = Object.freeze({
   [ShipmentOptionName.OnlyRecipient]: 'onlyRecipient',
 } as Record<SupportedShipmentOptionName, keyof DeliveryOutput['shipmentOptions']>);
 
+/**
+ * Given an array of sipmentOptions, create an object with only the shipmentOptions that are enabled for the carrier.
+ *
+ * @param carrier
+ * @param shipmentOptions
+ * @returns
+ */
 const createResolvedShipmentOptions = (
   carrier: CarrierIdentifier,
   shipmentOptions: string[],

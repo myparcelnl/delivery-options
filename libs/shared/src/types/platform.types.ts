@@ -39,7 +39,10 @@ export interface CarrierConfiguration {
   name: CarrierName;
   packageTypes: SupportedPackageTypeName[];
   pickupCountries?: string[];
-  shipmentOptions?: SupportedShipmentOptionName[];
+  /**
+   * Shipments options that are supported for specific package types.
+   */
+  shipmentOptionsPerPackageType?: Partial<Record<SupportedPackageTypeName, SupportedShipmentOptionName[]>>;
   smallPackagePickupCountries?: string[];
   subscription: SubscriptionType;
   /**

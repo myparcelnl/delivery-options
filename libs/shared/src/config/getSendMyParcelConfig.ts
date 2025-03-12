@@ -42,7 +42,9 @@ export const getSendMyParcelConfig = (): PlatformConfiguration => ({
       pickupCountries: [BELGIUM, NETHERLANDS],
       features: [CarrierSetting.DeliveryDaysWindow, CarrierSetting.DropOffDays, CarrierSetting.DropOffDelay],
       addressFields: [AddressField.PostalCode, AddressField.Street, AddressField.City],
-      shipmentOptions: [ShipmentOptionName.Signature],
+      shipmentOptionsPerPackageType: {
+        [PackageTypeName.Package]: [ShipmentOptionName.Signature],
+      },
       fakeDelivery: true,
       /**
        * API returns a 500 error when package_type is passed, even though it's valid for belgie + bpost.
@@ -56,7 +58,10 @@ export const getSendMyParcelConfig = (): PlatformConfiguration => ({
       deliveryTypes: [DeliveryTypeName.Standard, DeliveryTypeName.Pickup, CustomDeliveryType.Saturday],
       deliveryCountries: [BELGIUM, NETHERLANDS],
       pickupCountries: [BELGIUM, NETHERLANDS],
-      shipmentOptions: [ShipmentOptionName.OnlyRecipient, ShipmentOptionName.Signature],
+      shipmentOptionsPerPackageType: {
+        [PackageTypeName.Package]: [ShipmentOptionName.OnlyRecipient, ShipmentOptionName.Signature],
+        [PackageTypeName.PackageSmall]: [ShipmentOptionName.OnlyRecipient, ShipmentOptionName.Signature],
+      },
       features: [CarrierSetting.DeliveryDaysWindow, CarrierSetting.DropOffDays, CarrierSetting.DropOffDelay],
       fakeDelivery: true,
     },
