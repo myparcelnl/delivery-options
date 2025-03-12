@@ -1,11 +1,13 @@
 import {computed, type ComputedRef} from 'vue';
 import {useMemoize} from '@vueuse/core';
 import {type ResolvedDeliveryOptions} from '../types';
+import {useConfigStore} from '../stores';
 import {useResolvedDeliveryOptions} from './useResolvedDeliveryOptions';
 import {useFeatures} from './useFeatures';
 
 export const useResolvedDeliveryDates = useMemoize((): ComputedRef<ResolvedDeliveryOptions[]> => {
   const deliveryOptions = useResolvedDeliveryOptions();
+  const config = useConfigStore();
   const {showDeliveryDate} = useFeatures();
 
   return computed(() => {
@@ -14,6 +16,7 @@ export const useResolvedDeliveryDates = useMemoize((): ComputedRef<ResolvedDeliv
     }
 
     return deliveryOptions.value
+      .filter((option) => option.packageType === config.packageType)
       .reduce((acc, option) => {
         if (option.date && !acc.some((item) => item.date === option.date)) {
           acc.push(option as ResolvedDeliveryOptions);
