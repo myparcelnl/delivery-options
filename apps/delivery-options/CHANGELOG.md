@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel/delivery-options-v6.6.1](https://github.com/myparcelnl/delivery-options/compare/v6.6.0...v6.6.1) (2025-03-18)
+
+### :bug: Bug Fixes
+
+* **store:** remove pinia and provide our own store implementation ([#281](https://github.com/myparcelnl/delivery-options/issues/281)) ([1d54aaf](https://github.com/myparcelnl/delivery-options/commit/1d54aaf5fe134a1d928c44da626a74e3cb34a59d))
+
 ## [@myparcel/delivery-options-v6.6.0](https://github.com/myparcelnl/delivery-options/compare/v6.5.3...v6.6.0) (2025-03-07)
 
 ### :sparkles: New Features
