@@ -1,9 +1,9 @@
 import {defineComponent} from 'vue';
 import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest';
-import {createPinia, setActivePinia} from 'pinia';
 import {CustomEvent} from 'happy-dom';
 import {flushPromises} from '@vue/test-utils';
 import {render, type RenderResult} from '@testing-library/vue';
+import {useConfigStore} from '../../stores';
 import {FIELD_DELIVERY_MOMENT, FIELD_DELIVERY_DATE, UPDATED_DELIVERY_OPTIONS} from '../../data';
 import {
   createInternalOutput,
@@ -51,7 +51,7 @@ describe('useDeliveryOptionsOutgoingEvents', () => {
 
   beforeEach(async () => {
     vi.useFakeTimers();
-    setActivePinia(createPinia());
+    useConfigStore().reset();
     dispatchEventSpy.mockImplementation(() => true);
   });
 

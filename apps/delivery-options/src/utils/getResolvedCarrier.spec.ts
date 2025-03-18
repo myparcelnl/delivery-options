@@ -1,6 +1,5 @@
 /* eslint-disable max-nested-callbacks */
 import {describe, it, expect, beforeEach} from 'vitest';
-import {setActivePinia, createPinia} from 'pinia';
 import {
   CarrierSetting,
   KEY_CONFIG,
@@ -11,12 +10,14 @@ import {
 } from '@myparcel-do/shared';
 import {ZIMBABWE} from '@myparcel/constants/countries';
 import {CarrierName, PlatformName, DeliveryTypeName, PackageTypeName, ShipmentOptionName} from '@myparcel/constants';
+import {useAddressStore, useConfigStore} from '../stores';
 import {mockDeliveryOptionsConfig, getMockDeliveryOptionsConfiguration} from '../__tests__';
 import {getResolvedCarrier} from './getResolvedCarrier';
 
 describe('getResolvedCarrier', () => {
   beforeEach(() => {
-    setActivePinia(createPinia());
+    useConfigStore().reset();
+    useAddressStore().reset();
   });
 
   describe('delivery types', () => {
@@ -332,7 +333,6 @@ describe('getResolvedCarrier', () => {
 
     it('returns false if pickup is not enabled', () => {
       const carrier = getResolvedCarrier(CarrierName.PostNl, PlatformName.MyParcel);
-
       expect(carrier.hasSmallPackagePickup.value).toEqual(false);
     });
   });

@@ -60,7 +60,7 @@ export const useResolvedValues = (): ComputedRef<PickupOutput | DeliveryOutput |
 
     if (selectedValues.homeOrPickup.value === HOME_OR_PICKUP_PICKUP && isDef(pickupLocation.location.value)) {
       const {carrier, openingHours, ...location} = pickupLocation.location.value;
-      const config = useConfigStore();
+      const {state: config} = useConfigStore();
 
       return {
         carrier,

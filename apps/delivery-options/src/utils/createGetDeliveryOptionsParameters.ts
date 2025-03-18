@@ -19,8 +19,8 @@ export const createGetDeliveryOptionsParameters = (
   resolvedCarrier: UseResolvedCarrier,
   additionalParameters?: undefined | Partial<EndpointParameters<GetDeliveryOptions>>,
 ): EndpointParameters<GetDeliveryOptions> => {
-  const config = useConfigStore();
-  const address = useAddressStore();
+  const {state: config} = useConfigStore();
+  const {state: address} = useAddressStore();
 
   const {carrier} = resolvedCarrier;
 

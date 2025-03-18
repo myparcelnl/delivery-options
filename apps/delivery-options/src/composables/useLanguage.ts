@@ -63,7 +63,7 @@ const translate = useMemoize((translatable: AnyTranslatable): string => {
 });
 
 export const useLanguage = useMemoize((): UseLanguage => {
-  const config = useConfigStore();
+  const {state: config} = useConfigStore();
 
   return {
     locale: computed(() => config.locale),

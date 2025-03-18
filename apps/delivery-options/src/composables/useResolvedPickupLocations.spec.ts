@@ -1,9 +1,9 @@
 import {describe, it, beforeEach, expect, afterEach, vi} from 'vitest';
-import {createPinia, setActivePinia} from 'pinia';
 import {flushPromises} from '@vue/test-utils';
 import {mockGetPickupLocations, fakePickupLocationsResponse} from '@myparcel-do/shared/testing';
 import {KEY_CONFIG, ConfigSetting, CarrierSetting, KEY_CARRIER_SETTINGS} from '@myparcel-do/shared';
 import {CarrierName} from '@myparcel/constants';
+import {useConfigStore} from '../stores';
 import {
   mockDeliveryOptionsConfig,
   getMockDeliveryOptionsConfiguration,
@@ -18,7 +18,7 @@ async function load(): Promise<void> {
 
 describe('useResolvedPickupLocations', () => {
   beforeEach(() => {
-    setActivePinia(createPinia());
+    useConfigStore().reset();
 
     mockDeliveryOptionsConfig(
       getMockDeliveryOptionsConfiguration({

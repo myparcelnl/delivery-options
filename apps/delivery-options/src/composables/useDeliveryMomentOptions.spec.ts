@@ -1,6 +1,5 @@
 import {type ComputedRef} from 'vue';
 import {describe, it, expect, beforeEach} from 'vitest';
-import {setActivePinia, createPinia} from 'pinia';
 import {flushPromises} from '@vue/test-utils';
 import {
   type SupportedPackageTypeName,
@@ -13,6 +12,7 @@ import {
 import {CarrierName, PackageTypeName} from '@myparcel/constants';
 import {parseJson} from '../utils';
 import {type SelectedDeliveryMoment} from '../types';
+import {useAddressStore, useConfigStore} from '../stores';
 import {mockSelectedDeliveryOptions, mockDeliveryOptionsConfig, waitForDeliveryOptions} from '../__tests__';
 import {useDeliveryMomentOptions} from './useDeliveryMomentOptions';
 
@@ -53,7 +53,7 @@ const setup = async (packageType?: SupportedPackageTypeName): Promise<ComputedRe
 
 describe('useDeliveryMomentOptions', () => {
   beforeEach(() => {
-    setActivePinia(createPinia());
+    useConfigStore().reset();
   });
 
   it.each([
