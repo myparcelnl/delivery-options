@@ -1,5 +1,4 @@
 import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest';
-import {createPinia, setActivePinia} from 'pinia';
 import {
   CUTOFF_TIME_DEFAULT,
   getDefaultCarrierSettings,
@@ -12,6 +11,7 @@ import {
   DROP_OFF_WEEKDAY,
 } from '@myparcel-do/shared';
 import {CarrierName} from '@myparcel/constants';
+import {useConfigStore, useAddressStore} from '../stores';
 import {useCurrentPlatform} from '../composables';
 import {mockDeliveryOptionsConfig} from '../__tests__';
 import {getResolvedCarrier} from './getResolvedCarrier';
@@ -30,7 +30,8 @@ describe('calculateCutoffTime', () => {
   const FRIDAY_08_00 = new Date('2021-01-08T08:00') as Readonly<Date>;
 
   beforeEach(() => {
-    setActivePinia(createPinia());
+    useConfigStore().reset();
+    useAddressStore().reset();
     vi.setSystemTime(TUESDAY_08_00);
 
     mockDeliveryOptionsConfig({[KEY_CONFIG]: getDefaultCarrierSettings()});
@@ -48,9 +49,11 @@ describe('calculateCutoffTime', () => {
 
   it('returns the global cutoff time', () => {
     expect.assertions(1);
-
-    mockDeliveryOptionsConfig({[KEY_CONFIG]: {[CarrierSetting.CutoffTime]: '17:00'}});
-
+    mockDeliveryOptionsConfig({
+      [KEY_CONFIG]: {
+        [CarrierSetting.CutoffTime]: '17:00',
+      },
+    });
     expect(getCalculatedCutoffTime()).toBe('17:00');
   });
 

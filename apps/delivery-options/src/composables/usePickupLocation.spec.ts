@@ -1,15 +1,15 @@
 import {afterEach, beforeEach, describe, vi} from 'vitest';
-import {createPinia, setActivePinia} from 'pinia';
 import {flushPromises} from '@vue/test-utils';
 import {CLOSED} from '@myparcel-do/shared';
 import {createUtcDate} from '../utils';
+import {useConfigStore} from '../stores';
 import {mockDeliveryOptionsConfig, waitForPickupLocations} from '../__tests__';
 import {usePickupLocation} from './usePickupLocation';
 import {useLanguage} from './useLanguage';
 
 describe.concurrent.skip('usePickupLocation', (it) => {
   beforeEach(async () => {
-    setActivePinia(createPinia());
+    useConfigStore().reset();
     mockDeliveryOptionsConfig();
 
     const {setLocale} = useLanguage();

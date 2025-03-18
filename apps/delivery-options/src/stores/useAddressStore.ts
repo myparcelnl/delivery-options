@@ -1,18 +1,29 @@
-import {defineStore} from 'pinia';
+import {type DeliveryOptionsStore} from '.';
+import {reactive} from 'vue';
 import {AddressField, type DeliveryOptionsAddress} from '@myparcel-do/shared';
 
-export const useAddressStore = defineStore('address', {
-  state: (): DeliveryOptionsAddress => {
-    return {
-      [AddressField.Country]: '',
-      [AddressField.City]: '',
-      [AddressField.Street]: '',
-      [AddressField.PostalCode]: '',
-    };
-  },
-  actions: {
-    update(address: DeliveryOptionsAddress): void {
-      this.$patch(address);
-    },
-  },
-});
+const initialState = {
+  [AddressField.Country]: '',
+  [AddressField.City]: '',
+  [AddressField.Street]: '',
+  [AddressField.PostalCode]: '',
+};
+
+const state = reactive<DeliveryOptionsAddress>({...initialState});
+
+function update(address: DeliveryOptionsAddress): void {
+  Object.assign(state, address);
+}
+
+// Reset to the initial state
+function reset(): void {
+  Object.assign(state, initialState);
+}
+
+export const useAddressStore = (): DeliveryOptionsStore<DeliveryOptionsAddress> => {
+  return {
+    state,
+    update,
+    reset,
+  };
+};

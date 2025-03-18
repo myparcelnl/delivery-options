@@ -40,7 +40,7 @@ export type UseResolvedCarrier = {
 };
 
 export const useResolvedCarrier = (carrierIdentifier: MaybeRef<CarrierIdentifier | undefined>): UseResolvedCarrier => {
-  const config = useConfigStore();
+  const {state: config} = useConfigStore();
   const identifier = toValue(carrierIdentifier);
 
   return getResolvedCarrier(identifier, config.platform);
