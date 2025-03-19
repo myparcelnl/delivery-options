@@ -7,7 +7,7 @@ import {useFeatures} from './useFeatures';
 
 export const useResolvedDeliveryDates = useMemoize((): ComputedRef<ResolvedDeliveryOptions[]> => {
   const deliveryOptions = useResolvedDeliveryOptions();
-  const config = useConfigStore();
+  const {state: config} = useConfigStore();
   const {showDeliveryDate} = useFeatures();
 
   return computed(() => {
