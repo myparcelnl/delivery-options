@@ -13,6 +13,7 @@ import {
 import {type RecursivePartial} from '@myparcel/ts-utils';
 import {DeliveryTypeName, CarrierName} from '@myparcel/constants';
 import {useAddressStore, useConfigStore} from '../stores';
+import {DELIVERY_MOMENT_PACKAGE_TYPES} from '../data';
 import {
   waitForDeliveryOptions,
   mockDeliveryOptionsConfig,
@@ -175,11 +176,20 @@ describe('useResolvedDeliveryOptions', () => {
     await setupPostNl({[KEY_ADDRESS]: {cc: 'DE'}});
 
     const options = useResolvedDeliveryOptions();
-    const resolvedOptions = options.value.map(({carrier, deliveryType}) => ({carrier, deliveryType}));
+    const resolvedOptions = options.value.map(({carrier, deliveryType, packageType}) => ({
+      carrier,
+      deliveryType,
+      packageType,
+    }));
 
-    expect(resolvedOptions).toEqual([
-      {carrier: CarrierName.PostNl, deliveryType: DeliveryTypeName.Standard},
-      {carrier: CARRIER_IDENTIFIER_WITH_CONTRACT, deliveryType: DeliveryTypeName.Standard},
-    ]);
+    const expected: any[] = [];
+    DELIVERY_MOMENT_PACKAGE_TYPES.forEach((packageType) => {
+      expected.push({carrier: CarrierName.PostNl, deliveryType: DeliveryTypeName.Standard, packageType});
+      expected.push({carrier: CARRIER_IDENTIFIER_WITH_CONTRACT, deliveryType: DeliveryTypeName.Standard, packageType});
+    });
+    // Sort expected by carrier name
+    // eslint-disable-next-line id-length
+    expected.sort((a, b) => a.carrier.localeCompare(b.carrier));
+    expect(resolvedOptions).toEqual(expected);
   });
 });
