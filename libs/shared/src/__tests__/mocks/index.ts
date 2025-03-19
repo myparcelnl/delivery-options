@@ -1,3 +1,4 @@
+export * from './delivery-options';
 export * from './fakeCarriersResponse';
 export * from './fakeDeliveryOptionsResponse';
 export * from './fakePickupLocationsResponse';

@@ -90,12 +90,24 @@ describe('getResolvedCarrier', () => {
     );
   });
 
-  it('exposes shipment options, filtered by config', () => {
+  it('exposes shipment options, filtered by what is allowed in config', () => {
     const carrier = getResolvedCarrier(CarrierName.DhlForYou, PlatformName.MyParcel);
 
-    expect(carrier.shipmentOptions.value).toEqual(
-      new Set([ShipmentOptionName.OnlyRecipient, ShipmentOptionName.Signature]),
+    mockDeliveryOptionsConfig(
+      getMockDeliveryOptionsConfiguration({
+        [KEY_CONFIG]: {
+          [KEY_CARRIER_SETTINGS]: {
+            [CarrierName.DhlForYou]: {
+              [CarrierSetting.AllowOnlyRecipient]: true,
+              [CarrierSetting.AllowSignature]: true,
+            },
+          },
+        },
+      }),
     );
+    expect(carrier.shipmentOptionsPerPackageType.value).toEqual({
+      [PackageTypeName.Package]: new Set([ShipmentOptionName.OnlyRecipient, ShipmentOptionName.Signature]),
+    });
 
     mockDeliveryOptionsConfig(
       getMockDeliveryOptionsConfiguration({
@@ -109,7 +121,9 @@ describe('getResolvedCarrier', () => {
       }),
     );
 
-    expect(carrier.shipmentOptions.value).toEqual(new Set([ShipmentOptionName.OnlyRecipient]));
+    expect(carrier.shipmentOptionsPerPackageType.value).toEqual({
+      [PackageTypeName.Package]: new Set([ShipmentOptionName.OnlyRecipient]),
+    });
   });
 
   it('exposes features, filtered by config', () => {

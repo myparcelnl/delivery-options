@@ -15,6 +15,7 @@ import {type Timestamp, type DeliveryOption, type DeliveryPossibility, type Deli
 import {DeliveryTypeName} from '@myparcel/constants';
 import {createGetDeliveryOptionsParameters, getResolvedDeliveryType, createDeliveryTypeTranslatable} from '../utils';
 import {type SelectedDeliveryMoment} from '../types';
+import {DELIVERY_MOMENT_PACKAGE_TYPES} from '../data';
 import {useTimeRange} from './useTimeRange';
 import {useActiveCarriers} from './useActiveCarriers';
 
@@ -25,19 +26,20 @@ type FakeDeliveryDates = Replace<
 >;
 
 const createFakeDeliveryDates = (): FakeDeliveryDates[] => {
-  return [
-    {
+  // Create a fake date for each delivery type which uses specfic moments
+  return DELIVERY_MOMENT_PACKAGE_TYPES.map((packageType) => {
+    return {
       date: undefined,
       possibilities: [
         {
           type: DELIVERY_TYPE_DEFAULT,
-          package_type: PACKAGE_TYPE_DEFAULT,
+          package_type: packageType,
           delivery_time_frames: [],
           shipment_options: [],
         },
       ],
-    },
-  ];
+    };
+  });
 };
 
 type UseResolvedDeliveryOptions = ComputedAsync<SelectedDeliveryMoment[]>;

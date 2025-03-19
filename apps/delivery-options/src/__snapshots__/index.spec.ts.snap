@@ -13,6 +13,7 @@ exports[`exports > exports from index.ts 1`] = `
   "CustomDeliveryType",
   "DATES_SHOWN_MD",
   "DATES_SHOWN_SM",
+  "DELIVERY_MOMENT_PACKAGE_TYPES",
   "DISABLE_DELIVERY_OPTIONS",
   "DoButton",
   "EcoFriendlyIcon",

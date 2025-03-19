@@ -1,8 +1,8 @@
 import {type ComputedRef, computed, toValue} from 'vue';
-import {type SelectOption, PACKAGE_TYPE_DEFAULT, DELIVERY_TYPE_DEFAULT} from '@myparcel-do/shared';
+import {type SelectOption, DELIVERY_TYPE_DEFAULT} from '@myparcel-do/shared';
 import {getDeliveryTypePrice, createPackageTypeTranslatable} from '../utils';
 import {useConfigStore} from '../stores';
-import {SHOWN_SHIPMENT_OPTIONS} from '../data';
+import {DELIVERY_MOMENT_PACKAGE_TYPES, SHOWN_SHIPMENT_OPTIONS} from '../data';
 import {useResolvedDeliveryMoments} from './useResolvedDeliveryMoments';
 import {useActiveCarriers} from './useActiveCarriers';
 
@@ -12,7 +12,8 @@ export const useDeliveryMomentOptions = (): ComputedRef<SelectOption<string>[]> 
   const activeCarriers = useActiveCarriers();
 
   return computed(() => {
-    if (PACKAGE_TYPE_DEFAULT !== config.packageType) {
+    // Some package types will not return any date/time moments from the API - we show one option per carrier instead without any date/time.
+    if (!DELIVERY_MOMENT_PACKAGE_TYPES.includes(config.packageType)) {
       return activeCarriers.value
         .filter((carrier) => toValue(carrier.hasAnyDelivery) && toValue(carrier.packageTypes).has(config.packageType))
         .map((carrier) => {
@@ -34,20 +35,23 @@ export const useDeliveryMomentOptions = (): ComputedRef<SelectOption<string>[]> 
         });
     }
 
-    return deliveryMoments.value.map((option) => {
-      return {
-        carrier: option.carrier,
-        label: option.time,
-        price: getDeliveryTypePrice(option.deliveryType, option.carrier),
-        value: JSON.stringify({
-          time: option.time,
+    // Parse the deliveryMoments from the API for the other package types
+    return deliveryMoments.value
+      .filter((option) => option.packageType === config.packageType)
+      .map((option) => {
+        return {
           carrier: option.carrier,
-          date: option.date,
-          deliveryType: option.deliveryType,
-          packageType: option.packageType,
-          shipmentOptions: option.shipmentOptions.filter((option) => SHOWN_SHIPMENT_OPTIONS.includes(option.name)),
-        }),
-      };
-    });
+          label: option.time,
+          price: getDeliveryTypePrice(option.deliveryType, option.carrier),
+          value: JSON.stringify({
+            time: option.time,
+            carrier: option.carrier,
+            date: option.date,
+            deliveryType: option.deliveryType,
+            packageType: option.packageType,
+            shipmentOptions: option.shipmentOptions.filter((option) => SHOWN_SHIPMENT_OPTIONS.includes(option.name)),
+          }),
+        };
+      });
   });
 };

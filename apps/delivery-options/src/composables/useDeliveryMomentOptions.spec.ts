@@ -12,7 +12,7 @@ import {
 import {CarrierName, PackageTypeName} from '@myparcel/constants';
 import {parseJson} from '../utils';
 import {type SelectedDeliveryMoment} from '../types';
-import {useAddressStore, useConfigStore} from '../stores';
+import {useConfigStore} from '../stores';
 import {mockSelectedDeliveryOptions, mockDeliveryOptionsConfig, waitForDeliveryOptions} from '../__tests__';
 import {useDeliveryMomentOptions} from './useDeliveryMomentOptions';
 

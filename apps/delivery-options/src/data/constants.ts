@@ -1,4 +1,4 @@
-import {ShipmentOptionName} from '@myparcel/constants';
+import {PackageTypeName, ShipmentOptionName} from '@myparcel/constants';
 
 /**
  * Stores whether home delivery or pickup is selected.
@@ -33,6 +33,11 @@ export const SHOWN_SHIPMENT_OPTIONS = Object.freeze<ShipmentOptionName[]>([
   ShipmentOptionName.Signature,
   ShipmentOptionName.OnlyRecipient,
 ]);
+
+/**
+ * Enable date/time selection for these package types.
+ */
+export const DELIVERY_MOMENT_PACKAGE_TYPES: PackageTypeName[] = [PackageTypeName.Package, PackageTypeName.PackageSmall];
 
 export const MAP_MARKER_CLASS_ACTIVE = 'active';
 

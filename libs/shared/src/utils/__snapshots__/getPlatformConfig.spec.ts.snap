@@ -33,9 +33,11 @@ exports[`getPlatformConfig > gets config for platform belgie 1`] = `
         "BE",
         "NL",
       ],
-      "shipmentOptions": [
-        "signature",
-      ],
+      "shipmentOptionsPerPackageType": {
+        "package": [
+          "signature",
+        ],
+      },
       "subscription": 0,
       "unsupportedParameters": [
         "package_type",
@@ -65,10 +67,16 @@ exports[`getPlatformConfig > gets config for platform belgie 1`] = `
         "BE",
         "NL",
       ],
-      "shipmentOptions": [
-        "only_recipient",
-        "signature",
-      ],
+      "shipmentOptionsPerPackageType": {
+        "package": [
+          "only_recipient",
+          "signature",
+        ],
+        "package_small": [
+          "only_recipient",
+          "signature",
+        ],
+      },
       "subscription": 0,
     },
     {
@@ -184,10 +192,16 @@ exports[`getPlatformConfig > gets config for platform myparcel 1`] = `
         "SE",
         "DE",
       ],
-      "shipmentOptions": [
-        "only_recipient",
-        "signature",
-      ],
+      "shipmentOptionsPerPackageType": {
+        "package": [
+          "only_recipient",
+          "signature",
+        ],
+        "package_small": [
+          "only_recipient",
+          "signature",
+        ],
+      },
       "smallPackagePickupCountries": [
         "NL",
         "BE",
@@ -223,10 +237,12 @@ exports[`getPlatformConfig > gets config for platform myparcel 1`] = `
         "NL",
         "BE",
       ],
-      "shipmentOptions": [
-        "only_recipient",
-        "signature",
-      ],
+      "shipmentOptionsPerPackageType": {
+        "package": [
+          "only_recipient",
+          "signature",
+        ],
+      },
       "smallPackagePickupCountries": [
         "NL",
         "BE",

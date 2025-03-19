@@ -20,18 +20,26 @@ export const useShipmentOptionsOptions = (): ComputedRef<SelectOption[]> => {
 
   return computed(() => {
     const hasNoDeliveryOptions = deliveryOptions.loading.value || !deliveryOptions.value.length;
-    const {carrier, shipmentOptions} = useResolvedCarrier(deliveryMoment.value?.carrier);
+    const {carrier, shipmentOptionsPerPackageType} = useResolvedCarrier(deliveryMoment.value?.carrier);
 
     if (hasNoDeliveryOptions || !carrier.value) {
       return [];
     }
 
-    const carrierShipmentOptions = toValue(shipmentOptions);
     const momentShipmentOptions = toValue(deliveryMoment)?.shipmentOptions;
 
     return availableShipmentOptions.value
       .filter((option) => {
-        return carrierShipmentOptions?.has(option) && momentShipmentOptions?.some(({name}) => name === option);
+        // TODO: create test coverage for this logic
+        const selectedPackageType = toValue(deliveryMoment)?.packageType;
+        const optionsForPackageType = selectedPackageType
+          ? toValue(shipmentOptionsPerPackageType)[selectedPackageType]
+          : undefined;
+
+        // If there is a key for the package type in `shipmentOptionsPerPackageType`, check if the option is available for the package type
+        return optionsForPackageType
+          ? optionsForPackageType.has(option) && momentShipmentOptions?.some(({name}) => name === option)
+          : false;
       })
       .map((name) => {
         const match = momentShipmentOptions?.find((option) => option.name === name);

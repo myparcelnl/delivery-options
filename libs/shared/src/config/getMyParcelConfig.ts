@@ -54,7 +54,10 @@ export const getMyParcelConfig = (): PlatformConfiguration => ({
       pickupCountries: [NETHERLANDS, BELGIUM, DENMARK, SWEDEN, GERMANY],
       smallPackagePickupCountries: [NETHERLANDS, BELGIUM],
       fakeDelivery: true,
-      shipmentOptions: [ShipmentOptionName.OnlyRecipient, ShipmentOptionName.Signature],
+      shipmentOptionsPerPackageType: {
+        [PackageTypeName.Package]: [ShipmentOptionName.OnlyRecipient, ShipmentOptionName.Signature],
+        [PackageTypeName.PackageSmall]: [ShipmentOptionName.OnlyRecipient, ShipmentOptionName.Signature],
+      },
       features: [
         CarrierSetting.DeliveryDaysWindow,
         CarrierSetting.DropOffDays,
@@ -71,7 +74,9 @@ export const getMyParcelConfig = (): PlatformConfiguration => ({
       deliveryCountries: [NETHERLANDS, BELGIUM],
       pickupCountries: [NETHERLANDS, BELGIUM],
       smallPackagePickupCountries: [NETHERLANDS, BELGIUM],
-      shipmentOptions: [ShipmentOptionName.OnlyRecipient, ShipmentOptionName.Signature],
+      shipmentOptionsPerPackageType: {
+        [PackageTypeName.Package]: [ShipmentOptionName.OnlyRecipient, ShipmentOptionName.Signature],
+      },
       features: [CarrierSetting.DeliveryDaysWindow, CarrierSetting.DropOffDays, CarrierSetting.DropOffDelay],
       addressFields: [AddressField.City, AddressField.PostalCode],
     },
