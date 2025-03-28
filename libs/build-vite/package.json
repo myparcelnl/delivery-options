@@ -20,7 +20,7 @@
   "dependencies": {
     "@vitejs/plugin-vue": "^5.0.0",
     "@vitest/coverage-v8": "^2.0.0",
-    "happy-dom": "^14.0.0",
+    "happy-dom": "^17.4.4",
     "typescript": "5.4.5",
     "vite": "^5.3.6",
     "vite-plugin-custom-tsconfig": "^1.0.0",
