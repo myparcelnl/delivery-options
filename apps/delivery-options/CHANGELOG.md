@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel/delivery-options-v6.7.0](https://github.com/myparcelnl/delivery-options/compare/v6.6.1...v6.7.0) (2025-03-28)
+
+### :sparkles: New Features
+
+* enable time selection and signature/only-recipient for small package type ([#282](https://github.com/myparcelnl/delivery-options/issues/282)) ([7742bd8](https://github.com/myparcelnl/delivery-options/commit/7742bd8854af69a3bfeaa9f523aeddeb59bba10d))
+
 ## [@myparcel/delivery-options-v6.6.1](https://github.com/myparcelnl/delivery-options/compare/v6.6.0...v6.6.1) (2025-03-18)
 
 ### :bug: Bug Fixes
