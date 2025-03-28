@@ -1,5 +1,6 @@
 import {type MaybeRef, computed, toValue, type ComputedRef} from 'vue';
 import {useMemoize} from '@vueuse/core';
+import {type ShipmentOptionName} from '@myparcel/constants';
 import {
   resolveCarrierName,
   waitForRequestData,
@@ -35,7 +36,9 @@ export interface UseCarrier {
   features: ComputedRef<Set<string>>;
   packageTypes: ComputedRef<Set<SupportedPackageTypeName>>;
   pickupCountries: ComputedRef<Set<string>>;
-  shipmentOptions: ComputedRef<Set<SupportedShipmentOptionName>>;
+  shipmentOptionsPerPackageType: ComputedRef<
+    Partial<Record<SupportedPackageTypeName, Set<SupportedShipmentOptionName>>>
+  >;
   smallPackagePickupCountries: ComputedRef<Set<string>>;
 }
 
@@ -83,13 +86,31 @@ export const useCarrier = useMemoize((options: UseCarrierOptions): UseCarrier =>
   const deliveryCountries = computed(() => new Set(config.value?.deliveryCountries ?? []));
   const packageTypes = computed(() => new Set(config.value?.packageTypes ?? []));
   const deliveryTypes = computed(() => new Set(config.value?.deliveryTypes ?? []));
-  const shipmentOptions = computed(() => new Set(config.value?.shipmentOptions ?? []));
+  const shipmentOptionsPerPackageType = computed(() => {
+    // For each package type, convert the array of shipment options to a set
+    return Object.entries(config.value?.shipmentOptionsPerPackageType ?? {}).reduce((acc, [key, options]) => {
+      acc[key as SupportedPackageTypeName] = new Set(options);
+      return acc;
+    }, {} as Partial<Record<SupportedPackageTypeName, Set<SupportedShipmentOptionName>>>);
+  });
 
   const features = computed(() => {
+    // Combine all the shipment option names from `shipmentOptionsPerPackageType` into a single array
+    const shipmentOptionSets = Object.values(shipmentOptionsPerPackageType.value);
+    const allShipmentOptions: ShipmentOptionName[] = [];
+    for (const shipmentOptionSet of shipmentOptionSets) {
+      // Inject only those items that are not already in the array
+      const newOptions = [...shipmentOptionSet].filter((item) => !allShipmentOptions.includes(item));
+
+      if (newOptions.length) {
+        allShipmentOptions.push(...newOptions);
+      }
+    }
+
     return new Set([
       ...(config.value?.features ?? []),
       ...[...packageTypes.value].map(getPackageTypePriceKey),
-      ...[...deliveryTypes.value, ...shipmentOptions.value].map(getConfigKey),
+      ...[...deliveryTypes.value, ...allShipmentOptions].map(getConfigKey),
     ]);
   });
 
@@ -108,7 +129,7 @@ export const useCarrier = useMemoize((options: UseCarrierOptions): UseCarrier =>
     deliveryCountries,
     packageTypes,
     deliveryTypes,
-    shipmentOptions,
+    shipmentOptionsPerPackageType,
     smallPackagePickupCountries,
 
     features,

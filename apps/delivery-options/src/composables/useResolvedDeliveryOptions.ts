@@ -15,7 +15,9 @@ import {type Timestamp, type DeliveryOption, type DeliveryPossibility, type Deli
 import {DeliveryTypeName} from '@myparcel/constants';
 import {createGetDeliveryOptionsParameters, getResolvedDeliveryType, createDeliveryTypeTranslatable} from '../utils';
 import {type SelectedDeliveryMoment} from '../types';
+import {DELIVERY_MOMENT_PACKAGE_TYPES} from '../data';
 import {useTimeRange} from './useTimeRange';
+import {type UseResolvedCarrier} from './useResolvedCarrier';
 import {useActiveCarriers} from './useActiveCarriers';
 
 type FakeDeliveryDates = Replace<
@@ -24,20 +26,29 @@ type FakeDeliveryDates = Replace<
   Timestamp | undefined
 >;
 
-const createFakeDeliveryDates = (): FakeDeliveryDates[] => {
-  return [
-    {
-      date: undefined,
-      possibilities: [
-        {
-          type: DELIVERY_TYPE_DEFAULT,
-          package_type: PACKAGE_TYPE_DEFAULT,
-          delivery_time_frames: [],
-          shipment_options: [],
-        },
-      ],
-    },
-  ];
+/**
+ * Create "fake" (undefined) delivery dates for each delivery type
+ * @returns
+ */
+const createFakeDeliveryDates = (carrier: UseResolvedCarrier): FakeDeliveryDates[] => {
+  // Create fake delivery dates for each package type which may have time frames, if configured for the carrier
+  return DELIVERY_MOMENT_PACKAGE_TYPES.reduce((acc, packageType) => {
+    if (toValue(carrier.config)?.packageTypes.includes(packageType)) {
+      acc.push({
+        date: undefined,
+        possibilities: [
+          {
+            type: DELIVERY_TYPE_DEFAULT,
+            package_type: packageType,
+            delivery_time_frames: [],
+            shipment_options: [],
+          },
+        ],
+      });
+    }
+
+    return acc;
+  }, [] as FakeDeliveryDates[]);
 };
 
 type UseResolvedDeliveryOptions = ComputedAsync<SelectedDeliveryMoment[]>;
@@ -52,7 +63,7 @@ const callback = (): UseResolvedDeliveryOptions => {
         .filter((carrier) => toValue(carrier.hasAnyDelivery))
         .map(async (carrier) => {
           if (!toValue(carrier.hasDelivery)) {
-            return Promise.resolve({carrier, dates: createFakeDeliveryDates()});
+            return Promise.resolve({carrier, dates: createFakeDeliveryDates(carrier)});
           }
 
           const params = createGetDeliveryOptionsParameters(carrier);
@@ -62,7 +73,7 @@ const callback = (): UseResolvedDeliveryOptions => {
 
           const dates = toValue(query.data);
 
-          return {carrier, dates: dates?.length ? dates : createFakeDeliveryDates()};
+          return {carrier, dates: dates?.length ? dates : createFakeDeliveryDates(carrier)};
         }),
     );
 

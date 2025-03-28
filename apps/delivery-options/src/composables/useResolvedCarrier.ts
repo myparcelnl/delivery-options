@@ -24,7 +24,9 @@ export type UseResolvedCarrier = {
   deliveryTypes: ComputedRef<Set<SupportedDeliveryTypeName>>;
   disabledDeliveryTypes: Ref<Set<SupportedDeliveryTypeName>>;
   packageTypes: ComputedRef<Set<SupportedPackageTypeName>>;
-  shipmentOptions: ComputedRef<Set<SupportedShipmentOptionName>>;
+  shipmentOptionsPerPackageType: ComputedRef<
+    Partial<Record<SupportedPackageTypeName, Set<SupportedShipmentOptionName>>>
+  >;
   features: ComputedRef<Set<string>>;
   hasDelivery: ComputedRef<boolean>;
   hasFakeDelivery: ComputedRef<boolean>;

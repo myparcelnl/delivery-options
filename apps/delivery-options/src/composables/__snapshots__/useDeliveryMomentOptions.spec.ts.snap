@@ -112,31 +112,33 @@ exports[`useDeliveryMomentOptions > returns delivery moment options with package
   {
     "carrier": "postnl",
     "label": {
-      "key": "packageTypePackageSmall",
+      "key": "deliveryStandardTitle",
     },
     "price": 6,
     "value": {
       "carrier": "postnl",
-      "date": null,
       "deliveryType": "standard",
       "packageType": "package_small",
       "shipmentOptions": [],
-      "time": null,
+      "time": {
+        "key": "deliveryStandardTitle",
+      },
     },
   },
   {
     "carrier": "postnl:123",
     "label": {
-      "key": "packageTypePackageSmall",
+      "key": "deliveryStandardTitle",
     },
     "price": 0,
     "value": {
       "carrier": "postnl:123",
-      "date": null,
       "deliveryType": "standard",
       "packageType": "package_small",
       "shipmentOptions": [],
-      "time": null,
+      "time": {
+        "key": "deliveryStandardTitle",
+      },
     },
   },
 ]
