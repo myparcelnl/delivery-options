@@ -22,5 +22,3 @@ export * from './useSelectedPickupLocation';
 export * from './useSelectedValues';
 export * from './useShipmentOptionsOptions';
 export * from './useTimeRange';
-
-export {createFakeShipmentOptions} from './useFakeShipmentOptions';
