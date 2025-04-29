@@ -1,6 +1,5 @@
 import {toValue} from 'vue';
-import {type SupportedPackageTypeName} from '@myparcel-do/shared';
-import {CarrierSetting} from '@myparcel-do/shared';
+import {CarrierSetting, type SupportedPackageTypeName} from '@myparcel-do/shared';
 import {ShipmentOptionName} from '@myparcel/constants';
 import {type UseResolvedCarrier} from './useResolvedCarrier';
 

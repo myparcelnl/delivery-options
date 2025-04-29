@@ -34,14 +34,9 @@ type FakeDeliveryDates = Replace<
  * @returns
  */
 const createFakeDeliveryDates = (carrier: UseResolvedCarrier): FakeDeliveryDates[] => {
-  // Check if deliveryDaysWindow is 0
-  const deliveryDaysWindow = carrier.get(CarrierSetting.DeliveryDaysWindow, DELIVERY_DAYS_WINDOW_DEFAULT);
-
   // Create fake delivery dates for each package type which may have time frames, if configured for the carrier
   return DELIVERY_MOMENT_PACKAGE_TYPES.reduce((acc, packageType) => {
     if (toValue(carrier.config)?.packageTypes.includes(packageType)) {
-      const shipmentOptions = deliveryDaysWindow === 0 ? createFakeShipmentOptions(carrier, packageType) : [];
-
       acc.push({
         date: undefined,
         possibilities: [
@@ -49,7 +44,7 @@ const createFakeDeliveryDates = (carrier: UseResolvedCarrier): FakeDeliveryDates
             type: DELIVERY_TYPE_DEFAULT,
             package_type: packageType,
             delivery_time_frames: [],
-            shipment_options: shipmentOptions,
+            shipment_options: createFakeShipmentOptions(carrier, packageType),
           },
         ],
       });
@@ -118,7 +113,8 @@ const callback = (): UseResolvedDeliveryOptions => {
             return;
           }
 
-          // Given a possibility with the same start/end timeFrame, don't add the express option if standard is already present.
+          // Given a possibility with the same start/end timeFrame, don't add the express option if standard is already
+          // present.
           if (
             deliveryType === DeliveryTypeName.Express &&
             carrier?.deliveryTypes.value.has(DeliveryTypeName.Standard) &&
