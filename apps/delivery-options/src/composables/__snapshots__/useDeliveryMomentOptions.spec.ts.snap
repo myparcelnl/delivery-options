@@ -82,7 +82,30 @@ exports[`useDeliveryMomentOptions > returns delivery moment options with package
       "carrier": "postnl",
       "deliveryType": "standard",
       "packageType": "package",
-      "shipmentOptions": [],
+      "shipmentOptions": [
+        {
+          "name": "signature",
+          "schema": {
+            "default": false,
+            "enum": [
+              false,
+              true,
+            ],
+            "type": "boolean",
+          },
+        },
+        {
+          "name": "only_recipient",
+          "schema": {
+            "default": false,
+            "enum": [
+              false,
+              true,
+            ],
+            "type": "boolean",
+          },
+        },
+      ],
       "time": {
         "key": "deliveryStandardTitle",
       },
@@ -98,7 +121,30 @@ exports[`useDeliveryMomentOptions > returns delivery moment options with package
       "carrier": "postnl:123",
       "deliveryType": "standard",
       "packageType": "package",
-      "shipmentOptions": [],
+      "shipmentOptions": [
+        {
+          "name": "signature",
+          "schema": {
+            "default": false,
+            "enum": [
+              false,
+              true,
+            ],
+            "type": "boolean",
+          },
+        },
+        {
+          "name": "only_recipient",
+          "schema": {
+            "default": false,
+            "enum": [
+              false,
+              true,
+            ],
+            "type": "boolean",
+          },
+        },
+      ],
       "time": {
         "key": "deliveryStandardTitle",
       },
@@ -119,7 +165,30 @@ exports[`useDeliveryMomentOptions > returns delivery moment options with package
       "carrier": "postnl",
       "deliveryType": "standard",
       "packageType": "package_small",
-      "shipmentOptions": [],
+      "shipmentOptions": [
+        {
+          "name": "signature",
+          "schema": {
+            "default": false,
+            "enum": [
+              false,
+              true,
+            ],
+            "type": "boolean",
+          },
+        },
+        {
+          "name": "only_recipient",
+          "schema": {
+            "default": false,
+            "enum": [
+              false,
+              true,
+            ],
+            "type": "boolean",
+          },
+        },
+      ],
       "time": {
         "key": "deliveryStandardTitle",
       },
@@ -135,7 +204,30 @@ exports[`useDeliveryMomentOptions > returns delivery moment options with package
       "carrier": "postnl:123",
       "deliveryType": "standard",
       "packageType": "package_small",
-      "shipmentOptions": [],
+      "shipmentOptions": [
+        {
+          "name": "signature",
+          "schema": {
+            "default": false,
+            "enum": [
+              false,
+              true,
+            ],
+            "type": "boolean",
+          },
+        },
+        {
+          "name": "only_recipient",
+          "schema": {
+            "default": false,
+            "enum": [
+              false,
+              true,
+            ],
+            "type": "boolean",
+          },
+        },
+      ],
       "time": {
         "key": "deliveryStandardTitle",
       },
