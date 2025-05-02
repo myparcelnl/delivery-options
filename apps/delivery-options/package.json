@@ -29,7 +29,8 @@
         "types": "./dist/index.d.cts",
         "default": "./dist/index.lib.cjs"
       }
-    }
+    },
+    "./*.css": "./dist/*.css"
   },
   "types": "./dist/index.d.ts",
   "files": [
