@@ -825,7 +825,7 @@ __metadata:
     "@myparcel-do/shared": "workspace:*"
     "@myparcel/constants": "npm:^2.2.0"
     "@myparcel/delivery-options": "workspace:*"
-    "@myparcel/sdk": "npm:^3.2.0"
+    "@myparcel/sdk": "npm:^4.3.0"
     "@myparcel/ts-utils": "npm:^1.12.0"
     "@myparcel/vue-form-builder": "npm:^1.0.0-beta.1"
     "@testing-library/vue": "npm:^8.0.1"
@@ -1157,7 +1157,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@myparcel/sdk@npm:^3.2.0, @myparcel/sdk@npm:^3.3.1":
+"@myparcel/sdk@npm:^3.3.1":
   version: 3.9.0
   resolution: "@myparcel/sdk@npm:3.9.0"
   dependencies:
@@ -1174,6 +1174,16 @@ __metadata:
     "@myparcel/constants": "npm:^2.0.0"
     "@myparcel/ts-utils": "npm:^1.6.0"
   checksum: 10c0/17537f5de8f791a0d1eb6781df5ebed877cb91af34fb26412ff602c2aa65ed22315839d7aa3668020e1ecad5a5cfc88edd8c2a514b55034f6b4f986936e7953d
+  languageName: node
+  linkType: hard
+
+"@myparcel/sdk@npm:^4.3.0":
+  version: 4.3.0
+  resolution: "@myparcel/sdk@npm:4.3.0"
+  dependencies:
+    "@myparcel/constants": "npm:^2.0.0"
+    "@myparcel/ts-utils": "npm:^1.6.0"
+  checksum: 10c0/95c48de59461464a20a787bcbd93c1ea74aef6ec9e024d5f6f7deb772cb49708ee4d6caff8b2012bd6c25bed6eb4f95ece39bab4a57512af7c0326ebd4151416
   languageName: node
   linkType: hard
 

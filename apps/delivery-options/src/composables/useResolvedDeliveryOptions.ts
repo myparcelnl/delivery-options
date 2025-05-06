@@ -29,8 +29,7 @@ type FakeDeliveryDates = Replace<
 >;
 
 /**
- * Create "fake" (undefined) delivery dates for each delivery type
- * Include shipment options when deliveryDaysWindow is 0
+ * Create "fake" (undefined) delivery dates and shipment options for each delivery type
  * @returns
  */
 const createFakeDeliveryDates = (carrier: UseResolvedCarrier): FakeDeliveryDates[] => {
@@ -113,8 +112,7 @@ const callback = (): UseResolvedDeliveryOptions => {
             return;
           }
 
-          // Given a possibility with the same start/end timeFrame, don't add the express option if standard is already
-          // present.
+          // Given a possibility with the same start/end timeFrame, don't add the express option if standard is already present.
           if (
             deliveryType === DeliveryTypeName.Express &&
             carrier?.deliveryTypes.value.has(DeliveryTypeName.Standard) &&

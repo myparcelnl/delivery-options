@@ -1,16 +1,8 @@
 import {toValue} from 'vue';
 import {CarrierSetting, type SupportedPackageTypeName} from '@myparcel-do/shared';
+import {type PossibleShipmentOption} from '@myparcel/sdk';
 import {ShipmentOptionName} from '@myparcel/constants';
 import {type UseResolvedCarrier} from './useResolvedCarrier';
-
-export interface ShipmentOption {
-  name: ShipmentOptionName;
-  schema: {
-    enum: boolean[];
-    default: boolean;
-    type: 'boolean';
-  };
-}
 
 /**
  * Create fake shipment options based on carrier configuration
@@ -18,9 +10,9 @@ export interface ShipmentOption {
 export const createFakeShipmentOptions = (
   carrier: UseResolvedCarrier,
   packageType: SupportedPackageTypeName,
-): ShipmentOption[] => {
+): PossibleShipmentOption[] => {
   const features = toValue(carrier.features);
-  const shipmentOptions: ShipmentOption[] = [];
+  const shipmentOptions: PossibleShipmentOption[] = [];
   const shipmentOptionsPerPackageType = toValue(carrier.shipmentOptionsPerPackageType);
   const packageTypeOptions = shipmentOptionsPerPackageType[packageType];
 
