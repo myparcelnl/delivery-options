@@ -3,6 +3,7 @@ export * from './useActiveCarriers';
 export * from './useBreakpoints';
 export * from './useCurrentPlatform';
 export * from './useDateFormat';
+export * from './useFakeShipmentOptions';
 export * from './useFeatures';
 export * from './useFormatDistance';
 export * from './useLanguage';

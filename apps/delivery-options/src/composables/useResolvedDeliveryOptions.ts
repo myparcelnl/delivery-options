@@ -4,11 +4,12 @@ import {useMemoize} from '@vueuse/core';
 import {
   useDeliveryOptionsRequest,
   computedAsync,
-  PACKAGE_TYPE_DEFAULT,
   DELIVERY_TYPE_DEFAULT,
   type AnyTranslatable,
   createUntranslatable,
   type ComputedAsync,
+  CarrierSetting,
+  DELIVERY_DAYS_WINDOW_DEFAULT,
 } from '@myparcel-do/shared';
 import {type Replace} from '@myparcel/ts-utils';
 import {type Timestamp, type DeliveryOption, type DeliveryPossibility, type DeliveryTimeFrame} from '@myparcel/sdk';
@@ -18,6 +19,7 @@ import {type SelectedDeliveryMoment} from '../types';
 import {DELIVERY_MOMENT_PACKAGE_TYPES} from '../data';
 import {useTimeRange} from './useTimeRange';
 import {type UseResolvedCarrier} from './useResolvedCarrier';
+import {createFakeShipmentOptions} from './useFakeShipmentOptions';
 import {useActiveCarriers} from './useActiveCarriers';
 
 type FakeDeliveryDates = Replace<
@@ -27,7 +29,7 @@ type FakeDeliveryDates = Replace<
 >;
 
 /**
- * Create "fake" (undefined) delivery dates for each delivery type
+ * Create "fake" (undefined) delivery dates and shipment options for each delivery type
  * @returns
  */
 const createFakeDeliveryDates = (carrier: UseResolvedCarrier): FakeDeliveryDates[] => {
@@ -41,7 +43,7 @@ const createFakeDeliveryDates = (carrier: UseResolvedCarrier): FakeDeliveryDates
             type: DELIVERY_TYPE_DEFAULT,
             package_type: packageType,
             delivery_time_frames: [],
-            shipment_options: [],
+            shipment_options: createFakeShipmentOptions(carrier, packageType),
           },
         ],
       });
@@ -62,7 +64,9 @@ const callback = (): UseResolvedDeliveryOptions => {
       toValue(carriers)
         .filter((carrier) => toValue(carrier.hasAnyDelivery))
         .map(async (carrier) => {
-          if (!toValue(carrier.hasDelivery)) {
+          const deliveryDaysWindow = carrier.get(CarrierSetting.DeliveryDaysWindow, DELIVERY_DAYS_WINDOW_DEFAULT);
+
+          if (!toValue(carrier.hasDelivery) || deliveryDaysWindow === 0) {
             return Promise.resolve({carrier, dates: createFakeDeliveryDates(carrier)});
           }
 
