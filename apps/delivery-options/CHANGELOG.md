@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel/delivery-options-v6.8.0](https://github.com/myparcelnl/delivery-options/compare/v6.7.0...v6.8.0) (2025-05-08)
+
+### :sparkles: New Features
+
+* show shipment options without delivery days ([#299](https://github.com/myparcelnl/delivery-options/issues/299)) ([aae6fde](https://github.com/myparcelnl/delivery-options/commit/aae6fdefe1dfcfeb13e55c5c824e99242ffb05d3))
+
 ## [@myparcel/delivery-options-v6.7.0](https://github.com/myparcelnl/delivery-options/compare/v6.6.1...v6.7.0) (2025-03-28)
 
 ### :sparkles: New Features
