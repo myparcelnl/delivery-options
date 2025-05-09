@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel/delivery-options-v6.9.0](https://github.com/myparcelnl/delivery-options/compare/v6.8.0...v6.9.0) (2025-05-09)
+
+### :sparkles: New Features
+
+* provide a build without vue ([#301](https://github.com/myparcelnl/delivery-options/issues/301)) ([2161976](https://github.com/myparcelnl/delivery-options/commit/21619768ef07ac59c8fda57f329a9b6752fc2fa7))
+
 ## [@myparcel/delivery-options-v6.8.0](https://github.com/myparcelnl/delivery-options/compare/v6.7.0...v6.8.0) (2025-05-08)
 
 ### :sparkles: New Features
