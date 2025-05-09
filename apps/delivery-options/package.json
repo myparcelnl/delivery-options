@@ -19,16 +19,29 @@
         "types": "./dist/index.d.cts",
         "default": "./dist/index.cjs"
       }
-    }
+    },
+    "./lib": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.lib.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.lib.cjs"
+      }
+    },
+    "./*.css": "./dist/*.css"
   },
   "types": "./dist/index.d.ts",
   "files": [
     "./dist"
   ],
   "scripts": {
-    "build": "run build:default && run build:myparcel && run build:myparcel-lib",
+    "build": "run build:default && run build:default:lib && run build:myparcel && run build:myparcel-lib",
     "build:default": "vite build",
     "build:default:dev": "run build:default -- --mode development",
+    "build:default:lib": "BUILD_MODE=lib vite build",
+    "build:default:lib:dev": "run build:default -- --mode development",
     "build:dev": "run build:default:dev && run build:myparcel:dev && run build:myparcel-lib:dev",
     "build:myparcel": "vite build -c vite-myparcel.config.ts",
     "build:myparcel-lib": "vite build -c vite-myparcel-lib.config.ts",
