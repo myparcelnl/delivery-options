@@ -16,6 +16,7 @@ interface UsePickupLocationsMap {
   map: Ref<undefined | Map>;
   markers: Ref<MapMarker[]>;
   scaleControl: Ref<undefined | Control.Scale>;
+  center: Ref<NonNullable<LeafletMapProps['center']>>;
   showLoadMoreButton: Ref<boolean>;
   tileLayer: Ref<undefined | TileLayer>;
 
@@ -167,7 +168,7 @@ export const usePickupLocationsMap = (): UsePickupLocationsMap => {
   return {
     fitBounds,
     initializeMap,
-
+    center,
     activeMarker,
     loaded,
     map,

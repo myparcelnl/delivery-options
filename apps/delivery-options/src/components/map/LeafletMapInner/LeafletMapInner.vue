@@ -26,12 +26,26 @@ const styleTag = useStyleTag(css);
 const scriptTag = useScriptTag('https://cdn.jsdelivr.net/npm/leaflet@1/dist/leaflet.js', undefined, {
   manual: true,
 });
-await scriptTag.load();
+
+// @ts-expect-error ignore window.L not being defined, as we are checking that here
+if (window.L === undefined) {
+  try {
+    await scriptTag.load();
+  } catch (error) {
+    console.error('Error loading Leaflet JS:', error);
+  }
+} else {
+  console.debug('Leaflet JS already loaded');
+}
 
 const {initializeMap, activeMarker, center, map, loaded} = usePickupLocationsMap();
 
 onMounted(async () => {
-  styleTag.load();
+  try {
+    styleTag.load();
+  } catch (error) {
+    console.error('Error loading Leaflet CSS:', error);
+  }
 
   const teardownMap = initializeMap(container);
 
@@ -39,9 +53,9 @@ onMounted(async () => {
 });
 
 onUnmounted(() => {
-  scriptTag.unload();
-  styleTag.unload();
   unmountHooks.forEach((hook) => hook());
+  styleTag.unload();
+  scriptTag.unload();
 });
 
 onActivated(() => {
