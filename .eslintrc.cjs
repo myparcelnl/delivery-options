@@ -25,9 +25,11 @@ module.exports = {
         'vue/no-bare-strings-in-template': 'off',
         // Disabled because @typescript-eslint freaks out when there is no component block
         'vue/no-empty-component-block': 'off',
-        'vue/no-undef-components': ['error', {ignorePatterns: ['story', 'variant']}],
+        'vue/no-undef-components': ['error', { ignorePatterns: ['story', 'variant'] }],
         'vue/no-setup-props-destructure': 'off',
-        'id-length': ['warn', {exceptions: ['_', 'i', 'j', 'k', 'v', 'x', 'y', 'z', 'L']}],
+        // Disabled because this is not relevant for typescript 4.5+
+        'import/consistent-type-specifier-style': ['off'],
+        'id-length': ['warn', { exceptions: ['_', 'i', 'j', 'k', 'v', 'x', 'y', 'z', 'L'] }],
         'no-bitwise': 'off',
       },
     },
@@ -38,7 +40,9 @@ module.exports = {
         '@typescript-eslint/explicit-function-return-type': 'off',
         '@typescript-eslint/no-misused-promises': 'off',
         'class-methods-use-this': 'off',
-        'id-length': ['warn', {exceptions: ['_', 'i', 'j', 'k', 'v', 'x', 'y', 'z', 'L']}],
+        // Disabled because this is not relevant for typescript 4.5+
+        'import/consistent-type-specifier-style': ['off'],
+        'id-length': ['warn', { exceptions: ['_', 'i', 'j', 'k', 'v', 'x', 'y', 'z', 'L'] }],
         'no-bitwise': 'off',
       },
     },
