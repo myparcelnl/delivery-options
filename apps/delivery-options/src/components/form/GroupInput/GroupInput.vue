@@ -20,7 +20,7 @@
           :amount="option.ecoFriendly" />
 
         <PriceTag
-          v-if="option.price"
+          v-if="option.price !== undefined"
           :price="option.price"
           class="mp-ml-auto" />
       </label>

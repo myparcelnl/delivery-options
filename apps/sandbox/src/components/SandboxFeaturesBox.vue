@@ -20,6 +20,7 @@ import {formField, formSection} from '../form';
 import FormDropOffSelector from './form/input/FormDropOffSelector.vue';
 import {FormNumberInput, FormRadioGroupInput, SandboxSettingsEntry} from './form';
 import {Box} from './Box';
+import FormToggleInput from './form/input/FormToggleInput.vue';
 
 const section = formSection({
   key: 'general',
@@ -67,6 +68,12 @@ const section = formSection({
           },
         ] satisfies SelectOption[],
       },
+    }),
+
+    formField({
+      key: KEY_CONFIG,
+      name: ConfigSetting.ShowPriceZeroAsFree,
+      component: FormToggleInput,
     }),
   ],
 });
