@@ -65,4 +65,9 @@ export const getAllConfigOptions = useMemoize((): ConfigOption[] => [
     key: ConfigSetting.PickupMapAllowLoadMore,
     type: OptionType.Boolean,
   }),
+
+  declareOption({
+    key: ConfigSetting.ShowPriceZeroAsFree,
+    type: OptionType.Boolean,
+  }),
 ]);
