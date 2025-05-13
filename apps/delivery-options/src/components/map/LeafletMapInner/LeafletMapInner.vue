@@ -29,11 +29,7 @@ const scriptTag = useScriptTag('https://cdn.jsdelivr.net/npm/leaflet@1/dist/leaf
 
 // @ts-expect-error ignore window.L not being defined, as we are checking that here
 if (window.L === undefined) {
-  try {
-    await scriptTag.load();
-  } catch (error) {
-    console.error('Error loading Leaflet JS:', error);
-  }
+  await scriptTag.load();
 } else {
   console.debug('Leaflet JS already loaded');
 }
