@@ -5,11 +5,11 @@
 </template>
 
 <script lang="ts" setup>
+import type {MarkerOptions} from 'leaflet';
+import type {MapMarker} from '../../../types';
 import {onUnmounted, ref, toRefs, watch, onMounted, toValue} from 'vue';
-import {type MarkerOptions} from 'leaflet';
 import {isDef, watchOnce} from '@vueuse/core';
 import {ElementEvent} from '@myparcel-do/shared';
-import {type MapMarker} from '../../../types';
 import {MAP_MARKER_CLASS_ACTIVE} from '../../../data';
 import {usePickupLocationsMap} from '../../../composables';
 

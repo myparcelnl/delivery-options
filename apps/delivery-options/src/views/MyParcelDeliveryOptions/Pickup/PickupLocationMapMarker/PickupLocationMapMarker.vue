@@ -7,7 +7,7 @@
 
 <script lang="ts" setup>
 import {computed, toRefs} from 'vue';
-import {type MarkerOptions} from 'leaflet';
+import type {MarkerOptions} from 'leaflet';
 import {isDef} from '@vueuse/core';
 import {createCarrierMarkerIcon} from '../../../../utils';
 import {MAP_MARKER_CLASS_PREFIX} from '../../../../data';

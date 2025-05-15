@@ -1,4 +1,4 @@
-import {type Marker} from 'leaflet';
+import type {Marker} from 'leaflet';
 
 export interface LeafletMapProps {
   center?: [number, number];

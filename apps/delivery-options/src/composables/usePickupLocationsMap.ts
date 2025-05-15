@@ -1,8 +1,9 @@
+import type {Map, TileLayer, Control} from 'leaflet';
+import type {MapTileLayerData} from '@myparcel-do/shared';
 import {type Ref, ref, computed, watch, toRef, toValue, type ComputedRef} from 'vue';
 import {isString} from 'radash';
-import {type Map, type TileLayer, type Control} from 'leaflet';
 import {isDef, useDebounceFn} from '@vueuse/core';
-import {type MapTileLayerData, ConfigSetting} from '@myparcel-do/shared';
+import {ConfigSetting} from '@myparcel-do/shared';
 import {type LeafletMapProps, type MapMarker} from '../types';
 import {useConfigStore} from '../stores';
 import {MAP_MARKER_CLASS_ACTIVE} from '../data';
@@ -16,6 +17,7 @@ interface UsePickupLocationsMap {
   map: Ref<undefined | Map>;
   markers: Ref<MapMarker[]>;
   scaleControl: Ref<undefined | Control.Scale>;
+  center: Ref<NonNullable<LeafletMapProps['center']>>;
   showLoadMoreButton: Ref<boolean>;
   tileLayer: Ref<undefined | TileLayer>;
 
@@ -167,7 +169,7 @@ export const usePickupLocationsMap = (): UsePickupLocationsMap => {
   return {
     fitBounds,
     initializeMap,
-
+    center,
     activeMarker,
     loaded,
     map,
