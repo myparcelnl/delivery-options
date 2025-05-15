@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel/delivery-options-v6.9.1](https://github.com/myparcelnl/delivery-options/compare/v6.9.0...v6.9.1) (2025-05-15)
+
+### :bug: Bug Fixes
+
+* use an external version of leaflet if already loaded ([#304](https://github.com/myparcelnl/delivery-options/issues/304)) ([8c16ed6](https://github.com/myparcelnl/delivery-options/commit/8c16ed6e59b159bf431bf3fcbb31ca86a9919831))
+
 ## [@myparcel/delivery-options-v6.9.0](https://github.com/myparcelnl/delivery-options/compare/v6.8.0...v6.9.0) (2025-05-09)
 
 ### :sparkles: New Features
