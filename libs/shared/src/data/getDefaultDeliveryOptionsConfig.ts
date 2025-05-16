@@ -48,9 +48,11 @@ export const getDefaultDeliveryOptionsConfig = (): ResolvedDeliveryOptionsConfig
     // Pickup
     [CarrierSetting.AllowPickupLocations]: true,
 
+    // Misc. config
     [ConfigSetting.PickupLocationsDefaultView]: PickupLocationsView.Map,
     [ConfigSetting.PickupMapAllowLoadMore]: true,
     [ConfigSetting.PickupShowDistance]: true,
+    [ConfigSetting.ShowPriceZeroAsFree]: false,
 
     /**
      * Default leaflet tile layer data.
