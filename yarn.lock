@@ -1136,6 +1136,7 @@ __metadata:
     histoire: "npm:^0.17.6"
     leaflet: "npm:^1.9.4"
     postcss: "npm:^8.0.0"
+    postcss-replace: "npm:2.0.1"
     radash: "npm:^12.0.0"
     semantic-release: "npm:^24.0.0"
     semantic-release-monorepo: "npm:^8.0.1"
@@ -10539,6 +10540,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"object-path@npm:^0.11.8":
+  version: 0.11.8
+  resolution: "object-path@npm:0.11.8"
+  checksum: 10c0/73b1f33bb30a7032d8cce2e3dcffd82b80a83d8304e80b4f83b4f456165625de9907f1ca7f7441d4dfb5e73429ace1e5bf9d9315636ac0aacc76392cc21d1672
+  languageName: node
+  linkType: hard
+
 "object.assign@npm:^4.1.4, object.assign@npm:^4.1.5":
   version: 4.1.5
   resolution: "object.assign@npm:4.1.5"
@@ -11567,6 +11575,18 @@ __metadata:
   peerDependencies:
     postcss: ^8.4.31
   checksum: 10c0/b2d4b65e71d38b604b41937850d1d64794964d6eced90f05891cfae8a78c7a9fed49911f51da9dcc5d715ac18e8bc7eacf691f2c5321dfe4d781f3e4442dfea9
+  languageName: node
+  linkType: hard
+
+"postcss-replace@npm:2.0.1":
+  version: 2.0.1
+  resolution: "postcss-replace@npm:2.0.1"
+  dependencies:
+    kind-of: "npm:^6.0.3"
+    object-path: "npm:^0.11.8"
+  peerDependencies:
+    postcss: ^8.4
+  checksum: 10c0/40b82e8e031d175cf9dab212665160ca49bc44652e8927a423de83e4c83199548415ace7afd0826410c6fd321cdbc210cc30e623692d08f6be08613d1a4f9a36
   languageName: node
   linkType: hard
 
