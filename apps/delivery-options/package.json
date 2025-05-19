@@ -93,6 +93,7 @@
     "happy-dom": "^14.0.0",
     "histoire": "^0.17.6",
     "postcss": "^8.0.0",
+    "postcss-replace": "2.0.1",
     "semantic-release": "^24.0.0",
     "semantic-release-monorepo": "^8.0.1",
     "semver": "^7.6.0",
