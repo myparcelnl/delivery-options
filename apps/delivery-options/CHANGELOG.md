@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel/delivery-options-v6.10.0](https://github.com/myparcelnl/delivery-options/compare/v6.9.1...v6.10.0) (2025-05-19)
+
+### :sparkles: New Features
+
+* replace tailwind variables prefixes ([#307](https://github.com/myparcelnl/delivery-options/issues/307)) ([988df59](https://github.com/myparcelnl/delivery-options/commit/988df59f95e624113106c3ac02591d827bc92b27))
+
 ## [@myparcel/delivery-options-v6.9.1](https://github.com/myparcelnl/delivery-options/compare/v6.9.0...v6.9.1) (2025-05-15)
 
 ### :bug: Bug Fixes
