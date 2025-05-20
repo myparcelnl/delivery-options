@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel/delivery-options-v6.11.0](https://github.com/myparcelnl/delivery-options/compare/v6.10.0...v6.11.0) (2025-05-20)
+
+### :sparkles: New Features
+
+* allow showing '0' prices as "free" ([#305](https://github.com/myparcelnl/delivery-options/issues/305)) ([dff67e3](https://github.com/myparcelnl/delivery-options/commit/dff67e39647a27f1ec0bd953ceb336624e4cf563))
+
 ## [@myparcel/delivery-options-v6.10.0](https://github.com/myparcelnl/delivery-options/compare/v6.9.1...v6.10.0) (2025-05-19)
 
 ### :sparkles: New Features
