@@ -106,6 +106,7 @@ export interface DeliveryOptionsConfig extends Partial<Record<ConfigSetting, unk
   showDeliveryDate: boolean;
   showPriceSurcharge: boolean;
   showPrices: boolean;
+  showPriceZeroAsFree: boolean;
 }
 
 export type ResolvedDeliveryOptionsConfig = MakeRequired<
@@ -120,6 +121,7 @@ export type ResolvedDeliveryOptionsConfig = MakeRequired<
   | ConfigSetting.ShowDeliveryDate
   | ConfigSetting.ShowPriceSurcharge
   | ConfigSetting.ShowPrices
+  | ConfigSetting.ShowPriceZeroAsFree
   | CarrierSetting.AllowDeliveryOptions
   | CarrierSetting.AllowEveningDelivery
   | CarrierSetting.AllowMondayDelivery
