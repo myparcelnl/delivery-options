@@ -12,7 +12,7 @@ import {
 } from '@myparcel-do/shared';
 import {type RecursivePartial} from '@myparcel/ts-utils';
 import {DeliveryTypeName, CarrierName} from '@myparcel/constants';
-import {useAddressStore, useConfigStore} from '../stores';
+import {useConfigStore} from '../stores';
 import {DELIVERY_MOMENT_PACKAGE_TYPES} from '../data';
 import {
   waitForDeliveryOptions,
@@ -129,48 +129,6 @@ describe('useResolvedDeliveryOptions', () => {
     ]);
   });
 
-  it('prefers standard delivery over express in the same time window', async () => {
-    await setupUps({
-      [KEY_CONFIG]: {
-        [KEY_CARRIER_SETTINGS]: {
-          [CarrierName.Ups]: {
-            [CarrierSetting.AllowStandardDelivery]: true,
-            [CarrierSetting.AllowExpressDelivery]: true,
-          },
-        },
-      },
-    });
-
-    const options = useResolvedDeliveryOptions();
-    const resolvedOptions = options.value.map(({carrier, deliveryType}) => ({carrier, deliveryType}));
-
-    // It should prefer standard to express on day 2.
-    expect(resolvedOptions).toEqual([
-      {carrier: CarrierName.Ups, deliveryType: DeliveryTypeName.Express},
-      {carrier: CarrierName.Ups, deliveryType: DeliveryTypeName.Standard},
-    ]);
-  });
-
-  it('does not filter out standard delivery when express is disabled', async () => {
-    await setupUps({
-      [KEY_CONFIG]: {
-        [KEY_CARRIER_SETTINGS]: {
-          [CarrierName.Ups]: {
-            [CarrierSetting.AllowStandardDelivery]: true,
-            [CarrierSetting.AllowExpressDelivery]: false,
-          },
-        },
-      },
-    });
-
-    const options = useResolvedDeliveryOptions();
-
-    const resolvedOptions = options.value.map(({carrier, deliveryType}) => ({carrier, deliveryType}));
-
-    // Verify that it doesn't filter out Standard now
-    expect(resolvedOptions).toEqual([{carrier: CarrierName.Ups, deliveryType: DeliveryTypeName.Standard}]);
-  });
-
   it('handles fake delivery', async () => {
     // DE is not a delivery country for PostNL.
     await setupPostNl({[KEY_ADDRESS]: {cc: 'DE'}});
@@ -185,7 +143,11 @@ describe('useResolvedDeliveryOptions', () => {
     const expected: any[] = [];
     DELIVERY_MOMENT_PACKAGE_TYPES.forEach((packageType) => {
       expected.push({carrier: CarrierName.PostNl, deliveryType: DeliveryTypeName.Standard, packageType});
-      expected.push({carrier: CARRIER_IDENTIFIER_WITH_CONTRACT, deliveryType: DeliveryTypeName.Standard, packageType});
+      expected.push({
+        carrier: CARRIER_IDENTIFIER_WITH_CONTRACT,
+        deliveryType: DeliveryTypeName.Standard,
+        packageType,
+      });
     });
     // Sort expected by carrier name
     // eslint-disable-next-line id-length
