@@ -50,6 +50,8 @@ describe.concurrent('useDateFormat', (it) => {
   it('can parse api date strings', ({expect}) => {
     const formatted = useDateFormat('2021-05-25 14:12:00.000000');
 
-    expect(formatted.date.value).toEqual(new Date('2021-05-25T14:12:00.000Z'));
+    const expected = new Date(2021, 4, 25, 14, 12, 0);
+
+    expect(formatted.date.value).toEqual(expected);
   });
 });
