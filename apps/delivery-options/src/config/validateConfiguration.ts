@@ -27,7 +27,7 @@ import {
   KEY_STRINGS,
 } from '@myparcel-do/shared';
 import {isEnumValue} from '@myparcel/ts-utils';
-import {PackageTypeName} from '@myparcel/constants';
+import {PackageTypeName, CarrierName} from '@myparcel/constants';
 import {handleDeprecatedOptions} from './handleDeprecatedOptions';
 import {filterConfig} from './filterConfig';
 
@@ -133,6 +133,10 @@ const validateConfig = (input: InputDeliveryOptionsConfig): DeliveryOptionsConfi
     ...processedConfig,
     [KEY_CARRIER_SETTINGS]: Object.entries(processedConfig[KEY_CARRIER_SETTINGS] ?? {}).reduce(
       (acc, [identifier, carrierSettings]) => {
+        if (identifier === CarrierName.Ups) {
+          identifier = CarrierName.UpsStandard;
+        }
+
         acc[identifier as keyof CarrierSettingsObject] = processConfig(carrierSettings ?? {}, configOptionsPerCarrier);
 
         return acc;
