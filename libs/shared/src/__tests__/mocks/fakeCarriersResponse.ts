@@ -5,6 +5,7 @@ import {
   CARRIER_BPOST,
   CARRIER_CHEAP_CARGO,
   CARRIER_DHL,
+  CARRIER_UPS,
   CARRIER_DHL_EURO_PLUS,
   CARRIER_DHL_FOR_YOU,
   CARRIER_DHL_PARCEL_CONNECT,
@@ -13,6 +14,7 @@ import {
   CARRIER_POST_NL,
   CARRIER_UPS_STANDARD,
   CARRIER_UPS_EXPRESS_SAVER,
+  CARRIER_GLS,
 } from '../carriers';
 
 const allCarrierData = [
@@ -21,7 +23,7 @@ const allCarrierData = [
   CARRIER_CHEAP_CARGO,
   CARRIER_DPD,
   CARRIER_DHL,
-  // CARRIER_UPS,
+  CARRIER_UPS,
   CARRIER_UPS_STANDARD,
   CARRIER_UPS_EXPRESS_SAVER,
   CARRIER_BOL,
@@ -29,6 +31,7 @@ const allCarrierData = [
   CARRIER_DHL_FOR_YOU,
   CARRIER_DHL_PARCEL_CONNECT,
   CARRIER_DHL_EURO_PLUS,
+  CARRIER_GLS,
 ] satisfies Carrier[];
 
 export const fakeCarriersResponse = (carrier?: CarrierNameOrId): Carrier[] => {

@@ -2,6 +2,7 @@ import {type InputDeliveryOptionsConfiguration, useApiExceptions} from '@myparce
 import {useAddressStore, useConfigStore} from '../stores';
 import {useLanguage} from '../composables';
 import {validateConfiguration} from './validateConfiguration';
+import {mapDeprecatedUpsCarrierConfig} from './mapDeprecatedUpsCarrierConfig';
 
 export const setConfiguration = (config: InputDeliveryOptionsConfiguration): void => {
   const configStore = useConfigStore();
@@ -9,7 +10,8 @@ export const setConfiguration = (config: InputDeliveryOptionsConfiguration): voi
   const language = useLanguage();
   const {clear} = useApiExceptions();
 
-  const validated = validateConfiguration(config);
+  const mappedConfig = mapDeprecatedUpsCarrierConfig(config);
+  const validated = validateConfiguration(mappedConfig);
 
   clear();
 
