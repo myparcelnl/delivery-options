@@ -74,7 +74,7 @@ export const CARRIER_UPS_STANDARD = Object.freeze({
 export const CARRIER_UPS_EXPRESS_SAVER = Object.freeze({
   id: CarrierId.UpsExpressSaver,
   name: CarrierName.UpsExpressSaver,
-  human: 'UPS Standard',
+  human: 'UPS Express',
   meta: {
     logo_svg: '/skin/general-images/carrier-logos/svg/upsexpresssaver.svg',
     logo_png: '/skin/general-images/carrier-logos/upsexpresssaver.png',
