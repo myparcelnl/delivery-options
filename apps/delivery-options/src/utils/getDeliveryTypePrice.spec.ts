@@ -56,7 +56,7 @@ describe('getDeliveryTypePrice', () => {
       result: TestValue.CarrierUps | TestValue.Default,
     },
     {
-      carrier: defineCarrier(CARRIER_UPS_STANDARD),
+      carrier: defineCarrier(CARRIER_UPS),
       deliveryType: DeliveryTypeName.Standard,
       result: TestValue.CarrierUpsStandard | TestValue.Default,
     },
@@ -64,6 +64,11 @@ describe('getDeliveryTypePrice', () => {
       carrier: defineCarrier(CARRIER_UPS_EXPRESS_SAVER),
       deliveryType: DeliveryTypeName.Standard,
       result: TestValue.CarrierUpsExpressSaver,
+    },
+    {
+      carrier: defineCarrier(CARRIER_UPS),
+      deliveryType: DeliveryTypeName.Express,
+      result: TestValue.CarrierUps | TestValue.DeliveryTypeExpress,
     },
     {
       carrier: defineCarrier(CARRIER_POST_NL),
