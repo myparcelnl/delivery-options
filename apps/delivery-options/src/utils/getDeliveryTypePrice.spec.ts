@@ -56,7 +56,7 @@ describe('getDeliveryTypePrice', () => {
       result: TestValue.CarrierUps | TestValue.Default,
     },
     {
-      carrier: defineCarrier(CARRIER_UPS),
+      carrier: defineCarrier(CARRIER_UPS_STANDARD),
       deliveryType: DeliveryTypeName.Standard,
       result: TestValue.CarrierUpsStandard | TestValue.Default,
     },
