@@ -1,6 +1,12 @@
 import {beforeEach, describe, expect, it} from 'vitest';
 import {assign} from 'radash';
-import {CARRIER_POST_NL, CARRIER_DHL_FOR_YOU, CARRIER_UPS} from '@myparcel-do/shared/testing';
+import {
+  CARRIER_POST_NL,
+  CARRIER_DHL_FOR_YOU,
+  CARRIER_UPS,
+  CARRIER_UPS_EXPRESS_SAVER,
+  CARRIER_UPS_STANDARD,
+} from '@myparcel-do/shared/testing';
 import {
   type CarrierWithIdentifier,
   CustomDeliveryType,
@@ -48,6 +54,16 @@ describe('getDeliveryTypePrice', () => {
       carrier: defineCarrier(CARRIER_UPS),
       deliveryType: DeliveryTypeName.Standard,
       result: TestValue.CarrierUps | TestValue.Default,
+    },
+    {
+      carrier: defineCarrier(CARRIER_UPS_STANDARD),
+      deliveryType: DeliveryTypeName.Standard,
+      result: TestValue.CarrierUpsStandard | TestValue.Default,
+    },
+    {
+      carrier: defineCarrier(CARRIER_UPS_EXPRESS_SAVER),
+      deliveryType: DeliveryTypeName.Standard,
+      result: TestValue.CarrierUpsExpressSaver,
     },
     {
       carrier: defineCarrier(CARRIER_UPS),

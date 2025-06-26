@@ -61,6 +61,26 @@ export const CARRIER_UPS = Object.freeze({
   },
 }) satisfies Carrier;
 
+export const CARRIER_UPS_STANDARD = Object.freeze({
+  id: CarrierId.UpsStandard,
+  name: CarrierName.UpsStandard,
+  human: 'UPS Standard',
+  meta: {
+    logo_svg: '/skin/general-images/carrier-logos/svg/upsstandard.svg',
+    logo_png: '/skin/general-images/carrier-logos/upsstandard.png',
+  },
+}) satisfies Carrier;
+
+export const CARRIER_UPS_EXPRESS_SAVER = Object.freeze({
+  id: CarrierId.UpsExpressSaver,
+  name: CarrierName.UpsExpressSaver,
+  human: 'UPS Express',
+  meta: {
+    logo_svg: '/skin/general-images/carrier-logos/svg/upsexpresssaver.svg',
+    logo_png: '/skin/general-images/carrier-logos/upsexpresssaver.png',
+  },
+}) satisfies Carrier;
+
 export const CARRIER_BOL = Object.freeze({
   id: CarrierId.Bol,
   name: CarrierName.Bol,
@@ -108,5 +128,15 @@ export const CARRIER_DHL_EURO_PLUS = Object.freeze({
   meta: {
     logo_svg: '/skin/general-images/carrier-logos/svg/dhleuroplus.svg',
     logo_png: '/skin/general-images/carrier-logos/dhleuroplus.png',
+  },
+}) satisfies Carrier;
+
+export const CARRIER_GLS = Object.freeze({
+  id: CarrierId.Gls,
+  name: CarrierName.Gls,
+  human: 'GLS',
+  meta: {
+    logo_svg: '/skin/general-images/carrier-logos/svg/gls.svg',
+    logo_png: '/skin/general-images/carrier-logos/gls.png',
   },
 }) satisfies Carrier;
