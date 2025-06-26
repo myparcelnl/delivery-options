@@ -48,7 +48,7 @@
   },
   "prettier": "@myparcel/prettier-config",
   "resolutions": {
-    "@myparcel/constants": "^2.2.0",
+    "@myparcel/constants": "^2.3.0",
     "conventional-changelog-conventionalcommits": ">= 8.0.0",
     "eslint-plugin-prettier": "^4.2.1",
     "typescript": "^5.4.0"
