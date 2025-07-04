@@ -1,6 +1,13 @@
-import {type EndpointParameters, type EndpointResponse, type GetDeliveryOptions} from '@myparcel/sdk';
+import type {PromiseOr} from '@myparcel/ts-utils';
+import {
+  type EndpointParameters,
+  type EndpointResponse,
+  type GetDeliveryOptions,
+  type ApiException,
+} from '@myparcel/sdk';
 import {useSdk} from '../useSdk';
-import {type RequestHandler} from '../../types';
+import {useApiExceptions} from '../useApiExceptions';
+import {type RequestHandler, type RequestKey} from '../../types';
 import {REQUEST_KEY_DELIVERY_OPTIONS} from '../../data';
 import {useRequest} from './useRequest';
 
@@ -14,6 +21,13 @@ export const useDeliveryOptionsRequest = (
 
       return sdk.getDeliveryOptions({parameters});
     },
-    {fallback: []},
+    {
+      fallback: [],
+      onError(error: ApiException, requestKey: RequestKey): PromiseOr<void> {
+        const {addException} = useApiExceptions();
+        addException(requestKey, error);
+        throw error;
+      },
+    },
   );
 };
