@@ -2,7 +2,6 @@ import {ref, type Ref, computed, type ComputedRef} from 'vue';
 import {camel} from 'radash';
 import {useMemoize} from '@vueuse/core';
 import {type ApiException, type ErrorResponse} from '@myparcel/sdk';
-import {UPDATED_DELIVERY_OPTIONS} from '@myparcel/delivery-options';
 import {type RequestKey, type AnyTranslatable} from '../types';
 import {IGNORED_ERRORS, ERROR_MISSING_REQUIRED_PARAMETER, ERROR_REPLACE_MAP, NUMBER, STREET} from '../data';
 
@@ -65,7 +64,9 @@ export const useApiExceptions = useMemoize((): UseErrors => {
 
         const addressNotFoundErrorCode = 3501;
         document.dispatchEvent(
-          new CustomEvent(UPDATED_DELIVERY_OPTIONS, {
+          // Typed event can't be imported from '@myparcel/delivery-options' because it is not a dependency of the
+          // shared library. that is why there is a string literal here.
+          new CustomEvent('myparcel_updated_delivery_options', {
             detail: {
               exception,
               resolvedError: resolvedErrorCode === addressNotFoundErrorCode ? 'Address not found' : resolvedErrorCode,
