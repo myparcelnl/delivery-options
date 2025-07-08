@@ -7,9 +7,12 @@ import {IGNORED_ERRORS, ERROR_MISSING_REQUIRED_PARAMETER, ERROR_REPLACE_MAP, NUM
 
 const exceptions = ref<ParsedError[]>([]);
 
-type ParsedError = {
+export type ParsedError = {
   code: number;
   label: AnyTranslatable;
+  status?: number | undefined;
+  title?: string | undefined;
+  message: string;
 };
 
 interface UseErrors {
@@ -26,6 +29,9 @@ const parseError = (error: ErrorResponse['errors'][number]): ParsedError => {
   const resolvedError: ParsedError = {
     code: error.code,
     label: translationKey,
+    status: error.status ? error.status : undefined,
+    title: error.title ? error.title : undefined,
+    message: error.message,
   };
 
   if (error.code === ERROR_MISSING_REQUIRED_PARAMETER) {
@@ -61,18 +67,6 @@ export const useApiExceptions = useMemoize((): UseErrors => {
         if (isIgnored || isAlreadyPresent) {
           return;
         }
-
-        const addressNotFoundErrorCode = 3501;
-        document.dispatchEvent(
-          // Typed event can't be imported from '@myparcel/delivery-options' because it is not a dependency of the
-          // shared library. that is why there is a string literal here.
-          new CustomEvent('myparcel_updated_delivery_options', {
-            detail: {
-              exception,
-              resolvedError: resolvedErrorCode === addressNotFoundErrorCode ? 'Address not found' : resolvedErrorCode,
-            },
-          }),
-        );
 
         exceptions.value.push(parseError({...error, code: resolvedErrorCode}));
       });
