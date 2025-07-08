@@ -16,6 +16,7 @@ exports[`exports > exports from index.ts 1`] = `
   "DELIVERY_MOMENT_PACKAGE_TYPES",
   "DISABLE_DELIVERY_OPTIONS",
   "DoButton",
+  "ERROR_DELIVERY_OPTIONS",
   "EcoFriendlyIcon",
   "EcoFriendlyLabel",
   "FIELD_DELIVERY_DATE",
