@@ -43,3 +43,8 @@ export const RENDER_DELIVERY_OPTIONS = 'myparcel_render_delivery_options';
  * Unselect delivery options
  */
 export const UNSELECT_DELIVERY_OPTIONS = 'myparcel_unselect_delivery_options';
+
+/**
+ * Used to send error events to the external platform.
+ */
+export const ERROR_DELIVERY_OPTIONS = 'myparcel_address_error_delivery_options';
