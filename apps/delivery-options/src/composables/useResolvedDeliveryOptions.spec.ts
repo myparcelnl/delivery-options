@@ -67,45 +67,6 @@ const setupPostNl = async (config: RecursivePartial<InputDeliveryOptionsConfigur
   await waitForDeliveryOptions();
 };
 
-const setupUps = async (config: RecursivePartial<InputDeliveryOptionsConfiguration> = {}): Promise<void> => {
-  const today = normalizeDate('2022-01-01T09:00:00');
-  const tomorrow = normalizeDate('2022-01-02T09:00:00');
-  const inTwoDays = normalizeDate('2022-01-03T09:00:00');
-
-  mockGetDeliveryOptions.mockReturnValue(
-    Promise.resolve([
-      {
-        date: createTimestamp(today),
-        possibilities: [
-          createDeliveryPossibility(tomorrow, {type: DeliveryTypeName.Express}),
-          createDeliveryPossibility(inTwoDays, {type: DeliveryTypeName.Express}),
-          createDeliveryPossibility(inTwoDays, {type: DeliveryTypeName.Standard}),
-        ],
-      },
-    ]),
-  );
-
-  mockDeliveryOptionsConfig(
-    getMockDeliveryOptionsConfiguration(
-      assign(
-        {
-          [KEY_CONFIG]: {
-            [KEY_CARRIER_SETTINGS]: {
-              [CarrierName.Ups]: {
-                [CarrierSetting.AllowDeliveryOptions]: true,
-                // Provide standard/express setting via config arg.
-              },
-            },
-          },
-        },
-        config,
-      ),
-    ),
-  );
-
-  await waitForDeliveryOptions(CarrierName.Ups);
-};
-
 describe('useResolvedDeliveryOptions', () => {
   beforeEach(() => {
     useResolvedDeliveryOptions.clear();
@@ -153,5 +114,30 @@ describe('useResolvedDeliveryOptions', () => {
     // eslint-disable-next-line id-length
     expected.sort((a, b) => a.carrier.localeCompare(b.carrier));
     expect(resolvedOptions).toEqual(expected);
+  });
+
+  it('returns an empty array if all delivery options requests fail', () => {
+    // Set up config for PostNL (or any carrier)
+    const carrierSettings = {
+      [CarrierSetting.AllowDeliveryOptions]: true,
+      [CarrierSetting.AllowStandardDelivery]: true,
+    };
+    mockDeliveryOptionsConfig(
+      getMockDeliveryOptionsConfiguration({
+        [KEY_CONFIG]: {
+          [KEY_CARRIER_SETTINGS]: {
+            [CarrierName.PostNl]: carrierSettings,
+          },
+        },
+      }),
+    );
+    useResolvedDeliveryOptions.clear();
+    useConfigStore().reset();
+
+    // Simulate all requests failing
+    mockGetDeliveryOptions.mockImplementation(() => Promise.reject(new Error('Test error')));
+
+    const options = useResolvedDeliveryOptions();
+    expect(options.value).toEqual([]);
   });
 });
