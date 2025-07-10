@@ -15,7 +15,9 @@ interface UseLanguage {
   locale: ComputedRef<string>;
 
   setLocale(locale: string): void;
+
   setStrings(strings: Record<string, string>): void;
+
   translate(translatable: AnyTranslatable): string;
 }
 
@@ -37,7 +39,9 @@ const translate = useMemoize((translatable: AnyTranslatable): string => {
   if (!isDef(translation)) {
     const logger = useLogger();
 
-    if (import.meta.env.DEV) logger.error(`Missing translation: "${resolvedKey}"`);
+    if (import.meta.env.DEV) {
+      logger.error(`Missing translation: "${resolvedKey}"`);
+    }
 
     return resolvedKey;
   }
@@ -76,6 +80,8 @@ export const useLanguage = useMemoize((): UseLanguage => {
 
     setStrings(strings: Record<string, string>): void {
       state.strings = Object.freeze({...strings});
+      // Clear the memoization cache to ensure fresh translations
+      translate.clear();
     },
   } as UseLanguage;
 });
