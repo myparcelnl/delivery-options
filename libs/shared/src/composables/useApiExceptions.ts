@@ -50,7 +50,7 @@ const parseError = (error: ErrorResponse['errors'][number]): ParsedError => {
 
 export const useApiExceptions = useMemoize((): UseErrors => {
   const clear = (): void => {
-    exceptions.value = [];
+    exceptions.value.length = 0;
   };
 
   const hasExceptions = computed(() => exceptions.value.length > 0);
