@@ -1,7 +1,9 @@
 <template>
   <template v-if="pickupLocation">
     <div class="mp-flex-grow">
-      <PickupLocationName :location-code="locationCode" />
+      <PickupLocationName
+        :carrier-identifier="carrierIdentifier"
+        :location-code="locationCode" />
     </div>
 
     <span v-text="distance" />
@@ -14,14 +16,14 @@
 
 <script lang="ts" setup>
 import {computed, toRefs} from 'vue';
-import {CarrierLogo} from '@myparcel-do/shared';
+import {CarrierLogo, type CarrierIdentifier} from '@myparcel-do/shared';
 import {useFormatDistance, usePickupLocation} from '../../../../composables';
 import PickupLocationName from './PickupLocationName.vue';
 
-const props = defineProps<{locationCode: string}>();
+const props = defineProps<{locationCode: string; carrierIdentifier: CarrierIdentifier}>();
 const propRefs = toRefs(props);
 
-const {pickupLocation} = usePickupLocation(propRefs.locationCode);
+const {pickupLocation} = usePickupLocation(propRefs.locationCode, propRefs.carrierIdentifier);
 
 const plainDistance = computed(() => pickupLocation.value?.distance);
 

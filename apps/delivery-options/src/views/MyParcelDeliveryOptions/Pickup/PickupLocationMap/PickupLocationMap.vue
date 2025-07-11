@@ -18,6 +18,7 @@
             v-for="location in locations"
             :key="location.locationCode"
             :active="locationCode === location.locationCode"
+            :carrier-identifier="location.carrier"
             :location-code="location.locationCode" />
         </template>
       </Suspense>
@@ -30,7 +31,8 @@
       }"
       class="mp-flex-grow mp-p-5">
       <PickupLocationDetails
-        v-if="form.values.pickupLocation"
+        v-if="form.values.pickupLocation && selectedValues.carrier.value"
+        :carrier-identifier="selectedValues.carrier.value"
         :location-code="form.values.pickupLocation"
         expanded />
     </div>
@@ -57,6 +59,7 @@ const {locationCode} = useSelectedPickupLocation();
 const {instance: form} = useDeliveryOptionsForm();
 const {md} = useBreakpoints();
 const selectedValues = useSelectedValues();
+console.log(selectedValues, 'selectedValues in PickupLocationMap.vue');
 
 /**
  * When the address changes, reset the pickup locations array and selected pickup location.

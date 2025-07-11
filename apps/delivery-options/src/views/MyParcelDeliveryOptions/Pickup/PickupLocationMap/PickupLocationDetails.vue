@@ -16,28 +16,33 @@
     </div>
 
     <div>
-      <PickupLocationName :location-code="locationCode" />
+      <PickupLocationName
+        :carrier-identifier="carrierIdentifier"
+        :location-code="locationCode" />
     </div>
 
     <PickupLocationOpeningHours
+      :carrier-identifier="carrierIdentifier"
       :expanded="expanded"
       :location-code="locationCode" />
   </div>
 </template>
 
-<script lang="ts" setup>
+<script
+  lang="ts"
+  setup>
 import {toRefs, ref, computed} from 'vue';
 import {watchImmediate} from '@vueuse/core';
-import {CarrierLogo, CarrierSetting} from '@myparcel-do/shared';
+import {CarrierLogo, CarrierSetting, type CarrierIdentifier} from '@myparcel-do/shared';
 import PickupLocationOpeningHours from '../PickupLocationOpeningHours/PickupLocationOpeningHours.vue';
 import PickupLocationName from '../PickupLocationList/PickupLocationName.vue';
 import {usePickupLocation} from '../../../../composables';
 import {PriceTag} from '../../../../components';
 
-const props = defineProps<{locationCode: string; expanded?: boolean}>();
+const props = defineProps<{ locationCode: string; expanded?: boolean, carrierIdentifier: CarrierIdentifier }>();
 const propRefs = toRefs(props);
 
-const {pickupLocation, resolvedCarrier} = usePickupLocation(propRefs.locationCode);
+const { pickupLocation, resolvedCarrier } = usePickupLocation(propRefs.locationCode, propRefs.carrierIdentifier);
 
 const price = ref();
 

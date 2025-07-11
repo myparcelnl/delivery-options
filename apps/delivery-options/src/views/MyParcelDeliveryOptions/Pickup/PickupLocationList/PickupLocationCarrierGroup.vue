@@ -16,13 +16,16 @@
       </template>
 
       <template #default="{option}">
-        <PickupLocationListItem :location-code="option.value" />
+        <PickupLocationListItem
+          :carrier-identifier="carrier"
+          :location-code="option.value" />
       </template>
 
       <template #content="{option}">
         <KeepAlive>
           <PickupLocationDetails
             v-if="locationCode === option.value"
+            :carrier-identifier="carrier"
             :location-code="option.value"
             class="mp-mb-2" />
         </KeepAlive>
@@ -38,7 +41,10 @@
   </CarrierBox>
 </template>
 
-<script generic="T" lang="ts" setup>
+<script
+  generic="T"
+  lang="ts"
+  setup>
 import {computed, toRefs} from 'vue';
 import {
   CarrierBox,
@@ -57,7 +63,7 @@ import {GroupInput, DoButton, PriceTag} from '../../../../components';
 import PickupLocationListItem from './PickupLocationListItem.vue';
 import PickupLocationDetails from './PickupLocationDetails.vue';
 
-const props = defineProps<{carrier: CarrierIdentifier; options: SelectOption<T>[]}>();
+const props = defineProps<{ carrier: CarrierIdentifier; options: SelectOption<T>[] }>();
 
 const carrierName = computed(() => {
   return resolveCarrierName(props.carrier);
@@ -65,8 +71,8 @@ const carrierName = computed(() => {
 
 const propRefs = toRefs(props);
 
-const {locationCode, location} = useSelectedPickupLocation();
-const {translate} = useLanguage();
+const { locationCode, location } = useSelectedPickupLocation();
+const { translate } = useLanguage();
 
 const {
   items: filteredOptions,
