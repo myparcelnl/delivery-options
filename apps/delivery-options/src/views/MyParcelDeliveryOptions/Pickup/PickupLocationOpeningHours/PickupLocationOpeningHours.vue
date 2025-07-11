@@ -11,7 +11,7 @@
       v-for="hours in openingHours"
       :key="hours.weekday"
       class="mp-content-between mp-gap-1 mp-grid mp-grid-cols-2">
-      <span v-text="translate(hours.weekday)" />
+      <span v-text="hours.weekday" />
       <span
         class="mp-text-nowrap"
         v-text="hours.timeString === CLOSED ? translate(CLOSED) : hours.timeString" />
@@ -25,35 +25,42 @@ import {format} from 'date-fns';
 import {OPENING_HOURS, CLOSED} from '@myparcel-do/shared';
 import {useLanguage, usePickupLocation} from '../../../../composables';
 
+/**
+ * Returns the localized name of a weekday for a given index (0 = Sunday, 1 = Monday, ...).
+ */
+const getLocalizedWeekdayName = (weekdayIndex: number, locale: string): string => {
+  const baseDate = new Date(2023, 0, 1); // 2023-01-01 is a Sunday
+  baseDate.setDate(baseDate.getDate() + weekdayIndex);
+  const name = baseDate.toLocaleDateString(locale, {weekday: 'long'});
+  return name.charAt(0).toUpperCase() + name.slice(1);
+};
+
 const props = defineProps<{locationCode: string; expanded?: boolean}>();
-const {translate} = useLanguage();
+const {translate, locale} = useLanguage();
 const locationCodeRef = toRef(props, 'locationCode');
 const {pickupLocation} = usePickupLocation(locationCodeRef);
 
-const weekDaysMap = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-
 const openingHours = computed(() => {
   const openingHoursData = toValue(pickupLocation)?.openingHours ?? [];
-  return weekDaysMap.map((day, index) => {
-    const dayData = openingHoursData.find((entry: {weekday: number}) => entry.weekday === index);
+  return Array.from({length: 7}).map((_, weekdayIndex) => {
+    const localizedWeekday = getLocalizedWeekdayName(weekdayIndex, locale.value);
+    const dayData = openingHoursData.find((entry: {weekday: number}) => entry.weekday === weekdayIndex);
 
-    if (dayData?.hours && dayData.hours.length > 0) {
-      const times = dayData.hours[0];
+    let timeString = CLOSED;
 
-      if (times.start && times.end) {
-        const startTime = format(new Date(times.start.date), 'HH:mm');
-        const endTime = format(new Date(times.end.date), 'HH:mm');
-        const timeString = `${startTime} - ${endTime}`;
-        return {
-          weekday: day,
-          timeString,
-        };
+    if (dayData?.hours?.length) {
+      const {start, end} = dayData.hours[0];
+
+      if (start && end) {
+        const startTime = format(new Date(start.date), 'HH:mm');
+        const endTime = format(new Date(end.date), 'HH:mm');
+        timeString = `${startTime} - ${endTime}`;
       }
     }
 
     return {
-      weekday: day,
-      timeString: CLOSED,
+      weekday: localizedWeekday,
+      timeString,
     };
   });
 });
