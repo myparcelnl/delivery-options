@@ -30,6 +30,7 @@ describe.concurrent('useDateFormat', (it) => {
       day: '25',
       month: 'mei',
       relative: 'overmorgen',
+      relativeWeekday: 'Dinsdag',
       standard: 'dinsdag 25 mei',
       time: '12:00',
       weekday: 'Dinsdag',
