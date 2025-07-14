@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel/delivery-options-v6.12.1](https://github.com/myparcelnl/delivery-options/compare/v6.12.0...v6.12.1) (2025-07-10)
+
+### :bug: Bug Fixes
+
+* display correct translations upon receiving new config ([#318](https://github.com/myparcelnl/delivery-options/issues/318)) ([bf19112](https://github.com/myparcelnl/delivery-options/commit/bf19112a2ea66bda4587a6b4d84016cc3e12eccd))
+
+## [@myparcel/delivery-options-v6.12.0](https://github.com/myparcelnl/delivery-options/compare/v6.11.0...v6.12.0) (2025-06-26)
+
+### :sparkles: New Features
+
+* split UPS carrier into UPS Standard and UPS Express ([#315](https://github.com/myparcelnl/delivery-options/issues/315)) ([3d6731d](https://github.com/myparcelnl/delivery-options/commit/3d6731d02d284c99c437d3bf20c0baa83b35993d))
+
 ## [@myparcel/delivery-options-v6.11.0](https://github.com/myparcelnl/delivery-options/compare/v6.10.0...v6.11.0) (2025-05-20)
 
 ### :sparkles: New Features

@@ -7,15 +7,20 @@ import {IGNORED_ERRORS, ERROR_MISSING_REQUIRED_PARAMETER, ERROR_REPLACE_MAP, NUM
 
 const exceptions = ref<ParsedError[]>([]);
 
-type ParsedError = {
+export type ParsedError = {
   code: number;
   label: AnyTranslatable;
+  status?: number | undefined;
+  title?: string | undefined;
+  message: string;
 };
 
 interface UseErrors {
   exceptions: Ref<ParsedError[]>;
   hasExceptions: ComputedRef<boolean>;
+
   addException(requestKey: RequestKey, exception: ApiException): void;
+
   clear(): void;
 }
 
@@ -24,6 +29,9 @@ const parseError = (error: ErrorResponse['errors'][number]): ParsedError => {
   const resolvedError: ParsedError = {
     code: error.code,
     label: translationKey,
+    status: error.status ? error.status : undefined,
+    title: error.title ? error.title : undefined,
+    message: error.message,
   };
 
   if (error.code === ERROR_MISSING_REQUIRED_PARAMETER) {
@@ -42,7 +50,7 @@ const parseError = (error: ErrorResponse['errors'][number]): ParsedError => {
 
 export const useApiExceptions = useMemoize((): UseErrors => {
   const clear = (): void => {
-    exceptions.value = [];
+    exceptions.value.length = 0;
   };
 
   const hasExceptions = computed(() => exceptions.value.length > 0);
