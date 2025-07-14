@@ -18,6 +18,7 @@ exports[`exports > exports from index.ts 1`] = `
   "DoButton",
   "EcoFriendlyIcon",
   "EcoFriendlyLabel",
+  "FIELD_CARRIER",
   "FIELD_DELIVERY_DATE",
   "FIELD_DELIVERY_MOMENT",
   "FIELD_HOME_OR_PICKUP",

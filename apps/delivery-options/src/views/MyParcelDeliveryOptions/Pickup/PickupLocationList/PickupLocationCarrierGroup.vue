@@ -11,9 +11,9 @@
       :options="filteredOptions">
       <template #input="{option}">
         <RadioInput
-          v-model="locationCode"
-          :value="option.value"
-          @update:modelValue="onOptionChange(option)" />
+          :model-value="compositeKey(option.value, option.carrier) === selectedCompositeKey"
+          :value="true"
+          @change="() => onCompositeChange(option)" />
       </template>
 
       <template #default="{option}">
@@ -43,16 +43,16 @@
 </template>
 
 <script generic="T" lang="ts" setup>
-import {computed, toRefs} from 'vue';
+import {computed, toRefs, ref, watch} from 'vue';
 import {
   CarrierBox,
   DEFAULT_MAX_PAGE_ITEMS,
-  RadioInput,
   type SelectOption,
   SHOW_MORE_LOCATIONS,
   useLoadMore,
   type CarrierIdentifier,
   resolveCarrierName,
+  RadioInput,
 } from '@myparcel-do/shared';
 import {DeliveryTypeName} from '@myparcel/constants';
 import {getDeliveryTypePrice} from '../../../../utils';
@@ -73,6 +73,21 @@ const {locationCode, location} = useSelectedPickupLocation();
 const {translate} = useLanguage();
 const {carrier: selectedCarrier} = useSelectedValues();
 
+// Create a composite key for the location code and carrier to uniquely identify the selected option
+const compositeKey = (locationCode: string, carrier: string): string => `${locationCode}|${carrier}`;
+const selectedCompositeKey = ref(compositeKey(locationCode.value ?? '', selectedCarrier.value ?? ''));
+
+// Watch for changes in locationCode and selectedCarrier to update the selectedCompositeKey
+watch([locationCode, selectedCarrier], ([newCode, newCarrier]) => {
+  selectedCompositeKey.value = compositeKey(newCode ?? '', newCarrier ?? '');
+});
+
+// When the input changes, update the locationCode and selectedCarrier
+const onCompositeChange = (option: {value: string; carrier: string}) => {
+  locationCode.value = option.value;
+  selectedCarrier.value = option.carrier as CarrierIdentifier;
+};
+
 const {
   items: filteredOptions,
   loadMore,
@@ -82,20 +97,10 @@ const {
   start: DEFAULT_MAX_PAGE_ITEMS,
   step: DEFAULT_MAX_PAGE_ITEMS,
   isSelected(option) {
-    console.log('Checking if option is selected11111111', locationCode.value, option.value);
-
     // Skip loading for other carriers
     if (location.value?.carrier !== props.carrier) {
       return true;
     }
-
-    console.log(
-      'Checking if option is selected',
-      locationCode.value,
-      option.value,
-      selectedCarrier.value,
-      option.carrier,
-    );
 
     return locationCode.value === option.value && selectedCarrier.value === option.carrier;
   },
@@ -104,8 +109,4 @@ const {
 const price = computed(() => {
   return getDeliveryTypePrice(DeliveryTypeName.Pickup, props.carrier);
 });
-
-const onOptionChange = (option) => {
-  selectedCarrier.value = option.carrier;
-};
 </script>
