@@ -13,11 +13,11 @@ import {
 } from '@myparcel-do/shared';
 import {type Replace} from '@myparcel/ts-utils';
 import {type Timestamp, type DeliveryOption, type DeliveryPossibility, type DeliveryTimeFrame} from '@myparcel/sdk';
-import {DeliveryTypeName} from '@myparcel/constants';
 import {createGetDeliveryOptionsParameters, getResolvedDeliveryType, createDeliveryTypeTranslatable} from '../utils';
 import {type SelectedDeliveryMoment} from '../types';
 import {DELIVERY_MOMENT_PACKAGE_TYPES} from '../data';
 import {useTimeRange} from './useTimeRange';
+import {useSelectedValues} from './useSelectedValues';
 import {type UseResolvedCarrier} from './useResolvedCarrier';
 import {createFakeShipmentOptions} from './useFakeShipmentOptions';
 import {useActiveCarriers} from './useActiveCarriers';
@@ -73,7 +73,12 @@ const callback = (): UseResolvedDeliveryOptions => {
           const params = createGetDeliveryOptionsParameters(carrier);
           const query = useDeliveryOptionsRequest(params);
 
-          await query.load();
+          try {
+            await query.load();
+          } catch {
+            // If loading fails, return null so it can be filtered out
+            return null;
+          }
 
           const dates = toValue(query.data);
 
@@ -81,64 +86,79 @@ const callback = (): UseResolvedDeliveryOptions => {
         }),
     );
 
-    return resolvedDates.reduce((acc: SelectedDeliveryMoment[], {carrier, dates}) => {
-      dates.forEach((dateOption) => {
-        /**
-         * Sort the possibilities by start date.
-         */
-        const possibilities = [...dateOption.possibilities].sort((optionA, optionB) => {
-          const startA = optionA.delivery_time_frames[0]?.date_time.date;
-          const startB = optionB.delivery_time_frames[0]?.date_time.date;
+    // Filter out any nulls (failed requests)
+    const filteredDates = resolvedDates.filter(
+      (
+        item,
+      ): item is {
+        carrier: UseResolvedCarrier;
+        dates: FakeDeliveryDates[];
+      } => item !== null,
+    );
 
-          return startA.localeCompare(startB);
-        });
+    if (filteredDates.length === 0) {
+      const {clearSelectedValues} = useSelectedValues();
+      clearSelectedValues();
+      return [];
+    }
 
-        possibilities.forEach((datePossibility) => {
-          const [start, end] = datePossibility.delivery_time_frames;
+    // Flatten the dates and sort them by date
+    return filteredDates.reduce(
+      (
+        acc: SelectedDeliveryMoment[],
+        {
+          carrier,
+          dates,
+        }: {
+          carrier: UseResolvedCarrier;
+          dates: FakeDeliveryDates[];
+        },
+      ) => {
+        dates.forEach((dateOption) => {
+          /**
+           * Sort the possibilities by start date.
+           */
+          const possibilities = [...dateOption.possibilities].sort((optionA, optionB) => {
+            const startA = optionA.delivery_time_frames[0]?.date_time.date;
+            const startB = optionB.delivery_time_frames[0]?.date_time.date;
 
-          const timeString: AnyTranslatable =
-            start && end
-              ? createUntranslatable(useTimeRange(start.date_time.date, end.date_time.date).value)
-              : createDeliveryTypeTranslatable(datePossibility.type);
+            return startA.localeCompare(startB);
+          });
 
-          const deliveryType = getResolvedDeliveryType(
-            carrier.config.value?.deliveryTypes ?? [],
-            dateOption.date?.date,
-            datePossibility.type,
-          );
+          possibilities.forEach((datePossibility) => {
+            const [start, end] = datePossibility.delivery_time_frames;
 
-          // Skip any type that is not supported by the carrier
-          if (!carrier?.deliveryTypes.value.has(deliveryType)) {
-            return;
-          }
+            const timeString: AnyTranslatable =
+              start && end
+                ? createUntranslatable(useTimeRange(start.date_time.date, end.date_time.date).value)
+                : createDeliveryTypeTranslatable(datePossibility.type);
 
-          // Given a possibility with the same start/end timeFrame, don't add the express option if standard is already present.
-          if (
-            deliveryType === DeliveryTypeName.Express &&
-            carrier?.deliveryTypes.value.has(DeliveryTypeName.Standard) &&
-            possibilities.some(
-              (possibility) =>
-                possibility.type === DeliveryTypeName.Standard &&
-                possibility.delivery_time_frames[0]?.date_time.date === start.date_time.date &&
-                possibility.delivery_time_frames[1]?.date_time.date === end.date_time.date,
-            )
-          ) {
-            return;
-          }
+            const deliveryType = getResolvedDeliveryType(
+              carrier.config.value?.deliveryTypes ?? [],
+              dateOption.date?.date,
+              datePossibility.type,
+            );
 
-          acc.push({
-            carrier: carrier.carrier.value.identifier,
-            date: dateOption.date?.date,
-            time: timeString,
-            deliveryType,
-            packageType: datePossibility.package_type,
-            shipmentOptions: datePossibility.shipment_options,
+            // Skip any type that is not supported by the carrier
+            if (!carrier?.deliveryTypes.value.has(deliveryType)) {
+              return;
+            }
+
+            acc.push({
+              carrier: carrier.carrier.value.identifier,
+              date: dateOption.date?.date,
+              time: timeString,
+              deliveryType,
+              packageType: datePossibility.package_type,
+              shipmentOptions: datePossibility.shipment_options,
+            });
           });
         });
-      });
 
-      return acc;
-    }, [] as SelectedDeliveryMoment[]);
+        return acc;
+      },
+      [] as SelectedDeliveryMoment[],
+    );
   }, []);
 };
 

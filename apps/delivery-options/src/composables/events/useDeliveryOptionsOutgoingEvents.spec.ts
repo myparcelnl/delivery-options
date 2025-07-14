@@ -3,8 +3,10 @@ import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest';
 import {CustomEvent} from 'happy-dom';
 import {flushPromises} from '@vue/test-utils';
 import {render, type RenderResult} from '@testing-library/vue';
+import {useApiExceptions} from '@myparcel-do/shared';
+import {ApiException} from '@myparcel/sdk';
 import {useConfigStore} from '../../stores';
-import {FIELD_DELIVERY_MOMENT, FIELD_DELIVERY_DATE, UPDATED_DELIVERY_OPTIONS} from '../../data';
+import {FIELD_DELIVERY_MOMENT, FIELD_DELIVERY_DATE, UPDATED_DELIVERY_OPTIONS, ERROR_DELIVERY_OPTIONS} from '../../data';
 import {
   createInternalOutput,
   createExternalOutput,
@@ -154,5 +156,31 @@ describe('useDeliveryOptionsOutgoingEvents', () => {
 
     expect(emitSpy).not.toHaveBeenCalled();
     expect(dispatchEventSpy).not.toHaveBeenCalled();
+  });
+
+  it('should dispatch an error event when a new exception is received', async () => {
+    expect.assertions(4);
+
+    await renderComponent();
+
+    // Use the same helper as in shared tests to create an ApiException
+    const createException = (code = 123, message = 'Test error') =>
+      new ApiException({
+        message,
+        request_id: 'test',
+        errors: [{code, message}],
+      });
+
+    // Add an exception to the store
+    const {addException} = useApiExceptions();
+    const exception = createException();
+    addException(['test'], exception);
+    await flush();
+
+    expect(dispatchEventSpy).toHaveBeenCalled();
+    const event = dispatchEventSpy.mock.calls[0][0] as unknown as CustomEvent;
+    expect(event).toBeInstanceOf(CustomEvent);
+    expect(event.type).toBe(ERROR_DELIVERY_OPTIONS);
+    expect(event.detail).toEqual({exception: expect.objectContaining({code: 123, message: 'Test error'})});
   });
 });
