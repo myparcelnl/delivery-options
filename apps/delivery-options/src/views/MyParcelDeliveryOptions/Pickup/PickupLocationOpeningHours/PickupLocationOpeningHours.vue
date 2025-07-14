@@ -21,29 +21,28 @@
 
 <script lang="ts" setup>
 import {computed, toRef, toValue} from 'vue';
-import {format} from 'date-fns';
+import {format, setDay} from 'date-fns';
 import {OPENING_HOURS, CLOSED} from '@myparcel-do/shared';
-import {useLanguage, usePickupLocation} from '../../../../composables';
+import {useLanguage, usePickupLocation, useDateFormat} from '../../../../composables';
 
 /**
  * Returns the localized name of a weekday for a given index (0 = Sunday, 1 = Monday, ...).
  */
-const getLocalizedWeekdayName = (weekdayIndex: number, locale: string): string => {
-  const baseDate = new Date(2023, 0, 1); // 2023-01-01 is a Sunday
-  baseDate.setDate(baseDate.getDate() + weekdayIndex);
-  const name = baseDate.toLocaleDateString(locale, {weekday: 'long'});
-  return name.charAt(0).toUpperCase() + name.slice(1);
+const getLocalizedWeekdayName = (weekdayIndex: number): string => {
+  const date = setDay(new Date(), weekdayIndex, {weekStartsOn: 0});
+  const name = useDateFormat(date).weekday;
+  return name.value;
 };
 
 const props = defineProps<{locationCode: string; expanded?: boolean}>();
-const {translate, locale} = useLanguage();
+const {translate} = useLanguage();
 const locationCodeRef = toRef(props, 'locationCode');
 const {pickupLocation} = usePickupLocation(locationCodeRef);
 
 const openingHours = computed(() => {
   const openingHoursData = toValue(pickupLocation)?.openingHours ?? [];
   return Array.from({length: 7}).map((_, weekdayIndex) => {
-    const localizedWeekday = getLocalizedWeekdayName(weekdayIndex, locale.value);
+    const localizedWeekday = getLocalizedWeekdayName(weekdayIndex);
     const dayData = openingHoursData.find((entry: {weekday: number}) => entry.weekday === weekdayIndex);
 
     let timeString = CLOSED;
