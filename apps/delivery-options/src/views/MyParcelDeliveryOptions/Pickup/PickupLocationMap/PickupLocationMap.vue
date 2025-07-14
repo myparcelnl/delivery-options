@@ -59,7 +59,6 @@ const {locationCode} = useSelectedPickupLocation();
 const {instance: form} = useDeliveryOptionsForm();
 const {md} = useBreakpoints();
 const selectedValues = useSelectedValues();
-console.log(selectedValues, 'selectedValues in PickupLocationMap.vue');
 
 /**
  * When the address changes, reset the pickup locations array and selected pickup location.
@@ -68,6 +67,7 @@ const removeAddressHook = () => {
   reset();
 
   selectedValues.pickupLocation.value = undefined;
+  selectedValues.carrier.value = undefined;
 };
 
 watch(addressStore.state, removeAddressHook);

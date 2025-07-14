@@ -22,6 +22,13 @@ const options = computed<SelectOption[]>(() => {
   }));
 });
 
+// watch(pickupLocation, (newLocation) => {
+//   console.log('new location', newLocation);
+//   // Find the carrier for the selected location
+//   const selected = locations.value.find((loc) => loc.locationCode === newLocation);
+//   carrier.value = selected?.carrier ?? undefined;
+// });
+
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const PickupLocation = createField({
   name: `${PickupLocationsView.List}_${FIELD_PICKUP_LOCATION}`,

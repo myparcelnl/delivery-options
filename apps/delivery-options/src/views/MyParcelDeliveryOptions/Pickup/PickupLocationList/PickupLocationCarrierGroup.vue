@@ -12,20 +12,21 @@
       <template #input="{option}">
         <RadioInput
           v-model="locationCode"
-          :value="option.value" />
+          :value="option.value"
+          @update:modelValue="onOptionChange(option)" />
       </template>
 
       <template #default="{option}">
         <PickupLocationListItem
-          :carrier-identifier="carrier"
+          :carrier-identifier="option.carrier"
           :location-code="option.value" />
       </template>
 
       <template #content="{option}">
         <KeepAlive>
           <PickupLocationDetails
-            v-if="locationCode === option.value"
-            :carrier-identifier="carrier"
+            v-if="locationCode === option.value && selectedCarrier === option.carrier"
+            :carrier-identifier="option.carrier"
             :location-code="option.value"
             class="mp-mb-2" />
         </KeepAlive>
@@ -41,10 +42,7 @@
   </CarrierBox>
 </template>
 
-<script
-  generic="T"
-  lang="ts"
-  setup>
+<script generic="T" lang="ts" setup>
 import {computed, toRefs} from 'vue';
 import {
   CarrierBox,
@@ -58,12 +56,12 @@ import {
 } from '@myparcel-do/shared';
 import {DeliveryTypeName} from '@myparcel/constants';
 import {getDeliveryTypePrice} from '../../../../utils';
-import {useLanguage, useSelectedPickupLocation} from '../../../../composables';
+import {useLanguage, useSelectedPickupLocation, useSelectedValues} from '../../../../composables';
 import {GroupInput, DoButton, PriceTag} from '../../../../components';
 import PickupLocationListItem from './PickupLocationListItem.vue';
 import PickupLocationDetails from './PickupLocationDetails.vue';
 
-const props = defineProps<{ carrier: CarrierIdentifier; options: SelectOption<T>[] }>();
+const props = defineProps<{carrier: CarrierIdentifier; options: SelectOption<T>[]}>();
 
 const carrierName = computed(() => {
   return resolveCarrierName(props.carrier);
@@ -71,8 +69,9 @@ const carrierName = computed(() => {
 
 const propRefs = toRefs(props);
 
-const { locationCode, location } = useSelectedPickupLocation();
-const { translate } = useLanguage();
+const {locationCode, location} = useSelectedPickupLocation();
+const {translate} = useLanguage();
+const {carrier: selectedCarrier} = useSelectedValues();
 
 const {
   items: filteredOptions,
@@ -83,15 +82,30 @@ const {
   start: DEFAULT_MAX_PAGE_ITEMS,
   step: DEFAULT_MAX_PAGE_ITEMS,
   isSelected(option) {
+    console.log('Checking if option is selected11111111', locationCode.value, option.value);
+
     // Skip loading for other carriers
     if (location.value?.carrier !== props.carrier) {
       return true;
     }
 
-    return locationCode.value === option.value;
+    console.log(
+      'Checking if option is selected',
+      locationCode.value,
+      option.value,
+      selectedCarrier.value,
+      option.carrier,
+    );
+
+    return locationCode.value === option.value && selectedCarrier.value === option.carrier;
   },
 });
+
 const price = computed(() => {
   return getDeliveryTypePrice(DeliveryTypeName.Pickup, props.carrier);
 });
+
+const onOptionChange = (option) => {
+  selectedCarrier.value = option.carrier;
+};
 </script>
