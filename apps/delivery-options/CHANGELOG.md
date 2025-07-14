@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel/delivery-options-v6.13.0](https://github.com/myparcelnl/delivery-options/compare/v6.12.1...v6.13.0) (2025-07-14)
+
+### :sparkles: New Features
+
+* send custom error event to debugEventLog upon error ([#321](https://github.com/myparcelnl/delivery-options/issues/321)) ([ec7820c](https://github.com/myparcelnl/delivery-options/commit/ec7820c9aff5dcbfe0b99326e4cce78612f96497))
+
 ## [@myparcel/delivery-options-v6.12.1](https://github.com/myparcelnl/delivery-options/compare/v6.12.0...v6.12.1) (2025-07-10)
 
 ### :bug: Bug Fixes
