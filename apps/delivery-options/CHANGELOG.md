@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel/delivery-options-v6.14.0](https://github.com/myparcelnl/delivery-options/compare/v6.13.0...v6.14.0) (2025-07-15)
+
+### :sparkles: New Features
+
+* translate pickup location weekdays based on locale ([#325](https://github.com/myparcelnl/delivery-options/issues/325)) ([439e183](https://github.com/myparcelnl/delivery-options/commit/439e183c6588f21d197785ecc9f92a814fcddc0e))
+
 ## [@myparcel/delivery-options-v6.13.0](https://github.com/myparcelnl/delivery-options/compare/v6.12.1...v6.13.0) (2025-07-14)
 
 ### :sparkles: New Features

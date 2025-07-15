@@ -1,6 +1,6 @@
 {
   "name": "@myparcel-do/monorepo",
-  "version": "6.13.0",
+  "version": "6.14.0",
   "private": true,
   "description": "MyParcel delivery options module for checkouts.",
   "homepage": "https://developer.myparcel.nl/documentation/60.delivery-options.html/",
