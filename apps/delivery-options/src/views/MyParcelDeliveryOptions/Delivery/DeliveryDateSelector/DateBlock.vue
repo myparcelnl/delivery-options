@@ -12,7 +12,7 @@
     @click="() => (date ? $emit(ElementEvent.Click) : null)">
     <span
       class="mp-not-sr-only"
-      v-text="date ? weekday : NBSP" />
+      v-text="date ? relativeWeekday : NBSP" />
 
     <span
       class="mp-not-sr-only mp-text-3xl"
@@ -35,5 +35,5 @@ defineEmits<{click: void}>();
 
 const propRefs = toRefs(props);
 
-const {standard, weekday, day, month} = useDateFormat(propRefs.date);
+const {standard, relativeWeekday, day, month} = useDateFormat(propRefs.date);
 </script>
