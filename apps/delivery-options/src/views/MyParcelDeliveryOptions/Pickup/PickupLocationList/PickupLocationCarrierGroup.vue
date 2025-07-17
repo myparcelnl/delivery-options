@@ -11,9 +11,8 @@
       :options="filteredOptions">
       <template #input="{option}">
         <RadioInput
-          :model-value="compositeKey(option.value, option.carrier) === selectedCompositeKey"
-          :value="true"
-          @change="() => onCompositeChange(option)" />
+          v-model="selectedCompositeKey"
+          :value="compositeKey(option.value, option.carrier)" />
       </template>
 
       <template #default="{option}">
@@ -42,7 +41,7 @@
   </CarrierBox>
 </template>
 
-<script generic="T" lang="ts" setup>
+<script lang="ts" setup>
 import {computed, toRefs, ref, watch} from 'vue';
 import {
   CarrierBox,
@@ -61,7 +60,7 @@ import {GroupInput, DoButton, PriceTag} from '../../../../components';
 import PickupLocationListItem from './PickupLocationListItem.vue';
 import PickupLocationDetails from './PickupLocationDetails.vue';
 
-const props = defineProps<{carrier: CarrierIdentifier; options: SelectOption<T>[]}>();
+const props = defineProps<{carrier: CarrierIdentifier; options: SelectOption[]}>();
 
 const carrierName = computed(() => {
   return resolveCarrierName(props.carrier);
@@ -82,11 +81,12 @@ watch([locationCode, selectedCarrier], ([newCode, newCarrier]) => {
   selectedCompositeKey.value = compositeKey(newCode ?? '', newCarrier ?? '');
 });
 
-// When the input changes, update the locationCode and selectedCarrier
-const onCompositeChange = (option: {value: string; carrier: string}) => {
-  locationCode.value = option.value;
-  selectedCarrier.value = option.carrier as CarrierIdentifier;
-};
+// Watch for changes in selectedCompositeKey to update locationCode and selectedCarrier
+watch(selectedCompositeKey, (newCompositeKey) => {
+  const [newCode, newCarrier] = newCompositeKey.split('|');
+  locationCode.value = newCode;
+  selectedCarrier.value = newCarrier as CarrierIdentifier;
+});
 
 const {
   items: filteredOptions,

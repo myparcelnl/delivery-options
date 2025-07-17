@@ -1,6 +1,5 @@
 import type {CarrierIdentifier} from '@myparcel-do/shared';
 import {computed, type MaybeRef, type ComputedRef, toValue} from 'vue';
-import {get} from '@vueuse/core';
 import {type ResolvedPickupLocation} from '../types';
 import {useResolvedPickupLocations} from './useResolvedPickupLocations';
 import {useResolvedCarrier, type UseResolvedCarrier} from './useResolvedCarrier';
@@ -17,8 +16,8 @@ export const usePickupLocation = (
   const {locations} = useResolvedPickupLocations();
 
   const pickupLocation = computed(() => {
-    const code = get(locationCode);
-    const carrier = get(selectedCarrier);
+    const code = toValue(locationCode);
+    const carrier = toValue(selectedCarrier);
     return toValue(locations).find((location) => location.locationCode === code && location.carrier === carrier);
   });
 
