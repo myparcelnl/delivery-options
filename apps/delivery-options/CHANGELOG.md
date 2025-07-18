@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel/delivery-options-v6.15.0](https://github.com/myparcelnl/delivery-options/compare/v6.14.0...v6.15.0) (2025-07-18)
+
+### :sparkles: New Features
+
+* add UPS Standard/Express pickup locations ([#316](https://github.com/myparcelnl/delivery-options/issues/316)) ([028b0e9](https://github.com/myparcelnl/delivery-options/commit/028b0e95a8350c6e4a944e56d01867e104d978dc))
+
 ## [@myparcel/delivery-options-v6.14.0](https://github.com/myparcelnl/delivery-options/compare/v6.13.0...v6.14.0) (2025-07-15)
 
 ### :sparkles: New Features
