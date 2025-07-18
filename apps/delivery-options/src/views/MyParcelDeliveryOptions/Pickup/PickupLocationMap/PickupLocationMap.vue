@@ -18,6 +18,7 @@
             v-for="location in locations"
             :key="location.locationCode"
             :active="locationCode === location.locationCode"
+            :carrier-identifier="location.carrier"
             :location-code="location.locationCode" />
         </template>
       </Suspense>
@@ -30,7 +31,8 @@
       }"
       class="mp-flex-grow mp-p-5">
       <PickupLocationDetails
-        v-if="form.values.pickupLocation"
+        v-if="form.values.pickupLocation && selectedValues.carrier.value"
+        :carrier-identifier="selectedValues.carrier.value"
         :location-code="form.values.pickupLocation"
         expanded />
     </div>
@@ -65,6 +67,7 @@ const removeAddressHook = () => {
   reset();
 
   selectedValues.pickupLocation.value = undefined;
+  selectedValues.carrier.value = undefined;
 };
 
 watch(addressStore.state, removeAddressHook);

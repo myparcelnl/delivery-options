@@ -9,8 +9,8 @@ interface UseSelectedPickupLocation {
 }
 
 export const useSelectedPickupLocation = (): UseSelectedPickupLocation => {
-  const {pickupLocation: locationCode} = useSelectedValues();
-  const {pickupLocation} = usePickupLocation(locationCode);
+  const {pickupLocation: locationCode, carrier} = useSelectedValues();
+  const {pickupLocation} = usePickupLocation(locationCode, carrier);
 
   return {
     location: pickupLocation,

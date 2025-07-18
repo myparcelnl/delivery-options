@@ -19,10 +19,12 @@
   </div>
 </template>
 
-<script lang="ts" setup>
-import {computed, toRef, toValue} from 'vue';
+<script
+  lang="ts"
+  setup>
+import {computed, toValue, toRefs} from 'vue';
 import {format, setDay} from 'date-fns';
-import {OPENING_HOURS, CLOSED} from '@myparcel-do/shared';
+import {OPENING_HOURS, CLOSED, type CarrierIdentifier} from '@myparcel-do/shared';
 import {useLanguage, usePickupLocation, useDateFormat} from '../../../../composables';
 
 /**
@@ -34,16 +36,16 @@ const getLocalizedWeekdayName = (weekdayIndex: number): string => {
   return name.value;
 };
 
-const props = defineProps<{locationCode: string; expanded?: boolean}>();
-const {translate} = useLanguage();
-const locationCodeRef = toRef(props, 'locationCode');
-const {pickupLocation} = usePickupLocation(locationCodeRef);
+const { translate } = useLanguage();
+const props = defineProps<{ locationCode: string; expanded?: boolean, carrierIdentifier: CarrierIdentifier }>();
+const propRefs = toRefs(props);
+const { pickupLocation } = usePickupLocation(propRefs.locationCode, propRefs.carrierIdentifier);
 
 const openingHours = computed(() => {
   const openingHoursData = toValue(pickupLocation)?.openingHours ?? [];
   return Array.from({length: 7}).map((_, weekdayIndex) => {
     const localizedWeekday = getLocalizedWeekdayName(weekdayIndex);
-    const dayData = openingHoursData.find((entry: {weekday: number}) => entry.weekday === weekdayIndex);
+    const dayData = openingHoursData.find((entry: { weekday: number }) => entry.weekday === weekdayIndex);
 
     let timeString = CLOSED;
 

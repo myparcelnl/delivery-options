@@ -13,7 +13,7 @@ import {
   FIELD_SHIPMENT_OPTIONS,
   FIELD_DELIVERY_MOMENT,
 } from '../../data';
-import {useSelectedPickupLocation} from '../../composables';
+import {useSelectedPickupLocation, useSelectedValues} from '../../composables';
 
 type MockInternalOutput = Replace<InternalOutput, 'deliveryMoment', string | Partial<SelectedDeliveryMoment>>;
 
@@ -50,6 +50,9 @@ export const mockSelectedDeliveryOptions = (values?: Partial<MockInternalOutput>
   const {locationCode} = useSelectedPickupLocation();
 
   locationCode.value = resolvedValues[FIELD_PICKUP_LOCATION] ?? undefined;
+
+  const {carrier} = useSelectedValues();
+  carrier.value = CarrierName.PostNl;
 
   return form;
 };
