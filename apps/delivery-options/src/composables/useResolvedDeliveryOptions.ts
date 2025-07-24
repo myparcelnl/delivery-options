@@ -1,6 +1,6 @@
-/* eslint-disable max-nested-callbacks */
-import {format} from 'path';
 import {toValue} from 'vue';
+import {pascal} from 'radash';
+/* eslint-disable max-nested-callbacks */
 import {useMemoize} from '@vueuse/core';
 import {
   useDeliveryOptionsRequest,
@@ -11,10 +11,11 @@ import {
   type ComputedAsync,
   CarrierSetting,
   DELIVERY_DAYS_WINDOW_DEFAULT,
+  createTranslatable,
 } from '@myparcel-do/shared';
 import {type Replace} from '@myparcel/ts-utils';
 import {type Timestamp, type DeliveryOption, type DeliveryPossibility, type DeliveryTimeFrame} from '@myparcel/sdk';
-import {createGetDeliveryOptionsParameters, getResolvedDeliveryType, createDeliveryTypeTranslatable} from '../utils';
+import {createGetDeliveryOptionsParameters, getResolvedDeliveryType} from '../utils';
 import {type SelectedDeliveryMoment} from '../types';
 import {DELIVERY_MOMENT_PACKAGE_TYPES} from '../data';
 import {useTimeRange} from './useTimeRange';
@@ -142,7 +143,9 @@ const formatDatesAsDeliveryMoments = (
         const timeString: AnyTranslatable =
           start && end
             ? createUntranslatable(useTimeRange(start.date_time.date, end.date_time.date).value)
-            : createDeliveryTypeTranslatable(datePossibility.type);
+            : createTranslatable('deliveryMomentNotPossible', {
+                deliveryType: createTranslatable(`delivery${pascal(datePossibility.type)}Title`),
+              });
 
         const deliveryType = getResolvedDeliveryType(
           carrier.config.value?.deliveryTypes ?? [],
