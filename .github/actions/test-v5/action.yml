@@ -31,6 +31,6 @@ runs:
       env:
         NODE_ICU_DATA: node_modules/full-icu
 
-    - uses: codecov/codecov-action@v4
+    - uses: codecov/codecov-action@v5
       with:
         token: ${{ inputs.codecov-token }}
