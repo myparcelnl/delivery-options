@@ -79,13 +79,8 @@ exports[`useDeliveryMomentOptions > returns delivery moment options with package
   {
     "carrier": "postnl",
     "label": {
-      "args": {
-        "deliveryType": {
-          "args": undefined,
-          "key": "deliveryStandardTitle",
-        },
-      },
-      "key": "deliveryMomentNotPossible",
+      "args": undefined,
+      "key": "deliveryStandardTitle",
     },
     "price": 3,
     "value": {
@@ -117,25 +112,15 @@ exports[`useDeliveryMomentOptions > returns delivery moment options with package
         },
       ],
       "time": {
-        "args": {
-          "deliveryType": {
-            "key": "deliveryStandardTitle",
-          },
-        },
-        "key": "deliveryMomentNotPossible",
+        "key": "deliveryStandardTitle",
       },
     },
   },
   {
     "carrier": "postnl:123",
     "label": {
-      "args": {
-        "deliveryType": {
-          "args": undefined,
-          "key": "deliveryStandardTitle",
-        },
-      },
-      "key": "deliveryMomentNotPossible",
+      "args": undefined,
+      "key": "deliveryStandardTitle",
     },
     "price": 456,
     "value": {
@@ -167,12 +152,7 @@ exports[`useDeliveryMomentOptions > returns delivery moment options with package
         },
       ],
       "time": {
-        "args": {
-          "deliveryType": {
-            "key": "deliveryStandardTitle",
-          },
-        },
-        "key": "deliveryMomentNotPossible",
+        "key": "deliveryStandardTitle",
       },
     },
   },
@@ -184,13 +164,8 @@ exports[`useDeliveryMomentOptions > returns delivery moment options with package
   {
     "carrier": "postnl",
     "label": {
-      "args": {
-        "deliveryType": {
-          "args": undefined,
-          "key": "deliveryStandardTitle",
-        },
-      },
-      "key": "deliveryMomentNotPossible",
+      "args": undefined,
+      "key": "deliveryStandardTitle",
     },
     "price": 6,
     "value": {
@@ -222,25 +197,15 @@ exports[`useDeliveryMomentOptions > returns delivery moment options with package
         },
       ],
       "time": {
-        "args": {
-          "deliveryType": {
-            "key": "deliveryStandardTitle",
-          },
-        },
-        "key": "deliveryMomentNotPossible",
+        "key": "deliveryStandardTitle",
       },
     },
   },
   {
     "carrier": "postnl:123",
     "label": {
-      "args": {
-        "deliveryType": {
-          "args": undefined,
-          "key": "deliveryStandardTitle",
-        },
-      },
-      "key": "deliveryMomentNotPossible",
+      "args": undefined,
+      "key": "deliveryStandardTitle",
     },
     "price": 0,
     "value": {
@@ -272,12 +237,7 @@ exports[`useDeliveryMomentOptions > returns delivery moment options with package
         },
       ],
       "time": {
-        "args": {
-          "deliveryType": {
-            "key": "deliveryStandardTitle",
-          },
-        },
-        "key": "deliveryMomentNotPossible",
+        "key": "deliveryStandardTitle",
       },
     },
   },
