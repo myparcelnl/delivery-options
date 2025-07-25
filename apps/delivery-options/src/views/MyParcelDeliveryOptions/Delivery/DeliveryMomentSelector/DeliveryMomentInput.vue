@@ -51,6 +51,10 @@ const {translate} = useLanguage();
 const {options, grouped} = useOptionsGroupedByCarrier<string>(propRefs.element);
 const {deliveryMoment, deliveryDate} = useSelectedValues();
 
+/**
+ * Automatically select the first standard delivery moment whenever the selected date changes.
+ * This ensures that a default value is set when the component is first rendered.
+ */
 watch(
   [options, deliveryDate],
   () => {

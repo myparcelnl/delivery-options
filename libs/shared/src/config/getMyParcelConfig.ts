@@ -340,5 +340,26 @@ export const getMyParcelConfig = (): PlatformConfiguration => ({
       features: [CarrierSetting.DropOffDays, CarrierSetting.DropOffDelay],
       addressFields: [AddressField.PostalCode, AddressField.Street, AddressField.City],
     },
+    {
+      // This carrier definition is very limited here, as we cannot currently fetch the delivery options for GLS.
+      // We need to use an auth token to access the delivery options for GLS. See INT-1080.
+      // Therefore, any options related to content fetched from the API are not included.
+      name: CarrierName.Gls,
+      subscription: SubscriptionType.Required,
+      packageTypes: [PackageTypeName.Package],
+      // include DeliveryTypeName.Pickup once we can fetch the delivery options
+      deliveryTypes: [DeliveryTypeName.Standard],
+      // Auth is required, so *all* countries should use fake delivery.
+      fakeDelivery: true,
+      shipmentOptionsPerPackageType: {
+        [PackageTypeName.Package]: [
+          ShipmentOptionName.OnlyRecipient,
+          ShipmentOptionName.Signature,
+          // 'saturday_delivery' as ShipmentOptionName,
+        ],
+      },
+      // features: [CarrierSetting.DeliveryDaysWindow, CarrierSetting.DropOffDays, CarrierSetting.DropOffDelay],
+      // addressFields: [AddressField.PostalCode, AddressField.Number],
+    },
   ],
 });

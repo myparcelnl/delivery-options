@@ -551,6 +551,23 @@ exports[`getPlatformConfig > gets config for platform myparcel 1`] = `
       ],
       "subscription": 1,
     },
+    {
+      "deliveryTypes": [
+        "standard",
+      ],
+      "fakeDelivery": true,
+      "name": "gls",
+      "packageTypes": [
+        "package",
+      ],
+      "shipmentOptionsPerPackageType": {
+        "package": [
+          "only_recipient",
+          "signature",
+        ],
+      },
+      "subscription": 1,
+    },
   ],
 }
 `;
