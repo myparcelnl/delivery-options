@@ -142,9 +142,7 @@ const formatDatesAsDeliveryMoments = (
         const timeString: AnyTranslatable =
           start && end
             ? createUntranslatable(useTimeRange(start.date_time.date, end.date_time.date).value)
-            : createTranslatable('deliveryMomentNotPossible', {
-                deliveryType: createTranslatable(`delivery${pascal(datePossibility.type)}Title`),
-              });
+            : createTranslatable(`delivery${pascal(datePossibility.type)}Title`);
 
         const deliveryType = getResolvedDeliveryType(
           carrier.config.value?.deliveryTypes ?? [],
