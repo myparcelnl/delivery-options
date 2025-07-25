@@ -74,7 +74,7 @@
     "vue": "^3.3.0"
   },
   "devDependencies": {
-    "@codecov/vite-plugin": "^1.2.1",
+    "@codecov/vite-plugin": "^1.9.1",
     "@histoire/plugin-vue": "^0.17.6",
     "@myparcel-do/build-vite": "workspace:*",
     "@myparcel-do/semantic-release-plugin": "workspace:*",
@@ -101,7 +101,7 @@
     "typescript": "5.4.5",
     "vite": "^5.3.6",
     "vite-plugin-custom-tsconfig": "^1.0.0",
-    "vitest": "^2.0.0",
+    "vitest": "^2.1.9",
     "vue-tsc": "^2.0.0"
   },
   "volta": {
