@@ -1,6 +1,5 @@
 import {toValue} from 'vue';
 import {pascal} from 'radash';
-/* eslint-disable max-nested-callbacks */
 import {useMemoize} from '@vueuse/core';
 import {
   useDeliveryOptionsRequest,
