@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel/delivery-options-v6.16.0](https://github.com/myparcelnl/delivery-options/compare/v6.15.0...v6.16.0) (2025-07-29)
+
+### :sparkles: New Features
+
+* **carrier:** add support for GLS carrier ([#328](https://github.com/myparcelnl/delivery-options/issues/328)) ([d87d577](https://github.com/myparcelnl/delivery-options/commit/d87d577917d05fd1e99ed820b612317b1eae894b))
+
 ## [@myparcel/delivery-options-v6.15.0](https://github.com/myparcelnl/delivery-options/compare/v6.14.0...v6.15.0) (2025-07-18)
 
 ### :sparkles: New Features
