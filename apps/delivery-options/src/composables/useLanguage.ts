@@ -41,6 +41,7 @@ const translate = useMemoize((translatable: AnyTranslatable): string => {
 
     if (import.meta.env.DEV) {
       logger.error(`Missing translation: "${resolvedKey}"`);
+      logger.debug('Available translations:', state.strings);
     }
 
     return resolvedKey;

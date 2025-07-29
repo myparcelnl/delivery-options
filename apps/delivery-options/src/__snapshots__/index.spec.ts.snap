@@ -68,7 +68,6 @@ exports[`exports > exports from index.ts 1`] = `
   "calculateDropOffDays",
   "calculatePackageType",
   "createCarrierMarkerIcon",
-  "createDeliveryTypeTranslatable",
   "createFakeShipmentOptions",
   "createGetDeliveryOptionsParameters",
   "createLatLngParameters",
