@@ -29,10 +29,10 @@ import {
   UNITED_KINGDOM,
 } from '@myparcel/constants/countries';
 import {CarrierName, DeliveryTypeName, PackageTypeName, ShipmentOptionName} from '@myparcel/constants';
-import {type PlatformConfiguration} from '../types';
+import {type PropositionConfiguration} from '../types';
 import {AddressField, CarrierSetting, SubscriptionType, CustomDeliveryType, ConfigSetting} from '../data';
 
-export const getMyParcelConfig = (): PlatformConfiguration => ({
+export const getMyParcelConfig = (): PropositionConfiguration => ({
   carriers: [
     {
       name: CarrierName.PostNl,

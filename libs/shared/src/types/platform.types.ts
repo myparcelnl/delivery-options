@@ -51,6 +51,6 @@ export interface CarrierConfiguration {
   unsupportedParameters?: (keyof DeliveryOptionsParameters | string)[];
 }
 
-export interface PlatformConfiguration {
+export interface PropositionConfiguration {
   carriers: CarrierConfiguration[];
 }

@@ -8,7 +8,11 @@ import {
   type RelatedConfigOptionType,
 } from '../data';
 import {type CustomValidator} from './validation.types';
-import {type SupportedPackageTypeName, type SupportedPlatformName} from './platform.types';
+import {
+  type SupportedPackageTypeName,
+  type SupportedPlatformName,
+  type PropositionConfiguration,
+} from './platform.types';
 import {type DeliveryOptionsOutput} from './output.types';
 import {type SelectOption} from './options.types';
 import {type MakeRequired} from './common.types';
@@ -47,6 +51,7 @@ export type Price = number | null;
 export interface CarrierSettings extends Partial<Record<CarrierSettingsKey, unknown>> {
   allowDeliveryOptions?: boolean | FilterableOption;
   allowEveningDelivery?: boolean | FilterableOption;
+  allowExpressDelivery?: boolean | FilterableOption;
   allowMondayDelivery?: boolean;
   allowMorningDelivery?: boolean | FilterableOption;
   allowOnlyRecipient?: boolean;
@@ -55,15 +60,14 @@ export interface CarrierSettings extends Partial<Record<CarrierSettingsKey, unkn
   allowSaturdayDelivery?: boolean;
   allowSignature?: boolean;
   allowStandardDelivery?: boolean | FilterableOption;
-  allowExpressDelivery?: boolean | FilterableOption;
   cutoffTime?: TimestampString;
   cutoffTimeSameDay?: TimestampString;
   deliveryDaysWindow?: number;
   dropOffDays?: DropOffEntryObject[];
   dropOffDelay?: number;
   packageType?: SupportedPackageTypeName;
-  priceExpressDelivery?: Price;
   priceEveningDelivery?: Price;
+  priceExpressDelivery?: Price;
   priceMondayDelivery?: Price;
   priceMorningDelivery?: Price;
   priceOnlyRecipient?: Price;
@@ -105,8 +109,8 @@ export interface DeliveryOptionsConfig extends Partial<Record<ConfigSetting, unk
   platform: SupportedPlatformName;
   showDeliveryDate: boolean;
   showPriceSurcharge: boolean;
-  showPrices: boolean;
   showPriceZeroAsFree: boolean;
+  showPrices: boolean;
 }
 
 export type ResolvedDeliveryOptionsConfig = MakeRequired<
@@ -159,14 +163,15 @@ export interface DeliveryOptionsConfiguration {
   address: DeliveryOptionsAddress;
   config: DeliveryOptionsConfig;
   initial: Partial<DeliveryOptionsOutput>;
+  propositionConfig: PropositionConfiguration;
   strings: DeliveryOptionsStrings;
 }
 
 export interface InputDeliveryOptionsConfiguration {
   address: DeliveryOptionsAddress;
-  // components: Partial<Record<ComponentName, Component>>;
   config: InputDeliveryOptionsConfig;
   initial?: Partial<DeliveryOptionsOutput>;
+  propositionConfig: PropositionConfiguration;
   strings?: DeliveryOptionsStrings;
 }
 

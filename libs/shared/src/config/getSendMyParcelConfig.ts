@@ -27,11 +27,11 @@ import {
   UNITED_KINGDOM,
 } from '@myparcel/constants/countries';
 import {CarrierName, DeliveryTypeName, PackageTypeName, ShipmentOptionName} from '@myparcel/constants';
-import {type PlatformConfiguration} from '../types';
+import {type PropositionConfiguration} from '../types';
 import {AddressField, CarrierSetting, SubscriptionType, CustomDeliveryType} from '../data';
 
 // eslint-disable-next-line max-lines-per-function
-export const getSendMyParcelConfig = (): PlatformConfiguration => ({
+export const getSendMyParcelConfig = (): PropositionConfiguration => ({
   carriers: [
     {
       name: CarrierName.Bpost,
