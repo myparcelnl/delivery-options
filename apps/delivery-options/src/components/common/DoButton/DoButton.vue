@@ -61,11 +61,11 @@ const classes = computed(() => {
         'mp-px-5 mp-w-full': !props.noSpacing,
 
         // Colors
-        'mp-bg-white': !props.disabled,
+        'mp-bg-white': !props.disabled && !props.active,
         'mp-cursor-not-allowed mp-opacity-50 mp-bg-gray-100': props.disabled,
 
-        'mp-bg-gray-200': props.active,
-        'hover:mp-bg-gray-100 mp-bg-gray-100': !props.active,
+        'mp-bg-gray-100': props.active && !props.disabled,
+        'hover:mp-bg-gray-100': !props.active && !props.disabled,
       },
     );
   }

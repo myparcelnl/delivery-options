@@ -2,7 +2,9 @@
   <div>
     <PickupLocationInput />
 
-    <div class="mp-flex mp-mb-2">
+    <div
+      v-if="style === PickupLocationStyle.Default"
+      class="mp-flex mp-mb-2">
       <DoButton
         v-for="view in [PickupLocationsView.List, PickupLocationsView.Map]"
         :key="view"
@@ -18,9 +20,11 @@
   </div>
 </template>
 
-<script lang="ts" setup>
+<script
+  lang="ts"
+  setup>
 import {computed, ref, watch, onUnmounted} from 'vue';
-import {PickupLocationsView} from '@myparcel-do/shared';
+import {PickupLocationsView, PickupLocationStyle} from '@myparcel-do/shared';
 import {useConfigStore} from '../../../stores';
 import {useLanguage, useResolvedPickupLocations, useSelectedValues, useActiveCarriers} from '../../../composables';
 import {DoButton} from '../../../components';
@@ -28,23 +32,33 @@ import PickupLocationMapWrapper from './PickupLocationMap/PickupLocationMapWrapp
 import PickupLocationListWrapper from './PickupLocationList/PickupLocationListWrapper.vue';
 import PickupLocationInput from './PickupLocationInput/PickupLocationInput.vue';
 
-const {locations} = useResolvedPickupLocations();
+const { locations } = useResolvedPickupLocations();
 
 // Load pickup locations
 void locations.load();
 
-const {state: config} = useConfigStore();
-const {translate} = useLanguage();
+const { state: config } = useConfigStore();
+const { translate } = useLanguage();
 
+const style = ref<PickupLocationStyle>(config.pickupLocationsDefaultStyle);
 const mode = ref<PickupLocationsView>(config.pickupLocationsDefaultView);
 
-const currentComponent = computed(() =>
-  mode.value === PickupLocationsView.List ? PickupLocationListWrapper : PickupLocationMapWrapper,
-);
+const currentComponent = computed(() => {
+  if (style.value === PickupLocationStyle.Map) {
+    return PickupLocationMapWrapper;
+  }
+
+  if (style.value === PickupLocationStyle.List) {
+    return PickupLocationListWrapper;
+  }
+
+  // Default behavior - use mode to determine component
+  return mode.value === PickupLocationsView.List ? PickupLocationListWrapper : PickupLocationMapWrapper;
+});
 
 const immediate = locations.value.length > 0;
 
-const {pickupLocation: selectedPickupLocation, carrier} = useSelectedValues();
+const { pickupLocation: selectedPickupLocation, carrier } = useSelectedValues();
 
 // Clear the carries and locations memoize cache, otherwise reactivity issues may occur on mount with different config.
 onUnmounted(() => {
@@ -65,7 +79,7 @@ onUnmounted(
       selectedPickupLocation.value = firstLocation.locationCode;
       carrier.value = firstLocation.carrier;
     },
-    {immediate, deep: true},
+    { immediate, deep: true },
   ),
 );
 </script>
