@@ -99,9 +99,9 @@ export interface DeliveryOptionsConfig extends Partial<Record<ConfigSetting, unk
    * Locale. Defaults to the language of the browser.
    */
   locale: string | undefined;
+  pickupLocationsDefaultStyle: PickupLocationStyle;
   pickupLocationsDefaultView: PickupLocationsView;
   pickupLocationsMapTileLayerData: string | MapTileLayerData;
-  pickupLocationsStyle: PickupLocationStyle;
   pickupShowDistance: boolean;
   platform: SupportedPlatformName;
   showDeliveryDate: boolean;
@@ -116,6 +116,7 @@ export type ResolvedDeliveryOptionsConfig = MakeRequired<
   | ConfigSetting.Currency
   | ConfigSetting.Locale
   | ConfigSetting.PickupLocationsDefaultView
+  | ConfigSetting.PickupLocationsDefaultStyle
   | ConfigSetting.PickupLocationsMapTileLayerData
   | ConfigSetting.PickupShowDistance
   | ConfigSetting.Platform

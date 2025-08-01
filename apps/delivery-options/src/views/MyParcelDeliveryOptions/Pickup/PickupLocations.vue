@@ -20,7 +20,9 @@
   </div>
 </template>
 
-<script lang="ts" setup>
+<script
+  lang="ts"
+  setup>
 import {computed, ref, watch, onUnmounted} from 'vue';
 import {PickupLocationsView, PickupLocationStyle} from '@myparcel-do/shared';
 import {useConfigStore} from '../../../stores';
@@ -30,15 +32,15 @@ import PickupLocationMapWrapper from './PickupLocationMap/PickupLocationMapWrapp
 import PickupLocationListWrapper from './PickupLocationList/PickupLocationListWrapper.vue';
 import PickupLocationInput from './PickupLocationInput/PickupLocationInput.vue';
 
-const {locations} = useResolvedPickupLocations();
+const { locations } = useResolvedPickupLocations();
 
 // Load pickup locations
 void locations.load();
 
-const {state: config} = useConfigStore();
-const {translate} = useLanguage();
+const { state: config } = useConfigStore();
+const { translate } = useLanguage();
 
-const style = ref<PickupLocationStyle>(config.pickupLocationsStyle);
+const style = ref<PickupLocationStyle>(config.pickupLocationsDefaultStyle);
 const mode = ref<PickupLocationsView>(config.pickupLocationsDefaultView);
 
 const currentComponent = computed(() => {
@@ -56,7 +58,7 @@ const currentComponent = computed(() => {
 
 const immediate = locations.value.length > 0;
 
-const {pickupLocation: selectedPickupLocation, carrier} = useSelectedValues();
+const { pickupLocation: selectedPickupLocation, carrier } = useSelectedValues();
 
 // Clear the carries and locations memoize cache, otherwise reactivity issues may occur on mount with different config.
 onUnmounted(() => {
@@ -77,7 +79,7 @@ onUnmounted(
       selectedPickupLocation.value = firstLocation.locationCode;
       carrier.value = firstLocation.carrier;
     },
-    {immediate, deep: true},
+    { immediate, deep: true },
   ),
 );
 </script>
