@@ -21,10 +21,7 @@ import {computed, onMounted, ref, toRefs, watch, toValue} from 'vue';
 import {useEventListener} from '@vueuse/core';
 import {useLogger, useApiExceptions} from '@myparcel-do/shared';
 import {getConfigFromWindow} from '../../utils';
-import {
-  type DeliveryOptionsEmits,
-  type DeliveryOptionsProps,
-} from '../../types';
+import {type DeliveryOptionsEmits, type DeliveryOptionsProps} from '../../types';
 import {useAddressStore, useConfigStore} from '../../stores';
 import {HIDE_DELIVERY_OPTIONS, SHOW_DELIVERY_OPTIONS} from '../../data';
 import {setConfiguration} from '../../config';
@@ -54,19 +51,28 @@ const ready = computed(() => Boolean(config.platform && address.cc));
 const show = ref(true);
 
 onMounted(() => {
+  console.log(propRefs.configuration.value);
+  console.log(getConfigFromWindow(), 'config from window');
+
   if (propRefs.configuration?.value) {
-    if (import.meta.env.DEV) logger.debug('Using config from props');
+    if (import.meta.env.DEV) {
+      logger.debug('Using config from props');
+    }
 
     return;
   }
 
   if (!window.MyParcelConfig) {
-    if (import.meta.env.DEV) logger.error('No config found');
+    if (import.meta.env.DEV) {
+      logger.error('No config found');
+    }
 
     return;
   }
 
-  if (import.meta.env.DEV) logger.debug('Using config from window');
+  if (import.meta.env.DEV) {
+    logger.debug('Using config from window');
+  }
 
   setConfiguration(getConfigFromWindow());
 });

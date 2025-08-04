@@ -1,9 +1,9 @@
 import {computed, type MaybeRef, type ComputedRef, toValue} from 'vue';
 import {getPlatformConfig, resolveCarrierName} from '../utils';
-import {type PropositionConfiguration, type SupportedPlatformName, type CarrierIdentifier} from '../types';
+import {type PlatformConfiguration, type SupportedPlatformName, type CarrierIdentifier} from '../types';
 
 export interface UsePlatform {
-  config: ComputedRef<PropositionConfiguration>;
+  config: ComputedRef<PlatformConfiguration>;
 
   hasCarrier(carrierIdentifier: CarrierIdentifier): boolean;
 }
