@@ -52,10 +52,7 @@ export const getAllConfigOptions = useMemoize((): ConfigOption[] => [
     type: OptionType.Select,
   }),
 
-  declareOption({
-    key: ConfigSetting.PickupLocationsDefaultStyle,
-    type: OptionType.Select,
-  }),
+  declareOption(ConfigSetting.AllowPickupLocationsViewSelection),
 
   declareOption(ConfigSetting.PickupShowDistance),
   declareOption(ConfigSetting.ShowDeliveryDate),

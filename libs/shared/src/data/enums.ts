@@ -47,7 +47,7 @@ export enum ConfigSetting {
   Currency = 'currency',
   Locale = 'locale',
   PickupLocationsDefaultView = 'pickupLocationsDefaultView',
-  PickupLocationsDefaultStyle = 'pickupLocationsDefaultStyle',
+  AllowPickupLocationsViewSelection = 'allowPickupLocationsViewSelection',
   PickupLocationsMapTileLayerData = 'pickupLocationsMapTileLayerData',
   PickupMapAllowLoadMore = 'pickupMapAllowLoadMore',
   PickupShowDistance = 'pickupShowDistance',
@@ -59,12 +59,6 @@ export enum ConfigSetting {
 }
 
 export enum PickupLocationsView {
-  Map = 'map',
-  List = 'list',
-}
-
-export enum PickupLocationStyle {
-  Default = 'default',
   Map = 'map',
   List = 'list',
 }

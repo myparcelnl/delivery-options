@@ -7,7 +7,7 @@ import {
   PLATFORM_DEFAULT,
 } from './settingsConsts';
 import {getDefaultCarrierSettings} from './getDefaultCarrierSettings';
-import {CarrierSetting, ConfigSetting, PickupLocationsView, PickupLocationStyle} from './enums';
+import {CarrierSetting, ConfigSetting, PickupLocationsView} from './enums';
 import {DAY_MONDAY, DAY_TUESDAY, DAY_WEDNESDAY, DAY_THURSDAY, DAY_FRIDAY} from './constants';
 import {KEY_CARRIER_SETTINGS} from './config';
 
@@ -50,7 +50,7 @@ export const getDefaultDeliveryOptionsConfig = (): ResolvedDeliveryOptionsConfig
 
     // Misc. config
     [ConfigSetting.PickupLocationsDefaultView]: PickupLocationsView.Map,
-    [ConfigSetting.PickupLocationsDefaultStyle]: PickupLocationStyle.Default,
+    [ConfigSetting.AllowPickupLocationsViewSelection]: true,
     [ConfigSetting.PickupMapAllowLoadMore]: true,
     [ConfigSetting.PickupShowDistance]: true,
     [ConfigSetting.ShowPriceZeroAsFree]: false,

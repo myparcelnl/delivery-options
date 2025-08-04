@@ -6,7 +6,6 @@ import {
   type OptionType,
   type PickupLocationsView,
   type RelatedConfigOptionType,
-  type PickupLocationStyle,
 } from '../data';
 import {type CustomValidator} from './validation.types';
 import {type SupportedPackageTypeName, type SupportedPlatformName} from './platform.types';
@@ -87,19 +86,17 @@ export type InputCarrierSettingsObject = Partial<Record<CarrierIdentifier, Input
 export type CarrierSettingsObject = Partial<Record<CarrierIdentifier, CarrierSettings>>;
 
 export interface DeliveryOptionsConfig extends Partial<Record<ConfigSetting, unknown>>, CarrierSettings {
+  allowPickupLocationsViewSelection: boolean;
   apiBaseUrl: string;
-
   carrierSettings: CarrierSettingsObject;
   /**
    * Currency. Defaults to format of the browser.
    */
   currency: string | undefined;
-
   /**
    * Locale. Defaults to the language of the browser.
    */
   locale: string | undefined;
-  pickupLocationsDefaultStyle: PickupLocationStyle;
   pickupLocationsDefaultView: PickupLocationsView;
   pickupLocationsMapTileLayerData: string | MapTileLayerData;
   pickupShowDistance: boolean;
@@ -116,7 +113,7 @@ export type ResolvedDeliveryOptionsConfig = MakeRequired<
   | ConfigSetting.Currency
   | ConfigSetting.Locale
   | ConfigSetting.PickupLocationsDefaultView
-  | ConfigSetting.PickupLocationsDefaultStyle
+  | ConfigSetting.AllowPickupLocationsViewSelection
   | ConfigSetting.PickupLocationsMapTileLayerData
   | ConfigSetting.PickupShowDistance
   | ConfigSetting.Platform

@@ -4,9 +4,7 @@
   </Box>
 </template>
 
-<script
-  lang="ts"
-  setup>
+<script lang="ts" setup>
 import {ref} from 'vue';
 import {
   CarrierSetting,
@@ -56,24 +54,8 @@ const section = formSection({
 
     formField({
       key: KEY_CONFIG,
-      name: ConfigSetting.PickupLocationsDefaultStyle,
-      component: FormRadioGroupInput,
-      props: {
-        options: [
-          {
-            value: 'default',
-            label: 'Default',
-          },
-          {
-            value: 'map',
-            label: 'Map',
-          },
-          {
-            value: 'list',
-            label: 'List',
-          },
-        ] satisfies SelectOption[],
-      },
+      name: ConfigSetting.AllowPickupLocationsViewSelection,
+      component: FormToggleInput,
     }),
 
     formField({

@@ -5,7 +5,6 @@ import {
   getDefaultDeliveryOptionsConfig,
   PickupLocationsView,
   type SupportedPlatformName,
-  PickupLocationStyle,
 } from '@myparcel-do/shared';
 import {PlatformName} from '@myparcel/constants';
 
@@ -13,13 +12,13 @@ const PLATFORM_DEFAULTS = Object.freeze({
   [PlatformName.MyParcel]: {
     [ConfigSetting.PickupShowDistance]: true,
     [ConfigSetting.PickupLocationsDefaultView]: PickupLocationsView.Map,
-    [ConfigSetting.PickupLocationsDefaultStyle]: PickupLocationStyle.Default,
+    [ConfigSetting.AllowPickupLocationsViewSelection]: true,
   },
 
   [PlatformName.SendMyParcel]: {
     [ConfigSetting.PickupShowDistance]: false,
     [ConfigSetting.PickupLocationsDefaultView]: PickupLocationsView.List,
-    [ConfigSetting.PickupLocationsDefaultStyle]: PickupLocationStyle.Default,
+    [ConfigSetting.AllowPickupLocationsViewSelection]: true,
   },
 }) satisfies Readonly<Partial<Record<SupportedPlatformName, Partial<DeliveryOptionsConfig>>>>;
 
