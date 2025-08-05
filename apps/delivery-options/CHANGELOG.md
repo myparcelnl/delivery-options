@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel/delivery-options-v6.17.0](https://github.com/myparcelnl/delivery-options/compare/v6.16.0...v6.17.0) (2025-08-05)
+
+### :sparkles: New Features
+
+* Make pickup locations list/map configurable via config ([#331](https://github.com/myparcelnl/delivery-options/issues/331)) ([be04f86](https://github.com/myparcelnl/delivery-options/commit/be04f86cac3b59afea0fdf4e2e57aa3a55aae57b))
+
 ## [@myparcel/delivery-options-v6.16.0](https://github.com/myparcelnl/delivery-options/compare/v6.15.0...v6.16.0) (2025-07-29)
 
 ### :sparkles: New Features
