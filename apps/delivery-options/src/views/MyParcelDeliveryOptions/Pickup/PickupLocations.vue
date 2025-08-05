@@ -2,7 +2,9 @@
   <div>
     <PickupLocationInput />
 
-    <div class="mp-flex mp-mb-2">
+    <div
+      v-if="allowViewSelection"
+      class="mp-flex mp-mb-2">
       <DoButton
         v-for="view in [PickupLocationsView.List, PickupLocationsView.Map]"
         :key="view"
@@ -36,6 +38,7 @@ void locations.load();
 const {state: config} = useConfigStore();
 const {translate} = useLanguage();
 
+const allowViewSelection = ref<boolean>(config.allowPickupLocationsViewSelection);
 const mode = ref<PickupLocationsView>(config.pickupLocationsDefaultView);
 
 const currentComponent = computed(() =>

@@ -12,11 +12,13 @@ const PLATFORM_DEFAULTS = Object.freeze({
   [PlatformName.MyParcel]: {
     [ConfigSetting.PickupShowDistance]: true,
     [ConfigSetting.PickupLocationsDefaultView]: PickupLocationsView.Map,
+    [ConfigSetting.AllowPickupLocationsViewSelection]: true,
   },
 
   [PlatformName.SendMyParcel]: {
     [ConfigSetting.PickupShowDistance]: false,
     [ConfigSetting.PickupLocationsDefaultView]: PickupLocationsView.List,
+    [ConfigSetting.AllowPickupLocationsViewSelection]: true,
   },
 }) satisfies Readonly<Partial<Record<SupportedPlatformName, Partial<DeliveryOptionsConfig>>>>;
 
