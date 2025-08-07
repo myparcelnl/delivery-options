@@ -9,13 +9,12 @@ export interface UsePlatform {
 }
 
 export const usePlatform = (platformName: MaybeRef<SupportedPlatformName>): UsePlatform => {
-  console.log(window.MyParcelConfig?.platformConfig, 'usePlatform called');
-
+  console.log(window.MyParcelConfig, 'window.MyParcelConfig in usePlatform');
   const config = computed(() => {
     const windowConfig = window.MyParcelConfig?.platformConfig;
 
-    // Use window config if it exists and has content
-    if (windowConfig && Object.keys(windowConfig).length > 0) {
+    // Use window config if it exists and has carriers
+    if (windowConfig && windowConfig.carriers && windowConfig.carriers.length > 0) {
       console.log('Using window config:', windowConfig);
       return windowConfig as PlatformConfiguration;
     }

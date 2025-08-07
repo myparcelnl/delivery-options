@@ -1,3 +1,4 @@
+import {toRaw} from 'vue';
 import {
   AddressField,
   CarrierSetting,
@@ -144,10 +145,11 @@ const validateConfig = (input: InputDeliveryOptionsConfig): DeliveryOptionsConfi
 };
 
 export const validateConfiguration = (input: InputDeliveryOptionsConfiguration): DeliveryOptionsConfiguration => {
+  console.log({...input[KEY_PLATFORM_CONFIG]}, 'input[KEY_PLATFORM_CONFIG] in validateConfiguration');
   return defineConfig({
     [KEY_ADDRESS]: filterConfig({...input[KEY_ADDRESS]}, addressOptions),
     [KEY_CONFIG]: validateConfig({...input[KEY_CONFIG]}),
     [KEY_STRINGS]: {...input[KEY_STRINGS]},
-    [KEY_PLATFORM_CONFIG]: {...input[KEY_PLATFORM_CONFIG]},
+    [KEY_PLATFORM_CONFIG]: toRaw(input[KEY_PLATFORM_CONFIG]),
   }) as unknown as DeliveryOptionsConfiguration;
 };

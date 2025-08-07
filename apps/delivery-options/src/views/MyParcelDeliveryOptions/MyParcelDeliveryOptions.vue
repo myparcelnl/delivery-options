@@ -76,6 +76,7 @@ onMounted(() => {
     logger.debug('Using config from window');
   }
 
+  console.log(getConfigFromWindow(), 'settConfig from onMounted');
   setConfiguration(getConfigFromWindow());
 });
 
@@ -89,6 +90,7 @@ watch(
       return;
     }
 
+    console.log(resolvedValue, 'settConfig from watch');
     setConfiguration(resolvedValue);
   },
   { immediate: true },

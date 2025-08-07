@@ -5,6 +5,8 @@ import {CarrierName} from '@myparcel/constants';
 export const mapDeprecatedUpsCarrierConfig = (
   input: InputDeliveryOptionsConfiguration,
 ): InputDeliveryOptionsConfiguration => {
+  console.log(input, 'input in mapDeprecatedUpsCarrierConfig');
+
   // If there are no UPS settings defined, return the input as is.
   if (!input.config?.carrierSettings || !input.config?.carrierSettings.ups) {
     return input;
