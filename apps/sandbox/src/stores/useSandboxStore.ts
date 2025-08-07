@@ -54,7 +54,6 @@ export const useSandboxStore = defineStore('sandbox', {
 
   actions: {
     updateConfiguration(configuration: Record<string, unknown>): void {
-      console.log('updateConfiguration called', configuration);
       const {address, config, platformConfig} = construct(configuration) as InputDeliveryOptionsConfiguration;
       const {carrierSettings, ...restConfig} = config ?? {};
 

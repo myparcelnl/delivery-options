@@ -9,7 +9,6 @@ import {
 } from '@myparcel-do/shared';
 
 export const getConfigFromWindow = (): InputDeliveryOptionsConfiguration => {
-  console.log('getConfigFromWindow called');
   return assign<InputDeliveryOptionsConfiguration>(
     {
       // @ts-expect-error todo

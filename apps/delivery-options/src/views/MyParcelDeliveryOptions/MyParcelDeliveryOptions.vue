@@ -53,9 +53,6 @@ const ready = computed(() => Boolean(config.platform && address.cc));
 const show = ref(true);
 
 onMounted(() => {
-  console.log(propRefs.configuration.value, 'proprefs value');
-  console.log(getConfigFromWindow(), 'config from window');
-
   if (propRefs.configuration?.value) {
     if (import.meta.env.DEV) {
       logger.debug('Using config from props');
@@ -76,21 +73,18 @@ onMounted(() => {
     logger.debug('Using config from window');
   }
 
-  console.log(getConfigFromWindow(), 'settConfig from onMounted');
   setConfiguration(getConfigFromWindow());
 });
 
 watch(
   propRefs.configuration,
   (value) => {
-    console.log(value, 'configuration prop changed');
     const resolvedValue = toValue(value);
 
     if (!resolvedValue) {
       return;
     }
 
-    console.log(resolvedValue, 'settConfig from watch');
     setConfiguration(resolvedValue);
   },
   { immediate: true },

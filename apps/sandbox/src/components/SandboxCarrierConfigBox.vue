@@ -40,7 +40,6 @@ form.on(
   'afterAddElement',
   useDebounceFn(() => {
     watch(form.values, (newConfiguration: Record<string, unknown>) => {
-      console.log('Configuration changed:', newConfiguration);
       sandboxStore.updateConfiguration(newConfiguration);
     });
   }, 50),

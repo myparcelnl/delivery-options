@@ -16,7 +16,6 @@ export const useDeliveryOptionsIncomingEvents = (): void => {
       logger.debug(`Received configuration from ${hasDetail ? 'event' : 'window'}`, newConfig);
     }
 
-    console.log(newConfig, 'settconfig from useDeliveryOptionsIncomingEvents');
     setConfiguration(newConfig);
   };
 

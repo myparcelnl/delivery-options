@@ -5,7 +5,6 @@ import {validateConfiguration} from './validateConfiguration';
 import {mapDeprecatedUpsCarrierConfig} from './mapDeprecatedUpsCarrierConfig';
 
 export const setConfiguration = (config: InputDeliveryOptionsConfiguration): void => {
-  console.log(config, 'config in setConfiguration');
   const configStore = useConfigStore();
   const addressStore = useAddressStore();
   const language = useLanguage();
@@ -21,6 +20,5 @@ export const setConfiguration = (config: InputDeliveryOptionsConfiguration): voi
 
   language.setStrings(validated.strings);
 
-  console.log('setConfiguration', validated);
   window.MyParcelConfig = validated;
 };

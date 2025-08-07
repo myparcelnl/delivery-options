@@ -11,5 +11,4 @@ import {MyParcelDeliveryOptions} from '@myparcel/delivery-options';
 import {useSandboxStore} from '../stores';
 
 const store = useSandboxStore();
-console.log(store, 'store in DeliveryOptionsBlock');
 </script>
