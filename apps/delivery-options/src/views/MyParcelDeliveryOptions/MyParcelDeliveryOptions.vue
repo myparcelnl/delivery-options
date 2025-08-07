@@ -15,7 +15,9 @@
   </div>
 </template>
 
-<script lang="ts" setup>
+<script
+  lang="ts"
+  setup>
 import '../../assets/index.scss';
 import {computed, onMounted, ref, toRefs, watch, toValue} from 'vue';
 import {useEventListener} from '@vueuse/core';
@@ -39,19 +41,19 @@ const emit = defineEmits<DeliveryOptionsEmits>();
 const propRefs = toRefs(props);
 
 const logger = useLogger();
-const {state: config} = useConfigStore();
-const {state: address} = useAddressStore();
+const { state: config } = useConfigStore();
+const { state: address } = useAddressStore();
 
 const wrapper = ref<HTMLFormElement>();
 
-const {hasExceptions} = useApiExceptions();
+const { hasExceptions } = useApiExceptions();
 
 const ready = computed(() => Boolean(config.platform && address.cc));
 
 const show = ref(true);
 
 onMounted(() => {
-  console.log(propRefs.configuration.value);
+  console.log(propRefs.configuration.value, 'proprefs value');
   console.log(getConfigFromWindow(), 'config from window');
 
   if (propRefs.configuration?.value) {
@@ -80,6 +82,7 @@ onMounted(() => {
 watch(
   propRefs.configuration,
   (value) => {
+    console.log(value, 'configuration prop changed');
     const resolvedValue = toValue(value);
 
     if (!resolvedValue) {
@@ -88,7 +91,7 @@ watch(
 
     setConfiguration(resolvedValue);
   },
-  {immediate: true},
+  { immediate: true },
 );
 
 useDeliveryOptionsIncomingEvents();

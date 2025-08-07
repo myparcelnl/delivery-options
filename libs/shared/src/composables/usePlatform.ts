@@ -9,7 +9,23 @@ export interface UsePlatform {
 }
 
 export const usePlatform = (platformName: MaybeRef<SupportedPlatformName>): UsePlatform => {
-  const config = computed(() => getPlatformConfig(toValue(platformName)));
+  console.log(window.MyParcelConfig?.platformConfig, 'usePlatform called');
+
+  const config = computed(() => {
+    const windowConfig = window.MyParcelConfig?.platformConfig;
+
+    // Use window config if it exists and has content
+    if (windowConfig && Object.keys(windowConfig).length > 0) {
+      console.log('Using window config:', windowConfig);
+      return windowConfig as PlatformConfiguration;
+    }
+
+    // Fall back to local platform config
+    console.log('Using fallback config');
+    return getPlatformConfig(toValue(platformName));
+  });
+
+  console.log(config.value, 'config in usePlatform');
 
   return {
     config,

@@ -15,6 +15,9 @@ import {
   KEY_CONFIG,
   KEY_STRINGS,
   type SupportedPlatformName,
+  KEY_PLATFORM_CONFIG,
+  type PlatformConfiguration,
+  getPlatformConfig,
 } from '@myparcel-do/shared';
 import {getDefaultSandboxAddress, getDefaultSandboxCarrierSettings, getDefaultSandboxConfig} from '../config';
 import {useLanguage} from '../composables';
@@ -27,6 +30,7 @@ export const useSandboxStore = defineStore('sandbox', {
     carrierSettings: InputCarrierSettingsObject;
     config: RemovableRef<ConfigWithoutCarrierSettings>;
     platform: SupportedPlatformName;
+    platformConfig: RemovableRef<PlatformConfiguration>;
   } => {
     const carrierSettings = useLocalStorage<CarrierSettingsObject>(
       KEY_CARRIER_SETTINGS,
@@ -34,24 +38,31 @@ export const useSandboxStore = defineStore('sandbox', {
     );
     const config = useLocalStorage<ConfigWithoutCarrierSettings>(KEY_CONFIG, getDefaultSandboxConfig);
     const address = useLocalStorage<DeliveryOptionsAddress>(KEY_ADDRESS, getDefaultSandboxAddress);
+    const platformConfig = useLocalStorage<PlatformConfiguration>(
+      KEY_PLATFORM_CONFIG,
+      getPlatformConfig(DEFAULT_PLATFORM),
+    );
 
     return {
       address,
       carrierSettings,
       config,
       platform: get(toValue(config), ConfigSetting.Platform, DEFAULT_PLATFORM),
+      platformConfig,
     };
   },
 
   actions: {
     updateConfiguration(configuration: Record<string, unknown>): void {
-      const {address, config} = construct(configuration) as InputDeliveryOptionsConfiguration;
+      console.log('updateConfiguration called', configuration);
+      const {address, config, platformConfig} = construct(configuration) as InputDeliveryOptionsConfiguration;
       const {carrierSettings, ...restConfig} = config ?? {};
 
       this.address = address;
       this.config = restConfig;
       this.carrierSettings = carrierSettings ?? {};
       this.platform = restConfig.platform ?? DEFAULT_PLATFORM;
+      this.platformConfig = platformConfig ?? {carriers: []};
     },
   },
 
@@ -68,6 +79,7 @@ export const useSandboxStore = defineStore('sandbox', {
         } satisfies InputDeliveryOptionsConfig,
         [KEY_ADDRESS]: this.address,
         [KEY_STRINGS]: strings.value,
+        [KEY_PLATFORM_CONFIG]: this.platformConfig,
       });
     },
   },
