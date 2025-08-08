@@ -6,6 +6,7 @@ import {
   CarrierSetting,
   KEY_ADDRESS,
   PACKAGE_TYPE_SMALL,
+  KEY_PLATFORM_CONFIG,
 } from '@myparcel-do/shared';
 import {CarrierName} from '@myparcel/constants';
 import {RENDER_DELIVERY_OPTIONS, UPDATE_DELIVERY_OPTIONS} from './data';
@@ -62,7 +63,12 @@ describe('main', () => {
     );
 
     expect(global.window.MyParcelConfig).toBeDefined();
-    expect(Object.keys(global.window.MyParcelConfig)).toEqual([KEY_ADDRESS, KEY_CONFIG, KEY_STRINGS]);
+    expect(Object.keys(global.window.MyParcelConfig)).toEqual([
+      KEY_ADDRESS,
+      KEY_CONFIG,
+      KEY_STRINGS,
+      KEY_PLATFORM_CONFIG,
+    ]);
   });
 
   it('exposes config with small package on window object after booting', async () => {
@@ -82,7 +88,12 @@ describe('main', () => {
     await dispatchEvent(UPDATE_DELIVERY_OPTIONS, mockConfig);
 
     expect(global.window.MyParcelConfig).toBeDefined();
-    expect(Object.keys(global.window.MyParcelConfig)).toEqual([KEY_ADDRESS, KEY_CONFIG, KEY_STRINGS]);
+    expect(Object.keys(global.window.MyParcelConfig)).toEqual([
+      KEY_ADDRESS,
+      KEY_CONFIG,
+      KEY_STRINGS,
+      KEY_PLATFORM_CONFIG,
+    ]);
   });
 
   it.todo.each([

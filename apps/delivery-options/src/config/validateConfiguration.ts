@@ -1,3 +1,4 @@
+import {toRaw} from 'vue';
 import {
   AddressField,
   CarrierSetting,
@@ -25,6 +26,7 @@ import {
   KEY_ADDRESS,
   KEY_CONFIG,
   KEY_STRINGS,
+  KEY_PLATFORM_CONFIG,
 } from '@myparcel-do/shared';
 import {isEnumValue} from '@myparcel/ts-utils';
 import {PackageTypeName} from '@myparcel/constants';
@@ -147,5 +149,6 @@ export const validateConfiguration = (input: InputDeliveryOptionsConfiguration):
     [KEY_ADDRESS]: filterConfig({...input[KEY_ADDRESS]}, addressOptions),
     [KEY_CONFIG]: validateConfig({...input[KEY_CONFIG]}),
     [KEY_STRINGS]: {...input[KEY_STRINGS]},
+    [KEY_PLATFORM_CONFIG]: toRaw(input[KEY_PLATFORM_CONFIG]),
   }) as unknown as DeliveryOptionsConfiguration;
 };
