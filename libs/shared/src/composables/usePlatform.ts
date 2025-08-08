@@ -1,6 +1,7 @@
 import {computed, type MaybeRef, type ComputedRef, toValue} from 'vue';
 import {getPlatformConfig, resolveCarrierName} from '../utils';
 import {type PlatformConfiguration, type SupportedPlatformName, type CarrierIdentifier} from '../types';
+import {KEY_PLATFORM_CONFIG} from '../data';
 
 export interface UsePlatform {
   config: ComputedRef<PlatformConfiguration>;
@@ -10,10 +11,10 @@ export interface UsePlatform {
 
 export const usePlatform = (platformName: MaybeRef<SupportedPlatformName>): UsePlatform => {
   const config = computed(() => {
-    const windowConfig = window.MyParcelConfig?.platformConfig;
+    const windowConfig = window.MyParcelConfig?.[KEY_PLATFORM_CONFIG];
 
     // Use window config if it exists and has carriers
-    if (windowConfig && windowConfig.carriers && windowConfig.carriers.length > 0) {
+    if (windowConfig?.carriers && windowConfig.carriers.length > 0) {
       return windowConfig as PlatformConfiguration;
     }
 
