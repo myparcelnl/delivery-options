@@ -19,7 +19,7 @@ import {
   type CarrierConfiguration,
   type CarrierWithIdentifier,
 } from '../types';
-import {useCarrierRequest} from './sdk';
+import {useCarrierFromCache} from './sdk';
 
 interface UseCarrierOptions {
   carrierIdentifier: MaybeRef<CarrierIdentifier | undefined>;
@@ -58,7 +58,7 @@ export const useCarrier = useMemoize((options: UseCarrierOptions): UseCarrier =>
     async () => {
       if (!carrierName.value) return undefined;
 
-      const apiCarrier = await waitForRequestData(useCarrierRequest, [carrierName.value]);
+      const apiCarrier = await waitForRequestData(useCarrierFromCache, [carrierName.value]);
 
       if (!apiCarrier) {
         throw new Error();

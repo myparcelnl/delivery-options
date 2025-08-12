@@ -21,7 +21,7 @@
 import {computed, onUnmounted, reactive, ref, toRefs, watch, toValue} from 'vue';
 import {createAssetUrl, resolveCarrierName} from '../utils';
 import {type CarrierIdentifier} from '../types';
-import {useCarrierRequest} from '../composables';
+import {useCarrierFromCache} from '../composables';
 
 const props = defineProps<{carrier: CarrierIdentifier; small?: boolean}>();
 const propRefs = toRefs(props);
@@ -31,7 +31,7 @@ const hasError = ref(false);
 const data = ref();
 const src = ref<string>();
 
-const request = computed(() => reactive(useCarrierRequest(resolveCarrierName(propRefs.carrier.value))));
+const request = computed(() => reactive(useCarrierFromCache(resolveCarrierName(propRefs.carrier.value))));
 
 const unwatch = watch(
   request,
