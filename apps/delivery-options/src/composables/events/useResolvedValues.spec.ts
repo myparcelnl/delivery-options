@@ -6,7 +6,7 @@ import {
   type InternalOutput,
   KEY_CARRIER_SETTINGS,
   KEY_CONFIG,
-  useCarrierRequest,
+  useCarriersRequest,
   ConfigSetting,
   type InputDeliveryOptionsConfig,
 } from '@myparcel-do/shared';
@@ -64,7 +64,7 @@ describe('useResolvedValues', () => {
 
     await Promise.all([
       mockDeliveryOptionsForm(),
-      useCarrierRequest(CarrierName.PostNl).load(),
+      useCarriersRequest().load(),
       waitForDeliveryOptions(),
       waitForPickupLocations(),
     ]);

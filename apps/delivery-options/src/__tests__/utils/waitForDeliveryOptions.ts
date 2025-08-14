@@ -4,7 +4,7 @@ import {
   waitForRequestData,
   useDeliveryOptionsRequest,
   type SupportedPlatformName,
-  useCarrierRequest,
+  useCarriersRequest,
 } from '@myparcel-do/shared';
 import {type DeliveryOption} from '@myparcel/sdk';
 import {CarrierName, PlatformName} from '@myparcel/constants';
@@ -22,7 +22,7 @@ export const waitForDeliveryOptions = async (
 
   const [data] = await Promise.all([
     waitForRequestData(useDeliveryOptionsRequest, [createGetDeliveryOptionsParameters(resolvedCarrier)]),
-    useCarrierRequest(carrierName).load(),
+    useCarriersRequest().load(),
     waitFor(() => !options.loading.value, {timeout: 1000}),
     options.load(),
   ]);
