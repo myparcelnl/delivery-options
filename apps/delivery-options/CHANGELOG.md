@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel/delivery-options-v6.18.0](https://github.com/myparcelnl/delivery-options/compare/v6.17.0...v6.18.0) (2025-08-14)
+
+### :sparkles: New Features
+
+* Cache carrier requests ([#338](https://github.com/myparcelnl/delivery-options/issues/338)) ([2e1bf7b](https://github.com/myparcelnl/delivery-options/commit/2e1bf7ba5966897ae61db081e53bd37373378e90))
+* external carrier config process ([#333](https://github.com/myparcelnl/delivery-options/issues/333)) ([0a193d7](https://github.com/myparcelnl/delivery-options/commit/0a193d70ad1befd0d123ab2eba43b826395079b9))
+
 ## [@myparcel/delivery-options-v6.17.0](https://github.com/myparcelnl/delivery-options/compare/v6.16.0...v6.17.0) (2025-08-05)
 
 ### :sparkles: New Features
