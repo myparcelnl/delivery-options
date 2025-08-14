@@ -5,6 +5,7 @@ import {
   KEY_CONFIG,
   KEY_INITIAL,
   KEY_STRINGS,
+  KEY_PLATFORM_CONFIG,
 } from '@myparcel-do/shared';
 
 export const getConfigFromWindow = (): InputDeliveryOptionsConfiguration => {
@@ -15,6 +16,7 @@ export const getConfigFromWindow = (): InputDeliveryOptionsConfiguration => {
       [KEY_CONFIG]: {},
       [KEY_STRINGS]: {},
       [KEY_INITIAL]: {},
+      [KEY_PLATFORM_CONFIG]: {carriers: []},
     },
     window.MyParcelConfig ?? {},
   );

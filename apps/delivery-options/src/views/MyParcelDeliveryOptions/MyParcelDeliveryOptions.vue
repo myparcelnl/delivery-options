@@ -15,16 +15,15 @@
   </div>
 </template>
 
-<script lang="ts" setup>
+<script
+  lang="ts"
+  setup>
 import '../../assets/index.scss';
 import {computed, onMounted, ref, toRefs, watch, toValue} from 'vue';
 import {useEventListener} from '@vueuse/core';
 import {useLogger, useApiExceptions} from '@myparcel-do/shared';
 import {getConfigFromWindow} from '../../utils';
-import {
-  type DeliveryOptionsEmits,
-  type DeliveryOptionsProps,
-} from '../../types';
+import {type DeliveryOptionsEmits, type DeliveryOptionsProps} from '../../types';
 import {useAddressStore, useConfigStore} from '../../stores';
 import {HIDE_DELIVERY_OPTIONS, SHOW_DELIVERY_OPTIONS} from '../../data';
 import {setConfiguration} from '../../config';
@@ -42,12 +41,12 @@ const emit = defineEmits<DeliveryOptionsEmits>();
 const propRefs = toRefs(props);
 
 const logger = useLogger();
-const {state: config} = useConfigStore();
-const {state: address} = useAddressStore();
+const { state: config } = useConfigStore();
+const { state: address } = useAddressStore();
 
 const wrapper = ref<HTMLFormElement>();
 
-const {hasExceptions} = useApiExceptions();
+const { hasExceptions } = useApiExceptions();
 
 const ready = computed(() => Boolean(config.platform && address.cc));
 
@@ -55,18 +54,24 @@ const show = ref(true);
 
 onMounted(() => {
   if (propRefs.configuration?.value) {
-    if (import.meta.env.DEV) logger.debug('Using config from props');
+    if (import.meta.env.DEV) {
+      logger.debug('Using config from props');
+    }
 
     return;
   }
 
   if (!window.MyParcelConfig) {
-    if (import.meta.env.DEV) logger.error('No config found');
+    if (import.meta.env.DEV) {
+      logger.error('No config found');
+    }
 
     return;
   }
 
-  if (import.meta.env.DEV) logger.debug('Using config from window');
+  if (import.meta.env.DEV) {
+    logger.debug('Using config from window');
+  }
 
   setConfiguration(getConfigFromWindow());
 });
@@ -82,7 +87,7 @@ watch(
 
     setConfiguration(resolvedValue);
   },
-  {immediate: true},
+  { immediate: true },
 );
 
 useDeliveryOptionsIncomingEvents();
