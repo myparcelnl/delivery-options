@@ -13,8 +13,8 @@
     "test:run": "run ws:test:run \"$(pwd)\"",
     "test:update": "run ws:test:update \"$(pwd)\"",
     "translations:import": "run translations:import:delivery-options && run translations:import:sandbox",
-    "translations:import:delivery-options": "google-docs-importer -vv -d 1FjcT_eNLkbUXFpcm4nskdkBSsFWG7wAX9FDxrJwpOuc --prefix d_o_ -s 0 -o public/translations/delivery-options",
-    "translations:import:sandbox": "google-docs-importer -vv -d 1FjcT_eNLkbUXFpcm4nskdkBSsFWG7wAX9FDxrJwpOuc -s 1038466479 -o public/translations",
+    "translations:import:delivery-options": "mypa-google-docs-importer -vv -d 1FjcT_eNLkbUXFpcm4nskdkBSsFWG7wAX9FDxrJwpOuc --prefix d_o_ -s 0 -o public/translations/delivery-options",
+    "translations:import:sandbox": "mypa-google-docs-importer -vv -d 1FjcT_eNLkbUXFpcm4nskdkBSsFWG7wAX9FDxrJwpOuc -s 1038466479 -o public/translations",
     "typecheck": "vue-tsc --project tsconfig.base.json --noEmit"
   },
   "dependencies": {
@@ -31,12 +31,12 @@
     "vue": "^3.3.4"
   },
   "devDependencies": {
-    "@edielemoine/google-docs-importer": "^2.0.0",
     "@myparcel-do/build-vite": "workspace:*",
     "@testing-library/vue": "^8.0.1",
     "@vitejs/plugin-vue": "^5.0.0",
     "autoprefixer": "^10.4.16",
     "ci-info": "^4.0.0",
+    "mypa-google-docs-importer": "^1.0.1",
     "postcss": "^8.4.31",
     "sass": "^1.69.3",
     "typescript": "5.4.5",
