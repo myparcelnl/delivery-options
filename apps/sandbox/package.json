@@ -24,6 +24,7 @@
     "@myparcel/sdk": "^4.3.0",
     "@myparcel/ts-utils": "^1.12.0",
     "@myparcel/vue-form-builder": "^1.0.0-beta.1",
+    "@vuepic/vue-datepicker": "^11.0.2",
     "@vueuse/core": "^10.5.0",
     "pinia": "^2.1.7",
     "radash": "^12.0.0",

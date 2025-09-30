@@ -18,6 +18,7 @@ import {
 } from '@myparcel-do/shared';
 import {formField, formSection} from '../form';
 import FormToggleInput from './form/input/FormToggleInput.vue';
+import FormMultiDateSelect from './form/input/FormMultiDateSelect.vue';
 import FormDropOffSelector from './form/input/FormDropOffSelector.vue';
 import {FormNumberInput, FormRadioGroupInput, SandboxSettingsEntry} from './form';
 import {Box} from './Box';
@@ -80,6 +81,11 @@ const section = formSection({
       key: KEY_CONFIG,
       name: ConfigSetting.ShowPriceZeroAsFree,
       component: FormToggleInput,
+    }),
+    formField({
+      key: KEY_CONFIG,
+      name: ConfigSetting.ClosedDays,
+      component: FormMultiDateSelect,
     }),
   ],
 });
