@@ -26,11 +26,11 @@ export type SelectInputProps<T extends SelectInputModelValue> = InputProps<T> &
 
 export type SelectInputEmits<T extends SelectInputModelValue> = ElementEmits<T>;
 
-export type MultiDateSelectModelValue = Date;
+export type MultiDateSelectModelValue = Date[];
 
 export type MultiDateSelectProps = InputProps<MultiDateSelectModelValue>;
 
-export type MultiDateSelectEmits = ElementEmits<Date[]>;
+export type MultiDateSelectEmits = ElementEmits<MultiDateSelectModelValue>;
 
 export type NumberInputModelValue = string | number;
 

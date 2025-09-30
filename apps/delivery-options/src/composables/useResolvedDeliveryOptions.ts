@@ -98,8 +98,13 @@ const getDeliveryOptionsFromApi = async (
   );
 };
 
-const getClosedDaysWindow = (closedDays: Date[]): Date[] => {
+const getClosedDaysWindow = (closedDays: Date[] | undefined): Date[] => {
   const daysWindow = 14;
+
+  // If closedDays is undefined or null, return empty array
+  if (!closedDays) {
+    return [];
+  }
 
   const today = new Date();
   today.setHours(0, 0, 0, 0);
