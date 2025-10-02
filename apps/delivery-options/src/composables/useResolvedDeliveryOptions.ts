@@ -111,7 +111,9 @@ const getClosedDaysWindow = (closedDays: Date[] | undefined): Date[] => {
   const maxDate = new Date(today);
   maxDate.setDate(today.getDate() + daysWindow);
   return closedDays.filter((dateString) => {
-    const date = new Date(dateString);
+    // Parse the date string consistently - if it's just a date (YYYY-MM-DD),
+    // create it as local time to avoid timezone issues
+    const date = new Date(`${dateString}T00:00:00`);
     date.setHours(0, 0, 0, 0);
     return date >= today && date <= maxDate;
   });
@@ -151,7 +153,8 @@ const shouldFilterDeliveryDate = (
 
   // Normalize closed days to start of day for comparison
   const normalizedClosedDays = closedDays.map((day) => {
-    const normalized = new Date(day);
+    // Handle both Date objects and date strings consistently
+    const normalized = day instanceof Date ? new Date(day) : new Date(`${day}T00:00:00`);
     normalized.setHours(0, 0, 0, 0);
     return normalized;
   });
@@ -162,13 +165,14 @@ const shouldFilterDeliveryDate = (
   // Find all consecutive sequences of closed days
   const sequences: Date[][] = [];
   let currentSequence: Date[] = [];
-  
+
   for (let i = 0; i < sortedClosedDays.length; i++) {
     const currentDay = sortedClosedDays[i];
     const previousDay = i > 0 ? sortedClosedDays[i - 1] : null;
-    
+
     if (previousDay) {
       const dayDifference = (currentDay.getTime() - previousDay.getTime()) / (24 * 60 * 60 * 1000);
+
       if (dayDifference === 1) {
         // Consecutive day, add to current sequence
         currentSequence.push(currentDay);
@@ -177,6 +181,7 @@ const shouldFilterDeliveryDate = (
         if (currentSequence.length > 0) {
           sequences.push([...currentSequence]);
         }
+
         currentSequence = [currentDay];
       }
     } else {
@@ -184,7 +189,7 @@ const shouldFilterDeliveryDate = (
       currentSequence = [currentDay];
     }
   }
-  
+
   // Add the last sequence
   if (currentSequence.length > 0) {
     sequences.push(currentSequence);
@@ -195,13 +200,13 @@ const shouldFilterDeliveryDate = (
 
   if (isClosedDay) {
     // Find which sequence this delivery date belongs to
-    const containingSequence = sequences.find(sequence => 
-      sequence.some(day => day.getTime() === deliveryDate.getTime())
+    const containingSequence = sequences.find((sequence) =>
+      sequence.some((day) => day.getTime() === deliveryDate.getTime()),
     );
-    
+
     if (containingSequence) {
       const isFirstInSequence = containingSequence[0].getTime() === deliveryDate.getTime();
-      
+
       if (isFirstInSequence) {
         // For the first closed day in a sequence, apply the original processing time logic
         const requiredDaysBefore = dropOffDelay || 0;
@@ -220,10 +225,10 @@ const shouldFilterDeliveryDate = (
         );
 
         return isDayBeforeDropOffDelayClosed;
-      } else {
-        // For subsequent days in a consecutive sequence, always filter them out
-        return true;
       }
+
+      // For subsequent days in a consecutive sequence, always filter them out
+      return true;
     }
   }
 
