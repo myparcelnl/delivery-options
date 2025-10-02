@@ -124,12 +124,14 @@ const getClosedDaysWindow = (closedDays: Date[] | undefined): Date[] => {
  * - Closed days and their processing requirements
  * - Drop-off delay periods after closed days
  * - Cutoff time for same-day order processing
+ * - Consecutive closed days (first day follows processing rules, subsequent days are always unavailable)
  *
  * Key Logic:
- * 1. Closed days are only filtered out if there isn't enough processing time before them
- * 2. The day after any closed day is ALWAYS unavailable
- * 3. Additional days after closed days are filtered based on dropOffDelay
- * 4. Cutoff time affects the effective order date for processing calculations
+ * 1. The FIRST closed day in a sequence is only filtered out if there isn't enough processing time before it
+ * 2. ALL subsequent consecutive closed days are always unavailable
+ * 3. The day after any closed day sequence is ALWAYS unavailable
+ * 4. Additional days after closed day sequences are filtered based on dropOffDelay
+ * 5. Cutoff time affects the effective order date for processing calculations
  *
  * @param deliveryDate - The delivery date to check for availability
  * @param closedDays - Array of closed days that affect delivery availability
@@ -154,37 +156,89 @@ const shouldFilterDeliveryDate = (
     return normalized;
   });
 
-  // Check if the delivery date is a closed day
-  const isClosedDay = normalizedClosedDays.some((closedDay) => closedDay.getTime() === deliveryDate.getTime());
+  // Sort closed days to identify consecutive sequences
+  const sortedClosedDays = [...normalizedClosedDays].sort((a, b) => a.getTime() - b.getTime());
 
-  if (isClosedDay) {
-    const requiredDaysBefore = dropOffDelay || 0;
-
-    const now = new Date();
-    const isOrderBeforeCutoff = now <= cutoffDate;
-
-    const effectiveOrderDate = isOrderBeforeCutoff ? today : new Date(today.getTime() + 24 * 60 * 60 * 1000);
-
-    const dayBeforeDropOffDelay = new Date(effectiveOrderDate);
-    dayBeforeDropOffDelay.setDate(effectiveOrderDate.getDate() + requiredDaysBefore);
-    dayBeforeDropOffDelay.setHours(0, 0, 0, 0);
-
-    const isDayBeforeDropOffDelayClosed = normalizedClosedDays.some(
-      (closedDay) => closedDay.getTime() === dayBeforeDropOffDelay.getTime(),
-    );
-
-    return isDayBeforeDropOffDelayClosed;
+  // Find all consecutive sequences of closed days
+  const sequences: Date[][] = [];
+  let currentSequence: Date[] = [];
+  
+  for (let i = 0; i < sortedClosedDays.length; i++) {
+    const currentDay = sortedClosedDays[i];
+    const previousDay = i > 0 ? sortedClosedDays[i - 1] : null;
+    
+    if (previousDay) {
+      const dayDifference = (currentDay.getTime() - previousDay.getTime()) / (24 * 60 * 60 * 1000);
+      if (dayDifference === 1) {
+        // Consecutive day, add to current sequence
+        currentSequence.push(currentDay);
+      } else {
+        // Non-consecutive day, start new sequence
+        if (currentSequence.length > 0) {
+          sequences.push([...currentSequence]);
+        }
+        currentSequence = [currentDay];
+      }
+    } else {
+      // First day
+      currentSequence = [currentDay];
+    }
+  }
+  
+  // Add the last sequence
+  if (currentSequence.length > 0) {
+    sequences.push(currentSequence);
   }
 
-  const shouldFilter = normalizedClosedDays.some((closedDay) => {
-    const dayAfterClosedDay = new Date(closedDay);
-    dayAfterClosedDay.setDate(closedDay.getDate() + 1);
+  // Check if the delivery date is a closed day
+  const isClosedDay = sortedClosedDays.some((closedDay) => closedDay.getTime() === deliveryDate.getTime());
 
+  if (isClosedDay) {
+    // Find which sequence this delivery date belongs to
+    const containingSequence = sequences.find(sequence => 
+      sequence.some(day => day.getTime() === deliveryDate.getTime())
+    );
+    
+    if (containingSequence) {
+      const isFirstInSequence = containingSequence[0].getTime() === deliveryDate.getTime();
+      
+      if (isFirstInSequence) {
+        // For the first closed day in a sequence, apply the original processing time logic
+        const requiredDaysBefore = dropOffDelay || 0;
+
+        const now = new Date();
+        const isOrderBeforeCutoff = now <= cutoffDate;
+
+        const effectiveOrderDate = isOrderBeforeCutoff ? today : new Date(today.getTime() + 24 * 60 * 60 * 1000);
+
+        const dayBeforeDropOffDelay = new Date(effectiveOrderDate);
+        dayBeforeDropOffDelay.setDate(effectiveOrderDate.getDate() + requiredDaysBefore);
+        dayBeforeDropOffDelay.setHours(0, 0, 0, 0);
+
+        const isDayBeforeDropOffDelayClosed = sortedClosedDays.some(
+          (closedDay) => closedDay.getTime() === dayBeforeDropOffDelay.getTime(),
+        );
+
+        return isDayBeforeDropOffDelayClosed;
+      } else {
+        // For subsequent days in a consecutive sequence, always filter them out
+        return true;
+      }
+    }
+  }
+
+  // Check if delivery date falls within any sequence or the filtered period after it
+  const shouldFilter = sequences.some((sequence) => {
+    const sequenceStart = sequence[0];
+    const sequenceEnd = sequence[sequence.length - 1];
+
+    // Calculate additional days to filter after the sequence
     const additionalDays = dropOffDelay || 0;
-    const lastDayToFilter = new Date(closedDay);
-    lastDayToFilter.setDate(closedDay.getDate() + 1 + additionalDays);
+    const lastDayToFilter = new Date(sequenceEnd);
+    lastDayToFilter.setDate(sequenceEnd.getDate() + 1 + additionalDays);
 
-    return deliveryDate >= dayAfterClosedDay && deliveryDate <= lastDayToFilter;
+    // Check if delivery date falls within the sequence or the filtered period after it
+    return deliveryDate >= sequenceStart && deliveryDate <= lastDayToFilter;
   });
 
   if (shouldFilter) {
