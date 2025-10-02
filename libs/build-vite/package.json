@@ -22,7 +22,7 @@
     "@vitest/coverage-v8": "^2.1.9",
     "happy-dom": "^14.0.0",
     "typescript": "5.4.5",
-    "vite": "^5.3.6",
+    "vite": "^7.1.8",
     "vite-plugin-custom-tsconfig": "^1.0.0",
     "vite-plugin-dts": "^3.6.0",
     "vitest": "^2.1.9",
