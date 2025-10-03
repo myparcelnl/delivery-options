@@ -217,7 +217,7 @@ describe('useResolvedDeliveryOptions', () => {
       );
 
       // 2025-01-02 should be filtered out (insufficient processing time)
-      expect(availableDates.some((date) => date && date.includes('2025-01-02'))).toBe(false);
+      expect(availableDates.some((date) => date?.includes('2025-01-02'))).toBe(false);
     });
 
     it('All subsequent consecutive closed days are always unavailable', async () => {
@@ -229,10 +229,10 @@ describe('useResolvedDeliveryOptions', () => {
       );
 
       // 2025-01-02 should be available (first day, sufficient processing time)
-      expect(availableDates.some((date) => date && date.includes('2025-01-02'))).toBe(true);
+      expect(availableDates.some((date) => date?.includes('2025-01-02'))).toBe(true);
       // 2025-01-03 and 2025-01-04 should be filtered out (subsequent days)
-      expect(availableDates.some((date) => date && date.includes('2025-01-03'))).toBe(false);
-      expect(availableDates.some((date) => date && date.includes('2025-01-04'))).toBe(false);
+      expect(availableDates.some((date) => date?.includes('2025-01-03'))).toBe(false);
+      expect(availableDates.some((date) => date?.includes('2025-01-04'))).toBe(false);
     });
 
     it('Day after closed day sequence is always unavailable', async () => {
@@ -243,9 +243,9 @@ describe('useResolvedDeliveryOptions', () => {
       );
 
       // 2025-01-02 should be available (sufficient processing time)
-      expect(availableDates.some((date) => date && date.includes('2025-01-02'))).toBe(true);
+      expect(availableDates.some((date) => date?.includes('2025-01-02'))).toBe(true);
       // 2025-01-03 should be filtered out (day after closed day)
-      expect(availableDates.some((date) => date && date.includes('2025-01-03'))).toBe(false);
+      expect(availableDates.some((date) => date?.includes('2025-01-03'))).toBe(false);
     });
 
     it('Additional days after sequences are filtered based on dropOffDelay', async () => {
@@ -257,13 +257,13 @@ describe('useResolvedDeliveryOptions', () => {
       );
 
       // 2025-01-02 should be available (sufficient processing time)
-      expect(availableDates.some((date) => date && date.includes('2025-01-02'))).toBe(true);
+      expect(availableDates.some((date) => date?.includes('2025-01-02'))).toBe(true);
       // 2025-01-03, 2025-01-04, 2025-01-05 should be filtered out (dropOffDelay = 2)
-      expect(availableDates.some((date) => date && date.includes('2025-01-03'))).toBe(false);
-      expect(availableDates.some((date) => date && date.includes('2025-01-04'))).toBe(false);
-      expect(availableDates.some((date) => date && date.includes('2025-01-05'))).toBe(false);
+      expect(availableDates.some((date) => date?.includes('2025-01-03'))).toBe(false);
+      expect(availableDates.some((date) => date?.includes('2025-01-04'))).toBe(false);
+      expect(availableDates.some((date) => date?.includes('2025-01-05'))).toBe(false);
       // 2025-01-06 should be available again
-      expect(availableDates.some((date) => date && date.includes('2025-01-06'))).toBe(true);
+      expect(availableDates.some((date) => date?.includes('2025-01-06'))).toBe(true);
     });
 
     it('Cutoff time affects whether orders are processed same-day or next-day', async () => {
@@ -277,7 +277,7 @@ describe('useResolvedDeliveryOptions', () => {
       );
 
       // 2025-01-02 should be filtered out (insufficient processing time)
-      expect(availableDates.some((date) => date && date.includes('2025-01-02'))).toBe(false);
+      expect(availableDates.some((date) => date?.includes('2025-01-02'))).toBe(false);
     });
   });
 });
