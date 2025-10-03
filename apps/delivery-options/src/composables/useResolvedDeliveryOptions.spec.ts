@@ -26,9 +26,9 @@ import {useResolvedDeliveryOptions} from './useResolvedDeliveryOptions';
 const CARRIER_IDENTIFIER_WITH_CONTRACT = `${CarrierName.PostNl}:1234`;
 
 const setupPostNl = async (config: RecursivePartial<InputDeliveryOptionsConfiguration> = {}): Promise<void> => {
-  const morning = normalizeDate('2022-01-01T09:00:00');
-  const standard = normalizeDate('2022-01-01T15:00:00');
-  const evening = normalizeDate('2022-01-01T20:00:00');
+  const morning = normalizeDate('2022-01-01T09:00:00Z');
+  const standard = normalizeDate('2022-01-01T15:00:00Z');
+  const evening = normalizeDate('2022-01-01T20:00:00Z');
 
   mockGetDeliveryOptions.mockReturnValue(
     Promise.resolve([
@@ -143,39 +143,43 @@ describe('useResolvedDeliveryOptions', () => {
   });
 
   describe('Closed Days Filtering', () => {
-    // Helper function to create delivery options for dates 01/01/2025 to 14/01/2025
+    const isDateMatch = (dateString: string | undefined, year: number, month: number, day: number): boolean => {
+      if (!dateString) return false;
+
+      const dateObj = new Date(dateString);
+      return dateObj.getUTCFullYear() === year && dateObj.getUTCMonth() === month - 1 && dateObj.getUTCDate() === day;
+    };
+
     const createDeliveryOptionsForDateRange = () => {
       const deliveryOptions = [];
       for (let i = 1; i <= 14; i++) {
-        const date = new Date('2025-01-01');
-        date.setDate(date.getDate() + i - 1); // i-1 because we want 01/01 to 14/01
+        const year = 2025;
+        const month = 0;
+        const day = i;
+        const date = new Date(Date.UTC(year, month, day, 0, 0, 0, 0));
+        const dateString = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+
         deliveryOptions.push({
           date: createTimestamp(date.toISOString()),
-          possibilities: [createDeliveryPossibility(normalizeDate(`${date.toISOString().split('T')[0]}T15:00:00`))],
+          possibilities: [createDeliveryPossibility(normalizeDate(`${dateString}T15:00:00`))],
         });
       }
 
       return deliveryOptions;
     };
 
-    // Helper function to test closed days filtering with the actual composable
     const testClosedDaysFiltering = async (
       closedDays: string[],
       dropOffDelay = 0,
       cutoffTime = '16:00',
       orderDate = '2025-01-01T10:00:00',
     ) => {
-      // Set up fake timers
       vi.useFakeTimers();
       vi.setSystemTime(new Date(orderDate));
 
-      // Create delivery options for the date range
       const deliveryOptions = createDeliveryOptionsForDateRange();
-
-      // Mock the delivery options response using mockImplementation to override the default behavior
       mockGetDeliveryOptions.mockImplementation(() => Promise.resolve(deliveryOptions));
 
-      // Set up configuration
       const carrierSettings = {
         [CarrierSetting.AllowDeliveryOptions]: true,
         [CarrierSetting.AllowStandardDelivery]: true,
@@ -194,7 +198,6 @@ describe('useResolvedDeliveryOptions', () => {
         }),
       );
 
-      // Get the filtered results from the actual composable
       const options = useResolvedDeliveryOptions();
       await waitForDeliveryOptions();
 
@@ -207,77 +210,40 @@ describe('useResolvedDeliveryOptions', () => {
     });
 
     it('First closed day in sequence is only unavailable if insufficient processing time', async () => {
-      // Order on 2025-01-01, closed day on 2025-01-02 (next day), dropOffDelay 1
-      // Need 2 days processing time, but only 1 day available - should be filtered
-      const availableDates = await testClosedDaysFiltering(
-        ['2025-01-02'], // Closed day
-        1, // DropOffDelay
-        '16:00',
-        '2025-01-01T10:00:00', // Order date
-      );
+      const availableDates = await testClosedDaysFiltering(['2025-01-02'], 1, '16:00', '2025-01-01T10:00:00Z');
 
-      // 2025-01-02 should be filtered out (insufficient processing time)
-      expect(availableDates.some((date) => date?.includes('2025-01-02'))).toBe(false);
+      expect(availableDates.some((date) => isDateMatch(date, 2025, 1, 2))).toBe(false);
     });
 
     it('All subsequent consecutive closed days are always unavailable', async () => {
-      // Order on 2025-01-01, closed days on 2025-01-02, 2025-01-03, 2025-01-04 (consecutive)
-      // First day should follow processing rules, others always unavailable
-      const availableDates = await testClosedDaysFiltering(
-        ['2025-01-02', '2025-01-03', '2025-01-04'], // Consecutive closed days
-        0, // No dropOffDelay
-      );
+      const availableDates = await testClosedDaysFiltering(['2025-01-02', '2025-01-03', '2025-01-04'], 0);
 
-      // 2025-01-02 should be available (first day, sufficient processing time)
-      expect(availableDates.some((date) => date?.includes('2025-01-02'))).toBe(true);
-      // 2025-01-03 and 2025-01-04 should be filtered out (subsequent days)
-      expect(availableDates.some((date) => date?.includes('2025-01-03'))).toBe(false);
-      expect(availableDates.some((date) => date?.includes('2025-01-04'))).toBe(false);
+      expect(availableDates.some((date) => isDateMatch(date, 2025, 1, 2))).toBe(true);
+      expect(availableDates.some((date) => isDateMatch(date, 2025, 1, 3))).toBe(false);
+      expect(availableDates.some((date) => isDateMatch(date, 2025, 1, 4))).toBe(false);
     });
 
     it('Day after closed day sequence is always unavailable', async () => {
-      // Order on 2025-01-01, closed day on 2025-01-02, day after (2025-01-03) should be filtered
-      const availableDates = await testClosedDaysFiltering(
-        ['2025-01-02'], // Single closed day
-        0, // No dropOffDelay
-      );
+      const availableDates = await testClosedDaysFiltering(['2025-01-02'], 0);
 
-      // 2025-01-02 should be available (sufficient processing time)
-      expect(availableDates.some((date) => date?.includes('2025-01-02'))).toBe(true);
-      // 2025-01-03 should be filtered out (day after closed day)
-      expect(availableDates.some((date) => date?.includes('2025-01-03'))).toBe(false);
+      expect(availableDates.some((date) => isDateMatch(date, 2025, 1, 2))).toBe(true);
+      expect(availableDates.some((date) => isDateMatch(date, 2025, 1, 3))).toBe(false);
     });
 
     it('Additional days after sequences are filtered based on dropOffDelay', async () => {
-      // Order on 2025-01-01, closed day on 2025-01-02, dropOffDelay 2
-      // Should filter: 2025-01-03 (day after) + 2 additional days = 2025-01-03, 2025-01-04, 2025-01-05
-      const availableDates = await testClosedDaysFiltering(
-        ['2025-01-02'], // Single closed day
-        2, // DropOffDelay = 2
-      );
+      const availableDates = await testClosedDaysFiltering(['2025-01-02'], 2);
 
-      // 2025-01-02 should be available (sufficient processing time)
-      expect(availableDates.some((date) => date?.includes('2025-01-02'))).toBe(true);
-      // 2025-01-03, 2025-01-04, 2025-01-05 should be filtered out (dropOffDelay = 2)
-      expect(availableDates.some((date) => date?.includes('2025-01-03'))).toBe(false);
-      expect(availableDates.some((date) => date?.includes('2025-01-04'))).toBe(false);
-      expect(availableDates.some((date) => date?.includes('2025-01-05'))).toBe(false);
-      // 2025-01-06 should be available again
-      expect(availableDates.some((date) => date?.includes('2025-01-06'))).toBe(true);
+      expect(availableDates.some((date) => isDateMatch(date, 2025, 1, 2))).toBe(true);
+      expect(availableDates.some((date) => isDateMatch(date, 2025, 1, 3))).toBe(false);
+      expect(availableDates.some((date) => isDateMatch(date, 2025, 1, 4))).toBe(false);
+      expect(availableDates.some((date) => isDateMatch(date, 2025, 1, 5))).toBe(false);
+      expect(availableDates.some((date) => isDateMatch(date, 2025, 1, 6))).toBe(true);
     });
 
     it('Cutoff time affects whether orders are processed same-day or next-day', async () => {
-      // Order at 15:00 (before 16:00 cutoff), closed day next day, dropOffDelay 1
-      // Should be processed same day, but only 1 day available (insufficient)
-      const availableDates = await testClosedDaysFiltering(
-        ['2025-01-02'], // Closed day
-        1, // DropOffDelay
-        '16:00',
-        '2025-01-01T15:00:00', // Order before cutoff (15:00 < 16:00)
-      );
+      const availableDates = await testClosedDaysFiltering(['2025-01-02'], 1, '16:00', '2025-01-01T15:00:00Z');
 
-      // 2025-01-02 should be filtered out (insufficient processing time)
-      expect(availableDates.some((date) => date?.includes('2025-01-02'))).toBe(false);
+      expect(availableDates.some((date) => isDateMatch(date, 2025, 1, 2))).toBe(false);
     });
   });
 });
