@@ -1,5 +1,6 @@
 import {toValue} from 'vue';
 import {pascal} from 'radash';
+import {startOfDay} from 'date-fns';
 import {useMemoize} from '@vueuse/core';
 import {
   useDeliveryOptionsRequest,
@@ -11,10 +12,11 @@ import {
   CarrierSetting,
   DELIVERY_DAYS_WINDOW_DEFAULT,
   createTranslatable,
+  ConfigSetting,
 } from '@myparcel-do/shared';
 import {type Replace} from '@myparcel/ts-utils';
 import {type Timestamp, type DeliveryOption, type DeliveryPossibility, type DeliveryTimeFrame} from '@myparcel/sdk';
-import {createGetDeliveryOptionsParameters, getResolvedDeliveryType} from '../utils';
+import {createGetDeliveryOptionsParameters, getResolvedDeliveryType, calculateCutoffTime} from '../utils';
 import {type SelectedDeliveryMoment} from '../types';
 import {DELIVERY_MOMENT_PACKAGE_TYPES} from '../data';
 import {useTimeRange} from './useTimeRange';
@@ -86,11 +88,172 @@ const getDeliveryOptionsFromApi = async (
           return null;
         }
 
-        const dates = toValue(query.data);
+        const closedDays = getClosedDaysWindow(carrier.get(ConfigSetting.ClosedDays));
+
+        let dates: DeliveryOptionsApiData | null = toValue(query.data);
+
+        if (closedDays.length > 0) {
+          const dropOffDelay = carrier.get(CarrierSetting.DropOffDelay);
+          const cutoffTime = calculateCutoffTime(carrier);
+          dates = filterClosedDays(dates, closedDays, dropOffDelay, cutoffTime);
+        }
 
         return {carrier, dates: dates?.length ? dates : createFakeDeliveryDates(carrier)};
       }),
   );
+};
+
+/**
+ * This returns all the closed days within the window of 14 days from today.
+ * @param {Date[] | undefined} closedDays
+ * @returns {Date[]}
+ */
+const getClosedDaysWindow = (closedDays: Date[] | undefined): Date[] => {
+  // We use 14 day as the window for closed days. Because that is the maximum number of days that can be selected
+  // inside the plugin.
+  const daysWindow = 14;
+
+  // If closedDays is undefined or null, return empty array
+  if (!closedDays) {
+    return [];
+  }
+
+  const today = startOfDay(new Date());
+  const maxDate = new Date(today);
+  maxDate.setDate(today.getDate() + daysWindow);
+
+  return closedDays.filter((date) => {
+    // Normalize the date to start of day for consistent comparison
+    const normalizedDate = startOfDay(date);
+    return normalizedDate >= today && normalizedDate <= maxDate;
+  });
+};
+
+/**
+ * Determines if a delivery date should be filtered out based on closed days, drop-off delay, and cutoff time.
+ *
+ * This function implements a filtering system that considers:
+ * - Closed days and their processing requirements
+ * - Drop-off delay periods after closed days
+ * - Cutoff time for same-day order processing
+ *
+ * Key Logic:
+ * 1. The FIRST closed day in a sequence is only filtered out if there isn't enough processing time before it
+ * 2. ALL subsequent consecutive closed days are always unavailable
+ * 3. The day after any closed day is ALWAYS unavailable
+ * 4. Additional days after closed days are filtered based on dropOffDelay
+ * 5. Cutoff time affects the effective order date for processing calculations
+ *
+ * @param deliveryDate - The delivery date to check for availability
+ * @param closedDays - Array of closed days that affect delivery availability
+ * @param dropOffDelay - Number of additional days to filter after a closed day (0 = only day after, 1 = day after + 1
+ *   more, etc.)
+ * @param cutoffDate - The cutoff time for same-day orders (affects effective order date)
+ * @returns true if the delivery date should be filtered out (made unavailable)
+ */
+const shouldFilterDeliveryDate = (
+  deliveryDate: Date,
+  closedDays: Date[],
+  dropOffDelay: number | undefined,
+  cutoffDate: Date,
+): boolean => {
+  const today = startOfDay(new Date());
+
+  // Normalize closed days to start of day for comparison
+  const normalizedClosedDays = closedDays.map((day) => {
+    // Handle both Date objects and date strings consistently
+    const normalized = new Date(day);
+    return startOfDay(normalized);
+  });
+
+  // Sort closed days to identify consecutive sequences
+  const sortedClosedDays = [...normalizedClosedDays].sort((a, b) => a.getTime() - b.getTime());
+
+  // Check if the delivery date is a closed day
+  const isClosedDay = sortedClosedDays.some((closedDay) => closedDay.getTime() === deliveryDate.getTime());
+
+  if (isClosedDay) {
+    // Find if this closed day is the first in a consecutive sequence
+    // Check if the day before this closed day is also closed
+    const dayBefore = new Date(deliveryDate);
+    dayBefore.setDate(deliveryDate.getDate() - 1);
+    const isDayBeforeClosed = sortedClosedDays.some((closedDay) => closedDay.getTime() === dayBefore.getTime());
+
+    if (!isDayBeforeClosed) {
+      // This is the first closed day in a sequence, apply the original processing time logic
+      const requiredDaysBefore = dropOffDelay || 0;
+
+      const now = new Date();
+      const isOrderBeforeCutoff = now <= cutoffDate;
+
+      const effectiveOrderDate = isOrderBeforeCutoff ? today : new Date(today.getTime() + 24 * 60 * 60 * 1000);
+
+      const dayBeforeDropOffDelay = new Date(effectiveOrderDate);
+      dayBeforeDropOffDelay.setDate(effectiveOrderDate.getDate() + requiredDaysBefore);
+      const normalizedDayBeforeDropOffDelay = startOfDay(dayBeforeDropOffDelay);
+
+      const isDayBeforeDropOffDelayClosed = sortedClosedDays.some(
+        (closedDay) => closedDay.getTime() === normalizedDayBeforeDropOffDelay.getTime(),
+      );
+
+      return isDayBeforeDropOffDelayClosed;
+    }
+
+    // For subsequent days in a consecutive sequence, always filter them out
+    return true;
+  }
+
+  // Check if delivery date is the day after any closed day or within the dropOffDelay period
+  const shouldFilter = sortedClosedDays.some((closedDay) => {
+    // Calculate additional days to filter after the closed day
+    const additionalDays = dropOffDelay || 0;
+    const lastDayToFilter = new Date(closedDay);
+    lastDayToFilter.setDate(closedDay.getDate() + 1 + additionalDays);
+
+    // Check if delivery date falls within the filtered period after the closed day
+    return deliveryDate > closedDay && deliveryDate <= lastDayToFilter;
+  });
+
+  return shouldFilter;
+};
+
+/**
+ * Filters delivery options data to remove unavailable dates based on closed days and drop-off delay.
+ *
+ * This function processes the raw delivery options from the API and applies business rules
+ * to determine which delivery dates should be available to customers. It considers:
+ * - Closed days and their processing requirements
+ * - Drop-off delay periods after closed days
+ * - Cutoff time for same-day order processing
+ *
+ * @param deliveryOptionsApiData - Raw delivery options data from the API
+ * @param closedDays - Array of closed days that affect delivery availability
+ * @param dropOffDelay - Number of additional days to filter after a closed day
+ * @param cutoffTime - The cutoff time string (e.g., "16:00") for same-day orders
+ * @returns Filtered delivery options data with unavailable dates removed, or null if no data
+ */
+const filterClosedDays = (
+  deliveryOptionsApiData: DeliveryOptionsApiData | null,
+  closedDays: Date[],
+  dropOffDelay: number | undefined,
+  cutoffTime: string,
+): DeliveryOptionsApiData | null => {
+  if (!deliveryOptionsApiData) {
+    return null;
+  }
+
+  const [hours, minutes] = cutoffTime.split(':').map(Number);
+  const cutoffDate = new Date();
+  cutoffDate.setHours(hours, minutes);
+
+  const filteredDates = deliveryOptionsApiData.filter((data) => {
+    const deliveryDate = startOfDay(new Date(data.date.date)); // Normalize to start of day
+
+    // Check if this delivery date should be filtered out
+    return !shouldFilterDeliveryDate(deliveryDate, closedDays, dropOffDelay, cutoffDate);
+  });
+
+  return filteredDates;
 };
 
 /**

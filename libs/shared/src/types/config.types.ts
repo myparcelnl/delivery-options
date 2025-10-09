@@ -89,6 +89,7 @@ export interface DeliveryOptionsConfig extends Partial<Record<ConfigSetting, unk
   allowPickupLocationsViewSelection: boolean;
   apiBaseUrl: string;
   carrierSettings: CarrierSettingsObject;
+  closedDays: Date[];
   /**
    * Currency. Defaults to format of the browser.
    */
@@ -121,6 +122,7 @@ export type ResolvedDeliveryOptionsConfig = MakeRequired<
   | ConfigSetting.ShowPriceSurcharge
   | ConfigSetting.ShowPrices
   | ConfigSetting.ShowPriceZeroAsFree
+  | ConfigSetting.ClosedDays
   | CarrierSetting.AllowDeliveryOptions
   | CarrierSetting.AllowEveningDelivery
   | CarrierSetting.AllowMondayDelivery

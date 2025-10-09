@@ -54,6 +54,7 @@ export const getDefaultDeliveryOptionsConfig = (): ResolvedDeliveryOptionsConfig
     [ConfigSetting.PickupMapAllowLoadMore]: true,
     [ConfigSetting.PickupShowDistance]: true,
     [ConfigSetting.ShowPriceZeroAsFree]: false,
+    [ConfigSetting.ClosedDays]: [],
 
     /**
      * Default leaflet tile layer data.

@@ -56,6 +56,7 @@ export enum ConfigSetting {
   ShowPriceSurcharge = 'showPriceSurcharge',
   ShowPrices = 'showPrices',
   ShowPriceZeroAsFree = 'showPriceZeroAsFree',
+  ClosedDays = 'closedDays',
 }
 
 export enum PickupLocationsView {
