@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel/delivery-options-v6.19.0](https://github.com/myparcelnl/delivery-options/compare/v6.18.0...v6.19.0) (2025-10-09)
+
+### :sparkles: New Features
+
+* **delivery-options:** add option to list closed days for shop ([#348](https://github.com/myparcelnl/delivery-options/issues/348)) ([7573433](https://github.com/myparcelnl/delivery-options/commit/7573433c5d5ceb59635fb186a42d06a0c3cdaa9b))
+
 ## [@myparcel/delivery-options-v6.18.0](https://github.com/myparcelnl/delivery-options/compare/v6.17.0...v6.18.0) (2025-08-14)
 
 ### :sparkles: New Features
