@@ -16,6 +16,7 @@ exports[`getDefaultConfigForPlatform > should return the correct default config 
   "allowStandardDelivery": true,
   "apiBaseUrl": "https://api.myparcel.nl",
   "carrierSettings": {},
+  "closedDays": [],
   "currency": "EUR",
   "deliveryDaysWindow": 7,
   "dropOffDays": [
@@ -79,6 +80,7 @@ exports[`getDefaultConfigForPlatform > should return the correct default config 
   "allowStandardDelivery": true,
   "apiBaseUrl": "https://api.myparcel.nl",
   "carrierSettings": {},
+  "closedDays": [],
   "currency": "EUR",
   "deliveryDaysWindow": 7,
   "dropOffDays": [

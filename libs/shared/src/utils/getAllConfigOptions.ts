@@ -72,4 +72,5 @@ export const getAllConfigOptions = useMemoize((): ConfigOption[] => [
     key: ConfigSetting.ShowPriceZeroAsFree,
     type: OptionType.Boolean,
   }),
+  declareOption(ConfigSetting.ClosedDays),
 ]);
