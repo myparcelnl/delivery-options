@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel/delivery-options-v6.20.0](https://github.com/myparcelnl/delivery-options/compare/v6.19.0...v6.20.0) (2025-10-10)
+
+### :sparkles: New Features
+
+* use custom platform from config ([#350](https://github.com/myparcelnl/delivery-options/issues/350)) ([99afe84](https://github.com/myparcelnl/delivery-options/commit/99afe84e453d13dcccdf5d812b3e9f7a76af75fe))
+
 ## [@myparcel/delivery-options-v6.19.0](https://github.com/myparcelnl/delivery-options/compare/v6.18.0...v6.19.0) (2025-10-09)
 
 ### :sparkles: New Features
