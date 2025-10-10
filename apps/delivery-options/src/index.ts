@@ -21,6 +21,9 @@ export {
   PickupLocationsView,
   SUPPORTED_DELIVERY_TYPES,
   SUPPORTED_PACKAGE_TYPES,
+  /**
+   * @deprecated this will be removed when platforms are completely removed from the DO
+   */
   SUPPORTED_PLATFORMS,
   SUPPORTED_SHIPMENT_OPTIONS,
 } from '@myparcel-do/shared';

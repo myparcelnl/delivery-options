@@ -12,7 +12,6 @@ import {
   type InputDeliveryOptionsConfig,
   type InputDeliveryOptionsConfiguration,
   KEY_CARRIER_SETTINGS,
-  SUPPORTED_PLATFORMS,
   validateDropOffDays,
   validateHasMinKeys,
   validateIsBoolean,
@@ -70,7 +69,7 @@ const additionalOptions: ConfigOption[] = [
   {
     key: ConfigSetting.Platform,
     perCarrier: false,
-    validators: [validateIsValue(SUPPORTED_PLATFORMS)],
+    validators: [validateIsString()],
   },
   {
     key: ConfigSetting.ApiBaseUrl,
