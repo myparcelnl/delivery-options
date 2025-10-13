@@ -36,7 +36,7 @@ jobs:
       - test
       - build
     steps:
-      - uses: myparcelnl/actions/setup-git-credentials@v4
+      - uses: myparcelnl/actions/setup-git-credentials@v5
         id: credentials
         with:
           app-id: ${{ secrets.MYPARCEL_APP_ID }}
@@ -49,7 +49,7 @@ jobs:
 
       - uses: ./.github/actions/build-v5
 
-      - uses: myparcelnl/actions/semantic-release@v4
+      - uses: myparcelnl/actions/semantic-release@v5
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         with:
