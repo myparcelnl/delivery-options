@@ -59,8 +59,8 @@
     "test:run": "run ws:test:run \"$(pwd)\"",
     "test:update": "run ws:test:update \"$(pwd)\"",
     "typecheck": "vue-tsc --project tsconfig.base.json --noEmit",
-    "watch:myparcel": "BUILD_CSS=1 vite build -c vite-myparcel-lib.config.ts --watch --mode development",
-    "watch:myparcel-lib": "BUILD_CSS=1 vite build -c vite-myparcel.config.ts --watch --mode development"
+    "watch:myparcel": "BUILD_CSS=1 vite build -c vite-myparcel.config.ts --watch --mode development",
+    "watch:myparcel-lib": "BUILD_CSS=1 vite build -c vite-myparcel-lib.config.ts --watch --mode development"
   },
   "dependencies": {
     "@myparcel-do/shared": "workspace:*",
