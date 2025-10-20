@@ -92,6 +92,11 @@ const additionalOptions: ConfigOption[] = [
     validators: [validateIsBoolean()],
   },
   {
+    key: ConfigSetting.ExcludeParcelLockers,
+    perCarrier: false,
+    validators: [validateIsBoolean()],
+  },
+  {
     key: KEY_CARRIER_SETTINGS,
     perCarrier: false,
     validators: [validateIsObject(), validateHasMinKeys(1)],
