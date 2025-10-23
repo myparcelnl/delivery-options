@@ -13,6 +13,9 @@ export const usePlatform = (platformName: MaybeRef<SupportedPlatformName>): UseP
   const config = computed(() => {
     const windowConfig = window.MyParcelConfig?.[KEY_PLATFORM_CONFIG];
 
+    // Force recompute if platformName changes
+    toValue(platformName);
+
     // Use window config if it exists and has carriers
     if (windowConfig?.carriers && windowConfig.carriers.length > 0) {
       return windowConfig as PlatformConfiguration;
