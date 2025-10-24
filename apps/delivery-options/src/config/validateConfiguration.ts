@@ -26,6 +26,7 @@ import {
   KEY_CONFIG,
   KEY_STRINGS,
   KEY_PLATFORM_CONFIG,
+  type DeliveryOptionsAddress,
 } from '@myparcel-do/shared';
 import {isEnumValue} from '@myparcel/ts-utils';
 import {PackageTypeName} from '@myparcel/constants';
@@ -149,10 +150,25 @@ const validateConfig = (input: InputDeliveryOptionsConfig): DeliveryOptionsConfi
 };
 
 export const validateConfiguration = (input: InputDeliveryOptionsConfiguration): DeliveryOptionsConfiguration => {
-  return defineConfig({
-    [KEY_ADDRESS]: filterConfig({...input[KEY_ADDRESS]}, addressOptions),
-    [KEY_CONFIG]: validateConfig({...input[KEY_CONFIG]}),
-    [KEY_STRINGS]: {...input[KEY_STRINGS]},
-    [KEY_PLATFORM_CONFIG]: toRaw(input[KEY_PLATFORM_CONFIG]),
-  }) as unknown as DeliveryOptionsConfiguration;
+  const filteredAddressConfig: DeliveryOptionsAddress = filterConfig({...input[KEY_ADDRESS]}, addressOptions);
+
+  const result: Partial<InputDeliveryOptionsConfiguration> = {
+    [KEY_ADDRESS]: filteredAddressConfig,
+  };
+
+  // Only add keys that exist in input
+  if (input[KEY_CONFIG] !== undefined) {
+    result[KEY_CONFIG] = validateConfig({...input[KEY_CONFIG]});
+  }
+
+  if (input[KEY_STRINGS] !== undefined) {
+    result[KEY_STRINGS] = {...input[KEY_STRINGS]};
+  }
+
+  if (input[KEY_PLATFORM_CONFIG] !== undefined) {
+    result[KEY_PLATFORM_CONFIG] = toRaw(input[KEY_PLATFORM_CONFIG]);
+  }
+
+  // Ensure address is always present
+  return defineConfig(result as InputDeliveryOptionsConfiguration) as unknown as DeliveryOptionsConfiguration;
 };

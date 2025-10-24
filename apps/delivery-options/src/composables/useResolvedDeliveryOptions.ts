@@ -1,4 +1,4 @@
-import {toValue} from 'vue';
+import {toValue, type ComputedRef} from 'vue';
 import {pascal} from 'radash';
 import {startOfDay} from 'date-fns';
 import {useMemoize} from '@vueuse/core';
@@ -66,7 +66,7 @@ type DeliveryDatesPerCarrier = {
 type UseResolvedDeliveryOptions = ComputedAsync<SelectedDeliveryMoment[]>;
 
 const getDeliveryOptionsFromApi = async (
-  carriers: ComputedAsync<UseResolvedCarrier[]>,
+  carriers: ComputedRef<UseResolvedCarrier[]>,
 ): Promise<DeliveryDatesPerCarrier[]> => {
   return Promise.all(
     toValue(carriers)

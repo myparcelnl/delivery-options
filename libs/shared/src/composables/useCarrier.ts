@@ -77,7 +77,12 @@ export const useCarrier = useMemoize((options: UseCarrierOptions): UseCarrier =>
   const config = computed(() => {
     if (!carrierName.value) return undefined;
 
-    return getCarrierConfiguration(carrierName.value, toValue(options.platformName));
+    try {
+      return getCarrierConfiguration(carrierName.value, toValue(options.platformName));
+    } catch {
+      // Intentional fallthrough
+      return null;
+    }
   });
 
   const fakeDelivery = computed(() => Boolean(config.value?.fakeDelivery));
