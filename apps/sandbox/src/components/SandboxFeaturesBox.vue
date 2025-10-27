@@ -87,6 +87,11 @@ const section = formSection({
       name: ConfigSetting.ClosedDays,
       component: FormMultiDateSelect,
     }),
+    formField({
+      key: KEY_CONFIG,
+      name: ConfigSetting.ExcludeParcelLockers,
+      component: FormToggleInput,
+    }),
   ],
 });
 </script>

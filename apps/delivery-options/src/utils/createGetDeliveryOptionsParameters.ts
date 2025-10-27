@@ -47,6 +47,8 @@ export const createGetDeliveryOptionsParameters = (
 
     include: 'shipment_options',
 
+    exclude_parcel_lockers: config.excludeParcelLockers ? true : undefined,
+
     ...additionalParameters,
   } satisfies EndpointParameters<GetDeliveryOptions>);
 

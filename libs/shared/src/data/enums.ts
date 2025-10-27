@@ -57,6 +57,7 @@ export enum ConfigSetting {
   ShowPrices = 'showPrices',
   ShowPriceZeroAsFree = 'showPriceZeroAsFree',
   ClosedDays = 'closedDays',
+  ExcludeParcelLockers = 'excludeParcelLockers',
 }
 
 export enum PickupLocationsView {
