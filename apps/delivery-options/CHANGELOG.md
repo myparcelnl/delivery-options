@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel/delivery-options-v6.21.0](https://github.com/myparcelnl/delivery-options/compare/v6.20.0...v6.21.0) (2025-10-27)
+
+### :sparkles: New Features
+
+* **DO:** Add feature exclude parcel lockers ([#354](https://github.com/myparcelnl/delivery-options/issues/354)) ([95cf0cc](https://github.com/myparcelnl/delivery-options/commit/95cf0cc7e415523bd4a62fac386bb427b486c574))
+
 ## [@myparcel/delivery-options-v6.20.0](https://github.com/myparcelnl/delivery-options/compare/v6.19.0...v6.20.0) (2025-10-10)
 
 ### :sparkles: New Features
