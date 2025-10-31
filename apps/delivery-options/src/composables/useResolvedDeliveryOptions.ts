@@ -1,4 +1,4 @@
-import {toValue} from 'vue';
+import {toValue, type ComputedRef} from 'vue';
 import {pascal} from 'radash';
 import {startOfDay} from 'date-fns';
 import {useMemoize} from '@vueuse/core';
@@ -66,7 +66,7 @@ type DeliveryDatesPerCarrier = {
 type UseResolvedDeliveryOptions = ComputedAsync<SelectedDeliveryMoment[]>;
 
 const getDeliveryOptionsFromApi = async (
-  carriers: ComputedAsync<UseResolvedCarrier[]>,
+  carriers: ComputedRef<UseResolvedCarrier[]>,
 ): Promise<DeliveryDatesPerCarrier[]> => {
   return Promise.all(
     toValue(carriers)
@@ -337,15 +337,25 @@ const formatDatesAsDeliveryMoments = (
 const callback = (): UseResolvedDeliveryOptions => {
   const carriers = useActiveCarriers();
 
-  return computedAsync<SelectedDeliveryMoment[]>(async () => {
-    const datesPerCarrier = await getDeliveryOptionsFromApi(carriers);
+  return computedAsync<SelectedDeliveryMoment[]>(
+    async () => {
+      const datesPerCarrier = await getDeliveryOptionsFromApi(carriers);
 
-    // Filter out any nulls (failed requests)
-    const filteredDates = removeEmptyEntries(datesPerCarrier);
+      // Filter out any nulls (failed requests)
+      const filteredDates = removeEmptyEntries(datesPerCarrier);
 
-    // Flatten the dates into SelectedDeliveryMoment objects.
-    return formatDatesAsDeliveryMoments(filteredDates);
-  }, []);
+      // Flatten the dates into SelectedDeliveryMoment objects.
+      return formatDatesAsDeliveryMoments(filteredDates);
+    },
+    [],
+    {
+      // eslint-disable-next-line id-length
+      onError: (e) => {
+        // eslint-disable-next-line no-console
+        console.error(e);
+      },
+    },
+  );
 };
 
 export const useResolvedDeliveryOptions = useMemoize(callback);

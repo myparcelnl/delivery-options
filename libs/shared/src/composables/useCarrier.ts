@@ -18,6 +18,7 @@ import {
   type SupportedShipmentOptionName,
   type CarrierConfiguration,
   type CarrierWithIdentifier,
+  type ConfigKey,
 } from '../types';
 import {useCarrierFromCache} from './sdk';
 
@@ -76,7 +77,12 @@ export const useCarrier = useMemoize((options: UseCarrierOptions): UseCarrier =>
   const config = computed(() => {
     if (!carrierName.value) return undefined;
 
-    return getCarrierConfiguration(carrierName.value, toValue(options.platformName));
+    try {
+      return getCarrierConfiguration(carrierName.value, toValue(options.platformName));
+    } catch {
+      // Intentional fallthrough
+      return null;
+    }
   });
 
   const fakeDelivery = computed(() => Boolean(config.value?.fakeDelivery));
@@ -107,10 +113,20 @@ export const useCarrier = useMemoize((options: UseCarrierOptions): UseCarrier =>
       }
     }
 
+    // Map the options their corresponding config keys, skipping undefined one (as proposition may include as of yet unsupported options)
+    const getConfigKeyWithoutError = (option: string): ConfigKey | null => {
+      try {
+        return getConfigKey(option as SupportedDeliveryTypeName | ShipmentOptionName);
+      } catch (e) {
+        console.warn('excluded feature due to error.', e);
+        return null;
+      }
+    };
+
     return new Set([
       ...(config.value?.features ?? []),
       ...[...packageTypes.value].map(getPackageTypePriceKey),
-      ...[...deliveryTypes.value, ...allShipmentOptions].map(getConfigKey),
+      ...[...deliveryTypes.value, ...allShipmentOptions].map(getConfigKeyWithoutError).filter((key) => key !== null),
     ]);
   });
 

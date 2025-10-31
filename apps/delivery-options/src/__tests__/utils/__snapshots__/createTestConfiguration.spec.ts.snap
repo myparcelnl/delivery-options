@@ -487,7 +487,6 @@ exports[`createTestConfiguration > creates a default test configuration with uni
     "priceStandardDelivery": 0,
     "showDeliveryDate": true,
   },
-  "platformConfig": undefined,
   "strings": {
     "addressNotFound": "Adresgegevens niet ingevuld",
     "city": "Plaats",
