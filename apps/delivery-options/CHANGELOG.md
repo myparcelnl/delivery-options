@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel/delivery-options-v6.21.1](https://github.com/myparcelnl/delivery-options/compare/v6.21.0...v6.21.1) (2025-10-31)
+
+### :bug: Bug Fixes
+
+* **platform:** fix issues with runtime platform config changes ([#351](https://github.com/myparcelnl/delivery-options/issues/351)) ([0217090](https://github.com/myparcelnl/delivery-options/commit/0217090951b30b779a452af18f08937a353ccb17))
+
 ## [@myparcel/delivery-options-v6.21.0](https://github.com/myparcelnl/delivery-options/compare/v6.20.0...v6.21.0) (2025-10-27)
 
 ### :sparkles: New Features
