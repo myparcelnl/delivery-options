@@ -361,5 +361,26 @@ export const getMyParcelConfig = (): PlatformConfiguration => ({
       // features: [CarrierSetting.DeliveryDaysWindow, CarrierSetting.DropOffDays, CarrierSetting.DropOffDelay],
       // addressFields: [AddressField.PostalCode, AddressField.Number],
     },
+    {
+      name: CarrierName.Trunkrs,
+      subscription: SubscriptionType.Required,
+      packageTypes: [PackageTypeName.Package],
+      deliveryTypes: [DeliveryTypeName.Standard, CustomDeliveryType.SameDay],
+      // at the moment this breaks
+      // deliveryCountries: [NETHERLANDS, BELGIUM],
+      // Auth is required, so *all* countries should use fake delivery.
+      fakeDelivery: true,
+      shipmentOptionsPerPackageType: {
+        [PackageTypeName.Package]: [
+          ShipmentOptionName.OnlyRecipient,
+          ShipmentOptionName.Signature,
+          ShipmentOptionName.AgeCheck,
+          // These will be added later when implemented by the api
+          // ShipmentOptionName.FreshFood
+          // ShipmentOptionName.Frozen
+          // ShipmentOptionName.ReceiptCode
+        ],
+      },
+    },
   ],
 });
