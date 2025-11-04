@@ -366,7 +366,6 @@ export const getMyParcelConfig = (): PlatformConfiguration => ({
       subscription: SubscriptionType.Required,
       packageTypes: [PackageTypeName.Package],
       deliveryTypes: [DeliveryTypeName.Standard, CustomDeliveryType.SameDay],
-      // at the moment this breaks
       // deliveryCountries: [NETHERLANDS, BELGIUM],
       // Auth is required, so *all* countries should use fake delivery.
       fakeDelivery: true,
