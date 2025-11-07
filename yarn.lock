@@ -1126,12 +1126,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@myparcel/constants@npm:^2.3.0":
-  version: 2.3.0
-  resolution: "@myparcel/constants@npm:2.3.0"
+"@myparcel/constants@npm:^2.5.0":
+  version: 2.5.0
+  resolution: "@myparcel/constants@npm:2.5.0"
   dependencies:
     "@myparcel/ts-utils": "npm:^1.7.0"
-  checksum: 10c0/49c06d21f12a7948a3ef70358f3d527774c17e126c228de0f060c848ef73c42110299a9579df8eff9c4dc06e41a536f2e0c4069d4d3135e04ed32776717b9b14
+  checksum: 10c0/7ec1d2331461feb5ce1e80fe40caba5ad931d54bd7508e1f2a685ae898c4b07617fe970f9c4f4e31563ae41c6b057c499e25a91ca314be8eaf20e1aeff937ab2
   languageName: node
   linkType: hard
 
