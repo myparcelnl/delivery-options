@@ -140,3 +140,23 @@ export const CARRIER_GLS = Object.freeze({
     logo_png: '/skin/general-images/carrier-logos/gls.png',
   },
 }) satisfies Carrier;
+
+export const CARRIER_BRT = Object.freeze({
+  id: CarrierId.Brt,
+  name: CarrierName.Brt,
+  human: 'BRT',
+  meta: {
+    logo_svg: '/skin/general-images/carrier-logos/svg/brt.svg',
+    logo_png: '/skin/general-images/carrier-logos/brt.png',
+  },
+}) satisfies Carrier;
+
+export const CARRIER_TRUNKRS = Object.freeze({
+  id: CarrierId.Trunkrs,
+  name: CarrierName.Trunkrs,
+  human: 'Trunkrs',
+  meta: {
+    logo_svg: '/skin/general-images/carrier-logos/svg/trunkrs.svg',
+    logo_png: '/skin/general-images/carrier-logos/trunkrs.png',
+  },
+}) satisfies Carrier;
