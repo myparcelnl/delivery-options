@@ -39,6 +39,8 @@ export enum TestValue {
   CarrierDhlEuroPlus = 1 << 30,
   CarrierUpsStandard = 1 << 31,
   CarrierUpsExpressSaver = 1 << 32,
+  CarrierGls = 1 << 33,
+  CarrierTrunkrs = 1 << 34,
 
   // Shipment options
   ShipmentOptionSignature = 1 << 40,
@@ -60,6 +62,8 @@ export const TEST_VALUE_MAP_CARRIERS = Object.freeze({
   [CarrierName.DhlForYou]: TestValue.CarrierDhlForYou,
   [CarrierName.DhlParcelConnect]: TestValue.CarrierDhlParcelConnect,
   [CarrierName.DhlEuroPlus]: TestValue.CarrierDhlEuroPlus,
+  [CarrierName.Gls]: TestValue.CarrierGls,
+  [CarrierName.Trunkrs]: TestValue.CarrierTrunkrs,
 });
 
 export const TEST_VALUE_MAP_CUSTOM_CONTRACTS = Object.freeze({
