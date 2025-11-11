@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel/delivery-options-v6.22.0](https://github.com/myparcelnl/delivery-options/compare/v6.21.1...v6.22.0) (2025-11-11)
+
+### :sparkles: New Features
+
+* **carrier:** add support for trunkrs  ([#362](https://github.com/myparcelnl/delivery-options/issues/362)) ([8488e3e](https://github.com/myparcelnl/delivery-options/commit/8488e3e717e71695e5a88efb5fcaad9d176cd11d))
+
 ## [@myparcel/delivery-options-v6.21.1](https://github.com/myparcelnl/delivery-options/compare/v6.21.0...v6.21.1) (2025-10-31)
 
 ### :bug: Bug Fixes
