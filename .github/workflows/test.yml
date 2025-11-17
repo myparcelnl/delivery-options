@@ -10,9 +10,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: myparcelnl/actions/yarn-install@v4
+      - uses: myparcelnl/actions/yarn-install@v5
 
-      - uses: myparcelnl/actions/nx-run-many@v4
+      - uses: myparcelnl/actions/nx-run-many@v5
         with:
           target: 'test:coverage'
 
