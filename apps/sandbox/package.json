@@ -1,6 +1,6 @@
 {
-  "name": "@myparcel-do/sandbox",
-  "version": "6.12.0",
+  "name": "@myparcel-dev/sandbox",
+  "version": "7.0.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -18,11 +18,11 @@
     "typecheck": "vue-tsc --project tsconfig.base.json --noEmit"
   },
   "dependencies": {
-    "@myparcel-do/shared": "workspace:*",
-    "@myparcel/constants": "^2.2.0",
-    "@myparcel/delivery-options": "workspace:*",
-    "@myparcel/sdk": "^4.3.0",
-    "@myparcel/ts-utils": "^1.12.0",
+    "@myparcel-dev/shared": "workspace:*",
+    "@myparcel-dev/constants": "^3.0.0",
+    "@myparcel-dev/delivery-options": "workspace:*",
+    "@myparcel-dev/sdk": "^5.0.0",
+    "@myparcel-dev/ts-utils": "^2.0.0",
     "@myparcel/vue-form-builder": "^1.0.0-beta.1",
     "@vueuse/core": "^10.5.0",
     "pinia": "^2.1.7",
@@ -32,7 +32,7 @@
   },
   "devDependencies": {
     "@edielemoine/google-docs-importer": "^2.0.0",
-    "@myparcel-do/build-vite": "workspace:*",
+    "@myparcel-dev/build-vite": "workspace:*",
     "@testing-library/vue": "^8.0.1",
     "@vitejs/plugin-vue": "^5.0.0",
     "autoprefixer": "^10.4.16",

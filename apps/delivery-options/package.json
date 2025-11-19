@@ -1,6 +1,6 @@
 {
-  "name": "@myparcel/delivery-options",
-  "version": "6.12.0",
+  "name": "@myparcel-dev/delivery-options",
+  "version": "7.0.0",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/myparcelnl/delivery-options.git",
@@ -63,10 +63,10 @@
     "watch:myparcel-lib": "BUILD_CSS=1 vite build -c vite-myparcel.config.ts --watch --mode development"
   },
   "dependencies": {
-    "@myparcel-do/shared": "workspace:*",
-    "@myparcel/constants": "^2.2.0",
-    "@myparcel/sdk": "^4.0.0",
-    "@myparcel/ts-utils": "^1.12.0",
+    "@myparcel-dev/shared": "workspace:*",
+    "@myparcel-dev/constants": "^3.0.0",
+    "@myparcel-dev/sdk": "^5.0.0",
+    "@myparcel-dev/ts-utils": "^2.0.0",
     "@myparcel/vue-form-builder": "^1.0.0-beta.1",
     "@vueuse/core": "^10.0.0",
     "leaflet": "^1.9.4",
@@ -76,9 +76,9 @@
   "devDependencies": {
     "@codecov/vite-plugin": "^1.2.1",
     "@histoire/plugin-vue": "^0.17.6",
-    "@myparcel-do/build-vite": "workspace:*",
-    "@myparcel-do/semantic-release-plugin": "workspace:*",
-    "@myparcel/semantic-release-config": "^5.0.0",
+    "@myparcel-dev/build-vite": "workspace:*",
+    "@myparcel-dev/semantic-release-plugin": "workspace:*",
+    "@myparcel-dev/semantic-release-config": "^6.0.0",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/exec": "^6.0.3",
     "@semantic-release/git": "^10.0.1",

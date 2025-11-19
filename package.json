@@ -1,6 +1,6 @@
 {
-  "name": "@myparcel-do/monorepo",
-  "version": "6.12.0",
+  "name": "@myparcel-dev/monorepo",
+  "version": "7.0.0",
   "private": true,
   "description": "MyParcel delivery options module for checkouts.",
   "homepage": "https://developer.myparcel.nl/documentation/60.delivery-options.html/",
@@ -23,8 +23,8 @@
     "lint:fix": "nx affected -t lint:fix --output-style=stream",
     "prepare": "(is-ci || husky install)",
     "serve": "nx run-many -t serve --parallel=99",
-    "serve:delivery-options": "nx run @myparcel/delivery-options:serve",
-    "serve:sandbox": "nx run @myparcel-do/sandbox:serve",
+    "serve:delivery-options": "nx run @myparcel-dev/delivery-options:serve",
+    "serve:sandbox": "nx run @myparcel-dev/sandbox:serve",
     "test": "nx run-many -t test --parallel=99 --output-style=stream",
     "test:coverage": "nx run-many -t test:coverage --output-style=stream",
     "test:run": "nx run-many -t test:run --output-style=stream",
@@ -46,9 +46,9 @@
     "*.{ts,vue,js,cjs,mjs}": "yarn run ws:lint:fix",
     "package.json": "npx sort-package-json"
   },
-  "prettier": "@myparcel/prettier-config",
+  "prettier": "@myparcel-dev/prettier-config",
   "resolutions": {
-    "@myparcel/constants": "^2.3.0",
+    "@myparcel-dev/constants": "^3.0.0",
     "conventional-changelog-conventionalcommits": ">= 8.0.0",
     "eslint-plugin-prettier": "^4.2.1",
     "typescript": "^5.4.0"
