@@ -10,10 +10,10 @@ import {
   type ComputedAsync,
   CarrierSetting,
   DELIVERY_DAYS_WINDOW_DEFAULT,
-} from '@myparcel-do/shared';
+} from '@myparcel-dev/shared';
 import {type Replace} from '@myparcel/ts-utils';
-import {type Timestamp, type DeliveryOption, type DeliveryPossibility, type DeliveryTimeFrame} from '@myparcel/sdk';
-import {DeliveryTypeName} from '@myparcel/constants';
+import {type Timestamp, type DeliveryOption, type DeliveryPossibility, type DeliveryTimeFrame} from '@myparcel-dev/sdk';
+import {DeliveryTypeName} from '@myparcel-dev/constants';
 import {createGetDeliveryOptionsParameters, getResolvedDeliveryType, createDeliveryTypeTranslatable} from '../utils';
 import {type SelectedDeliveryMoment} from '../types';
 import {DELIVERY_MOMENT_PACKAGE_TYPES} from '../data';

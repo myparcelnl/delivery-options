@@ -1,5 +1,5 @@
 import {type MakeOptional} from '@myparcel/ts-utils';
-import {type CarrierName} from '@myparcel/constants';
+import {type CarrierName} from '@myparcel-dev/constants';
 import {
   type CarrierSetting,
   type ConfigSetting,

@@ -1,4 +1,4 @@
-import {type EndpointResponse, type GetCarriers} from '@myparcel/sdk';
+import {type EndpointResponse, type GetCarriers} from '@myparcel-dev/sdk';
 import {useSdk} from '../useSdk';
 import {type RequestHandler} from '../../types';
 import {REQUEST_KEY_CARRIERS} from '../../data';

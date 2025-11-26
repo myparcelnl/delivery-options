@@ -1,5 +1,5 @@
 import {type Component} from 'vue';
-import {type ConfigOption, OptionType} from '@myparcel-do/shared';
+import {type ConfigOption, OptionType} from '@myparcel-dev/shared';
 import {
   FormCheckboxGroupInput,
   FormCurrencyInput,

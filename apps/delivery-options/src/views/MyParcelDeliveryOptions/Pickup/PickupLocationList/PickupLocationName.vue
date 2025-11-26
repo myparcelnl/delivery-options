@@ -15,7 +15,7 @@
 
 <script lang="ts" setup>
 import {toRefs} from 'vue';
-import {PARCEL_LOCKER, PickupLocationType} from '@myparcel-do/shared';
+import {PARCEL_LOCKER, PickupLocationType} from '@myparcel-dev/shared';
 import {useLanguage, usePickupLocation} from '../../../../composables';
 import {ParcelLockerIcon, InfoLabel} from '../../../../components';
 

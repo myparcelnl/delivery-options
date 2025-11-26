@@ -20,7 +20,7 @@
 
 <script lang="ts" setup>
 import {computed, ref, watch, onUnmounted} from 'vue';
-import {PickupLocationsView} from '@myparcel-do/shared';
+import {PickupLocationsView} from '@myparcel-dev/shared';
 import {useConfigStore} from '../../../stores';
 import {
   useLanguage,

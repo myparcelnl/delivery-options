@@ -1,5 +1,5 @@
 import {useMemoize} from '@vueuse/core';
-import {PackageTypeName} from '@myparcel/constants';
+import {PackageTypeName} from '@myparcel-dev/constants';
 import {validateIsInRange} from '../validator';
 import {type ConfigOption} from '../types';
 import {

@@ -18,11 +18,11 @@
     "typecheck": "vue-tsc --project tsconfig.base.json --noEmit"
   },
   "dependencies": {
-    "@myparcel-dev/shared": "workspace:*",
-    "@myparcel-dev/constants": "^3.0.0",
+    "@myparcel-dev/constants": "^2.7.0",
     "@myparcel-dev/delivery-options": "workspace:*",
     "@myparcel-dev/sdk": "^5.0.0",
-    "@myparcel-dev/ts-utils": "^2.0.0",
+    "@myparcel-dev/shared": "workspace:*",
+    "@myparcel-dev/ts-utils": "^1.15.0",
     "@myparcel/vue-form-builder": "^1.0.0-beta.1",
     "@vueuse/core": "^10.5.0",
     "pinia": "^2.1.7",

@@ -1,5 +1,5 @@
 import {describe, it, expect, beforeEach} from 'vitest';
-import {ApiException} from '@myparcel/sdk';
+import {ApiException} from '@myparcel-dev/sdk';
 import {type TranslatableWithArgs} from '../types';
 import {ERROR_INVALID_POSTAL_CODE, IGNORED_ERRORS, ERROR_MISSING_REQUIRED_PARAMETER, ERROR_REPLACE_MAP} from '../data';
 import {useApiExceptions} from './useApiExceptions';

@@ -1,6 +1,6 @@
 import {describe, expect, it} from 'vitest';
-import {CarrierSetting, CustomDeliveryType} from '@myparcel-do/shared';
-import {DeliveryTypeName, ShipmentOptionName} from '@myparcel/constants';
+import {CarrierSetting, CustomDeliveryType} from '@myparcel-dev/shared';
+import {DeliveryTypeName, ShipmentOptionName} from '@myparcel-dev/constants';
 import {getConfigPriceKey} from './getConfigPriceKey';
 
 describe('getConfigPriceKey', () => {

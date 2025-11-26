@@ -1,6 +1,6 @@
 import {type MaybeRef, computed, toValue, type ComputedRef} from 'vue';
 import {useMemoize} from '@vueuse/core';
-import {type ShipmentOptionName} from '@myparcel/constants';
+import {type ShipmentOptionName} from '@myparcel-dev/constants';
 import {
   resolveCarrierName,
   waitForRequestData,

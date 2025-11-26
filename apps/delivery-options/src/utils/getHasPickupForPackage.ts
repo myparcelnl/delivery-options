@@ -1,6 +1,6 @@
 import {toValue} from 'vue';
-import {PACKAGE_TYPE_DEFAULT, PACKAGE_TYPE_SMALL} from '@myparcel-do/shared';
-import {type PackageTypeName} from '@myparcel/constants';
+import {PACKAGE_TYPE_DEFAULT, PACKAGE_TYPE_SMALL} from '@myparcel-dev/shared';
+import {type PackageTypeName} from '@myparcel-dev/constants';
 import {type UseResolvedCarrier} from '../composables';
 
 export const getHasPickupForPackage = (carrier: UseResolvedCarrier, packageTypeName: PackageTypeName): boolean => {

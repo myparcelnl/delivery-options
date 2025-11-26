@@ -25,9 +25,9 @@ import {
   KEY_ADDRESS,
   KEY_CONFIG,
   KEY_STRINGS,
-} from '@myparcel-do/shared';
+} from '@myparcel-dev/shared';
 import {isEnumValue} from '@myparcel/ts-utils';
-import {PackageTypeName} from '@myparcel/constants';
+import {PackageTypeName} from '@myparcel-dev/constants';
 import {handleDeprecatedOptions} from './handleDeprecatedOptions';
 import {filterConfig} from './filterConfig';
 

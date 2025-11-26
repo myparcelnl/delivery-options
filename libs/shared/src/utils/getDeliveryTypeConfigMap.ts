@@ -1,4 +1,4 @@
-import {DeliveryTypeName} from '@myparcel/constants';
+import {DeliveryTypeName} from '@myparcel-dev/constants';
 import {type SupportedDeliveryTypeName} from '../types';
 import {CarrierSetting, CustomDeliveryType} from '../data';
 

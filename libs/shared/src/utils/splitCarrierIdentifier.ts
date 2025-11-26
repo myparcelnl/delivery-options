@@ -1,4 +1,4 @@
-import {type CarrierName} from '@myparcel/constants';
+import {type CarrierName} from '@myparcel-dev/constants';
 import {type CarrierIdentifier} from '../types';
 import {CARRIER_IDENTIFIER_SEPARATOR} from '../data';
 

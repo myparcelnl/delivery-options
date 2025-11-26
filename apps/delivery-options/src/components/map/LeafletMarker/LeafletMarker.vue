@@ -9,7 +9,7 @@ import type {MarkerOptions} from 'leaflet';
 import type {MapMarker} from '../../../types';
 import {onUnmounted, ref, toRefs, watch, onMounted, toValue} from 'vue';
 import {isDef, watchOnce} from '@vueuse/core';
-import {ElementEvent} from '@myparcel-do/shared';
+import {ElementEvent} from '@myparcel-dev/shared';
 import {MAP_MARKER_CLASS_ACTIVE} from '../../../data';
 import {usePickupLocationsMap} from '../../../composables';
 

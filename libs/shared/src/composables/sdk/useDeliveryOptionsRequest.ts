@@ -1,4 +1,4 @@
-import {type EndpointParameters, type EndpointResponse, type GetDeliveryOptions} from '@myparcel/sdk';
+import {type EndpointParameters, type EndpointResponse, type GetDeliveryOptions} from '@myparcel-dev/sdk';
 import {useSdk} from '../useSdk';
 import {type RequestHandler} from '../../types';
 import {REQUEST_KEY_DELIVERY_OPTIONS} from '../../data';

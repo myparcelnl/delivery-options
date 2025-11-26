@@ -8,8 +8,8 @@ import {
   CarrierSetting,
   ConfigSetting,
   KEY_CARRIER_SETTINGS,
-} from '@myparcel-do/shared';
-import {CarrierName, PackageTypeName} from '@myparcel/constants';
+} from '@myparcel-dev/shared';
+import {CarrierName, PackageTypeName} from '@myparcel-dev/constants';
 import {parseJson} from '../utils';
 import {type SelectedDeliveryMoment} from '../types';
 import {useConfigStore} from '../stores';

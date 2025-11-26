@@ -1,7 +1,7 @@
 import {toValue} from 'vue';
 import {describe, expect, it} from 'vitest';
-import {type Carrier} from '@myparcel/sdk';
-import {CarrierName} from '@myparcel/constants';
+import {type Carrier} from '@myparcel-dev/sdk';
+import {CarrierName} from '@myparcel-dev/constants';
 import {useCarrierRequest} from './useCarrierRequest';
 
 describe('useCarrierRequest', () => {

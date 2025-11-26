@@ -14,7 +14,7 @@
 
 <script lang="ts" setup>
 import {computed, toRefs} from 'vue';
-import {CarrierLogo} from '@myparcel-do/shared';
+import {CarrierLogo} from '@myparcel-dev/shared';
 import {useFormatDistance, usePickupLocation} from '../../../../composables';
 import PickupLocationName from './PickupLocationName.vue';
 

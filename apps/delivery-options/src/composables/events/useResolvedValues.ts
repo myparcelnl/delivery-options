@@ -8,8 +8,8 @@ import {
   type SupportedShipmentOptionName,
   getConfigKey,
   type CarrierIdentifier,
-} from '@myparcel-do/shared';
-import {DeliveryTypeName, ShipmentOptionName} from '@myparcel/constants';
+} from '@myparcel-dev/shared';
+import {DeliveryTypeName, ShipmentOptionName} from '@myparcel-dev/constants';
 import {useSelectedValues} from '../useSelectedValues';
 import {useSelectedPickupLocation} from '../useSelectedPickupLocation';
 import {useResolvedDeliveryOptions} from '../useResolvedDeliveryOptions';

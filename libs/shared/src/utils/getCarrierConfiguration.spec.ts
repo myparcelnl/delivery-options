@@ -1,5 +1,5 @@
 import {describe, expect, it} from 'vitest';
-import {CarrierName, PlatformName} from '@myparcel/constants';
+import {CarrierName, PlatformName} from '@myparcel-dev/constants';
 import {type CarrierIdentifier, type SupportedPlatformName} from '../types';
 import {SUPPORTED_PLATFORMS} from '../data';
 import {getCarrierConfiguration} from './getCarrierConfiguration';

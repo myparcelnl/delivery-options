@@ -1,6 +1,6 @@
 import {computed, type ComputedRef, toValue} from 'vue';
-import {ONLY_RECIPIENT_TITLE, type SelectOption, SIGNATURE_TITLE} from '@myparcel-do/shared';
-import {ShipmentOptionName} from '@myparcel/constants';
+import {ONLY_RECIPIENT_TITLE, type SelectOption, SIGNATURE_TITLE} from '@myparcel-dev/shared';
+import {ShipmentOptionName} from '@myparcel-dev/constants';
 import {getConfigPriceKey, getResolvedValue} from '../utils';
 import {useSelectedDeliveryMoment} from './useSelectedDeliveryMoment';
 import {useResolvedDeliveryOptions} from './useResolvedDeliveryOptions';

@@ -1,5 +1,5 @@
-import {type Carrier} from '@myparcel/sdk';
-import {type CarrierNameOrId} from '@myparcel/constants';
+import {type Carrier} from '@myparcel-dev/sdk';
+import {type CarrierNameOrId} from '@myparcel-dev/constants';
 import {
   CARRIER_BOL,
   CARRIER_BPOST,

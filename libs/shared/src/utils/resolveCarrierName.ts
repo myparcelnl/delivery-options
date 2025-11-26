@@ -1,5 +1,5 @@
 import {isEnumValue} from '@myparcel/ts-utils';
-import {CarrierName} from '@myparcel/constants';
+import {CarrierName} from '@myparcel-dev/constants';
 import {type CarrierIdentifier} from '../types';
 import {splitCarrierIdentifier} from './splitCarrierIdentifier';
 

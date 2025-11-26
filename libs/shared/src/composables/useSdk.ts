@@ -6,7 +6,7 @@ import {
   GetCarriers,
   GetDeliveryOptions,
   GetPickupLocations,
-} from '@myparcel/sdk';
+} from '@myparcel-dev/sdk';
 
 export const useSdk = useMemoize(() => {
   return createPublicSdk(

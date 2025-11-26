@@ -8,8 +8,8 @@ import {
   useCarrier,
   type ConfigSetting,
   CarrierSetting,
-} from '@myparcel-do/shared';
-import {DeliveryTypeName} from '@myparcel/constants';
+} from '@myparcel-dev/shared';
+import {DeliveryTypeName} from '@myparcel-dev/constants';
 import {useAddressStore} from '../stores';
 import {type UseResolvedCarrier} from '../composables';
 import {getResolvedValue} from './getResolvedValue';

@@ -10,7 +10,7 @@
 
 <script lang="ts" setup>
 import {computed} from 'vue';
-import {NBSP, type SelectOption} from '@myparcel-do/shared';
+import {NBSP, type SelectOption} from '@myparcel-dev/shared';
 import {StyleVariant} from '../constants';
 import {useLanguage} from '../composables';
 import SandboxDropdownButton from './SandboxDropdownButton.vue';

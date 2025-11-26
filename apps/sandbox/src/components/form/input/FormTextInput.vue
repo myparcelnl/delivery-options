@@ -6,7 +6,7 @@
 </template>
 
 <script lang="ts" setup>
-import {type TextInputEmits, type TextInputProps, useElementContext, type WithElement} from '@myparcel-do/shared';
+import {type TextInputEmits, type TextInputProps, useElementContext, type WithElement} from '@myparcel-dev/shared';
 import SandboxTextInput from '../../base/SandboxTextInput.vue';
 import {useElInputClasses} from '../../../composables';
 

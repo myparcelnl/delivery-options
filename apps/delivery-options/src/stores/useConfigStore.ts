@@ -6,7 +6,7 @@ import {
   PLATFORM_DEFAULT,
   type DeliveryOptionsConfig,
   type ResolvedDeliveryOptionsConfig,
-} from '@myparcel-do/shared';
+} from '@myparcel-dev/shared';
 import {getDefaultConfigForPlatform} from '../config';
 
 const initialState = getDefaultDeliveryOptionsConfig();

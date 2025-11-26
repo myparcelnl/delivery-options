@@ -49,8 +49,8 @@ import {
   useLoadMore,
   type CarrierIdentifier,
   resolveCarrierName,
-} from '@myparcel-do/shared';
-import {DeliveryTypeName} from '@myparcel/constants';
+} from '@myparcel-dev/shared';
+import {DeliveryTypeName} from '@myparcel-dev/constants';
 import {getDeliveryTypePrice} from '../../../../utils';
 import {useLanguage, useSelectedPickupLocation} from '../../../../composables';
 import {GroupInput, DoButton, PriceTag} from '../../../../components';

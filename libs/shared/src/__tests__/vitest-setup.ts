@@ -1,7 +1,7 @@
 /* eslint-disable */
 import {afterEach, vi, beforeEach} from 'vitest';
-import type {ClientConfig} from '@myparcel/sdk';
-import {type AbstractPublicEndpoint, type EndpointResponse, type Options} from '@myparcel/sdk';
+import type {ClientConfig} from '@myparcel-dev/sdk';
+import {type AbstractPublicEndpoint, type EndpointResponse, type Options} from '@myparcel-dev/sdk';
 import {cleanup} from '@testing-library/vue';
 import {useRequestStorage} from '../composables';
 import {useMockSdk} from './useMockSdk';

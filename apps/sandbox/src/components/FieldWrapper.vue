@@ -27,7 +27,7 @@ export default {inheritAttrs: false};
 </script>
 
 <script lang="ts" setup>
-import {generateFieldId} from '@myparcel-do/shared';
+import {generateFieldId} from '@myparcel-dev/shared';
 import {useElement} from '@myparcel/vue-form-builder';
 import {useLanguage} from '../composables';
 import SubText from './SubText.vue';

@@ -1,4 +1,4 @@
-import {type ConfigOption, useLogger} from '@myparcel-do/shared';
+import {type ConfigOption, useLogger} from '@myparcel-dev/shared';
 
 export const filterConfig = <T extends object>(input: object, allOptions: ConfigOption[]): T => {
   const logger = useLogger();

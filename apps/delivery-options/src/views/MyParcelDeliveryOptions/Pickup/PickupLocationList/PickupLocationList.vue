@@ -4,7 +4,7 @@
 
 <script lang="ts" setup>
 import {computed, toValue} from 'vue';
-import {PickupLocationsView, type SelectOption} from '@myparcel-do/shared';
+import {PickupLocationsView, type SelectOption} from '@myparcel-dev/shared';
 import {createField} from '@myparcel/vue-form-builder';
 import {FIELD_PICKUP_LOCATION} from '../../../../data';
 import {useResolvedPickupLocations, useSelectedValues} from '../../../../composables';

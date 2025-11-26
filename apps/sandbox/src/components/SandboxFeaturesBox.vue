@@ -15,7 +15,7 @@ import {
   DROP_OFF_DELAY_MIN,
   KEY_CONFIG,
   type SelectOption,
-} from '@myparcel-do/shared';
+} from '@myparcel-dev/shared';
 import {formField, formSection} from '../form';
 import FormDropOffSelector from './form/input/FormDropOffSelector.vue';
 import {FormNumberInput, FormRadioGroupInput, SandboxSettingsEntry} from './form';

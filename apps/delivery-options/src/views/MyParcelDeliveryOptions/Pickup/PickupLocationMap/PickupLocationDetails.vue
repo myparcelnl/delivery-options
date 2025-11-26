@@ -28,7 +28,7 @@
 <script lang="ts" setup>
 import {toRefs, ref, computed} from 'vue';
 import {watchImmediate} from '@vueuse/core';
-import {CarrierLogo, CarrierSetting} from '@myparcel-do/shared';
+import {CarrierLogo, CarrierSetting} from '@myparcel-dev/shared';
 import PickupLocationOpeningHours from '../PickupLocationOpeningHours/PickupLocationOpeningHours.vue';
 import PickupLocationName from '../PickupLocationList/PickupLocationName.vue';
 import {usePickupLocation} from '../../../../composables';

@@ -5,7 +5,7 @@ import {
   KEY_CONFIG,
   KEY_INITIAL,
   KEY_STRINGS,
-} from '@myparcel-do/shared';
+} from '@myparcel-dev/shared';
 
 export const getConfigFromWindow = (): InputDeliveryOptionsConfiguration => {
   return assign<InputDeliveryOptionsConfiguration>(

@@ -1,5 +1,5 @@
 import {useMemoize} from '@vueuse/core';
-import {CarrierSetting, type ConfigOption, getAllConfigOptions} from '@myparcel-do/shared';
+import {CarrierSetting, type ConfigOption, getAllConfigOptions} from '@myparcel-dev/shared';
 
 const extended = Object.freeze([
   /* Delivery */

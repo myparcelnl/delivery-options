@@ -7,9 +7,9 @@
 
 <script lang="ts" setup>
 import {toRef} from 'vue';
-import {ConfigSetting, KEY_CONFIG, type SelectOption, SUPPORTED_PLATFORMS} from '@myparcel-do/shared';
+import {ConfigSetting, KEY_CONFIG, type SelectOption, SUPPORTED_PLATFORMS} from '@myparcel-dev/shared';
 import {createField} from '@myparcel/vue-form-builder';
-import {type PlatformName} from '@myparcel/constants';
+import {type PlatformName} from '@myparcel-dev/constants';
 import {useSandboxStore} from '../stores';
 import {useLanguage} from '../composables';
 import RadioGroupInput from './RadioGroupInput.vue';

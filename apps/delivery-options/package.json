@@ -63,10 +63,10 @@
     "watch:myparcel-lib": "BUILD_CSS=1 vite build -c vite-myparcel.config.ts --watch --mode development"
   },
   "dependencies": {
-    "@myparcel-dev/shared": "workspace:*",
-    "@myparcel-dev/constants": "^3.0.0",
+    "@myparcel-dev/constants": "^2.7.0",
     "@myparcel-dev/sdk": "^5.0.0",
-    "@myparcel-dev/ts-utils": "^2.0.0",
+    "@myparcel-dev/shared": "workspace:*",
+    "@myparcel-dev/ts-utils": "^1.15.0",
     "@myparcel/vue-form-builder": "^1.0.0-beta.1",
     "@vueuse/core": "^10.0.0",
     "leaflet": "^1.9.4",
@@ -77,8 +77,8 @@
     "@codecov/vite-plugin": "^1.2.1",
     "@histoire/plugin-vue": "^0.17.6",
     "@myparcel-dev/build-vite": "workspace:*",
-    "@myparcel-dev/semantic-release-plugin": "workspace:*",
     "@myparcel-dev/semantic-release-config": "^6.0.0",
+    "@myparcel-dev/semantic-release-plugin": "workspace:*",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/exec": "^6.0.3",
     "@semantic-release/git": "^10.0.1",

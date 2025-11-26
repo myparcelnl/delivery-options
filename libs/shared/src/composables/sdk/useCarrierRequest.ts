@@ -1,6 +1,6 @@
 import {type MaybeRef, toValue} from 'vue';
-import {type EndpointResponse, type GetCarrier} from '@myparcel/sdk';
-import {type CarrierName} from '@myparcel/constants';
+import {type EndpointResponse, type GetCarrier} from '@myparcel-dev/sdk';
+import {type CarrierName} from '@myparcel-dev/constants';
 import {useSdk} from '../useSdk';
 import {type RequestHandler} from '../../types';
 import {REQUEST_KEY_CARRIERS} from '../../data';

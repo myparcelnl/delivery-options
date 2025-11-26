@@ -15,7 +15,7 @@ import {
   KEY_CONFIG,
   KEY_STRINGS,
   type SupportedPlatformName,
-} from '@myparcel-do/shared';
+} from '@myparcel-dev/shared';
 import {getDefaultSandboxAddress, getDefaultSandboxCarrierSettings, getDefaultSandboxConfig} from '../config';
 import {useLanguage} from '../composables';
 

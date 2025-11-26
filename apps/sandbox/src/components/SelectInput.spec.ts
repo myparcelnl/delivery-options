@@ -1,7 +1,7 @@
 import {type MaybeRef, nextTick, ref} from 'vue';
 import {describe, expect, it} from 'vitest';
 import {render, type RenderResult} from '@testing-library/vue';
-import {type SelectOptionValue, type SelectOption} from '@myparcel-do/shared';
+import {type SelectOptionValue, type SelectOption} from '@myparcel-dev/shared';
 import {createMyParcelFormBuilderPlugin, defineField, defineForm, MagicForm} from '@myparcel/vue-form-builder';
 import SelectInput from './SelectInput.vue';
 

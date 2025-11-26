@@ -22,7 +22,7 @@
 <script lang="ts" setup>
 import {computed, toRef, toValue} from 'vue';
 import {format} from 'date-fns';
-import {OPENING_HOURS, CLOSED} from '@myparcel-do/shared';
+import {OPENING_HOURS, CLOSED} from '@myparcel-dev/shared';
 import {useLanguage, usePickupLocation} from '../../../../composables';
 
 const props = defineProps<{locationCode: string; expanded?: boolean}>();

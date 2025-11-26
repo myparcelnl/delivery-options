@@ -1,7 +1,7 @@
 import {ref} from 'vue';
 import {beforeEach, describe, expect, it} from 'vitest';
 import {createPinia, setActivePinia} from 'pinia';
-import {CarrierSetting} from '@myparcel-do/shared';
+import {CarrierSetting} from '@myparcel-dev/shared';
 import {defineField, defineForm} from '@myparcel/vue-form-builder';
 import {allParentsHave} from './allParentsHave';
 

@@ -1,5 +1,5 @@
 import {vi} from 'vitest';
-import {type GetPickupLocations} from '@myparcel/sdk';
+import {type GetPickupLocations} from '@myparcel-dev/sdk';
 import {type SdkMock} from '../types';
 import {fakePickupLocationsResponse} from './fakePickupLocationsResponse';
 

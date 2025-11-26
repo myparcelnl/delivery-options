@@ -23,6 +23,6 @@ export {
   SUPPORTED_PACKAGE_TYPES,
   SUPPORTED_PLATFORMS,
   SUPPORTED_SHIPMENT_OPTIONS,
-} from '@myparcel-do/shared';
+} from '@myparcel-dev/shared';
 
 export {bootDeliveryOptions} from './setup';
