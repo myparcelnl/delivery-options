@@ -5,7 +5,7 @@ import {
   KEY_CONFIG,
   KEY_ADDRESS,
 } from '@myparcel-dev/shared';
-import {type RecursivePartial} from '@myparcel/ts-utils';
+import {type RecursivePartial} from '@myparcel-dev/ts-utils';
 import {CarrierName} from '@myparcel-dev/constants';
 import {useAddressStore, useConfigStore} from '../../stores';
 import {validateConfiguration} from '../../config';

@@ -1,5 +1,5 @@
 import {type Mock} from 'vitest';
-import {type PromiseOr} from '@myparcel/ts-utils';
+import {type PromiseOr} from '@myparcel-dev/ts-utils';
 import {type AbstractEndpoint, type Options, type EndpointResponse} from '@myparcel-dev/sdk';
 import {type CarrierIdentifier, type SupportedPlatformName, type Weekday} from '../types';
 

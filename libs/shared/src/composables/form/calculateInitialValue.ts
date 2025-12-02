@@ -1,5 +1,5 @@
 import {type WritableComputedRef, toValue} from 'vue';
-import {type OneOrMore, toArray} from '@myparcel/ts-utils';
+import {type OneOrMore, toArray} from '@myparcel-dev/ts-utils';
 import {type SelectInputModelValue, type SelectOption} from '../../types';
 
 export const calculateInitialValue = <T extends OneOrMore<SelectInputModelValue>>(

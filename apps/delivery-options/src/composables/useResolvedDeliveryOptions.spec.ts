@@ -10,7 +10,7 @@ import {
   type InputDeliveryOptionsConfiguration,
   KEY_ADDRESS,
 } from '@myparcel-dev/shared';
-import {type RecursivePartial} from '@myparcel/ts-utils';
+import {type RecursivePartial} from '@myparcel-dev/ts-utils';
 import {DeliveryTypeName, CarrierName} from '@myparcel-dev/constants';
 import {useConfigStore} from '../stores';
 import {DELIVERY_MOMENT_PACKAGE_TYPES} from '../data';

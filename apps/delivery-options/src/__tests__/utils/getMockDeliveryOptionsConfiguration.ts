@@ -7,7 +7,7 @@ import {
   KEY_CONFIG,
   KEY_STRINGS,
 } from '@myparcel-dev/shared';
-import {type RecursivePartial} from '@myparcel/ts-utils';
+import {type RecursivePartial} from '@myparcel-dev/ts-utils';
 import {PlatformName} from '@myparcel-dev/constants';
 import {getDefaultConfigForPlatform, getDefaultStrings, validateConfiguration} from '../../config';
 

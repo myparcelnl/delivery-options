@@ -1,4 +1,4 @@
-import {type ReadonlyOr} from '@myparcel/ts-utils';
+import {type ReadonlyOr} from '@myparcel-dev/ts-utils';
 import {createValueMustBe} from './strings';
 import {defineValidator} from './defineValidator';
 

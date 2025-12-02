@@ -1,4 +1,4 @@
-import {type MakeOptional} from '@myparcel/ts-utils';
+import {type MakeOptional} from '@myparcel-dev/ts-utils';
 import {type CarrierName} from '@myparcel-dev/constants';
 import {
   type CarrierSetting,

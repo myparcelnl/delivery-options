@@ -1,4 +1,4 @@
-import {type RecursivePartial} from '@myparcel/ts-utils';
+import {type RecursivePartial} from '@myparcel-dev/ts-utils';
 import {CarrierName, DeliveryTypeName, PackageTypeName} from '@myparcel-dev/constants';
 import {type SelectedDeliveryMoment} from '../../types';
 

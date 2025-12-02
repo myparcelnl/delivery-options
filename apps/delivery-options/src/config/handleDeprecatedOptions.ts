@@ -17,7 +17,7 @@ import {
   type Weekday,
   type DropOffEntryObject,
 } from '@myparcel-dev/shared';
-import {toArray} from '@myparcel/ts-utils';
+import {toArray} from '@myparcel-dev/ts-utils';
 
 const parseDropOffDays = (value?: string | DropOffEntry[]): DropOffEntryObject[] => {
   let array: (Weekday | `${Weekday}` | DropOffEntryObject)[] = [];

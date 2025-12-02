@@ -11,7 +11,7 @@ import {
   type SupportedPlatformName,
   usePlatform,
 } from '@myparcel-dev/shared';
-import {isEnumValue} from '@myparcel/ts-utils';
+import {isEnumValue} from '@myparcel-dev/ts-utils';
 import {CarrierName} from '@myparcel-dev/constants';
 import {getAllSandboxConfigOptions} from './getAllSandboxConfigOptions';
 

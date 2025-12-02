@@ -1,4 +1,4 @@
-import {type Replace} from '@myparcel/ts-utils';
+import {type Replace} from '@myparcel-dev/ts-utils';
 import {type DeliveryTypeName, type PackageTypeName, type ShipmentOptionName} from '@myparcel-dev/constants';
 import {type PickupLocationType} from '../data';
 import {type CarrierIdentifier} from './config.types';

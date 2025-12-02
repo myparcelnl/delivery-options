@@ -1,7 +1,7 @@
 import {ref, type Ref} from 'vue';
 import {describe, it, vi, beforeEach, afterEach, expect, type Mock} from 'vitest';
 import {flushPromises} from '@vue/test-utils';
-import {type PromiseOr} from '@myparcel/ts-utils';
+import {type PromiseOr} from '@myparcel-dev/ts-utils';
 import {watchUntil} from './watchUntil';
 
 describe('watchUntil', () => {

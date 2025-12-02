@@ -11,7 +11,7 @@ import {
   CarrierSetting,
   DELIVERY_DAYS_WINDOW_DEFAULT,
 } from '@myparcel-dev/shared';
-import {type Replace} from '@myparcel/ts-utils';
+import {type Replace} from '@myparcel-dev/ts-utils';
 import {type Timestamp, type DeliveryOption, type DeliveryPossibility, type DeliveryTimeFrame} from '@myparcel-dev/sdk';
 import {DeliveryTypeName} from '@myparcel-dev/constants';
 import {createGetDeliveryOptionsParameters, getResolvedDeliveryType, createDeliveryTypeTranslatable} from '../utils';
