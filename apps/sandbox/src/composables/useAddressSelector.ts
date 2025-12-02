@@ -1,7 +1,7 @@
 import {computed, onUnmounted, watch, type Ref, toValue, type ComputedRef} from 'vue';
 import {useLocalStorage} from '@vueuse/core';
 import {AddressField, type DeliveryOptionsAddress, KEY_ADDRESS, useLoadMore} from '@myparcel-dev/shared';
-import {useForm} from '@myparcel/vue-form-builder';
+import {useForm} from '@myparcel-dev/vue-form-builder';
 import {
   GERMANY,
   FRANCE,

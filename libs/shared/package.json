@@ -35,7 +35,7 @@
     "@myparcel-dev/sdk": "^5.0.0",
     "@myparcel-dev/shared": "workspace:*",
     "@myparcel-dev/ts-utils": "^1.15.0",
-    "@myparcel/vue-form-builder": "^1.0.0-beta.1",
+    "@myparcel-dev/vue-form-builder": "^1.0.0-beta.52",
     "@vueuse/core": "^10.6.0",
     "date-fns": "^3.0.0",
     "pinia": "^2.1.7",

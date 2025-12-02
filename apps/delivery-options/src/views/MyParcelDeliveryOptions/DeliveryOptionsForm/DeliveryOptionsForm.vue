@@ -42,7 +42,7 @@ import {
   waitForRequestData,
   useCarriersRequest,
 } from '@myparcel-dev/shared';
-import {createField} from '@myparcel/vue-form-builder';
+import {createField} from '@myparcel-dev/vue-form-builder';
 import PickupLocations from '../Pickup/PickupLocations.vue';
 import HomeDelivery from '../Delivery/HomeDelivery.vue';
 import {useConfigStore} from '../../../stores';

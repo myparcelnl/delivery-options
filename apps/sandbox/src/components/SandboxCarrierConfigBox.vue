@@ -17,7 +17,7 @@
 <script lang="ts" setup>
 import {watch} from 'vue';
 import {useDebounceFn} from '@vueuse/core';
-import {useForm} from '@myparcel/vue-form-builder';
+import {useForm} from '@myparcel-dev/vue-form-builder';
 import {useSandboxStore} from '../stores';
 import {useLanguage} from '../composables';
 import SandboxCarrierFormSections from './SandboxCarrierFormSections.vue';

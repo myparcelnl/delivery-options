@@ -1,6 +1,6 @@
 import {useMemoize} from '@vueuse/core';
 import {FORM_NAME_DELIVERY_OPTIONS, type InternalOutput} from '@myparcel-dev/shared';
-import {type CreatedForm, createForm} from '@myparcel/vue-form-builder';
+import {type CreatedForm, createForm} from '@myparcel-dev/vue-form-builder';
 import {useLanguage} from '../composables';
 
 export const useDeliveryOptionsForm = useMemoize((): CreatedForm<InternalOutput> => {

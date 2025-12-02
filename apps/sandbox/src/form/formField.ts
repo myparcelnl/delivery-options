@@ -5,7 +5,7 @@ import {
   createField,
   type InteractiveElementConfiguration,
   type ModularCreatedElement,
-} from '@myparcel/vue-form-builder';
+} from '@myparcel-dev/vue-form-builder';
 import {findSandboxOption, createOptionTranslatable} from '../utils';
 
 export interface FormFieldInput<T = unknown, Props extends ComponentProps = ComponentProps>

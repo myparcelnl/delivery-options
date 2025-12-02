@@ -1,6 +1,6 @@
 import {isString} from 'radash';
 import {type InternalOutput} from '@myparcel-dev/shared';
-import {type FormInstance} from '@myparcel/vue-form-builder';
+import {type FormInstance} from '@myparcel-dev/vue-form-builder';
 import {type Replace} from '@myparcel/ts-utils';
 import {CarrierName, DeliveryTypeName, PackageTypeName} from '@myparcel-dev/constants';
 import {type SelectedDeliveryMoment} from '../../types';

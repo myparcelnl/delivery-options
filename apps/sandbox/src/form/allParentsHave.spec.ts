@@ -2,7 +2,7 @@ import {ref} from 'vue';
 import {beforeEach, describe, expect, it} from 'vitest';
 import {createPinia, setActivePinia} from 'pinia';
 import {CarrierSetting} from '@myparcel-dev/shared';
-import {defineField, defineForm} from '@myparcel/vue-form-builder';
+import {defineField, defineForm} from '@myparcel-dev/vue-form-builder';
 import {allParentsHave} from './allParentsHave';
 
 const createRandomString = (): string => Math.random().toString(36).substring(7);

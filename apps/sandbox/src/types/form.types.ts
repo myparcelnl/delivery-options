@@ -1,5 +1,5 @@
 import {type ConfigKey} from '@myparcel-dev/shared';
-import {type ModularCreatedElement} from '@myparcel/vue-form-builder';
+import {type ModularCreatedElement} from '@myparcel-dev/vue-form-builder';
 import {type ReadonlyOr} from '@myparcel/ts-utils';
 
 export interface SettingsSection {
