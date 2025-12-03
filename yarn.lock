@@ -811,7 +811,7 @@ __metadata:
     "@myparcel-dev/semantic-release-plugin": "workspace:*"
     "@myparcel-dev/shared": "workspace:*"
     "@myparcel-dev/ts-utils": "npm:^1.15.0"
-    "@myparcel-dev/vue-form-builder": "npm:^1.0.0-beta.52"
+    "@myparcel-dev/vue-form-builder": "npm:^1.0.0-beta.54"
     "@semantic-release/changelog": "npm:^6.0.3"
     "@semantic-release/exec": "npm:^6.0.3"
     "@semantic-release/git": "npm:^10.0.1"
@@ -1050,7 +1050,7 @@ __metadata:
     "@myparcel-dev/sdk": "npm:^5.0.0"
     "@myparcel-dev/shared": "workspace:*"
     "@myparcel-dev/ts-utils": "npm:^1.15.0"
-    "@myparcel-dev/vue-form-builder": "npm:^1.0.0-beta.52"
+    "@myparcel-dev/vue-form-builder": "npm:^1.0.0-beta.54"
     "@testing-library/vue": "npm:^8.0.1"
     "@vitejs/plugin-vue": "npm:^5.0.0"
     "@vueuse/core": "npm:^10.5.0"
@@ -1121,7 +1121,7 @@ __metadata:
     "@myparcel-dev/semantic-release-plugin": "workspace:*"
     "@myparcel-dev/shared": "workspace:*"
     "@myparcel-dev/ts-utils": "npm:^1.15.0"
-    "@myparcel-dev/vue-form-builder": "npm:^1.0.0-beta.52"
+    "@myparcel-dev/vue-form-builder": "npm:^1.0.0-beta.54"
     "@pinia/testing": "npm:^0.1.3"
     "@testing-library/vue": "npm:^8.0.1"
     "@vitest/coverage-v8": "npm:^2.0.0"
@@ -1154,16 +1154,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@myparcel-dev/vue-form-builder@npm:^1.0.0-beta.52":
-  version: 1.0.0-beta.53
-  resolution: "@myparcel-dev/vue-form-builder@npm:1.0.0-beta.53"
+"@myparcel-dev/vue-form-builder@npm:^1.0.0-beta.54":
+  version: 1.0.0-beta.54
+  resolution: "@myparcel-dev/vue-form-builder@npm:1.0.0-beta.54"
   dependencies:
     "@myparcel-dev/ts-utils": "npm:^1.15.0"
     "@vueuse/core": "npm:>= 10.1.0"
     vue-component-type-helpers: "npm:^2.1.6"
   peerDependencies:
     vue: ^3
-  checksum: 10c0/e424d5699e7c8dcecffcbfb7b8061d91a58b6c7dc2cc75b031c505090c29ff58a57b2562c813befb42f1ffd7ac1128194614534c84f1f6246bbd2a34c9264fe8
+  checksum: 10c0/a7fb7cd4d20bc0d73bbe19ce73c7cdca3f32022bea788e442b94b980040eb69ccd17919ea6900280830ed588a30fb8d99a0e513f933c7257d462101c3b92f440
   languageName: node
   linkType: hard
 
