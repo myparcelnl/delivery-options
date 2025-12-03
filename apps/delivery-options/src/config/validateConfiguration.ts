@@ -1,3 +1,4 @@
+import {toRaw} from 'vue';
 import {
   AddressField,
   CarrierSetting,
@@ -11,7 +12,6 @@ import {
   type InputDeliveryOptionsConfig,
   type InputDeliveryOptionsConfiguration,
   KEY_CARRIER_SETTINGS,
-  SUPPORTED_PLATFORMS,
   validateDropOffDays,
   validateHasMinKeys,
   validateIsBoolean,
@@ -25,6 +25,8 @@ import {
   KEY_ADDRESS,
   KEY_CONFIG,
   KEY_STRINGS,
+  KEY_PLATFORM_CONFIG,
+  type DeliveryOptionsAddress,
 } from '@myparcel-dev/shared';
 import {isEnumValue} from '@myparcel-dev/ts-utils';
 import {PackageTypeName} from '@myparcel-dev/constants';
@@ -68,7 +70,7 @@ const additionalOptions: ConfigOption[] = [
   {
     key: ConfigSetting.Platform,
     perCarrier: false,
-    validators: [validateIsValue(SUPPORTED_PLATFORMS)],
+    validators: [validateIsString()],
   },
   {
     key: ConfigSetting.ApiBaseUrl,
@@ -87,6 +89,11 @@ const additionalOptions: ConfigOption[] = [
   },
   {
     key: ConfigSetting.ShowPriceSurcharge,
+    perCarrier: false,
+    validators: [validateIsBoolean()],
+  },
+  {
+    key: ConfigSetting.ExcludeParcelLockers,
     perCarrier: false,
     validators: [validateIsBoolean()],
   },
@@ -143,9 +150,25 @@ const validateConfig = (input: InputDeliveryOptionsConfig): DeliveryOptionsConfi
 };
 
 export const validateConfiguration = (input: InputDeliveryOptionsConfiguration): DeliveryOptionsConfiguration => {
-  return defineConfig({
-    [KEY_ADDRESS]: filterConfig({...input[KEY_ADDRESS]}, addressOptions),
-    [KEY_CONFIG]: validateConfig({...input[KEY_CONFIG]}),
-    [KEY_STRINGS]: {...input[KEY_STRINGS]},
-  }) as unknown as DeliveryOptionsConfiguration;
+  const filteredAddressConfig: DeliveryOptionsAddress = filterConfig({...input[KEY_ADDRESS]}, addressOptions);
+
+  const result: Partial<InputDeliveryOptionsConfiguration> = {
+    [KEY_ADDRESS]: filteredAddressConfig,
+  };
+
+  // Only add keys that exist in input
+  if (input[KEY_CONFIG] !== undefined) {
+    result[KEY_CONFIG] = validateConfig({...input[KEY_CONFIG]});
+  }
+
+  if (input[KEY_STRINGS] !== undefined) {
+    result[KEY_STRINGS] = {...input[KEY_STRINGS]};
+  }
+
+  if (input[KEY_PLATFORM_CONFIG] !== undefined) {
+    result[KEY_PLATFORM_CONFIG] = toRaw(input[KEY_PLATFORM_CONFIG]);
+  }
+
+  // Ensure address is always present
+  return defineConfig(result as InputDeliveryOptionsConfiguration) as unknown as DeliveryOptionsConfiguration;
 };

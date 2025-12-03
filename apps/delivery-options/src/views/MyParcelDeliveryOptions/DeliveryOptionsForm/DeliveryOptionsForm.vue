@@ -67,8 +67,6 @@ const Form = useDeliveryOptionsForm();
 const carriers = useActiveCarriers();
 const {state: config} = useConfigStore();
 
-void carriers.load();
-
 const {translate} = useLanguage();
 const {homeOrPickup} = useSelectedValues();
 

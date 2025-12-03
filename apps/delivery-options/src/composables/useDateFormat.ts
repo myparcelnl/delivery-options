@@ -14,6 +14,7 @@ interface FormattedDateInstance {
   day: ComputedRef<string>;
   month: ComputedRef<string>;
   relative: ComputedRef<string>;
+  relativeWeekday: ComputedRef<string>;
   standard: ComputedRef<string>;
   time: ComputedRef<string>;
   weekday: ComputedRef<string>;
@@ -59,6 +60,12 @@ export const useDateFormat = (date: MaybeRef<DateLike>): FormattedDateInstance =
   });
 
   const weekday = computed(() => {
+    const format = createDateFormatter(toValue(locale), {weekday: FORMAT_LONG});
+
+    return capitalize(format(resolvedDate.value));
+  });
+
+  const relativeWeekday = computed(() => {
     const format = createDateFormatter(toValue(locale), {weekday: FORMAT_LONG});
 
     if (isBefore(resolvedDate.value, addDays(Date.now(), 2))) {
@@ -107,5 +114,6 @@ export const useDateFormat = (date: MaybeRef<DateLike>): FormattedDateInstance =
     standard,
     time,
     weekday,
+    relativeWeekday,
   };
 };

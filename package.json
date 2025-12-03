@@ -1,6 +1,6 @@
 {
   "name": "@myparcel-dev/monorepo",
-  "version": "7.0.0",
+  "version": "6.22.0",
   "private": true,
   "description": "MyParcel delivery options module for checkouts.",
   "homepage": "https://developer.myparcel.nl/documentation/60.delivery-options.html/",
@@ -48,7 +48,7 @@
   },
   "prettier": "@myparcel-dev/prettier-config",
   "resolutions": {
-    "@myparcel-dev/constants": "^2.7.0",
+    "@myparcel-dev/constants": "^2.5.0",
     "conventional-changelog-conventionalcommits": ">= 8.0.0",
     "eslint-plugin-prettier": "^4.2.1",
     "typescript": "^5.4.0"

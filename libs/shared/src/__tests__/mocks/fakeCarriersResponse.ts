@@ -15,6 +15,8 @@ import {
   CARRIER_UPS_STANDARD,
   CARRIER_UPS_EXPRESS_SAVER,
   CARRIER_GLS,
+  CARRIER_BRT,
+  CARRIER_TRUNKRS,
 } from '../carriers';
 
 const allCarrierData = [
@@ -32,6 +34,8 @@ const allCarrierData = [
   CARRIER_DHL_PARCEL_CONNECT,
   CARRIER_DHL_EURO_PLUS,
   CARRIER_GLS,
+  CARRIER_BRT,
+  CARRIER_TRUNKRS,
 ] satisfies Carrier[];
 
 export const fakeCarriersResponse = (carrier?: CarrierNameOrId): Carrier[] => {

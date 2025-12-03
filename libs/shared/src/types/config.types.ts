@@ -8,7 +8,7 @@ import {
   type RelatedConfigOptionType,
 } from '../data';
 import {type CustomValidator} from './validation.types';
-import {type SupportedPackageTypeName, type SupportedPlatformName} from './platform.types';
+import {type SupportedPackageTypeName, type SupportedPlatformName, type PlatformConfiguration} from './platform.types';
 import {type DeliveryOptionsOutput} from './output.types';
 import {type SelectOption} from './options.types';
 import {type MakeRequired} from './common.types';
@@ -47,6 +47,7 @@ export type Price = number | null;
 export interface CarrierSettings extends Partial<Record<CarrierSettingsKey, unknown>> {
   allowDeliveryOptions?: boolean | FilterableOption;
   allowEveningDelivery?: boolean | FilterableOption;
+  allowExpressDelivery?: boolean | FilterableOption;
   allowMondayDelivery?: boolean;
   allowMorningDelivery?: boolean | FilterableOption;
   allowOnlyRecipient?: boolean;
@@ -55,15 +56,14 @@ export interface CarrierSettings extends Partial<Record<CarrierSettingsKey, unkn
   allowSaturdayDelivery?: boolean;
   allowSignature?: boolean;
   allowStandardDelivery?: boolean | FilterableOption;
-  allowExpressDelivery?: boolean | FilterableOption;
   cutoffTime?: TimestampString;
   cutoffTimeSameDay?: TimestampString;
   deliveryDaysWindow?: number;
   dropOffDays?: DropOffEntryObject[];
   dropOffDelay?: number;
   packageType?: SupportedPackageTypeName;
-  priceExpressDelivery?: Price;
   priceEveningDelivery?: Price;
+  priceExpressDelivery?: Price;
   priceMondayDelivery?: Price;
   priceMorningDelivery?: Price;
   priceOnlyRecipient?: Price;
@@ -86,27 +86,26 @@ export type InputCarrierSettingsObject = Partial<Record<CarrierIdentifier, Input
 export type CarrierSettingsObject = Partial<Record<CarrierIdentifier, CarrierSettings>>;
 
 export interface DeliveryOptionsConfig extends Partial<Record<ConfigSetting, unknown>>, CarrierSettings {
+  allowPickupLocationsViewSelection: boolean;
   apiBaseUrl: string;
-
   carrierSettings: CarrierSettingsObject;
+  closedDays: Date[];
   /**
    * Currency. Defaults to format of the browser.
    */
   currency: string | undefined;
-
   /**
    * Locale. Defaults to the language of the browser.
    */
   locale: string | undefined;
-
   pickupLocationsDefaultView: PickupLocationsView;
   pickupLocationsMapTileLayerData: string | MapTileLayerData;
   pickupShowDistance: boolean;
   platform: SupportedPlatformName;
   showDeliveryDate: boolean;
   showPriceSurcharge: boolean;
-  showPrices: boolean;
   showPriceZeroAsFree: boolean;
+  showPrices: boolean;
 }
 
 export type ResolvedDeliveryOptionsConfig = MakeRequired<
@@ -115,6 +114,7 @@ export type ResolvedDeliveryOptionsConfig = MakeRequired<
   | ConfigSetting.Currency
   | ConfigSetting.Locale
   | ConfigSetting.PickupLocationsDefaultView
+  | ConfigSetting.AllowPickupLocationsViewSelection
   | ConfigSetting.PickupLocationsMapTileLayerData
   | ConfigSetting.PickupShowDistance
   | ConfigSetting.Platform
@@ -122,6 +122,7 @@ export type ResolvedDeliveryOptionsConfig = MakeRequired<
   | ConfigSetting.ShowPriceSurcharge
   | ConfigSetting.ShowPrices
   | ConfigSetting.ShowPriceZeroAsFree
+  | ConfigSetting.ClosedDays
   | CarrierSetting.AllowDeliveryOptions
   | CarrierSetting.AllowEveningDelivery
   | CarrierSetting.AllowMondayDelivery
@@ -159,14 +160,15 @@ export interface DeliveryOptionsConfiguration {
   address: DeliveryOptionsAddress;
   config: DeliveryOptionsConfig;
   initial: Partial<DeliveryOptionsOutput>;
+  platformConfig: PlatformConfiguration;
   strings: DeliveryOptionsStrings;
 }
 
 export interface InputDeliveryOptionsConfiguration {
   address: DeliveryOptionsAddress;
-  // components: Partial<Record<ComponentName, Component>>;
   config: InputDeliveryOptionsConfig;
   initial?: Partial<DeliveryOptionsOutput>;
+  platformConfig: PlatformConfiguration;
   strings?: DeliveryOptionsStrings;
 }
 

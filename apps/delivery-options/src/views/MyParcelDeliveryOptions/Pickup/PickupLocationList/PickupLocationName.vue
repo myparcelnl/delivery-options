@@ -15,14 +15,14 @@
 
 <script lang="ts" setup>
 import {toRefs} from 'vue';
-import {PARCEL_LOCKER, PickupLocationType} from '@myparcel-dev/shared';
+import {PARCEL_LOCKER, PickupLocationType, type CarrierIdentifier} from '@myparcel-dev/shared';
 import {useLanguage, usePickupLocation} from '../../../../composables';
 import {ParcelLockerIcon, InfoLabel} from '../../../../components';
 
-const props = defineProps<{locationCode: string}>();
+const props = defineProps<{locationCode: string; carrierIdentifier: CarrierIdentifier}>();
 const propRefs = toRefs(props);
 
 const {translate} = useLanguage();
 
-const {pickupLocation} = usePickupLocation(propRefs.locationCode);
+const {pickupLocation} = usePickupLocation(propRefs.locationCode, propRefs.carrierIdentifier);
 </script>

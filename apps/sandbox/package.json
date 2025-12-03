@@ -1,6 +1,6 @@
 {
   "name": "@myparcel-dev/sandbox",
-  "version": "7.0.0",
+  "version": "6.22.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -13,8 +13,8 @@
     "test:run": "run ws:test:run \"$(pwd)\"",
     "test:update": "run ws:test:update \"$(pwd)\"",
     "translations:import": "run translations:import:delivery-options && run translations:import:sandbox",
-    "translations:import:delivery-options": "google-docs-importer -vv -d 1FjcT_eNLkbUXFpcm4nskdkBSsFWG7wAX9FDxrJwpOuc --prefix d_o_ -s 0 -o public/translations/delivery-options",
-    "translations:import:sandbox": "google-docs-importer -vv -d 1FjcT_eNLkbUXFpcm4nskdkBSsFWG7wAX9FDxrJwpOuc -s 1038466479 -o public/translations",
+    "translations:import:delivery-options": "mypa-google-docs-importer -vv -d 1FjcT_eNLkbUXFpcm4nskdkBSsFWG7wAX9FDxrJwpOuc --prefix d_o_ -s 0 -o public/translations/delivery-options",
+    "translations:import:sandbox": "mypa-google-docs-importer -vv -d 1FjcT_eNLkbUXFpcm4nskdkBSsFWG7wAX9FDxrJwpOuc -s 1038466479 -o public/translations",
     "typecheck": "vue-tsc --project tsconfig.base.json --noEmit"
   },
   "dependencies": {
@@ -24,6 +24,7 @@
     "@myparcel-dev/shared": "workspace:*",
     "@myparcel-dev/ts-utils": "^1.15.0",
     "@myparcel-dev/vue-form-builder": "^1.0.0-beta.54",
+    "@vuepic/vue-datepicker": "^11.0.2",
     "@vueuse/core": "^10.5.0",
     "pinia": "^2.1.7",
     "radash": "^12.0.0",
@@ -31,19 +32,19 @@
     "vue": "^3.3.4"
   },
   "devDependencies": {
-    "@edielemoine/google-docs-importer": "^2.0.0",
     "@myparcel-dev/build-vite": "workspace:*",
     "@testing-library/vue": "^8.0.1",
     "@vitejs/plugin-vue": "^5.0.0",
     "autoprefixer": "^10.4.16",
     "ci-info": "^4.0.0",
+    "mypa-google-docs-importer": "^1.0.1",
     "postcss": "^8.4.31",
     "sass": "^1.69.3",
     "typescript": "5.4.5",
     "vite": "^5.3.6",
     "vite-plugin-custom-tsconfig": "^1.0.0",
     "vite-plugin-inspect": "^0.8.0",
-    "vitest": "^2.0.0",
+    "vitest": "^2.1.9",
     "vue-tsc": "^2.0.0"
   },
   "volta": {

@@ -17,10 +17,11 @@ import {
   type SelectOption,
 } from '@myparcel-dev/shared';
 import {formField, formSection} from '../form';
+import FormToggleInput from './form/input/FormToggleInput.vue';
+import FormMultiDateSelect from './form/input/FormMultiDateSelect.vue';
 import FormDropOffSelector from './form/input/FormDropOffSelector.vue';
 import {FormNumberInput, FormRadioGroupInput, SandboxSettingsEntry} from './form';
 import {Box} from './Box';
-import FormToggleInput from './form/input/FormToggleInput.vue';
 
 const section = formSection({
   key: 'general',
@@ -54,6 +55,12 @@ const section = formSection({
 
     formField({
       key: KEY_CONFIG,
+      name: ConfigSetting.AllowPickupLocationsViewSelection,
+      component: FormToggleInput,
+    }),
+
+    formField({
+      key: KEY_CONFIG,
       name: ConfigSetting.PickupLocationsDefaultView,
       component: FormRadioGroupInput,
       props: {
@@ -73,6 +80,16 @@ const section = formSection({
     formField({
       key: KEY_CONFIG,
       name: ConfigSetting.ShowPriceZeroAsFree,
+      component: FormToggleInput,
+    }),
+    formField({
+      key: KEY_CONFIG,
+      name: ConfigSetting.ClosedDays,
+      component: FormMultiDateSelect,
+    }),
+    formField({
+      key: KEY_CONFIG,
+      name: ConfigSetting.ExcludeParcelLockers,
       component: FormToggleInput,
     }),
   ],

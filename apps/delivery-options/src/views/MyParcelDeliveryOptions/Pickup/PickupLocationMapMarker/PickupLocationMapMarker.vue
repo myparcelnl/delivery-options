@@ -6,22 +6,23 @@
 </template>
 
 <script lang="ts" setup>
-import {computed, toRefs} from 'vue';
 import type {MarkerOptions} from 'leaflet';
+import type {CarrierIdentifier} from '@myparcel-dev/shared';
+import {computed, toRefs} from 'vue';
 import {isDef} from '@vueuse/core';
 import {createCarrierMarkerIcon} from '../../../../utils';
 import {MAP_MARKER_CLASS_PREFIX} from '../../../../data';
 import {usePickupLocation, useResolvedCarrier, useSelectedValues} from '../../../../composables';
 import {LeafletMarker} from '../../../../components';
 
-const props = defineProps<{locationCode: string; active: boolean}>();
+const props = defineProps<{locationCode: string; active: boolean; carrierIdentifier: CarrierIdentifier}>();
 const propRefs = toRefs(props);
 
-const {pickupLocation} = usePickupLocation(propRefs.locationCode);
+const {pickupLocation} = usePickupLocation(propRefs.locationCode, propRefs.carrierIdentifier);
 
 const carrierName = computed(() => pickupLocation.value?.carrier);
 
-const carrier = useResolvedCarrier(carrierName);
+const resolvedCarrier = useResolvedCarrier(carrierName).carrier.value;
 
 const center = computed(() => {
   if (!isDef(pickupLocation.value)) {
@@ -34,8 +35,6 @@ const center = computed(() => {
 });
 
 const options = computed<MarkerOptions>(() => {
-  const resolvedCarrier = carrier?.carrier.value;
-
   if (!pickupLocation.value || !resolvedCarrier) {
     return {};
   }
@@ -51,9 +50,10 @@ const options = computed<MarkerOptions>(() => {
   };
 });
 
-const {pickupLocation: selectedPickupLocation} = useSelectedValues();
+const {pickupLocation: selectedPickupLocation, carrier} = useSelectedValues();
 
 const onClick = () => {
   selectedPickupLocation.value = pickupLocation.value?.locationCode;
+  carrier.value = propRefs.carrierIdentifier.value;
 };
 </script>

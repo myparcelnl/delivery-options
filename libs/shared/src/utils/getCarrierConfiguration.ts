@@ -1,12 +1,12 @@
 import {type CarrierIdentifier, type CarrierConfiguration, type SupportedPlatformName} from '../types';
+import {usePlatform} from '../composables';
 import {resolveCarrierName} from './resolveCarrierName';
-import {getPlatformConfig} from './getPlatformConfig';
 
 export const getCarrierConfiguration = (
   carrierIdentifier: CarrierIdentifier,
   platform: SupportedPlatformName,
 ): CarrierConfiguration => {
-  const platformConfig = getPlatformConfig(platform);
+  const platformConfig = usePlatform(platform).config.value;
   const carrierName = resolveCarrierName(carrierIdentifier);
 
   const carrierConfig = platformConfig.carriers.find((carrier) => carrier.name === carrierName);

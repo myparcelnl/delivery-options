@@ -52,6 +52,8 @@ export const getAllConfigOptions = useMemoize((): ConfigOption[] => [
     type: OptionType.Select,
   }),
 
+  declareOption(ConfigSetting.AllowPickupLocationsViewSelection),
+
   declareOption(ConfigSetting.PickupShowDistance),
   declareOption(ConfigSetting.ShowDeliveryDate),
   declareOption(ConfigSetting.ShowPriceSurcharge),
@@ -70,4 +72,5 @@ export const getAllConfigOptions = useMemoize((): ConfigOption[] => [
     key: ConfigSetting.ShowPriceZeroAsFree,
     type: OptionType.Boolean,
   }),
+  declareOption(ConfigSetting.ClosedDays),
 ]);

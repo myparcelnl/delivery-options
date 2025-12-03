@@ -3,6 +3,79 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel/delivery-options-v6.22.0](https://github.com/myparcelnl/delivery-options/compare/v6.21.1...v6.22.0) (2025-11-11)
+
+### :sparkles: New Features
+
+* **carrier:** add support for trunkrs  ([#362](https://github.com/myparcelnl/delivery-options/issues/362)) ([8488e3e](https://github.com/myparcelnl/delivery-options/commit/8488e3e717e71695e5a88efb5fcaad9d176cd11d))
+
+## [@myparcel/delivery-options-v6.21.1](https://github.com/myparcelnl/delivery-options/compare/v6.21.0...v6.21.1) (2025-10-31)
+
+### :bug: Bug Fixes
+
+* **platform:** fix issues with runtime platform config changes ([#351](https://github.com/myparcelnl/delivery-options/issues/351)) ([0217090](https://github.com/myparcelnl/delivery-options/commit/0217090951b30b779a452af18f08937a353ccb17))
+
+## [@myparcel/delivery-options-v6.21.0](https://github.com/myparcelnl/delivery-options/compare/v6.20.0...v6.21.0) (2025-10-27)
+
+### :sparkles: New Features
+
+* **DO:** Add feature exclude parcel lockers ([#354](https://github.com/myparcelnl/delivery-options/issues/354)) ([95cf0cc](https://github.com/myparcelnl/delivery-options/commit/95cf0cc7e415523bd4a62fac386bb427b486c574))
+
+## [@myparcel/delivery-options-v6.20.0](https://github.com/myparcelnl/delivery-options/compare/v6.19.0...v6.20.0) (2025-10-10)
+
+### :sparkles: New Features
+
+* use custom platform from config ([#350](https://github.com/myparcelnl/delivery-options/issues/350)) ([99afe84](https://github.com/myparcelnl/delivery-options/commit/99afe84e453d13dcccdf5d812b3e9f7a76af75fe))
+
+## [@myparcel/delivery-options-v6.19.0](https://github.com/myparcelnl/delivery-options/compare/v6.18.0...v6.19.0) (2025-10-09)
+
+### :sparkles: New Features
+
+* **delivery-options:** add option to list closed days for shop ([#348](https://github.com/myparcelnl/delivery-options/issues/348)) ([7573433](https://github.com/myparcelnl/delivery-options/commit/7573433c5d5ceb59635fb186a42d06a0c3cdaa9b))
+
+## [@myparcel/delivery-options-v6.18.0](https://github.com/myparcelnl/delivery-options/compare/v6.17.0...v6.18.0) (2025-08-14)
+
+### :sparkles: New Features
+
+* Cache carrier requests ([#338](https://github.com/myparcelnl/delivery-options/issues/338)) ([2e1bf7b](https://github.com/myparcelnl/delivery-options/commit/2e1bf7ba5966897ae61db081e53bd37373378e90))
+* external carrier config process ([#333](https://github.com/myparcelnl/delivery-options/issues/333)) ([0a193d7](https://github.com/myparcelnl/delivery-options/commit/0a193d70ad1befd0d123ab2eba43b826395079b9))
+
+## [@myparcel/delivery-options-v6.17.0](https://github.com/myparcelnl/delivery-options/compare/v6.16.0...v6.17.0) (2025-08-05)
+
+### :sparkles: New Features
+
+* Make pickup locations list/map configurable via config ([#331](https://github.com/myparcelnl/delivery-options/issues/331)) ([be04f86](https://github.com/myparcelnl/delivery-options/commit/be04f86cac3b59afea0fdf4e2e57aa3a55aae57b))
+
+## [@myparcel/delivery-options-v6.16.0](https://github.com/myparcelnl/delivery-options/compare/v6.15.0...v6.16.0) (2025-07-29)
+
+### :sparkles: New Features
+
+* **carrier:** add support for GLS carrier ([#328](https://github.com/myparcelnl/delivery-options/issues/328)) ([d87d577](https://github.com/myparcelnl/delivery-options/commit/d87d577917d05fd1e99ed820b612317b1eae894b))
+
+## [@myparcel/delivery-options-v6.15.0](https://github.com/myparcelnl/delivery-options/compare/v6.14.0...v6.15.0) (2025-07-18)
+
+### :sparkles: New Features
+
+* add UPS Standard/Express pickup locations ([#316](https://github.com/myparcelnl/delivery-options/issues/316)) ([028b0e9](https://github.com/myparcelnl/delivery-options/commit/028b0e95a8350c6e4a944e56d01867e104d978dc))
+
+## [@myparcel/delivery-options-v6.14.0](https://github.com/myparcelnl/delivery-options/compare/v6.13.0...v6.14.0) (2025-07-15)
+
+### :sparkles: New Features
+
+* translate pickup location weekdays based on locale ([#325](https://github.com/myparcelnl/delivery-options/issues/325)) ([439e183](https://github.com/myparcelnl/delivery-options/commit/439e183c6588f21d197785ecc9f92a814fcddc0e))
+
+## [@myparcel/delivery-options-v6.13.0](https://github.com/myparcelnl/delivery-options/compare/v6.12.1...v6.13.0) (2025-07-14)
+
+### :sparkles: New Features
+
+* send custom error event to debugEventLog upon error ([#321](https://github.com/myparcelnl/delivery-options/issues/321)) ([ec7820c](https://github.com/myparcelnl/delivery-options/commit/ec7820c9aff5dcbfe0b99326e4cce78612f96497))
+
+## [@myparcel/delivery-options-v6.12.1](https://github.com/myparcelnl/delivery-options/compare/v6.12.0...v6.12.1) (2025-07-10)
+
+### :bug: Bug Fixes
+
+* display correct translations upon receiving new config ([#318](https://github.com/myparcelnl/delivery-options/issues/318)) ([bf19112](https://github.com/myparcelnl/delivery-options/commit/bf19112a2ea66bda4587a6b4d84016cc3e12eccd))
+
 ## [@myparcel/delivery-options-v6.12.0](https://github.com/myparcelnl/delivery-options/compare/v6.11.0...v6.12.0) (2025-06-26)
 
 ### :sparkles: New Features

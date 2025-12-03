@@ -1,6 +1,6 @@
 {
   "name": "@myparcel-dev/delivery-options",
-  "version": "7.0.0",
+  "version": "6.22.0",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/myparcelnl/delivery-options.git",
@@ -59,8 +59,8 @@
     "test:run": "run ws:test:run \"$(pwd)\"",
     "test:update": "run ws:test:update \"$(pwd)\"",
     "typecheck": "vue-tsc --project tsconfig.base.json --noEmit",
-    "watch:myparcel": "BUILD_CSS=1 vite build -c vite-myparcel-lib.config.ts --watch --mode development",
-    "watch:myparcel-lib": "BUILD_CSS=1 vite build -c vite-myparcel.config.ts --watch --mode development"
+    "watch:myparcel": "BUILD_CSS=1 vite build -c vite-myparcel.config.ts --watch --mode development",
+    "watch:myparcel-lib": "BUILD_CSS=1 vite build -c vite-myparcel-lib.config.ts --watch --mode development"
   },
   "dependencies": {
     "@myparcel-dev/constants": "^2.7.0",
@@ -74,7 +74,7 @@
     "vue": "^3.3.0"
   },
   "devDependencies": {
-    "@codecov/vite-plugin": "^1.2.1",
+    "@codecov/vite-plugin": "^1.9.1",
     "@histoire/plugin-vue": "^0.17.6",
     "@myparcel-dev/build-vite": "workspace:*",
     "@myparcel-dev/semantic-release-config": "^6.0.0",
@@ -101,7 +101,7 @@
     "typescript": "5.4.5",
     "vite": "^5.3.6",
     "vite-plugin-custom-tsconfig": "^1.0.0",
-    "vitest": "^2.0.0",
+    "vitest": "^2.1.9",
     "vue-tsc": "^2.0.0"
   },
   "volta": {

@@ -1,4 +1,4 @@
-import {toValue} from 'vue';
+import {computed, toValue, type ComputedRef} from 'vue';
 import {useMemoize} from '@vueuse/core';
 import {
   type CarrierIdentifier,
@@ -16,11 +16,11 @@ import {useCurrentPlatform} from './useCurrentPlatform';
 /**
  * Get the carriers that are currently active in the delivery options config.
  */
-export const useActiveCarriers = useMemoize((): ComputedAsync<UseResolvedCarrier[]> => {
+export const useActiveCarriers = useMemoize((): ComputedRef<UseResolvedCarrier[]> => {
   const {state: config} = useConfigStore();
   const platform = useCurrentPlatform();
 
-  const callback = async () => {
+  return computed(() => {
     const carrierNames = platform.config.value.carriers.map((carrier) => carrier.name);
     const entries = Object.entries(config.carrierSettings) as [CarrierIdentifier, CarrierSettings][];
 
@@ -43,14 +43,9 @@ export const useActiveCarriers = useMemoize((): ComputedAsync<UseResolvedCarrier
         return carrierNames.indexOf(nameA) - carrierNames.indexOf(nameB);
       });
 
-    const resolvedCarriers = await Promise.all(
-      sortedCarrierSettings.map(([identifier]) => {
-        return getResolvedCarrier(identifier, platform.name.value);
-      }),
-    );
-
+    const resolvedCarriers = sortedCarrierSettings.map(([identifier]) => {
+      return getResolvedCarrier(identifier, platform.name.value);
+    });
     return resolvedCarriers.filter((carrier) => toValue(carrier.hasAnyDelivery) || toValue(carrier.hasPickup));
-  };
-
-  return computedAsync(callback, [], {immediate: true});
+  });
 });

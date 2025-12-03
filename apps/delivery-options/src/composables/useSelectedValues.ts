@@ -1,3 +1,4 @@
+import type {CarrierIdentifier} from '@myparcel-dev/shared';
 import {reactive, toRefs, type Ref} from 'vue';
 import {useMemoize} from '@vueuse/core';
 import {
@@ -7,15 +8,17 @@ import {
   FIELD_DELIVERY_MOMENT,
   FIELD_SHIPMENT_OPTIONS,
   FIELD_PICKUP_LOCATION,
+  FIELD_CARRIER,
 } from '../data';
 
 interface UseSelectedValues {
+  carrier: Ref<CarrierIdentifier | undefined>;
+  clearSelectedValues: () => void;
   deliveryDate: Ref<string | undefined>;
   deliveryMoment: Ref<string | undefined>;
   homeOrPickup: Ref<string>;
   pickupLocation: Ref<string | undefined>;
   shipmentOptions: Ref<string[]>;
-  clearSelectedValues: () => void;
 }
 
 export const useSelectedValues = useMemoize((): UseSelectedValues => {
@@ -25,6 +28,7 @@ export const useSelectedValues = useMemoize((): UseSelectedValues => {
     [FIELD_DELIVERY_MOMENT]: undefined,
     [FIELD_SHIPMENT_OPTIONS]: [],
     [FIELD_PICKUP_LOCATION]: undefined,
+    [FIELD_CARRIER]: undefined,
   };
 
   const values = reactive({...initialValues});

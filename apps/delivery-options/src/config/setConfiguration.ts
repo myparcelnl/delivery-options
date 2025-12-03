@@ -15,10 +15,15 @@ export const setConfiguration = (config: InputDeliveryOptionsConfiguration): voi
 
   clear();
 
-  configStore.update(validated.config);
+  if (validated.config) {
+    configStore.update(validated.config);
+  }
+
   addressStore.update(validated.address);
 
-  language.setStrings(validated.strings);
+  if (validated.strings) {
+    language.setStrings(validated.strings);
+  }
 
   window.MyParcelConfig = validated;
 };

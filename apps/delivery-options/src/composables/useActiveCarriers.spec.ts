@@ -8,7 +8,7 @@ import {
   KEY_CONFIG,
   ConfigSetting,
   type SupportedPlatformName,
-  useCarrierRequest,
+  useCarriersRequest,
   resolveCarrierName,
   waitForRequestData,
   KEY_ADDRESS,
@@ -96,11 +96,7 @@ describe('useActiveCarriers', () => {
 
       const carriers = useActiveCarriers();
 
-      await Promise.all(
-        identifiers.map((identifier) => {
-          return waitForRequestData(useCarrierRequest, [resolveCarrierName(identifier)]);
-        }),
-      );
+      await waitForRequestData(useCarriersRequest, []);
       await flushPromises();
 
       expect(toValue(carriers).map((carrier) => carrier.carrier.value.identifier)).toStrictEqual(expectedOrder);

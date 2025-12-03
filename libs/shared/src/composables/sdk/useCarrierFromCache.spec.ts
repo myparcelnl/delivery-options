@@ -2,12 +2,12 @@ import {toValue} from 'vue';
 import {describe, expect, it} from 'vitest';
 import {type Carrier} from '@myparcel-dev/sdk';
 import {CarrierName} from '@myparcel-dev/constants';
-import {useCarrierRequest} from './useCarrierRequest';
+import {useCarrierFromCache} from './useCarrierFromCache';
 
-describe('useCarrierRequest', () => {
-  it.each(Array.from(Object.values(CarrierName)))('fetches carrier %s', async (carrierName: CarrierName) => {
+describe('useCarrierFromCache', () => {
+  it.each(Array.from(Object.values(CarrierName)))('fetches carrier %s from cache', async (carrierName: CarrierName) => {
     expect.assertions(7);
-    const query = useCarrierRequest(carrierName);
+    const query = useCarrierFromCache(carrierName);
 
     await query.load();
 

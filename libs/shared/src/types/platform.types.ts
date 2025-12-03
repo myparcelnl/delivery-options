@@ -26,8 +26,8 @@ export interface CarrierConfiguration {
   deliveryTypes: SupportedDeliveryTypeName[];
 
   /**
-   * Enable to use empty delivery options (without fetching) for this carrier in all countries that are not in
-   * getCountriesForDelivery.
+   * Enable to use empty delivery options (without calling the API) for this carrier in all countries that are not in
+   * deliveryCountries.
    */
   fakeDelivery?: boolean;
 

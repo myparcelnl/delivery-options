@@ -1,11 +1,16 @@
 <template>
   <div class="mp-border mp-p-5 mp-rounded-lg">
-    <PickupLocationOpeningHours :location-code="locationCode" />
+    <PickupLocationOpeningHours
+      :carrier-identifier="carrierIdentifier"
+      :location-code="locationCode" />
   </div>
 </template>
 
-<script lang="ts" setup>
+<script
+  lang="ts"
+  setup>
 import PickupLocationOpeningHours from '../PickupLocationOpeningHours/PickupLocationOpeningHours.vue';
+import type {CarrierIdentifier} from '@myparcel-dev/shared';
 
 defineProps<{
   /**
@@ -13,5 +18,6 @@ defineProps<{
    * @see ResolvedPickupLocation
    */
   locationCode: string;
+  carrierIdentifier: CarrierIdentifier
 }>();
 </script>

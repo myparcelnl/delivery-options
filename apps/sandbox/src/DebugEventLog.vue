@@ -12,11 +12,13 @@
   </div>
 </template>
 
-<script lang="ts" setup>
+<script
+  lang="ts"
+  setup>
 import {ref} from 'vue';
 import {useEventListener} from '@vueuse/core';
 import {isCustomEvent} from '@myparcel-dev/shared';
-import {UPDATED_DELIVERY_OPTIONS} from '@myparcel-dev/delivery-options';
+import {UPDATED_DELIVERY_OPTIONS, ERROR_DELIVERY_OPTIONS} from '@myparcel-dev/delivery-options';
 import SandboxTable from './components/SandboxTable.vue';
 import {CButton} from './components';
 
@@ -27,4 +29,5 @@ const logEvent = (event: Event | CustomEvent) => {
 };
 
 useEventListener(document, UPDATED_DELIVERY_OPTIONS, logEvent);
+useEventListener(document, ERROR_DELIVERY_OPTIONS, logEvent);
 </script>

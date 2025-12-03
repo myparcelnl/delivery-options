@@ -1,5 +1,5 @@
+import type {CarrierIdentifier} from '@myparcel-dev/shared';
 import {computed, type MaybeRef, type ComputedRef, toValue} from 'vue';
-import {get} from '@vueuse/core';
 import {type ResolvedPickupLocation} from '../types';
 import {useResolvedPickupLocations} from './useResolvedPickupLocations';
 import {useResolvedCarrier, type UseResolvedCarrier} from './useResolvedCarrier';
@@ -9,11 +9,16 @@ interface UsePickupLocation {
   resolvedCarrier: ComputedRef<UseResolvedCarrier | undefined>;
 }
 
-export const usePickupLocation = (locationCode: MaybeRef<string | undefined>): UsePickupLocation => {
+export const usePickupLocation = (
+  locationCode: MaybeRef<string | undefined>,
+  selectedCarrier: MaybeRef<CarrierIdentifier | undefined>,
+): UsePickupLocation => {
   const {locations} = useResolvedPickupLocations();
 
   const pickupLocation = computed(() => {
-    return toValue(locations).find((location) => location.locationCode === get(locationCode));
+    const code = toValue(locationCode);
+    const carrier = toValue(selectedCarrier);
+    return toValue(locations).find((location) => location.locationCode === code && location.carrier === carrier);
   });
 
   const resolvedCarrier = computed(() => {

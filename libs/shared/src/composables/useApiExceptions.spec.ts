@@ -28,6 +28,9 @@ describe('useApiExceptions', () => {
       {
         code: ERROR_INVALID_POSTAL_CODE,
         label: `error${ERROR_INVALID_POSTAL_CODE}`,
+        message: 'error',
+        status: undefined,
+        title: undefined,
       },
     ]);
 
@@ -58,6 +61,9 @@ describe('useApiExceptions', () => {
       {
         code: replacement,
         label: `error${replacement}`,
+        message: 'error',
+        status: undefined,
+        title: undefined,
       },
     ]);
   });
@@ -96,6 +102,9 @@ describe('useApiExceptions', () => {
             field: finalKey,
           },
         } satisfies TranslatableWithArgs,
+        message: `${field} is required`,
+        status: undefined,
+        title: undefined,
       },
     ]);
   });

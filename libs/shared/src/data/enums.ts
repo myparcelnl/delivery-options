@@ -47,6 +47,7 @@ export enum ConfigSetting {
   Currency = 'currency',
   Locale = 'locale',
   PickupLocationsDefaultView = 'pickupLocationsDefaultView',
+  AllowPickupLocationsViewSelection = 'allowPickupLocationsViewSelection',
   PickupLocationsMapTileLayerData = 'pickupLocationsMapTileLayerData',
   PickupMapAllowLoadMore = 'pickupMapAllowLoadMore',
   PickupShowDistance = 'pickupShowDistance',
@@ -55,6 +56,8 @@ export enum ConfigSetting {
   ShowPriceSurcharge = 'showPriceSurcharge',
   ShowPrices = 'showPrices',
   ShowPriceZeroAsFree = 'showPriceZeroAsFree',
+  ClosedDays = 'closedDays',
+  ExcludeParcelLockers = 'excludeParcelLockers',
 }
 
 export enum PickupLocationsView {

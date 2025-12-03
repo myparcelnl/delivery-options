@@ -128,11 +128,17 @@ const callback = (): UseResolvedPickupLocations => {
 
   const locations = addLoadingProperties(
     computed(() => {
-      return allLocations.value
+      const {excludeParcelLockers} = config;
+
+      const base = allLocations.value
         .filter((location) =>
           carriersWithPickup.value.some(({carrier}) => carrier.value.identifier === location.carrier),
         )
         .sort(sortByDistance);
+
+      return excludeParcelLockers
+        ? base.filter((location) => location.type !== PickupLocationType.Locker)
+        : base;
     }),
     currentLocations.load,
     currentLocations.loading,

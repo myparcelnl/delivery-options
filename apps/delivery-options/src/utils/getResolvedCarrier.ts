@@ -8,6 +8,7 @@ import {
   useCarrier,
   type ConfigSetting,
   CarrierSetting,
+  type ConfigKey,
 } from '@myparcel-dev/shared';
 import {DeliveryTypeName} from '@myparcel-dev/constants';
 import {useAddressStore} from '../stores';
@@ -25,7 +26,12 @@ const resolveOption = (
   input: SupportedDeliveryTypeName | SupportedShipmentOptionName,
   carrierIdentifier?: CarrierIdentifier,
 ) => {
-  const key = getConfigKey(input);
+  let key: ConfigKey | null = null;
+  try {
+    key = getConfigKey(input);
+  } catch (e) {
+    console.warn(e, 'disabling option');
+  }
 
   return Boolean(key && getResolvedValue(key, carrierIdentifier));
 };

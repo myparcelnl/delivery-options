@@ -5,6 +5,7 @@ exports[`useDeliveryMomentOptions > returns delivery moment options with package
   {
     "carrier": "postnl",
     "label": {
+      "args": undefined,
       "key": "packageTypeDigitalStamp",
     },
     "price": 0,
@@ -20,6 +21,7 @@ exports[`useDeliveryMomentOptions > returns delivery moment options with package
   {
     "carrier": "postnl:123",
     "label": {
+      "args": undefined,
       "key": "packageTypeDigitalStamp",
     },
     "price": 4,
@@ -40,6 +42,7 @@ exports[`useDeliveryMomentOptions > returns delivery moment options with package
   {
     "carrier": "postnl",
     "label": {
+      "args": undefined,
       "key": "packageTypeMailbox",
     },
     "price": 0,
@@ -55,6 +58,7 @@ exports[`useDeliveryMomentOptions > returns delivery moment options with package
   {
     "carrier": "postnl:123",
     "label": {
+      "args": undefined,
       "key": "packageTypeMailbox",
     },
     "price": 5,
@@ -75,6 +79,7 @@ exports[`useDeliveryMomentOptions > returns delivery moment options with package
   {
     "carrier": "postnl",
     "label": {
+      "args": undefined,
       "key": "deliveryStandardTitle",
     },
     "price": 3,
@@ -114,6 +119,7 @@ exports[`useDeliveryMomentOptions > returns delivery moment options with package
   {
     "carrier": "postnl:123",
     "label": {
+      "args": undefined,
       "key": "deliveryStandardTitle",
     },
     "price": 456,
@@ -158,6 +164,7 @@ exports[`useDeliveryMomentOptions > returns delivery moment options with package
   {
     "carrier": "postnl",
     "label": {
+      "args": undefined,
       "key": "deliveryStandardTitle",
     },
     "price": 6,
@@ -197,6 +204,7 @@ exports[`useDeliveryMomentOptions > returns delivery moment options with package
   {
     "carrier": "postnl:123",
     "label": {
+      "args": undefined,
       "key": "deliveryStandardTitle",
     },
     "price": 0,

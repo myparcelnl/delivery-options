@@ -11,8 +11,8 @@ const { afterEachHooks } = vi.hoisted(() => {
   return {afterEachHooks: [] as (() => void)[]};
 });
 
-vi.mock('@myparcel/sdk', async (importOriginal) => {
-  const original = await importOriginal<typeof import('@myparcel/sdk')>();
+vi.mock('@myparcel-dev/sdk', async (importOriginal) => {
+  const original = await importOriginal<typeof import('@myparcel-dev/sdk')>();
 
   return {
     ...original,

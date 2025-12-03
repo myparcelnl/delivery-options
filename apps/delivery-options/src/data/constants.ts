@@ -29,6 +29,11 @@ export const FIELD_SHIPMENT_OPTIONS = 'shipmentOptions';
  */
 export const FIELD_PICKUP_LOCATION = 'pickupLocation';
 
+/**
+ * Stores the selected carrier for pickup.
+ */
+export const FIELD_CARRIER = 'carrier';
+
 export const SHOWN_SHIPMENT_OPTIONS = Object.freeze<ShipmentOptionName[]>([
   ShipmentOptionName.Signature,
   ShipmentOptionName.OnlyRecipient,
