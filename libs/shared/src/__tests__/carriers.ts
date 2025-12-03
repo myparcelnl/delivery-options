@@ -1,5 +1,5 @@
-import {type Carrier} from '@myparcel/sdk';
-import {CarrierId, CarrierName} from '@myparcel/constants';
+import {type Carrier} from '@myparcel-dev/sdk';
+import {CarrierId, CarrierName} from '@myparcel-dev/constants';
 
 export const CARRIER_POST_NL = Object.freeze({
   id: CarrierId.PostNl,

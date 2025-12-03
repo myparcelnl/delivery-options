@@ -1,6 +1,6 @@
 import {format} from 'date-fns';
-import {type DeliveryOption} from '@myparcel/sdk';
-import {DeliveryTypeName, PackageTypeName, ShipmentOptionName} from '@myparcel/constants';
+import {type DeliveryOption} from '@myparcel-dev/sdk';
+import {DeliveryTypeName, PackageTypeName, ShipmentOptionName} from '@myparcel-dev/constants';
 import {createDeliveryTimeframe} from '../../../utils';
 import {createTimestamp} from '../../../../utils';
 import {DELIVERY_TIMEFRAME_TYPE_END, DELIVERY_TIMEFRAME_TYPE_START} from '../../../../data';

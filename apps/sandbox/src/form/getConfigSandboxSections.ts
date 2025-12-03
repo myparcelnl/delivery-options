@@ -1,4 +1,4 @@
-import {CarrierSetting, KEY_CONFIG, OptionGroup} from '@myparcel-do/shared';
+import {CarrierSetting, KEY_CONFIG, OptionGroup} from '@myparcel-dev/shared';
 import {type SandboxOptionGroup, type SettingsSection} from '../types';
 import {resolveSandboxSection} from './resolveSandboxSection';
 

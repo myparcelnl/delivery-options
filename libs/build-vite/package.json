@@ -1,5 +1,5 @@
 {
-  "name": "@myparcel-do/build-vite",
+  "name": "@myparcel-dev/build-vite",
   "version": "6.22.0",
   "private": true,
   "repository": {
@@ -30,7 +30,7 @@
     "vue-tsc": "^2.0.0"
   },
   "devDependencies": {
-    "@myparcel/ts-utils": "^1.12.0"
+    "@myparcel-dev/ts-utils": "^1.15.0"
   },
   "engines": {
     "node": ">=16"

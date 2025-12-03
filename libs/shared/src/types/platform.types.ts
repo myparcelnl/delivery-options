@@ -1,5 +1,5 @@
-import {type DeliveryOptionsParameters} from '@myparcel/sdk';
-import {type CarrierName} from '@myparcel/constants';
+import {type DeliveryOptionsParameters} from '@myparcel-dev/sdk';
+import {type CarrierName} from '@myparcel-dev/constants';
 import {
   type SubscriptionType,
   type SUPPORTED_DELIVERY_TYPES,

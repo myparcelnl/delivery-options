@@ -1,6 +1,6 @@
-import {type CarrierWithIdentifier} from '@myparcel-do/shared';
-import {isOfType} from '@myparcel/ts-utils';
-import {type Carrier} from '@myparcel/sdk';
+import {type CarrierWithIdentifier} from '@myparcel-dev/shared';
+import {isOfType} from '@myparcel-dev/ts-utils';
+import {type Carrier} from '@myparcel-dev/sdk';
 
 export const defineCarrier = (carrier: Carrier | CarrierWithIdentifier): CarrierWithIdentifier => ({
   ...carrier,

@@ -1,4 +1,4 @@
-import {type EndpointParameters, type EndpointResponse, type GetPickupLocations} from '@myparcel/sdk';
+import {type EndpointParameters, type EndpointResponse, type GetPickupLocations} from '@myparcel-dev/sdk';
 import {useSdk} from '../useSdk';
 import {type RequestHandler} from '../../types';
 import {REQUEST_KEY_PICKUP_LOCATIONS} from '../../data';

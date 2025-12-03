@@ -1,5 +1,5 @@
-import {type InternalOutput} from '@myparcel-do/shared';
-import {type CreatedForm, defineField} from '@myparcel/vue-form-builder';
+import {type InternalOutput} from '@myparcel-dev/shared';
+import {type CreatedForm, defineField} from '@myparcel-dev/vue-form-builder';
 import {useDeliveryOptionsForm} from '../../form';
 import {
   FIELD_DELIVERY_DATE,

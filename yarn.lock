@@ -799,11 +799,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@myparcel-do/build-vite@workspace:*, @myparcel-do/build-vite@workspace:libs/build-vite":
+"@myparcel-dev/build-vite@workspace:*, @myparcel-dev/build-vite@workspace:libs/build-vite":
   version: 0.0.0-use.local
-  resolution: "@myparcel-do/build-vite@workspace:libs/build-vite"
+  resolution: "@myparcel-dev/build-vite@workspace:libs/build-vite"
   dependencies:
-    "@myparcel/ts-utils": "npm:^1.12.0"
+    "@myparcel-dev/ts-utils": "npm:^1.15.0"
     "@vitejs/plugin-vue": "npm:^5.0.0"
     "@vitest/coverage-v8": "npm:^2.1.9"
     happy-dom: "npm:^14.0.0"
@@ -817,9 +817,63 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@myparcel-do/monorepo@workspace:.":
+"@myparcel-dev/constants@npm:^2.7.0":
+  version: 2.7.0
+  resolution: "@myparcel-dev/constants@npm:2.7.0"
+  dependencies:
+    "@myparcel-dev/ts-utils": "npm:^1.15.0"
+  checksum: 10c0/5a85196f9b17a8d55f039dc812ac1115c90f79172160230de17ddefead6396eb4dba0bc453d1e179ed09182172b77a947de4b12d49f51c39abc243a248c96783
+  languageName: node
+  linkType: hard
+
+"@myparcel-dev/delivery-options@workspace:*, @myparcel-dev/delivery-options@workspace:apps/delivery-options":
   version: 0.0.0-use.local
-  resolution: "@myparcel-do/monorepo@workspace:."
+  resolution: "@myparcel-dev/delivery-options@workspace:apps/delivery-options"
+  dependencies:
+    "@codecov/vite-plugin": "npm:^1.9.1"
+    "@histoire/plugin-vue": "npm:^0.17.6"
+    "@myparcel-dev/build-vite": "workspace:*"
+    "@myparcel-dev/constants": "npm:^2.7.0"
+    "@myparcel-dev/sdk": "npm:^5.0.0"
+    "@myparcel-dev/semantic-release-config": "npm:^6.0.10"
+    "@myparcel-dev/semantic-release-plugin": "workspace:*"
+    "@myparcel-dev/shared": "workspace:*"
+    "@myparcel-dev/ts-utils": "npm:^1.15.0"
+    "@myparcel-dev/vue-form-builder": "npm:^1.0.0-beta.54"
+    "@semantic-release/changelog": "npm:^6.0.3"
+    "@semantic-release/exec": "npm:^6.0.3"
+    "@semantic-release/git": "npm:^10.0.1"
+    "@semantic-release/github": "npm:^10.0.0"
+    "@testing-library/vue": "npm:^8.0.1"
+    "@types/is-ci": "npm:^3.0.0"
+    "@types/leaflet": "npm:^1.9.4"
+    "@types/semver": "npm:^7"
+    "@vue/test-utils": "npm:^2.4.0"
+    "@vueuse/core": "npm:^10.0.0"
+    ci-info: "npm:^4.0.0"
+    cssnano: "npm:^7.0.0"
+    happy-dom: "npm:^14.0.0"
+    histoire: "npm:^0.17.6"
+    leaflet: "npm:^1.9.4"
+    postcss: "npm:^8.0.0"
+    postcss-replace: "npm:2.0.1"
+    radash: "npm:^12.0.0"
+    semantic-release: "npm:^24.0.0"
+    semantic-release-monorepo: "npm:^8.0.1"
+    semver: "npm:^7.6.0"
+    tailwindcss: "npm:^3.0.0"
+    typescript: "npm:5.4.5"
+    vite: "npm:^5.3.6"
+    vite-plugin-custom-tsconfig: "npm:^1.0.0"
+    vitest: "npm:^2.1.9"
+    vue: "npm:^3.3.0"
+    vue-tsc: "npm:^2.0.0"
+  languageName: unknown
+  linkType: soft
+
+"@myparcel-dev/monorepo@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "@myparcel-dev/monorepo@workspace:."
   dependencies:
     "@myparcel-eslint/eslint-config-esnext": "npm:^1.3.0"
     "@myparcel-eslint/eslint-config-import": "npm:^1.2.0"
@@ -844,17 +898,17 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@myparcel-do/sandbox@workspace:apps/sandbox":
+"@myparcel-dev/sandbox@workspace:apps/sandbox":
   version: 0.0.0-use.local
-  resolution: "@myparcel-do/sandbox@workspace:apps/sandbox"
+  resolution: "@myparcel-dev/sandbox@workspace:apps/sandbox"
   dependencies:
-    "@myparcel-do/build-vite": "workspace:*"
-    "@myparcel-do/shared": "workspace:*"
-    "@myparcel/constants": "npm:^2.2.0"
-    "@myparcel/delivery-options": "workspace:*"
-    "@myparcel/sdk": "npm:^4.3.0"
-    "@myparcel/ts-utils": "npm:^1.12.0"
-    "@myparcel/vue-form-builder": "npm:^1.0.0-beta.1"
+    "@myparcel-dev/build-vite": "workspace:*"
+    "@myparcel-dev/constants": "npm:^2.7.0"
+    "@myparcel-dev/delivery-options": "workspace:*"
+    "@myparcel-dev/sdk": "npm:^5.0.0"
+    "@myparcel-dev/shared": "workspace:*"
+    "@myparcel-dev/ts-utils": "npm:^1.15.0"
+    "@myparcel-dev/vue-form-builder": "npm:^1.0.0-beta.54"
     "@testing-library/vue": "npm:^8.0.1"
     "@vitejs/plugin-vue": "npm:^5.0.0"
     "@vuepic/vue-datepicker": "npm:^11.0.2"
@@ -877,9 +931,37 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@myparcel-do/semantic-release-plugin@workspace:*, @myparcel-do/semantic-release-plugin@workspace:libs/semantic-release-plugin":
+"@myparcel-dev/sdk@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "@myparcel-dev/sdk@npm:5.0.0"
+  dependencies:
+    "@myparcel-dev/constants": "npm:^2.7.0"
+    "@myparcel-dev/ts-utils": "npm:^1.15.0"
+  checksum: 10c0/e7fb382eae6a689edac96e34e1483aa5a7b99353f3ea2019439cd322447b6642203251af50e9bfc327183a94c2e3d2fa9a6a2e9bcb713af3cdd6a5e79a3d8850
+  languageName: node
+  linkType: hard
+
+"@myparcel-dev/semantic-release-config@npm:^6.0.10":
+  version: 6.0.10
+  resolution: "@myparcel-dev/semantic-release-config@npm:6.0.10"
+  dependencies:
+    "@iwavesmedia/semantic-release-composer": "npm:^1.0.0"
+    "@semantic-release/changelog": "npm:^6.0.1"
+    "@semantic-release/commit-analyzer": "npm:^9.0.2"
+    "@semantic-release/exec": "npm:^6.0.3"
+    "@semantic-release/git": "npm:^10.0.1"
+    "@semantic-release/github": "npm:^8.0.4"
+    "@semantic-release/npm": "npm:^10.0.0"
+    "@semantic-release/release-notes-generator": "npm:^10.0.0"
+    conventional-changelog-conventionalcommits: "npm:^4.0.0 || ^5.0.0"
+    semantic-release: "npm:^21.0.0"
+  checksum: 10c0/6229ebd6073cce372630ea3ecd4e23f143f1d19fcb2ec1c0e0fd6bf8ce48aed05dde72124dd18aa8981fa9f0cbbe3486bc0683b15a69e413b9fe9c629062d485
+  languageName: node
+  linkType: hard
+
+"@myparcel-dev/semantic-release-plugin@workspace:*, @myparcel-dev/semantic-release-plugin@workspace:libs/semantic-release-plugin":
   version: 0.0.0-use.local
-  resolution: "@myparcel-do/semantic-release-plugin@workspace:libs/semantic-release-plugin"
+  resolution: "@myparcel-dev/semantic-release-plugin@workspace:libs/semantic-release-plugin"
   dependencies:
     "@types/node": "npm:^20.11.16"
     execa: "npm:^8.0.0"
@@ -889,17 +971,17 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@myparcel-do/shared@workspace:*, @myparcel-do/shared@workspace:libs/shared":
+"@myparcel-dev/shared@workspace:*, @myparcel-dev/shared@workspace:libs/shared":
   version: 0.0.0-use.local
-  resolution: "@myparcel-do/shared@workspace:libs/shared"
+  resolution: "@myparcel-dev/shared@workspace:libs/shared"
   dependencies:
-    "@myparcel-do/build-vite": "workspace:*"
-    "@myparcel-do/semantic-release-plugin": "workspace:*"
-    "@myparcel-do/shared": "workspace:*"
-    "@myparcel/constants": "npm:^2.2.0"
-    "@myparcel/sdk": "npm:^3.3.1"
-    "@myparcel/ts-utils": "npm:^1.12.0"
-    "@myparcel/vue-form-builder": "npm:^1.0.0-beta.1"
+    "@myparcel-dev/build-vite": "workspace:*"
+    "@myparcel-dev/constants": "npm:^2.7.0"
+    "@myparcel-dev/sdk": "npm:^5.0.0"
+    "@myparcel-dev/semantic-release-plugin": "workspace:*"
+    "@myparcel-dev/shared": "workspace:*"
+    "@myparcel-dev/ts-utils": "npm:^1.15.0"
+    "@myparcel-dev/vue-form-builder": "npm:^1.0.0-beta.54"
     "@pinia/testing": "npm:^0.1.3"
     "@testing-library/vue": "npm:^8.0.1"
     "@vitest/coverage-v8": "npm:^2.1.9"
@@ -915,6 +997,26 @@ __metadata:
     vue-tsc: "npm:^2.0.0"
   languageName: unknown
   linkType: soft
+
+"@myparcel-dev/ts-utils@npm:^1.15.0":
+  version: 1.15.0
+  resolution: "@myparcel-dev/ts-utils@npm:1.15.0"
+  checksum: 10c0/fe0178f881cf78b44217b5f2c9a8ed92f3c15a58de1a19bb86b136589f1d1b95925a0e170ccf89507c6f574913b1f207804cd1a96135d63e4e8a71a6b6931f0e
+  languageName: node
+  linkType: hard
+
+"@myparcel-dev/vue-form-builder@npm:^1.0.0-beta.54":
+  version: 1.0.0-beta.55
+  resolution: "@myparcel-dev/vue-form-builder@npm:1.0.0-beta.55"
+  dependencies:
+    "@myparcel-dev/ts-utils": "npm:^1.15.0"
+    "@vueuse/core": "npm:>= 10.1.0"
+    vue-component-type-helpers: "npm:^2.1.6"
+  peerDependencies:
+    vue: ^3
+  checksum: 10c0/08ae89a24814ed3049d622fda52e1d0901fb9c92f4efb3d051f5b7af711aea1b65cd5f9eda291cd6a3f3745630a17643ec480556aabe1cfb0ca692c6fb291018
+  languageName: node
+  linkType: hard
 
 "@myparcel-eslint/eslint-config-es6@npm:^1.3.1":
   version: 1.3.1
@@ -1086,175 +1188,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@myparcel-vfb/core@npm:^1.0.0-beta.40":
-  version: 1.0.0-beta.40
-  resolution: "@myparcel-vfb/core@npm:1.0.0-beta.40"
-  dependencies:
-    "@myparcel-vfb/hook-manager": "npm:^1.0.0-beta.12"
-    "@myparcel-vfb/utils": "npm:^1.0.0-beta.7"
-    "@myparcel/ts-utils": "npm:^1.6.0"
-  checksum: 10c0/1ad420ef1dacc23ee57e79b2e469679bca005867b002842f24005d5fd5591ee377e60f4ec752e2ed8338278c117e76a39c3a14cdcbd6e1c5a074c086e15caf6f
-  languageName: node
-  linkType: hard
-
-"@myparcel-vfb/hook-manager@npm:^1.0.0-beta.12":
-  version: 1.0.0-beta.12
-  resolution: "@myparcel-vfb/hook-manager@npm:1.0.0-beta.12"
-  dependencies:
-    "@myparcel/ts-utils": "npm:^1.6.0"
-  checksum: 10c0/304243d35037252babe534da1e99ad0a22ca57229eb11095a4551105e042f731fd35fa30f2856ff80bae958d47cadd5fffec4522192082334b46bd4317b1a8b5
-  languageName: node
-  linkType: hard
-
-"@myparcel-vfb/plugin@npm:^1.0.0-beta.40":
-  version: 1.0.0-beta.40
-  resolution: "@myparcel-vfb/plugin@npm:1.0.0-beta.40"
-  dependencies:
-    "@myparcel-vfb/core": "npm:^1.0.0-beta.40"
-    "@myparcel/ts-utils": "npm:^1.6.0"
-    "@vue/devtools-api": "npm:^6.5.0"
-  checksum: 10c0/d9250d54ad824c65e112ae5931d02464b9c307d5fd9b58eb3bdc65902b73673b7daf6a18ccfafa28470a8879e04c2c46f3c24ebf919d2567991f6ddc8febffa9
-  languageName: node
-  linkType: hard
-
-"@myparcel-vfb/utils@npm:^1.0.0-beta.7":
-  version: 1.0.0-beta.7
-  resolution: "@myparcel-vfb/utils@npm:1.0.0-beta.7"
-  dependencies:
-    "@myparcel/ts-utils": "npm:^1.6.0"
-  checksum: 10c0/6e341670c5fff98aad9ececb66e285bc20431fba290d2985fdc284cda3868c22a72de1d5b6a76fb5ce117ce3d394eed60961c09b0e03e57670ecba7b76e219de
-  languageName: node
-  linkType: hard
-
-"@myparcel/constants@npm:^2.5.0":
-  version: 2.5.0
-  resolution: "@myparcel/constants@npm:2.5.0"
-  dependencies:
-    "@myparcel/ts-utils": "npm:^1.7.0"
-  checksum: 10c0/7ec1d2331461feb5ce1e80fe40caba5ad931d54bd7508e1f2a685ae898c4b07617fe970f9c4f4e31563ae41c6b057c499e25a91ca314be8eaf20e1aeff937ab2
-  languageName: node
-  linkType: hard
-
-"@myparcel/delivery-options@workspace:*, @myparcel/delivery-options@workspace:apps/delivery-options":
-  version: 0.0.0-use.local
-  resolution: "@myparcel/delivery-options@workspace:apps/delivery-options"
-  dependencies:
-    "@codecov/vite-plugin": "npm:^1.9.1"
-    "@histoire/plugin-vue": "npm:^0.17.6"
-    "@myparcel-do/build-vite": "workspace:*"
-    "@myparcel-do/semantic-release-plugin": "workspace:*"
-    "@myparcel-do/shared": "workspace:*"
-    "@myparcel/constants": "npm:^2.2.0"
-    "@myparcel/sdk": "npm:^4.0.0"
-    "@myparcel/semantic-release-config": "npm:^5.0.0"
-    "@myparcel/ts-utils": "npm:^1.12.0"
-    "@myparcel/vue-form-builder": "npm:^1.0.0-beta.1"
-    "@semantic-release/changelog": "npm:^6.0.3"
-    "@semantic-release/exec": "npm:^6.0.3"
-    "@semantic-release/git": "npm:^10.0.1"
-    "@semantic-release/github": "npm:^10.0.0"
-    "@testing-library/vue": "npm:^8.0.1"
-    "@types/is-ci": "npm:^3.0.0"
-    "@types/leaflet": "npm:^1.9.4"
-    "@types/semver": "npm:^7"
-    "@vue/test-utils": "npm:^2.4.0"
-    "@vueuse/core": "npm:^10.0.0"
-    ci-info: "npm:^4.0.0"
-    cssnano: "npm:^7.0.0"
-    happy-dom: "npm:^14.0.0"
-    histoire: "npm:^0.17.6"
-    leaflet: "npm:^1.9.4"
-    postcss: "npm:^8.0.0"
-    postcss-replace: "npm:2.0.1"
-    radash: "npm:^12.0.0"
-    semantic-release: "npm:^24.0.0"
-    semantic-release-monorepo: "npm:^8.0.1"
-    semver: "npm:^7.6.0"
-    tailwindcss: "npm:^3.0.0"
-    typescript: "npm:5.4.5"
-    vite: "npm:^5.3.6"
-    vite-plugin-custom-tsconfig: "npm:^1.0.0"
-    vitest: "npm:^2.1.9"
-    vue: "npm:^3.3.0"
-    vue-tsc: "npm:^2.0.0"
-  languageName: unknown
-  linkType: soft
-
 "@myparcel/prettier-config@npm:>= 1":
   version: 1.1.0
   resolution: "@myparcel/prettier-config@npm:1.1.0"
   checksum: 10c0/3253c037b7cb0fc0bd622b7be579e5ff1056fdf7fce86fc0ffba614cc4cad464deebe62928890b78baa749353cd7535caece717e50809ab428e2565c7c6fd02f
-  languageName: node
-  linkType: hard
-
-"@myparcel/sdk@npm:^3.3.1":
-  version: 3.9.0
-  resolution: "@myparcel/sdk@npm:3.9.0"
-  dependencies:
-    "@myparcel/constants": "npm:^2.0.0"
-    "@myparcel/ts-utils": "npm:^1.6.0"
-  checksum: 10c0/ea5852a674ff34039fa262ba27ad8c11c6ee7899682ef5fecde6a60721b035df26c36111a6e5cdc7c59cc258e11890ce2f324fe7238ee43eeb22c95ca5ffc22b
-  languageName: node
-  linkType: hard
-
-"@myparcel/sdk@npm:^4.0.0":
-  version: 4.1.0
-  resolution: "@myparcel/sdk@npm:4.1.0"
-  dependencies:
-    "@myparcel/constants": "npm:^2.0.0"
-    "@myparcel/ts-utils": "npm:^1.6.0"
-  checksum: 10c0/17537f5de8f791a0d1eb6781df5ebed877cb91af34fb26412ff602c2aa65ed22315839d7aa3668020e1ecad5a5cfc88edd8c2a514b55034f6b4f986936e7953d
-  languageName: node
-  linkType: hard
-
-"@myparcel/sdk@npm:^4.3.0":
-  version: 4.3.0
-  resolution: "@myparcel/sdk@npm:4.3.0"
-  dependencies:
-    "@myparcel/constants": "npm:^2.0.0"
-    "@myparcel/ts-utils": "npm:^1.6.0"
-  checksum: 10c0/95c48de59461464a20a787bcbd93c1ea74aef6ec9e024d5f6f7deb772cb49708ee4d6caff8b2012bd6c25bed6eb4f95ece39bab4a57512af7c0326ebd4151416
-  languageName: node
-  linkType: hard
-
-"@myparcel/semantic-release-config@npm:^5.0.0":
-  version: 5.0.1
-  resolution: "@myparcel/semantic-release-config@npm:5.0.1"
-  dependencies:
-    "@iwavesmedia/semantic-release-composer": "npm:^1.0.0"
-    "@semantic-release/changelog": "npm:^6.0.1"
-    "@semantic-release/commit-analyzer": "npm:^9.0.2"
-    "@semantic-release/exec": "npm:^6.0.3"
-    "@semantic-release/git": "npm:^10.0.1"
-    "@semantic-release/github": "npm:^8.0.4"
-    "@semantic-release/npm": "npm:^10.0.0"
-    "@semantic-release/release-notes-generator": "npm:^10.0.0"
-    conventional-changelog-conventionalcommits: "npm:^4.0.0 || ^5.0.0"
-    semantic-release: "npm:^21.0.0"
-  checksum: 10c0/0b487504f38163167dd7c0e410ca9fee60b3d9b3004fcaf580320a2d70d5448471856b47780d022bad25fcdf9ee1d541f2e1b5101c898fe40a4485ab86cc65ef
-  languageName: node
-  linkType: hard
-
-"@myparcel/ts-utils@npm:>= 1.6.0, @myparcel/ts-utils@npm:^1.12.0, @myparcel/ts-utils@npm:^1.6.0, @myparcel/ts-utils@npm:^1.7.0":
-  version: 1.14.0
-  resolution: "@myparcel/ts-utils@npm:1.14.0"
-  checksum: 10c0/13bf9521403e9761303cde9916932e12bdd50096a678de19282899809430086071e071851f49ce58fe3a9afb0b78fd807a5e0b7aa88344c30dfdae010b061866
-  languageName: node
-  linkType: hard
-
-"@myparcel/vue-form-builder@npm:^1.0.0-beta.1":
-  version: 1.0.0-beta.42
-  resolution: "@myparcel/vue-form-builder@npm:1.0.0-beta.42"
-  dependencies:
-    "@myparcel-vfb/core": "npm:^1.0.0-beta.40"
-    "@myparcel-vfb/hook-manager": "npm:^1.0.0-beta.12"
-    "@myparcel-vfb/plugin": "npm:^1.0.0-beta.40"
-    "@myparcel-vfb/utils": "npm:^1.0.0-beta.7"
-    "@myparcel/ts-utils": "npm:>= 1.6.0"
-    "@vueuse/core": "npm:>= 10.1.0"
-  peerDependencies:
-    vue: ^3
-  checksum: 10c0/0583c6ae1f05cab51e76a2a73f6ace8804d5f2025f85a18ce307d4a72aa0d3f55b0118ba9dbdea8b34dfb6339ca2dfcc77aed4a8d7d8ac69169f8ca8b598d6eb
   languageName: node
   linkType: hard
 
@@ -14607,6 +14544,13 @@ __metadata:
   version: 2.0.26
   resolution: "vue-component-type-helpers@npm:2.0.26"
   checksum: 10c0/b028847deacc5ca22d57631e7cc6b7e626f2930d4da16c6a5303a71606caacc9cd5e7b06746e056f9607495652c5971e4d62afcaa6f131c0581b78d06f853bcf
+  languageName: node
+  linkType: hard
+
+"vue-component-type-helpers@npm:^2.1.6":
+  version: 2.2.12
+  resolution: "vue-component-type-helpers@npm:2.2.12"
+  checksum: 10c0/ce15a2cdec4a57262a292ac1565aa18da9be73f3dfbcf28758a8a541199944bfff1aefb75802d6de5d955a5529c9667f1b651c659d14815c075e8965ac05175d
   languageName: node
   linkType: hard
 

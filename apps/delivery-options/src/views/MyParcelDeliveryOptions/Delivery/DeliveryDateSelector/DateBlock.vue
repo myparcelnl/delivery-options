@@ -27,7 +27,7 @@
 <script lang="ts" setup>
 import {toRefs} from 'vue';
 import {type DateLike} from '@vueuse/core';
-import {ElementEvent, LOADER_CLASSES, NBSP} from '@myparcel-do/shared';
+import {ElementEvent, LOADER_CLASSES, NBSP} from '@myparcel-dev/shared';
 import {useDateFormat} from '../../../../composables';
 
 const props = defineProps<{date?: DateLike; active?: boolean}>();

@@ -6,7 +6,7 @@
 
 <script lang="ts" setup>
 import {computed} from 'vue';
-import {createField} from '@myparcel/vue-form-builder';
+import {createField} from '@myparcel-dev/vue-form-builder';
 import {FIELD_DELIVERY_MOMENT} from '../../../../data';
 import {useDeliveryMomentOptions} from '../../../../composables/useDeliveryMomentOptions';
 import {useResolvedDeliveryOptions, useSelectedValues} from '../../../../composables';

@@ -1,5 +1,5 @@
 import {type ComputedRef, type DeepReadonly, type Ref} from 'vue';
-import {type PromiseOr} from '@myparcel/ts-utils';
+import {type PromiseOr} from '@myparcel-dev/ts-utils';
 
 export interface StorableMap<T, K> {
   storage: Ref<Map<string, T>>;

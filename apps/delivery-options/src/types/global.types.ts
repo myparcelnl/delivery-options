@@ -1,4 +1,4 @@
-import {type InputDeliveryOptionsConfiguration, type DeliveryOptionsConfiguration} from '@myparcel-do/shared';
+import {type InputDeliveryOptionsConfiguration, type DeliveryOptionsConfiguration} from '@myparcel-dev/shared';
 
 declare global {
   export interface Window {

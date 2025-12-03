@@ -6,9 +6,9 @@ import {
   DELIVERY_DAYS_WINDOW_DEFAULT,
   DROP_OFF_DELAY_DEFAULT,
   resolveCarrierName,
-} from '@myparcel-do/shared';
-import {type EndpointParameters, type GetDeliveryOptions} from '@myparcel/sdk';
-import {PlatformName} from '@myparcel/constants';
+} from '@myparcel-dev/shared';
+import {type EndpointParameters, type GetDeliveryOptions} from '@myparcel-dev/sdk';
+import {PlatformName} from '@myparcel-dev/constants';
 import {useAddressStore, useConfigStore} from '../stores';
 import {type UseResolvedCarrier} from '../composables';
 import {calculatePackageType} from './calculatePackageType';

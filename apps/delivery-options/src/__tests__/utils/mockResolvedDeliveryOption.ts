@@ -1,5 +1,5 @@
-import {type RecursivePartial} from '@myparcel/ts-utils';
-import {CarrierName, DeliveryTypeName, PackageTypeName} from '@myparcel/constants';
+import {type RecursivePartial} from '@myparcel-dev/ts-utils';
+import {CarrierName, DeliveryTypeName, PackageTypeName} from '@myparcel-dev/constants';
 import {type SelectedDeliveryMoment} from '../../types';
 
 const DEFAULT_DELIVERY_OPTION = Object.freeze({

@@ -1,5 +1,5 @@
-import {type PickupLocation} from '@myparcel/sdk';
-import {DeliveryTypeId, DeliveryTypeName} from '@myparcel/constants';
+import {type PickupLocation} from '@myparcel-dev/sdk';
+import {DeliveryTypeId, DeliveryTypeName} from '@myparcel-dev/constants';
 
 export const fakePickupLocationsResponse = (): PickupLocation[] => [
   {

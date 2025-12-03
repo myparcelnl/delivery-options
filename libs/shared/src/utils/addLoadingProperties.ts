@@ -1,5 +1,5 @@
 import {type Ref} from 'vue';
-import {type PromiseOr} from '@myparcel/ts-utils';
+import {type PromiseOr} from '@myparcel-dev/ts-utils';
 import {addProperty} from './addProperty';
 import {addLoadingProperty} from './addLoadingProperty';
 

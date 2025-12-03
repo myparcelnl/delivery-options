@@ -25,7 +25,7 @@
 
 <script lang="ts" setup>
 import {useVModel} from '@vueuse/core';
-import {type ToggleInputEmits, type ToggleInputProps} from '@myparcel-do/shared';
+import {type ToggleInputEmits, type ToggleInputProps} from '@myparcel-dev/shared';
 
 // eslint-disable-next-line vue/no-unused-properties
 const props = defineProps<ToggleInputProps>();

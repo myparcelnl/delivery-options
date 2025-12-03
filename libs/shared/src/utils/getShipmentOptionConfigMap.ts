@@ -1,4 +1,4 @@
-import {ShipmentOptionName} from '@myparcel/constants';
+import {ShipmentOptionName} from '@myparcel-dev/constants';
 import {type SupportedShipmentOptionName} from '../types';
 import {CarrierSetting} from '../data';
 

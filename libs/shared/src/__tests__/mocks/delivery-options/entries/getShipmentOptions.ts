@@ -1,5 +1,5 @@
-import {type DeliveryPossibility} from '@myparcel/sdk';
-import {ShipmentOptionName} from '@myparcel/constants';
+import {type DeliveryPossibility} from '@myparcel-dev/sdk';
+import {ShipmentOptionName} from '@myparcel-dev/constants';
 
 export const getShipmentOptions = (required: ShipmentOptionName[] = []): DeliveryPossibility['shipment_options'] => {
   const option = (name: ShipmentOptionName): DeliveryPossibility['shipment_options'][number] => ({

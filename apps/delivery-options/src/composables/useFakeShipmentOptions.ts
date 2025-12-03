@@ -1,7 +1,7 @@
 import {toValue} from 'vue';
-import {CarrierSetting, type SupportedPackageTypeName} from '@myparcel-do/shared';
-import {type PossibleShipmentOption} from '@myparcel/sdk';
-import {ShipmentOptionName} from '@myparcel/constants';
+import {CarrierSetting, type SupportedPackageTypeName} from '@myparcel-dev/shared';
+import {type PossibleShipmentOption} from '@myparcel-dev/sdk';
+import {ShipmentOptionName} from '@myparcel-dev/constants';
 import {type UseResolvedCarrier} from './useResolvedCarrier';
 
 /**

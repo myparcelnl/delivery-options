@@ -1,5 +1,5 @@
 import {isNumber} from 'radash';
-import {isOfType} from '@myparcel/ts-utils';
+import {isOfType} from '@myparcel-dev/ts-utils';
 import {type DropOffEntryObject, type CustomValidator} from '../types';
 import {
   CarrierSetting,

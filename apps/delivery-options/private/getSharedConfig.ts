@@ -1,6 +1,6 @@
 import {fileURLToPath} from 'node:url';
 import {type UserConfig, type ConfigEnv} from 'vite';
-import {resolveAlias} from '@myparcel-do/build-vite';
+import {resolveAlias} from '@myparcel-dev/build-vite';
 import {version} from '../package.json';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types

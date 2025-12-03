@@ -15,7 +15,7 @@ import {
   type MultiDateSelectEmits,
   useElementContext,
   type WithElement,
-} from '@myparcel-do/shared';
+} from '@myparcel-dev/shared';
 import '@vuepic/vue-datepicker/dist/main.css';
 
 const props = defineProps<WithElement<MultiDateSelectProps>>();

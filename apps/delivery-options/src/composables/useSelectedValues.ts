@@ -1,4 +1,4 @@
-import type {CarrierIdentifier} from '@myparcel-do/shared';
+import type {CarrierIdentifier} from '@myparcel-dev/shared';
 import {reactive, toRefs, type Ref} from 'vue';
 import {useMemoize} from '@vueuse/core';
 import {

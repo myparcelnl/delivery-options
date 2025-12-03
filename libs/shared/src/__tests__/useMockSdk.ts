@@ -8,7 +8,7 @@ import {
   GetDeliveryOptions,
   GetPickupLocations,
   type EndpointResponse,
-} from '@myparcel/sdk';
+} from '@myparcel-dev/sdk';
 import {mockGetCarrier, mockGetCarriers, mockGetDeliveryOptions, mockGetPickupLocations} from './mocks';
 
 export type LastOptions<E extends AbstractPublicEndpoint<any> = AbstractPublicEndpoint<any>> = Readonly<{

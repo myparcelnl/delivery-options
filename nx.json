@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
-  "npmScope": "myparcel-do",
+  "npmScope": "myparcel-dev",
   "affected": {
     "defaultBase": "main"
   },

@@ -1,8 +1,8 @@
 import {describe, it, beforeEach, expect, afterEach, vi} from 'vitest';
 import {flushPromises} from '@vue/test-utils';
-import {mockGetPickupLocations, fakePickupLocationsResponse} from '@myparcel-do/shared/testing';
-import {KEY_CONFIG, ConfigSetting, CarrierSetting, KEY_CARRIER_SETTINGS} from '@myparcel-do/shared';
-import {CarrierName} from '@myparcel/constants';
+import {mockGetPickupLocations, fakePickupLocationsResponse} from '@myparcel-dev/shared/testing';
+import {KEY_CONFIG, ConfigSetting, CarrierSetting, KEY_CARRIER_SETTINGS} from '@myparcel-dev/shared';
+import {CarrierName} from '@myparcel-dev/constants';
 import {useConfigStore} from '../stores';
 import {
   mockDeliveryOptionsConfig,

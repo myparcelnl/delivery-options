@@ -17,7 +17,7 @@
 
 <script lang="ts" setup>
 import {computed} from 'vue';
-import {isOfType} from '@myparcel/ts-utils';
+import {isOfType} from '@myparcel-dev/ts-utils';
 import {type SettingsField, type SettingsGroup, type SettingsSection} from '../../types';
 import SandboxSettingsSection from './SandboxSettingsSection.vue';
 import SandboxSettingsGroup from './SandboxSettingsGroup.vue';

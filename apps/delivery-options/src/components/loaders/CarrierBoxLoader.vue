@@ -13,6 +13,6 @@
 </template>
 
 <script lang="ts" setup>
-import {Box, Loader} from '@myparcel-do/shared';
+import {Box, Loader} from '@myparcel-dev/shared';
 import {CarrierLogoLoader} from '../index';
 </script>

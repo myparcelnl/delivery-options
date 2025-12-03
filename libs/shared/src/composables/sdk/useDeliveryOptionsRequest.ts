@@ -1,10 +1,10 @@
-import type {PromiseOr} from '@myparcel/ts-utils';
+import type {PromiseOr} from '@myparcel-dev/ts-utils';
 import {
   type EndpointParameters,
   type EndpointResponse,
   type GetDeliveryOptions,
   type ApiException,
-} from '@myparcel/sdk';
+} from '@myparcel-dev/sdk';
 import {useSdk} from '../useSdk';
 import {useApiExceptions} from '../useApiExceptions';
 import {type RequestHandler, type RequestKey} from '../../types';

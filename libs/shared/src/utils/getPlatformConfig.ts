@@ -1,5 +1,5 @@
 import {useMemoize} from '@vueuse/core';
-import {PlatformName} from '@myparcel/constants';
+import {PlatformName} from '@myparcel-dev/constants';
 import {type PlatformConfiguration} from '../types';
 import {getMyParcelConfig, getSendMyParcelConfig} from '../config';
 

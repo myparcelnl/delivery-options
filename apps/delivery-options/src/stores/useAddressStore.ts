@@ -1,6 +1,6 @@
 import {type DeliveryOptionsStore} from '.';
 import {reactive} from 'vue';
-import {AddressField, type DeliveryOptionsAddress} from '@myparcel-do/shared';
+import {AddressField, type DeliveryOptionsAddress} from '@myparcel-dev/shared';
 
 const initialState = {
   [AddressField.Country]: '',

@@ -2,8 +2,8 @@
 
 // eslint-disable-next-line id-length
 import {useMemoize} from '@vueuse/core';
-import {createAssetUrl} from '@myparcel-do/shared';
-import {type Carrier} from '@myparcel/sdk';
+import {createAssetUrl} from '@myparcel-dev/shared';
+import {type Carrier} from '@myparcel-dev/sdk';
 
 const CARRIER_MARKER_TEMPLATE = `
   <div class="mp-relative mp-w-12">

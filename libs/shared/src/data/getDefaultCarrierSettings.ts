@@ -1,4 +1,4 @@
-import {isEnumValue} from '@myparcel/ts-utils';
+import {isEnumValue} from '@myparcel-dev/ts-utils';
 import {getAllConfigOptions, getDefaultValueForType} from '../utils';
 import {type CarrierSettings} from '../types';
 import {CarrierSetting} from './enums';
