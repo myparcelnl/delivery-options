@@ -160,3 +160,13 @@ export const CARRIER_TRUNKRS = Object.freeze({
     logo_png: '/skin/general-images/carrier-logos/trunkrs.png',
   },
 }) satisfies Carrier;
+
+export const CARRIER_INPOST = Object.freeze({
+  id: CarrierId.Inpost,
+  name: CarrierName.Inpost,
+  human: 'Inpost',
+  meta: {
+    logo_svg: '/skin/general-images/carrier-logos/svg/inpost.svg',
+    logo_png: '/skin/general-images/carrier-logos/inpost.png',
+  },
+}) satisfies Carrier;

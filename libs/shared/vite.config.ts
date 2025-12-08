@@ -28,7 +28,6 @@ export default createViteConfig((env) => {
 
     test: {
       setupFiles: [
-        `${dirname}/src/__tests__/mockFetch.ts`,
         `${dirname}/src/__tests__/vitest-setup.ts`,
       ],
     },
