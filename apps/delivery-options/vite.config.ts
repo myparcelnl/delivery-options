@@ -39,7 +39,10 @@ export default createViteConfig((env) => {
     },
 
     test: {
-      setupFiles: [`${dirname}/../../libs/shared/src/__tests__/vitest-setup.ts`],
+      setupFiles: [
+        `${dirname}/../../libs/shared/src/__tests__/mockFetch.ts`,
+        `${dirname}/../../libs/shared/src/__tests__/vitest-setup.ts`,
+      ],
     },
 
     ...getSharedConfig(env),

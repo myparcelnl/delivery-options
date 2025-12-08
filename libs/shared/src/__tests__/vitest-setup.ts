@@ -11,6 +11,8 @@ const { afterEachHooks } = vi.hoisted(() => {
   return {afterEachHooks: [] as (() => void)[]};
 });
 
+// SDK fetch calls are now intercepted by mockFetch.ts which is loaded first
+// But we still need to track FetchClient config for tests
 vi.mock('@myparcel-dev/sdk', async (importOriginal) => {
   const original = await importOriginal<typeof import('@myparcel-dev/sdk')>();
 
@@ -19,16 +21,8 @@ vi.mock('@myparcel-dev/sdk', async (importOriginal) => {
     FetchClient: class FetchClient extends original.FetchClient {
       constructor(config?: ClientConfig) {
         super(config);
-
         const {clientConfig} = useMockSdk();
-
         clientConfig.value = config;
-      }
-
-      public doRequest<E extends AbstractPublicEndpoint<any>>(endpoint: E, options: Options<E>): Promise<EndpointResponse<E>> {
-        const {doRequest} = useMockSdk();
-
-        return doRequest(endpoint, options);
       }
     },
   };
