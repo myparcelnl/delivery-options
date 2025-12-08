@@ -19,7 +19,7 @@ global.fetch = fetchMock.mockImplementation(async (url: string | URL) => {
     // Single carrier
     const carrierId = urlString.match(/\/carriers\/(\d+)/)?.[1];
     const endpoint = new GetCarrier(Number(carrierId));
-    mockResponse = await mockGetCarrier(endpoint, {});
+    mockResponse = await mockGetCarrier(endpoint, {path: {carrier: Number(carrierId)}});
   } else if (urlString.includes('/carriers')) {
     // All carriers
     const endpoint = new GetCarriers();
