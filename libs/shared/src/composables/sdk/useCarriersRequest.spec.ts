@@ -19,6 +19,9 @@ describe('useCarriersRequest', () => {
     expect(result).toHaveLength(amountOfCarriers);
 
     result?.forEach((carrier) => {
+      if (typeof carrier.id !== 'number') {
+        console.error('INVALID CARRIER:', JSON.stringify(carrier, null, 2));
+      }
       expect(carrier.id).toBeTypeOf('number');
       expect(carrier.name).toBeTypeOf('string');
       expect(carrier.human).toBeTypeOf('string');

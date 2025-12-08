@@ -1,5 +1,5 @@
 import {defineComponent, h} from 'vue';
-import {describe, it, expect} from 'vitest';
+import {describe, it, expect, vi} from 'vitest';
 import {flushPromises} from '@vue/test-utils';
 import {render} from '@testing-library/vue';
 import {useLoadMore} from '@myparcel-dev/shared';
@@ -91,6 +91,8 @@ describe('useLoadMore', () => {
     );
 
     await flushPromises();
+    // Wait for items to load
+    await vi.waitUntil(() => component.getAllByRole('item').length > 1);
 
     const spans = component.getAllByRole('item').map((span) => span.textContent);
 

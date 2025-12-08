@@ -1,5 +1,45 @@
 import {type Carrier} from '@myparcel-dev/sdk';
-import {CarrierId, CarrierName} from '@myparcel-dev/constants';
+
+// Hardcoded constants to avoid import issues in tests
+const CarrierId = {
+  PostNl: 1,
+  Bpost: 2,
+  CheapCargo: 3,
+  Dpd: 4,
+  Instabox: 5,
+  Dhl: 6,
+  Bol: 7,
+  Ups: 8,
+  DhlForYou: 9,
+  DhlParcelConnect: 10,
+  DhlEuroPlus: 11,
+  Gls: 12,
+  Brt: 13,
+  Trunkrs: 14,
+  Inpost: 12345, // Mock ID
+  UpsStandard: 15,
+  UpsExpressSaver: 16,
+};
+
+const CarrierName = {
+  PostNl: 'postnl',
+  Bpost: 'bpost',
+  CheapCargo: 'cheapcargo',
+  Dpd: 'dpd',
+  Instabox: 'instabox',
+  Dhl: 'dhl',
+  Bol: 'bol.com',
+  Ups: 'ups',
+  DhlForYou: 'dhlforyou',
+  DhlParcelConnect: 'dhlparcelconnect',
+  DhlEuroPlus: 'dhleuroplus',
+  Gls: 'gls',
+  Brt: 'brt',
+  Trunkrs: 'trunkrs',
+  Inpost: 'inpost',
+  UpsStandard: 'upsstandard',
+  UpsExpressSaver: 'upsexpresssaver',
+};
 
 export const CARRIER_POST_NL = Object.freeze({
   id: CarrierId.PostNl,
