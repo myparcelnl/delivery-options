@@ -69,12 +69,13 @@ watch(
     // Get the currently selected carrier (if any)
     const currentSelection = deliveryMoment.value ? parseJson<SelectedDeliveryMoment>(deliveryMoment.value) : null;
     const currentCarrier = currentSelection?.carrier;
+    const currentDeliveryType = currentSelection?.deliveryType;
 
-    // If we have a previously selected carrier, try to find a standard delivery option for that carrier
+    // If we have a previously selected carrier, try to find the delivery option for that carrier
     if (currentCarrier) {
       selectedOption = resolvedOptions.find((option) => {
         const parsed = parseJson<SelectedDeliveryMoment>(option.value);
-        return parsed.carrier === currentCarrier && parsed.deliveryType === DeliveryTypeName.Standard;
+        return parsed.carrier === currentCarrier && parsed.deliveryType === currentDeliveryType;
       });
     }
 
