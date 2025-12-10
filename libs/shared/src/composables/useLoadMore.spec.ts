@@ -4,7 +4,7 @@ import {flushPromises} from '@vue/test-utils';
 import {render} from '@testing-library/vue';
 import {useLoadMore} from './useLoadMore';
 
-describe.skip('useLoadMore', () => {
+describe('useLoadMore', () => {
   it('shows an initial set of items', () => {
     const {items} = useLoadMore({
       items: ['a', 'b', 'c'],
