@@ -33,7 +33,6 @@
   "dependencies": {
     "@myparcel-dev/constants": "^2.7.0",
     "@myparcel-dev/sdk": "^5.0.0",
-    "@myparcel-dev/shared": "workspace:*",
     "@myparcel-dev/ts-utils": "^1.15.0",
     "@myparcel-dev/vue-form-builder": "^1.0.0-beta.54",
     "@vueuse/core": "^10.6.0",
