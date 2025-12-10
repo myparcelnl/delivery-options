@@ -12,6 +12,9 @@ jobs:
 
       - uses: myparcelnl/actions/yarn-install@v4
 
+      - name: Build packages
+        run: yarn build
+
       - name: Run tests
         run: yarn test:coverage
 

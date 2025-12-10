@@ -2,7 +2,7 @@ import {defineComponent, h} from 'vue';
 import {describe, it, expect, vi} from 'vitest';
 import {flushPromises} from '@vue/test-utils';
 import {render} from '@testing-library/vue';
-import {useLoadMore} from '@myparcel-dev/shared';
+import {useLoadMore} from './useLoadMore';
 
 describe.skip('useLoadMore', () => {
   it('shows an initial set of items', () => {
