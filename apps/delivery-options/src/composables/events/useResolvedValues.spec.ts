@@ -126,6 +126,9 @@ describe('useResolvedValues', () => {
       internal: createInternalOutput({
         [FIELD_HOME_OR_PICKUP]: HOME_OR_PICKUP_PICKUP,
         [FIELD_PICKUP_LOCATION]: '176688',
+        deliveryMoment: {
+          carrier: CarrierName.PostNl,
+        },
       }),
 
       external: createExternalOutput({

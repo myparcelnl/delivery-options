@@ -4,14 +4,13 @@ import {generateFieldId} from './generateFieldId';
 
 describe('generateFieldId', () => {
   it('generates a field id', () => {
-    const element = defineField({
+    const element = {
       name: 'test',
-      component: 'input',
-    });
+      form: {
+        name: 'form',
+      },
+    } as unknown as InteractiveElementInstance;
 
-    const form = defineForm('form', {fields: [element]});
-    const field = form.getField<InteractiveElementInstance>('test');
-
-    expect(generateFieldId(field)).toBe('form--test');
+    expect(generateFieldId(element)).toBe('form--test');
   });
 });

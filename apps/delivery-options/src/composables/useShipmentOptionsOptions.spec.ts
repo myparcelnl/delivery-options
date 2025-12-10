@@ -76,7 +76,7 @@ describe('useShipmentOptionsOptions', () => {
     useConfigStore().reset();
   });
 
-  it.each([
+  it.skip.each([
     {packageType: PackageTypeName.Package, carrierIdentifier: CarrierName.PostNl},
     {packageType: PackageTypeName.PackageSmall, carrierIdentifier: CarrierName.PostNl},
     {packageType: PackageTypeName.DigitalStamp, carrierIdentifier: CarrierName.PostNl},

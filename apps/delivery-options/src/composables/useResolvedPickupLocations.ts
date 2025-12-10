@@ -1,5 +1,5 @@
-import {ref, toValue, onUnmounted, computed, type ComputedRef} from 'vue';
-import {useMemoize, watchImmediate} from '@vueuse/core';
+import {ref, toValue, onUnmounted, computed, type ComputedRef, watch} from 'vue';
+import {useMemoize} from '@vueuse/core';
 import {
   PickupLocationType,
   usePickupLocationsRequest,
@@ -94,37 +94,51 @@ const callback = (): UseResolvedPickupLocations => {
   const allLocations = ref<ResolvedPickupLocation[]>([]);
   const {state: config} = useConfigStore();
 
-  const carriersWithPickup = computed(() =>
-    toValue(carriers).filter((carrier) => getHasPickupForPackage(carrier, config.packageType)),
+  const carriersWithPickup = computed(() => {
+    const list = toValue(carriers);
+    const filtered = list.filter((carrier) => getHasPickupForPackage(carrier, config.packageType));
+    return filtered;
+  });
+
+  const currentLocations = computedAsync<ResolvedPickupLocation[]>(
+    async () => {
+      const carriersList = toValue(carriersWithPickup);
+      const requests = carriersList
+        // When using latLng, only load more locations for carriers that allow it
+        .filter((carrier) => {
+          if (!toValue(latLng)) {
+            return true;
+          }
+
+          return toValue(carrier.features).has(ConfigSetting.PickupMapAllowLoadMore);
+        })
+        .map((carrier) => loadPickupLocations(carrier, latLng.value));
+
+      const foundLocations = await Promise.all(requests);
+
+      return foundLocations.flat(1);
+    },
+    undefined,
   );
-
-  const currentLocations = computedAsync<ResolvedPickupLocation[]>(async () => {
-    const requests = toValue(carriersWithPickup)
-      // When using latLng, only load more locations for carriers that allow it
-      .filter((carrier) => {
-        if (!toValue(latLng)) {
-          return true;
-        }
-
-        return toValue(carrier.features).has(ConfigSetting.PickupMapAllowLoadMore);
-      })
-      .map((carrier) => loadPickupLocations(carrier, latLng.value));
-
-    const foundLocations = await Promise.all(requests);
-
-    return foundLocations.flat(1);
-  }, []);
 
   /**
    * Add new locations to the list of all locations.
    */
-  const unwatchLocations = watchImmediate(currentLocations, (newLocations) => {
-    const duplicatesFiltered = allLocations.value.filter((location) => {
-      return !newLocations.some((newLocation) => location.locationCode === newLocation.locationCode);
-    });
+  const unwatchLocations = watch(
+    currentLocations,
+    (newLocations) => {
+      if (!newLocations || !Array.isArray(newLocations)) {
+        return;
+      }
 
-    allLocations.value = [...duplicatesFiltered, ...newLocations];
-  });
+      const duplicatesFiltered = allLocations.value.filter((location) => {
+        return !newLocations.some((newLocation) => location.locationCode === newLocation.locationCode);
+      });
+
+      allLocations.value = [...duplicatesFiltered, ...newLocations];
+    },
+    {immediate: true, deep: true},
+  );
 
   const locations = addLoadingProperties(
     computed(() => {
@@ -140,14 +154,33 @@ const callback = (): UseResolvedPickupLocations => {
         ? base.filter((location) => location.type !== PickupLocationType.Locker)
         : base;
     }),
-    currentLocations.load,
+    async () => {
+      await currentLocations.load();
+      // Manually trigger watcher after load
+      const newLocations = currentLocations.value;
+      if (newLocations && Array.isArray(newLocations)) {
+        const duplicatesFiltered = allLocations.value.filter((location) => {
+          return !newLocations.some((newLocation) => location.locationCode === newLocation.locationCode);
+        });
+        allLocations.value = [...duplicatesFiltered, ...newLocations];
+      }
+    },
     currentLocations.loading,
   );
 
   const loadMoreLocations = async (latitude: number, longitude: number): Promise<void> => {
     latLng.value = [latitude, longitude];
 
-    return watchUntil(locations.loading, {condition: (loading) => !loading});
+    await watchUntil(locations.loading, {condition: (loading) => !loading});
+
+    // Manually add new locations after loading
+    const newLocations = currentLocations.value;
+    if (newLocations && Array.isArray(newLocations)) {
+      const duplicatesFiltered = allLocations.value.filter((location) => {
+        return !newLocations.some((newLocation) => location.locationCode === newLocation.locationCode);
+      });
+      allLocations.value = [...duplicatesFiltered, ...newLocations];
+    }
   };
 
   onUnmounted(unwatchLocations);

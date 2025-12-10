@@ -56,6 +56,9 @@ global.fetch = vi.fn(async (url: string | URL, options: RequestInit) => {
     }
 
     // Return proper JSON response
+    if (urlString.includes('pickup_locations')) {
+       console.log('PICKUP MOCK RES LEN:', Array.isArray(mockResponse) ? mockResponse.length : 'NOT_ARRAY');
+    }
     return new Response(JSON.stringify(mockResponse), {
       status: 200,
       headers: {'Content-Type': 'application/json'},
@@ -97,6 +100,11 @@ vi.mock('@vueuse/core', async (importOriginal) => {
       afterEachHooks.push(() => useMemoizeReturn.clear());
 
       return useMemoizeReturn;
+    }),
+    useIntersectionObserver: vi.fn((target, callback: any) => {
+      // Trigger immediately to simulate visibility
+      callback([{isIntersecting: true}]);
+      return {stop: vi.fn()};
     }),
   };
 });

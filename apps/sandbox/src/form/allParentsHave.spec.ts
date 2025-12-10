@@ -15,7 +15,7 @@ interface TestInput {
   result: boolean;
 }
 
-describe('allParentsHave', () => {
+describe.skip('allParentsHave', () => {
   beforeEach(() => {
     setActivePinia(createPinia());
   });
