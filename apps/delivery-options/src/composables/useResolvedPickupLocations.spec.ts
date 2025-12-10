@@ -101,6 +101,41 @@ describe('useResolvedPickupLocations', () => {
     expect(mockGetPickupLocations).toHaveBeenCalledTimes(3);
   });
 
+  it('has access to loadMoreLocations function', async () => {
+    await load();
+
+    const {loadMoreLocations} = useResolvedPickupLocations();
+
+    expect(loadMoreLocations).toBeTypeOf('function');
+  });
+
+  it('filters out carriers without pickup support', async () => {
+    await load();
+
+    const {carriersWithPickup} = useResolvedPickupLocations();
+
+    // DHL and DPD have AllowPickupLocations set to false in the config
+    expect(carriersWithPickup.value.length).toBeLessThan(3);
+    expect(carriersWithPickup.value.every((carrier) => carrier.carrier.value.identifier !== CarrierName.Dpd)).toBe(true);
+  });
+
+  it('formats pickup locations correctly', async () => {
+    mockGetPickupLocations.mockReturnValue(fakePickupLocationsResponse());
+    await load();
+
+    const {locations} = useResolvedPickupLocations();
+
+    expect(locations.value.length).toBeGreaterThan(0);
+    locations.value.forEach((location) => {
+      expect(location).toHaveProperty('carrier');
+      expect(location).toHaveProperty('type');
+      expect(location).toHaveProperty('distance');
+      expect(location).toHaveProperty('locationCode');
+      expect(location).toHaveProperty('locationName');
+      expect(location).toHaveProperty('openingHours');
+    });
+  });
+
   it('can reset pickup locations array', async () => {
     await load();
 
