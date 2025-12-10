@@ -86,8 +86,7 @@
           "build:dev",
           "lint",
           "lint:fix",
-          "test:run",
-          "test:coverage"
+          "test:run"
         ],
         "parallel": 10
       }

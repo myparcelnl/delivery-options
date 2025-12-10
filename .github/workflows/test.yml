@@ -12,9 +12,8 @@ jobs:
 
       - uses: myparcelnl/actions/yarn-install@v4
 
-      - uses: myparcelnl/actions/nx-run-many@v4
-        with:
-          target: 'test:coverage'
+      - name: Run tests
+        run: yarn test:coverage
 
       - uses: codecov/codecov-action@v4
         with:
