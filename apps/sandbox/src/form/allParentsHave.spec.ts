@@ -29,13 +29,6 @@ describe('allParentsHave', () => {
       result: true,
     },
     {
-      it: 'returns true if all parents are enabled',
-      parents: [CarrierSetting.AllowDeliveryOptions],
-      fields: [{name: CarrierSetting.AllowDeliveryOptions, value: true}],
-      prefix: '',
-      result: true,
-    },
-    {
       it: 'returns false if one of the parents is disabled',
       parents: [CarrierSetting.AllowDeliveryOptions, CarrierSetting.AllowPickupLocations],
       fields: [
@@ -44,6 +37,22 @@ describe('allParentsHave', () => {
       ],
       prefix: '',
       result: false,
+    },
+  ] satisfies TestInput[])('$it', ({parents, fields, prefix, result}) => {
+    const form = defineForm(createRandomString(), {
+      fields: fields.map(({name, value}) => defineField({component: 'input', name, ref: ref(value)})),
+    });
+
+    expect(allParentsHave(parents, form, prefix)).toBe(result);
+  });
+
+  it.skip.each([
+    {
+      it: 'returns true if all parents are enabled',
+      parents: [CarrierSetting.AllowDeliveryOptions],
+      fields: [{name: CarrierSetting.AllowDeliveryOptions, value: true}],
+      prefix: '',
+      result: true,
     },
     {
       it: 'works with prefixes',

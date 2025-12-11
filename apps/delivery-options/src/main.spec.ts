@@ -14,11 +14,33 @@ import {CarrierName} from '@myparcel-dev/constants';
 import {RENDER_DELIVERY_OPTIONS, UPDATE_DELIVERY_OPTIONS} from './data';
 import {createDiv, dispatchEvent, getMockDeliveryOptionsConfiguration} from './__tests__';
 
+vi.mock('./views/MyParcelDeliveryOptions/DeliveryOptionsForm/DeliveryOptionsForm.vue', () => ({
+  default: {template: '<div />'},
+}));
+
 describe('main', () => {
   const unmountSpy: MockInstance = vi.fn();
   const mountSpy: MockInstance = vi.fn();
+  const listeners: Array<{type: string; listener: EventListenerOrEventListenerObject}> = [];
+
+  const originalAddEventListener = document.addEventListener;
+  const originalRemoveEventListener = document.removeEventListener;
 
   beforeEach(async () => {
+    // Spy on document.addEventListener to track listeners
+    document.addEventListener = (type, listener, options) => {
+      listeners.push({type, listener});
+      return originalAddEventListener.call(document, type, listener, options);
+    };
+
+    document.removeEventListener = (type, listener, options) => {
+      const index = listeners.findIndex((l) => l.type === type && l.listener === listener);
+      if (index !== -1) {
+        listeners.splice(index, 1);
+      }
+      return originalRemoveEventListener.call(document, type, listener, options);
+    };
+
     document.body.innerHTML = '';
 
     await import('./main');
@@ -28,6 +50,16 @@ describe('main', () => {
   });
 
   afterEach(async () => {
+    // Remove all tracked listeners
+    listeners.forEach(({type, listener}) => {
+      originalRemoveEventListener.call(document, type, listener);
+    });
+    listeners.length = 0;
+
+    // Restore original methods
+    document.addEventListener = originalAddEventListener;
+    document.removeEventListener = originalRemoveEventListener;
+
     const apps = document.querySelectorAll('[data-v-app]');
     
     // Unmount synchronously first
@@ -83,6 +115,8 @@ describe('main', () => {
       }),
     );
 
+    await flushPromises();
+
     expect(global.window.MyParcelConfig).toBeDefined();
     expect(Object.keys(global.window.MyParcelConfig)).toEqual([KEY_ADDRESS, KEY_CONFIG, KEY_STRINGS]);
   });
@@ -102,6 +136,8 @@ describe('main', () => {
     });
     mockConfig.config.packageType = PACKAGE_TYPE_SMALL;
     await dispatchEvent(UPDATE_DELIVERY_OPTIONS, mockConfig);
+
+    await flushPromises();
 
     expect(global.window.MyParcelConfig).toBeDefined();
     expect(Object.keys(global.window.MyParcelConfig)).toEqual([KEY_ADDRESS, KEY_CONFIG, KEY_STRINGS]);
@@ -128,6 +164,8 @@ describe('main', () => {
       },
     });
     await dispatchEvent(UPDATE_DELIVERY_OPTIONS, mockConfig);
+
+    await flushPromises();
 
     expect(global.window.MyParcelConfig).toBeDefined();
     expect(Object.keys(global.window.MyParcelConfig)).toEqual([

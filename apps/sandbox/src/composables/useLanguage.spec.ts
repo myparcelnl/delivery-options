@@ -11,13 +11,13 @@ describe('useLanguage', () => {
     const mockTranslations = {
       fr: {
         mailbox: 'Boîte aux lettres',
-        string_addressField: 'Adresse',
-        string_addressField_description: 'Adresse description',
+        d_o_addressField: 'Adresse',
+        d_o_addressField_description: 'Adresse description',
       },
       en: {
         mailbox: 'Mailbox',
-        string_addressField: 'Address',
-        string_addressField_description: 'Address description',
+        d_o_addressField: 'Address',
+        d_o_addressField_description: 'Address description',
       },
     };
 
@@ -101,11 +101,13 @@ describe('useLanguage', () => {
     await setLanguage('en');
     expect(strings.value).toEqual({
       addressField: 'Address',
+      addressFieldDescription: 'Address description',
     });
 
     await setLanguage('fr');
     expect(strings.value).toEqual({
       addressField: 'Adresse',
+      addressFieldDescription: 'Adresse description',
     });
   });
 });
