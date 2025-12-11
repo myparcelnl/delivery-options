@@ -30,6 +30,7 @@ describe('MyParcelDeliveryOptions.vue', () => {
     vi.restoreAllMocks();
   });
 
+  // Skipped: logger.error is only called in DEV mode, test runs in test mode
   it.skip('does nothing and logs error if no config is passed', () => {
     const instance = renderDeliveryOptions();
 
@@ -37,7 +38,7 @@ describe('MyParcelDeliveryOptions.vue', () => {
     expect(instance.container.children[0].children).toHaveLength(0);
   });
 
-  it.skip('boots if config is passed via prop', () => {
+  it('boots if config is passed via prop', () => {
     const config = getMockDeliveryOptionsConfiguration({
       [KEY_CONFIG]: {
         [KEY_CARRIER_SETTINGS]: {

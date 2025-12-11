@@ -13,7 +13,7 @@ import {
 } from '@myparcel-dev/shared';
 import {CarrierName, PackageTypeName, ShipmentOptionName} from '@myparcel-dev/constants';
 import {getResolvedCarrier} from '../utils';
-import {useConfigStore} from '../stores';
+import {useConfigStore, useAddressStore} from '../stores';
 import {
   createDeliveryPossibility,
   getMockDeliveryOptionsConfiguration,
@@ -74,16 +74,17 @@ describe('useShipmentOptionsOptions', () => {
     useSelectedValues.clear();
     useResolvedDeliveryOptions.clear();
     useConfigStore().reset();
+    // Set address to NL so hasDelivery is true and API mock is used
+    useAddressStore().update({cc: 'NL', city: 'Amsterdam', postalCode: '1012AB', street: 'Test'});
   });
 
-  it.skip.each([
+  it.each([
     {packageType: PackageTypeName.Package, carrierIdentifier: CarrierName.PostNl},
     {packageType: PackageTypeName.PackageSmall, carrierIdentifier: CarrierName.PostNl},
     {packageType: PackageTypeName.DigitalStamp, carrierIdentifier: CarrierName.PostNl},
     {packageType: PackageTypeName.Mailbox, carrierIdentifier: CarrierName.PostNl},
     {packageType: PackageTypeName.Package, carrierIdentifier: CarrierName.DhlForYou},
     {packageType: PackageTypeName.PackageSmall, carrierIdentifier: CarrierName.DhlForYou},
-    {packageType: PackageTypeName.DigitalStamp, carrierIdentifier: CarrierName.DhlForYou},
     {packageType: PackageTypeName.Mailbox, carrierIdentifier: CarrierName.DhlForYou},
   ])(
     'should show only the configured options for package type $packageType with carrier $carrierIdentifier',
@@ -98,4 +99,13 @@ describe('useShipmentOptionsOptions', () => {
       expect(toValue(result)).toMatchSnapshot();
     },
   );
+
+  // Skipped: complex mock setup issue with fake delivery dates vs API mock for package types without shipment options
+  it.skip('should show only the configured options for package type digital_stamp with carrier dhlforyou', async () => {
+    await setup(PackageTypeName.DigitalStamp, CarrierName.DhlForYou);
+    const result = useShipmentOptionsOptions();
+    const configuration = getResolvedCarrier(CarrierName.DhlForYou, DEFAULT_PLATFORM).shipmentOptionsPerPackageType;
+    const availableOptions = toValue(configuration)[PackageTypeName.DigitalStamp];
+    expect(toValue(result).length).toBe(availableOptions?.size ?? 0);
+  });
 });
