@@ -159,12 +159,7 @@ describe('useDeliveryOptionsOutgoingEvents', () => {
     expect(dispatchEventSpy).not.toHaveBeenCalled();
   });
 
-  it.skip('should dispatch an error event when a new exception is received', async () => {
-    // TODO: This test is skipped because the error event watcher doesn't trigger in SDK 5.0.0
-    // The watch(() => exceptions.value.length) in useDeliveryOptionsOutgoingEvents doesn't fire
-    // when exceptions are added via useApiExceptions().addException()
-    // This is a REGRESSION - plugin developers rely on ERROR_DELIVERY_OPTIONS events
-    // Need to investigate if this is a Vue reactivity issue or SDK 5 architectural change
+  it('should dispatch an error event when a new exception is received', async () => {
     expect.assertions(5);
 
     await renderComponent();
