@@ -1,5 +1,5 @@
 <template>
-  <Form.Component>
+  <Form.Component v-if="ready">
     <HomeOrPickup.Component>
       <template #input="{option}">
         <span>
@@ -33,7 +33,7 @@
 </template>
 
 <script lang="ts" setup>
-import {computed, toValue} from 'vue';
+import {computed, ref, toValue} from 'vue';
 import {
   DELIVERY_TITLE,
   PICKUP_TITLE,
@@ -60,7 +60,11 @@ import {
 import {CaretRightIcon, RadioGroupInput} from '../../../components';
 import {getHasPickupForPackage} from '../../../utils/getHasPickupForPackage';
 
-await waitForRequestData(useCarriersRequest);
+const ready = ref(false);
+
+waitForRequestData(useCarriersRequest).then(() => {
+  ready.value = true;
+});
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const Form = useDeliveryOptionsForm();

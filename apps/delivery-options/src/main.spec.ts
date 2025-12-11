@@ -14,10 +14,6 @@ import {CarrierName} from '@myparcel-dev/constants';
 import {RENDER_DELIVERY_OPTIONS, UPDATE_DELIVERY_OPTIONS} from './data';
 import {createDiv, dispatchEvent, getMockDeliveryOptionsConfiguration} from './__tests__';
 
-vi.mock('./views/MyParcelDeliveryOptions/DeliveryOptionsForm/DeliveryOptionsForm.vue', () => ({
-  default: {template: '<div />'},
-}));
-
 describe('main', () => {
   const unmountSpy: MockInstance = vi.fn();
   const mountSpy: MockInstance = vi.fn();
