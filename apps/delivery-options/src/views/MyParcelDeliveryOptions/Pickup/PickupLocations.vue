@@ -63,10 +63,28 @@ onUnmounted(
         return;
       }
 
-      const [firstLocation] = value;
+      // Try to preserve the previously selected pickup location
+      const previousLocationCode = selectedPickupLocation.value;
+      const previousCarrier = carrier.value;
 
-      selectedPickupLocation.value = firstLocation.locationCode;
-      carrier.value = firstLocation.carrier;
+      // First, try to find the exact same location (locationCode + carrier)
+      let locationToSelect = value.find(
+        (location) => location.locationCode === previousLocationCode && location.carrier === previousCarrier,
+      );
+
+      // If the exact location is not available, but we had a previously selected carrier,
+      // try to find the first location for that carrier
+      if (!locationToSelect && previousCarrier) {
+        locationToSelect = value.find((location) => location.carrier === previousCarrier);
+      }
+
+      // Final fallback: use the first location in the list
+      if (!locationToSelect) {
+        locationToSelect = value[0];
+      }
+
+      selectedPickupLocation.value = locationToSelect.locationCode;
+      carrier.value = locationToSelect.carrier;
     },
     {immediate, deep: true},
   ),
