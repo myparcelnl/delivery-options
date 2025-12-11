@@ -1,11 +1,23 @@
 import {afterEach, beforeEach, describe, expect, it, type MockInstance, vi} from 'vitest';
 import {createPinia} from 'pinia';
 import {render, type RenderOptions, type RenderResult} from '@testing-library/vue';
-import {CarrierSetting, KEY_CARRIER_SETTINGS, KEY_CONFIG} from '@myparcel-dev/shared';
+import {CarrierSetting, KEY_CARRIER_SETTINGS, KEY_CONFIG, useLogger} from '@myparcel-dev/shared';
 import {createMyParcelFormBuilderPlugin} from '@myparcel-dev/vue-form-builder';
 import {CarrierName} from '@myparcel-dev/constants';
 import {getMockDeliveryOptionsConfiguration} from '../../__tests__';
 import MyParcelDeliveryOptions from './MyParcelDeliveryOptions.vue';
+
+vi.mock('@myparcel-dev/shared', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('@myparcel-dev/shared')>();
+  return {
+    ...actual,
+    useLogger: vi.fn(() => ({
+      error: vi.fn(),
+      debug: vi.fn(),
+      deprecated: vi.fn(),
+    })),
+  };
+});
 
 const renderDeliveryOptions = (options?: Partial<RenderOptions>): RenderResult => {
   return render(MyParcelDeliveryOptions, {
@@ -30,8 +42,10 @@ describe('MyParcelDeliveryOptions.vue', () => {
     vi.restoreAllMocks();
   });
 
-  // Skipped: logger.error is only called in DEV mode, test runs in test mode
-  it.skip('does nothing and logs error if no config is passed', () => {
+  it('does nothing and logs error if no config is passed', () => {
+    const errorSpy = vi.fn();
+    vi.mocked(useLogger).mockReturnValue({error: errorSpy, debug: vi.fn(), deprecated: vi.fn()} as any);
+
     const instance = renderDeliveryOptions();
 
     expect(errorSpy).toHaveBeenCalled();

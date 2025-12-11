@@ -13,8 +13,19 @@ import {
   type InputDeliveryOptionsConfig,
   DROP_OFF_WEEKDAY,
   type DropOffEntryObject,
+  useLogger,
 } from '@myparcel-dev/shared';
 import {handleDeprecatedOptions} from './handleDeprecatedOptions';
+
+vi.mock('@myparcel-dev/shared', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('@myparcel-dev/shared')>();
+  return {
+    ...actual,
+    useLogger: vi.fn(() => ({
+      deprecated: vi.fn(),
+    })),
+  };
+});
 
 describe('handleDeprecatedOptions', () => {
 
@@ -50,17 +61,17 @@ describe('handleDeprecatedOptions', () => {
       },
     );
 
-    // Skipped: logger.deprecated calls console.warn only if logLevel >= Warning, default is Off in test mode
-    it.skip(`warns if only ${CarrierSetting.AllowDeliveryOptions} is passed`, () => {
-      const warnSpy = vi.spyOn(console, 'warn');
+    it(`warns if only ${CarrierSetting.AllowDeliveryOptions} is passed`, () => {
+      const deprecatedSpy = vi.fn();
+      vi.mocked(useLogger).mockReturnValue({deprecated: deprecatedSpy} as any);
+
       const config = {
         [CarrierSetting.AllowDeliveryOptions]: true,
       } satisfies InputDeliveryOptionsConfig;
 
       handleDeprecatedOptions(config);
 
-      expect(warnSpy).toHaveBeenCalled();
-      warnSpy.mockRestore();
+      expect(deprecatedSpy).toHaveBeenCalled();
     });
   });
 
