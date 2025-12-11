@@ -160,11 +160,18 @@ describe('useDeliveryOptionsOutgoingEvents', () => {
   });
 
   it.skip('should dispatch an error event when a new exception is received', async () => {
-    expect.assertions(4);
+    // TODO: This test is skipped because the error event watcher doesn't trigger in SDK 5.0.0
+    // The watch(() => exceptions.value.length) in useDeliveryOptionsOutgoingEvents doesn't fire
+    // when exceptions are added via useApiExceptions().addException()
+    // This is a REGRESSION - plugin developers rely on ERROR_DELIVERY_OPTIONS events
+    // Need to investigate if this is a Vue reactivity issue or SDK 5 architectural change
+    expect.assertions(5);
 
     await renderComponent();
+    await flushPromises();
 
-    // Use the same helper as in shared tests to create an ApiException
+    dispatchEventSpy.mockClear();
+
     const createException = (code = 123, message = 'Test error') =>
       new ApiException({
         message,
@@ -172,16 +179,21 @@ describe('useDeliveryOptionsOutgoingEvents', () => {
         errors: [{code, message}],
       });
 
-    // Add an exception to the store
     const {addException} = useApiExceptions();
     const exception = createException();
     addException(['test'], exception);
-    await flush();
+    
+    await flushPromises();
+    vi.runAllTimers();
 
     expect(dispatchEventSpy).toHaveBeenCalled();
-    const event = dispatchEventSpy.mock.calls[0][0] as unknown as CustomEvent;
-    expect(event).toBeInstanceOf(CustomEvent);
-    expect(event.type).toBe(ERROR_DELIVERY_OPTIONS);
-    expect(event.detail).toEqual({exception: expect.objectContaining({code: 123, message: 'Test error'})});
+    const errorEvent = dispatchEventSpy.mock.calls.find(
+      call => (call[0] as CustomEvent).type === ERROR_DELIVERY_OPTIONS
+    )?.[0] as unknown as CustomEvent;
+    
+    expect(errorEvent).toBeDefined();
+    expect(errorEvent).toBeInstanceOf(CustomEvent);
+    expect(errorEvent.type).toBe(ERROR_DELIVERY_OPTIONS);
+    expect(errorEvent.detail).toEqual({exception: expect.objectContaining({code: 123, message: 'Test error'})});
   });
 });
