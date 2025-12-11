@@ -27,16 +27,22 @@ describe('main', () => {
   });
 
   afterEach(async () => {
-    // Wait for all Vue updates to complete
-    await flushPromises();
-    
-    // Unmount all Vue apps to prevent memory leaks
+    // Unmount all Vue apps properly
     const apps = document.querySelectorAll('[data-v-app]');
-    apps.forEach((app) => {
-      app.remove();
-    });
+    await Promise.all(Array.from(apps).map(async (app) => {
+      const parent = app.parentElement;
+      if (parent && (parent as any).__vue_app__) {
+        await (parent as any).__vue_app__.unmount();
+      }
+    }));
+    
+    // Wait for Vue to finish cleanup
+    await flushPromises();
+    await new Promise(resolve => setTimeout(resolve, 0));
     
     document.body.innerHTML = '';
+    
+    delete (global.window as any).MyParcelConfig;
     
     vi.restoreAllMocks();
     vi.resetModules();
