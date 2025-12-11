@@ -57,7 +57,7 @@ describe('main', () => {
     expect(document.querySelector(selector)?.hasAttribute('data-v-app')).toBeTruthy();
   });
 
-  it.skip('exposes config on window object after booting', async () => {
+  it('exposes config on window object after booting', async () => {
     expect.assertions(2);
 
     await dispatchEvent(
@@ -78,7 +78,7 @@ describe('main', () => {
     expect(Object.keys(global.window.MyParcelConfig)).toEqual([KEY_ADDRESS, KEY_CONFIG, KEY_STRINGS]);
   });
 
-  it.skip('exposes config with small package on window object after booting', async () => {
+  it('exposes config with small package on window object after booting', async () => {
     expect.assertions(2);
 
     const mockConfig = getMockDeliveryOptionsConfiguration({
@@ -98,7 +98,7 @@ describe('main', () => {
     expect(Object.keys(global.window.MyParcelConfig)).toEqual([KEY_ADDRESS, KEY_CONFIG, KEY_STRINGS]);
   });
 
-  it.skip('exposes platform config on window object when defined while booting', async () => {
+  it('exposes platform config on window object when defined while booting', async () => {
     expect.assertions(2);
 
     const mockConfig = getMockDeliveryOptionsConfiguration({

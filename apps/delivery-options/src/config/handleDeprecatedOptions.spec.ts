@@ -50,7 +50,7 @@ describe('handleDeprecatedOptions', () => {
       },
     );
 
-    it.skip(`warns if only ${CarrierSetting.AllowDeliveryOptions} is passed`, () => {
+    it(`warns if only ${CarrierSetting.AllowDeliveryOptions} is passed`, () => {
       const warnSpy = vi.spyOn(console, 'warn');
       const config = {
         [CarrierSetting.AllowDeliveryOptions]: true,
