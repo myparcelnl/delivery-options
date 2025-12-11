@@ -1,3 +1,4 @@
+import {nextTick} from 'vue';
 import {afterEach, beforeEach, describe, expect, it, type MockInstance, vi} from 'vitest';
 import {flushPromises} from '@vue/test-utils';
 import {
@@ -27,21 +28,23 @@ describe('main', () => {
   });
 
   afterEach(async () => {
-    // Unmount all Vue apps properly
     const apps = document.querySelectorAll('[data-v-app]');
-    await Promise.all(Array.from(apps).map(async (app) => {
+    
+    // Unmount synchronously first
+    apps.forEach((app) => {
       const parent = app.parentElement;
       if (parent && (parent as any).__vue_app__) {
-        await (parent as any).__vue_app__.unmount();
+        (parent as any).__vue_app__.unmount();
+        delete (parent as any).__vue_app__;
       }
-    }));
-    
-    // Wait for Vue to finish cleanup
+    });
+
+    // Give Vue time to process unmount effects
     await flushPromises();
-    await new Promise(resolve => setTimeout(resolve, 0));
+    await nextTick();
+    await new Promise(resolve => setTimeout(resolve, 50));
     
     document.body.innerHTML = '';
-    
     delete (global.window as any).MyParcelConfig;
     
     vi.restoreAllMocks();

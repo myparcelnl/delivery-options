@@ -1,7 +1,5 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`useShipmentOptionsOptions > should show only the configured options for package type 'digital_stamp' with carrier 'dhlforyou' 1`] = `[]`;
-
 exports[`useShipmentOptionsOptions > should show only the configured options for package type 'digital_stamp' with carrier 'postnl' 1`] = `[]`;
 
 exports[`useShipmentOptionsOptions > should show only the configured options for package type 'mailbox' with carrier 'dhlforyou' 1`] = `[]`;
