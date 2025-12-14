@@ -7,8 +7,8 @@ import {
   KEY_ADDRESS,
   PACKAGE_TYPE_SMALL,
   KEY_PLATFORM_CONFIG,
-} from '@myparcel-do/shared';
-import {CarrierName} from '@myparcel/constants';
+} from '@myparcel-dev/shared';
+import {CarrierName} from '@myparcel-dev/constants';
 import {RENDER_DELIVERY_OPTIONS, UPDATE_DELIVERY_OPTIONS} from './data';
 import {createDiv, dispatchEvent, getMockDeliveryOptionsConfiguration} from './__tests__';
 

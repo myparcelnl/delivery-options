@@ -27,7 +27,7 @@
 <script generic="T " lang="ts" setup>
 import {computed} from 'vue';
 import {get, useVModel} from '@vueuse/core';
-import {type SelectOption} from '@myparcel-do/shared';
+import {type SelectOption} from '@myparcel-dev/shared';
 import {type StyleProps} from '../types';
 import CButton from './CButton.vue';
 

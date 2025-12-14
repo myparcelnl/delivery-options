@@ -1,5 +1,5 @@
 import {type Ref, ref} from 'vue';
-import {type PromiseOr} from '@myparcel/ts-utils';
+import {type PromiseOr} from '@myparcel-dev/ts-utils';
 
 interface UseOpensManuallyOptions {
   onClose?(): PromiseOr<void>;

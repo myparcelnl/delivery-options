@@ -13,7 +13,7 @@
 
 <script lang="ts" setup>
 import {computed, toValue} from 'vue';
-import {createField} from '@myparcel/vue-form-builder';
+import {createField} from '@myparcel-dev/vue-form-builder';
 import {FIELD_SHIPMENT_OPTIONS} from '../../../../data';
 import {
   useShipmentOptionsOptions,

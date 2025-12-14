@@ -1,5 +1,5 @@
 import {useMemoize} from '@vueuse/core';
-import {type ConfigOption} from '@myparcel-do/shared';
+import {type ConfigOption} from '@myparcel-dev/shared';
 import {getAllSandboxConfigOptions} from '../form';
 
 export const findSandboxOption = useMemoize((option: string): ConfigOption | undefined => {

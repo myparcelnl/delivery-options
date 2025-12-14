@@ -1,7 +1,7 @@
 import {computed, ref} from 'vue';
 import {useMemoize} from '@vueuse/core';
-import {type PromiseOr, isOfType} from '@myparcel/ts-utils';
-import {type ApiException} from '@myparcel/sdk';
+import {type PromiseOr, isOfType} from '@myparcel-dev/ts-utils';
+import {type ApiException} from '@myparcel-dev/sdk';
 import {useApiExceptions} from '../useApiExceptions';
 import {type RequestHandler, type RequestKey, type RequestStorage, type UseRequestOptions} from '../../types';
 import {useRequestStorage} from './useRequestStorage';

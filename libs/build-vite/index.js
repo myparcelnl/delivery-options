@@ -8,11 +8,11 @@ const dirname = path.dirname(new URL(import.meta.url).pathname);
 /** @type {import('vitest/config').Alias[]} */
 export const resolveAlias = [
   {
-    find: '@myparcel/delivery-options',
+    find: '@myparcel-dev/delivery-options',
     replacement: path.resolve(dirname, '../../apps/delivery-options/src'),
   },
   {
-    find: '@myparcel-do/shared/testing',
+    find: '@myparcel-dev/shared/testing',
     replacement: path.resolve(dirname, '../../libs/shared/src/__tests__'),
   },
   {

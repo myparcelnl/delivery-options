@@ -1,4 +1,4 @@
-import {type FormInstance} from '@myparcel/vue-form-builder';
+import {type FormInstance} from '@myparcel-dev/vue-form-builder';
 import {findSandboxOption} from '../utils';
 
 export const allParentsHave = (parents: undefined | string[], form: FormInstance, prefix: string): boolean => {

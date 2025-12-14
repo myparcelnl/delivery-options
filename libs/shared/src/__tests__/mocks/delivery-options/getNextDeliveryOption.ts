@@ -1,5 +1,5 @@
 import {addDays} from 'date-fns';
-import {type DeliveryOption} from '@myparcel/sdk';
+import {type DeliveryOption} from '@myparcel-dev/sdk';
 import {type ResolvedMockDeliveryOptionsParameters} from '../../types';
 import {CarrierSetting} from '../../../data';
 import {useCarrier} from '../../../composables';

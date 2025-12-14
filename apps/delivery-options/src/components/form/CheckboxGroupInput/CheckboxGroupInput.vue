@@ -32,7 +32,7 @@ import {
   CheckboxInput,
   useCheckboxGroupContext,
   type WithElement,
-} from '@myparcel-do/shared';
+} from '@myparcel-dev/shared';
 import GroupInput from '../GroupInput/GroupInput.vue';
 import {type GroupInputSlots} from '../../../types';
 

@@ -28,7 +28,7 @@
 
 <script lang="ts" setup>
 import {ref, onMounted, onActivated} from 'vue';
-import {waitForRequestData, useCarriersRequest} from '@myparcel-do/shared';
+import {waitForRequestData, useCarriersRequest} from '@myparcel-dev/shared';
 import {useColorMode, useLanguage} from './composables';
 import SandboxHeader from './components/layout/SandboxHeader.vue';
 import SandboxFooter from './components/layout/SandboxFooter.vue';

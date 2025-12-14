@@ -6,8 +6,8 @@ const {
   addGitHubActionsOutputPlugin,
   addGitHubPlugin,
   addReleaseNotesGeneratorPlugin,
-} = require('@myparcel/semantic-release-config/src/plugins');
-const mainConfig = require('@myparcel/semantic-release-config');
+} = require('@myparcel-dev/semantic-release-config/src/plugins');
+const mainConfig = require('@myparcel-dev/semantic-release-config');
 
 /**
  * @type {import('semantic-release').Options}
@@ -26,7 +26,7 @@ module.exports = {
      * Includes npm and git functionality
      */
     [
-      '@myparcel-do/semantic-release-plugin',
+      '@myparcel-dev/semantic-release-plugin',
       {
         additionalPackages: [path.resolve(__dirname, '../../libs/shared')],
       },

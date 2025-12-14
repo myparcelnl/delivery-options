@@ -1,5 +1,5 @@
 import {vi} from 'vitest';
-import {type GetCarriers} from '@myparcel/sdk';
+import {type GetCarriers} from '@myparcel-dev/sdk';
 import {type SdkMock} from '../types';
 import {fakeCarriersResponse} from './fakeCarriersResponse';
 

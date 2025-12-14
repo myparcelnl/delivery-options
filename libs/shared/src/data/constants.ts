@@ -1,4 +1,4 @@
-import {DeliveryTypeName, PackageTypeName, PlatformName, ShipmentOptionName} from '@myparcel/constants';
+import {DeliveryTypeName, PackageTypeName, PlatformName, ShipmentOptionName} from '@myparcel-dev/constants';
 import {type DropOffEntryObject} from '../types';
 import {CarrierSetting} from './enums';
 

@@ -1,11 +1,11 @@
 import {markRaw, type Ref, ref} from 'vue';
-import {getDefaultValueForType, type AnyTranslatable} from '@myparcel-do/shared';
+import {getDefaultValueForType, type AnyTranslatable} from '@myparcel-dev/shared';
 import {
   type ComponentProps,
   createField,
   type InteractiveElementConfiguration,
   type ModularCreatedElement,
-} from '@myparcel/vue-form-builder';
+} from '@myparcel-dev/vue-form-builder';
 import {findSandboxOption, createOptionTranslatable} from '../utils';
 
 export interface FormFieldInput<T = unknown, Props extends ComponentProps = ComponentProps>

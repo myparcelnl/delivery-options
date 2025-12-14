@@ -1,5 +1,5 @@
 import {describe, it, expect} from 'vitest';
-import {defineField, defineForm, type InteractiveElementInstance} from '@myparcel/vue-form-builder';
+import {defineField, defineForm, type InteractiveElementInstance} from '@myparcel-dev/vue-form-builder';
 import {generateFieldId} from './generateFieldId';
 
 describe('generateFieldId', () => {

@@ -1,6 +1,6 @@
 import {ref, nextTick} from 'vue';
 import {describe, it, expect, beforeEach, vi} from 'vitest';
-import {CarrierName} from '@myparcel/constants';
+import {CarrierName} from '@myparcel-dev/constants';
 import {FIELD_CARRIER, FIELD_DELIVERY_DATE, FIELD_DELIVERY_MOMENT} from '../data';
 import {useSelectedValues} from './useSelectedValues';
 import {useResolvedDeliveryOptions} from './useResolvedDeliveryOptions';

@@ -5,7 +5,7 @@ import {
   CarrierSetting,
   SUPPORTED_PLATFORMS,
   getPlatformConfig,
-} from '@myparcel-do/shared';
+} from '@myparcel-dev/shared';
 
 const numberBetween = (min: number, max: number): number => {
   const number = Math.random() * (max - min) + min;
