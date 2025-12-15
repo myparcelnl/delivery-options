@@ -78,7 +78,7 @@
     "@histoire/plugin-vue": "^0.17.6",
     "@myparcel-dev/build-vite": "workspace:*",
     "@myparcel-dev/semantic-release-plugin": "workspace:*",
-    "@myparcel/semantic-release-config": "^5.0.0",
+    "@myparcel-dev/semantic-release-config": "^6.0.10",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/exec": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
