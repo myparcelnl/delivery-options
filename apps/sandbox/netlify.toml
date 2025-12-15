@@ -1,5 +1,5 @@
 [build]
-  command = "yarn translations:import && yarn nx run @myparcel-dev/sandbox:build"
+  command = "cd ../.. && yarn translations:import && yarn nx run @myparcel-dev/sandbox:build"
   publish = "dist"
 
 [build.environment]
