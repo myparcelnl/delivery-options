@@ -799,9 +799,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@myparcel-do/build-vite@workspace:*, @myparcel-do/build-vite@workspace:libs/build-vite":
+"@myparcel-dev/build-vite@workspace:*, @myparcel-dev/build-vite@workspace:libs/build-vite":
   version: 0.0.0-use.local
-  resolution: "@myparcel-do/build-vite@workspace:libs/build-vite"
+  resolution: "@myparcel-dev/build-vite@workspace:libs/build-vite"
   dependencies:
     "@myparcel/ts-utils": "npm:^1.12.0"
     "@vitejs/plugin-vue": "npm:^5.0.0"
@@ -817,9 +817,54 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@myparcel-do/monorepo@workspace:.":
+"@myparcel-dev/delivery-options@workspace:*, @myparcel-dev/delivery-options@workspace:apps/delivery-options":
   version: 0.0.0-use.local
-  resolution: "@myparcel-do/monorepo@workspace:."
+  resolution: "@myparcel-dev/delivery-options@workspace:apps/delivery-options"
+  dependencies:
+    "@codecov/vite-plugin": "npm:^1.9.1"
+    "@histoire/plugin-vue": "npm:^0.17.6"
+    "@myparcel-dev/build-vite": "workspace:*"
+    "@myparcel-dev/semantic-release-config": "npm:^6.0.10"
+    "@myparcel-dev/semantic-release-plugin": "workspace:*"
+    "@myparcel-dev/shared": "workspace:*"
+    "@myparcel/constants": "npm:^2.2.0"
+    "@myparcel/sdk": "npm:^4.0.0"
+    "@myparcel/ts-utils": "npm:^1.12.0"
+    "@myparcel/vue-form-builder": "npm:^1.0.0-beta.1"
+    "@semantic-release/changelog": "npm:^6.0.3"
+    "@semantic-release/exec": "npm:^6.0.3"
+    "@semantic-release/git": "npm:^10.0.1"
+    "@semantic-release/github": "npm:^10.0.0"
+    "@testing-library/vue": "npm:^8.0.1"
+    "@types/is-ci": "npm:^3.0.0"
+    "@types/leaflet": "npm:^1.9.4"
+    "@types/semver": "npm:^7"
+    "@vue/test-utils": "npm:^2.4.0"
+    "@vueuse/core": "npm:^10.0.0"
+    ci-info: "npm:^4.0.0"
+    cssnano: "npm:^7.0.0"
+    happy-dom: "npm:^14.0.0"
+    histoire: "npm:^0.17.6"
+    leaflet: "npm:^1.9.4"
+    postcss: "npm:^8.0.0"
+    postcss-replace: "npm:2.0.1"
+    radash: "npm:^12.0.0"
+    semantic-release: "npm:^24.0.0"
+    semantic-release-monorepo: "npm:^8.0.1"
+    semver: "npm:^7.6.0"
+    tailwindcss: "npm:^3.0.0"
+    typescript: "npm:5.4.5"
+    vite: "npm:^5.3.6"
+    vite-plugin-custom-tsconfig: "npm:^1.0.0"
+    vitest: "npm:^2.1.9"
+    vue: "npm:^3.3.0"
+    vue-tsc: "npm:^2.0.0"
+  languageName: unknown
+  linkType: soft
+
+"@myparcel-dev/monorepo@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "@myparcel-dev/monorepo@workspace:."
   dependencies:
     "@myparcel-eslint/eslint-config-esnext": "npm:^1.3.0"
     "@myparcel-eslint/eslint-config-import": "npm:^1.2.0"
@@ -844,14 +889,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@myparcel-do/sandbox@workspace:apps/sandbox":
+"@myparcel-dev/sandbox@workspace:apps/sandbox":
   version: 0.0.0-use.local
-  resolution: "@myparcel-do/sandbox@workspace:apps/sandbox"
+  resolution: "@myparcel-dev/sandbox@workspace:apps/sandbox"
   dependencies:
-    "@myparcel-do/build-vite": "workspace:*"
-    "@myparcel-do/shared": "workspace:*"
+    "@myparcel-dev/build-vite": "workspace:*"
+    "@myparcel-dev/delivery-options": "workspace:*"
+    "@myparcel-dev/shared": "workspace:*"
     "@myparcel/constants": "npm:^2.2.0"
-    "@myparcel/delivery-options": "workspace:*"
     "@myparcel/sdk": "npm:^4.3.0"
     "@myparcel/ts-utils": "npm:^1.12.0"
     "@myparcel/vue-form-builder": "npm:^1.0.0-beta.1"
@@ -877,9 +922,27 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@myparcel-do/semantic-release-plugin@workspace:*, @myparcel-do/semantic-release-plugin@workspace:libs/semantic-release-plugin":
+"@myparcel-dev/semantic-release-config@npm:^6.0.10":
+  version: 6.0.10
+  resolution: "@myparcel-dev/semantic-release-config@npm:6.0.10"
+  dependencies:
+    "@iwavesmedia/semantic-release-composer": "npm:^1.0.0"
+    "@semantic-release/changelog": "npm:^6.0.1"
+    "@semantic-release/commit-analyzer": "npm:^9.0.2"
+    "@semantic-release/exec": "npm:^6.0.3"
+    "@semantic-release/git": "npm:^10.0.1"
+    "@semantic-release/github": "npm:^8.0.4"
+    "@semantic-release/npm": "npm:^10.0.0"
+    "@semantic-release/release-notes-generator": "npm:^10.0.0"
+    conventional-changelog-conventionalcommits: "npm:^4.0.0 || ^5.0.0"
+    semantic-release: "npm:^21.0.0"
+  checksum: 10c0/6229ebd6073cce372630ea3ecd4e23f143f1d19fcb2ec1c0e0fd6bf8ce48aed05dde72124dd18aa8981fa9f0cbbe3486bc0683b15a69e413b9fe9c629062d485
+  languageName: node
+  linkType: hard
+
+"@myparcel-dev/semantic-release-plugin@workspace:*, @myparcel-dev/semantic-release-plugin@workspace:libs/semantic-release-plugin":
   version: 0.0.0-use.local
-  resolution: "@myparcel-do/semantic-release-plugin@workspace:libs/semantic-release-plugin"
+  resolution: "@myparcel-dev/semantic-release-plugin@workspace:libs/semantic-release-plugin"
   dependencies:
     "@types/node": "npm:^20.11.16"
     execa: "npm:^8.0.0"
@@ -889,13 +952,13 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@myparcel-do/shared@workspace:*, @myparcel-do/shared@workspace:libs/shared":
+"@myparcel-dev/shared@workspace:*, @myparcel-dev/shared@workspace:libs/shared":
   version: 0.0.0-use.local
-  resolution: "@myparcel-do/shared@workspace:libs/shared"
+  resolution: "@myparcel-dev/shared@workspace:libs/shared"
   dependencies:
-    "@myparcel-do/build-vite": "workspace:*"
-    "@myparcel-do/semantic-release-plugin": "workspace:*"
-    "@myparcel-do/shared": "workspace:*"
+    "@myparcel-dev/build-vite": "workspace:*"
+    "@myparcel-dev/semantic-release-plugin": "workspace:*"
+    "@myparcel-dev/shared": "workspace:*"
     "@myparcel/constants": "npm:^2.2.0"
     "@myparcel/sdk": "npm:^3.3.1"
     "@myparcel/ts-utils": "npm:^1.12.0"
@@ -1135,51 +1198,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@myparcel/delivery-options@workspace:*, @myparcel/delivery-options@workspace:apps/delivery-options":
-  version: 0.0.0-use.local
-  resolution: "@myparcel/delivery-options@workspace:apps/delivery-options"
-  dependencies:
-    "@codecov/vite-plugin": "npm:^1.9.1"
-    "@histoire/plugin-vue": "npm:^0.17.6"
-    "@myparcel-do/build-vite": "workspace:*"
-    "@myparcel-do/semantic-release-plugin": "workspace:*"
-    "@myparcel-do/shared": "workspace:*"
-    "@myparcel/constants": "npm:^2.2.0"
-    "@myparcel/sdk": "npm:^4.0.0"
-    "@myparcel/semantic-release-config": "npm:^5.0.0"
-    "@myparcel/ts-utils": "npm:^1.12.0"
-    "@myparcel/vue-form-builder": "npm:^1.0.0-beta.1"
-    "@semantic-release/changelog": "npm:^6.0.3"
-    "@semantic-release/exec": "npm:^6.0.3"
-    "@semantic-release/git": "npm:^10.0.1"
-    "@semantic-release/github": "npm:^10.0.0"
-    "@testing-library/vue": "npm:^8.0.1"
-    "@types/is-ci": "npm:^3.0.0"
-    "@types/leaflet": "npm:^1.9.4"
-    "@types/semver": "npm:^7"
-    "@vue/test-utils": "npm:^2.4.0"
-    "@vueuse/core": "npm:^10.0.0"
-    ci-info: "npm:^4.0.0"
-    cssnano: "npm:^7.0.0"
-    happy-dom: "npm:^14.0.0"
-    histoire: "npm:^0.17.6"
-    leaflet: "npm:^1.9.4"
-    postcss: "npm:^8.0.0"
-    postcss-replace: "npm:2.0.1"
-    radash: "npm:^12.0.0"
-    semantic-release: "npm:^24.0.0"
-    semantic-release-monorepo: "npm:^8.0.1"
-    semver: "npm:^7.6.0"
-    tailwindcss: "npm:^3.0.0"
-    typescript: "npm:5.4.5"
-    vite: "npm:^5.3.6"
-    vite-plugin-custom-tsconfig: "npm:^1.0.0"
-    vitest: "npm:^2.1.9"
-    vue: "npm:^3.3.0"
-    vue-tsc: "npm:^2.0.0"
-  languageName: unknown
-  linkType: soft
-
 "@myparcel/prettier-config@npm:>= 1":
   version: 1.1.0
   resolution: "@myparcel/prettier-config@npm:1.1.0"
@@ -1214,24 +1232,6 @@ __metadata:
     "@myparcel/constants": "npm:^2.0.0"
     "@myparcel/ts-utils": "npm:^1.6.0"
   checksum: 10c0/95c48de59461464a20a787bcbd93c1ea74aef6ec9e024d5f6f7deb772cb49708ee4d6caff8b2012bd6c25bed6eb4f95ece39bab4a57512af7c0326ebd4151416
-  languageName: node
-  linkType: hard
-
-"@myparcel/semantic-release-config@npm:^5.0.0":
-  version: 5.0.1
-  resolution: "@myparcel/semantic-release-config@npm:5.0.1"
-  dependencies:
-    "@iwavesmedia/semantic-release-composer": "npm:^1.0.0"
-    "@semantic-release/changelog": "npm:^6.0.1"
-    "@semantic-release/commit-analyzer": "npm:^9.0.2"
-    "@semantic-release/exec": "npm:^6.0.3"
-    "@semantic-release/git": "npm:^10.0.1"
-    "@semantic-release/github": "npm:^8.0.4"
-    "@semantic-release/npm": "npm:^10.0.0"
-    "@semantic-release/release-notes-generator": "npm:^10.0.0"
-    conventional-changelog-conventionalcommits: "npm:^4.0.0 || ^5.0.0"
-    semantic-release: "npm:^21.0.0"
-  checksum: 10c0/0b487504f38163167dd7c0e410ca9fee60b3d9b3004fcaf580320a2d70d5448471856b47780d022bad25fcdf9ee1d541f2e1b5101c898fe40a4485ab86cc65ef
   languageName: node
   linkType: hard
 

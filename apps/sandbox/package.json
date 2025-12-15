@@ -18,9 +18,9 @@
     "typecheck": "vue-tsc --project tsconfig.base.json --noEmit"
   },
   "dependencies": {
+    "@myparcel-dev/delivery-options": "workspace:*",
     "@myparcel-dev/shared": "workspace:*",
     "@myparcel/constants": "^2.2.0",
-    "@myparcel-dev/delivery-options": "workspace:*",
     "@myparcel/sdk": "^4.3.0",
     "@myparcel/ts-utils": "^1.12.0",
     "@myparcel/vue-form-builder": "^1.0.0-beta.1",
