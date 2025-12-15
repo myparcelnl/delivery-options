@@ -5,7 +5,7 @@ import {
   getDefaultDeliveryOptionsConfig,
   PickupLocationsView,
   type SupportedPlatformName,
-} from '@myparcel-do/shared';
+} from '@myparcel-dev/shared';
 import {PlatformName} from '@myparcel/constants';
 
 const PLATFORM_DEFAULTS = Object.freeze({

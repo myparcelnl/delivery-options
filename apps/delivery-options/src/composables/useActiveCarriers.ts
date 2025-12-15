@@ -7,7 +7,7 @@ import {
   splitCarrierIdentifier,
   computedAsync,
   type ComputedAsync,
-} from '@myparcel-do/shared';
+} from '@myparcel-dev/shared';
 import {getResolvedCarrier} from '../utils';
 import {useConfigStore} from '../stores';
 import {type UseResolvedCarrier} from './useResolvedCarrier';

@@ -7,7 +7,7 @@
 </template>
 
 <script lang="ts" setup>
-import {KEY_CONFIG, CarrierSetting, SUPPORTED_PACKAGE_TYPES} from '@myparcel-do/shared';
+import {KEY_CONFIG, CarrierSetting, SUPPORTED_PACKAGE_TYPES} from '@myparcel-dev/shared';
 import {createOptionTranslatable, createPackageTypeTranslatable} from '../utils';
 import {formField, formSection} from '../form';
 import {useLanguage} from '../composables';

@@ -6,7 +6,7 @@ import {
   type InputCarrierSettings,
   KEY_CARRIER_SETTINGS,
   KEY_CONFIG,
-} from '@myparcel-do/shared';
+} from '@myparcel-dev/shared';
 import {type EndpointParameters, type GetDeliveryOptions} from '@myparcel/sdk';
 import {CarrierName, PackageTypeName, PlatformName} from '@myparcel/constants';
 import {useConfigStore} from '../stores';

@@ -1,4 +1,4 @@
-import {type DeliveryOptionsOutput} from '@myparcel-do/shared';
+import {type DeliveryOptionsOutput} from '@myparcel-dev/shared';
 import {CarrierName, DeliveryTypeName, PackageTypeName} from '@myparcel/constants';
 import {MOCK_DEFAULT_DATE} from '../constants';
 

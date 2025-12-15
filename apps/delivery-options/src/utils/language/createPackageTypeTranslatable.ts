@@ -1,5 +1,5 @@
 import {camel} from 'radash';
-import {type Translatable, createTranslatable} from '@myparcel-do/shared';
+import {type Translatable, createTranslatable} from '@myparcel-dev/shared';
 import {type PackageTypeName} from '@myparcel/constants';
 
 export const createPackageTypeTranslatable = (packageType: PackageTypeName): Translatable => {

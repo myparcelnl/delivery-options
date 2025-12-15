@@ -6,7 +6,7 @@ import {
   KEY_ADDRESS,
   KEY_CONFIG,
   KEY_STRINGS,
-} from '@myparcel-do/shared';
+} from '@myparcel-dev/shared';
 import {type RecursivePartial} from '@myparcel/ts-utils';
 import {PlatformName} from '@myparcel/constants';
 import {getDefaultConfigForPlatform, getDefaultStrings, validateConfiguration} from '../../config';

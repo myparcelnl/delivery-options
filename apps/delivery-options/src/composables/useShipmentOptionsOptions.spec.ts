@@ -1,7 +1,7 @@
 import {toValue} from 'vue';
 import {describe, it, expect, beforeEach} from 'vitest';
 import {normalizeDate} from '@vueuse/core';
-import {mockGetDeliveryOptions, getShipmentOptions} from '@myparcel-do/shared/testing';
+import {mockGetDeliveryOptions, getShipmentOptions} from '@myparcel-dev/shared/testing';
 import {
   CarrierSetting,
   ConfigSetting,
@@ -10,7 +10,7 @@ import {
   KEY_CARRIER_SETTINGS,
   KEY_CONFIG,
   type SupportedPackageTypeName,
-} from '@myparcel-do/shared';
+} from '@myparcel-dev/shared';
 import {CarrierName, PackageTypeName, ShipmentOptionName} from '@myparcel/constants';
 import {getResolvedCarrier} from '../utils';
 import {useConfigStore} from '../stores';

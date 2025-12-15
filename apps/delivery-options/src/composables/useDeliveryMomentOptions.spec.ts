@@ -8,7 +8,7 @@ import {
   CarrierSetting,
   ConfigSetting,
   KEY_CARRIER_SETTINGS,
-} from '@myparcel-do/shared';
+} from '@myparcel-dev/shared';
 import {CarrierName, PackageTypeName} from '@myparcel/constants';
 import {parseJson} from '../utils';
 import {type SelectedDeliveryMoment} from '../types';

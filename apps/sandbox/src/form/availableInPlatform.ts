@@ -10,7 +10,7 @@ import {
   type CarrierIdentifier,
   type SupportedPlatformName,
   usePlatform,
-} from '@myparcel-do/shared';
+} from '@myparcel-dev/shared';
 import {isEnumValue} from '@myparcel/ts-utils';
 import {CarrierName} from '@myparcel/constants';
 import {getAllSandboxConfigOptions} from './getAllSandboxConfigOptions';

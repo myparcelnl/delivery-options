@@ -2,7 +2,7 @@
 
 // eslint-disable-next-line id-length
 import {useMemoize} from '@vueuse/core';
-import {createAssetUrl} from '@myparcel-do/shared';
+import {createAssetUrl} from '@myparcel-dev/shared';
 import {type Carrier} from '@myparcel/sdk';
 
 const CARRIER_MARKER_TEMPLATE = `

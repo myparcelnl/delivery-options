@@ -13,7 +13,7 @@ import {
   type CheckboxGroupProps,
   useCheckboxGroupContext,
   type WithElement,
-} from '@myparcel-do/shared';
+} from '@myparcel-dev/shared';
 import SandboxCheckboxGroupInput from '../../base/SandboxCheckboxGroupInput.vue';
 
 // eslint-disable-next-line vue/no-unused-properties

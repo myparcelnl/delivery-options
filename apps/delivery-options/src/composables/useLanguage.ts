@@ -7,7 +7,7 @@ import {
   resolveTranslatable,
   isTranslatable,
   type TranslatableWithArgs,
-} from '@myparcel-do/shared';
+} from '@myparcel-dev/shared';
 import {isOfType} from '@myparcel/ts-utils';
 import {useConfigStore} from '../stores';
 

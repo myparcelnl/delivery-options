@@ -8,7 +8,7 @@ import {
   KEY_CARRIER_SETTINGS,
   KEY_CONFIG,
   KEY_STRINGS,
-} from '@myparcel-do/shared';
+} from '@myparcel-dev/shared';
 import {CarrierName} from '@myparcel/constants';
 import {validateConfiguration} from './validateConfiguration';
 

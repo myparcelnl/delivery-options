@@ -1,6 +1,6 @@
 import {toValue} from 'vue';
 import {isDefined} from '@vueuse/core';
-import {type ElementInstance} from '@myparcel-do/shared';
+import {type ElementInstance} from '@myparcel-dev/shared';
 import {useElement} from '@myparcel/vue-form-builder';
 import {useBaseInputClasses} from './useBaseInputClasses';
 

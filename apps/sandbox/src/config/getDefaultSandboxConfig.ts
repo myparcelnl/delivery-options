@@ -7,7 +7,7 @@ import {
   DROP_OFF_WEEKDAY,
   type InputDeliveryOptionsConfig,
   getDefaultDeliveryOptionsConfig,
-} from '@myparcel-do/shared';
+} from '@myparcel-dev/shared';
 
 export const getDefaultSandboxConfig = (): InputDeliveryOptionsConfig => {
   const defaults = getDefaultDeliveryOptionsConfig();

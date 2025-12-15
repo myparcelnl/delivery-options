@@ -9,7 +9,7 @@ import {
   type ConfigSetting,
   CarrierSetting,
   type ConfigKey,
-} from '@myparcel-do/shared';
+} from '@myparcel-dev/shared';
 import {DeliveryTypeName} from '@myparcel/constants';
 import {useAddressStore} from '../stores';
 import {type UseResolvedCarrier} from '../composables';

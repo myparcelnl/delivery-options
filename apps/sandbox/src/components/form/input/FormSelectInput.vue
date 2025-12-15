@@ -11,7 +11,7 @@ import {
   type SelectInputModelValue,
   type SelectInputProps,
   type WithElement,
-} from '@myparcel-do/shared';
+} from '@myparcel-dev/shared';
 import SelectInput from '../../SelectInput.vue';
 
 // eslint-disable-next-line vue/no-unused-properties

@@ -1,5 +1,5 @@
 {
-  "name": "@myparcel/delivery-options",
+  "name": "@myparcel-dev/delivery-options",
   "version": "6.22.0",
   "repository": {
     "type": "git",
@@ -63,7 +63,7 @@
     "watch:myparcel-lib": "BUILD_CSS=1 vite build -c vite-myparcel-lib.config.ts --watch --mode development"
   },
   "dependencies": {
-    "@myparcel-do/shared": "workspace:*",
+    "@myparcel-dev/shared": "workspace:*",
     "@myparcel/constants": "^2.2.0",
     "@myparcel/sdk": "^4.0.0",
     "@myparcel/ts-utils": "^1.12.0",
@@ -76,8 +76,8 @@
   "devDependencies": {
     "@codecov/vite-plugin": "^1.9.1",
     "@histoire/plugin-vue": "^0.17.6",
-    "@myparcel-do/build-vite": "workspace:*",
-    "@myparcel-do/semantic-release-plugin": "workspace:*",
+    "@myparcel-dev/build-vite": "workspace:*",
+    "@myparcel-dev/semantic-release-plugin": "workspace:*",
     "@myparcel/semantic-release-config": "^5.0.0",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/exec": "^6.0.3",

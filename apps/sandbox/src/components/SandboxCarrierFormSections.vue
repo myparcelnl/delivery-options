@@ -12,7 +12,7 @@
 
 <script lang="ts" setup>
 import {computed, toValue} from 'vue';
-import {CarrierBox, KEY_CARRIER_SETTINGS} from '@myparcel-do/shared';
+import {CarrierBox, KEY_CARRIER_SETTINGS} from '@myparcel-dev/shared';
 import {type CarrierName} from '@myparcel/constants';
 import {type SettingsSection} from '../types';
 import {getConfigSandboxSections} from '../form';

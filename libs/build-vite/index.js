@@ -12,7 +12,7 @@ export const resolveAlias = [
     replacement: path.resolve(dirname, '../../apps/delivery-options/src'),
   },
   {
-    find: '@myparcel-do/shared/testing',
+    find: '@myparcel-dev/shared/testing',
     replacement: path.resolve(dirname, '../../libs/shared/src/__tests__'),
   },
   {

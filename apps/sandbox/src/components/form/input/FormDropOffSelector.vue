@@ -27,7 +27,7 @@ import {
   type ElementEmits,
   type ElementProps,
   type SelectOption,
-} from '@myparcel-do/shared';
+} from '@myparcel-dev/shared';
 import {createField, type InteractiveElementConfiguration} from '@myparcel/vue-form-builder';
 import {SandboxCheckboxGroupInput} from '../../base';
 import {useWeekdays} from '../../../composables';

@@ -1,5 +1,5 @@
 import {isString} from 'radash';
-import {type InternalOutput} from '@myparcel-do/shared';
+import {type InternalOutput} from '@myparcel-dev/shared';
 import {type FormInstance} from '@myparcel/vue-form-builder';
 import {type Replace} from '@myparcel/ts-utils';
 import {CarrierName, DeliveryTypeName, PackageTypeName} from '@myparcel/constants';

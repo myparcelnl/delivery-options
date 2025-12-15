@@ -1,7 +1,7 @@
 import {afterEach, beforeEach, describe, expect, it, type MockInstance, vi} from 'vitest';
 import {createPinia} from 'pinia';
 import {render, type RenderOptions, type RenderResult} from '@testing-library/vue';
-import {CarrierSetting, KEY_CARRIER_SETTINGS, KEY_CONFIG} from '@myparcel-do/shared';
+import {CarrierSetting, KEY_CARRIER_SETTINGS, KEY_CONFIG} from '@myparcel-dev/shared';
 import {createMyParcelFormBuilderPlugin} from '@myparcel/vue-form-builder';
 import {CarrierName} from '@myparcel/constants';
 import {getMockDeliveryOptionsConfiguration} from '../../__tests__';

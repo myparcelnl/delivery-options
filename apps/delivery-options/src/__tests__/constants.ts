@@ -1,6 +1,6 @@
 // noinspection ShiftOutOfRangeJS
 
-import {CarrierSetting} from '@myparcel-do/shared';
+import {CarrierSetting} from '@myparcel-dev/shared';
 import {CarrierName} from '@myparcel/constants';
 
 export const MOCK_DEFAULT_DATE = '2021-01-01 00:00:00';

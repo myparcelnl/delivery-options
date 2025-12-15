@@ -1,5 +1,5 @@
 {
-  "name": "@myparcel-do/sandbox",
+  "name": "@myparcel-dev/sandbox",
   "version": "6.22.0",
   "private": true,
   "type": "module",
@@ -18,9 +18,9 @@
     "typecheck": "vue-tsc --project tsconfig.base.json --noEmit"
   },
   "dependencies": {
-    "@myparcel-do/shared": "workspace:*",
+    "@myparcel-dev/shared": "workspace:*",
     "@myparcel/constants": "^2.2.0",
-    "@myparcel/delivery-options": "workspace:*",
+    "@myparcel-dev/delivery-options": "workspace:*",
     "@myparcel/sdk": "^4.3.0",
     "@myparcel/ts-utils": "^1.12.0",
     "@myparcel/vue-form-builder": "^1.0.0-beta.1",
@@ -32,7 +32,7 @@
     "vue": "^3.3.4"
   },
   "devDependencies": {
-    "@myparcel-do/build-vite": "workspace:*",
+    "@myparcel-dev/build-vite": "workspace:*",
     "@testing-library/vue": "^8.0.1",
     "@vitejs/plugin-vue": "^5.0.0",
     "autoprefixer": "^10.4.16",

@@ -1,5 +1,5 @@
 import {describe, it, expect} from 'vitest';
-import {CarrierSetting} from '@myparcel-do/shared';
+import {CarrierSetting} from '@myparcel-dev/shared';
 import {ShipmentOptionName, PackageTypeName} from '@myparcel/constants';
 import {type UseResolvedCarrier} from './useResolvedCarrier';
 import {createFakeShipmentOptions} from './useFakeShipmentOptions';

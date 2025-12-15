@@ -15,7 +15,7 @@
 
 <script lang="ts" setup>
 import {computed} from 'vue';
-import {SHOW_MORE_LOCATIONS} from '@myparcel-do/shared';
+import {SHOW_MORE_LOCATIONS} from '@myparcel-dev/shared';
 import {DoButton} from '../../common';
 import {useLanguage, usePickupLocationsMap, useResolvedPickupLocations} from '../../../composables';
 

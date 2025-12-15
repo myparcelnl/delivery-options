@@ -1,4 +1,4 @@
-import {type InternalOutput} from '@myparcel-do/shared';
+import {type InternalOutput} from '@myparcel-dev/shared';
 import {type CreatedForm, defineField} from '@myparcel/vue-form-builder';
 import {useDeliveryOptionsForm} from '../../form';
 import {

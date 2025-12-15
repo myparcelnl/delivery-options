@@ -1,6 +1,6 @@
 import {describe, it, expect, beforeEach, afterEach} from 'vitest';
 import {addDays} from 'date-fns';
-import {mockGetDeliveryOptions, createDate} from '@myparcel-do/shared/testing';
+import {mockGetDeliveryOptions, createDate} from '@myparcel-dev/shared/testing';
 import {
   ConfigSetting,
   KEY_CONFIG,
@@ -8,7 +8,7 @@ import {
   KEY_CARRIER_SETTINGS,
   CarrierSetting,
   createTimestamp,
-} from '@myparcel-do/shared';
+} from '@myparcel-dev/shared';
 import {CarrierName} from '@myparcel/constants';
 import {useAddressStore, useConfigStore} from '../stores';
 import {mockDeliveryOptionsConfig, waitForDeliveryOptions, getMockDeliveryOptionsConfiguration} from '../__tests__';

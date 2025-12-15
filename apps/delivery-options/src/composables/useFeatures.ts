@@ -1,6 +1,6 @@
 import {computed} from 'vue';
 import {useMemoize} from '@vueuse/core';
-import {ConfigSetting} from '@myparcel-do/shared';
+import {ConfigSetting} from '@myparcel-dev/shared';
 import {useConfigStore} from '../stores';
 import {DELIVERY_MOMENT_PACKAGE_TYPES, SHOWN_SHIPMENT_OPTIONS} from '../data';
 

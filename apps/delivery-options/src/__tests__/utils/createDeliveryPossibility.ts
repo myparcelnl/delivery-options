@@ -1,6 +1,6 @@
 import {addHours} from 'date-fns';
 import {type DateLike, normalizeDate} from '@vueuse/core';
-import {createDeliveryTimeframe} from '@myparcel-do/shared/testing';
+import {createDeliveryTimeframe} from '@myparcel-dev/shared/testing';
 import {type DeliveryOption} from '@myparcel/sdk';
 import {DeliveryTypeName, PackageTypeName} from '@myparcel/constants';
 

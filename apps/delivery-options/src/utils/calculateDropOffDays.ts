@@ -1,5 +1,5 @@
 import {isObject} from 'radash';
-import {CarrierSetting, type DropOffEntryObject, type Weekday} from '@myparcel-do/shared';
+import {CarrierSetting, type DropOffEntryObject, type Weekday} from '@myparcel-dev/shared';
 import {partitionArray} from '@myparcel/ts-utils';
 import {type UseResolvedCarrier} from '../composables';
 

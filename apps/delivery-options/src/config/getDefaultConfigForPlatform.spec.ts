@@ -1,5 +1,5 @@
 import {describe, expect, it} from 'vitest';
-import {type SupportedPlatformName} from '@myparcel-do/shared';
+import {type SupportedPlatformName} from '@myparcel-dev/shared';
 import {PlatformName} from '@myparcel/constants';
 import {getDefaultConfigForPlatform} from './getDefaultConfigForPlatform';
 

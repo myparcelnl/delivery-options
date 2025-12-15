@@ -9,7 +9,7 @@ import {
   useCarriersRequest,
   ConfigSetting,
   type InputDeliveryOptionsConfig,
-} from '@myparcel-do/shared';
+} from '@myparcel-dev/shared';
 import {CarrierName, DeliveryTypeName, PackageTypeName, ShipmentOptionName} from '@myparcel/constants';
 import {useConfigStore} from '../../stores';
 import {

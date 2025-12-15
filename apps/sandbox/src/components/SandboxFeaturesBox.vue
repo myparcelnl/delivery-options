@@ -15,7 +15,7 @@ import {
   DROP_OFF_DELAY_MIN,
   KEY_CONFIG,
   type SelectOption,
-} from '@myparcel-do/shared';
+} from '@myparcel-dev/shared';
 import {formField, formSection} from '../form';
 import FormToggleInput from './form/input/FormToggleInput.vue';
 import FormMultiDateSelect from './form/input/FormMultiDateSelect.vue';

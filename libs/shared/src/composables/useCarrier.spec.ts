@@ -1,5 +1,5 @@
 import {describe, it, expect} from 'vitest';
-import {useCarrier} from '@myparcel-do/shared';
+import {useCarrier} from '@myparcel-dev/shared';
 import {CarrierName, PlatformName} from '@myparcel/constants';
 
 describe('useCarrier', () => {

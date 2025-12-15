@@ -6,7 +6,7 @@
 </template>
 
 <script lang="ts" setup>
-import {type NumberInputEmits, type NumberInputProps, useElementContext, type WithElement} from '@myparcel-do/shared';
+import {type NumberInputEmits, type NumberInputProps, useElementContext, type WithElement} from '@myparcel-dev/shared';
 import SandboxNumberInput from '../../base/SandboxNumberInput.vue';
 import {useElInputClasses} from '../../../composables';
 

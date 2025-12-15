@@ -1,4 +1,4 @@
-import {AddressField, type DeliveryOptionsAddress} from '@myparcel-do/shared';
+import {AddressField, type DeliveryOptionsAddress} from '@myparcel-dev/shared';
 
 export const getDefaultAddress = (): DeliveryOptionsAddress => ({
   [AddressField.Country]: 'NL',

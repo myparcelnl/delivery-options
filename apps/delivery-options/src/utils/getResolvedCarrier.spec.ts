@@ -7,7 +7,7 @@ import {
   CustomDeliveryType,
   KEY_ADDRESS,
   AddressField,
-} from '@myparcel-do/shared';
+} from '@myparcel-dev/shared';
 import {ZIMBABWE} from '@myparcel/constants/countries';
 import {CarrierName, PlatformName, DeliveryTypeName, PackageTypeName, ShipmentOptionName} from '@myparcel/constants';
 import {useAddressStore, useConfigStore} from '../stores';
