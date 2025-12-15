@@ -16,7 +16,7 @@ export const resolveAlias = [
     replacement: path.resolve(dirname, '../../libs/shared/src/__tests__'),
   },
   {
-    find: /^@myparcel-do\/(.+)/,
+    find: /^@myparcel-dev\/(shared|build-vite|semantic-release-plugin)$/,
     replacement: path.resolve(dirname, '../../libs/$1/src'),
   },
 ];
