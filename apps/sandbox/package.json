@@ -20,10 +20,10 @@
   "dependencies": {
     "@myparcel-dev/constants": "^2.7.0",
     "@myparcel-dev/delivery-options": "workspace:*",
-    "@myparcel-dev/sdk": "^4.1.0",
+    "@myparcel-dev/sdk": "^5.0.0",
     "@myparcel-dev/shared": "workspace:*",
     "@myparcel-dev/ts-utils": "^1.15.0",
-    "@myparcel-dev/vue-form-builder": "^1.0.0-beta.44",
+    "@myparcel-dev/vue-form-builder": "^1.0.0-beta.54",
     "@vuepic/vue-datepicker": "^11.0.2",
     "@vueuse/core": "^10.5.0",
     "pinia": "^2.1.7",
