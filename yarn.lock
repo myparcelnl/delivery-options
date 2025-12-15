@@ -834,12 +834,12 @@ __metadata:
     "@histoire/plugin-vue": "npm:^0.17.6"
     "@myparcel-dev/build-vite": "workspace:*"
     "@myparcel-dev/constants": "npm:^2.7.0"
-    "@myparcel-dev/sdk": "npm:^4.1.0"
+    "@myparcel-dev/sdk": "npm:^5.0.0"
     "@myparcel-dev/semantic-release-config": "npm:^6.0.10"
     "@myparcel-dev/semantic-release-plugin": "workspace:*"
     "@myparcel-dev/shared": "workspace:*"
     "@myparcel-dev/ts-utils": "npm:^1.15.0"
-    "@myparcel-dev/vue-form-builder": "npm:^1.0.0-beta.44"
+    "@myparcel-dev/vue-form-builder": "npm:^1.0.0-beta.54"
     "@semantic-release/changelog": "npm:^6.0.3"
     "@semantic-release/exec": "npm:^6.0.3"
     "@semantic-release/git": "npm:^10.0.1"
@@ -1066,10 +1066,10 @@ __metadata:
     "@myparcel-dev/build-vite": "workspace:*"
     "@myparcel-dev/constants": "npm:^2.7.0"
     "@myparcel-dev/delivery-options": "workspace:*"
-    "@myparcel-dev/sdk": "npm:^4.1.0"
+    "@myparcel-dev/sdk": "npm:^5.0.0"
     "@myparcel-dev/shared": "workspace:*"
     "@myparcel-dev/ts-utils": "npm:^1.15.0"
-    "@myparcel-dev/vue-form-builder": "npm:^1.0.0-beta.44"
+    "@myparcel-dev/vue-form-builder": "npm:^1.0.0-beta.54"
     "@testing-library/vue": "npm:^8.0.1"
     "@vitejs/plugin-vue": "npm:^5.0.0"
     "@vuepic/vue-datepicker": "npm:^11.0.2"
@@ -1092,13 +1092,13 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@myparcel-dev/sdk@npm:^4.1.0":
-  version: 4.1.1
-  resolution: "@myparcel-dev/sdk@npm:4.1.1"
+"@myparcel-dev/sdk@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "@myparcel-dev/sdk@npm:5.0.0"
   dependencies:
-    "@myparcel-dev/constants": "npm:^2.0.0"
-    "@myparcel-dev/ts-utils": "npm:^1.6.0"
-  checksum: 10c0/c8233a1cada8243a1a08da313e216f5b369fdc6a810a60fe63f72ede5956b3b7e52b97d3838343eca372d8474581d7dd3cebd634615feb56ff1c63187a32c18c
+    "@myparcel-dev/constants": "npm:^2.7.0"
+    "@myparcel-dev/ts-utils": "npm:^1.15.0"
+  checksum: 10c0/e7fb382eae6a689edac96e34e1483aa5a7b99353f3ea2019439cd322447b6642203251af50e9bfc327183a94c2e3d2fa9a6a2e9bcb713af3cdd6a5e79a3d8850
   languageName: node
   linkType: hard
 
@@ -1138,11 +1138,11 @@ __metadata:
   dependencies:
     "@myparcel-dev/build-vite": "workspace:*"
     "@myparcel-dev/constants": "npm:^2.7.0"
-    "@myparcel-dev/sdk": "npm:^4.1.0"
+    "@myparcel-dev/sdk": "npm:^5.0.0"
     "@myparcel-dev/semantic-release-plugin": "workspace:*"
     "@myparcel-dev/shared": "workspace:*"
     "@myparcel-dev/ts-utils": "npm:^1.15.0"
-    "@myparcel-dev/vue-form-builder": "npm:^1.0.0-beta.44"
+    "@myparcel-dev/vue-form-builder": "npm:^1.0.0-beta.54"
     "@pinia/testing": "npm:^0.1.3"
     "@testing-library/vue": "npm:^8.0.1"
     "@vitest/coverage-v8": "npm:^2.1.9"
@@ -1159,7 +1159,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@myparcel-dev/ts-utils@npm:^1.15.0, @myparcel-dev/ts-utils@npm:^1.6.0":
+"@myparcel-dev/ts-utils@npm:^1.15.0":
   version: 1.15.0
   resolution: "@myparcel-dev/ts-utils@npm:1.15.0"
   checksum: 10c0/fe0178f881cf78b44217b5f2c9a8ed92f3c15a58de1a19bb86b136589f1d1b95925a0e170ccf89507c6f574913b1f207804cd1a96135d63e4e8a71a6b6931f0e
@@ -1175,7 +1175,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@myparcel-dev/vue-form-builder@npm:^1.0.0-beta.44":
+"@myparcel-dev/vue-form-builder@npm:^1.0.0-beta.54":
   version: 1.0.0-beta.55
   resolution: "@myparcel-dev/vue-form-builder@npm:1.0.0-beta.55"
   dependencies:
