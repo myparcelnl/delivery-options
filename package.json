@@ -23,7 +23,7 @@
     "lint:fix": "nx affected -t lint:fix --output-style=stream",
     "prepare": "(is-ci || husky install)",
     "serve": "nx run-many -t serve --parallel=99",
-    "serve:delivery-options": "nx run @myparcel/delivery-options:serve",
+    "serve:delivery-options": "nx run @myparcel-dev/delivery-options:serve",
     "serve:sandbox": "nx run @myparcel-dev/sandbox:serve",
     "test": "nx run-many -t test --parallel=99 --output-style=stream",
     "test:coverage": "nx run-many -t test:coverage --output-style=stream",
