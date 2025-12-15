@@ -7,7 +7,7 @@
 <script
   lang="ts"
   setup>
-import {MyParcelDeliveryOptions} from '@myparcel/delivery-options';
+import {MyParcelDeliveryOptions} from '@myparcel-dev/delivery-options';
 import {useSandboxStore} from '../stores';
 
 const store = useSandboxStore();

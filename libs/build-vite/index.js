@@ -8,7 +8,7 @@ const dirname = path.dirname(new URL(import.meta.url).pathname);
 /** @type {import('vitest/config').Alias[]} */
 export const resolveAlias = [
   {
-    find: '@myparcel/delivery-options',
+    find: '@myparcel-dev/delivery-options',
     replacement: path.resolve(dirname, '../../apps/delivery-options/src'),
   },
   {
@@ -16,7 +16,7 @@ export const resolveAlias = [
     replacement: path.resolve(dirname, '../../libs/shared/src/__tests__'),
   },
   {
-    find: /^@myparcel-do\/(.+)/,
+    find: /^@myparcel-dev\/(shared|build-vite|semantic-release-plugin)$/,
     replacement: path.resolve(dirname, '../../libs/$1/src'),
   },
 ];
