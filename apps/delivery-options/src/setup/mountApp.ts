@@ -20,6 +20,7 @@ export const mountApp = (selector: string, configuration: InputDeliveryOptionsCo
     el.__vue_app__?.unmount();
   }
 
+  // remember for use here, but also when unmounting on event UNMOUNT_APP
   kv.set(key, element);
 
   /**
