@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel-dev/delivery-options-v6.23.0](https://github.com/myparcelnl/delivery-options/compare/v6.22.0...v6.23.0) (2025-12-16)
+
+### :sparkles: New Features
+
+* migrate scope with new deps ([#371](https://github.com/myparcelnl/delivery-options/issues/371)) ([ef7893e](https://github.com/myparcelnl/delivery-options/commit/ef7893ee90a8fcebd3b89290a73f0ac349807b71)), closes [#238](https://github.com/myparcelnl/delivery-options/issues/238) [#238](https://github.com/myparcelnl/delivery-options/issues/238)
+
+### :bug: Bug Fixes
+
+* use correct do-semantic-release-plugin package name ([9e73e5d](https://github.com/myparcelnl/delivery-options/commit/9e73e5dd250a3cf76ff1f25edd641c7437c9f26e))
+
 ## [@myparcel/delivery-options-v6.22.0](https://github.com/myparcelnl/delivery-options/compare/v6.21.1...v6.22.0) (2025-11-11)
 
 ### :sparkles: New Features
