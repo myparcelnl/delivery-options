@@ -1,0 +1,6 @@
+[build]
+  command = "yarn translations:import && yarn nx run @myparcel-dev/do-sandbox:build"
+  publish = "apps/sandbox/dist"
+
+[build.environment]
+  NODE_VERSION = "20"

@@ -13,7 +13,7 @@ import {
   type RadioGroupProps,
   useRadioGroupContext,
   type WithElement,
-} from '@myparcel-do/shared';
+} from '@myparcel-dev/do-shared';
 import SandboxRadioGroupInput from '../../base/SandboxRadioGroupInput.vue';
 
 // eslint-disable-next-line vue/no-unused-properties

@@ -1,7 +1,7 @@
 import {computed, onUnmounted, watch, type Ref, toValue, type ComputedRef} from 'vue';
 import {useLocalStorage} from '@vueuse/core';
-import {AddressField, type DeliveryOptionsAddress, KEY_ADDRESS, useLoadMore} from '@myparcel-do/shared';
-import {useForm} from '@myparcel/vue-form-builder';
+import {AddressField, type DeliveryOptionsAddress, KEY_ADDRESS, useLoadMore} from '@myparcel-dev/do-shared';
+import {useForm} from '@myparcel-dev/vue-form-builder';
 import {
   GERMANY,
   FRANCE,
@@ -11,7 +11,7 @@ import {
   NETHERLANDS,
   SWEDEN,
   DENMARK,
-} from '@myparcel/constants/countries';
+} from '@myparcel-dev/constants/countries';
 import {getDefaultSandboxAddress} from '../config';
 
 const ADDRESSES_START_AMOUNT = 6;

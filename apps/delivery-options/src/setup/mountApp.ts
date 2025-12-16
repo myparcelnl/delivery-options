@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/naming-convention,no-underscore-dangle */
 import {type App, createApp} from 'vue';
 import {createPinia} from 'pinia';
-import {type InputDeliveryOptionsConfiguration} from '@myparcel-do/shared';
-import {createMyParcelFormBuilderPlugin} from '@myparcel/vue-form-builder';
+import {type InputDeliveryOptionsConfiguration} from '@myparcel-dev/do-shared';
+import {createMyParcelFormBuilderPlugin} from '@myparcel-dev/vue-form-builder';
 import {MyParcelDeliveryOptions} from '../views';
 
 export const mountApp = (selector: string, configuration: InputDeliveryOptionsConfiguration | undefined): void => {

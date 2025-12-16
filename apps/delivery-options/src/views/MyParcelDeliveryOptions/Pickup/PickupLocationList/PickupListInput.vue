@@ -10,7 +10,7 @@
 
 <script generic="T" lang="ts" setup>
 import {toRefs} from 'vue';
-import {type RadioGroupProps, type WithElement} from '@myparcel-do/shared';
+import {type RadioGroupProps, type WithElement} from '@myparcel-dev/do-shared';
 import {useOptionsGroupedByCarrier} from '../../../../composables';
 import PickupLocationCarrierGroup from './PickupLocationCarrierGroup.vue';
 

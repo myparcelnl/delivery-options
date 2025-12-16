@@ -1,4 +1,4 @@
-import {PackageTypeName, ShipmentOptionName} from '@myparcel/constants';
+import {PackageTypeName, ShipmentOptionName} from '@myparcel-dev/constants';
 
 /**
  * Stores whether home delivery or pickup is selected.

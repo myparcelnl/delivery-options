@@ -36,7 +36,7 @@
 
 <script generic="T extends SelectOptionValue" lang="ts" setup>
 /* eslint-disable @typescript-eslint/no-unnecessary-type-arguments */
-import {type SelectOption, type SelectOptionValue} from '@myparcel-do/shared';
+import {type SelectOption, type SelectOptionValue} from '@myparcel-dev/do-shared';
 import {EcoFriendlyLabel, PriceTag} from '../../common';
 import {type GroupInputSlots} from '../../../types';
 import {useLanguage} from '../../../composables';

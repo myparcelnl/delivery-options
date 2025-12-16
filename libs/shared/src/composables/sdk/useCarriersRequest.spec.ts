@@ -1,6 +1,6 @@
 import {toValue} from 'vue';
 import {describe, expect, it} from 'vitest';
-import {type Carrier} from '@myparcel/sdk';
+import {type Carrier} from '@myparcel-dev/sdk';
 import {REQUEST_KEY_CARRIERS} from '../../data';
 import {fakeCarriersResponse} from '../../__tests__';
 import {useRequestStorage} from './useRequestStorage';

@@ -1,5 +1,5 @@
 import {getDay, isSameDay} from 'date-fns';
-import {PlatformName} from '@myparcel/constants';
+import {PlatformName} from '@myparcel-dev/constants';
 import {type ExtraDelivery, type ResolvedMockDeliveryOptionsParameters} from '../../types';
 import {isPastTime} from '../../../utils';
 import {DAY_MONDAY, DAY_SATURDAY, DAY_SUNDAY} from '../../../data';

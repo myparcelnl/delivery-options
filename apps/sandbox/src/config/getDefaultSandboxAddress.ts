@@ -1,4 +1,4 @@
-import {type DeliveryOptionsAddress} from '@myparcel-do/shared';
+import {type DeliveryOptionsAddress} from '@myparcel-dev/do-shared';
 
 export const getDefaultSandboxAddress = (): DeliveryOptionsAddress => {
   return {

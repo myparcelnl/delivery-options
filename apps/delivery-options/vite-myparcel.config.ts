@@ -1,6 +1,6 @@
 import {mergeConfig, type UserConfig} from 'vite';
 import {isCI} from 'ci-info';
-import {createViteConfig} from '@myparcel-do/build-vite';
+import {createViteConfig} from '@myparcel-dev/do-build-vite';
 import baseConfig from './vite.config';
 import {skipCssPlugin, getSharedConfig, createFilenameFormatter} from './private';
 

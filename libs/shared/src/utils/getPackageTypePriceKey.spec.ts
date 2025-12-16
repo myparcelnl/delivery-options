@@ -1,5 +1,5 @@
 import {describe, it, expect} from 'vitest';
-import {PackageTypeName} from '@myparcel/constants';
+import {PackageTypeName} from '@myparcel-dev/constants';
 import {type SupportedPackageTypeName} from '../types';
 import {CarrierSetting} from '../data';
 import {getPackageTypePriceKey} from './getPackageTypePriceKey';

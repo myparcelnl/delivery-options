@@ -39,8 +39,8 @@
 
 <script lang="ts" setup>
 import {computed} from 'vue';
-import {AddressField, KEY_ADDRESS, RadioInput} from '@myparcel-do/shared';
-import {ALL_COUNTRIES} from '@myparcel/constants/countries';
+import {AddressField, KEY_ADDRESS, RadioInput} from '@myparcel-dev/do-shared';
+import {ALL_COUNTRIES} from '@myparcel-dev/constants/countries';
 import {createCountryTranslatable} from '../utils';
 import {formField, formSection} from '../form';
 import {useAddressSelector, useLanguage} from '../composables';

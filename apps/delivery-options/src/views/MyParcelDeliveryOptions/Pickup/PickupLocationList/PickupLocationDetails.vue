@@ -10,7 +10,7 @@
   lang="ts"
   setup>
 import PickupLocationOpeningHours from '../PickupLocationOpeningHours/PickupLocationOpeningHours.vue';
-import type {CarrierIdentifier} from '@myparcel-do/shared';
+import type {CarrierIdentifier} from '@myparcel-dev/do-shared';
 
 defineProps<{
   /**

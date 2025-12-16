@@ -20,7 +20,7 @@
 </template>
 
 <script lang="ts" setup>
-import {Loader} from '@myparcel-do/shared';
+import {Loader} from '@myparcel-dev/do-shared';
 import CarrierLogoLoader from '../../loaders/CarrierLogoLoader.vue';
 
 withDefaults(

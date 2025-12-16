@@ -1,6 +1,6 @@
 import {afterEach, beforeEach, describe, vi} from 'vitest';
 import {flushPromises} from '@vue/test-utils';
-import {CLOSED} from '@myparcel-do/shared';
+import {CLOSED} from '@myparcel-dev/do-shared';
 import {createUtcDate} from '../utils';
 import {useConfigStore} from '../stores';
 import {mockDeliveryOptionsConfig, waitForPickupLocations} from '../__tests__';

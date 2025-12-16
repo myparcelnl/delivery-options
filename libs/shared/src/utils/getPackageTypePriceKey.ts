@@ -1,4 +1,4 @@
-import {PackageTypeName} from '@myparcel/constants';
+import {PackageTypeName} from '@myparcel-dev/constants';
 import {type ConfigPriceKey, type SupportedPackageTypeName} from '../types';
 import {CarrierSetting} from '../data';
 

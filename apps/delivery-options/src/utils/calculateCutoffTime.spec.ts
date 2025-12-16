@@ -9,8 +9,8 @@ import {
   type TimestampString,
   DAY_FRIDAY,
   DROP_OFF_WEEKDAY,
-} from '@myparcel-do/shared';
-import {CarrierName} from '@myparcel/constants';
+} from '@myparcel-dev/do-shared';
+import {CarrierName} from '@myparcel-dev/constants';
 import {useConfigStore, useAddressStore} from '../stores';
 import {useCurrentPlatform} from '../composables';
 import {mockDeliveryOptionsConfig} from '../__tests__';

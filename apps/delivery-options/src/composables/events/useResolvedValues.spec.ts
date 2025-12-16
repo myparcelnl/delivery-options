@@ -9,8 +9,8 @@ import {
   useCarriersRequest,
   ConfigSetting,
   type InputDeliveryOptionsConfig,
-} from '@myparcel-do/shared';
-import {CarrierName, DeliveryTypeName, PackageTypeName, ShipmentOptionName} from '@myparcel/constants';
+} from '@myparcel-dev/do-shared';
+import {CarrierName, DeliveryTypeName, PackageTypeName, ShipmentOptionName} from '@myparcel-dev/constants';
 import {useConfigStore} from '../../stores';
 import {
   HOME_OR_PICKUP_PICKUP,

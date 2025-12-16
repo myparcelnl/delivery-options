@@ -1,17 +1,23 @@
 import {describe, it, expect} from 'vitest';
-import {defineField, defineForm, type InteractiveElementInstance} from '@myparcel/vue-form-builder';
 import {generateFieldId} from './generateFieldId';
+import {type ElementInstance} from '../../types';
 
 describe('generateFieldId', () => {
   it('generates a field id', () => {
-    const element = defineField({
+    const mockElement = {
       name: 'test',
-      component: 'input',
-    });
+      form: {name: 'form'},
+    } as unknown as ElementInstance;
 
-    const form = defineForm('form', {fields: [element]});
-    const field = form.getField<InteractiveElementInstance>('test');
+    expect(generateFieldId(mockElement)).toBe('form--test');
+  });
 
-    expect(generateFieldId(field)).toBe('form--test');
+  it('handles form names with dashes', () => {
+    const mockElement = {
+      name: 'field',
+      form: {name: 'my-form--nested'},
+    } as unknown as ElementInstance;
+
+    expect(generateFieldId(mockElement)).toBe('my-form--field');
   });
 });

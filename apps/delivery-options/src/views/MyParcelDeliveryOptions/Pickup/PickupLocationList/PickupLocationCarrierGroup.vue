@@ -52,8 +52,8 @@ import {
   type CarrierIdentifier,
   resolveCarrierName,
   RadioInput,
-} from '@myparcel-do/shared';
-import {DeliveryTypeName} from '@myparcel/constants';
+} from '@myparcel-dev/do-shared';
+import {DeliveryTypeName} from '@myparcel-dev/constants';
 import {getDeliveryTypePrice} from '../../../../utils';
 import {useLanguage, useSelectedPickupLocation, useSelectedValues} from '../../../../composables';
 import {GroupInput, DoButton, PriceTag} from '../../../../components';

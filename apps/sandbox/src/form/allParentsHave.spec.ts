@@ -1,11 +1,8 @@
-import {ref} from 'vue';
 import {beforeEach, describe, expect, it} from 'vitest';
 import {createPinia, setActivePinia} from 'pinia';
-import {CarrierSetting} from '@myparcel-do/shared';
-import {defineField, defineForm} from '@myparcel/vue-form-builder';
+import {CarrierSetting} from '@myparcel-dev/do-shared';
+import {type FormInstance} from '@myparcel-dev/vue-form-builder';
 import {allParentsHave} from './allParentsHave';
-
-const createRandomString = (): string => Math.random().toString(36).substring(7);
 
 interface TestInput {
   fields: {name: string; value: unknown}[];
@@ -14,6 +11,19 @@ interface TestInput {
   prefix: string;
   result: boolean;
 }
+
+/**
+ * Creates a mock form with the given field values.
+ * This avoids the vue-form-builder API where fields are only registered after mount.
+ */
+const createMockForm = (fields: {name: string; value: unknown}[]): FormInstance => {
+  const values: Record<string, unknown> = {};
+  fields.forEach(({name, value}) => {
+    values[name] = value;
+  });
+
+  return {values} as unknown as FormInstance;
+};
 
 describe('allParentsHave', () => {
   beforeEach(() => {
@@ -53,9 +63,7 @@ describe('allParentsHave', () => {
       result: true,
     },
   ] satisfies TestInput[])('$it', ({parents, fields, prefix, result}) => {
-    const form = defineForm(createRandomString(), {
-      fields: fields.map(({name, value}) => defineField({component: 'input', name, ref: ref(value)})),
-    });
+    const form = createMockForm(fields);
 
     expect(allParentsHave(parents, form, prefix)).toBe(result);
   });

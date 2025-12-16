@@ -6,7 +6,7 @@ import {
   CARRIER_UPS,
   CARRIER_UPS_EXPRESS_SAVER,
   CARRIER_UPS_STANDARD,
-} from '@myparcel-do/shared/testing';
+} from '@myparcel-dev/do-shared/testing';
 import {
   type CarrierWithIdentifier,
   CustomDeliveryType,
@@ -15,8 +15,8 @@ import {
   PACKAGE_TYPE_DEFAULT,
   KEY_CONFIG,
   type SupportedPackageTypeName,
-} from '@myparcel-do/shared';
-import {CarrierName, DeliveryTypeName, PackageTypeName} from '@myparcel/constants';
+} from '@myparcel-dev/do-shared';
+import {CarrierName, DeliveryTypeName, PackageTypeName} from '@myparcel-dev/constants';
 import {useConfigStore} from '../stores';
 import {
   createTestConfiguration,

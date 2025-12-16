@@ -8,7 +8,7 @@
 
 <script lang="ts" setup>
 import {toRefs} from 'vue';
-import {ECO_FRIENDLY} from '@myparcel-do/shared';
+import {ECO_FRIENDLY} from '@myparcel-dev/do-shared';
 import InfoLabel from '../InfoLabel/InfoLabel.vue';
 import EcoFriendlyIcon from '../../icons/EcoFriendlyIcon.vue';
 import {useLanguage, useMostEcoFriendly} from '../../../composables';

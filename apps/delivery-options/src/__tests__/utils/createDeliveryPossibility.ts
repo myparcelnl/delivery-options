@@ -1,8 +1,8 @@
 import {addHours} from 'date-fns';
 import {type DateLike, normalizeDate} from '@vueuse/core';
-import {createDeliveryTimeframe} from '@myparcel-do/shared/testing';
-import {type DeliveryOption} from '@myparcel/sdk';
-import {DeliveryTypeName, PackageTypeName} from '@myparcel/constants';
+import {createDeliveryTimeframe} from '@myparcel-dev/do-shared/testing';
+import {type DeliveryOption} from '@myparcel-dev/sdk';
+import {DeliveryTypeName, PackageTypeName} from '@myparcel-dev/constants';
 
 export const createDeliveryPossibility = (
   date: DateLike,

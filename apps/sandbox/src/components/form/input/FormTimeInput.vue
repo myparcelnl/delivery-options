@@ -6,7 +6,7 @@
 </template>
 
 <script lang="ts" setup>
-import {type TimeInputEmits, type TimeInputProps, useElementContext, type WithElement} from '@myparcel-do/shared';
+import {type TimeInputEmits, type TimeInputProps, useElementContext, type WithElement} from '@myparcel-dev/do-shared';
 import SandboxTimeInput from '../../base/SandboxTimeInput.vue';
 import {useElInputClasses} from '../../../composables';
 

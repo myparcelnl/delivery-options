@@ -1,6 +1,6 @@
 import {describe, expect, it} from 'vitest';
-import {type SupportedPlatformName} from '@myparcel-do/shared';
-import {PlatformName} from '@myparcel/constants';
+import {type SupportedPlatformName} from '@myparcel-dev/do-shared';
+import {PlatformName} from '@myparcel-dev/constants';
 import {getDefaultConfigForPlatform} from './getDefaultConfigForPlatform';
 
 describe('getDefaultConfigForPlatform', () => {

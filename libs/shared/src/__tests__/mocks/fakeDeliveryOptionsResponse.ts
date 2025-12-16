@@ -1,6 +1,6 @@
 /* eslint-disable no-continue */
 
-import {type EndpointParameters, type EndpointResponse, type GetDeliveryOptions} from '@myparcel/sdk';
+import {type EndpointParameters, type EndpointResponse, type GetDeliveryOptions} from '@myparcel-dev/sdk';
 import {type ResolvedMockDeliveryOptionsParameters} from '../types';
 import {type CarrierIdentifier, type SupportedPlatformName, type Weekday} from '../../types';
 import {getNextDeliveryOption} from './delivery-options';

@@ -11,7 +11,7 @@
 
 <script lang="ts" setup>
 import {useVModel} from '@vueuse/core';
-import {type TextInputEmits, type TextInputProps} from '@myparcel-do/shared';
+import {type TextInputEmits, type TextInputProps} from '@myparcel-dev/do-shared';
 import {useBaseInputClasses} from '../../composables';
 
 // eslint-disable-next-line vue/no-unused-properties

@@ -5,9 +5,9 @@ import {
   useDeliveryOptionsRequest,
   type SupportedPlatformName,
   useCarriersRequest,
-} from '@myparcel-do/shared';
-import {type DeliveryOption} from '@myparcel/sdk';
-import {CarrierName, PlatformName} from '@myparcel/constants';
+} from '@myparcel-dev/do-shared';
+import {type DeliveryOption} from '@myparcel-dev/sdk';
+import {CarrierName, PlatformName} from '@myparcel-dev/constants';
 import {getResolvedCarrier, createGetDeliveryOptionsParameters} from '../../utils';
 import {useResolvedDeliveryOptions} from '../../composables';
 

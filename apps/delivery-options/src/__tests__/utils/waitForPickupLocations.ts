@@ -1,4 +1,4 @@
-import {type PromiseOr} from '@myparcel/ts-utils';
+import {type PromiseOr} from '@myparcel-dev/ts-utils';
 import {useResolvedPickupLocations} from '../../composables';
 
 export const waitForPickupLocations = (): PromiseOr<void> => {

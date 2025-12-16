@@ -13,9 +13,9 @@ import {
   waitForRequestData,
   KEY_ADDRESS,
   AddressField,
-} from '@myparcel-do/shared';
-import {NETHERLANDS, BELGIUM, FRANCE} from '@myparcel/constants/countries';
-import {CarrierName, PlatformName} from '@myparcel/constants';
+} from '@myparcel-dev/do-shared';
+import {NETHERLANDS, BELGIUM, FRANCE} from '@myparcel-dev/constants/countries';
+import {CarrierName, PlatformName} from '@myparcel-dev/constants';
 import {useAddressStore, useConfigStore} from '../stores';
 import {mockDeliveryOptionsConfig} from '../__tests__';
 import {useActiveCarriers} from './useActiveCarriers';

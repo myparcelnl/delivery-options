@@ -1,4 +1,4 @@
-import type {InputDeliveryOptionsConfiguration} from '@myparcel-do/shared';
+import type {InputDeliveryOptionsConfiguration} from '@myparcel-dev/do-shared';
 import {describe, it, expect} from 'vitest';
 import {mapDeprecatedUpsCarrierConfig} from './mapDeprecatedUpsCarrierConfig';
 

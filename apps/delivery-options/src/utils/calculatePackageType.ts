@@ -1,5 +1,5 @@
-import {type SupportedPackageTypeName, CarrierSetting, PACKAGE_TYPE_DEFAULT} from '@myparcel-do/shared';
-import {CarrierName, PackageTypeName} from '@myparcel/constants';
+import {type SupportedPackageTypeName, CarrierSetting, PACKAGE_TYPE_DEFAULT} from '@myparcel-dev/do-shared';
+import {CarrierName, PackageTypeName} from '@myparcel-dev/constants';
 import {type UseResolvedCarrier} from '../composables';
 import {getResolvedValue} from './getResolvedValue';
 

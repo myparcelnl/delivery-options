@@ -1,4 +1,4 @@
-import {isCustomEvent} from '@myparcel-do/shared';
+import {isCustomEvent} from '@myparcel-dev/do-shared';
 import {type IncomingEventDetail} from '../types/events.types';
 import {UPDATE_DELIVERY_OPTIONS} from '../data';
 import {mountApp} from './mountApp';

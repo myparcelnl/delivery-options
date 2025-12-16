@@ -4,9 +4,9 @@ import {
   KEY_CARRIER_SETTINGS,
   KEY_CONFIG,
   KEY_ADDRESS,
-} from '@myparcel-do/shared';
-import {type RecursivePartial} from '@myparcel/ts-utils';
-import {CarrierName} from '@myparcel/constants';
+} from '@myparcel-dev/do-shared';
+import {type RecursivePartial} from '@myparcel-dev/ts-utils';
+import {CarrierName} from '@myparcel-dev/constants';
 import {useAddressStore, useConfigStore} from '../../stores';
 import {validateConfiguration} from '../../config';
 import {getMockDeliveryOptionsConfiguration} from './getMockDeliveryOptionsConfiguration';

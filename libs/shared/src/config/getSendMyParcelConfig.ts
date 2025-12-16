@@ -25,8 +25,8 @@ import {
   SPAIN,
   SWEDEN,
   UNITED_KINGDOM,
-} from '@myparcel/constants/countries';
-import {CarrierName, DeliveryTypeName, PackageTypeName, ShipmentOptionName} from '@myparcel/constants';
+} from '@myparcel-dev/constants/countries';
+import {CarrierName, DeliveryTypeName, PackageTypeName, ShipmentOptionName} from '@myparcel-dev/constants';
 import {type PlatformConfiguration} from '../types';
 import {AddressField, CarrierSetting, SubscriptionType, CustomDeliveryType} from '../data';
 

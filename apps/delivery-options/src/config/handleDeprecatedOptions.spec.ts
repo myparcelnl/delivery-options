@@ -13,7 +13,7 @@ import {
   type InputDeliveryOptionsConfig,
   DROP_OFF_WEEKDAY,
   type DropOffEntryObject,
-} from '@myparcel-do/shared';
+} from '@myparcel-dev/do-shared';
 import {handleDeprecatedOptions} from './handleDeprecatedOptions';
 
 describe('handleDeprecatedOptions', () => {

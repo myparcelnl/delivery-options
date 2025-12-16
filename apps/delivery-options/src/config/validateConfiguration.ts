@@ -27,9 +27,9 @@ import {
   KEY_STRINGS,
   KEY_PLATFORM_CONFIG,
   type DeliveryOptionsAddress,
-} from '@myparcel-do/shared';
-import {isEnumValue} from '@myparcel/ts-utils';
-import {PackageTypeName} from '@myparcel/constants';
+} from '@myparcel-dev/do-shared';
+import {isEnumValue} from '@myparcel-dev/ts-utils';
+import {PackageTypeName} from '@myparcel-dev/constants';
 import {handleDeprecatedOptions} from './handleDeprecatedOptions';
 import {filterConfig} from './filterConfig';
 

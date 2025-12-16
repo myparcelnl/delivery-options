@@ -70,7 +70,7 @@ jobs:
       - name: 'Release'
         uses: myparcelnl/actions/semantic-release@v4
         env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN_NEW }}
         with:
           working-directory: apps/delivery-options
           token: ${{ steps.credentials.outputs.token }}
@@ -78,7 +78,7 @@ jobs:
       - name: 'Determine CDN URLs to Purge'
         id: purge_urls
         run: |
-          baseUrl="https://cdn.jsdelivr.net/npm/@myparcel/delivery-options@6"
+          baseUrl="https://cdn.jsdelivr.net/npm/@myparcel-dev/delivery-options@6"
           urls=""
           cd apps/delivery-options
           for f in `find dist -name "*.js" -o -name "*.css" -type f`; do

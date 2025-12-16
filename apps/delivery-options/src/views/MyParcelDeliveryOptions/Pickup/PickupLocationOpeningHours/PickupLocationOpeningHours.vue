@@ -24,7 +24,7 @@
   setup>
 import {computed, toValue, toRefs} from 'vue';
 import {format, setDay} from 'date-fns';
-import {OPENING_HOURS, CLOSED, type CarrierIdentifier} from '@myparcel-do/shared';
+import {OPENING_HOURS, CLOSED, type CarrierIdentifier} from '@myparcel-dev/do-shared';
 import {useLanguage, usePickupLocation, useDateFormat} from '../../../../composables';
 
 /**

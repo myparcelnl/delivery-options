@@ -1,5 +1,5 @@
-import type {InputDeliveryOptionsConfiguration} from '@myparcel-do/shared';
-import {CarrierName} from '@myparcel/constants';
+import type {InputDeliveryOptionsConfiguration} from '@myparcel-dev/do-shared';
+import {CarrierName} from '@myparcel-dev/constants';
 
 // This function maps deprecated UPS carrier settings to the new UPS Standard settings.
 export const mapDeprecatedUpsCarrierConfig = (

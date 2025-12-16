@@ -1,6 +1,6 @@
 import {isObject} from 'radash';
-import {CarrierSetting, type DropOffEntryObject, type Weekday} from '@myparcel-do/shared';
-import {partitionArray} from '@myparcel/ts-utils';
+import {CarrierSetting, type DropOffEntryObject, type Weekday} from '@myparcel-dev/do-shared';
+import {partitionArray} from '@myparcel-dev/ts-utils';
 import {type UseResolvedCarrier} from '../composables';
 
 export const calculateDropOffDays = (carrier: UseResolvedCarrier): string | undefined => {

@@ -1,5 +1,5 @@
 import {type ComputedRef, type WritableComputedRef} from 'vue';
-import {type InteractiveElementInstance} from '@myparcel/vue-form-builder';
+import {type InteractiveElementInstance} from '@myparcel-dev/vue-form-builder';
 import {type InputProps} from './form.types';
 
 export type ElementContext<Type = unknown, Props extends Record<string, unknown> = Record<string, unknown>> = {

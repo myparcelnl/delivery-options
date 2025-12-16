@@ -1,5 +1,5 @@
-import {type Carrier} from '@myparcel/sdk';
-import {CarrierId, CarrierName} from '@myparcel/constants';
+import {type Carrier} from '@myparcel-dev/sdk';
+import {CarrierId, CarrierName} from '@myparcel-dev/constants';
 
 export const CARRIER_POST_NL = Object.freeze({
   id: CarrierId.PostNl,
@@ -158,5 +158,15 @@ export const CARRIER_TRUNKRS = Object.freeze({
   meta: {
     logo_svg: '/skin/general-images/carrier-logos/svg/trunkrs.svg',
     logo_png: '/skin/general-images/carrier-logos/trunkrs.png',
+  },
+}) satisfies Carrier;
+
+export const CARRIER_INPOST = Object.freeze({
+  id: CarrierId.InPost,
+  name: CarrierName.InPost,
+  human: 'InPost',
+  meta: {
+    logo_svg: '/skin/general-images/carrier-logos/svg/inpost.svg',
+    logo_png: '/skin/general-images/carrier-logos/inpost.png',
   },
 }) satisfies Carrier;

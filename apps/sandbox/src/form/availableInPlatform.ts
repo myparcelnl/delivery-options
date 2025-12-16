@@ -10,9 +10,9 @@ import {
   type CarrierIdentifier,
   type SupportedPlatformName,
   usePlatform,
-} from '@myparcel-do/shared';
-import {isEnumValue} from '@myparcel/ts-utils';
-import {CarrierName} from '@myparcel/constants';
+} from '@myparcel-dev/do-shared';
+import {isEnumValue} from '@myparcel-dev/ts-utils';
+import {CarrierName} from '@myparcel-dev/constants';
 import {getAllSandboxConfigOptions} from './getAllSandboxConfigOptions';
 
 const ALWAYS_ENABLED_FIELDS: readonly string[] = Object.freeze([CarrierSetting.AllowDeliveryOptions]);

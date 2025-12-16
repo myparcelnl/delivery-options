@@ -9,9 +9,9 @@ import {
   ConfigSetting,
   addLoadingProperties,
   watchUntil,
-} from '@myparcel-do/shared';
-import {type PickupLocation} from '@myparcel/sdk';
-import {DeliveryTypeName} from '@myparcel/constants';
+} from '@myparcel-dev/do-shared';
+import {type PickupLocation} from '@myparcel-dev/sdk';
+import {DeliveryTypeName} from '@myparcel-dev/constants';
 import {getHasPickupForPackage} from '../utils/getHasPickupForPackage';
 import {createLatLngParameters, createGetDeliveryOptionsParameters} from '../utils';
 import {type ResolvedPickupLocation, type LatLng} from '../types';

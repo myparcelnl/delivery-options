@@ -6,9 +6,9 @@ import {
   KEY_ADDRESS,
   KEY_CONFIG,
   KEY_STRINGS,
-} from '@myparcel-do/shared';
-import {type RecursivePartial} from '@myparcel/ts-utils';
-import {PlatformName} from '@myparcel/constants';
+} from '@myparcel-dev/do-shared';
+import {type RecursivePartial} from '@myparcel-dev/ts-utils';
+import {PlatformName} from '@myparcel-dev/constants';
 import {getDefaultConfigForPlatform, getDefaultStrings, validateConfiguration} from '../../config';
 
 export const getMockDeliveryOptionsConfiguration = (

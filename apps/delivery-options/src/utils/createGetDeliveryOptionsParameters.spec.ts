@@ -6,9 +6,9 @@ import {
   type InputCarrierSettings,
   KEY_CARRIER_SETTINGS,
   KEY_CONFIG,
-} from '@myparcel-do/shared';
-import {type EndpointParameters, type GetDeliveryOptions} from '@myparcel/sdk';
-import {CarrierName, PackageTypeName, PlatformName} from '@myparcel/constants';
+} from '@myparcel-dev/do-shared';
+import {type EndpointParameters, type GetDeliveryOptions} from '@myparcel-dev/sdk';
+import {CarrierName, PackageTypeName, PlatformName} from '@myparcel-dev/constants';
 import {useConfigStore} from '../stores';
 import {getMockDeliveryOptionsConfiguration, mockDeliveryOptionsConfig} from '../__tests__';
 import {getResolvedCarrier} from './getResolvedCarrier';

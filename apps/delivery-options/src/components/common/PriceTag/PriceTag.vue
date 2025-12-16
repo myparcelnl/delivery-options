@@ -4,8 +4,8 @@
 
 <script lang="ts" setup>
 import {computed} from 'vue';
-import {ConfigSetting, useLanguage} from '@myparcel/delivery-options';
-import {useConfigStore} from '@myparcel/delivery-options';
+import {ConfigSetting, useLanguage} from '@myparcel-dev/delivery-options';
+import {useConfigStore} from '@myparcel-dev/delivery-options';
 
 const props = defineProps<{price: number}>();
 const {state: config} = useConfigStore();

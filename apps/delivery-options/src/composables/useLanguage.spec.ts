@@ -1,5 +1,5 @@
 import {describe, it, expect, beforeEach, vi} from 'vitest';
-import {type AnyTranslatable} from '@myparcel-do/shared';
+import {type AnyTranslatable} from '@myparcel-dev/do-shared';
 import {useAddressStore, useConfigStore} from '../stores';
 import {useLanguage} from './useLanguage';
 

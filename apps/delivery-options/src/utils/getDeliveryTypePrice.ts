@@ -3,7 +3,7 @@ import {
   type SupportedDeliveryTypeName,
   PACKAGE_TYPE_DEFAULT,
   getPackageTypePriceKey,
-} from '@myparcel-do/shared';
+} from '@myparcel-dev/do-shared';
 import {useConfigStore} from '../stores';
 import {getResolvedValue} from './getResolvedValue';
 import {getConfigPriceKey} from './getConfigPriceKey';

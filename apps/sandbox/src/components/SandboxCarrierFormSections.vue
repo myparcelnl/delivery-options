@@ -12,8 +12,8 @@
 
 <script lang="ts" setup>
 import {computed, toValue} from 'vue';
-import {CarrierBox, KEY_CARRIER_SETTINGS} from '@myparcel-do/shared';
-import {type CarrierName} from '@myparcel/constants';
+import {CarrierBox, KEY_CARRIER_SETTINGS} from '@myparcel-dev/do-shared';
+import {type CarrierName} from '@myparcel-dev/constants';
 import {type SettingsSection} from '../types';
 import {getConfigSandboxSections} from '../form';
 import {useCurrentPlatform} from '../composables';

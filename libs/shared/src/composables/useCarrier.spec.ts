@@ -1,6 +1,6 @@
 import {describe, it, expect} from 'vitest';
-import {useCarrier} from '@myparcel-do/shared';
-import {CarrierName, PlatformName} from '@myparcel/constants';
+import {useCarrier} from '@myparcel-dev/do-shared';
+import {CarrierName, PlatformName} from '@myparcel-dev/constants';
 
 describe('useCarrier', () => {
   it('sets small package pickup countries', () => {

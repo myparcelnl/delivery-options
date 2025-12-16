@@ -5,7 +5,7 @@ import {
   RelatedConfigOptionType,
   type SupportedDeliveryTypeName,
   type SupportedShipmentOptionName,
-} from '@myparcel-do/shared';
+} from '@myparcel-dev/do-shared';
 
 export const getConfigPriceKey = (input: SupportedDeliveryTypeName | SupportedShipmentOptionName): ConfigPriceKey => {
   const key = getConfigKey(input);

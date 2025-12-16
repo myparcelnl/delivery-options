@@ -1,5 +1,5 @@
 import {type ComputedRef, computed, toValue} from 'vue';
-import {type SelectOption, DELIVERY_TYPE_DEFAULT} from '@myparcel-do/shared';
+import {type SelectOption, DELIVERY_TYPE_DEFAULT} from '@myparcel-dev/do-shared';
 import {getDeliveryTypePrice, createPackageTypeTranslatable} from '../utils';
 import {useConfigStore} from '../stores';
 import {DELIVERY_MOMENT_PACKAGE_TYPES, SHOWN_SHIPMENT_OPTIONS} from '../data';

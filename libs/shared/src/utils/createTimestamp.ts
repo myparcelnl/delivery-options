@@ -1,6 +1,6 @@
 import {format} from 'date-fns';
 import {type DateLike, normalizeDate} from '@vueuse/core';
-import {type Timestamp} from '@myparcel/sdk';
+import {type Timestamp} from '@myparcel-dev/sdk';
 import {DEFAULT_TIMEZONE, DEFAULT_TIMEZONE_TYPE, API_DATE_FORMAT} from '../data';
 
 export const createTimestamp = (date: DateLike = new Date()): Timestamp => {

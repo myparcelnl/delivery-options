@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import {afterEach, describe, expect, it, vi} from 'vitest';
-import {consoleLogSpy, consoleWarnSpy, consoleErrorSpy} from '@myparcel-do/shared/testing';
+import {consoleLogSpy, consoleWarnSpy, consoleErrorSpy} from '@myparcel-dev/do-shared/testing';
 import {useLogger} from './useLogger';
 
 describe('useLogger', () => {

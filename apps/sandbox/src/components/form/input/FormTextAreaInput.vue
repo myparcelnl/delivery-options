@@ -6,7 +6,7 @@
 </template>
 
 <script lang="ts" setup>
-import {type TextAreaEmits, type TextAreaProps, useElementContext, type WithElement} from '@myparcel-do/shared';
+import {type TextAreaEmits, type TextAreaProps, useElementContext, type WithElement} from '@myparcel-dev/do-shared';
 import {SandboxTextAreaInput} from '../../base';
 import {useElInputClasses} from '../../../composables';
 

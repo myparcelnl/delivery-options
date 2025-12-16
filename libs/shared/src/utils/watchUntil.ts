@@ -1,6 +1,6 @@
 import {type WatchSource, watch, type WatchOptions} from 'vue';
 import {type AnyFn} from '@vueuse/core';
-import {type PromiseOr} from '@myparcel/ts-utils';
+import {type PromiseOr} from '@myparcel-dev/ts-utils';
 
 const checkCondition = (value: unknown, condition?: AnyFn): PromiseOr<boolean> => {
   if (condition) {

@@ -1,4 +1,4 @@
-import {PackageTypeName, PlatformName, DeliveryTypeName} from '@myparcel/constants';
+import {PackageTypeName, PlatformName, DeliveryTypeName} from '@myparcel-dev/constants';
 import {type SupportedPackageTypeName, type SupportedDeliveryTypeName, type SupportedPlatformName} from '../types';
 
 export const PACKAGE_TYPE_DEFAULT = PackageTypeName.Package satisfies SupportedPackageTypeName;

@@ -1,5 +1,5 @@
 import {describe, expect, it} from 'vitest';
-import {CarrierName} from '@myparcel/constants';
+import {CarrierName} from '@myparcel-dev/constants';
 import {type CarrierIdentifier} from '../types';
 import {resolveCarrierName} from './resolveCarrierName';
 

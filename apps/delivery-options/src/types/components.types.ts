@@ -3,7 +3,7 @@ import {
   type InputDeliveryOptionsConfiguration,
   type SelectOption,
   type SelectOptionValue,
-} from '@myparcel-do/shared';
+} from '@myparcel-dev/do-shared';
 
 export interface DeliveryOptionsProps {
   configuration?: InputDeliveryOptionsConfiguration;

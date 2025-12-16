@@ -14,6 +14,6 @@ export type {
   SupportedPackageTypeName,
   SupportedPlatformName,
   SupportedShipmentOptionName,
-} from '@myparcel-do/shared';
+} from '@myparcel-dev/do-shared';
 
 export * from './types';

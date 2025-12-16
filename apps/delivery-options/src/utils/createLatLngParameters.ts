@@ -1,4 +1,4 @@
-import {type EndpointParameters, type GetDeliveryOptions} from '@myparcel/sdk';
+import {type EndpointParameters, type GetDeliveryOptions} from '@myparcel-dev/sdk';
 import {type LatLng} from '../types';
 
 export const createLatLngParameters = <T extends LatLng>(

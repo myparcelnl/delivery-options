@@ -1,5 +1,5 @@
 import {type DateLike} from '@vueuse/core';
-import {type DeliveryTimeFrame} from '@myparcel/sdk';
+import {type DeliveryTimeFrame} from '@myparcel-dev/sdk';
 import {createTimestamp} from '../../utils';
 
 export const createDeliveryTimeframe = <T extends 'start' | 'end' = 'start' | 'end'>(
