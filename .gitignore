@@ -39,3 +39,4 @@ logs
 !.yarn/plugins
 !.yarn/sdks
 !.yarn/versions
+.idea/nx-angular-config.xml

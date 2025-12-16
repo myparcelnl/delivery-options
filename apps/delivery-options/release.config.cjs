@@ -26,7 +26,7 @@ module.exports = {
      * Includes npm and git functionality
      */
     [
-      '@myparcel-dev/semantic-release-plugin',
+      '@myparcel-dev/do-semantic-release-plugin',
       {
         additionalPackages: [path.resolve(__dirname, '../../libs/shared')],
       },
