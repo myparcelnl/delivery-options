@@ -56,6 +56,7 @@ import {
   useActiveCarriers,
   useLanguage,
   useSelectedValues,
+  usePersistedSelectedValues,
 } from '../../../composables';
 import {CaretRightIcon, RadioGroupInput} from '../../../components';
 import {getHasPickupForPackage} from '../../../utils/getHasPickupForPackage';
@@ -66,6 +67,9 @@ await waitForRequestData(useCarriersRequest);
 const Form = useDeliveryOptionsForm();
 const carriers = useActiveCarriers();
 const {state: config} = useConfigStore();
+
+// Set up hydration + persistence of selected values in localStorage.
+usePersistedSelectedValues();
 
 const {translate} = useLanguage();
 const {homeOrPickup} = useSelectedValues();

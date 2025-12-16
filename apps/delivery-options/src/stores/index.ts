@@ -11,3 +11,4 @@ export type DeliveryOptionsStore<T, U = T, A extends unknown[] = []> = {
 
 export * from './useAddressStore';
 export * from './useConfigStore';
+export * from './useKvStore';

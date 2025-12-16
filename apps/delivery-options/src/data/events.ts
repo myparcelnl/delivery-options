@@ -1,3 +1,5 @@
+export const UNMOUNT_APP = 'myparcel_unmount_app';
+
 /**
  * This event is used to change the config after the initialization.
  */

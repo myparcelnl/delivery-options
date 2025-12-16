@@ -20,3 +20,5 @@ export * from './parseJson';
 export * from './showDeveloperInfo';
 export * from './stringToDate';
 export * from './toTime';
+export * from './storage';
+export * from './getPersistenceKey';
