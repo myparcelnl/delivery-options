@@ -13,6 +13,6 @@ export {
   CarrierSetting,
   ConfigSetting,
   AddressField,
-} from '@myparcel-dev/shared';
+} from '@myparcel-dev/do-shared';
 
 bootDeliveryOptions();

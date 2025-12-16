@@ -21,7 +21,7 @@
 import '../../assets/index.scss';
 import {computed, onMounted, ref, toRefs, watch, toValue} from 'vue';
 import {useEventListener} from '@vueuse/core';
-import {useLogger, useApiExceptions} from '@myparcel-dev/shared';
+import {useLogger, useApiExceptions} from '@myparcel-dev/do-shared';
 import {getConfigFromWindow} from '../../utils';
 import {type DeliveryOptionsEmits, type DeliveryOptionsProps} from '../../types';
 import {useAddressStore, useConfigStore} from '../../stores';

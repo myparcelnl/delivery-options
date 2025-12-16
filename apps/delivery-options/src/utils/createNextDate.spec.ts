@@ -7,7 +7,7 @@ import {
   DAY_THURSDAY,
   DAY_TUESDAY,
   DAY_WEDNESDAY,
-} from '@myparcel-dev/shared';
+} from '@myparcel-dev/do-shared';
 import {createUtcDate} from './createUtcDate';
 import {createNextDate} from './createNextDate';
 

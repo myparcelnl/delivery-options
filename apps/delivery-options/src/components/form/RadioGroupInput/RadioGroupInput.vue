@@ -28,7 +28,7 @@ import {
   RadioInput,
   useRadioGroupContext,
   type WithElement,
-} from '@myparcel-dev/shared';
+} from '@myparcel-dev/do-shared';
 import GroupInput from '../GroupInput/GroupInput.vue';
 import {type GroupInputSlots} from '../../../types';
 

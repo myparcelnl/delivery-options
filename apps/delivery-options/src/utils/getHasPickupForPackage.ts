@@ -1,5 +1,5 @@
 import {toValue} from 'vue';
-import {PACKAGE_TYPE_DEFAULT, PACKAGE_TYPE_SMALL} from '@myparcel-dev/shared';
+import {PACKAGE_TYPE_DEFAULT, PACKAGE_TYPE_SMALL} from '@myparcel-dev/do-shared';
 import {type PackageTypeName} from '@myparcel-dev/constants';
 import {type UseResolvedCarrier} from '../composables';
 

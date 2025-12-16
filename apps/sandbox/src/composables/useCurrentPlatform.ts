@@ -1,6 +1,6 @@
 import {computed, type ComputedRef} from 'vue';
 import {useMemoize} from '@vueuse/core';
-import {type UsePlatform, type SupportedPlatformName, usePlatform} from '@myparcel-dev/shared';
+import {type UsePlatform, type SupportedPlatformName, usePlatform} from '@myparcel-dev/do-shared';
 import {useSandboxStore} from '../stores';
 
 export interface SandboxPlatformInstance extends UsePlatform {

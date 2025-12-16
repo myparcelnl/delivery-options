@@ -13,7 +13,7 @@ import {
   DELIVERY_DAYS_WINDOW_DEFAULT,
   createTranslatable,
   ConfigSetting,
-} from '@myparcel-dev/shared';
+} from '@myparcel-dev/do-shared';
 import {type Replace} from '@myparcel-dev/ts-utils';
 import {type Timestamp, type DeliveryOption, type DeliveryPossibility, type DeliveryTimeFrame} from '@myparcel-dev/sdk';
 import {createGetDeliveryOptionsParameters, getResolvedDeliveryType, calculateCutoffTime} from '../utils';

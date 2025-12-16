@@ -4,7 +4,7 @@ import {
   CarrierSetting,
   KEY_CARRIER_SETTINGS,
   type InputDeliveryOptionsConfiguration,
-} from '@myparcel-dev/shared';
+} from '@myparcel-dev/do-shared';
 import {TEST_VALUE_MAP_CARRIERS, TEST_VALUE_MAP_CUSTOM_CONTRACTS, TEST_VALUE_MAP_PRICES} from '../constants';
 import {getMockDeliveryOptionsConfiguration} from './getMockDeliveryOptionsConfiguration';
 

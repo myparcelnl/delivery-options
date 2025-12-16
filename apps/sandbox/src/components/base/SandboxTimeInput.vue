@@ -10,7 +10,7 @@
 
 <script lang="ts" setup>
 import {useVModel} from '@vueuse/core';
-import {type TimeInputEmits, type TimeInputProps} from '@myparcel-dev/shared';
+import {type TimeInputEmits, type TimeInputProps} from '@myparcel-dev/do-shared';
 import TextInput from './SandboxTextInput.vue';
 
 // eslint-disable-next-line vue/no-unused-properties

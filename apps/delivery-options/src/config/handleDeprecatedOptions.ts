@@ -16,7 +16,7 @@ import {
   useLogger,
   type Weekday,
   type DropOffEntryObject,
-} from '@myparcel-dev/shared';
+} from '@myparcel-dev/do-shared';
 import {toArray} from '@myparcel-dev/ts-utils';
 
 const parseDropOffDays = (value?: string | DropOffEntry[]): DropOffEntryObject[] => {

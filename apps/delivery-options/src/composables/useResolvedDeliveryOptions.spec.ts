@@ -1,7 +1,7 @@
 import {describe, it, expect, beforeEach, afterEach, vi} from 'vitest';
 import {assign} from 'radash';
 import {normalizeDate} from '@vueuse/core';
-import {mockGetDeliveryOptions} from '@myparcel-dev/shared/testing';
+import {mockGetDeliveryOptions} from '@myparcel-dev/do-shared/testing';
 import {
   KEY_CONFIG,
   CarrierSetting,
@@ -10,7 +10,7 @@ import {
   type InputDeliveryOptionsConfiguration,
   KEY_ADDRESS,
   ConfigSetting,
-} from '@myparcel-dev/shared';
+} from '@myparcel-dev/do-shared';
 import {type RecursivePartial} from '@myparcel-dev/ts-utils';
 import {DeliveryTypeName, CarrierName} from '@myparcel-dev/constants';
 import {useConfigStore} from '../stores';

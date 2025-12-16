@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts" setup>
-import {useApiExceptions} from '@myparcel-dev/shared';
+import {useApiExceptions} from '@myparcel-dev/do-shared';
 import {useLanguage} from '../../composables';
 
 const {exceptions} = useApiExceptions();

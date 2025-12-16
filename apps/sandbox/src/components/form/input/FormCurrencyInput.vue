@@ -10,7 +10,7 @@ import {
   type CurrencyInputProps,
   useElementContext,
   type WithElement,
-} from '@myparcel-dev/shared';
+} from '@myparcel-dev/do-shared';
 import SandboxCurrencyInput from '../../base/SandboxCurrencyInput.vue';
 
 // eslint-disable-next-line vue/no-unused-properties

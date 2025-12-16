@@ -112,7 +112,7 @@ import {
   useClickOutside,
   Loader,
   NBSP,
-} from '@myparcel-dev/shared';
+} from '@myparcel-dev/do-shared';
 import {useLanguage} from '../composables';
 
 type T = SelectInputModelValue;

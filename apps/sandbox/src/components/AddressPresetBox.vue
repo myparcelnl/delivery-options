@@ -22,7 +22,7 @@
 
 <script lang="ts" setup>
 import {useModel} from 'vue';
-import {type DeliveryOptionsAddress, AddressField, RadioInput} from '@myparcel-dev/shared';
+import {type DeliveryOptionsAddress, AddressField, RadioInput} from '@myparcel-dev/do-shared';
 import {createCountryTranslatable} from '../utils';
 import {useLanguage} from '../composables';
 import {Box} from './Box';

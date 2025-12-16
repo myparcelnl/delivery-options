@@ -18,7 +18,7 @@
 
 <script lang="ts" setup>
 import {computed, markRaw, reactive, toRef, watch} from 'vue';
-import {crushObject, type SupportedPlatformName} from '@myparcel-dev/shared';
+import {crushObject, type SupportedPlatformName} from '@myparcel-dev/do-shared';
 import {type CreatedForm, createForm} from '@myparcel-dev/vue-form-builder';
 import {useSandboxStore} from '../stores';
 import {useCurrentPlatform, useLanguage} from '../composables';

@@ -1,9 +1,9 @@
 import type {Map, TileLayer, Control} from 'leaflet';
-import type {MapTileLayerData} from '@myparcel-dev/shared';
+import type {MapTileLayerData} from '@myparcel-dev/do-shared';
 import {type Ref, ref, computed, watch, toRef, toValue, type ComputedRef} from 'vue';
 import {isString} from 'radash';
 import {isDef, useDebounceFn} from '@vueuse/core';
-import {ConfigSetting} from '@myparcel-dev/shared';
+import {ConfigSetting} from '@myparcel-dev/do-shared';
 import {type LeafletMapProps, type MapMarker} from '../types';
 import {useConfigStore} from '../stores';
 import {MAP_MARKER_CLASS_ACTIVE} from '../data';

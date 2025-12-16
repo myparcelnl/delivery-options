@@ -19,7 +19,7 @@
 
 <script lang="ts" setup>
 import {useVModel} from '@vueuse/core';
-import {type CurrencyInputEmits, type CurrencyInputProps} from '@myparcel-dev/shared';
+import {type CurrencyInputEmits, type CurrencyInputProps} from '@myparcel-dev/do-shared';
 import {useBaseInputClasses} from '../../composables';
 import NumberInput from './SandboxNumberInput.vue';
 

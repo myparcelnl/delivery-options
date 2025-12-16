@@ -1,6 +1,6 @@
 import {describe, it, expect, beforeEach, vi, afterEach} from 'vitest';
 import {type DateLike} from '@vueuse/core';
-import {CustomDeliveryType, SUPPORTED_DELIVERY_TYPES, type SupportedDeliveryTypeName} from '@myparcel-dev/shared';
+import {CustomDeliveryType, SUPPORTED_DELIVERY_TYPES, type SupportedDeliveryTypeName} from '@myparcel-dev/do-shared';
 import {DeliveryTypeName} from '@myparcel-dev/constants';
 import {getResolvedDeliveryType} from './getResolvedDeliveryType';
 

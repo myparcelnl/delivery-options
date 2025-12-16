@@ -5,7 +5,7 @@ import {
   type SupportedDeliveryTypeName,
   type AnyTranslatable,
   type DeliveryDeliveryType,
-} from '@myparcel-dev/shared';
+} from '@myparcel-dev/do-shared';
 import {type Replace} from '@myparcel-dev/ts-utils';
 import {type DeliveryOption, type StartEndDate} from '@myparcel-dev/sdk';
 import {type DeliveryTypeName, type PackageTypeName} from '@myparcel-dev/constants';

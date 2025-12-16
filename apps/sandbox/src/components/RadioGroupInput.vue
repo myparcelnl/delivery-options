@@ -23,7 +23,7 @@ import {
   RadioInput,
   useRadioGroupContext,
   type WithElement,
-} from '@myparcel-dev/shared';
+} from '@myparcel-dev/do-shared';
 import {useLanguage} from '../composables';
 
 // eslint-disable-next-line vue/no-unused-properties

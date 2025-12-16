@@ -1,4 +1,4 @@
-import {type CarrierWithIdentifier} from '@myparcel-dev/shared';
+import {type CarrierWithIdentifier} from '@myparcel-dev/do-shared';
 import {isOfType} from '@myparcel-dev/ts-utils';
 import {type Carrier} from '@myparcel-dev/sdk';
 

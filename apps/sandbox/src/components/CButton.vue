@@ -12,7 +12,7 @@
 
 <script lang="ts" setup>
 import {computed} from 'vue';
-import {ElementEvent} from '@myparcel-dev/shared';
+import {ElementEvent} from '@myparcel-dev/do-shared';
 import {type StyleProps} from '../types';
 import {StyleSize, StyleVariant} from '../constants';
 

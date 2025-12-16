@@ -1,5 +1,5 @@
 import {markRaw} from 'vue';
-import {type ConfigOption} from '@myparcel-dev/shared';
+import {type ConfigOption} from '@myparcel-dev/do-shared';
 import {type InteractiveElementConfiguration, type ModularCreatedElement} from '@myparcel-dev/vue-form-builder';
 import {getComponent} from './getComponent';
 import {formField} from './formField';

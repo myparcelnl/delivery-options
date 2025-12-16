@@ -52,7 +52,7 @@ import {
   type CarrierIdentifier,
   resolveCarrierName,
   RadioInput,
-} from '@myparcel-dev/shared';
+} from '@myparcel-dev/do-shared';
 import {DeliveryTypeName} from '@myparcel-dev/constants';
 import {getDeliveryTypePrice} from '../../../../utils';
 import {useLanguage, useSelectedPickupLocation, useSelectedValues} from '../../../../composables';

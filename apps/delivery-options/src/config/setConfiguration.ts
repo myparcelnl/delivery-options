@@ -1,4 +1,4 @@
-import {type InputDeliveryOptionsConfiguration, useApiExceptions} from '@myparcel-dev/shared';
+import {type InputDeliveryOptionsConfiguration, useApiExceptions} from '@myparcel-dev/do-shared';
 import {useAddressStore, useConfigStore} from '../stores';
 import {useLanguage} from '../composables';
 import {validateConfiguration} from './validateConfiguration';

@@ -12,7 +12,7 @@ import {
   type CarrierSettingsKey,
   type DeliveryOptionsConfig,
   type CarrierSettings,
-} from '@myparcel-dev/shared';
+} from '@myparcel-dev/do-shared';
 import {getResolvedCarrier} from '../utils';
 import {useConfigStore} from '../stores';
 

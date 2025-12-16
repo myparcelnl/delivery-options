@@ -4,8 +4,8 @@
     "noEmitOnError": false,
     "paths": {
       "@myparcel-dev/delivery-options": ["./apps/delivery-options/src"],
-      "@myparcel-dev/shared/testing": ["./libs/shared/src/__tests__"],
-      "@myparcel-dev/*": ["./libs/*/src"]
+      "@myparcel-dev/do-shared/testing": ["./libs/shared/src/__tests__"],
+      "@myparcel-dev/do-*": ["./libs/*/src"]
     },
     "types": ["node", "vite/client"]
   },

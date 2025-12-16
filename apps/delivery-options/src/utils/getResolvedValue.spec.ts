@@ -1,5 +1,5 @@
 import {beforeEach, describe, expect, it} from 'vitest';
-import {CarrierSetting, KEY_CARRIER_SETTINGS, KEY_CONFIG} from '@myparcel-dev/shared';
+import {CarrierSetting, KEY_CARRIER_SETTINGS, KEY_CONFIG} from '@myparcel-dev/do-shared';
 import {CarrierName} from '@myparcel-dev/constants';
 import {useConfigStore} from '../stores';
 import {mockDeliveryOptionsConfig} from '../__tests__';

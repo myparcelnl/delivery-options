@@ -39,7 +39,7 @@
 
 <script lang="ts" setup>
 import {computed} from 'vue';
-import {AddressField, KEY_ADDRESS, RadioInput} from '@myparcel-dev/shared';
+import {AddressField, KEY_ADDRESS, RadioInput} from '@myparcel-dev/do-shared';
 import {ALL_COUNTRIES} from '@myparcel-dev/constants/countries';
 import {createCountryTranslatable} from '../utils';
 import {formField, formSection} from '../form';

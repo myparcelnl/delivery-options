@@ -7,7 +7,7 @@
 
 <script lang="ts" setup>
 import type {MarkerOptions} from 'leaflet';
-import type {CarrierIdentifier} from '@myparcel-dev/shared';
+import type {CarrierIdentifier} from '@myparcel-dev/do-shared';
 import {computed, toRefs} from 'vue';
 import {isDef} from '@vueuse/core';
 import {createCarrierMarkerIcon} from '../../../../utils';

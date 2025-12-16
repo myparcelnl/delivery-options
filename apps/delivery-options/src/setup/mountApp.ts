@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention,no-underscore-dangle */
 import {type App, createApp} from 'vue';
 import {createPinia} from 'pinia';
-import {type InputDeliveryOptionsConfiguration} from '@myparcel-dev/shared';
+import {type InputDeliveryOptionsConfiguration} from '@myparcel-dev/do-shared';
 import {createMyParcelFormBuilderPlugin} from '@myparcel-dev/vue-form-builder';
 import {MyParcelDeliveryOptions} from '../views';
 

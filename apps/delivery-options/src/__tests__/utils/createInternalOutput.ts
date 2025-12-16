@@ -1,4 +1,4 @@
-import {type InternalOutput} from '@myparcel-dev/shared';
+import {type InternalOutput} from '@myparcel-dev/do-shared';
 import {type Replace} from '@myparcel-dev/ts-utils';
 import {CarrierName, DeliveryTypeName, PackageTypeName} from '@myparcel-dev/constants';
 import {MOCK_DEFAULT_DATE} from '../constants';

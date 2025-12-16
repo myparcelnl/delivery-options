@@ -6,7 +6,7 @@ import {
   resolveTranslatable,
   type AnyTranslatable,
   isTranslatable,
-} from '@myparcel-dev/shared';
+} from '@myparcel-dev/do-shared';
 import {createAssetUrl} from '../utils/createAssetUrl';
 import {type LanguageDefinition} from '../types';
 import {AVAILABLE_LANGUAGES} from '../constants';

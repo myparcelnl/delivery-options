@@ -6,7 +6,7 @@ import {
   DAY_SATURDAY,
   type SupportedDeliveryTypeName,
   type Weekday,
-} from '@myparcel-dev/shared';
+} from '@myparcel-dev/do-shared';
 import {DeliveryTypeName} from '@myparcel-dev/constants';
 
 const DAYS_MAP = Object.freeze<Partial<Record<Weekday, CustomDeliveryType>>>({

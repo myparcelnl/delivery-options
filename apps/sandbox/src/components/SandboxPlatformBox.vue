@@ -7,7 +7,7 @@
 
 <script lang="ts" setup>
 import {toRef} from 'vue';
-import {ConfigSetting, KEY_CONFIG, type SelectOption, SUPPORTED_PLATFORMS} from '@myparcel-dev/shared';
+import {ConfigSetting, KEY_CONFIG, type SelectOption, SUPPORTED_PLATFORMS} from '@myparcel-dev/do-shared';
 import {createField} from '@myparcel-dev/vue-form-builder';
 import {type PlatformName} from '@myparcel-dev/constants';
 import {useSandboxStore} from '../stores';

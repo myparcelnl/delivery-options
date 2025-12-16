@@ -1,6 +1,6 @@
 import {type BuildOptions} from 'vite';
 import {isCI} from 'ci-info';
-import {createViteConfig} from '@myparcel-dev/build-vite';
+import {createViteConfig} from '@myparcel-dev/do-build-vite';
 import {getSharedConfig} from './private';
 
 const dirname = new URL('.', import.meta.url).pathname;

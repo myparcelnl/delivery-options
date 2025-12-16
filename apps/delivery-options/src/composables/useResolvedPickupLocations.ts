@@ -9,7 +9,7 @@ import {
   ConfigSetting,
   addLoadingProperties,
   watchUntil,
-} from '@myparcel-dev/shared';
+} from '@myparcel-dev/do-shared';
 import {type PickupLocation} from '@myparcel-dev/sdk';
 import {DeliveryTypeName} from '@myparcel-dev/constants';
 import {getHasPickupForPackage} from '../utils/getHasPickupForPackage';

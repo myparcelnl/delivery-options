@@ -1,6 +1,6 @@
 import {onUnmounted, watch} from 'vue';
 import {useDebounceFn, isDef} from '@vueuse/core';
-import {useApiExceptions, type PickupOutput} from '@myparcel-dev/shared';
+import {useApiExceptions, type PickupOutput} from '@myparcel-dev/do-shared';
 import {type DeliveryOptionsEmits} from '../../types';
 import {UPDATED_DELIVERY_OPTIONS, OUTPUT_EVENT_DEBOUNCE_DELAY, ERROR_DELIVERY_OPTIONS} from '../../data';
 import {useResolvedValues} from './useResolvedValues';

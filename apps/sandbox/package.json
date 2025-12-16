@@ -1,5 +1,5 @@
 {
-  "name": "@myparcel-dev/sandbox",
+  "name": "@myparcel-dev/do-sandbox",
   "version": "6.22.0",
   "private": true,
   "type": "module",
@@ -20,8 +20,8 @@
   "dependencies": {
     "@myparcel-dev/constants": "^2.7.0",
     "@myparcel-dev/delivery-options": "workspace:*",
+    "@myparcel-dev/do-shared": "workspace:*",
     "@myparcel-dev/sdk": "^5.0.0",
-    "@myparcel-dev/shared": "workspace:*",
     "@myparcel-dev/ts-utils": "^1.15.0",
     "@myparcel-dev/vue-form-builder": "^1.0.0-beta.54",
     "@vuepic/vue-datepicker": "^11.0.2",
@@ -32,7 +32,7 @@
     "vue": "^3.3.4"
   },
   "devDependencies": {
-    "@myparcel-dev/build-vite": "workspace:*",
+    "@myparcel-dev/do-build-vite": "workspace:*",
     "@testing-library/vue": "^8.0.1",
     "@vitejs/plugin-vue": "^5.0.0",
     "autoprefixer": "^10.4.16",

@@ -1,5 +1,5 @@
 import {useEventListener} from '@vueuse/core';
-import {type InputDeliveryOptionsConfiguration, isCustomEvent, useLogger} from '@myparcel-dev/shared';
+import {type InputDeliveryOptionsConfiguration, isCustomEvent, useLogger} from '@myparcel-dev/do-shared';
 import {useSelectedValues} from '../useSelectedValues';
 import {getConfigFromWindow} from '../../utils';
 import {UPDATE_CONFIG_IN, UPDATE_DELIVERY_OPTIONS, UNSELECT_DELIVERY_OPTIONS} from '../../data';

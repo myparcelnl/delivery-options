@@ -5,7 +5,7 @@ import {
   type DeliveryOptionsConfig,
   KEY_CARRIER_SETTINGS,
   type ConfigSetting,
-} from '@myparcel-dev/shared';
+} from '@myparcel-dev/do-shared';
 import {useConfigStore} from '../stores';
 
 type ResolvedValue<T extends ConfigSetting | CarrierSettingsKey> = T extends ConfigSetting

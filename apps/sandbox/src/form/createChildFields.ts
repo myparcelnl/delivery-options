@@ -5,7 +5,7 @@ import {
   type BaseConfigOption,
   type SelectConfigOption,
   type SupportedPlatformName,
-} from '@myparcel-dev/shared';
+} from '@myparcel-dev/do-shared';
 import {type InteractiveElementInstance} from '@myparcel-dev/vue-form-builder';
 import {type SandboxOptionGroup, type SettingsField} from '../types';
 import {useCurrentPlatform} from '../composables';

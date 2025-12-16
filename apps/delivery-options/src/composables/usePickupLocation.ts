@@ -1,4 +1,4 @@
-import type {CarrierIdentifier} from '@myparcel-dev/shared';
+import type {CarrierIdentifier} from '@myparcel-dev/do-shared';
 import {computed, type MaybeRef, type ComputedRef, toValue} from 'vue';
 import {type ResolvedPickupLocation} from '../types';
 import {useResolvedPickupLocations} from './useResolvedPickupLocations';

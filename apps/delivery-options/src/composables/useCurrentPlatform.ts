@@ -1,5 +1,5 @@
 import {computed, type ComputedRef} from 'vue';
-import {type UsePlatform, type SupportedPlatformName, usePlatform} from '@myparcel-dev/shared';
+import {type UsePlatform, type SupportedPlatformName, usePlatform} from '@myparcel-dev/do-shared';
 import {useConfigStore} from '../stores';
 
 export interface PlatformInstance extends UsePlatform {

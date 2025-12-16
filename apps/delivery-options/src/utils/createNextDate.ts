@@ -1,5 +1,5 @@
 import {addDays, getDay} from 'date-fns';
-import {DAYS_IN_WEEK} from '@myparcel-dev/shared';
+import {DAYS_IN_WEEK} from '@myparcel-dev/do-shared';
 import {createUtcDate} from './createUtcDate';
 
 /**

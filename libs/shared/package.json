@@ -1,5 +1,5 @@
 {
-  "name": "@myparcel-dev/shared",
+  "name": "@myparcel-dev/do-shared",
   "version": "6.22.0",
   "description": "",
   "repository": {
@@ -32,8 +32,8 @@
   },
   "dependencies": {
     "@myparcel-dev/constants": "^2.7.0",
+    "@myparcel-dev/do-shared": "workspace:*",
     "@myparcel-dev/sdk": "^5.0.0",
-    "@myparcel-dev/shared": "workspace:*",
     "@myparcel-dev/ts-utils": "^1.15.0",
     "@myparcel-dev/vue-form-builder": "^1.0.0-beta.54",
     "@vueuse/core": "^10.6.0",
@@ -44,8 +44,8 @@
     "vue-tsc": "^2.0.0"
   },
   "devDependencies": {
-    "@myparcel-dev/build-vite": "workspace:*",
-    "@myparcel-dev/semantic-release-plugin": "workspace:*",
+    "@myparcel-dev/do-build-vite": "workspace:*",
+    "@myparcel-dev/do-semantic-release-plugin": "workspace:*",
     "@pinia/testing": "^0.1.3",
     "@testing-library/vue": "^8.0.1",
     "@vitest/coverage-v8": "^2.1.9",

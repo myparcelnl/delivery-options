@@ -32,7 +32,7 @@ import {
   type RadioGroupProps,
   RadioInput,
   type WithElement,
-} from '@myparcel-dev/shared';
+} from '@myparcel-dev/do-shared';
 import {DeliveryTypeName} from '@myparcel-dev/constants';
 import {parseJson} from '../../../../utils';
 import {type SelectedDeliveryMoment} from '../../../../types';

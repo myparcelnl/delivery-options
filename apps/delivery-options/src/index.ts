@@ -26,6 +26,6 @@ export {
    */
   SUPPORTED_PLATFORMS,
   SUPPORTED_SHIPMENT_OPTIONS,
-} from '@myparcel-dev/shared';
+} from '@myparcel-dev/do-shared';
 
 export {bootDeliveryOptions} from './setup';

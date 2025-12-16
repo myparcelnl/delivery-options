@@ -1,4 +1,4 @@
-import {type Translatable, createTranslatable} from '@myparcel-dev/shared';
+import {type Translatable, createTranslatable} from '@myparcel-dev/do-shared';
 import {type PackageTypeName} from '@myparcel-dev/constants';
 
 export const createPackageTypeTranslatable = (packageType: PackageTypeName): Translatable => {

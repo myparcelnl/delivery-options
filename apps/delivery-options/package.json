@@ -64,8 +64,8 @@
   },
   "dependencies": {
     "@myparcel-dev/constants": "^2.7.0",
+    "@myparcel-dev/do-shared": "workspace:*",
     "@myparcel-dev/sdk": "^5.0.0",
-    "@myparcel-dev/shared": "workspace:*",
     "@myparcel-dev/ts-utils": "^1.15.0",
     "@myparcel-dev/vue-form-builder": "^1.0.0-beta.54",
     "@vueuse/core": "^10.0.0",
@@ -76,9 +76,9 @@
   "devDependencies": {
     "@codecov/vite-plugin": "^1.9.1",
     "@histoire/plugin-vue": "^0.17.6",
-    "@myparcel-dev/build-vite": "workspace:*",
+    "@myparcel-dev/do-build-vite": "workspace:*",
+    "@myparcel-dev/do-semantic-release-plugin": "workspace:*",
     "@myparcel-dev/semantic-release-config": "^6.0.10",
-    "@myparcel-dev/semantic-release-plugin": "workspace:*",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/exec": "^6.0.3",
     "@semantic-release/git": "^10.0.1",

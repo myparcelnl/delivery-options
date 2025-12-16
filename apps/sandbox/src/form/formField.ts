@@ -1,5 +1,5 @@
 import {markRaw, type Ref, ref} from 'vue';
-import {getDefaultValueForType, type AnyTranslatable} from '@myparcel-dev/shared';
+import {getDefaultValueForType, type AnyTranslatable} from '@myparcel-dev/do-shared';
 import {
   type ComponentProps,
   createField,

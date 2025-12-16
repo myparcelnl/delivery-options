@@ -19,7 +19,7 @@
 
 <script generic="T extends RadioGroupModelValue" lang="ts" setup>
 import {useVModel} from '@vueuse/core';
-import {type RadioGroupEmits, type RadioGroupModelValue, type RadioGroupProps, RadioInput} from '@myparcel-dev/shared';
+import {type RadioGroupEmits, type RadioGroupModelValue, type RadioGroupProps, RadioInput} from '@myparcel-dev/do-shared';
 import {useLanguage} from '../../composables';
 
 // eslint-disable-next-line vue/no-unused-properties

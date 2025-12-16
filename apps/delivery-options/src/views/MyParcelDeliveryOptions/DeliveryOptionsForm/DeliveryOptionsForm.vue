@@ -41,7 +41,7 @@ import {
   type SelectOption,
   waitForRequestData,
   useCarriersRequest,
-} from '@myparcel-dev/shared';
+} from '@myparcel-dev/do-shared';
 import {createField} from '@myparcel-dev/vue-form-builder';
 import PickupLocations from '../Pickup/PickupLocations.vue';
 import HomeDelivery from '../Delivery/HomeDelivery.vue';

@@ -5,7 +5,7 @@ import {
   type SelectOption,
   type SelectOptionValue,
   type CarrierIdentifier,
-} from '@myparcel-dev/shared';
+} from '@myparcel-dev/do-shared';
 
 type SelectOptionWithCarrier<T extends SelectOptionValue> = MakeRequired<SelectOption<T>, 'carrier'>;
 

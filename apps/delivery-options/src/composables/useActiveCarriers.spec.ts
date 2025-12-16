@@ -13,7 +13,7 @@ import {
   waitForRequestData,
   KEY_ADDRESS,
   AddressField,
-} from '@myparcel-dev/shared';
+} from '@myparcel-dev/do-shared';
 import {NETHERLANDS, BELGIUM, FRANCE} from '@myparcel-dev/constants/countries';
 import {CarrierName, PlatformName} from '@myparcel-dev/constants';
 import {useAddressStore, useConfigStore} from '../stores';

@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts" setup>
-import {TextInput} from '@myparcel-dev/shared';
+import {TextInput} from '@myparcel-dev/do-shared';
 import {createField} from '@myparcel-dev/vue-form-builder';
 import {FIELD_PICKUP_LOCATION} from '../../../../data';
 import {useSelectedValues} from '../../../../composables';

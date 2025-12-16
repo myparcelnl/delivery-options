@@ -1,4 +1,4 @@
-import {type ConfigKey} from '@myparcel-dev/shared';
+import {type ConfigKey} from '@myparcel-dev/do-shared';
 import {type ModularCreatedElement} from '@myparcel-dev/vue-form-builder';
 import {type ReadonlyOr} from '@myparcel-dev/ts-utils';
 

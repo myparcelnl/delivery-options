@@ -26,7 +26,7 @@ import {
   type CheckboxGroupModelValue,
   type CheckboxGroupProps,
   type SelectOption,
-} from '@myparcel-dev/shared';
+} from '@myparcel-dev/do-shared';
 import SandboxCheckboxInput from './SandboxCheckboxInput.vue';
 
 // eslint-disable-next-line vue/no-unused-properties
