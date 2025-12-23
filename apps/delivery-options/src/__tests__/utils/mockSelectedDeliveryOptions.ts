@@ -1,10 +1,9 @@
 import {isString} from 'radash';
 import {type InternalOutput} from '@myparcel-dev/do-shared';
-import {type FormInstance} from '@myparcel-dev/vue-form-builder';
 import {type Replace} from '@myparcel-dev/ts-utils';
 import {CarrierName, DeliveryTypeName, PackageTypeName} from '@myparcel-dev/constants';
 import {type SelectedDeliveryMoment} from '../../types';
-import {useDeliveryOptionsForm} from '../../form';
+import {useSelectedValues} from '../../composables';
 import {
   HOME_OR_PICKUP_HOME,
   FIELD_DELIVERY_DATE,
@@ -13,7 +12,7 @@ import {
   FIELD_SHIPMENT_OPTIONS,
   FIELD_DELIVERY_MOMENT,
 } from '../../data';
-import {useSelectedPickupLocation, useSelectedValues} from '../../composables';
+import {useSelectedPickupLocation} from '../../composables';
 
 type MockInternalOutput = Replace<InternalOutput, 'deliveryMoment', string | Partial<SelectedDeliveryMoment>>;
 
@@ -27,10 +26,10 @@ const DELIVERY_MOMENT_DEFAULTS = Object.freeze({
 });
 
 /**
- * Set the selected delivery options in the form.
+ * Set the selected delivery options in the reactive stores.
  */
-export const mockSelectedDeliveryOptions = (values?: Partial<MockInternalOutput>): FormInstance<InternalOutput> => {
-  const {instance: form} = useDeliveryOptionsForm();
+export const mockSelectedDeliveryOptions = (values?: Partial<MockInternalOutput>) => {
+  const selectedValues = useSelectedValues();
 
   const resolvedDeliveryMoment = isString(values?.[FIELD_DELIVERY_MOMENT])
     ? values?.[FIELD_DELIVERY_MOMENT]
@@ -45,7 +44,12 @@ export const mockSelectedDeliveryOptions = (values?: Partial<MockInternalOutput>
     [FIELD_DELIVERY_MOMENT]: resolvedDeliveryMoment,
   } satisfies InternalOutput;
 
-  form.setValues(resolvedValues);
+  // Set values in reactive stores
+  selectedValues.deliveryDate.value = resolvedValues[FIELD_DELIVERY_DATE];
+  selectedValues.homeOrPickup.value = resolvedValues[FIELD_HOME_OR_PICKUP];
+  selectedValues.pickupLocation.value = resolvedValues[FIELD_PICKUP_LOCATION];
+  selectedValues.shipmentOptions.value = resolvedValues[FIELD_SHIPMENT_OPTIONS];
+  selectedValues.deliveryMoment.value = resolvedValues[FIELD_DELIVERY_MOMENT];
 
   const {locationCode} = useSelectedPickupLocation();
 
@@ -54,5 +58,5 @@ export const mockSelectedDeliveryOptions = (values?: Partial<MockInternalOutput>
   const {carrier} = useSelectedValues();
   carrier.value = CarrierName.PostNl;
 
-  return form;
+  return selectedValues;
 };

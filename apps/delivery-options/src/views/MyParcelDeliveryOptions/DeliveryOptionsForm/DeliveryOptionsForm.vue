@@ -1,6 +1,9 @@
 <template>
-  <Form.Component>
-    <HomeOrPickup.Component>
+  <form>
+    <RadioGroupInput
+      :id="FIELD_HOME_OR_PICKUP"
+      v-model="homeOrPickup"
+      :options="options">
       <template #input="{option}">
         <span>
           <CaretRightIcon
@@ -9,9 +12,10 @@
             }"
             class="mp-cursor-pointer mp-not-sr-only mp-transition-transform" />
 
-          <RadioInput
+          <input
             v-model="homeOrPickup"
             :value="option.value"
+            type="radio"
             class="mp-sr-only" />
         </span>
       </template>
@@ -28,8 +32,8 @@
             class="mp-pl-4 mp-py-2" />
         </KeepAlive>
       </template>
-    </HomeOrPickup.Component>
-  </Form.Component>
+    </RadioGroupInput>
+  </form>
 </template>
 
 <script lang="ts" setup>
@@ -37,16 +41,13 @@ import {computed, toValue} from 'vue';
 import {
   DELIVERY_TITLE,
   PICKUP_TITLE,
-  RadioInput,
   type SelectOption,
   waitForRequestData,
   useCarriersRequest,
 } from '@myparcel-dev/do-shared';
-import {createField} from '@myparcel-dev/vue-form-builder';
 import PickupLocations from '../Pickup/PickupLocations.vue';
 import HomeDelivery from '../Delivery/HomeDelivery.vue';
 import {useConfigStore} from '../../../stores';
-import {useDeliveryOptionsForm} from '../../../form';
 import {
   FIELD_HOME_OR_PICKUP,
   HOME_OR_PICKUP_HOME,
@@ -62,50 +63,40 @@ import {getHasPickupForPackage} from '../../../utils/getHasPickupForPackage';
 
 await waitForRequestData(useCarriersRequest);
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
-const Form = useDeliveryOptionsForm();
 const carriers = useActiveCarriers();
 const {state: config} = useConfigStore();
 
 const {translate} = useLanguage();
 const {homeOrPickup} = useSelectedValues();
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
-const HomeOrPickup = createField({
-  name: FIELD_HOME_OR_PICKUP,
-  component: RadioGroupInput,
-  ref: homeOrPickup,
-  props: {
-    options: computed(() => {
-      const options: SelectOption[] = [];
-      const resolvedCarriers = toValue(carriers) ?? [];
+const options = computed(() => {
+  const optionList: SelectOption<string>[] = [];
+  const resolvedCarriers = toValue(carriers) ?? [];
 
-      if (resolvedCarriers.some((carrier) => toValue(carrier.hasAnyDelivery))) {
-        options.push({
-          label: DELIVERY_TITLE,
-          value: HOME_OR_PICKUP_HOME,
-        });
-      }
+  if (resolvedCarriers.some((carrier) => toValue(carrier.hasAnyDelivery))) {
+    optionList.push({
+      label: DELIVERY_TITLE,
+      value: HOME_OR_PICKUP_HOME,
+    });
+  }
 
-      if (
-        resolvedCarriers.some((carrier) =>
-          getHasPickupForPackage(carrier, config.packageType),
-        )
-      ) {
-        options.push({
-          label: PICKUP_TITLE,
-          value: HOME_OR_PICKUP_PICKUP,
-          ecoFriendly: Infinity,
-        });
-      }
+  if (
+    resolvedCarriers.some((carrier) =>
+      getHasPickupForPackage(carrier, config.packageType),
+    )
+  ) {
+    optionList.push({
+      label: PICKUP_TITLE,
+      value: HOME_OR_PICKUP_PICKUP,
+      ecoFriendly: Infinity,
+    });
+  }
 
-      return options;
-    }),
-  },
+  return optionList;
 });
 
 const currentComponent = computed(() => {
-  const current = toValue(HomeOrPickup.ref);
+  const current = toValue(homeOrPickup);
 
   return current === HOME_OR_PICKUP_PICKUP ? PickupLocations : HomeDelivery;
 });
