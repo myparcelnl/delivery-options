@@ -3,11 +3,14 @@
     :id="id"
     :options="options">
     <template #input="{option}">
-      <RadioInput
+      <input
+        :id="`${id}-${option.value}`"
         v-model="model"
-        :value="option.value"
         type="radio"
-        v-bind="elementProps" />
+        :name="id"
+        :value="option.value"
+        :disabled="option.disabled || disabled"
+        :readonly="readonly"/>
     </template>
 
     <template
@@ -20,23 +23,17 @@
   </GroupInput>
 </template>
 
-<script generic="T extends RadioGroupModelValue" lang="ts" setup>
-import {
-  type RadioGroupEmits,
-  type RadioGroupModelValue,
-  type RadioGroupProps,
-  RadioInput,
-  useRadioGroupContext,
-  type WithElement,
-} from '@myparcel-dev/do-shared';
+<script lang="ts" setup>
+import {type SelectOption} from '@myparcel-dev/do-shared';
 import GroupInput from '../GroupInput/GroupInput.vue';
-import {type GroupInputSlots} from '../../../types';
 
-defineSlots<GroupInputSlots<T>>();
+interface Props {
+  id: string;
+  options: SelectOption<string>[];
+  disabled?: boolean;
+  readonly?: boolean;
+}
 
-// eslint-disable-next-line vue/no-unused-properties
-const props = defineProps<WithElement<RadioGroupProps<T>>>();
-const emit = defineEmits<RadioGroupEmits<T>>();
-
-const {id, model, options, elementProps} = useRadioGroupContext(props, emit);
+const props = defineProps<Props>();
+const model = defineModel<string>();
 </script>

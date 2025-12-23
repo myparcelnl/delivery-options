@@ -1,20 +1,13 @@
 <template>
-  <Location.Component />
+  <input
+    :name="FIELD_PICKUP_LOCATION"
+    v-model="pickupLocation"
+    type="hidden" />
 </template>
 
 <script lang="ts" setup>
-import {TextInput} from '@myparcel-dev/do-shared';
-import {createField} from '@myparcel-dev/vue-form-builder';
 import {FIELD_PICKUP_LOCATION} from '../../../../data';
 import {useSelectedValues} from '../../../../composables';
 
 const {pickupLocation} = useSelectedValues();
-
-// eslint-disable-next-line @typescript-eslint/naming-convention
-const Location = createField({
-  name: FIELD_PICKUP_LOCATION,
-  ref: pickupLocation,
-  component: TextInput,
-  attributes: {type: 'hidden'},
-});
 </script>

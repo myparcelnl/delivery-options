@@ -8,15 +8,20 @@
   </div>
 </template>
 
-<script generic="T" lang="ts" setup>
+<script lang="ts" setup>
 import {toRefs} from 'vue';
-import {type RadioGroupProps, type WithElement} from '@myparcel-dev/do-shared';
+import {type MakeRequired, type SelectOption} from '@myparcel-dev/do-shared';
 import {useOptionsGroupedByCarrier} from '../../../../composables';
 import PickupLocationCarrierGroup from './PickupLocationCarrierGroup.vue';
 
-// eslint-disable-next-line vue/no-unused-properties
-const props = defineProps<WithElement<RadioGroupProps<T>>>();
+interface Props {
+  modelValue?: string;
+  loading?: boolean;
+  options: MakeRequired<SelectOption<string>, 'carrier'>[];
+}
+
+const props = defineProps<Props>();
 const propRefs = toRefs(props);
 
-const {grouped} = useOptionsGroupedByCarrier(propRefs.element);
+const {grouped} = useOptionsGroupedByCarrier(propRefs.options);
 </script>
