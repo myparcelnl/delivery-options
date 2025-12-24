@@ -2,19 +2,14 @@
   <SandboxTextInput
     v-model.lazy.trim="model"
     :class="classes"
-    v-bind="elementProps" />
+    v-bind="$attrs" />
 </template>
 
 <script lang="ts" setup>
-import {type TextInputEmits, type TextInputProps, useElementContext, type WithElement} from '@myparcel-dev/do-shared';
 import SandboxTextInput from '../../base/SandboxTextInput.vue';
 import {useElInputClasses} from '../../../composables';
 
-// eslint-disable-next-line vue/no-unused-properties
-const props = defineProps<WithElement<TextInputProps>>();
-const emit = defineEmits<TextInputEmits>();
-
-const {model, elementProps} = useElementContext(props, emit);
+const model = defineModel<string>();
 
 const classes = useElInputClasses();
 </script>

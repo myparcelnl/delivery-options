@@ -1,6 +1,6 @@
 import {type ConfigKey} from '@myparcel-dev/do-shared';
-import {type ModularCreatedElement} from '@myparcel-dev/vue-form-builder';
 import {type ReadonlyOr} from '@myparcel-dev/ts-utils';
+import {type SandboxConfigOption} from '../form/getAllSandboxConfigOptions';
 
 export interface SettingsSection {
   description?: string;
@@ -16,12 +16,12 @@ export interface SettingsGroup {
   perCarrier?: boolean;
 }
 
-export type SettingsField = ModularCreatedElement;
+export type SettingsField = SandboxConfigOption;
 
 export interface SandboxOptionGroup {
   children?: SandboxOptionGroup[];
   hasExpand?: boolean;
-  items?: ReadonlyOr<(ConfigKey | string | ModularCreatedElement)[]>;
+  items?: ReadonlyOr<(ConfigKey | string | SandboxConfigOption)[]>;
   label?: string;
   name: string;
   perCarrier?: boolean;

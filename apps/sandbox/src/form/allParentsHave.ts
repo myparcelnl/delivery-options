@@ -1,13 +1,18 @@
-import {type FormInstance} from '@myparcel-dev/vue-form-builder';
+import {get} from 'radash';
 import {findSandboxOption} from '../utils';
+import {useSandboxStore} from '../stores';
 
-export const allParentsHave = (parents: undefined | string[], form: FormInstance, prefix: string): boolean => {
-  return (parents ?? []).every((parent) => {
+export const allParentsHave = (parents: undefined | string[], prefix: string): boolean => {
+  if (!parents || parents.length === 0) return true;
+
+  const sandboxStore = useSandboxStore();
+
+  return parents.every((parent) => {
     const optionName = prefix ? `${prefix}.${parent}` : parent;
     const parentOption = findSandboxOption(parent);
 
-    const value = form.values[optionName] ?? false;
+    const value = get(sandboxStore.resolvedConfiguration, optionName, false);
 
-    return Boolean(value) && parentOption && allParentsHave(parentOption.parents, form, prefix);
+    return Boolean(value) && parentOption && allParentsHave(parentOption.parents, prefix);
   });
 };

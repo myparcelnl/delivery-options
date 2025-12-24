@@ -1,14 +1,15 @@
 <template>
   <Box class="dark:mp-bg-goldfish-800 mp-bg-goldfish-200 mp-border-0">
     <h2 v-text="translate('platform')" />
-    <Platform.Component />
+    <RadioGroupInput
+      v-model="platform"
+      :options="options" />
   </Box>
 </template>
 
 <script lang="ts" setup>
-import {toRef} from 'vue';
-import {ConfigSetting, KEY_CONFIG, type SelectOption, SUPPORTED_PLATFORMS} from '@myparcel-dev/do-shared';
-import {createField} from '@myparcel-dev/vue-form-builder';
+import {computed} from 'vue';
+import {ConfigSetting, type SelectOption, SUPPORTED_PLATFORMS} from '@myparcel-dev/do-shared';
 import {type PlatformName} from '@myparcel-dev/constants';
 import {useSandboxStore} from '../stores';
 import {useLanguage} from '../composables';
@@ -19,19 +20,17 @@ const store = useSandboxStore();
 
 const {translate} = useLanguage();
 
-const platformRef = toRef(store.platform);
-
-// eslint-disable-next-line @typescript-eslint/naming-convention
-const Platform = createField<PlatformName>({
-  name: `${KEY_CONFIG}.${ConfigSetting.Platform}`,
-  component: RadioGroupInput,
-  ref: platformRef,
-  wrapper: false,
-  props: {
-    options: SUPPORTED_PLATFORMS.map((platform) => ({
-      value: platform,
-      label: `platform_${platform}`,
-    })) satisfies SelectOption[],
-  },
+const platform = computed<PlatformName>({
+  get: () => store.platform,
+  set: (value) => {
+    store.updateConfiguration({
+      [`config.${ConfigSetting.Platform}`]: value
+    });
+  }
 });
+
+const options: SelectOption[] = SUPPORTED_PLATFORMS.map((platform) => ({
+  value: platform,
+  label: `platform_${platform}`,
+}));
 </script>
