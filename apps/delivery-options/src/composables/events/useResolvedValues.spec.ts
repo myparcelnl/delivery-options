@@ -28,7 +28,6 @@ import {
   getMockDeliveryOptionsConfiguration,
   mockDeliveryOptionsConfig,
   mockSelectedDeliveryOptions,
-  mockDeliveryOptionsForm,
 } from '../../__tests__';
 import {useResolvedValues} from './useResolvedValues';
 
@@ -63,7 +62,6 @@ describe('useResolvedValues', () => {
     );
 
     await Promise.all([
-      mockDeliveryOptionsForm(),
       useCarriersRequest().load(),
       waitForDeliveryOptions(),
       waitForPickupLocations(),

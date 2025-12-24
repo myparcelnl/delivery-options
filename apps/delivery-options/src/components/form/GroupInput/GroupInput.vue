@@ -34,16 +34,17 @@
   </div>
 </template>
 
-<script generic="T extends SelectOptionValue" lang="ts" setup>
-/* eslint-disable @typescript-eslint/no-unnecessary-type-arguments */
-import {type SelectOption, type SelectOptionValue} from '@myparcel-dev/do-shared';
+<script lang="ts" setup>
+import {type SelectOption} from '@myparcel-dev/do-shared';
 import {EcoFriendlyLabel, PriceTag} from '../../common';
-import {type GroupInputSlots} from '../../../types';
 import {useLanguage} from '../../../composables';
 
-defineSlots<GroupInputSlots<T>>();
+interface Props {
+  options: SelectOption<string>[];
+  id: string;
+}
 
-defineProps<{options: SelectOption<T>[]; id: string}>();
+defineProps<Props>();
 
 const {translate} = useLanguage();
 </script>

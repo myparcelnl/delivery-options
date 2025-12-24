@@ -10,7 +10,6 @@ import {FIELD_DELIVERY_MOMENT, FIELD_DELIVERY_DATE, UPDATED_DELIVERY_OPTIONS, ER
 import {
   createInternalOutput,
   createExternalOutput,
-  mockDeliveryOptionsForm,
   mockSelectedDeliveryOptions,
 } from '../../__tests__';
 import {useDeliveryOptionsOutgoingEvents} from './useDeliveryOptionsOutgoingEvents';
@@ -29,7 +28,6 @@ describe('useDeliveryOptionsOutgoingEvents', () => {
   const emitSpy = vi.fn();
 
   const renderComponent = async (): Promise<RenderResult> => {
-    await mockDeliveryOptionsForm();
 
     return render(
       defineComponent({

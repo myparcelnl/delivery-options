@@ -7,13 +7,12 @@ import {useConfigStore} from '../stores';
 import {
   mockDeliveryOptionsConfig,
   getMockDeliveryOptionsConfiguration,
-  mockDeliveryOptionsForm,
   waitForPickupLocations,
 } from '../__tests__';
 import {useResolvedPickupLocations} from './useResolvedPickupLocations';
 
 async function load(): Promise<void> {
-  await Promise.all([mockDeliveryOptionsForm(), waitForPickupLocations()]);
+  await waitForPickupLocations();
 }
 
 describe('useResolvedPickupLocations', () => {

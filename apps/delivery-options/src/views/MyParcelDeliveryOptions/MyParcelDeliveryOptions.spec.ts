@@ -2,7 +2,6 @@ import {afterEach, beforeEach, describe, expect, it, type MockInstance, vi} from
 import {createPinia} from 'pinia';
 import {render, type RenderOptions, type RenderResult} from '@testing-library/vue';
 import {CarrierSetting, KEY_CARRIER_SETTINGS, KEY_CONFIG} from '@myparcel-dev/do-shared';
-import {createMyParcelFormBuilderPlugin} from '@myparcel-dev/vue-form-builder';
 import {CarrierName} from '@myparcel-dev/constants';
 import {getMockDeliveryOptionsConfiguration} from '../../__tests__';
 import MyParcelDeliveryOptions from './MyParcelDeliveryOptions.vue';
@@ -10,7 +9,7 @@ import MyParcelDeliveryOptions from './MyParcelDeliveryOptions.vue';
 const renderDeliveryOptions = (options?: Partial<RenderOptions>): RenderResult => {
   return render(MyParcelDeliveryOptions, {
     global: {
-      plugins: [createPinia(), createMyParcelFormBuilderPlugin(), ...(options?.global?.plugins ?? [])],
+      plugins: [createPinia(), ...(options?.global?.plugins ?? [])],
       ...options?.global,
     },
     ...options,

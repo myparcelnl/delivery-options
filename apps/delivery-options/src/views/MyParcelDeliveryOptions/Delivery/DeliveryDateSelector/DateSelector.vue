@@ -44,8 +44,7 @@
 
 <script lang="ts" setup>
 import {computed, ref, watch, toValue} from 'vue';
-import {useVModel} from '@vueuse/core';
-import {type TextInputEmits, type TextInputProps, type WithElement, Loader} from '@myparcel-dev/do-shared';
+import {Loader} from '@myparcel-dev/do-shared';
 import {DATES_SHOWN_MD, DATES_SHOWN_SM} from '../../../../data';
 import {
   useBreakpoints,
@@ -56,11 +55,7 @@ import {
 import {CaretLeftIcon, CaretRightIcon, IconButton} from '../../../../components';
 import DateBlock from './DateBlock.vue';
 
-// eslint-disable-next-line vue/no-unused-properties
-const props = defineProps<WithElement<TextInputProps>>();
-const emit = defineEmits<TextInputEmits>();
-
-const model = useVModel(props, undefined, emit);
+const model = defineModel<string>();
 
 const deliveryOptions = useResolvedDeliveryOptions();
 const dates = useResolvedDeliveryDates();

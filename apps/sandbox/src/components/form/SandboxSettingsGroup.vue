@@ -7,22 +7,29 @@
     {{ translate(field.description) }}
   </SubText>
 
-  <SandboxSettingsEntry
-    v-for="(subField, index) in resolvedFields"
-    :key="`${index}_${subField.field.name}`"
-    :field="subField" />
+  <SandboxFieldCollection
+    v-if="field.fields"
+    :fields="field.fields"
+    :prefix="prefix" />
 </template>
 
 <script lang="ts" setup>
-import {computed} from 'vue';
 import SubText from '../SubText.vue';
 import {type SettingsGroup} from '../../types';
 import {useLanguage} from '../../composables';
-import SandboxSettingsEntry from './SandboxSettingsEntry.vue';
+import SandboxFieldCollection from './SandboxFieldCollection.vue';
 
-const props = defineProps<{field: SettingsGroup; level?: number | string}>();
+const props = withDefaults(
+  defineProps<{
+    field: SettingsGroup;
+    level?: number | string;
+    prefix?: string;
+  }>(),
+  {
+    level: 1,
+    prefix: '',
+  }
+);
 
 const {translate, has} = useLanguage();
-
-const resolvedFields = computed(() => props?.field?.fields ?? []);
 </script>

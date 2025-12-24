@@ -2,13 +2,12 @@
   <div>
     <label
       v-for="option in options"
-      :key="`${id}-${option.value}`"
+      :key="`${option.value}`"
       class="mp-flex mp-gap-2 mp-items-center mp-py-1">
       <RadioInput
         v-model="model"
         :value="option.value"
-        type="radio"
-        v-bind="elementProps" />
+        type="radio" />
 
       <span v-text="translate(option.label)" />
     </label>
@@ -17,20 +16,19 @@
 
 <script generic="T extends RadioGroupModelValue" lang="ts" setup>
 import {
-  type RadioGroupEmits,
   type RadioGroupModelValue,
-  type RadioGroupProps,
   RadioInput,
-  useRadioGroupContext,
-  type WithElement,
+  type SelectOption,
 } from '@myparcel-dev/do-shared';
 import {useLanguage} from '../composables';
 
-// eslint-disable-next-line vue/no-unused-properties
-const props = defineProps<WithElement<RadioGroupProps<T>>>();
-const emit = defineEmits<RadioGroupEmits<T>>();
+interface Props {
+  options: SelectOption[];
+}
 
-const {id, model, options, elementProps} = useRadioGroupContext(props, emit);
+const props = defineProps<Props>();
+
+const model = defineModel<T>();
 
 const {translate} = useLanguage();
 </script>
