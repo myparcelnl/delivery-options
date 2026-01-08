@@ -1,5 +1,4 @@
 import {type ComputedRef, type WritableComputedRef} from 'vue';
-import {type InteractiveElementInstance} from '@myparcel-dev/vue-form-builder';
 import {type InputProps} from './form.types';
 
 export type ElementContext<Type = unknown, Props extends Record<string, unknown> = Record<string, unknown>> = {
@@ -14,8 +13,13 @@ export type GlobalFieldProps = {
   value?: unknown;
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type ElementInstance<Props extends any = any, Type = unknown> = InteractiveElementInstance<
-  Type,
-  Props & GlobalFieldProps
->;
+export interface ElementInstance<Props extends Record<string, unknown> = Record<string, unknown>, Type = unknown> {
+  name: string;
+  props: Props & GlobalFieldProps;
+  isValid: boolean;
+  isDisabled: boolean;
+  isReadOnly: boolean;
+  isSuspended: boolean;
+  isVisible: boolean;
+  label: string;
+}

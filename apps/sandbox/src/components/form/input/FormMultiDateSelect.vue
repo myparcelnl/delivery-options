@@ -4,24 +4,14 @@
     :disabled-dates="disablePastAndToday"
     :enable-time-picker="false"
     class="datepicker"
-    multi-dates
-    v-bind="elementProps"></Datepicker>
+    multi-dates />
 </template>
 
 <script lang="ts" setup>
 import Datepicker from '@vuepic/vue-datepicker';
-import {
-  type MultiDateSelectProps,
-  type MultiDateSelectEmits,
-  useElementContext,
-  type WithElement,
-} from '@myparcel-dev/do-shared';
 import '@vuepic/vue-datepicker/dist/main.css';
 
-const props = defineProps<WithElement<MultiDateSelectProps>>();
-const emit = defineEmits<MultiDateSelectEmits>();
-
-const {model, elementProps} = useElementContext(props, emit);
+const model = defineModel<Date[]>();
 
 const disablePastAndToday = (date: Date) => {
   const today = new Date();

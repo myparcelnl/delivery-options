@@ -23,7 +23,6 @@
     "@myparcel-dev/do-shared": "workspace:*",
     "@myparcel-dev/sdk": "^5.0.0",
     "@myparcel-dev/ts-utils": "^1.15.0",
-    "@myparcel-dev/vue-form-builder": "^1.0.0-beta.54",
     "@vuepic/vue-datepicker": "^11.0.2",
     "@vueuse/core": "^10.5.0",
     "pinia": "^2.1.7",

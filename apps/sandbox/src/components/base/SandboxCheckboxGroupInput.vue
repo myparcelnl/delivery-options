@@ -20,7 +20,6 @@
 </template>
 
 <script generic="T extends CheckboxGroupModelValue" lang="ts" setup>
-import {useVModel} from '@vueuse/core';
 import {
   type CheckboxGroupEmits,
   type CheckboxGroupModelValue,
@@ -31,9 +30,8 @@ import SandboxCheckboxInput from './SandboxCheckboxInput.vue';
 
 // eslint-disable-next-line vue/no-unused-properties
 const props = defineProps<CheckboxGroupProps<T>>();
-const emit = defineEmits<CheckboxGroupEmits<T>>();
 
 defineSlots<{default(props: {option: SelectOption<string>}): unknown}>();
 
-const model = useVModel(props, undefined, emit);
+const model = defineModel<T>();
 </script>

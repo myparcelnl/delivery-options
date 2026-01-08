@@ -1,6 +1,6 @@
 <template>
   <TextInput
-    v-model.number="model"
+    v-model="model"
     type="number"
     v-bind="{
       min: 0,
@@ -10,13 +10,11 @@
 </template>
 
 <script lang="ts" setup>
-import {useVModel} from '@vueuse/core';
-import {type NumberInputEmits, type NumberInputProps} from '@myparcel-dev/do-shared';
+import {type NumberInputProps} from '@myparcel-dev/do-shared';
 import TextInput from './SandboxTextInput.vue';
 
 // eslint-disable-next-line vue/no-unused-properties
 const props = defineProps<NumberInputProps>();
-const emit = defineEmits<NumberInputEmits>();
 
-const model = useVModel(props, undefined, emit);
+const model = defineModel<number>();
 </script>

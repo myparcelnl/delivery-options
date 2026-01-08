@@ -1045,7 +1045,6 @@ __metadata:
     "@myparcel-dev/do-shared": "workspace:*"
     "@myparcel-dev/sdk": "npm:^5.0.0"
     "@myparcel-dev/ts-utils": "npm:^1.15.0"
-    "@myparcel-dev/vue-form-builder": "npm:^1.0.0-beta.54"
     "@testing-library/vue": "npm:^8.0.1"
     "@vitejs/plugin-vue": "npm:^5.0.0"
     "@vuepic/vue-datepicker": "npm:^11.0.2"
@@ -1090,7 +1089,6 @@ __metadata:
     "@myparcel-dev/do-shared": "workspace:*"
     "@myparcel-dev/sdk": "npm:^5.0.0"
     "@myparcel-dev/ts-utils": "npm:^1.15.0"
-    "@myparcel-dev/vue-form-builder": "npm:^1.0.0-beta.54"
     "@pinia/testing": "npm:^0.1.3"
     "@testing-library/vue": "npm:^8.0.1"
     "@vitest/coverage-v8": "npm:^4.0.17"
@@ -1336,19 +1334,6 @@ __metadata:
   peerDependencies:
     eslint: 7 - 8
   checksum: 10c0/d99783e0780b3af8c90046deee86b65d8b55f83c8a14742ecfd740c359b8339d73324526c55edfcb96dc30f4edb373333ecfb721926bc9445d868ad83a7d3e83
-  languageName: node
-  linkType: hard
-
-"@myparcel-dev/vue-form-builder@npm:^1.0.0-beta.54":
-  version: 1.0.0-beta.55
-  resolution: "@myparcel-dev/vue-form-builder@npm:1.0.0-beta.55"
-  dependencies:
-    "@myparcel-dev/ts-utils": "npm:^1.15.0"
-    "@vueuse/core": "npm:>= 10.1.0"
-    vue-component-type-helpers: "npm:^2.1.6"
-  peerDependencies:
-    vue: ^3
-  checksum: 10c0/08ae89a24814ed3049d622fda52e1d0901fb9c92f4efb3d051f5b7af711aea1b65cd5f9eda291cd6a3f3745630a17643ec480556aabe1cfb0ca692c6fb291018
   languageName: node
   linkType: hard
 
@@ -3878,7 +3863,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vueuse/core@npm:>= 10.1.0, @vueuse/core@npm:^10.0.0, @vueuse/core@npm:^10.5.0, @vueuse/core@npm:^10.6.0":
+"@vueuse/core@npm:^10.0.0, @vueuse/core@npm:^10.5.0, @vueuse/core@npm:^10.6.0":
   version: 10.11.0
   resolution: "@vueuse/core@npm:10.11.0"
   dependencies:
@@ -4735,9 +4720,9 @@ __metadata:
   linkType: hard
 
 "caniuse-lite@npm:^1.0.0, caniuse-lite@npm:^1.0.30001599, caniuse-lite@npm:^1.0.30001640":
-  version: 1.0.30001641
-  resolution: "caniuse-lite@npm:1.0.30001641"
-  checksum: 10c0/a065b641cfcc84b36955ee909bfd7313ad103d6a299f0fd261e0e4160e8f1cec79d685c5a9f11097a77687cf47154eddb8133163f2a34bcb8d73c45033a014d2
+  version: 1.0.30001761
+  resolution: "caniuse-lite@npm:1.0.30001761"
+  checksum: 10c0/8ea4158ccd507b9c73c03b9b3b1b897e75d095c5753a131d0f36ef9b64c19a049174467842dd9e8bebe886ac27ed7a5b1d5adcaae5fe887716b07fc1103e100b
   languageName: node
   linkType: hard
 
@@ -15293,13 +15278,6 @@ __metadata:
   version: 2.0.26
   resolution: "vue-component-type-helpers@npm:2.0.26"
   checksum: 10c0/b028847deacc5ca22d57631e7cc6b7e626f2930d4da16c6a5303a71606caacc9cd5e7b06746e056f9607495652c5971e4d62afcaa6f131c0581b78d06f853bcf
-  languageName: node
-  linkType: hard
-
-"vue-component-type-helpers@npm:^2.1.6":
-  version: 2.2.12
-  resolution: "vue-component-type-helpers@npm:2.2.12"
-  checksum: 10c0/ce15a2cdec4a57262a292ac1565aa18da9be73f3dfbcf28758a8a541199944bfff1aefb75802d6de5d955a5529c9667f1b651c659d14815c075e8965ac05175d
   languageName: node
   linkType: hard
 

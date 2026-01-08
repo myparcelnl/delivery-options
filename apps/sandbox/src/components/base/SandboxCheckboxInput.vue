@@ -40,14 +40,14 @@
 
 <script generic="T extends CheckboxModelValue" lang="ts" setup>
 import {computed} from 'vue';
-import {useVModel} from '@vueuse/core';
-import {type CheckboxEmits, type CheckboxModelValue, type CheckboxProps} from '@myparcel-dev/do-shared';
+import {type CheckboxModelValue, type CheckboxProps} from '@myparcel-dev/do-shared';
 
-// eslint-disable-next-line vue/no-unused-properties
-const props = withDefaults(defineProps<CheckboxProps<T> & {wrapper?: string}>(), {wrapper: 'label'});
-const emit = defineEmits<CheckboxEmits<T>>();
+const props = withDefaults(
+  defineProps<CheckboxProps<T> & {wrapper?: string}>(),
+  { wrapper: 'label' }
+);
 
-const model = useVModel(props, undefined, emit);
+const model = defineModel<T>();
 
 const checked = computed(() => {
   if (typeof model.value === 'boolean') {

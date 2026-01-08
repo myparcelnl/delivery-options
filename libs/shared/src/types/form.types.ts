@@ -8,10 +8,9 @@ export interface ElementProps<Type = unknown, Props extends Record<string, unkno
 
 export type ElementEmits<Type = unknown> = (name: 'update:modelValue', value: Type) => void;
 
-export interface InputProps<Type = unknown> {
+export interface InputProps {
   disabled?: boolean;
   id?: string | undefined;
-  modelValue: Type;
   name?: string;
   readonly?: boolean;
 }

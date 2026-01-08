@@ -1,15 +1,10 @@
-import {toValue} from 'vue';
 import {isDefined} from '@vueuse/core';
-import {type ElementInstance} from '@myparcel-dev/do-shared';
-import {useElement} from '@myparcel-dev/vue-form-builder';
 import {useBaseInputClasses} from './useBaseInputClasses';
 
-export const useElInputClasses = (element?: ElementInstance): string[] => {
-  const resolvedElement = element ?? useElement();
-
+export const useElInputClasses = (): string[] => {
   return [
     ...useBaseInputClasses(),
-    toValue(resolvedElement.isValid) ? '' : 'mp-border-red-500',
-    toValue(resolvedElement.isDisabled) ? 'mp-opacity-50 mp-cursor-not-allowed' : undefined,
+    // Remove validation styling for now since we're not using vue-form-builder validation
+    // Could be added back later with native validation
   ].filter(isDefined) as string[];
 };

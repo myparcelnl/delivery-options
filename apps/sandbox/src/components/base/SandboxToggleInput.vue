@@ -24,12 +24,10 @@
 </template>
 
 <script lang="ts" setup>
-import {useVModel} from '@vueuse/core';
-import {type ToggleInputEmits, type ToggleInputProps} from '@myparcel-dev/do-shared';
+import {type ToggleInputProps} from '@myparcel-dev/do-shared';
 
 // eslint-disable-next-line vue/no-unused-properties
 const props = defineProps<ToggleInputProps>();
-const emit = defineEmits<ToggleInputEmits>();
 
-const model = useVModel(props, undefined, emit);
+const model = defineModel<boolean>();
 </script>

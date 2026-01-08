@@ -1,7 +1,6 @@
 import {computed, onUnmounted, watch, type Ref, toValue, type ComputedRef} from 'vue';
 import {useLocalStorage} from '@vueuse/core';
 import {AddressField, type DeliveryOptionsAddress, KEY_ADDRESS, useLoadMore} from '@myparcel-dev/do-shared';
-import {useForm} from '@myparcel-dev/vue-form-builder';
 import {
   GERMANY,
   FRANCE,
@@ -13,6 +12,7 @@ import {
   DENMARK,
 } from '@myparcel-dev/constants/countries';
 import {getDefaultSandboxAddress} from '../config';
+import {useSandboxStore} from '../stores/useSandboxStore';
 
 const ADDRESSES_START_AMOUNT = 6;
 const ADDRESSES_LOAD_STEP = 2;
@@ -78,7 +78,7 @@ interface UseAddressSelector {
 
 // eslint-disable-next-line max-lines-per-function
 export const useAddressSelector = (): UseAddressSelector => {
-  const form = useForm();
+  const sandboxStore = useSandboxStore();
 
   const selectedAddress = useLocalStorage(KEY_ADDRESS_TYPE, NETHERLANDS, {
     writeDefaults: true,
@@ -94,10 +94,11 @@ export const useAddressSelector = (): UseAddressSelector => {
 
       const matchingAddress = sampleAddresses.find((address) => address[AddressField.Country] === value);
 
-      Object.values(AddressField).forEach((key: AddressField) => {
-        // @ts-expect-error todo
-        form.values[`${KEY_ADDRESS}.${key}`] = matchingAddress?.[key];
-      });
+      if (matchingAddress) {
+        Object.values(AddressField).forEach((key: AddressField) => {
+          sandboxStore.address[key] = matchingAddress[key] || '';
+        });
+      }
     }),
   );
 

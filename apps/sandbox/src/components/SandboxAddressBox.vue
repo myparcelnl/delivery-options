@@ -1,115 +1,105 @@
 <template>
-  <Box class="mp-gap-2 mp-grid">
+  <Box>
     <h2 v-text="translate('address')" />
 
-    <div class="mp-gap-2 mp-grid mp-grid-cols-2">
-      <AddressPresetBox
-        v-for="address in addresses"
-        :key="address"
-        v-model="selectedAddress"
-        :address="address" />
+    <div class="mp-grid mp-gap-4">
+      <!-- Preset Addresses -->
+      <div class="mp-grid mp-gap-2 mp-grid-cols-2">
+        <AddressPresetBox
+          v-for="address in addresses"
+          :key="address[AddressField.Country]"
+          v-model="selectedAddress"
+          :address="address" />
 
-      <a
-        v-if="hasMore"
-        class="mp-col-span-2 mp-mx-auto mp-place-self-center"
-        href="#"
-        @click.prevent="loadMore">
-        {{ translate('more') }}
-      </a>
-    </div>
+        <Box
+          v-if="hasMore"
+          class="mp-flex mp-items-center mp-justify-center">
+          <button
+            class="mp-text-blue-500 hover:mp-text-blue-700 mp-underline"
+            @click="loadMore"
+            v-text="translate('load_more')" />
+        </Box>
+      </div>
 
-    <Box @click="isCustom ? null : (selectedAddress = customValue)">
-      <h3>
-        <label>
+      <!-- Custom Address Toggle -->
+      <Box
+        is="label"
+        :class="{
+          'mp-bg-monstera-100 mp-border-monstera-200 dark:mp-bg-monstera-800 dark:mp-border-monstera-600':
+            isCustom,
+        }">
+        <h3>
           <RadioInput
             v-model="selectedAddress"
             :value="customValue"
             name="address" />
 
-          {{ translate('address_custom') }}
-        </label>
-      </h3>
+          {{ translate('custom_address') }}
+        </h3>
 
-      <SandboxSettingsSection
-        v-show="isCustom"
-        :section="section" />
-    </Box>
+        <!-- Custom Address Fields -->
+        <div
+          v-if="isCustom"
+          class="mp-mt-4 mp-grid mp-gap-4">
+
+          <div class="mp-grid mp-gap-2 mp-grid-cols-2">
+            <div>
+              <label
+                class="mp-block mp-text-sm mp-font-medium mp-mb-1"
+                v-text="translate(AddressField.Country)" />
+              <FormTextInput v-model="address[AddressField.Country]" />
+            </div>
+
+            <div>
+              <label
+                class="mp-block mp-text-sm mp-font-medium mp-mb-1"
+                v-text="translate(AddressField.PostalCode)" />
+              <FormTextInput v-model="address[AddressField.PostalCode]" />
+            </div>
+          </div>
+
+          <div class="mp-grid mp-gap-2 mp-grid-cols-2">
+            <div>
+              <label
+                class="mp-block mp-text-sm mp-font-medium mp-mb-1"
+                v-text="translate(AddressField.Street)" />
+              <FormTextInput v-model="address[AddressField.Street]" />
+            </div>
+
+            <div>
+              <label
+                class="mp-block mp-text-sm mp-font-medium mp-mb-1"
+                v-text="translate(AddressField.City)" />
+              <FormTextInput v-model="address[AddressField.City]" />
+            </div>
+          </div>
+
+        </div>
+      </Box>
+    </div>
   </Box>
 </template>
 
 <script lang="ts" setup>
-import {computed} from 'vue';
-import {AddressField, KEY_ADDRESS, RadioInput} from '@myparcel-dev/do-shared';
-import {ALL_COUNTRIES} from '@myparcel-dev/constants/countries';
-import {createCountryTranslatable} from '../utils';
-import {formField, formSection} from '../form';
-import {useAddressSelector, useLanguage} from '../composables';
-import {FormSelectInput, SandboxSettingsSection, FormTextInput} from './form';
+import {storeToRefs} from 'pinia';
+import {AddressField, RadioInput} from '@myparcel-dev/do-shared';
+import {useLanguage} from '../composables';
+import {useAddressSelector} from '../composables/useAddressSelector';
+import {useSandboxStore} from '../stores/useSandboxStore';
 import {Box} from './Box';
 import AddressPresetBox from './AddressPresetBox.vue';
+import FormTextInput from './form/input/FormTextInput.vue';
 
 const {translate} = useLanguage();
+const sandboxStore = useSandboxStore();
+const {address} = storeToRefs(sandboxStore);
 
-const {isCustom, addresses, selectedAddress, customValue, hasMore, loadMore} = useAddressSelector();
-
-const countries = computed(() => {
-  return ALL_COUNTRIES.map((country) => ({
-    label: createCountryTranslatable(country),
-    value: country,
-  })).sort((countryA, countryB) => countryA.label.localeCompare(countryB.label));
-});
-
-const LABEL_PREFIX = `${KEY_ADDRESS}_`;
-
-const section = formSection({
-  label: KEY_ADDRESS,
-  fields: [
-    formField({
-      key: KEY_ADDRESS,
-      name: AddressField.Country,
-      label: LABEL_PREFIX + AddressField.Country,
-      component: FormSelectInput,
-      wrapper: false,
-      attributes: {
-        class: 'mp-mb-4',
-      },
-      props: {
-        placeholder: 'choose_country',
-        autocomplete: 'country',
-        loading: computed(() => !countries.value.length),
-        options: countries,
-      },
-    }),
-
-    formField({
-      key: KEY_ADDRESS,
-      name: AddressField.Street,
-      label: LABEL_PREFIX + AddressField.Street,
-      component: FormTextInput,
-      attributes: {
-        autocomplete: 'address-line1',
-      },
-    }),
-
-    formField({
-      key: KEY_ADDRESS,
-      name: AddressField.PostalCode,
-      label: LABEL_PREFIX + AddressField.PostalCode,
-      component: FormTextInput,
-      attributes: {
-        autocomplete: 'postal-code',
-      },
-    }),
-
-    formField({
-      key: KEY_ADDRESS,
-      name: AddressField.City,
-      label: LABEL_PREFIX + AddressField.City,
-      component: FormTextInput,
-      attributes: {
-        autocomplete: 'address-level2',
-      },
-    }),
-  ],
-});
+const {
+  addresses,
+  customValue,
+  hasMore,
+  isCustom,
+  selectedAddress,
+  loadMore,
+} = useAddressSelector();
 </script>

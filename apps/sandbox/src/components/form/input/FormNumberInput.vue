@@ -2,19 +2,14 @@
   <SandboxNumberInput
     v-model.lazy.number="model"
     :class="classes"
-    v-bind="elementProps" />
+    v-bind="$attrs" />
 </template>
 
 <script lang="ts" setup>
-import {type NumberInputEmits, type NumberInputProps, useElementContext, type WithElement} from '@myparcel-dev/do-shared';
 import SandboxNumberInput from '../../base/SandboxNumberInput.vue';
 import {useElInputClasses} from '../../../composables';
 
-// eslint-disable-next-line vue/no-unused-properties
-const props = defineProps<WithElement<NumberInputProps>>();
-const emit = defineEmits<NumberInputEmits>();
-
-const {model, elementProps} = useElementContext(props, emit);
+const model = defineModel<number>();
 
 const classes = useElInputClasses();
 </script>

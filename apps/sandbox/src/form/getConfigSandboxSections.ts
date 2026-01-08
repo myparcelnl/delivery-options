@@ -1,4 +1,4 @@
-import {CarrierSetting, KEY_CONFIG, OptionGroup} from '@myparcel-dev/do-shared';
+import {CarrierSetting, KEY_CONFIG, OptionGroup, type CarrierIdentifier} from '@myparcel-dev/do-shared';
 import {type SandboxOptionGroup, type SettingsSection} from '../types';
 import {resolveSandboxSection} from './resolveSandboxSection';
 
@@ -20,7 +20,7 @@ const CONFIG_GROUPS = Object.freeze([
         ],
       },
       {
-        name: OptionGroup.ShipmentOptions,
+        name: OptionGroup.ShipmentOptionsPerPackageType,
         items: [CarrierSetting.AllowOnlyRecipient, CarrierSetting.AllowSignature],
       },
       {
@@ -40,6 +40,6 @@ const CONFIG_GROUPS = Object.freeze([
   },
 ] satisfies SandboxOptionGroup[]);
 
-export const getConfigSandboxSections = (prefix?: string): SettingsSection[] => {
-  return CONFIG_GROUPS.map((group) => resolveSandboxSection(group, KEY_CONFIG + (prefix ? `.${prefix}` : '')));
+export const getConfigSandboxSections = (carrierName: CarrierIdentifier): SettingsSection[] => {
+  return CONFIG_GROUPS.map((group) => resolveSandboxSection(group, carrierName));
 };
