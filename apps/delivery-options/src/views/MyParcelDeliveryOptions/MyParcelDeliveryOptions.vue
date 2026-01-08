@@ -87,7 +87,7 @@ watch(
 
     setConfiguration(resolvedValue);
   },
-  { immediate: true },
+  { immediate: true, deep: true },
 );
 
 useDeliveryOptionsIncomingEvents();
