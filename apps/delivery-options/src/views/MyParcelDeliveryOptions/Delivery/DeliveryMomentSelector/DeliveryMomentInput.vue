@@ -44,7 +44,7 @@ interface Props {
 const props = defineProps<Props>();
 const propRefs = toRefs(props);
 
-const model = defineModel<string>({required: true});
+const model = defineModel<string|undefined>({required: true});
 
 const {translate} = useLanguage();
 const {grouped} = useOptionsGroupedByCarrier(propRefs.options as any);
@@ -55,7 +55,7 @@ const {deliveryDate} = useSelectedValues();
  * This ensures that a default value is set when the component is first rendered.
  */
 watch(
-  [props.options, deliveryDate],
+  [propRefs.options, deliveryDate],
   () => {
     if (props.options.length === 0) {
       return;
