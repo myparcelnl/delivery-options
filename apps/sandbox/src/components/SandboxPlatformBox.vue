@@ -22,7 +22,7 @@ const {translate} = useLanguage();
 
 const platform = computed<PlatformName>({
   get: () => store.platform,
-  set: (value) => store.platform = value,
+  set: (value) => (store.platform = value),
 });
 
 const options: SelectOption[] = SUPPORTED_PLATFORMS.map((platform) => ({

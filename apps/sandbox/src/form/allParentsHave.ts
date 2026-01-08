@@ -1,15 +1,16 @@
 import {get} from 'radash';
 import {useSandboxStore} from '../stores';
-import { getAllSandboxConfigOptions } from './getAllSandboxConfigOptions';
+import {getAllSandboxConfigOptions} from './getAllSandboxConfigOptions';
 
 // Helper function to check if all parent fields have truthy values
 export const allParentsHave = (parents: string[] | undefined, storePrefix?: string): boolean => {
   if (!parents || parents.length === 0) return true;
+
   const sandboxStore = useSandboxStore();
   const allOptions = getAllSandboxConfigOptions();
 
   return parents.every((parent) => {
-    const fieldName = storePrefix ?  `${storePrefix}.${parent}` : parent;
+    const fieldName = storePrefix ? `${storePrefix}.${parent}` : parent;
 
     const value = get(sandboxStore, fieldName, false);
 
