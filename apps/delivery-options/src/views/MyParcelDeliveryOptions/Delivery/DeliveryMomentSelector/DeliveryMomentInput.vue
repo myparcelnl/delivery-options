@@ -25,11 +25,7 @@
 
 <script lang="ts" setup>
 import {toRefs, watch, onMounted, toValue} from 'vue';
-import {
-  CarrierBox,
-  type SelectOption,
-  RadioInput,
-} from '@myparcel-dev/do-shared';
+import {CarrierBox, type SelectOption, RadioInput} from '@myparcel-dev/do-shared';
 import {DeliveryTypeName} from '@myparcel-dev/constants';
 import {parseJson} from '../../../../utils';
 import {type SelectedDeliveryMoment} from '../../../../types';
@@ -44,7 +40,7 @@ interface Props {
 const props = defineProps<Props>();
 const propRefs = toRefs(props);
 
-const model = defineModel<string|undefined>({required: true});
+const model = defineModel<string | undefined>({required: true});
 
 const {translate} = useLanguage();
 const {grouped} = useOptionsGroupedByCarrier(propRefs.options as any);

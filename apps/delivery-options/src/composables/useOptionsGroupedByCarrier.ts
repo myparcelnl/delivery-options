@@ -9,7 +9,7 @@ import {
 type SelectOptionWithCarrier<T extends SelectOptionValue> = MakeRequired<SelectOption<T>, 'carrier'>;
 
 export const useOptionsGroupedByCarrier = <T extends SelectOptionValue>(
-  options: Ref<SelectOptionWithCarrier<T>[]>
+  options: Ref<SelectOptionWithCarrier<T>[]>,
 ): {
   grouped: ComputedRef<[CarrierIdentifier, SelectOptionWithCarrier<T>[]][]>;
 } => {

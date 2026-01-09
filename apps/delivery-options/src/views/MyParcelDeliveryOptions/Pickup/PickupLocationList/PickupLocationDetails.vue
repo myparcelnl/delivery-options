@@ -6,11 +6,9 @@
   </div>
 </template>
 
-<script
-  lang="ts"
-  setup>
-import PickupLocationOpeningHours from '../PickupLocationOpeningHours/PickupLocationOpeningHours.vue';
+<script lang="ts" setup>
 import type {CarrierIdentifier} from '@myparcel-dev/do-shared';
+import PickupLocationOpeningHours from '../PickupLocationOpeningHours/PickupLocationOpeningHours.vue';
 
 defineProps<{
   /**
@@ -18,6 +16,6 @@ defineProps<{
    * @see ResolvedPickupLocation
    */
   locationCode: string;
-  carrierIdentifier: CarrierIdentifier
+  carrierIdentifier: CarrierIdentifier;
 }>();
 </script>

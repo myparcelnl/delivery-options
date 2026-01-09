@@ -4,11 +4,7 @@ import {mockGetPickupLocations, fakePickupLocationsResponse} from '@myparcel-dev
 import {KEY_CONFIG, ConfigSetting, CarrierSetting, KEY_CARRIER_SETTINGS} from '@myparcel-dev/do-shared';
 import {CarrierName} from '@myparcel-dev/constants';
 import {useConfigStore} from '../stores';
-import {
-  mockDeliveryOptionsConfig,
-  getMockDeliveryOptionsConfiguration,
-  waitForPickupLocations,
-} from '../__tests__';
+import {mockDeliveryOptionsConfig, getMockDeliveryOptionsConfiguration, waitForPickupLocations} from '../__tests__';
 import {useResolvedPickupLocations} from './useResolvedPickupLocations';
 
 async function load(): Promise<void> {

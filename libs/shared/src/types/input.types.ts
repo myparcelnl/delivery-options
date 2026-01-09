@@ -25,7 +25,7 @@ export type CurrencyInputEmits = ElementEmits<number>;
 export type SelectInputModelValue = SelectOptionValue;
 
 export type SelectInputProps<T extends SelectInputModelValue> = InputProps &
-  OptionsProps<T> & {placeholder?: string, loading?: boolean};
+  OptionsProps<T> & {placeholder?: string; loading?: boolean};
 
 export type SelectInputEmits<T extends SelectInputModelValue> = ElementEmits<T>;
 
@@ -77,6 +77,7 @@ export type TimeInputModelValue = string;
  * @deprecated Use InputProps directly instead
  */
 export type TimeInputProps = InputProps;
+
 export type TimeInputEmits = ElementEmits<TimeInputModelValue>;
 
 export type ToggleInputModelValue = boolean;

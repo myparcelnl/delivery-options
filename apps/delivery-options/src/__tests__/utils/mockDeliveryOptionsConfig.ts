@@ -1,3 +1,4 @@
+import {type RecursivePartial} from '@myparcel-dev/ts-utils';
 import {
   CarrierSetting,
   type DeliveryOptionsConfiguration,
@@ -5,7 +6,6 @@ import {
   KEY_CONFIG,
   KEY_ADDRESS,
 } from '@myparcel-dev/do-shared';
-import {type RecursivePartial} from '@myparcel-dev/ts-utils';
 import {CarrierName} from '@myparcel-dev/constants';
 import {useAddressStore, useConfigStore} from '../../stores';
 import {validateConfiguration} from '../../config';

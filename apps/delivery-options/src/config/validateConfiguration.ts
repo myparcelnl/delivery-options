@@ -1,4 +1,5 @@
 import {toRaw} from 'vue';
+import {isEnumValue} from '@myparcel-dev/ts-utils';
 import {
   AddressField,
   CarrierSetting,
@@ -28,7 +29,6 @@ import {
   KEY_PLATFORM_CONFIG,
   type DeliveryOptionsAddress,
 } from '@myparcel-dev/do-shared';
-import {isEnumValue} from '@myparcel-dev/ts-utils';
 import {PackageTypeName} from '@myparcel-dev/constants';
 import {handleDeprecatedOptions} from './handleDeprecatedOptions';
 import {filterConfig} from './filterConfig';

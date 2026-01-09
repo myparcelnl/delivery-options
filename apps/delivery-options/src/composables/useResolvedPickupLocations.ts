@@ -1,5 +1,6 @@
 import {ref, toValue, onUnmounted, computed, type ComputedRef} from 'vue';
 import {useMemoize, watchImmediate} from '@vueuse/core';
+import {type PickupLocation} from '@myparcel-dev/sdk';
 import {
   PickupLocationType,
   usePickupLocationsRequest,
@@ -10,7 +11,6 @@ import {
   addLoadingProperties,
   watchUntil,
 } from '@myparcel-dev/do-shared';
-import {type PickupLocation} from '@myparcel-dev/sdk';
 import {DeliveryTypeName} from '@myparcel-dev/constants';
 import {getHasPickupForPackage} from '../utils/getHasPickupForPackage';
 import {createLatLngParameters, createGetDeliveryOptionsParameters} from '../utils';
@@ -136,9 +136,7 @@ const callback = (): UseResolvedPickupLocations => {
         )
         .sort(sortByDistance);
 
-      return excludeParcelLockers
-        ? base.filter((location) => location.type !== PickupLocationType.Locker)
-        : base;
+      return excludeParcelLockers ? base.filter((location) => location.type !== PickupLocationType.Locker) : base;
     }),
     currentLocations.load,
     currentLocations.loading,

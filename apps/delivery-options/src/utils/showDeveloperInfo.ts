@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
-import {CarrierSetting, ConfigSetting, KEY_CARRIER_SETTINGS} from '@myparcel-dev/do-shared';
 import {type ReadonlyOr} from '@myparcel-dev/ts-utils';
+import {CarrierSetting, ConfigSetting, KEY_CARRIER_SETTINGS} from '@myparcel-dev/do-shared';
 import {CarrierName, PlatformName} from '@myparcel-dev/constants';
 import {type IncomingEventDetail} from '../types/events.types';
 import {RENDER_DELIVERY_OPTIONS} from '../data';

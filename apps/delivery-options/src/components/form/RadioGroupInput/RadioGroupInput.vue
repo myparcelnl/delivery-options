@@ -10,7 +10,7 @@
         :name="id"
         :value="option.value"
         :disabled="option.disabled || disabled"
-        :readonly="readonly"/>
+        :readonly="readonly" />
     </template>
 
     <template

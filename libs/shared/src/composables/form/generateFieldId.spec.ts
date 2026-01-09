@@ -1,6 +1,6 @@
 import {describe, it, expect} from 'vitest';
-import {generateFieldId} from './generateFieldId';
 import {type ElementInstance} from '../../types';
+import {generateFieldId} from './generateFieldId';
 
 describe('generateFieldId', () => {
   it('generates a field id', () => {

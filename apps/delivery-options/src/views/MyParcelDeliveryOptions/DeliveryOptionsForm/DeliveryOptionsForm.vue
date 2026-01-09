@@ -47,19 +47,11 @@ import {
 } from '@myparcel-dev/do-shared';
 import PickupLocations from '../Pickup/PickupLocations.vue';
 import HomeDelivery from '../Delivery/HomeDelivery.vue';
-import {useConfigStore} from '../../../stores';
-import {
-  FIELD_HOME_OR_PICKUP,
-  HOME_OR_PICKUP_HOME,
-  HOME_OR_PICKUP_PICKUP,
-} from '../../../data';
-import {
-  useActiveCarriers,
-  useLanguage,
-  useSelectedValues,
-} from '../../../composables';
-import {CaretRightIcon, RadioGroupInput} from '../../../components';
 import {getHasPickupForPackage} from '../../../utils/getHasPickupForPackage';
+import {useConfigStore} from '../../../stores';
+import {FIELD_HOME_OR_PICKUP, HOME_OR_PICKUP_HOME, HOME_OR_PICKUP_PICKUP} from '../../../data';
+import {useActiveCarriers, useLanguage, useSelectedValues} from '../../../composables';
+import {CaretRightIcon, RadioGroupInput} from '../../../components';
 
 await waitForRequestData(useCarriersRequest);
 
@@ -80,11 +72,7 @@ const options = computed(() => {
     });
   }
 
-  if (
-    resolvedCarriers.some((carrier) =>
-      getHasPickupForPackage(carrier, config.packageType),
-    )
-  ) {
+  if (resolvedCarriers.some((carrier) => getHasPickupForPackage(carrier, config.packageType))) {
     optionList.push({
       label: PICKUP_TITLE,
       value: HOME_OR_PICKUP_PICKUP,

@@ -1,5 +1,6 @@
 import {toValue} from 'vue';
 import {get, shake} from 'radash';
+import {type EndpointParameters, type GetDeliveryOptions} from '@myparcel-dev/sdk';
 import {
   AddressField,
   CarrierSetting,
@@ -7,7 +8,6 @@ import {
   DROP_OFF_DELAY_DEFAULT,
   resolveCarrierName,
 } from '@myparcel-dev/do-shared';
-import {type EndpointParameters, type GetDeliveryOptions} from '@myparcel-dev/sdk';
 import {PlatformName} from '@myparcel-dev/constants';
 import {useAddressStore, useConfigStore} from '../stores';
 import {type UseResolvedCarrier} from '../composables';

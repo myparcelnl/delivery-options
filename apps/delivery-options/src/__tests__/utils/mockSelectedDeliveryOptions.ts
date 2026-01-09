@@ -1,9 +1,8 @@
 import {isString} from 'radash';
-import {type InternalOutput} from '@myparcel-dev/do-shared';
 import {type Replace} from '@myparcel-dev/ts-utils';
+import {type InternalOutput} from '@myparcel-dev/do-shared';
 import {CarrierName, DeliveryTypeName, PackageTypeName} from '@myparcel-dev/constants';
 import {type SelectedDeliveryMoment} from '../../types';
-import {useSelectedValues} from '../../composables';
 import {
   HOME_OR_PICKUP_HOME,
   FIELD_DELIVERY_DATE,
@@ -12,6 +11,7 @@ import {
   FIELD_SHIPMENT_OPTIONS,
   FIELD_DELIVERY_MOMENT,
 } from '../../data';
+import {useSelectedValues} from '../../composables';
 import {useSelectedPickupLocation} from '../../composables';
 
 type MockInternalOutput = Replace<InternalOutput, 'deliveryMoment', string | Partial<SelectedDeliveryMoment>>;

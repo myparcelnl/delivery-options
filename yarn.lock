@@ -1276,6 +1276,7 @@ __metadata:
     "@myparcel-dev/eslint-config-prettier": "npm:^1.4.0"
     "@myparcel-dev/eslint-config-prettier-typescript": "npm:^1.4.0"
     "@myparcel-dev/eslint-config-prettier-typescript-vue": "npm:^1.4.0"
+    "@myparcel-dev/prettier-config": "npm:^2.0.0"
     "@types/is-ci": "npm:^3.0.0"
     "@types/node": "npm:^20.9.0"
     "@vue/tsconfig": "npm:^0.5.0"
@@ -1292,6 +1293,13 @@ __metadata:
     typescript: "npm:5.4.5"
   languageName: unknown
   linkType: soft
+
+"@myparcel-dev/prettier-config@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "@myparcel-dev/prettier-config@npm:2.0.0"
+  checksum: 10c0/94db273818a92517f7685c7f0f12de1a842763e93c352b642fbd6baf91ca9576655bf03c0c35e8370a0ed11f2018e68ba31ea14c4c8427c916bc8d1300793408
+  languageName: node
+  linkType: hard
 
 "@myparcel-dev/sdk@npm:^5.0.0":
   version: 5.0.0

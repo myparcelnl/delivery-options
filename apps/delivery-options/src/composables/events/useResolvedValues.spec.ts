@@ -61,11 +61,7 @@ describe('useResolvedValues', () => {
       }),
     );
 
-    await Promise.all([
-      useCarriersRequest().load(),
-      waitForDeliveryOptions(),
-      waitForPickupLocations(),
-    ]);
+    await Promise.all([useCarriersRequest().load(), waitForDeliveryOptions(), waitForPickupLocations()]);
   });
 
   it.each([

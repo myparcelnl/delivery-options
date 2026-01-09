@@ -1,7 +1,7 @@
 <template>
   <input
-    :name="FIELD_PICKUP_LOCATION"
     v-model="pickupLocation"
+    :name="FIELD_PICKUP_LOCATION"
     type="hidden" />
 </template>
 
