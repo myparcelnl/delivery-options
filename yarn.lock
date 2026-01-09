@@ -1020,7 +1020,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@myparcel-dev/constants@npm:^2.7.0":
+"@myparcel-dev/constants@npm:^2.9.0":
   version: 2.9.0
   resolution: "@myparcel-dev/constants@npm:2.9.0"
   dependencies:
@@ -1035,7 +1035,7 @@ __metadata:
   dependencies:
     "@codecov/vite-plugin": "npm:^1.9.1"
     "@histoire/plugin-vue": "npm:^0.17.6"
-    "@myparcel-dev/constants": "npm:^2.7.0"
+    "@myparcel-dev/constants": "npm:^2.9.0"
     "@myparcel-dev/do-build-vite": "workspace:*"
     "@myparcel-dev/do-semantic-release-plugin": "workspace:*"
     "@myparcel-dev/do-shared": "workspace:*"
@@ -1095,7 +1095,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@myparcel-dev/do-sandbox@workspace:apps/sandbox"
   dependencies:
-    "@myparcel-dev/constants": "npm:^2.7.0"
+    "@myparcel-dev/constants": "npm:^2.9.0"
     "@myparcel-dev/delivery-options": "workspace:*"
     "@myparcel-dev/do-build-vite": "workspace:*"
     "@myparcel-dev/do-shared": "workspace:*"
@@ -1139,7 +1139,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@myparcel-dev/do-shared@workspace:libs/shared"
   dependencies:
-    "@myparcel-dev/constants": "npm:^2.7.0"
+    "@myparcel-dev/constants": "npm:^2.9.0"
     "@myparcel-dev/do-build-vite": "workspace:*"
     "@myparcel-dev/do-semantic-release-plugin": "workspace:*"
     "@myparcel-dev/do-shared": "workspace:*"

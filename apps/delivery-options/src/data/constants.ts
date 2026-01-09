@@ -37,6 +37,7 @@ export const FIELD_CARRIER = 'carrier';
 export const SHOWN_SHIPMENT_OPTIONS = Object.freeze<ShipmentOptionName[]>([
   ShipmentOptionName.Signature,
   ShipmentOptionName.OnlyRecipient,
+  ShipmentOptionName.PriorityDelivery,
 ]);
 
 /**

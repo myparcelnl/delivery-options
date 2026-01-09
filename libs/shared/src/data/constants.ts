@@ -14,6 +14,7 @@ export const SUPPORTED_DELIVERY_TYPES = Object.freeze([
 export const SUPPORTED_SHIPMENT_OPTIONS = Object.freeze([
   ShipmentOptionName.OnlyRecipient,
   ShipmentOptionName.Signature,
+  ShipmentOptionName.PriorityDelivery,
 ]);
 
 export const SUPPORTED_PACKAGE_TYPES = Object.freeze([

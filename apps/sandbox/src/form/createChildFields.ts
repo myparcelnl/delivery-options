@@ -1,13 +1,10 @@
+import {toValue} from 'vue';
 import {isDefined} from '@vueuse/core';
-import {
-  type CarrierIdentifier,
-  type ConfigOption,
-} from '@myparcel-dev/do-shared';
+import {type CarrierIdentifier, type ConfigOption} from '@myparcel-dev/do-shared';
+import {useCurrentPlatform} from '@myparcel-dev/delivery-options';
 import {type SandboxOptionGroup, type SettingsField} from '../types';
 import {getAllSandboxConfigOptions} from './getAllSandboxConfigOptions';
-import { availableInCarrier } from './availableInPlatform';
-import { useCurrentPlatform } from '@myparcel-dev/delivery-options';
-import { toValue } from 'vue';
+import {availableInCarrier} from './availableInPlatform';
 
 export const createChildFields = (group: SandboxOptionGroup, carrierName: CarrierIdentifier): SettingsField[] => {
   const allOptions = [...getAllSandboxConfigOptions()];
@@ -19,13 +16,16 @@ export const createChildFields = (group: SandboxOptionGroup, carrierName: Carrie
       if (!item) {
         return item;
       }
+
       // Create a copy of the item before modifying it
-      const itemCopy = { ...item };
+      const itemCopy = {...item};
       itemCopy.storePath = `carrierSettings.${carrierName}.${item.key}`;
       return itemCopy;
     })
     .filter(isDefined)
-    .filter((item) => item && availableInCarrier(`${carrierName}.${item.key}`, toValue(useCurrentPlatform().name))) as ConfigOption[];
+    .filter(
+      (item) => item && availableInCarrier(`${carrierName}.${item.key}`, toValue(useCurrentPlatform().name)),
+    ) as ConfigOption[];
 
   return resolvedItems.reduce((acc, item) => {
     acc.push(item);
@@ -39,7 +39,7 @@ export const createChildFields = (group: SandboxOptionGroup, carrierName: Carrie
       }
 
       // Create a copy of the match before modifying it
-      const matchCopy = { ...match };
+      const matchCopy = {...match};
       matchCopy.storePath = `carrierSettings.${carrierName}.${match.key}`;
       acc.push(matchCopy);
     });

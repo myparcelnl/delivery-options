@@ -1,5 +1,10 @@
 import {computed, type ComputedRef, toValue} from 'vue';
-import {ONLY_RECIPIENT_TITLE, type SelectOption, SIGNATURE_TITLE} from '@myparcel-dev/do-shared';
+import {
+  ONLY_RECIPIENT_TITLE,
+  PRIORITY_DELIVERY_TITLE,
+  type SelectOption,
+  SIGNATURE_TITLE,
+} from '@myparcel-dev/do-shared';
 import {ShipmentOptionName} from '@myparcel-dev/constants';
 import {getConfigPriceKey, getResolvedValue} from '../utils';
 import {useSelectedDeliveryMoment} from './useSelectedDeliveryMoment';
@@ -10,6 +15,7 @@ import {useFeatures} from './useFeatures';
 const TRANSLATION_MAP = Object.freeze({
   [ShipmentOptionName.Signature]: SIGNATURE_TITLE,
   [ShipmentOptionName.OnlyRecipient]: ONLY_RECIPIENT_TITLE,
+  [ShipmentOptionName.PriorityDelivery]: PRIORITY_DELIVERY_TITLE,
 } as const);
 
 export const useShipmentOptionsOptions = (): ComputedRef<SelectOption[]> => {
@@ -19,10 +25,9 @@ export const useShipmentOptionsOptions = (): ComputedRef<SelectOption[]> => {
   const deliveryMoment = useSelectedDeliveryMoment();
 
   return computed(() => {
-    const hasNoDeliveryOptions = deliveryOptions.loading.value || !deliveryOptions.value.length;
     const {carrier, shipmentOptionsPerPackageType} = useResolvedCarrier(deliveryMoment.value?.carrier);
 
-    if (hasNoDeliveryOptions || !carrier.value) {
+    if (deliveryOptions.loading.value || !carrier.value) {
       return [];
     }
 
@@ -36,7 +41,12 @@ export const useShipmentOptionsOptions = (): ComputedRef<SelectOption[]> => {
           ? toValue(shipmentOptionsPerPackageType)[selectedPackageType]
           : undefined;
 
-        // If there is a key for the package type in `shipmentOptionsPerPackageType`, check if the option is available for the package type
+        // If there are no delivery moments (eg. fake delivery), show all available options for the package type
+        if (!momentShipmentOptions?.length) {
+          return optionsForPackageType ? optionsForPackageType.has(option) : false;
+        }
+
+        // Otherwise, only show options that are available for the package type AND in the delivery moments in the API response
         return optionsForPackageType
           ? optionsForPackageType.has(option) && momentShipmentOptions?.some(({name}) => name === option)
           : false;

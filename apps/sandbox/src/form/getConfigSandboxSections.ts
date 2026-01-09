@@ -21,7 +21,7 @@ const CONFIG_GROUPS = Object.freeze([
       },
       {
         name: OptionGroup.ShipmentOptionsPerPackageType,
-        items: [CarrierSetting.AllowOnlyRecipient, CarrierSetting.AllowSignature],
+        items: [CarrierSetting.AllowOnlyRecipient, CarrierSetting.AllowSignature, CarrierSetting.AllowPriorityDelivery],
       },
       {
         name: OptionGroup.PackageTypes,

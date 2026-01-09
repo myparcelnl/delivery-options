@@ -52,6 +52,8 @@ export const getDefaultSandboxCarrierSettings = (): CarrierSettingsObject => {
         [CarrierSetting.PriceOnlyRecipient]: numberBetween(0.1, 0.9),
         [CarrierSetting.AllowSignature]: true,
         [CarrierSetting.PriceSignature]: numberBetween(0.1, 0.9),
+        [CarrierSetting.AllowPriorityDelivery]: true,
+        [CarrierSetting.PricePriorityDelivery]: numberBetween(0.1, 0.9),
         [CarrierSetting.AllowPickupLocations]: true,
       },
     ]),

@@ -11,7 +11,9 @@
         </span>
 
         <slot :option="option">
-          <span v-text="translate(option.label)" />
+          <span
+            v-if="option.label"
+            v-text="translate(option.label)" />
         </slot>
 
         <EcoFriendlyLabel
