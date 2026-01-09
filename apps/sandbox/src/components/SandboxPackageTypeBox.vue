@@ -3,13 +3,30 @@
     <h2 v-text="translate('package_type')" />
 
     <!-- TODO: Restore package type box after vue-form-builder removal -->
-    <p class="mp-text-gray-500 mp-text-sm">Package type box temporarily disabled during refactoring</p>
+    <SandboxRadioGroupInput v-model="packageType" :options="packageTypeOptions" />
   </Box>
 </template>
 
 <script lang="ts" setup>
+import { SUPPORTED_PACKAGE_TYPES } from '@myparcel-dev/do-shared';
 import {useLanguage} from '../composables';
-import {Box} from './Box';
+import { useSandboxStore } from '../stores';
+import { SandboxRadioGroupInput } from './base';
+import { Box } from './Box';
+import { computed } from 'vue';
+import type { PackageTypeName } from '@myparcel-dev/constants';
 
 const {translate} = useLanguage();
+const sandboxStore = useSandboxStore();
+
+const packageType = computed({
+  get: () => sandboxStore.config.packageType,
+  set: (value: PackageTypeName) => {
+    sandboxStore.config.packageType = value;
+  },
+});
+const packageTypeOptions = SUPPORTED_PACKAGE_TYPES.map((value) => ({
+  label: `package_type_${value}`,
+  value,
+}));
 </script>
