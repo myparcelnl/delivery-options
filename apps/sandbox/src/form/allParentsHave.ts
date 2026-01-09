@@ -11,7 +11,6 @@ export const allParentsHave = (parents: string[] | undefined, storePrefix?: stri
   return parents.every((parent) => {
     const fieldName = storePrefix ?  `${storePrefix}.${parent}` : parent;
 
-    // Find the value in the store
     const value = get(sandboxStore, fieldName, false);
 
     // If the given parent has its own parents, we need to check them as well

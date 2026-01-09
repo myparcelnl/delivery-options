@@ -60,7 +60,6 @@ const createWeekdaysObject = (
   return weekdays.value.reduce((acc, _, weekday) => {
       // Find the current value for the "key" for each weekday and populate the ref with it, or the default value.
       const value = model.value?.find((entry) => entry[DROP_OFF_WEEKDAY] === weekday)?.[key];
-      console.log(value);
       acc[Number(weekday) as Weekday] = ref(value ?? defaultValue);
       return acc;
     }, {} as Record<Weekday, Ref<string>>);

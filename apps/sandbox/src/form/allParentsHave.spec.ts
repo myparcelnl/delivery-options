@@ -17,12 +17,9 @@ interface TestInput {
  */
 const setupSandboxStore = (configuration: Record<string, unknown>) => {
   const store = useSandboxStore();
-  // Mock the resolved configuration
-  vi.spyOn(store, 'resolvedConfiguration', 'get').mockReturnValue({
-    config: configuration,
-    address: {},
-    strings: {},
-    platformConfig: {carriers: []},
+  // Mock the store state
+  vi.spyOn(store, 'config', 'get').mockReturnValue({
+    ...configuration
   });
 };
 
@@ -30,7 +27,6 @@ describe('allParentsHave', () => {
   beforeEach(() => {
     setActivePinia(createPinia());
     vi.clearAllMocks();
-  });
   });
 
   it.each([
@@ -45,7 +41,7 @@ describe('allParentsHave', () => {
       it: 'returns true if all parents are enabled',
       parents: [CarrierSetting.AllowDeliveryOptions],
       configuration: {[CarrierSetting.AllowDeliveryOptions]: true},
-      prefix: '',
+      prefix: 'config',
       result: true,
     },
     {
@@ -55,14 +51,14 @@ describe('allParentsHave', () => {
         [CarrierSetting.AllowDeliveryOptions]: true,
         [CarrierSetting.AllowPickupLocations]: false,
       },
-      prefix: '',
+      prefix: 'config',
       result: false,
     },
     {
       it: 'works with prefixes',
       parents: [CarrierSetting.AllowDeliveryOptions],
-      configuration: {[`some.long.prefix.${CarrierSetting.AllowDeliveryOptions}`]: true},
-      prefix: 'some.long.prefix',
+      configuration: {some_long_prefix: {[CarrierSetting.AllowDeliveryOptions]: true}},
+      prefix: 'config.some_long_prefix',
       result: true,
     },
   ] satisfies TestInput[])('$it', ({parents, configuration, prefix, result}) => {
