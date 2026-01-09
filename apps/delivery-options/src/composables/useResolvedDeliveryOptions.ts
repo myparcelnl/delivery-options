@@ -75,6 +75,7 @@ const getDeliveryOptionsFromApi = async (
         const deliveryDaysWindow = carrier.get(CarrierSetting.DeliveryDaysWindow, DELIVERY_DAYS_WINDOW_DEFAULT);
 
         if (!toValue(carrier.hasDelivery) || deliveryDaysWindow === 0) {
+          console.log(`Skipping delivery options API call for carrier ${carrier.carrier.value.name} as delivery is disabled or delivery days window is 0.`, toValue(carrier.hasAnyDelivery), deliveryDaysWindow);
           return Promise.resolve({carrier, dates: createFakeDeliveryDates(carrier)});
         }
 
@@ -83,8 +84,10 @@ const getDeliveryOptionsFromApi = async (
 
         try {
           await query.load();
-        } catch {
+        } catch(e) {
+          console.error('Error loading delivery options:', e);
           // If loading fails, return null so it can be filtered out
+
           return null;
         }
 
@@ -339,6 +342,7 @@ const callback = (): UseResolvedDeliveryOptions => {
 
   return computedAsync<SelectedDeliveryMoment[]>(
     async () => {
+      console.log('Fetching delivery options from API for carriers:', toValue(carriers).map((c) => c.carrier.value.name));
       const datesPerCarrier = await getDeliveryOptionsFromApi(carriers);
 
       // Filter out any nulls (failed requests)

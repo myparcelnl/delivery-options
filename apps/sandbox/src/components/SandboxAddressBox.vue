@@ -16,8 +16,7 @@
           class="mp-flex mp-items-center mp-justify-center">
           <button
             class="mp-text-blue-500 hover:mp-text-blue-700 mp-underline"
-            @click="loadMore"
-            v-text="translate('load_more')" />
+            @click="loadMore">{{ translate('more') }}</button>
         </Box>
       </div>
 
@@ -34,7 +33,7 @@
             :value="customValue"
             name="address" />
 
-          {{ translate('custom_address') }}
+          {{ translate('address_custom') }}
         </h3>
 
         <!-- Custom Address Fields -->
