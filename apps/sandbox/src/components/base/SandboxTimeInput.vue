@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts" setup>
-import {type TimeInputEmits, type TimeInputProps} from '@myparcel-dev/do-shared';
+import {type TimeInputProps} from '@myparcel-dev/do-shared';
 import TextInput from './SandboxTextInput.vue';
 
 // eslint-disable-next-line vue/no-unused-properties

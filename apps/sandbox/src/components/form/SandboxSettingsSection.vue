@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <section :class="`mp-ml` + Number(level)">
     <template
       v-for="(field, index) in section.fields"
       :key="`${section.label}_${index}`">
@@ -20,7 +20,7 @@
         v-else
         :fields="[field]" />
     </template>
-  </div>
+  </section>
 </template>
 
 <script lang="ts" setup>
