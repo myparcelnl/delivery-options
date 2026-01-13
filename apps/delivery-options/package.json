@@ -90,7 +90,7 @@
     "@vue/test-utils": "^2.4.0",
     "ci-info": "^4.0.0",
     "cssnano": "^7.0.0",
-    "happy-dom": "^14.0.0",
+    "happy-dom": "^20.0.2",
     "histoire": "^0.17.6",
     "postcss": "^8.0.0",
     "postcss-replace": "2.0.1",
