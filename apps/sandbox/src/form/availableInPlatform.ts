@@ -1,5 +1,6 @@
 import {toValue} from 'vue';
 import {useMemoize, isDefined} from '@vueuse/core';
+import {isEnumValue} from '@myparcel-dev/ts-utils';
 import {
   type ConfigKey,
   useLogger,
@@ -11,9 +12,7 @@ import {
   type SupportedPlatformName,
   usePlatform,
 } from '@myparcel-dev/do-shared';
-import {isEnumValue} from '@myparcel-dev/ts-utils';
 import {CarrierName} from '@myparcel-dev/constants';
-import {getAllSandboxConfigOptions} from './getAllSandboxConfigOptions';
 
 const ALWAYS_ENABLED_FIELDS: readonly string[] = Object.freeze([CarrierSetting.AllowDeliveryOptions]);
 
@@ -40,16 +39,7 @@ const featureIsEnabled = (
     return false;
   }
 
-  const isEnabled = toValue(features).has(field);
-
-  // if (!isEnabled) {
-  //   const options = getAllSandboxConfigOptions();
-  //   const match = options.find((option) => option.key === field);
-
-  //   return match?.parents?.some((parent) => toValue(features).has(parent)) ?? false;
-  // }
-
-  return isEnabled;
+  return toValue(features).has(field);
 };
 
 /**
@@ -66,6 +56,7 @@ export const availableInCarrier = useMemoize((fieldPath: string, platformName: S
 
   if (!baseField) {
     if (import.meta.env.DEV) logger.warning('Could not determine base field from', fieldPath);
+
     return false;
   }
 
