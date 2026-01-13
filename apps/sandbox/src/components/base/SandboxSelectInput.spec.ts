@@ -1,26 +1,15 @@
-import {type MaybeRef, nextTick, ref} from 'vue';
+import {nextTick} from 'vue';
 import {describe, expect, it} from 'vitest';
 import {render, type RenderResult} from '@testing-library/vue';
 import {type SelectOptionValue, type SelectOption} from '@myparcel-dev/do-shared';
-import {createMyParcelFormBuilderPlugin, defineField, defineForm, MagicForm} from '@myparcel-dev/vue-form-builder';
-import SelectInput from './SelectInput.vue';
+import SandboxSelectInput from './SandboxSelectInput.vue';
 
 /**
  * @vitest-environment happy-dom
  */
 
-const renderElement = <T extends SelectOptionValue>(
-  options: MaybeRef<SelectOption<T>[]>,
-  modelValue?: T,
-): RenderResult => {
-  const element = defineField({name: 'test', ref: ref(modelValue), component: SelectInput, props: {options}});
-
-  const form = defineForm('test', {fields: [element]});
-
-  return render(MagicForm, {
-    props: {form},
-    global: {plugins: [createMyParcelFormBuilderPlugin()]},
-  });
+const renderElement = <T extends SelectOptionValue>(options: SelectOption<T>[], modelValue?: T): RenderResult => {
+  return render(SandboxSelectInput, {props: {options, modelValue}});
 };
 
 describe('SelectInput', () => {
