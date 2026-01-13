@@ -3,6 +3,8 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel-dev/delivery-options-v6.23.1](https://github.com/myparcelnl/delivery-options/compare/v6.23.0...v6.23.1) (2026-01-13)
+
 ## [@myparcel-dev/delivery-options-v6.23.0](https://github.com/myparcelnl/delivery-options/compare/v6.22.0...v6.23.0) (2025-12-16)
 
 ### :sparkles: New Features
