@@ -28,7 +28,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: myparcelnl/actions/has-refs-between@v4
+      - uses: myparcelnl/actions/has-refs-between@v5
         id: has-refs
 
   build:
@@ -48,7 +48,7 @@ jobs:
       - test
       - build
     steps:
-      - uses: myparcelnl/actions/setup-git-credentials@v4
+      - uses: myparcelnl/actions/setup-git-credentials@v5
         id: credentials
         with:
           app-id: ${{ secrets.MYPARCEL_APP_ID }}
@@ -59,7 +59,7 @@ jobs:
           token: ${{ steps.credentials.outputs.token }}
           fetch-depth: 0
 
-      - uses: myparcelnl/actions/yarn-install@v4
+      - uses: myparcelnl/actions/yarn-install@v5
 
       - uses: ./.github/actions/build
 
@@ -68,7 +68,7 @@ jobs:
           path: apps/sandbox/dist
 
       - name: 'Release'
-        uses: myparcelnl/actions/semantic-release@v4
+        uses: myparcelnl/actions/semantic-release@v5
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN_NEW }}
         with:
@@ -101,7 +101,7 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - uses: myparcelnl/actions/setup-git-credentials@v4
+      - uses: myparcelnl/actions/setup-git-credentials@v5
         id: credentials
         with:
           app-id: ${{ secrets.MYPARCEL_APP_ID }}
@@ -125,5 +125,5 @@ jobs:
       - deploy
       - rebase-prs
     if: always() && contains(needs.*.result, 'failure')
-    uses: myparcelnl/actions/.github/workflows/notify-on-failure.yml@v4
+    uses: myparcelnl/actions/.github/workflows/notify-on-failure.yml@v5
     secrets: inherit
