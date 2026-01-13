@@ -193,6 +193,9 @@ exports[`getPlatformConfig > gets config for platform myparcel 1`] = `
         "DE",
       ],
       "shipmentOptionsPerPackageType": {
+        "mailbox": [
+          "priority_delivery",
+        ],
         "package": [
           "only_recipient",
           "signature",
