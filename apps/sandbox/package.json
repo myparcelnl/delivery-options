@@ -1,6 +1,6 @@
 {
   "name": "@myparcel-dev/do-sandbox",
-  "version": "6.23.1",
+  "version": "6.23.2",
   "private": true,
   "type": "module",
   "scripts": {
