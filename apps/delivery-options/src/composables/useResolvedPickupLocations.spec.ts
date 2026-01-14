@@ -45,6 +45,7 @@ describe('useResolvedPickupLocations', () => {
 
   afterEach(() => {
     vi.restoreAllMocks();
+    mockGetPickupLocations.mockClear();
   });
 
   it('loads pickup locations', async () => {
@@ -96,7 +97,7 @@ describe('useResolvedPickupLocations', () => {
 
     // Expect new locations to have been fetched and added to the list
     expect(locations.value.length).toBe(initialLength + 1);
-    // One for each carrier and one for getting the new location. Only PostNL can use the latitude and longitude option.
+    // One for each carrier (DHL/POSTNL) and one for getting the new location. Only PostNL can use the latitude and longitude option.
     expect(mockGetPickupLocations).toHaveBeenCalledTimes(3);
   });
 

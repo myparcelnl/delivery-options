@@ -46,6 +46,7 @@ describe('useLanguage', () => {
   afterEach(() => {
     vi.resetModules();
     vi.restoreAllMocks();
+    fetchSpy.mockClear();
   });
 
   it('loads the first supported language, ordered by preference', async () => {
