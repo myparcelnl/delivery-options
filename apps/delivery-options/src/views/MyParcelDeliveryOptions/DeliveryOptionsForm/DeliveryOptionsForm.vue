@@ -72,7 +72,10 @@ const options = computed(() => {
     });
   }
 
-  if (resolvedCarriers.some((carrier) => getHasPickupForPackage(carrier, config.packageType))) {
+  if (
+    config.allowPickupLocations &&
+    resolvedCarriers.some((carrier) => getHasPickupForPackage(carrier, config.packageType))
+  ) {
     optionList.push({
       label: PICKUP_TITLE,
       value: HOME_OR_PICKUP_PICKUP,
