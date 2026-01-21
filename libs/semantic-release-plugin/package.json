@@ -19,6 +19,6 @@
     "@types/node": "^20.11.16",
     "read-pkg": "^9.0.1",
     "tsup": "^8.0.0",
-    "typescript": "5.4.5"
+    "typescript": "5.9.3"
   }
 }
