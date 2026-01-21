@@ -1,45 +1,36 @@
-import {type MaybeRef, toValue} from 'vue';
 import {isDefined} from '@vueuse/core';
 import {
+  type CarrierIdentifier,
   type ConfigOption,
-  type BaseConfigOption,
-  type SelectConfigOption,
-  type SupportedPlatformName,
 } from '@myparcel-dev/do-shared';
-import {type InteractiveElementInstance} from '@myparcel-dev/vue-form-builder';
 import {type SandboxOptionGroup, type SettingsField} from '../types';
-import {useCurrentPlatform} from '../composables';
 import {getAllSandboxConfigOptions} from './getAllSandboxConfigOptions';
-import {createSandboxField} from './createSandboxField';
-import {availableInCarrier} from './availableInPlatform';
-import {allParentsHave} from './allParentsHave';
+import { availableInCarrier } from './availableInPlatform';
+import { useCurrentPlatform } from '@myparcel-dev/delivery-options';
+import { toValue } from 'vue';
 
-const isEnabled = (
-  field: InteractiveElementInstance,
-  platformName: MaybeRef<SupportedPlatformName>,
-  match: BaseConfigOption | SelectConfigOption,
-  prefix: string,
-): boolean => {
-  return availableInCarrier(field.name, toValue(platformName)) && allParentsHave(match.parents, field.form, prefix);
-};
-
-export const createChildFields = (group: SandboxOptionGroup, prefix: string): SettingsField[] => {
-  const allOptions = getAllSandboxConfigOptions();
-  const {name} = useCurrentPlatform();
+export const createChildFields = (group: SandboxOptionGroup, carrierName: CarrierIdentifier): SettingsField[] => {
+  const allOptions = [...getAllSandboxConfigOptions()];
 
   const resolvedItems = (group.items ?? [])
     .map((item) => allOptions.find((option) => option.key === item))
-    .filter(isDefined) as ConfigOption[];
+    // Add in a store binding to ease two-way data binding (v-model) in the form components
+    .map((item) => {
+      if (!item) {
+        return item;
+      }
+      // Create a copy of the item before modifying it
+      const itemCopy = { ...item };
+      itemCopy.storePath = `carrierSettings.${carrierName}.${item.key}`;
+      return itemCopy;
+    })
+    .filter(isDefined)
+    .filter((item) => item && availableInCarrier(`${carrierName}.${item.key}`, toValue(useCurrentPlatform().name))) as ConfigOption[];
 
   return resolvedItems.reduce((acc, item) => {
-    acc.push(
-      createSandboxField(item, prefix, {
-        visibleWhen(field: InteractiveElementInstance) {
-          return isEnabled(field, name, item, prefix);
-        },
-      }),
-    );
+    acc.push(item);
 
+    // Adds related items to the root (e.g. extended price options for the sandbox)
     item.related?.forEach((relatedItem) => {
       const match = allOptions.find((option) => option.key === relatedItem.key);
 
@@ -47,19 +38,11 @@ export const createChildFields = (group: SandboxOptionGroup, prefix: string): Se
         return;
       }
 
-      acc.push(
-        createSandboxField(match, prefix, {
-          visibleWhen(field: InteractiveElementInstance) {
-            return isEnabled(field, name, match, prefix);
-          },
-
-          disabledWhen(field: InteractiveElementInstance) {
-            return !isEnabled(field, name, match, prefix);
-          },
-        }),
-      );
+      // Create a copy of the match before modifying it
+      const matchCopy = { ...match };
+      matchCopy.storePath = `carrierSettings.${carrierName}.${match.key}`;
+      acc.push(matchCopy);
     });
-
     return acc;
   }, [] as SettingsField[]);
 };

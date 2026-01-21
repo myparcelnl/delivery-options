@@ -18,15 +18,13 @@
 </template>
 
 <script generic="T extends RadioGroupModelValue" lang="ts" setup>
-import {useVModel} from '@vueuse/core';
-import {type RadioGroupEmits, type RadioGroupModelValue, type RadioGroupProps, RadioInput} from '@myparcel-dev/do-shared';
+import {type RadioGroupModelValue, type RadioGroupProps, RadioInput} from '@myparcel-dev/do-shared';
 import {useLanguage} from '../../composables';
 
 // eslint-disable-next-line vue/no-unused-properties
 const props = defineProps<RadioGroupProps<T>>();
-const emit = defineEmits<RadioGroupEmits<T>>();
 
-const model = useVModel(props, undefined, emit);
+const model = defineModel<T>();
 
 const {translate} = useLanguage();
 </script>

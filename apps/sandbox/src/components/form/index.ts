@@ -1,6 +1,6 @@
 export * from './input';
 
-export {default as SandboxSettingsEntry} from './SandboxSettingsEntry.vue';
+export {default as SandboxFieldCollection} from './SandboxFieldCollection.vue';
 
 export {default as SandboxSettingsGroup} from './SandboxSettingsGroup.vue';
 

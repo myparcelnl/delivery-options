@@ -1,7 +1,6 @@
 import {computed, toRefs, type WritableComputedRef} from 'vue';
 import {get, useVModel} from '@vueuse/core';
 import {type ElementContext, type ElementEmits, type InputProps, type WithElement} from '../../types';
-import {generateFieldId} from './generateFieldId';
 
 export const useElementContext = <
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -15,7 +14,7 @@ export const useElementContext = <
 ): ElementContext<T1, Props['element']['props']> => {
   const propRefs = toRefs(props);
 
-  const id = generateFieldId(propRefs.element);
+  const id = propRefs.element.value.key;
   const model = useVModel(props, undefined, emit) as WritableComputedRef<T1>;
 
   return {

@@ -1,5 +1,9 @@
-import {useMemoize} from '@vueuse/core';
 import {CarrierSetting, type ConfigOption, getAllConfigOptions} from '@myparcel-dev/do-shared';
+
+export type SandboxConfigOption = ConfigOption & {
+  parents?: string[];
+  storePath?: string;
+};
 
 const extended = Object.freeze([
   /* Delivery */
@@ -41,9 +45,9 @@ const extended = Object.freeze([
 
   /* Pickup */
   {key: CarrierSetting.PricePickup, parents: [CarrierSetting.AllowPickupLocations]},
-]) satisfies readonly ConfigOption[];
+]) satisfies readonly SandboxConfigOption[];
 
-export const getAllSandboxConfigOptions = useMemoize((): ConfigOption[] => {
+export const getAllSandboxConfigOptions = (): SandboxConfigOption[] => {
   const configOptions = getAllConfigOptions();
 
   return configOptions.map((option) => {
@@ -55,4 +59,4 @@ export const getAllSandboxConfigOptions = useMemoize((): ConfigOption[] => {
 
     return {...option, ...extension};
   });
-});
+};

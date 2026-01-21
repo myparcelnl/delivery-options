@@ -1,5 +1,6 @@
 import {beforeEach, describe, expect, it, vi, afterEach} from 'vitest';
 import {assign} from 'radash';
+import {type EndpointParameters, type GetDeliveryOptions} from '@myparcel-dev/sdk';
 import {
   type CarrierIdentifier,
   CarrierSetting,
@@ -7,7 +8,6 @@ import {
   KEY_CARRIER_SETTINGS,
   KEY_CONFIG,
 } from '@myparcel-dev/do-shared';
-import {type EndpointParameters, type GetDeliveryOptions} from '@myparcel-dev/sdk';
 import {CarrierName, PackageTypeName, PlatformName} from '@myparcel-dev/constants';
 import {useConfigStore} from '../stores';
 import {getMockDeliveryOptionsConfiguration, mockDeliveryOptionsConfig} from '../__tests__';

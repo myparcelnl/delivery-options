@@ -2,6 +2,8 @@ import {toValue, type ComputedRef} from 'vue';
 import {pascal} from 'radash';
 import {startOfDay} from 'date-fns';
 import {useMemoize} from '@vueuse/core';
+import {type Replace} from '@myparcel-dev/ts-utils';
+import {type Timestamp, type DeliveryOption, type DeliveryPossibility, type DeliveryTimeFrame} from '@myparcel-dev/sdk';
 import {
   useDeliveryOptionsRequest,
   computedAsync,
@@ -14,8 +16,6 @@ import {
   createTranslatable,
   ConfigSetting,
 } from '@myparcel-dev/do-shared';
-import {type Replace} from '@myparcel-dev/ts-utils';
-import {type Timestamp, type DeliveryOption, type DeliveryPossibility, type DeliveryTimeFrame} from '@myparcel-dev/sdk';
 import {createGetDeliveryOptionsParameters, getResolvedDeliveryType, calculateCutoffTime} from '../utils';
 import {type SelectedDeliveryMoment} from '../types';
 import {DELIVERY_MOMENT_PACKAGE_TYPES} from '../data';
@@ -83,8 +83,10 @@ const getDeliveryOptionsFromApi = async (
 
         try {
           await query.load();
-        } catch {
+        } catch (e) {
+          console.error('Error loading delivery options:', e);
           // If loading fails, return null so it can be filtered out
+
           return null;
         }
 

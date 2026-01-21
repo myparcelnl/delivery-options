@@ -1,34 +1,32 @@
 <template>
-  <Box class="mp-gap-2 mp-grid">
+  <Box class="mp-gap-4 mp-grid">
     <h2 v-text="translate('package_type')" />
 
-    <SandboxSettingsSection :section="section" />
+    <!-- TODO: Restore package type box after vue-form-builder removal -->
+    <SandboxRadioGroupInput v-model="packageType" :options="packageTypeOptions" />
   </Box>
 </template>
 
 <script lang="ts" setup>
-import {KEY_CONFIG, CarrierSetting, SUPPORTED_PACKAGE_TYPES} from '@myparcel-dev/do-shared';
-import {createOptionTranslatable, createPackageTypeTranslatable} from '../utils';
-import {formField, formSection} from '../form';
+import { SUPPORTED_PACKAGE_TYPES } from '@myparcel-dev/do-shared';
 import {useLanguage} from '../composables';
-import {SandboxSettingsSection, FormRadioGroupInput} from './form';
-import {Box} from './Box';
+import { useSandboxStore } from '../stores';
+import { SandboxRadioGroupInput } from './base';
+import { Box } from './Box';
+import { computed } from 'vue';
+import type { PackageTypeName } from '@myparcel-dev/constants';
 
 const {translate} = useLanguage();
+const sandboxStore = useSandboxStore();
 
-const section = formSection({
-  label: 'package_type',
-  fields: [
-    formField({
-      key: KEY_CONFIG,
-      name: CarrierSetting.PackageType,
-      label: createOptionTranslatable(CarrierSetting.PackageType),
-      component: FormRadioGroupInput,
-      wrapper: false,
-      props: {
-        options: SUPPORTED_PACKAGE_TYPES.map((value) => ({label: createPackageTypeTranslatable(value), value})),
-      },
-    }),
-  ],
+const packageType = computed({
+  get: () => sandboxStore.config.packageType,
+  set: (value: PackageTypeName) => {
+    sandboxStore.config.packageType = value;
+  },
 });
+const packageTypeOptions = SUPPORTED_PACKAGE_TYPES.map((value) => ({
+  label: `package_type_${value}`,
+  value,
+}));
 </script>

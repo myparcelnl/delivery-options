@@ -5,71 +5,86 @@ export type CheckboxModelValue = string | boolean;
 
 export type CheckboxGroupEmits<T extends CheckboxGroupModelValue> = ElementEmits<T>;
 
-export type CheckboxProps<T extends CheckboxModelValue> = InputProps<T> & {value: T};
+export type CheckboxProps<T extends CheckboxModelValue> = InputProps & {value: T};
 
 export type CheckboxEmits<T extends CheckboxModelValue> = ElementEmits<T>;
 
 export type CheckboxGroupModelValue = string[];
 
-export type CheckboxGroupProps<T extends CheckboxGroupModelValue> = InputProps<T> & OptionsProps<T>;
+export type CheckboxGroupProps<T extends CheckboxGroupModelValue> = InputProps & OptionsProps<T>;
 
 export type CurrencyInputModelValue = string | number;
 
-export type CurrencyInputProps = InputProps<CurrencyInputModelValue>;
+/**
+ * @deprecated Use InputProps directly instead
+ */
+export type CurrencyInputProps = InputProps;
 
 export type CurrencyInputEmits = ElementEmits<number>;
 
 export type SelectInputModelValue = SelectOptionValue;
 
-export type SelectInputProps<T extends SelectInputModelValue> = InputProps<T> &
-  OptionsProps<T> & {placeholder?: string};
+export type SelectInputProps<T extends SelectInputModelValue> = InputProps &
+  OptionsProps<T> & {placeholder?: string; loading?: boolean};
 
 export type SelectInputEmits<T extends SelectInputModelValue> = ElementEmits<T>;
 
 export type MultiDateSelectModelValue = Date[];
 
-export type MultiDateSelectProps = InputProps<MultiDateSelectModelValue>;
+/**
+ * @deprecated Use InputProps directly instead
+ */
+export type MultiDateSelectProps = InputProps;
 
 export type MultiDateSelectEmits = ElementEmits<MultiDateSelectModelValue>;
 
 export type NumberInputModelValue = string | number;
 
-export type NumberInputProps = InputProps<NumberInputModelValue>;
+/**
+ * @deprecated Use InputProps directly instead
+ */
+export type NumberInputProps = InputProps;
 
 export type NumberInputEmits = ElementEmits<number>;
 
-export type RadioModelValue = boolean;
-
-export type RadioProps<T extends RadioModelValue> = InputProps<T>;
-
-export type RadioEmits<T extends RadioModelValue> = ElementEmits<T>;
-
 export type RadioGroupModelValue = string;
 
-export type RadioGroupProps<T extends RadioGroupModelValue = RadioGroupModelValue> = InputProps<T> & OptionsProps<T>;
+export type RadioGroupProps<T extends RadioGroupModelValue = RadioGroupModelValue> = InputProps & OptionsProps<T>;
 
 export type RadioGroupEmits<T extends RadioGroupModelValue = RadioGroupModelValue> = ElementEmits<T>;
 
 export type TextInputModelValue = string | number | undefined;
 
-export type TextInputProps = InputProps<TextInputModelValue>;
+/**
+ * @deprecated Use InputProps directly instead
+ */
+export type TextInputProps = InputProps;
 
 export type TextInputEmits = ElementEmits<string>;
 
 export type TextAreaModelValue = string;
 
-export type TextAreaProps = InputProps<TextAreaModelValue>;
+/**
+ * @deprecated Use InputProps directly instead
+ */
+export type TextAreaProps = InputProps;
 
 export type TextAreaEmits = ElementEmits<TextAreaModelValue>;
 
 export type TimeInputModelValue = string;
 
-export type TimeInputProps = InputProps<TimeInputModelValue>;
+/**
+ * @deprecated Use InputProps directly instead
+ */
+export type TimeInputProps = InputProps;
 
 export type TimeInputEmits = ElementEmits<TimeInputModelValue>;
 
 export type ToggleInputModelValue = boolean;
 
-export type ToggleInputProps = InputProps<ToggleInputModelValue>;
+/**
+ * @deprecated Use InputProps directly instead
+ */
+export type ToggleInputProps = InputProps;
 
 export type ToggleInputEmits = ElementEmits<ToggleInputModelValue>;

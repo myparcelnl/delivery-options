@@ -9,7 +9,13 @@ import {
   AddressField,
 } from '@myparcel-dev/do-shared';
 import {ZIMBABWE} from '@myparcel-dev/constants/countries';
-import {CarrierName, PlatformName, DeliveryTypeName, PackageTypeName, ShipmentOptionName} from '@myparcel-dev/constants';
+import {
+  CarrierName,
+  PlatformName,
+  DeliveryTypeName,
+  PackageTypeName,
+  ShipmentOptionName,
+} from '@myparcel-dev/constants';
 import {useAddressStore, useConfigStore} from '../stores';
 import {mockDeliveryOptionsConfig, getMockDeliveryOptionsConfiguration} from '../__tests__';
 import {getResolvedCarrier} from './getResolvedCarrier';

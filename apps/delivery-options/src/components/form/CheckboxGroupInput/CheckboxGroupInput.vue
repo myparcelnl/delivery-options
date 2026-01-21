@@ -3,15 +3,14 @@
     :id="id"
     :options="options">
     <template #input="{option}">
-      <CheckboxInput
+      <input
         :id="`${id}-${option.value}`"
         v-model="model"
-        :disabled="option.disabled || elementProps.disabled"
+        type="checkbox"
         :name="id"
-        :option="option"
-        :readonly="elementProps.readonly"
         :value="option.value"
-        @update:modelValue="createUpdateHandler(option)" />
+        :disabled="option.disabled || disabled"
+        :readonly="readonly" />
     </template>
 
     <template
@@ -24,23 +23,17 @@
   </GroupInput>
 </template>
 
-<script generic="T extends CheckboxGroupModelValue" lang="ts" setup>
-import {
-  type CheckboxGroupEmits,
-  type CheckboxGroupModelValue,
-  type CheckboxGroupProps,
-  CheckboxInput,
-  useCheckboxGroupContext,
-  type WithElement,
-} from '@myparcel-dev/do-shared';
+<script lang="ts" setup>
+import {type SelectOption} from '@myparcel-dev/do-shared';
 import GroupInput from '../GroupInput/GroupInput.vue';
-import {type GroupInputSlots} from '../../../types';
 
-defineSlots<GroupInputSlots<T>>();
+interface Props {
+  id: string;
+  options: SelectOption<string>[];
+  disabled?: boolean;
+  readonly?: boolean;
+}
 
-// eslint-disable-next-line vue/no-unused-properties
-const props = defineProps<WithElement<CheckboxGroupProps<T>>>();
-const emit = defineEmits<CheckboxGroupEmits<T>>();
-
-const {id, model, options, elementProps, createUpdateHandler} = useCheckboxGroupContext(props, emit);
+const props = defineProps<Props>();
+const model = defineModel<string[]>();
 </script>

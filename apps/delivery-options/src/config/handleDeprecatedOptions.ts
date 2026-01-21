@@ -1,5 +1,6 @@
 import {isString} from 'radash';
 import {isDefined} from '@vueuse/core';
+import {toArray} from '@myparcel-dev/ts-utils';
 import {
   CarrierSetting,
   type CarrierSettings,
@@ -17,7 +18,6 @@ import {
   type Weekday,
   type DropOffEntryObject,
 } from '@myparcel-dev/do-shared';
-import {toArray} from '@myparcel-dev/ts-utils';
 
 const parseDropOffDays = (value?: string | DropOffEntry[]): DropOffEntryObject[] => {
   let array: (Weekday | `${Weekday}` | DropOffEntryObject)[] = [];

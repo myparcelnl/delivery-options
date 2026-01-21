@@ -6,7 +6,7 @@
       :carrier="carrier">
       <GroupInput
         :id="carrier"
-        :options="group">
+        :options="group as any">
         <template #input="{option}">
           <RadioInput
             v-model="model"
@@ -25,14 +25,7 @@
 
 <script lang="ts" setup>
 import {toRefs, watch, onMounted, toValue} from 'vue';
-import {useVModel} from '@vueuse/core';
-import {
-  CarrierBox,
-  type RadioGroupEmits,
-  type RadioGroupProps,
-  RadioInput,
-  type WithElement,
-} from '@myparcel-dev/do-shared';
+import {CarrierBox, type SelectOption, RadioInput} from '@myparcel-dev/do-shared';
 import {DeliveryTypeName} from '@myparcel-dev/constants';
 import {parseJson} from '../../../../utils';
 import {type SelectedDeliveryMoment} from '../../../../types';
@@ -40,34 +33,36 @@ import {FIELD_DELIVERY_MOMENT} from '../../../../data';
 import {useOptionsGroupedByCarrier, useLanguage, useSelectedValues} from '../../../../composables';
 import {GroupInput} from '../../../../components';
 
-const props = defineProps<WithElement<RadioGroupProps>>();
-const emit = defineEmits<RadioGroupEmits>();
+interface Props {
+  options: SelectOption<string>[];
+}
+
+const props = defineProps<Props>();
 const propRefs = toRefs(props);
 
-const model = useVModel(props, undefined, emit);
+const model = defineModel<string | undefined>({required: true});
 
 const {translate} = useLanguage();
-// @ts-expect-error todo: fix types
-const {options, grouped} = useOptionsGroupedByCarrier<string>(propRefs.element);
-const {deliveryMoment, deliveryDate} = useSelectedValues();
+const {grouped} = useOptionsGroupedByCarrier(propRefs.options as any);
+const {deliveryDate} = useSelectedValues();
 
 /**
  * Automatically select the first standard delivery moment whenever the selected date changes.
  * This ensures that a default value is set when the component is first rendered.
  */
 watch(
-  [options, deliveryDate],
+  [propRefs.options, deliveryDate],
   () => {
-    if (!options.value.length > 0) {
+    if (props.options.length === 0) {
       return;
     }
 
-    const resolvedOptions = toValue(options);
+    const resolvedOptions = toValue(props.options);
     const firstStandardDelivery = resolvedOptions.find((option) => {
       return parseJson<SelectedDeliveryMoment>(option.value).deliveryType === DeliveryTypeName.Standard;
     });
     model.value = firstStandardDelivery?.value ?? resolvedOptions[0]?.value;
   },
-  {immediate: options.value.length > 0, deep: true},
+  {immediate: props.options.length > 0, deep: true},
 );
 </script>

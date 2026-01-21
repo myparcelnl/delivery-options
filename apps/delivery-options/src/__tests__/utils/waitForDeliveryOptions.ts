@@ -1,12 +1,12 @@
 import {flushPromises} from '@vue/test-utils';
 import {waitFor} from '@testing-library/vue';
+import {type DeliveryOption} from '@myparcel-dev/sdk';
 import {
   waitForRequestData,
   useDeliveryOptionsRequest,
   type SupportedPlatformName,
   useCarriersRequest,
 } from '@myparcel-dev/do-shared';
-import {type DeliveryOption} from '@myparcel-dev/sdk';
 import {CarrierName, PlatformName} from '@myparcel-dev/constants';
 import {getResolvedCarrier, createGetDeliveryOptionsParameters} from '../../utils';
 import {useResolvedDeliveryOptions} from '../../composables';

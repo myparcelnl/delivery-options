@@ -16,6 +16,10 @@ const numberBetween = (min: number, max: number): number => {
 export const getDefaultSandboxCarrierSettings = (): CarrierSettingsObject => {
   const defaultCarrierSettings = getDefaultCarrierSettings();
 
+  // Remove per-carrier dropOffDelay and deliveryDaysWindow as they cannot be set in the sandbox UI
+  delete defaultCarrierSettings[CarrierSetting.DropOffDelay];
+  delete defaultCarrierSettings[CarrierSetting.DeliveryDaysWindow];
+
   const allSupportedCarriers = SUPPORTED_PLATFORMS.map((platform) => getPlatformConfig(platform).carriers)
     .flat()
     .map((carrier) => carrier.name);

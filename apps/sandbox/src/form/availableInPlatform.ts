@@ -1,5 +1,6 @@
 import {toValue} from 'vue';
 import {useMemoize, isDefined} from '@vueuse/core';
+import {isEnumValue} from '@myparcel-dev/ts-utils';
 import {
   type ConfigKey,
   useLogger,
@@ -11,9 +12,7 @@ import {
   type SupportedPlatformName,
   usePlatform,
 } from '@myparcel-dev/do-shared';
-import {isEnumValue} from '@myparcel-dev/ts-utils';
 import {CarrierName} from '@myparcel-dev/constants';
-import {getAllSandboxConfigOptions} from './getAllSandboxConfigOptions';
 
 const ALWAYS_ENABLED_FIELDS: readonly string[] = Object.freeze([CarrierSetting.AllowDeliveryOptions]);
 
@@ -21,6 +20,14 @@ const isValidCarrier = (carrierIdentifier?: CarrierIdentifier): carrierIdentifie
   return isDefined(carrierIdentifier) && isEnumValue(resolveCarrierName(carrierIdentifier), CarrierName);
 };
 
+/**
+ * Given a carrier, platform and field, returns whether the feature is enabled for that carrier.
+ *
+ * @param carrierIdentifier
+ * @param platformName
+ * @param field
+ * @returns
+ */
 const featureIsEnabled = (
   carrierIdentifier: CarrierIdentifier,
   platformName: SupportedPlatformName,
@@ -32,26 +39,23 @@ const featureIsEnabled = (
     return false;
   }
 
-  const isEnabled = toValue(features).has(field);
-
-  if (!isEnabled) {
-    const options = getAllSandboxConfigOptions();
-    const match = options.find((option) => option.key === field);
-
-    return match?.parents?.some((parent) => toValue(features).has(parent)) ?? false;
-  }
-
-  return isEnabled;
+  return toValue(features).has(field);
 };
 
-export const availableInCarrier = useMemoize((fieldName: string, platformName: SupportedPlatformName): boolean => {
+/**
+ * Check if a given field is enabled by name for the carrier in the specified platform.
+ * When a child field is given (dot notation in field name), the root-level field is checked.
+ *
+ * @param fieldPath the full nested path of the field in the config (e.g. postnl.allowFeatureX.priceFeatureX)
+ */
+export const availableInCarrier = useMemoize((fieldPath: string, platformName: SupportedPlatformName): boolean => {
   const logger = useLogger();
 
-  const split = fieldName?.split('.');
+  const split = fieldPath?.split('.');
   const baseField = split?.pop() as ConfigKey;
 
   if (!baseField) {
-    if (import.meta.env.DEV) logger.warning('Could not determine base field from', fieldName);
+    if (import.meta.env.DEV) logger.warning('Could not determine base field from', fieldPath);
 
     return false;
   }

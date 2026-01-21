@@ -1,6 +1,7 @@
 import {describe, it, expect, beforeEach, afterEach, vi} from 'vitest';
 import {assign} from 'radash';
 import {normalizeDate} from '@vueuse/core';
+import {type RecursivePartial} from '@myparcel-dev/ts-utils';
 import {mockGetDeliveryOptions} from '@myparcel-dev/do-shared/testing';
 import {
   KEY_CONFIG,
@@ -11,7 +12,6 @@ import {
   KEY_ADDRESS,
   ConfigSetting,
 } from '@myparcel-dev/do-shared';
-import {type RecursivePartial} from '@myparcel-dev/ts-utils';
 import {DeliveryTypeName, CarrierName} from '@myparcel-dev/constants';
 import {useConfigStore} from '../stores';
 import {DELIVERY_MOMENT_PACKAGE_TYPES} from '../data';

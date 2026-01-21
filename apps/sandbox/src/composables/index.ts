@@ -1,4 +1,3 @@
-export * from './useAddressSelector';
 export * from './useAnchorLink';
 export * from './useBaseInputClasses';
 export * from './useColorMode';

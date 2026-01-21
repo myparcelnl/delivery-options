@@ -31,9 +31,9 @@
       }"
       class="mp-flex-grow mp-p-5">
       <PickupLocationDetails
-        v-if="form.values.pickupLocation && selectedValues.carrier.value"
+        v-if="selectedValues.pickupLocation.value && selectedValues.carrier.value"
         :carrier-identifier="selectedValues.carrier.value"
-        :location-code="form.values.pickupLocation"
+        :location-code="selectedValues.pickupLocation.value"
         expanded />
     </div>
   </div>
@@ -43,7 +43,6 @@
 import {onUnmounted, watch} from 'vue';
 import PickupLocationMapMarker from '../PickupLocationMapMarker/PickupLocationMapMarker.vue';
 import {useAddressStore} from '../../../../stores';
-import {useDeliveryOptionsForm} from '../../../../form';
 import {
   useBreakpoints,
   useResolvedPickupLocations,
@@ -56,7 +55,6 @@ import PickupLocationDetails from './PickupLocationDetails.vue';
 const {locations, reset} = useResolvedPickupLocations();
 const addressStore = useAddressStore();
 const {locationCode} = useSelectedPickupLocation();
-const {instance: form} = useDeliveryOptionsForm();
 const {md} = useBreakpoints();
 const selectedValues = useSelectedValues();
 

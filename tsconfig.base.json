@@ -9,7 +9,10 @@
     },
     "types": ["node", "vite/client"]
   },
-  "include": [],
+  "include": [
+    "apps/*/src/**/*",
+    "libs/*/src/**/*"
+  ],
   "exclude": [
     "**/*.snap",
     "**/*.spec.*",

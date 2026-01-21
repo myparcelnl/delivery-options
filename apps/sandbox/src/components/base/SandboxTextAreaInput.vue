@@ -6,15 +6,13 @@
 </template>
 
 <script lang="ts" setup>
-import {useVModel} from '@vueuse/core';
-import {type TextAreaEmits, type TextAreaProps} from '@myparcel-dev/do-shared';
+import {type TextInputProps} from '@myparcel-dev/do-shared';
 import {useBaseInputClasses} from '../../composables';
 
 // eslint-disable-next-line vue/no-unused-properties
-const props = defineProps<TextAreaProps>();
-const emit = defineEmits<TextAreaEmits>();
+const props = defineProps<TextInputProps>();
 
-const model = useVModel(props, undefined, emit);
+const model = defineModel<string>();
 
 const classes = useBaseInputClasses();
 </script>

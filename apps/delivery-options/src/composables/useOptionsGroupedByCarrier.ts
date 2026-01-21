@@ -1,6 +1,5 @@
-import {computed, type ComputedRef, type MaybeRef, toValue} from 'vue';
+import {computed, type ComputedRef, type Ref} from 'vue';
 import {
-  type ElementInstance,
   type MakeRequired,
   type SelectOption,
   type SelectOptionValue,
@@ -9,20 +8,13 @@ import {
 
 type SelectOptionWithCarrier<T extends SelectOptionValue> = MakeRequired<SelectOption<T>, 'carrier'>;
 
-type OptionsProps<T extends SelectOptionValue> = {
-  options: SelectOptionWithCarrier<T>[];
-};
-
 export const useOptionsGroupedByCarrier = <T extends SelectOptionValue>(
-  element: MaybeRef<ElementInstance<OptionsProps<T>>>,
+  options: Ref<SelectOptionWithCarrier<T>[]>,
 ): {
-  options: ComputedRef<SelectOptionWithCarrier<T>[]>;
   grouped: ComputedRef<[CarrierIdentifier, SelectOptionWithCarrier<T>[]][]>;
 } => {
-  const options = computed(() => toValue(element).props.options as SelectOptionWithCarrier<T>[]);
-
   const grouped = computed(() => {
-    const groupedOptions = options.value.reduce((acc, option: SelectOptionWithCarrier<T>) => {
+    const groupedOptions = options.value.reduce((acc, option) => {
       const group = option.carrier;
 
       if (!acc[group]) {
@@ -37,7 +29,6 @@ export const useOptionsGroupedByCarrier = <T extends SelectOptionValue>(
   });
 
   return {
-    options,
     grouped,
   };
 };

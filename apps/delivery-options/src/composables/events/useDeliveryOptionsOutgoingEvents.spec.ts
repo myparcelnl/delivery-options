@@ -3,16 +3,11 @@ import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest';
 import {CustomEvent} from 'happy-dom';
 import {flushPromises} from '@vue/test-utils';
 import {render, type RenderResult} from '@testing-library/vue';
-import {useApiExceptions} from '@myparcel-dev/do-shared';
 import {ApiException} from '@myparcel-dev/sdk';
+import {useApiExceptions} from '@myparcel-dev/do-shared';
 import {useConfigStore} from '../../stores';
 import {FIELD_DELIVERY_MOMENT, FIELD_DELIVERY_DATE, UPDATED_DELIVERY_OPTIONS, ERROR_DELIVERY_OPTIONS} from '../../data';
-import {
-  createInternalOutput,
-  createExternalOutput,
-  mockDeliveryOptionsForm,
-  mockSelectedDeliveryOptions,
-} from '../../__tests__';
+import {createInternalOutput, createExternalOutput, mockSelectedDeliveryOptions} from '../../__tests__';
 import {useDeliveryOptionsOutgoingEvents} from './useDeliveryOptionsOutgoingEvents';
 
 /**
@@ -29,8 +24,6 @@ describe('useDeliveryOptionsOutgoingEvents', () => {
   const emitSpy = vi.fn();
 
   const renderComponent = async (): Promise<RenderResult> => {
-    await mockDeliveryOptionsForm();
-
     return render(
       defineComponent({
         render: () => null,

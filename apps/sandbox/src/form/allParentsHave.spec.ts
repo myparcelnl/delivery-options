@@ -1,11 +1,11 @@
-import {beforeEach, describe, expect, it} from 'vitest';
+import {beforeEach, describe, expect, it, vi} from 'vitest';
 import {createPinia, setActivePinia} from 'pinia';
 import {CarrierSetting} from '@myparcel-dev/do-shared';
-import {type FormInstance} from '@myparcel-dev/vue-form-builder';
 import {allParentsHave} from './allParentsHave';
+import {useSandboxStore} from '../stores';
 
 interface TestInput {
-  fields: {name: string; value: unknown}[];
+  configuration: Record<string, unknown>;
   it: string;
   parents: string[];
   prefix: string;
@@ -13,58 +13,57 @@ interface TestInput {
 }
 
 /**
- * Creates a mock form with the given field values.
- * This avoids the vue-form-builder API where fields are only registered after mount.
+ * Sets up the sandbox store with the given configuration values.
  */
-const createMockForm = (fields: {name: string; value: unknown}[]): FormInstance => {
-  const values: Record<string, unknown> = {};
-  fields.forEach(({name, value}) => {
-    values[name] = value;
+const setupSandboxStore = (configuration: Record<string, unknown>) => {
+  const store = useSandboxStore();
+  // Mock the store state
+  vi.spyOn(store, 'config', 'get').mockReturnValue({
+    ...configuration
   });
-
-  return {values} as unknown as FormInstance;
 };
 
 describe('allParentsHave', () => {
   beforeEach(() => {
     setActivePinia(createPinia());
+    vi.clearAllMocks();
   });
 
   it.each([
     {
       it: 'returns true if there are no parents',
       parents: [],
-      fields: [],
+      configuration: {},
       prefix: '',
       result: true,
     },
     {
       it: 'returns true if all parents are enabled',
       parents: [CarrierSetting.AllowDeliveryOptions],
-      fields: [{name: CarrierSetting.AllowDeliveryOptions, value: true}],
-      prefix: '',
+      configuration: {[CarrierSetting.AllowDeliveryOptions]: true},
+      prefix: 'config',
       result: true,
     },
     {
       it: 'returns false if one of the parents is disabled',
       parents: [CarrierSetting.AllowDeliveryOptions, CarrierSetting.AllowPickupLocations],
-      fields: [
-        {name: CarrierSetting.AllowDeliveryOptions, value: true},
-        {name: CarrierSetting.AllowPickupLocations, value: false},
-      ],
-      prefix: '',
+      configuration: {
+        [CarrierSetting.AllowDeliveryOptions]: true,
+        [CarrierSetting.AllowPickupLocations]: false,
+      },
+      prefix: 'config',
       result: false,
     },
     {
       it: 'works with prefixes',
       parents: [CarrierSetting.AllowDeliveryOptions],
-      fields: [{name: `some.long.prefix.${CarrierSetting.AllowDeliveryOptions}`, value: true}],
-      prefix: 'some.long.prefix',
+      configuration: {some_long_prefix: {[CarrierSetting.AllowDeliveryOptions]: true}},
+      prefix: 'config.some_long_prefix',
       result: true,
     },
-  ] satisfies TestInput[])('$it', ({parents, fields, prefix, result}) => {
-    const form = createMockForm(fields);
+  ] satisfies TestInput[])('$it', ({parents, configuration, prefix, result}) => {
+    setupSandboxStore(configuration);
 
-    expect(allParentsHave(parents, form, prefix)).toBe(result);
+    expect(allParentsHave(parents, prefix)).toBe(result);
   });
 });

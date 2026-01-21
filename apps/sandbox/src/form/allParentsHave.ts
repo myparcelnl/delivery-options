@@ -1,13 +1,24 @@
-import {type FormInstance} from '@myparcel-dev/vue-form-builder';
-import {findSandboxOption} from '../utils';
+import {get} from 'radash';
+import {useSandboxStore} from '../stores';
+import { getAllSandboxConfigOptions } from './getAllSandboxConfigOptions';
 
-export const allParentsHave = (parents: undefined | string[], form: FormInstance, prefix: string): boolean => {
-  return (parents ?? []).every((parent) => {
-    const optionName = prefix ? `${prefix}.${parent}` : parent;
-    const parentOption = findSandboxOption(parent);
+// Helper function to check if all parent fields have truthy values
+export const allParentsHave = (parents: string[] | undefined, storePrefix?: string): boolean => {
+  if (!parents || parents.length === 0) return true;
+  const sandboxStore = useSandboxStore();
+  const allOptions = getAllSandboxConfigOptions();
 
-    const value = form.values[optionName] ?? false;
+  return parents.every((parent) => {
+    const fieldName = storePrefix ?  `${storePrefix}.${parent}` : parent;
 
-    return Boolean(value) && parentOption && allParentsHave(parentOption.parents, form, prefix);
+    const value = get(sandboxStore, fieldName, false);
+
+    // If the given parent has its own parents, we need to check them as well
+    // Recurse all the way up the tree ensuring all parents have truthy values
+    // 1. Find out if the parent has its own parents by getting the field definition
+    const parentOption = allOptions.find((option) => option.key === parent);
+    // 2. Pass those parents to allParentsHave
+    // 3. Reuse the storepath, as that would just be the carrier prefix anyway
+    return Boolean(value) && allParentsHave(parentOption?.parents, storePrefix);
   });
 };

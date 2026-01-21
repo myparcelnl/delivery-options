@@ -19,9 +19,7 @@
   </div>
 </template>
 
-<script
-  lang="ts"
-  setup>
+<script lang="ts" setup>
 import {computed, toValue, toRefs} from 'vue';
 import {format, setDay} from 'date-fns';
 import {OPENING_HOURS, CLOSED, type CarrierIdentifier} from '@myparcel-dev/do-shared';
@@ -36,16 +34,16 @@ const getLocalizedWeekdayName = (weekdayIndex: number): string => {
   return name.value;
 };
 
-const { translate } = useLanguage();
-const props = defineProps<{ locationCode: string; expanded?: boolean, carrierIdentifier: CarrierIdentifier }>();
+const {translate} = useLanguage();
+const props = defineProps<{locationCode: string; expanded?: boolean; carrierIdentifier: CarrierIdentifier}>();
 const propRefs = toRefs(props);
-const { pickupLocation } = usePickupLocation(propRefs.locationCode, propRefs.carrierIdentifier);
+const {pickupLocation} = usePickupLocation(propRefs.locationCode, propRefs.carrierIdentifier);
 
 const openingHours = computed(() => {
   const openingHoursData = toValue(pickupLocation)?.openingHours ?? [];
   return Array.from({length: 7}).map((_, weekdayIndex) => {
     const localizedWeekday = getLocalizedWeekdayName(weekdayIndex);
-    const dayData = openingHoursData.find((entry: { weekday: number }) => entry.weekday === weekdayIndex);
+    const dayData = openingHoursData.find((entry: {weekday: number}) => entry.weekday === weekdayIndex);
 
     let timeString = CLOSED;
 

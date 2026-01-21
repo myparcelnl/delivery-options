@@ -8,12 +8,16 @@
     </template>
   </GroupInputLoader>
 
-  <ShipmentOptions.Component v-show="!loading && availableShipmentOptions.length" />
+  <CheckboxGroupInput
+    v-show="!loading && availableShipmentOptions.length"
+    :id="FIELD_SHIPMENT_OPTIONS"
+    v-model="shipmentOptions"
+    :options="options as SelectOption<string>[]" />
 </template>
 
 <script lang="ts" setup>
 import {computed, toValue} from 'vue';
-import {createField} from '@myparcel-dev/vue-form-builder';
+import {type SelectOption} from '@myparcel-dev/do-shared';
 import {FIELD_SHIPMENT_OPTIONS} from '../../../../data';
 import {
   useShipmentOptionsOptions,
@@ -31,12 +35,4 @@ const options = useShipmentOptionsOptions();
 const {availableShipmentOptions} = useFeatures();
 
 const loading = computed(() => toValue(deliveryOptions.loading));
-
-// eslint-disable-next-line @typescript-eslint/naming-convention
-const ShipmentOptions = createField({
-  name: FIELD_SHIPMENT_OPTIONS,
-  component: CheckboxGroupInput,
-  ref: shipmentOptions,
-  props: {options},
-});
 </script>
