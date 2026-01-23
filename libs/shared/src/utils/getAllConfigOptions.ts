@@ -55,7 +55,6 @@ export const getAllConfigOptions = useMemoize((): ConfigOption[] => [
   declareOption(ConfigSetting.AllowPickupLocationsViewSelection),
 
   declareOption(ConfigSetting.PickupShowDistance),
-  declareOption(ConfigSetting.ShowDeliveryDate),
   declareOption(ConfigSetting.ShowPriceSurcharge),
 
   declareOption({

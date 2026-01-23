@@ -52,6 +52,7 @@ export enum ConfigSetting {
   PickupMapAllowLoadMore = 'pickupMapAllowLoadMore',
   PickupShowDistance = 'pickupShowDistance',
   Platform = 'platform',
+  /** @deprecated show delivery date is always enabled */
   ShowDeliveryDate = 'showDeliveryDate',
   ShowPriceSurcharge = 'showPriceSurcharge',
   ShowPrices = 'showPrices',
