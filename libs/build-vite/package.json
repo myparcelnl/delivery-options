@@ -18,7 +18,7 @@
     "lint:fix": "run ws:lint:fix \"$(pwd)\""
   },
   "dependencies": {
-    "@vitejs/plugin-vue": "^5.0.0",
+    "@vitejs/plugin-vue": "^6.0.3",
     "@vitest/coverage-v8": "^4.0.17",
     "happy-dom": "^20.0.2",
     "typescript": "5.9.3",

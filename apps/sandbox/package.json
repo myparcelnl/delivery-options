@@ -33,7 +33,7 @@
   "devDependencies": {
     "@myparcel-dev/do-build-vite": "workspace:*",
     "@testing-library/vue": "^8.0.1",
-    "@vitejs/plugin-vue": "^5.0.0",
+    "@vitejs/plugin-vue": "^6.0.3",
     "autoprefixer": "^10.4.16",
     "ci-info": "^4.0.0",
     "mypa-google-docs-importer": "^1.0.1",
