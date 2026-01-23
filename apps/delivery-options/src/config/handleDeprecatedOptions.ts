@@ -69,13 +69,14 @@ const warnDeprecatedShowDeliveryDate = (
 
 const normalizeDropOffDays = (
   resolvedConfig: DeliveryOptionsConfig | CarrierSettings,
+  restConfig: InputDeliveryOptionsConfig | InputCarrierSettings,
   fridayCutoffTime: string | undefined,
   saturdayCutoffTime: string | undefined,
   logger: ReturnType<typeof useLogger>,
 ): void => {
-  if (typeof resolvedConfig.dropOffDays === 'string') {
+  if (isString(restConfig.dropOffDays)) {
     logger.deprecated(`Passing ${CarrierSetting.DropOffDays} as a string`, `an array`);
-    resolvedConfig.dropOffDays = parseDropOffDays(resolvedConfig.dropOffDays);
+    resolvedConfig.dropOffDays = parseDropOffDays(restConfig.dropOffDays);
   }
 
   if (isDefined(saturdayCutoffTime) || isDefined(fridayCutoffTime)) {
@@ -110,7 +111,7 @@ export const handleDeprecatedOptions = <Input extends InputDeliveryOptionsConfig
 
   applyDeprecatedAllowDeliveryOptions(resolvedConfig, restConfig, logger);
   warnDeprecatedShowDeliveryDate(logger, allowShowDeliveryDate, showDeliveryDate);
-  normalizeDropOffDays(resolvedConfig, fridayCutoffTime, saturdayCutoffTime, logger);
+  normalizeDropOffDays(resolvedConfig, restConfig, fridayCutoffTime, saturdayCutoffTime, logger);
 
   return resolvedConfig;
 };
