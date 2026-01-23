@@ -39,7 +39,7 @@
     "mypa-google-docs-importer": "^1.0.1",
     "postcss": "^8.4.31",
     "sass": "^1.69.3",
-    "typescript": "5.4.5",
+    "typescript": "5.9.3",
     "vite": "^5.3.6",
     "vite-plugin-custom-tsconfig": "^1.0.0",
     "vite-plugin-inspect": "^0.8.0",
