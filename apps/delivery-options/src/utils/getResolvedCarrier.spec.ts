@@ -43,7 +43,7 @@ describe('getResolvedCarrier', () => {
         }),
       );
 
-      expect(carrier.deliveryTypes.value).toEqual(new Set([DeliveryTypeName.Standard]));
+      expect(carrier.deliveryTypes.value).toEqual(new Set([DeliveryTypeName.Evening, DeliveryTypeName.Standard]));
     });
 
     it('filters delivery types by config', () => {
@@ -62,7 +62,12 @@ describe('getResolvedCarrier', () => {
       );
 
       expect(carrier.deliveryTypes.value).toEqual(
-        new Set([CustomDeliveryType.SameDay, DeliveryTypeName.Pickup, DeliveryTypeName.Standard]),
+        new Set([
+          CustomDeliveryType.SameDay,
+          DeliveryTypeName.Evening,
+          DeliveryTypeName.Pickup,
+          DeliveryTypeName.Standard,
+        ]),
       );
     });
 
@@ -71,7 +76,9 @@ describe('getResolvedCarrier', () => {
 
       carrier.disabledDeliveryTypes.value.add(DeliveryTypeName.Standard);
 
-      expect(carrier.deliveryTypes.value).toEqual(new Set([CustomDeliveryType.SameDay, DeliveryTypeName.Pickup]));
+      expect(carrier.deliveryTypes.value).toEqual(
+        new Set([CustomDeliveryType.SameDay, DeliveryTypeName.Evening, DeliveryTypeName.Pickup]),
+      );
     });
   });
 
@@ -137,6 +144,7 @@ describe('getResolvedCarrier', () => {
 
     expect(carrier.features.value).toEqual(
       new Set([
+        CarrierSetting.AllowEveningDelivery,
         CarrierSetting.AllowOnlyRecipient,
         CarrierSetting.AllowPickupLocations,
         CarrierSetting.AllowSameDayDelivery,
@@ -165,6 +173,7 @@ describe('getResolvedCarrier', () => {
 
     expect(carrier.features.value).toEqual(
       new Set([
+        CarrierSetting.AllowEveningDelivery,
         CarrierSetting.AllowPickupLocations,
         CarrierSetting.DeliveryDaysWindow,
         CarrierSetting.DropOffDays,
