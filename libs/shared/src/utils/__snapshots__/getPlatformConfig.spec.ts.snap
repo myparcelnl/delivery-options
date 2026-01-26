@@ -222,6 +222,7 @@ exports[`getPlatformConfig > gets config for platform myparcel 1`] = `
       ],
       "deliveryTypes": [
         "standard",
+        "evening",
         "pickup",
         "same_day",
       ],
