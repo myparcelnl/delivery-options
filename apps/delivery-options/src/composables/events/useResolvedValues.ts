@@ -1,6 +1,7 @@
 import {computed, type ComputedRef} from 'vue';
 import {isDef} from '@vueuse/core';
 import {
+  ConfigSetting,
   type DeliveryOutput,
   type PickupOutput,
   type SupportedDeliveryTypeName,
@@ -80,6 +81,7 @@ export const useResolvedValues = (): ComputedRef<PickupOutput | DeliveryOutput |
     }
 
     const parsedMoment = parseJson<SelectedDeliveryMomentDelivery>(selectedValues[FIELD_DELIVERY_MOMENT].value);
+    const showDeliveryDate = getResolvedValue(ConfigSetting.ShowDeliveryDate, undefined, true);
     const shipmentOptions = selectedValues[FIELD_SHIPMENT_OPTIONS].value ?? [];
 
     const deliveryType = DELIVERY_DELIVERY_TYPES.includes(parsedMoment.deliveryType)
@@ -88,7 +90,7 @@ export const useResolvedValues = (): ComputedRef<PickupOutput | DeliveryOutput |
 
     return {
       carrier: parsedMoment.carrier,
-      date: parsedMoment?.date,
+      date: showDeliveryDate ? parsedMoment?.date : undefined,
       deliveryType,
       isPickup: false,
       packageType: parsedMoment.packageType,

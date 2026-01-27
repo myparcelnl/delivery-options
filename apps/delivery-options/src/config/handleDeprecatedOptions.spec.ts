@@ -23,7 +23,7 @@ describe('handleDeprecatedOptions', () => {
 
   describe('show delivery date', () => {
     it.each([true, false])(
-      `drops deprecated ${DeprecatedCarrierSetting.AllowShowDeliveryDate} without applying it`,
+      `maps deprecated ${DeprecatedCarrierSetting.AllowShowDeliveryDate} to ${ConfigSetting.ShowDeliveryDate}`,
       (value) => {
         const config = {
           [DeprecatedCarrierSetting.AllowShowDeliveryDate]: value,
@@ -32,19 +32,21 @@ describe('handleDeprecatedOptions', () => {
         const resolved = handleDeprecatedOptions(config);
 
         expect(Object.keys(resolved)).not.toContain(DeprecatedCarrierSetting.AllowShowDeliveryDate);
-        expect(Object.keys(resolved)).not.toContain(ConfigSetting.ShowDeliveryDate);
+        expect(Object.keys(resolved)).toContain(ConfigSetting.ShowDeliveryDate);
+        expect(resolved[ConfigSetting.ShowDeliveryDate]).toBe(value);
         expect(console.warn).toHaveBeenCalled();
       },
     );
 
-    it.each([true, false])(`drops deprecated ${ConfigSetting.ShowDeliveryDate}`, (value) => {
+    it.each([true, false])(`keeps deprecated ${ConfigSetting.ShowDeliveryDate}`, (value) => {
       const config = {
         [ConfigSetting.ShowDeliveryDate]: value,
       } satisfies InputDeliveryOptionsConfig;
 
       const resolved = handleDeprecatedOptions(config);
 
-      expect(Object.keys(resolved)).not.toContain(ConfigSetting.ShowDeliveryDate);
+      expect(Object.keys(resolved)).toContain(ConfigSetting.ShowDeliveryDate);
+      expect(resolved[ConfigSetting.ShowDeliveryDate]).toBe(value);
       expect(console.warn).toHaveBeenCalled();
     });
   });

@@ -53,7 +53,8 @@ const applyDeprecatedAllowDeliveryOptions = (
   }
 };
 
-const warnDeprecatedShowDeliveryDate = (
+const applyDeprecatedShowDeliveryDate = (
+  resolvedConfig: DeliveryOptionsConfig | CarrierSettings,
   logger: ReturnType<typeof useLogger>,
   allowShowDeliveryDate?: boolean,
   showDeliveryDate?: boolean,
@@ -64,6 +65,15 @@ const warnDeprecatedShowDeliveryDate = (
 
   if (isDefined(showDeliveryDate)) {
     logger.deprecated(ConfigSetting.ShowDeliveryDate, 'show delivery date is always enabled');
+  }
+
+  if (!isDefined(showDeliveryDate) && isDefined(allowShowDeliveryDate)) {
+    resolvedConfig[ConfigSetting.ShowDeliveryDate] = allowShowDeliveryDate;
+    return;
+  }
+
+  if (isDefined(showDeliveryDate)) {
+    resolvedConfig[ConfigSetting.ShowDeliveryDate] = showDeliveryDate;
   }
 };
 
@@ -110,7 +120,7 @@ export const handleDeprecatedOptions = <Input extends InputDeliveryOptionsConfig
   const resolvedConfig = restConfig as unknown as ResolvedInputConfig<Input>;
 
   applyDeprecatedAllowDeliveryOptions(resolvedConfig, restConfig, logger);
-  warnDeprecatedShowDeliveryDate(logger, allowShowDeliveryDate, showDeliveryDate);
+  applyDeprecatedShowDeliveryDate(resolvedConfig, logger, allowShowDeliveryDate, showDeliveryDate);
   normalizeDropOffDays(resolvedConfig, restConfig, fridayCutoffTime, saturdayCutoffTime, logger);
 
   return resolvedConfig;
