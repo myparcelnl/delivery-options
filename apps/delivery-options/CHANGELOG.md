@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel-dev/delivery-options-v6.25.0](https://github.com/myparcelnl/delivery-options/compare/v6.24.0...v6.25.0) (2026-01-27)
+
+### :sparkles: New Features
+
+* allow evening delivery for dhlforyou ([#388](https://github.com/myparcelnl/delivery-options/issues/388)) ([6d6cb3e](https://github.com/myparcelnl/delivery-options/commit/6d6cb3e2c694afd9f2f125e1bfaf65afcd1c6f38))
+
 ## [@myparcel-dev/delivery-options-v6.24.0](https://github.com/myparcelnl/delivery-options/compare/v6.23.2...v6.24.0) (2026-01-27)
 
 ### :sparkles: New Features
