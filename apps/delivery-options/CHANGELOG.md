@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel-dev/delivery-options-v6.24.0](https://github.com/myparcelnl/delivery-options/compare/v6.23.2...v6.24.0) (2026-01-27)
+
+### :sparkles: New Features
+
+* **shipment-options:** support priority delivery for postnl mailbox packages ([#373](https://github.com/myparcelnl/delivery-options/issues/373)) ([e0a6579](https://github.com/myparcelnl/delivery-options/commit/e0a6579e612822394b5d3b697f4796f94bcfb298)), closes [#372](https://github.com/myparcelnl/delivery-options/issues/372)
+
 ## [@myparcel-dev/delivery-options-v6.23.2](https://github.com/myparcelnl/delivery-options/compare/v6.23.1...v6.23.2) (2026-01-14)
 
 ## [@myparcel-dev/delivery-options-v6.23.1](https://github.com/myparcelnl/delivery-options/compare/v6.23.0...v6.23.1) (2026-01-13)
