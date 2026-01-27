@@ -13,7 +13,7 @@
     "build": "tsup-node src/index.ts --format esm --out-dir dist"
   },
   "dependencies": {
-    "execa": "^8.0.0"
+    "execa": "^9.6.1"
   },
   "devDependencies": {
     "@types/node": "^20.11.16",
