@@ -6,7 +6,6 @@ import {
   type SelectOption,
   KEY_CONFIG,
   CarrierSetting,
-  ConfigSetting,
   KEY_CARRIER_SETTINGS,
 } from '@myparcel-dev/do-shared';
 import {CarrierName, PackageTypeName} from '@myparcel-dev/constants';
@@ -19,7 +18,6 @@ import {useDeliveryMomentOptions} from './useDeliveryMomentOptions';
 const setup = async (packageType?: SupportedPackageTypeName): Promise<ComputedRef<SelectOption<string>[]>> => {
   mockDeliveryOptionsConfig({
     [KEY_CONFIG]: {
-      [ConfigSetting.ShowDeliveryDate]: true,
       [CarrierSetting.AllowDeliveryOptions]: true,
       [CarrierSetting.AllowStandardDelivery]: true,
       [CarrierSetting.AllowEveningDelivery]: true,

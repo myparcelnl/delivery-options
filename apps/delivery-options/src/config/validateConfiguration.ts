@@ -83,11 +83,6 @@ const additionalOptions: ConfigOption[] = [
     validators: [validateIsBoolean()],
   },
   {
-    key: ConfigSetting.ShowDeliveryDate,
-    perCarrier: false,
-    validators: [validateIsBoolean()],
-  },
-  {
     key: ConfigSetting.ShowPriceSurcharge,
     perCarrier: false,
     validators: [validateIsBoolean()],

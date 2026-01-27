@@ -4,6 +4,7 @@ import {defineStore} from 'pinia';
 import {type RemovableRef, useLocalStorage} from '@vueuse/core';
 import {
   type CarrierSettingsObject,
+  CarrierSetting,
   ConfigSetting,
   DEFAULT_PLATFORM,
   type DeliveryOptionsAddress,
@@ -68,11 +69,27 @@ export const useSandboxStore = defineStore('sandbox', {
   getters: {
     resolvedConfiguration(): InputDeliveryOptionsConfiguration {
       const {language, strings} = useLanguage();
+      const cleanedCarrierSettings = Object.fromEntries(
+        Object.entries(this.carrierSettings).map(([identifier, settings]) => {
+          if (!settings) {
+            return [identifier, settings];
+          }
+
+          const {
+            [CarrierSetting.DeliveryDaysWindow]: deliveryDaysWindow,
+            ...rest
+          } = settings as Record<string, unknown>;
+
+          void deliveryDaysWindow;
+
+          return [identifier, rest];
+        }),
+      ) as InputCarrierSettingsObject;
 
       return toRaw({
         [KEY_CONFIG]: {
           ...this.config,
-          [KEY_CARRIER_SETTINGS]: this.carrierSettings,
+          [KEY_CARRIER_SETTINGS]: cleanedCarrierSettings,
           [ConfigSetting.Locale]: language.value.code,
           [ConfigSetting.Platform]: this.platform,
         } satisfies InputDeliveryOptionsConfig,

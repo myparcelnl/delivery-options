@@ -1,6 +1,5 @@
 import {
   KEY_CONFIG,
-  ConfigSetting,
   CarrierSetting,
   KEY_CARRIER_SETTINGS,
   type InputDeliveryOptionsConfiguration,
@@ -35,7 +34,6 @@ export const createTestConfiguration = (): InputDeliveryOptionsConfiguration => 
   return {
     ...getMockDeliveryOptionsConfiguration(),
     [KEY_CONFIG]: {
-      [ConfigSetting.ShowDeliveryDate]: true,
       [CarrierSetting.AllowDeliveryOptions]: true,
       [CarrierSetting.AllowEveningDelivery]: true,
       [CarrierSetting.AllowMondayDelivery]: true,

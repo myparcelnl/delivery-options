@@ -2,7 +2,6 @@ import {describe, it, expect, beforeEach, afterEach} from 'vitest';
 import {addDays} from 'date-fns';
 import {mockGetDeliveryOptions, createDate} from '@myparcel-dev/do-shared/testing';
 import {
-  ConfigSetting,
   KEY_CONFIG,
   type InputDeliveryOptionsConfiguration,
   KEY_CARRIER_SETTINGS,
@@ -10,13 +9,12 @@ import {
   createTimestamp,
 } from '@myparcel-dev/do-shared';
 import {CarrierName} from '@myparcel-dev/constants';
-import {useAddressStore, useConfigStore} from '../stores';
+import {useConfigStore} from '../stores';
 import {mockDeliveryOptionsConfig, waitForDeliveryOptions, getMockDeliveryOptionsConfiguration} from '../__tests__';
 import {useResolvedDeliveryDates} from './useResolvedDeliveryDates';
 
 const SHARED_CONFIG = getMockDeliveryOptionsConfiguration({
   [KEY_CONFIG]: {
-    [ConfigSetting.ShowDeliveryDate]: true,
     [KEY_CARRIER_SETTINGS]: {
       [CarrierName.PostNl]: {
         [CarrierSetting.AllowDeliveryOptions]: true,
@@ -40,12 +38,23 @@ describe('useResolvedDeliveryDates', () => {
     useResolvedDeliveryDates.clear();
   });
 
-  it('returns an empty array if showDeliveryDate is false', () => {
+  it('returns an empty array if deliveryDaysWindow is 1 or less for all carriers', () => {
     mockDeliveryOptionsConfig({
       ...SHARED_CONFIG,
       [KEY_CONFIG]: {
         ...SHARED_CONFIG[KEY_CONFIG],
-        [ConfigSetting.ShowDeliveryDate]: false,
+        [CarrierSetting.DeliveryDaysWindow]: 1,
+        [KEY_CARRIER_SETTINGS]: {
+          [CarrierName.PostNl]: {
+            [CarrierSetting.AllowDeliveryOptions]: true,
+            [CarrierSetting.AllowStandardDelivery]: true,
+          },
+          [CarrierName.DhlForYou]: {
+            [CarrierSetting.AllowDeliveryOptions]: true,
+            [CarrierSetting.AllowStandardDelivery]: true,
+            [CarrierSetting.AllowSameDayDelivery]: true,
+          },
+        },
       },
     });
 

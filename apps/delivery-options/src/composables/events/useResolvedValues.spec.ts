@@ -146,7 +146,7 @@ describe('useResolvedValues', () => {
     },
   );
 
-  it('should not expose delivery date if it is disabled', async () => {
+  it('ignores deprecated show delivery date setting', async () => {
     mockDeliveryOptionsConfig({[KEY_CONFIG]: {[ConfigSetting.ShowDeliveryDate]: true}});
     mockSelectedDeliveryOptions();
     await flushPromises();
@@ -159,6 +159,6 @@ describe('useResolvedValues', () => {
     mockDeliveryOptionsConfig({[KEY_CONFIG]: {[ConfigSetting.ShowDeliveryDate]: false}});
     await flushPromises();
 
-    expect(resolvedValues.value?.date).toBeUndefined();
+    expect(resolvedValues.value?.date).toBeDefined();
   });
 });
