@@ -174,6 +174,8 @@ describe('useDeliveryOptionsOutgoingEvents', () => {
     const event = dispatchEventSpy.mock.calls[0][0] as unknown as CustomEvent;
     expect(event).toBeInstanceOf(CustomEvent);
     expect(event.type).toBe(ERROR_DELIVERY_OPTIONS);
-    expect(event.detail).toEqual({exception: expect.objectContaining({code: 123, message: 'Test error'})});
+    expect(event.detail).toEqual({
+      exception: expect.objectContaining({code: 123, message: 'Test error'}),
+    });
   });
 });

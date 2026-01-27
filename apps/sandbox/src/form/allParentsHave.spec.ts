@@ -1,8 +1,8 @@
 import {beforeEach, describe, expect, it, vi} from 'vitest';
 import {createPinia, setActivePinia} from 'pinia';
 import {CarrierSetting} from '@myparcel-dev/do-shared';
-import {allParentsHave} from './allParentsHave';
 import {useSandboxStore} from '../stores';
+import {allParentsHave} from './allParentsHave';
 
 interface TestInput {
   configuration: Record<string, unknown>;
@@ -19,7 +19,7 @@ const setupSandboxStore = (configuration: Record<string, unknown>) => {
   const store = useSandboxStore();
   // Mock the store state
   vi.spyOn(store, 'config', 'get').mockReturnValue({
-    ...configuration
+    ...configuration,
   });
 };
 
@@ -57,7 +57,9 @@ describe('allParentsHave', () => {
     {
       it: 'works with prefixes',
       parents: [CarrierSetting.AllowDeliveryOptions],
-      configuration: {some_long_prefix: {[CarrierSetting.AllowDeliveryOptions]: true}},
+      configuration: {
+        some_long_prefix: {[CarrierSetting.AllowDeliveryOptions]: true},
+      },
       prefix: 'config.some_long_prefix',
       result: true,
     },

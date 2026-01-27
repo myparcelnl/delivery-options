@@ -5,7 +5,9 @@ export type CheckboxModelValue = string | boolean;
 
 export type CheckboxGroupEmits<T extends CheckboxGroupModelValue> = ElementEmits<T>;
 
-export type CheckboxProps<T extends CheckboxModelValue> = InputProps & {value: T};
+export type CheckboxProps<T extends CheckboxModelValue> = InputProps & {
+  value: T;
+};
 
 export type CheckboxEmits<T extends CheckboxModelValue> = ElementEmits<T>;
 

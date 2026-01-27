@@ -10,29 +10,38 @@
         <FieldWrapper :field="{key: `cutoffTime[${option.value}]`}">
           <template #label>{{ translate('option_cutoffTime') }}</template>
           <FormTimeInput
-            :name="`cutoffTime[${option.value}]`"
-            v-model="cutoffTimes[Number(option.value) as Weekday].value"/>
+            v-model="cutoffTimes[Number(option.value) as Weekday].value"
+            :name="`cutoffTime[${option.value}]`" />
         </FieldWrapper>
 
         <FieldWrapper :field="{key: `cutoffTimeSameDay[${option.value}]`}">
           <template #label>{{ translate('option_cutoffTimeSameDay') }}</template>
           <FormTimeInput
-            :name="`cutoffTimeSameDay[${option.value}]`"
-            v-model="sameDayCutoffTimes[Number(option.value) as Weekday].value"/>
+            v-model="sameDayCutoffTimes[Number(option.value) as Weekday].value"
+            :name="`cutoffTimeSameDay[${option.value}]`" />
         </FieldWrapper>
       </div>
     </template>
-    </SandboxCheckboxGroupInput>
+  </SandboxCheckboxGroupInput>
 </template>
 
 <script lang="ts" setup>
 import {computed, onUnmounted, reactive, ref, toRefs, watch, type Ref} from 'vue';
+import {
+  DROP_OFF_CUTOFF_TIME,
+  DROP_OFF_SAME_DAY_CUTOFF_TIME,
+  DROP_OFF_WEEKDAY,
+  type DropOffEntry,
+  type DropOffEntryObject,
+  type SelectOption,
+  type Translatable,
+  type Weekday,
+} from '@myparcel-dev/do-shared';
 import {SandboxCheckboxGroupInput} from '../../base';
-import {useWeekdays} from '../../../composables';
-import { DROP_OFF_CUTOFF_TIME, DROP_OFF_SAME_DAY_CUTOFF_TIME, DROP_OFF_WEEKDAY, type DropOffEntry, type DropOffEntryObject, type SelectOption, type Translatable, type Weekday } from '@myparcel-dev/do-shared';
-import FormTimeInput from './FormTimeInput.vue';
 import FieldWrapper from '../../FieldWrapper.vue';
-import { useLanguage } from '../../../composables/useLanguage';
+import {useLanguage} from '../../../composables/useLanguage';
+import {useWeekdays} from '../../../composables';
+import FormTimeInput from './FormTimeInput.vue';
 
 const {translate} = useLanguage();
 
@@ -55,14 +64,15 @@ const weekdayOptions = computed<SelectOption[]>(() =>
  * @param defaultValue
  */
 const createWeekdaysObject = (
-  key: keyof Omit<DropOffEntryObject, 'weekday'>, defaultValue: string
+  key: keyof Omit<DropOffEntryObject, 'weekday'>,
+  defaultValue: string,
 ): Record<Weekday, Ref<string>> => {
   return weekdays.value.reduce((acc, _, weekday) => {
-      // Find the current value for the "key" for each weekday and populate the ref with it, or the default value.
-      const value = model.value?.find((entry) => entry[DROP_OFF_WEEKDAY] === weekday)?.[key];
-      acc[Number(weekday) as Weekday] = ref(value ?? defaultValue);
-      return acc;
-    }, {} as Record<Weekday, Ref<string>>);
+    // Find the current value for the "key" for each weekday and populate the ref with it, or the default value.
+    const value = model.value?.find((entry) => entry[DROP_OFF_WEEKDAY] === weekday)?.[key];
+    acc[Number(weekday) as Weekday] = ref(value ?? defaultValue);
+    return acc;
+  }, {} as Record<Weekday, Ref<string>>);
 };
 
 const cutoffTimes = createWeekdaysObject(DROP_OFF_CUTOFF_TIME, '16:00');

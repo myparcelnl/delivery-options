@@ -56,6 +56,7 @@ export interface CarrierSettings extends Partial<Record<CarrierSettingsKey, unkn
   allowSaturdayDelivery?: boolean;
   allowSignature?: boolean;
   allowStandardDelivery?: boolean | FilterableOption;
+  allowPriorityDelivery?: boolean;
   cutoffTime?: TimestampString;
   cutoffTimeSameDay?: TimestampString;
   deliveryDaysWindow?: number;
@@ -75,6 +76,7 @@ export interface CarrierSettings extends Partial<Record<CarrierSettingsKey, unkn
   priceSaturdayDelivery?: Price;
   priceSignature?: Price;
   priceStandardDelivery?: Price;
+  pricePriorityDelivery?: Price;
 }
 
 export interface InputCarrierSettings extends Omit<CarrierSettings, 'dropOffDays'>, DeprecatedConfigOptions {

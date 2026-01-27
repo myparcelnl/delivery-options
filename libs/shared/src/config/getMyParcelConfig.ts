@@ -57,6 +57,7 @@ export const getMyParcelConfig = (): PlatformConfiguration => ({
       shipmentOptionsPerPackageType: {
         [PackageTypeName.Package]: [ShipmentOptionName.OnlyRecipient, ShipmentOptionName.Signature],
         [PackageTypeName.PackageSmall]: [ShipmentOptionName.OnlyRecipient, ShipmentOptionName.Signature],
+        [PackageTypeName.Mailbox]: [ShipmentOptionName.PriorityDelivery],
       },
       features: [
         CarrierSetting.DeliveryDaysWindow,

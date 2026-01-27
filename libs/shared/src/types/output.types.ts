@@ -6,6 +6,7 @@ import {type CarrierIdentifier} from './config.types';
 interface ShipmentOptionsOutput {
   onlyRecipient?: boolean;
   signature?: boolean;
+  priorityDelivery?: boolean;
 }
 
 interface BaseOutput {

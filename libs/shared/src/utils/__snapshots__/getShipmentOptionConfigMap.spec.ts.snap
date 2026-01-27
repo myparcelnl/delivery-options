@@ -3,6 +3,7 @@
 exports[`getShipmentOptionConfigMap > should return the correct config map 1`] = `
 {
   "only_recipient": "allowOnlyRecipient",
+  "priority_delivery": "allowPriorityDelivery",
   "signature": "allowSignature",
 }
 `;
