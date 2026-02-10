@@ -57,6 +57,7 @@ export const getMyParcelConfig = (): PlatformConfiguration => ({
       shipmentOptionsPerPackageType: {
         [PackageTypeName.Package]: [ShipmentOptionName.OnlyRecipient, ShipmentOptionName.Signature],
         [PackageTypeName.PackageSmall]: [ShipmentOptionName.OnlyRecipient, ShipmentOptionName.Signature],
+        [PackageTypeName.Mailbox]: [ShipmentOptionName.PriorityDelivery],
       },
       features: [
         CarrierSetting.DeliveryDaysWindow,
@@ -70,7 +71,7 @@ export const getMyParcelConfig = (): PlatformConfiguration => ({
       name: CarrierName.DhlForYou,
       subscription: SubscriptionType.Optional,
       packageTypes: [PackageTypeName.Package, PackageTypeName.Mailbox, PackageTypeName.PackageSmall],
-      deliveryTypes: [DeliveryTypeName.Standard, DeliveryTypeName.Pickup, CustomDeliveryType.SameDay],
+      deliveryTypes: [DeliveryTypeName.Standard, DeliveryTypeName.Evening, DeliveryTypeName.Pickup, CustomDeliveryType.SameDay],
       deliveryCountries: [NETHERLANDS, BELGIUM],
       pickupCountries: [NETHERLANDS, BELGIUM],
       smallPackagePickupCountries: [NETHERLANDS, BELGIUM],

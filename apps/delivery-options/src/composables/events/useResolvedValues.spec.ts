@@ -156,7 +156,9 @@ describe('useResolvedValues', () => {
     expect(resolvedValues.value).toBeDefined();
     expect(resolvedValues.value?.date).toBeDefined();
 
-    mockDeliveryOptionsConfig({[KEY_CONFIG]: {[ConfigSetting.ShowDeliveryDate]: false}});
+    mockDeliveryOptionsConfig({
+      [KEY_CONFIG]: {[ConfigSetting.ShowDeliveryDate]: false},
+    });
     await flushPromises();
 
     expect(resolvedValues.value?.date).toBeUndefined();

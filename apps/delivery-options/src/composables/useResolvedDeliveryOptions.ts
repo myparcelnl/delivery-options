@@ -75,7 +75,10 @@ const getDeliveryOptionsFromApi = async (
         const deliveryDaysWindow = carrier.get(CarrierSetting.DeliveryDaysWindow, DELIVERY_DAYS_WINDOW_DEFAULT);
 
         if (!toValue(carrier.hasDelivery) || deliveryDaysWindow === 0) {
-          return Promise.resolve({carrier, dates: createFakeDeliveryDates(carrier)});
+          return Promise.resolve({
+            carrier,
+            dates: createFakeDeliveryDates(carrier),
+          });
         }
 
         const params = createGetDeliveryOptionsParameters(carrier);
@@ -100,7 +103,10 @@ const getDeliveryOptionsFromApi = async (
           dates = filterClosedDays(dates, closedDays, dropOffDelay, cutoffTime);
         }
 
-        return {carrier, dates: dates?.length ? dates : createFakeDeliveryDates(carrier)};
+        return {
+          carrier,
+          dates: dates?.length ? dates : createFakeDeliveryDates(carrier),
+        };
       }),
   );
 };

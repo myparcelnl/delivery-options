@@ -39,6 +39,8 @@ export const DELIVERY_TITLE = 'deliveryTitle';
 
 export const ONLY_RECIPIENT_TITLE = 'onlyRecipientTitle';
 
+export const PRIORITY_DELIVERY_TITLE = 'priorityDeliveryTitle';
+
 export const PICKUP_TITLE = 'pickupTitle';
 
 export const SIGNATURE_TITLE = 'signatureTitle';

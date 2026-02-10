@@ -27,6 +27,7 @@ const DELIVERY_DELIVERY_TYPES = Object.freeze([
 const SHIPMENT_OPTION_OUTPUT_MAP = Object.freeze({
   [ShipmentOptionName.Signature]: 'signature',
   [ShipmentOptionName.OnlyRecipient]: 'onlyRecipient',
+  [ShipmentOptionName.PriorityDelivery]: 'priorityDelivery',
 } as Record<SupportedShipmentOptionName, keyof DeliveryOutput['shipmentOptions']>);
 
 /**

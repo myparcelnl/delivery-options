@@ -1,6 +1,6 @@
 {
   "name": "@myparcel-dev/delivery-options",
-  "version": "6.23.2",
+  "version": "6.25.0",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/myparcelnl/delivery-options.git",
@@ -63,7 +63,7 @@
     "watch:myparcel-lib": "BUILD_CSS=1 vite build -c vite-myparcel-lib.config.ts --watch --mode development"
   },
   "dependencies": {
-    "@myparcel-dev/constants": "^2.7.0",
+    "@myparcel-dev/constants": "^2.9.0",
     "@myparcel-dev/do-shared": "workspace:*",
     "@myparcel-dev/sdk": "^5.0.0",
     "@myparcel-dev/ts-utils": "^1.15.0",
