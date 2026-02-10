@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel-dev/delivery-options-v6.26.0](https://github.com/myparcelnl/delivery-options/compare/v6.25.0...v6.26.0) (2026-02-10)
+
+### :sparkles: New Features
+
+* deprecate show delivery date ([#384](https://github.com/myparcelnl/delivery-options/issues/384)) ([00cc026](https://github.com/myparcelnl/delivery-options/commit/00cc026066a73b96aae1cae6e539bd8370cab792))
+
 ## [@myparcel-dev/delivery-options-v6.25.0](https://github.com/myparcelnl/delivery-options/compare/v6.24.0...v6.25.0) (2026-01-27)
 
 ### :sparkles: New Features
