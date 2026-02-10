@@ -146,10 +146,8 @@ describe('useResolvedValues', () => {
     },
   );
 
-  it('should not expose delivery date if it is disabled', async () => {
-    mockDeliveryOptionsConfig({
-      [KEY_CONFIG]: {[ConfigSetting.ShowDeliveryDate]: true},
-    });
+  it('respects deprecated show delivery date setting while it still exists', async () => {
+    mockDeliveryOptionsConfig({[KEY_CONFIG]: {[ConfigSetting.ShowDeliveryDate]: true}});
     mockSelectedDeliveryOptions();
     await flushPromises();
 

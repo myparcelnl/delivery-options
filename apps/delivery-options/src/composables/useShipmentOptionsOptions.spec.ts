@@ -4,7 +4,6 @@ import {normalizeDate} from '@vueuse/core';
 import {mockGetDeliveryOptions, getShipmentOptions} from '@myparcel-dev/do-shared/testing';
 import {
   CarrierSetting,
-  ConfigSetting,
   createTimestamp,
   DEFAULT_PLATFORM,
   KEY_CARRIER_SETTINGS,
@@ -43,7 +42,6 @@ const setup = async (packageType: SupportedPackageTypeName, carrierIdentifier: C
   mockDeliveryOptionsConfig(
     getMockDeliveryOptionsConfiguration({
       [KEY_CONFIG]: {
-        [ConfigSetting.ShowDeliveryDate]: true,
         [CarrierSetting.AllowDeliveryOptions]: true,
         [CarrierSetting.AllowStandardDelivery]: true,
         [CarrierSetting.AllowEveningDelivery]: true,

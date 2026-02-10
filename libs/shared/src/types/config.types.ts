@@ -104,6 +104,7 @@ export interface DeliveryOptionsConfig extends Partial<Record<ConfigSetting, unk
   pickupLocationsMapTileLayerData: string | MapTileLayerData;
   pickupShowDistance: boolean;
   platform: SupportedPlatformName;
+  /** @deprecated show delivery date is always enabled */
   showDeliveryDate: boolean;
   showPriceSurcharge: boolean;
   showPriceZeroAsFree: boolean;

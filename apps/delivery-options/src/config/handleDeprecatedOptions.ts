@@ -34,15 +34,11 @@ const parseDropOffDays = (value?: string | DropOffEntry[]): DropOffEntryObject[]
 type ResolvedInputConfig<Input extends InputDeliveryOptionsConfig | InputCarrierSettings> =
   Input extends InputDeliveryOptionsConfig ? DeliveryOptionsConfig : CarrierSettings;
 
-export const handleDeprecatedOptions = <Input extends InputDeliveryOptionsConfig | InputCarrierSettings>(
-  input: Input,
-): ResolvedInputConfig<Input> => {
-  const logger = useLogger();
-
-  const {allowShowDeliveryDate, fridayCutoffTime, saturdayCutoffTime, ...restConfig} = {...input};
-
-  const resolvedConfig = restConfig as unknown as ResolvedInputConfig<Input>;
-
+const applyDeprecatedAllowDeliveryOptions = (
+  resolvedConfig: DeliveryOptionsConfig | CarrierSettings,
+  restConfig: InputDeliveryOptionsConfig | InputCarrierSettings,
+  logger: ReturnType<typeof useLogger>,
+): void => {
   if (
     isDefined(resolvedConfig[CarrierSetting.AllowDeliveryOptions]) &&
     !isDefined(resolvedConfig[CarrierSetting.AllowStandardDelivery]) &&
@@ -55,15 +51,42 @@ export const handleDeprecatedOptions = <Input extends InputDeliveryOptionsConfig
 
     resolvedConfig[CarrierSetting.AllowStandardDelivery] = restConfig[CarrierSetting.AllowDeliveryOptions];
   }
+};
 
+const applyDeprecatedShowDeliveryDate = (
+  resolvedConfig: DeliveryOptionsConfig | CarrierSettings,
+  logger: ReturnType<typeof useLogger>,
+  allowShowDeliveryDate?: boolean,
+  showDeliveryDate?: boolean,
+): void => {
   if (isDefined(allowShowDeliveryDate)) {
-    logger.deprecated(DeprecatedCarrierSetting.AllowShowDeliveryDate, ConfigSetting.ShowDeliveryDate);
-    resolvedConfig[ConfigSetting.ShowDeliveryDate] = allowShowDeliveryDate;
+    logger.deprecated(DeprecatedCarrierSetting.AllowShowDeliveryDate, 'show delivery date is always enabled');
   }
 
-  if (typeof resolvedConfig.dropOffDays === 'string') {
+  if (isDefined(showDeliveryDate)) {
+    logger.deprecated(ConfigSetting.ShowDeliveryDate, 'show delivery date is always enabled');
+  }
+
+  if (!isDefined(showDeliveryDate) && isDefined(allowShowDeliveryDate)) {
+    resolvedConfig[ConfigSetting.ShowDeliveryDate] = allowShowDeliveryDate;
+    return;
+  }
+
+  if (isDefined(showDeliveryDate)) {
+    resolvedConfig[ConfigSetting.ShowDeliveryDate] = showDeliveryDate;
+  }
+};
+
+const normalizeDropOffDays = (
+  resolvedConfig: DeliveryOptionsConfig | CarrierSettings,
+  restConfig: InputDeliveryOptionsConfig | InputCarrierSettings,
+  fridayCutoffTime: string | undefined,
+  saturdayCutoffTime: string | undefined,
+  logger: ReturnType<typeof useLogger>,
+): void => {
+  if (isString(restConfig.dropOffDays)) {
     logger.deprecated(`Passing ${CarrierSetting.DropOffDays} as a string`, `an array`);
-    resolvedConfig.dropOffDays = parseDropOffDays(resolvedConfig.dropOffDays);
+    resolvedConfig.dropOffDays = parseDropOffDays(restConfig.dropOffDays);
   }
 
   if (isDefined(saturdayCutoffTime) || isDefined(fridayCutoffTime)) {
@@ -83,6 +106,22 @@ export const handleDeprecatedOptions = <Input extends InputDeliveryOptionsConfig
       };
     }) satisfies DropOffEntryObject[];
   }
+};
+
+export const handleDeprecatedOptions = <Input extends InputDeliveryOptionsConfig | InputCarrierSettings>(
+  input: Input,
+): ResolvedInputConfig<Input> => {
+  const logger = useLogger();
+
+  const {allowShowDeliveryDate, showDeliveryDate, fridayCutoffTime, saturdayCutoffTime, ...restConfig} = {
+    ...(input as InputDeliveryOptionsConfig & {showDeliveryDate?: boolean}),
+  };
+
+  const resolvedConfig = restConfig as unknown as ResolvedInputConfig<Input>;
+
+  applyDeprecatedAllowDeliveryOptions(resolvedConfig, restConfig, logger);
+  applyDeprecatedShowDeliveryDate(resolvedConfig, logger, allowShowDeliveryDate, showDeliveryDate);
+  normalizeDropOffDays(resolvedConfig, restConfig, fridayCutoffTime, saturdayCutoffTime, logger);
 
   return resolvedConfig;
 };

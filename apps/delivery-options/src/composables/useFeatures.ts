@@ -1,6 +1,6 @@
 import {computed} from 'vue';
 import {useMemoize} from '@vueuse/core';
-import {ConfigSetting} from '@myparcel-dev/do-shared';
+import {CarrierSetting, ConfigSetting, DELIVERY_DAYS_WINDOW_DEFAULT} from '@myparcel-dev/do-shared';
 import {useConfigStore} from '../stores';
 import {DELIVERY_MOMENT_PACKAGE_TYPES, SHOWN_SHIPMENT_OPTIONS} from '../data';
 
@@ -16,7 +16,10 @@ export const useFeatures = useMemoize(() => {
     }),
 
     showDeliveryDate: computed(() => {
-      return DELIVERY_MOMENT_PACKAGE_TYPES.includes(config.packageType) && config[ConfigSetting.ShowDeliveryDate];
+      const deliveryDaysWindow = config[CarrierSetting.DeliveryDaysWindow] ?? DELIVERY_DAYS_WINDOW_DEFAULT;
+      const showDeliveryDateSetting = config[ConfigSetting.ShowDeliveryDate] ?? true;
+
+      return DELIVERY_MOMENT_PACKAGE_TYPES.includes(config.packageType) && deliveryDaysWindow > 1 && showDeliveryDateSetting;
     }),
   };
 });
