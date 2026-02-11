@@ -10,12 +10,13 @@ import {
   type CarrierIdentifier,
 } from '@myparcel-dev/do-shared';
 import {DeliveryTypeName, ShipmentOptionName} from '@myparcel-dev/constants';
+import {NETHERLANDS} from '@myparcel-dev/constants/countries';
 import {useSelectedValues} from '../useSelectedValues';
 import {useSelectedPickupLocation} from '../useSelectedPickupLocation';
 import {useResolvedDeliveryOptions} from '../useResolvedDeliveryOptions';
 import {getResolvedValue, parseJson} from '../../utils';
 import {type SelectedDeliveryMomentDelivery} from '../../types';
-import {useConfigStore} from '../../stores';
+import {useAddressStore, useConfigStore} from '../../stores';
 import {FIELD_DELIVERY_MOMENT, FIELD_SHIPMENT_OPTIONS, HOME_OR_PICKUP_PICKUP} from '../../data';
 
 const DELIVERY_DELIVERY_TYPES = Object.freeze([
@@ -35,13 +36,19 @@ const SHIPMENT_OPTION_OUTPUT_MAP = Object.freeze({
  *
  * @param carrier
  * @param shipmentOptions
+ * @param countryCode
  * @returns
  */
 const createResolvedShipmentOptions = (
   carrier: CarrierIdentifier,
   shipmentOptions: string[],
+  countryCode: string,
 ): DeliveryOutput['shipmentOptions'] => {
   return Object.entries(SHIPMENT_OPTION_OUTPUT_MAP).reduce((acc, [shipmentOption, objectKey]) => {
+    if (shipmentOption === ShipmentOptionName.PriorityDelivery && countryCode !== NETHERLANDS) {
+      return acc;
+    }
+
     const enabledKey = getConfigKey(shipmentOption as SupportedShipmentOptionName);
     const enabled = getResolvedValue(enabledKey, carrier, false);
 
@@ -57,6 +64,7 @@ export const useResolvedValues = (): ComputedRef<PickupOutput | DeliveryOutput |
   const selectedValues = useSelectedValues();
   const deliveryOptions = useResolvedDeliveryOptions();
   const pickupLocation = useSelectedPickupLocation();
+  const {state: address} = useAddressStore();
 
   return computed(() => {
     if (
@@ -95,7 +103,7 @@ export const useResolvedValues = (): ComputedRef<PickupOutput | DeliveryOutput |
       deliveryType,
       isPickup: false,
       packageType: parsedMoment.packageType,
-      shipmentOptions: createResolvedShipmentOptions(parsedMoment.carrier, shipmentOptions),
+      shipmentOptions: createResolvedShipmentOptions(parsedMoment.carrier, shipmentOptions, address.cc),
     } satisfies DeliveryOutput;
   });
 };

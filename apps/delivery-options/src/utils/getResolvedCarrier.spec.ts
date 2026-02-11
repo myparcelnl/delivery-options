@@ -139,6 +139,58 @@ describe('getResolvedCarrier', () => {
     });
   });
 
+  describe('priority delivery', () => {
+    it('includes priority delivery in NL when enabled in config', () => {
+      const carrier = getResolvedCarrier(CarrierName.PostNl, PlatformName.MyParcel);
+
+      mockDeliveryOptionsConfig(
+        getMockDeliveryOptionsConfiguration({
+          [KEY_ADDRESS]: {
+            [AddressField.Country]: 'NL',
+          },
+          [KEY_CONFIG]: {
+            [KEY_CARRIER_SETTINGS]: {
+              [CarrierName.PostNl]: {
+                [CarrierSetting.AllowPriorityDelivery]: true,
+              },
+            },
+          },
+        }),
+      );
+
+      expect(carrier.shipmentOptionsPerPackageType.value).toEqual({
+        [PackageTypeName.Package]: new Set([ShipmentOptionName.OnlyRecipient, ShipmentOptionName.Signature]),
+        [PackageTypeName.PackageSmall]: new Set([ShipmentOptionName.OnlyRecipient, ShipmentOptionName.Signature]),
+        [PackageTypeName.Mailbox]: new Set([ShipmentOptionName.PriorityDelivery]),
+      });
+    });
+
+    it('excludes priority delivery outside NL even when enabled in config', () => {
+      const carrier = getResolvedCarrier(CarrierName.PostNl, PlatformName.MyParcel);
+
+      mockDeliveryOptionsConfig(
+        getMockDeliveryOptionsConfiguration({
+          [KEY_ADDRESS]: {
+            [AddressField.Country]: 'BE',
+          },
+          [KEY_CONFIG]: {
+            [KEY_CARRIER_SETTINGS]: {
+              [CarrierName.PostNl]: {
+                [CarrierSetting.AllowPriorityDelivery]: true,
+              },
+            },
+          },
+        }),
+      );
+
+      expect(carrier.shipmentOptionsPerPackageType.value).toEqual({
+        [PackageTypeName.Package]: new Set([ShipmentOptionName.OnlyRecipient, ShipmentOptionName.Signature]),
+        [PackageTypeName.PackageSmall]: new Set([ShipmentOptionName.OnlyRecipient, ShipmentOptionName.Signature]),
+        [PackageTypeName.Mailbox]: new Set(),
+      });
+    });
+  });
+
   it('exposes features, filtered by config', () => {
     const carrier = getResolvedCarrier(CarrierName.DhlForYou, PlatformName.MyParcel);
 

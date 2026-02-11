@@ -1,9 +1,11 @@
 import {beforeEach, describe, expect, it} from 'vitest';
 import {flushPromises} from '@vue/test-utils';
 import {
+  AddressField,
   CarrierSetting,
   type DeliveryOptionsOutput,
   type InternalOutput,
+  KEY_ADDRESS,
   KEY_CARRIER_SETTINGS,
   KEY_CONFIG,
   useCarriersRequest,
@@ -162,5 +164,37 @@ describe('useResolvedValues', () => {
     await flushPromises();
 
     expect(resolvedValues.value?.date).toBeUndefined();
+  });
+
+  it('does not expose priorityDelivery outside NL even when selected and enabled', async () => {
+    mockDeliveryOptionsConfig({
+      [KEY_ADDRESS]: {
+        [AddressField.Country]: 'BE',
+      },
+      [KEY_CONFIG]: {
+        [KEY_CARRIER_SETTINGS]: {
+          [CarrierName.PostNl]: {
+            [CarrierSetting.AllowPriorityDelivery]: true,
+            [CarrierSetting.AllowOnlyRecipient]: false,
+            [CarrierSetting.AllowSignature]: false,
+          },
+        },
+      },
+    });
+
+    mockSelectedDeliveryOptions(
+      createInternalOutput({
+        [FIELD_SHIPMENT_OPTIONS]: [ShipmentOptionName.PriorityDelivery],
+      }),
+    );
+    await flushPromises();
+
+    const resolvedValues = useResolvedValues();
+
+    expect(resolvedValues.value).toEqual(
+      createExternalOutput({
+        shipmentOptions: {},
+      }),
+    );
   });
 });
