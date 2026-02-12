@@ -5,6 +5,7 @@ import {mockGetDeliveryOptions, getShipmentOptions} from '@myparcel-dev/do-share
 import {
   AddressField,
   CarrierSetting,
+  ConfigSetting,
   createTimestamp,
   DEFAULT_PLATFORM,
   KEY_ADDRESS,
