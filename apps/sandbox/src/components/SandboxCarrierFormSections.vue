@@ -11,23 +11,22 @@
 </template>
 
 <script lang="ts" setup>
-import {computed, toValue} from 'vue';
-import {CarrierBox} from '@myparcel-dev/do-shared';
+import {computed} from 'vue';
+import {type CarrierIdentifier, CarrierBox} from '@myparcel-dev/do-shared';
 import {getConfigSandboxSections} from '../form';
-import {useCurrentPlatform} from '../composables';
+import {useSandboxStore} from '../stores';
 import {SandboxSettingsSection} from './form';
 
-const platform = useCurrentPlatform();
+const store = useSandboxStore();
 
 const carrierSections = computed(() => {
-  const {carriers} = toValue(platform.config);
-
+  const carriers = Object.keys(store.carrierSettings) as CarrierIdentifier[];
 
   return (
-    carriers.map((carrier) => {
+    carriers.map((carrierName) => {
       return {
-        name: carrier.name,
-        sections: getConfigSandboxSections(carrier.name),
+        name: carrierName,
+        sections: getConfigSandboxSections(carrierName),
       };
     }) ?? []
   );

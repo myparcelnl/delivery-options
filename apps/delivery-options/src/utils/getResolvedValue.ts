@@ -19,6 +19,7 @@ export const getResolvedValue = <
   key: T,
   carrierIdentifier?: CarrierIdentifier,
   defaultValue?: Default,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): Default extends any ? NonNullable<ResolvedValue<T>> | Default : ResolvedValue<T> => {
   const {state: config} = useConfigStore();
 

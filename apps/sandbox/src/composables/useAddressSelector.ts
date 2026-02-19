@@ -1,6 +1,6 @@
 import {computed, onUnmounted, watch, type Ref, toValue, type ComputedRef} from 'vue';
 import {useLocalStorage} from '@vueuse/core';
-import {AddressField, type DeliveryOptionsAddress, KEY_ADDRESS, useLoadMore} from '@myparcel-dev/do-shared';
+import {AddressField, type DeliveryOptionsAddress, useLoadMore} from '@myparcel-dev/do-shared';
 import {
   GERMANY,
   FRANCE,

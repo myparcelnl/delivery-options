@@ -12,7 +12,7 @@ describe('validateMatch', () => {
     [NaN, false],
     [{}, false],
     [[], false],
-    [() => {}, false],
+    [() => undefined, false],
     ['', false],
     ['hello', true],
     ['hello123', false],

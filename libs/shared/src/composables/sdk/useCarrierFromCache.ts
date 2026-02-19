@@ -16,7 +16,7 @@ export const useCarrierFromCache = (
       return undefined;
     }
 
-    return carriersRequest.data.value.find((c) => c.name === carrierName);
+    return carriersRequest.data.value.find((cr) => cr.name === carrierName);
   });
 
   const loading = computed(() => carriersRequest.loading.value);

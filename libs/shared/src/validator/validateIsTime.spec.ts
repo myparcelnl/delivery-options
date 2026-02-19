@@ -13,7 +13,7 @@ describe('validateIsTime', () => {
     [NaN, false],
     [{}, false],
     [[], false],
-    [() => {}, false],
+    [() => undefined, false],
     ['', false],
     ['hello', false],
     ['0', false],

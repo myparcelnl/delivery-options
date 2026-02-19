@@ -8,7 +8,7 @@ import {
   type RelatedConfigOptionType,
 } from '../data';
 import {type CustomValidator} from './validation.types';
-import {type SupportedPackageTypeName, type SupportedPlatformName, type PlatformConfiguration} from './platform.types';
+import {type SupportedPackageTypeName, type SupportedPlatformName} from './platform.types';
 import {type DeliveryOptionsOutput} from './output.types';
 import {type SelectOption} from './options.types';
 import {type MakeRequired} from './common.types';
@@ -163,7 +163,6 @@ export interface DeliveryOptionsConfiguration {
   address: DeliveryOptionsAddress;
   config: DeliveryOptionsConfig;
   initial: Partial<DeliveryOptionsOutput>;
-  platformConfig: PlatformConfiguration;
   strings: DeliveryOptionsStrings;
 }
 
@@ -171,7 +170,6 @@ export interface InputDeliveryOptionsConfiguration {
   address: DeliveryOptionsAddress;
   config: InputDeliveryOptionsConfig;
   initial?: Partial<DeliveryOptionsOutput>;
-  platformConfig: PlatformConfiguration;
   strings?: DeliveryOptionsStrings;
 }
 

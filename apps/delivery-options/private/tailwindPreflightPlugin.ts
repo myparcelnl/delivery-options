@@ -43,6 +43,7 @@ export const tailwindPreflightPlugin = plugin(({addBase}) => {
           return false;
         }
 
+        // eslint-disable-next-line max-nested-callbacks
         return WHITELIST.includes(selector) || WHITELIST.some((item) => selector.startsWith(`${item}:`));
       })
       /**

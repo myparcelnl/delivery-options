@@ -6,7 +6,6 @@ import {
   CarrierSetting,
   KEY_ADDRESS,
   PACKAGE_TYPE_SMALL,
-  KEY_PLATFORM_CONFIG,
 } from '@myparcel-dev/do-shared';
 import {CarrierName} from '@myparcel-dev/constants';
 import {RENDER_DELIVERY_OPTIONS, UPDATE_DELIVERY_OPTIONS} from './data';
@@ -84,37 +83,6 @@ describe('main', () => {
 
     expect(global.window.MyParcelConfig).toBeDefined();
     expect(Object.keys(global.window.MyParcelConfig)).toEqual([KEY_ADDRESS, KEY_CONFIG, KEY_STRINGS]);
-  });
-
-  it('exposes platform config on window object when defined while booting', async () => {
-    expect.assertions(2);
-
-    const mockConfig = getMockDeliveryOptionsConfiguration({
-      [KEY_CONFIG]: {
-        [KEY_CARRIER_SETTINGS]: {
-          [CarrierName.PostNl]: {
-            [CarrierSetting.AllowDeliveryOptions]: true,
-            [CarrierSetting.AllowStandardDelivery]: true,
-          },
-        },
-      },
-      [KEY_PLATFORM_CONFIG]: {
-        carriers: [
-          {
-            name: CarrierName.PostNl,
-          },
-        ],
-      },
-    });
-    await dispatchEvent(UPDATE_DELIVERY_OPTIONS, mockConfig);
-
-    expect(global.window.MyParcelConfig).toBeDefined();
-    expect(Object.keys(global.window.MyParcelConfig)).toEqual([
-      KEY_ADDRESS,
-      KEY_CONFIG,
-      KEY_STRINGS,
-      KEY_PLATFORM_CONFIG,
-    ]);
   });
 
   it.todo.each([

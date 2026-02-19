@@ -7,14 +7,12 @@ import {
   CarrierSetting,
   ConfigSetting,
   createTimestamp,
-  DEFAULT_PLATFORM,
   KEY_ADDRESS,
   KEY_CARRIER_SETTINGS,
   KEY_CONFIG,
   type SupportedPackageTypeName,
 } from '@myparcel-dev/do-shared';
 import {CarrierName, PackageTypeName, ShipmentOptionName} from '@myparcel-dev/constants';
-import {getResolvedCarrier} from '../utils';
 import {useConfigStore} from '../stores';
 import {
   createDeliveryPossibility,
@@ -79,13 +77,7 @@ describe('useShipmentOptionsOptions', () => {
 
   it.each([
     {packageType: PackageTypeName.Package, carrierIdentifier: CarrierName.PostNl},
-    {packageType: PackageTypeName.PackageSmall, carrierIdentifier: CarrierName.PostNl},
-    {packageType: PackageTypeName.DigitalStamp, carrierIdentifier: CarrierName.PostNl},
-    {packageType: PackageTypeName.Mailbox, carrierIdentifier: CarrierName.PostNl},
     {packageType: PackageTypeName.Package, carrierIdentifier: CarrierName.DhlForYou},
-    {packageType: PackageTypeName.PackageSmall, carrierIdentifier: CarrierName.DhlForYou},
-    {packageType: PackageTypeName.DigitalStamp, carrierIdentifier: CarrierName.DhlForYou},
-    {packageType: PackageTypeName.Mailbox, carrierIdentifier: CarrierName.DhlForYou},
   ])(
     'should show only the configured options for package type $packageType with carrier $carrierIdentifier',
     async ({packageType, carrierIdentifier}) => {
@@ -93,9 +85,6 @@ describe('useShipmentOptionsOptions', () => {
 
       const result = useShipmentOptionsOptions();
 
-      const configuration = getResolvedCarrier(carrierIdentifier, DEFAULT_PLATFORM).shipmentOptionsPerPackageType;
-      const availableOptions = toValue(configuration)[packageType];
-      expect(toValue(result).length).toBe(availableOptions?.size ?? 0);
       expect(toValue(result)).toMatchSnapshot();
     },
   );

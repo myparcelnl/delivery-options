@@ -80,21 +80,22 @@ exports[`useDeliveryMomentOptions > returns delivery moment options with package
     "carrier": "postnl",
     "label": {
       "args": undefined,
-      "key": "deliveryStandardTitle",
+      "key": "3:00 PM – 4:00 PM",
+      "plain": true,
     },
     "price": 3,
     "value": {
       "carrier": "postnl",
+      "date": "2025-01-15 24:00:00",
       "deliveryType": "standard",
       "packageType": "package",
       "shipmentOptions": [
         {
           "name": "signature",
           "schema": {
-            "default": false,
             "enum": [
-              false,
               true,
+              false,
             ],
             "type": "boolean",
           },
@@ -102,17 +103,17 @@ exports[`useDeliveryMomentOptions > returns delivery moment options with package
         {
           "name": "only_recipient",
           "schema": {
-            "default": false,
             "enum": [
-              false,
               true,
+              false,
             ],
             "type": "boolean",
           },
         },
       ],
       "time": {
-        "key": "deliveryStandardTitle",
+        "key": "3:00 PM – 4:00 PM",
+        "plain": true,
       },
     },
   },
@@ -120,21 +121,22 @@ exports[`useDeliveryMomentOptions > returns delivery moment options with package
     "carrier": "postnl:123",
     "label": {
       "args": undefined,
-      "key": "deliveryStandardTitle",
+      "key": "3:00 PM – 4:00 PM",
+      "plain": true,
     },
     "price": 456,
     "value": {
       "carrier": "postnl:123",
+      "date": "2025-01-15 24:00:00",
       "deliveryType": "standard",
       "packageType": "package",
       "shipmentOptions": [
         {
           "name": "signature",
           "schema": {
-            "default": false,
             "enum": [
-              false,
               true,
+              false,
             ],
             "type": "boolean",
           },
@@ -142,17 +144,17 @@ exports[`useDeliveryMomentOptions > returns delivery moment options with package
         {
           "name": "only_recipient",
           "schema": {
-            "default": false,
             "enum": [
-              false,
               true,
+              false,
             ],
             "type": "boolean",
           },
         },
       ],
       "time": {
-        "key": "deliveryStandardTitle",
+        "key": "3:00 PM – 4:00 PM",
+        "plain": true,
       },
     },
   },
@@ -165,21 +167,22 @@ exports[`useDeliveryMomentOptions > returns delivery moment options with package
     "carrier": "postnl",
     "label": {
       "args": undefined,
-      "key": "deliveryStandardTitle",
+      "key": "3:00 PM – 4:00 PM",
+      "plain": true,
     },
     "price": 6,
     "value": {
       "carrier": "postnl",
+      "date": "2025-01-15 24:00:00",
       "deliveryType": "standard",
       "packageType": "package_small",
       "shipmentOptions": [
         {
           "name": "signature",
           "schema": {
-            "default": false,
             "enum": [
-              false,
               true,
+              false,
             ],
             "type": "boolean",
           },
@@ -187,17 +190,17 @@ exports[`useDeliveryMomentOptions > returns delivery moment options with package
         {
           "name": "only_recipient",
           "schema": {
-            "default": false,
             "enum": [
-              false,
               true,
+              false,
             ],
             "type": "boolean",
           },
         },
       ],
       "time": {
-        "key": "deliveryStandardTitle",
+        "key": "3:00 PM – 4:00 PM",
+        "plain": true,
       },
     },
   },
@@ -205,21 +208,22 @@ exports[`useDeliveryMomentOptions > returns delivery moment options with package
     "carrier": "postnl:123",
     "label": {
       "args": undefined,
-      "key": "deliveryStandardTitle",
+      "key": "3:00 PM – 4:00 PM",
+      "plain": true,
     },
     "price": 0,
     "value": {
       "carrier": "postnl:123",
+      "date": "2025-01-15 24:00:00",
       "deliveryType": "standard",
       "packageType": "package_small",
       "shipmentOptions": [
         {
           "name": "signature",
           "schema": {
-            "default": false,
             "enum": [
-              false,
               true,
+              false,
             ],
             "type": "boolean",
           },
@@ -227,17 +231,17 @@ exports[`useDeliveryMomentOptions > returns delivery moment options with package
         {
           "name": "only_recipient",
           "schema": {
-            "default": false,
             "enum": [
-              false,
               true,
+              false,
             ],
             "type": "boolean",
           },
         },
       ],
       "time": {
-        "key": "deliveryStandardTitle",
+        "key": "3:00 PM – 4:00 PM",
+        "plain": true,
       },
     },
   },

@@ -1,4 +1,5 @@
 export * from './requestKeyToString';
+export * from './useCapabilitiesRequest';
 export * from './useCarrierFromCache';
 export * from './useCarriersRequest';
 export * from './useDeliveryOptionsRequest';

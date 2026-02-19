@@ -1,11 +1,6 @@
 import {useNavigatorLanguage} from '@vueuse/core';
 import {type ResolvedDeliveryOptionsConfig} from '../types';
-import {
-  DELIVERY_DAYS_WINDOW_DEFAULT,
-  DROP_OFF_DELAY_DEFAULT,
-  PACKAGE_TYPE_DEFAULT,
-  PLATFORM_DEFAULT,
-} from './settingsConsts';
+import {DELIVERY_DAYS_WINDOW_DEFAULT, DROP_OFF_DELAY_DEFAULT, PACKAGE_TYPE_DEFAULT, PLATFORM_DEFAULT} from './settingsConsts';
 import {getDefaultCarrierSettings} from './getDefaultCarrierSettings';
 import {CarrierSetting, ConfigSetting, PickupLocationsView} from './enums';
 import {DAY_MONDAY, DAY_TUESDAY, DAY_WEDNESDAY, DAY_THURSDAY, DAY_FRIDAY} from './constants';
@@ -64,6 +59,7 @@ export const getDefaultDeliveryOptionsConfig = (): ResolvedDeliveryOptionsConfig
       // eslint-disable-next-line max-len,vue/max-len
       attribution:
         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Tiles style by <a href="https://www.hotosm.org/" target="_blank">Humanitarian OpenStreetMap Team</a> hosted by <a href="https://openstreetmap.fr/" target="_blank">OpenStreetMap France</a>',
+      // eslint-disable-next-line @typescript-eslint/no-magic-numbers
       maxZoom: 19,
     }),
 

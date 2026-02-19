@@ -1,2 +1,1 @@
-export * from './getMyParcelConfig';
-export * from './getSendMyParcelConfig';
+// Platform configs have been replaced by the capabilities API

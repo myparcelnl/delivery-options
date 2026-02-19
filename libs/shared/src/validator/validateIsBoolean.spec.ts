@@ -12,7 +12,7 @@ describe('validateIsBoolean', () => {
     [NaN, false],
     [{}, false],
     [[], false],
-    [() => {}, false],
+    [() => undefined, false],
     ['', false],
     ['hello', false],
   ])('should validate %s as %s', (value, expected) => {
