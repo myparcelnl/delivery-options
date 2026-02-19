@@ -72,7 +72,7 @@ jobs:
       - name: 'Release'
         uses: myparcelnl/actions/semantic-release@v5
         env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN_NEW }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         with:
           working-directory: apps/delivery-options
           token: ${{ steps.credentials.outputs.token }}
