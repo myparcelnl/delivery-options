@@ -10,7 +10,7 @@ const MONDAY = '2022-01-03';
 describe('getResolvedDeliveryType', () => {
   const allDeliveryTypes = SUPPORTED_DELIVERY_TYPES as unknown as SupportedDeliveryTypeName[];
 
-  beforeEach(async () => {
+  beforeEach(() => {
     getResolvedDeliveryType.clear();
     vi.setSystemTime(new Date('2022-01-01'));
   });
@@ -19,7 +19,7 @@ describe('getResolvedDeliveryType', () => {
     vi.setSystemTime(vi.getRealSystemTime());
   });
 
-  it('returns delivery type for regular day', async () => {
+  it('returns delivery type for regular day', () => {
     expect(getResolvedDeliveryType(allDeliveryTypes, '2022-01-04', DeliveryTypeName.Standard)).toBe(
       DeliveryTypeName.Standard,
     );

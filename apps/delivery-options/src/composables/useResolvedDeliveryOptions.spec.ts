@@ -1,6 +1,7 @@
 import {describe, it, expect, beforeEach, afterEach, vi} from 'vitest';
 import {assign} from 'radash';
 import {normalizeDate} from '@vueuse/core';
+import {flushPromises} from '@vue/test-utils';
 import {type RecursivePartial} from '@myparcel-dev/ts-utils';
 import {mockGetDeliveryOptions} from '@myparcel-dev/do-shared/testing';
 import {
@@ -14,7 +15,6 @@ import {
 } from '@myparcel-dev/do-shared';
 import {DeliveryTypeName, CarrierName} from '@myparcel-dev/constants';
 import {useConfigStore} from '../stores';
-import {DELIVERY_MOMENT_PACKAGE_TYPES} from '../data';
 import {
   waitForDeliveryOptions,
   mockDeliveryOptionsConfig,
@@ -91,30 +91,29 @@ describe('useResolvedDeliveryOptions', () => {
     ]);
   });
 
-  it('handles fake delivery', async () => {
-    // DE is not a delivery country for PostNL.
-    await setupPostNl({[KEY_ADDRESS]: {cc: 'DE'}});
+  it('returns an empty array for unsupported countries', async () => {
+    // DE is not a supported country in capabilities, so no carriers are active.
+    mockDeliveryOptionsConfig(
+      getMockDeliveryOptionsConfiguration({
+        [KEY_ADDRESS]: {
+          cc: 'DE',
+        },
+        [KEY_CONFIG]: {
+          [KEY_CARRIER_SETTINGS]: {
+            [CarrierName.PostNl]: {
+              [CarrierSetting.AllowDeliveryOptions]: true,
+              [CarrierSetting.AllowStandardDelivery]: true,
+            },
+          },
+        },
+      }),
+    );
 
+    useResolvedDeliveryOptions.clear();
     const options = useResolvedDeliveryOptions();
-    const resolvedOptions = options.value.map(({carrier, deliveryType, packageType}) => ({
-      carrier,
-      deliveryType,
-      packageType,
-    }));
+    await flushPromises();
 
-    const expected: any[] = [];
-    DELIVERY_MOMENT_PACKAGE_TYPES.forEach((packageType) => {
-      expected.push({carrier: CarrierName.PostNl, deliveryType: DeliveryTypeName.Standard, packageType});
-      expected.push({
-        carrier: CARRIER_IDENTIFIER_WITH_CONTRACT,
-        deliveryType: DeliveryTypeName.Standard,
-        packageType,
-      });
-    });
-    // Sort expected by carrier name
-    // eslint-disable-next-line id-length
-    expected.sort((a, b) => a.carrier.localeCompare(b.carrier));
-    expect(resolvedOptions).toEqual(expected);
+    expect(options.value).toEqual([]);
   });
 
   it('returns an empty array if all delivery options requests fail', () => {

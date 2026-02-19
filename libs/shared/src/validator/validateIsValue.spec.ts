@@ -9,7 +9,7 @@ describe('validateIsValue', () => {
     [false, [1, 2, 3], false],
     [{}, [1, 2, 3], false],
     [[], [1, 2, 3], false],
-    [() => {}, [1, 2, 3], false],
+    [() => undefined, [1, 2, 3], false],
     ['', [1, 2, 3], false],
     ['hello', [1, 2, 3], false],
     [0, [1, 2, 3], false],

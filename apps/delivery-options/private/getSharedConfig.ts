@@ -1,4 +1,3 @@
-import {fileURLToPath} from 'node:url';
 import {type UserConfig, type ConfigEnv} from 'vite';
 import {resolveAlias} from '@myparcel-dev/do-build-vite';
 import {version} from '../package.json';

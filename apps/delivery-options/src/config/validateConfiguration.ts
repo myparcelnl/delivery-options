@@ -1,4 +1,3 @@
-import {toRaw} from 'vue';
 import {isEnumValue} from '@myparcel-dev/ts-utils';
 import {
   AddressField,
@@ -26,7 +25,6 @@ import {
   KEY_ADDRESS,
   KEY_CONFIG,
   KEY_STRINGS,
-  KEY_PLATFORM_CONFIG,
   type DeliveryOptionsAddress,
 } from '@myparcel-dev/do-shared';
 import {PackageTypeName} from '@myparcel-dev/constants';
@@ -58,17 +56,17 @@ const addressOptions: ConfigOption[] = [
 
 const additionalOptions: ConfigOption[] = [
   {
+    key: ConfigSetting.Platform,
+    perCarrier: false,
+    validators: [validateIsString()],
+  },
+  {
     key: ConfigSetting.Locale,
     perCarrier: false,
     validators: [validateIsString()],
   },
   {
     key: ConfigSetting.Currency,
-    perCarrier: false,
-    validators: [validateIsString()],
-  },
-  {
-    key: ConfigSetting.Platform,
     perCarrier: false,
     validators: [validateIsString()],
   },
@@ -163,10 +161,6 @@ export const validateConfiguration = (input: InputDeliveryOptionsConfiguration):
 
   if (input[KEY_STRINGS] !== undefined) {
     result[KEY_STRINGS] = {...input[KEY_STRINGS]};
-  }
-
-  if (input[KEY_PLATFORM_CONFIG] !== undefined) {
-    result[KEY_PLATFORM_CONFIG] = toRaw(input[KEY_PLATFORM_CONFIG]);
   }
 
   // Ensure address is always present

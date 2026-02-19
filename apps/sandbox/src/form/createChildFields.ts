@@ -1,7 +1,5 @@
-import {toValue} from 'vue';
 import {isDefined} from '@vueuse/core';
 import {type CarrierIdentifier, type ConfigOption} from '@myparcel-dev/do-shared';
-import {useCurrentPlatform} from '@myparcel-dev/delivery-options';
 import {type SandboxOptionGroup, type SettingsField} from '../types';
 import {getAllSandboxConfigOptions} from './getAllSandboxConfigOptions';
 import {availableInCarrier} from './availableInPlatform';
@@ -24,7 +22,7 @@ export const createChildFields = (group: SandboxOptionGroup, carrierName: Carrie
     })
     .filter(isDefined)
     .filter(
-      (item) => item && availableInCarrier(`${carrierName}.${item.key}`, toValue(useCurrentPlatform().name)),
+      (item) => item && availableInCarrier(`${carrierName}.${item.key}`),
     ) as ConfigOption[];
 
   return resolvedItems.reduce((acc, item) => {

@@ -1,8 +1,11 @@
 import type {InputDeliveryOptionsConfiguration} from '@myparcel-dev/do-shared';
-import {describe, it, expect} from 'vitest';
+import {describe, it, expect, vi, beforeEach} from 'vitest';
 import {mapDeprecatedUpsCarrierConfig} from './mapDeprecatedUpsCarrierConfig';
 
 describe('mapDeprecatedUpsCarrierConfig', () => {
+  beforeEach(() => {
+    vi.spyOn(console, 'warn').mockImplementation(() => undefined);
+  });
   const baseInput = (): InputDeliveryOptionsConfiguration => ({
     config: {
       carrierSettings: {},
@@ -38,7 +41,7 @@ describe('mapDeprecatedUpsCarrierConfig', () => {
       allowStandardDelivery: false,
       allowExpressDelivery: true,
     });
-    expect(console.warn).toHaveBeenCalled();
+    expect(console.warn).toHaveBeenCalled(); // eslint-disable-line no-console
     expect(outputConfig.config.carrierSettings?.ups).toBeUndefined();
   });
 
@@ -51,7 +54,7 @@ describe('mapDeprecatedUpsCarrierConfig', () => {
     expect(outputConfig.config.carrierSettings?.upsstandard).toEqual({
       allowStandardDelivery: true,
     });
-    expect(console.warn).toHaveBeenCalled();
+    expect(console.warn).toHaveBeenCalled(); // eslint-disable-line no-console
     expect(outputConfig.config.carrierSettings?.ups).toBeUndefined();
   });
 
@@ -62,7 +65,7 @@ describe('mapDeprecatedUpsCarrierConfig', () => {
 
     expect(outputConfig.config.carrierSettings?.upsstandard).toEqual(undefined);
     expect(outputConfig.config.carrierSettings?.upsexpresssaver).toEqual({allowExpressDelivery: true});
-    expect(console.warn).toHaveBeenCalled();
+    expect(console.warn).toHaveBeenCalled(); // eslint-disable-line no-console
     expect(outputConfig.config.carrierSettings?.ups).toBeUndefined();
   });
 

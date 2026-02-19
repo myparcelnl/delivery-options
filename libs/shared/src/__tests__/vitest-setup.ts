@@ -6,6 +6,7 @@ import {cleanup} from '@testing-library/vue';
 import {useRequestStorage} from '../composables';
 import {useMockSdk} from './useMockSdk';
 import {mockConsole, resetConsole} from './utils';
+import {mockCapabilitiesFetch} from './mocks/mockCapabilitiesResponse';
 
 const { afterEachHooks } = vi.hoisted(() => {
   return {afterEachHooks: [] as (() => void)[]};
@@ -52,11 +53,15 @@ vi.mock('@vueuse/core', async (importOriginal) => {
 
 beforeEach(() => {
   mockConsole();
+
+  // Mock global.fetch for capabilities API requests
+  vi.stubGlobal('fetch', mockCapabilitiesFetch);
 });
 
 afterEach(() => {
   useRequestStorage().clear();
   useMockSdk().reset();
+  mockCapabilitiesFetch.mockClear();
 
   afterEachHooks.forEach(hook => hook());
 

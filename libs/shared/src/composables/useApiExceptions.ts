@@ -57,6 +57,7 @@ export const useApiExceptions = useMemoize((): UseErrors => {
 
   return {
     addException(requestKey, exception) {
+      void requestKey;
       exception.data.errors.forEach((error) => {
         const resolvedErrorCode = ERROR_REPLACE_MAP[error.code] ?? error.code;
 

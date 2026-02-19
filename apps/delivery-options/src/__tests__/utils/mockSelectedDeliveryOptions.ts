@@ -11,8 +11,7 @@ import {
   FIELD_SHIPMENT_OPTIONS,
   FIELD_DELIVERY_MOMENT,
 } from '../../data';
-import {useSelectedValues} from '../../composables';
-import {useSelectedPickupLocation} from '../../composables';
+import {useSelectedValues, useSelectedPickupLocation} from '../../composables';
 
 type MockInternalOutput = Replace<InternalOutput, 'deliveryMoment', string | Partial<SelectedDeliveryMoment>>;
 
@@ -28,7 +27,9 @@ const DELIVERY_MOMENT_DEFAULTS = Object.freeze({
 /**
  * Set the selected delivery options in the reactive stores.
  */
-export const mockSelectedDeliveryOptions = (values?: Partial<MockInternalOutput>) => {
+export const mockSelectedDeliveryOptions = (
+  values?: Partial<MockInternalOutput>,
+): ReturnType<typeof useSelectedValues> => {
   const selectedValues = useSelectedValues();
 
   const resolvedDeliveryMoment = isString(values?.[FIELD_DELIVERY_MOMENT])

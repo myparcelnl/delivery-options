@@ -8,16 +8,18 @@ import {
   type ComputedAsync,
   usePickupLocationsByLatLngRequest,
   ConfigSetting,
+  CarrierSetting,
   addLoadingProperties,
   watchUntil,
+  useCapabilities,
+  normalizeCarrierName,
+  mapPackageTypeToCapability,
+  type CarrierIdentifier,
 } from '@myparcel-dev/do-shared';
-import {DeliveryTypeName} from '@myparcel-dev/constants';
-import {getHasPickupForPackage} from '../utils/getHasPickupForPackage';
-import {createLatLngParameters, createGetDeliveryOptionsParameters} from '../utils';
+import {getResolvedCarrier, createLatLngParameters, createGetDeliveryOptionsParameters} from '../utils';
 import {type ResolvedPickupLocation, type LatLng} from '../types';
-import {useConfigStore} from '../stores';
+import {useAddressStore, useConfigStore} from '../stores';
 import {type UseResolvedCarrier} from './useResolvedCarrier';
-import {useActiveCarriers} from './useActiveCarriers';
 
 interface UseResolvedPickupLocations {
   carriersWithPickup: ComputedRef<UseResolvedCarrier[]>;
@@ -77,36 +79,70 @@ const loadPickupLocations = async (carrier: UseResolvedCarrier, latLng?: LatLng)
 
   const locations = toValue(query.data) ?? [];
 
-  if (!latLng && !locations.length) {
-    // Delete the pickup delivery type if there are no pickup locations to hide pickup after a failed request
-    carrier.disabledDeliveryTypes.value.add(DeliveryTypeName.Pickup);
+  if (!locations.length) {
     return [];
   }
 
   return locations.map((location) => formatPickupLocation(carrier, location as PickupLocation));
 };
 
+const getResolvedValue = (key: string, carrierIdentifier?: CarrierIdentifier) => {
+  const {state: config} = useConfigStore();
+  const generalValue = config[key as keyof typeof config];
+
+  if (!carrierIdentifier) {
+    return generalValue;
+  }
+
+  const carrierValue = config.carrierSettings?.[carrierIdentifier]?.[key as keyof typeof config.carrierSettings];
+
+  return carrierValue ?? generalValue;
+};
+
 // eslint-disable-next-line max-lines-per-function
 const callback = (): UseResolvedPickupLocations => {
-  const carriers = useActiveCarriers();
   const latLng = ref<LatLng>(undefined);
 
   const allLocations = ref<ResolvedPickupLocation[]>([]);
   const {state: config} = useConfigStore();
+  const {state: address} = useAddressStore();
 
-  const carriersWithPickup = computed(() =>
-    toValue(carriers).filter((carrier) => getHasPickupForPackage(carrier, config.packageType)),
-  );
+  /**
+   * Determine carriers with pickup directly from capabilities + config.
+   * This avoids relying on the deep reactive chain through useActiveCarriers → hasPickup.
+   */
+  const carriersWithPickup = computed((): UseResolvedCarrier[] => {
+    const capPackageType = mapPackageTypeToCapability(config.packageType);
+    const capabilities = useCapabilities(config.apiBaseUrl, address.cc, capPackageType);
+    const configCarriers = Object.keys(config.carrierSettings ?? {}) as CarrierIdentifier[];
+
+    return configCarriers
+      .filter((identifier) => {
+        const carrierPart = identifier.split(':')[0] ?? identifier;
+        const normalized = normalizeCarrierName(carrierPart);
+        const capability = capabilities.getCarrierCapability(normalized);
+
+        if (!capability) {
+          return false;
+        }
+
+        const hasPickupInCapabilities = capability.deliveryTypes.includes('PICKUP_DELIVERY');
+        const allowPickup = Boolean(getResolvedValue(CarrierSetting.AllowPickupLocations, identifier));
+
+        return hasPickupInCapabilities && allowPickup;
+      })
+      .map((identifier) => getResolvedCarrier(identifier, address.cc, config.apiBaseUrl, capPackageType));
+  });
 
   const currentLocations = computedAsync<ResolvedPickupLocation[]>(async () => {
     const requests = toValue(carriersWithPickup)
       // When using latLng, only load more locations for carriers that allow it
-      .filter((carrier) => {
+      .filter(() => {
         if (!toValue(latLng)) {
           return true;
         }
 
-        return toValue(carrier.features).has(ConfigSetting.PickupMapAllowLoadMore);
+        return config[ConfigSetting.PickupMapAllowLoadMore] !== false;
       })
       .map((carrier) => loadPickupLocations(carrier, latLng.value));
 

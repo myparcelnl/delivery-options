@@ -1,13 +1,5 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`useShipmentOptionsOptions > should show only the configured options for package type 'digital_stamp' with carrier 'dhlforyou' 1`] = `[]`;
-
-exports[`useShipmentOptionsOptions > should show only the configured options for package type 'digital_stamp' with carrier 'postnl' 1`] = `[]`;
-
-exports[`useShipmentOptionsOptions > should show only the configured options for package type 'mailbox' with carrier 'dhlforyou' 1`] = `[]`;
-
-exports[`useShipmentOptionsOptions > should show only the configured options for package type 'mailbox' with carrier 'postnl' 1`] = `[]`;
-
 exports[`useShipmentOptionsOptions > should show only the configured options for package type 'package' with carrier 'dhlforyou' 1`] = `
 [
   {
@@ -28,27 +20,6 @@ exports[`useShipmentOptionsOptions > should show only the configured options for
 `;
 
 exports[`useShipmentOptionsOptions > should show only the configured options for package type 'package' with carrier 'postnl' 1`] = `
-[
-  {
-    "disabled": true,
-    "label": "signatureTitle",
-    "price": 0,
-    "selected": true,
-    "value": "signature",
-  },
-  {
-    "disabled": true,
-    "label": "onlyRecipientTitle",
-    "price": 0,
-    "selected": true,
-    "value": "only_recipient",
-  },
-]
-`;
-
-exports[`useShipmentOptionsOptions > should show only the configured options for package type 'package_small' with carrier 'dhlforyou' 1`] = `[]`;
-
-exports[`useShipmentOptionsOptions > should show only the configured options for package type 'package_small' with carrier 'postnl' 1`] = `
 [
   {
     "disabled": true,

@@ -68,6 +68,7 @@ export const useDateFormat = (date: MaybeRef<DateLike>): FormattedDateInstance =
   const relativeWeekday = computed(() => {
     const format = createDateFormatter(toValue(locale), {weekday: FORMAT_LONG});
 
+    // eslint-disable-next-line @typescript-eslint/no-magic-numbers
     if (isBefore(resolvedDate.value, addDays(Date.now(), 2))) {
       return capitalize(relative.value);
     }

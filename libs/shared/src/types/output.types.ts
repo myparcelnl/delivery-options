@@ -68,4 +68,4 @@ export type InternalOutput = {
   pickupLocation?: string;
 };
 
-export type InternalOutputWithPickupLocation = Replace<InternalOutput, 'pickupLocation', {}>;
+export type InternalOutputWithPickupLocation = Replace<InternalOutput, 'pickupLocation', Record<string, unknown>>;

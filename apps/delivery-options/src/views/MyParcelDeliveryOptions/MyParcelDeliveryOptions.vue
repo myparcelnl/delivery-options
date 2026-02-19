@@ -46,7 +46,7 @@ const wrapper = ref<HTMLFormElement>();
 
 const {hasExceptions} = useApiExceptions();
 
-const ready = computed(() => Boolean(config.platform && address.cc));
+const ready = computed(() => Boolean(address.cc));
 
 const show = ref(true);
 

@@ -26,7 +26,7 @@ export const createGetDeliveryOptionsParameters = (
 
   const resolvedPackageType = calculatePackageType(resolvedCarrier);
 
-  const parameters = shake({
+  return shake({
     platform: config.platform ?? PlatformName.MyParcel,
     carrier: resolveCarrierName(carrier.value.identifier),
     package_type: resolvedPackageType,
@@ -51,12 +51,4 @@ export const createGetDeliveryOptionsParameters = (
 
     ...additionalParameters,
   } satisfies EndpointParameters<GetDeliveryOptions>);
-
-  return Object.fromEntries(
-    Object.entries(parameters).filter(([key]) => {
-      const config = toValue(resolvedCarrier.config);
-
-      return !config?.unsupportedParameters?.includes(key);
-    }),
-  ) as EndpointParameters<GetDeliveryOptions>;
 };

@@ -3,11 +3,9 @@ import {reactive} from 'vue';
 import {assign} from 'radash';
 import {
   getDefaultDeliveryOptionsConfig,
-  PLATFORM_DEFAULT,
   type DeliveryOptionsConfig,
   type ResolvedDeliveryOptionsConfig,
 } from '@myparcel-dev/do-shared';
-import {getDefaultConfigForPlatform} from '../config';
 
 const initialState = getDefaultDeliveryOptionsConfig();
 
@@ -15,8 +13,7 @@ const state = reactive<ResolvedDeliveryOptionsConfig>({...initialState});
 
 function update(configuration: DeliveryOptionsConfig, withDefaults = true): void {
   if (withDefaults) {
-    configuration.platform ??= PLATFORM_DEFAULT;
-    Object.assign(state, assign(getDefaultConfigForPlatform(configuration.platform), configuration));
+    Object.assign(state, assign(getDefaultDeliveryOptionsConfig(), configuration));
   } else {
     Object.assign(state, configuration);
   }

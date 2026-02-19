@@ -4,5 +4,6 @@ import {type SdkMock} from '../types';
 import {fakeCarriersResponse} from './fakeCarriersResponse';
 
 export const mockGetCarrier = vi.fn((endpoint, options) => {
+  void endpoint;
   return fakeCarriersResponse(options.path?.carrier) as [Carrier];
 }) satisfies SdkMock<GetCarrier>;

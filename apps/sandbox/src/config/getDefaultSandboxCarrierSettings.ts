@@ -3,15 +3,24 @@ import {
   type CarrierSettingsObject,
   getDefaultCarrierSettings,
   CarrierSetting,
-  SUPPORTED_PLATFORMS,
-  getPlatformConfig,
 } from '@myparcel-dev/do-shared';
+import {CarrierName} from '@myparcel-dev/constants';
 
 const numberBetween = (min: number, max: number): number => {
   const number = Math.random() * (max - min) + min;
 
   return Number(number.toFixed(2));
 };
+
+const SANDBOX_CARRIERS = [
+  CarrierName.PostNl,
+  CarrierName.DhlForYou,
+  CarrierName.DhlParcelConnect,
+  CarrierName.DhlEuroPlus,
+  CarrierName.UpsStandard,
+  CarrierName.UpsExpressSaver,
+  CarrierName.Dpd,
+] as string[];
 
 export const getDefaultSandboxCarrierSettings = (): CarrierSettingsObject => {
   const defaultCarrierSettings = getDefaultCarrierSettings();
@@ -20,12 +29,8 @@ export const getDefaultSandboxCarrierSettings = (): CarrierSettingsObject => {
   delete defaultCarrierSettings[CarrierSetting.DropOffDelay];
   delete defaultCarrierSettings[CarrierSetting.DeliveryDaysWindow];
 
-  const allSupportedCarriers = SUPPORTED_PLATFORMS.map((platform) => getPlatformConfig(platform).carriers)
-    .flat()
-    .map((carrier) => carrier.name);
-
   return Object.fromEntries(
-    allSupportedCarriers.map((carrier) => [
+    SANDBOX_CARRIERS.map((carrier) => [
       carrier,
       {
         ...defaultCarrierSettings,

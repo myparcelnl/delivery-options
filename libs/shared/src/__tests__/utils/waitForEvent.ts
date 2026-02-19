@@ -3,9 +3,9 @@ export const waitForEvent = <Res = unknown>(
   subject: HTMLElement | Document = document,
 ): Promise<Res> => {
   return new Promise((resolve) => {
-    const listener = (e: Event | CustomEvent<Res>) => {
+    const listener = (event: Event | CustomEvent<Res>) => {
       subject.removeEventListener(eventName, listener);
-      resolve(e instanceof CustomEvent ? e.detail : undefined);
+      resolve(event instanceof CustomEvent ? event.detail : undefined);
     };
 
     subject.addEventListener(eventName, listener);

@@ -4,12 +4,12 @@ import {
   AddressField,
   type DeliveryOptionsConfiguration,
   type InputDeliveryOptionsConfiguration,
+  getDefaultDeliveryOptionsConfig,
   KEY_ADDRESS,
   KEY_CONFIG,
   KEY_STRINGS,
 } from '@myparcel-dev/do-shared';
-import {PlatformName} from '@myparcel-dev/constants';
-import {getDefaultConfigForPlatform, getDefaultStrings, validateConfiguration} from '../../config';
+import {getDefaultStrings, validateConfiguration} from '../../config';
 
 export const getMockDeliveryOptionsConfiguration = (
   input: RecursivePartial<InputDeliveryOptionsConfiguration> = {},
@@ -23,7 +23,7 @@ export const getMockDeliveryOptionsConfiguration = (
           [AddressField.PostalCode]: '2132 JE',
           [AddressField.City]: 'Hoofddorp',
         },
-        [KEY_CONFIG]: getDefaultConfigForPlatform(input.config?.platform ?? PlatformName.MyParcel),
+        [KEY_CONFIG]: getDefaultDeliveryOptionsConfig(),
         [KEY_STRINGS]: getDefaultStrings(),
       },
       input as InputDeliveryOptionsConfiguration,
