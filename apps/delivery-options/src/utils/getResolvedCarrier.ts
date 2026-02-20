@@ -10,7 +10,8 @@ import {
   CarrierSetting,
   type ConfigKey,
 } from '@myparcel-dev/do-shared';
-import {DeliveryTypeName} from '@myparcel-dev/constants';
+import {DeliveryTypeName, ShipmentOptionName} from '@myparcel-dev/constants';
+import {NETHERLANDS} from '@myparcel-dev/constants/countries';
 import {useAddressStore} from '../stores';
 import {type UseResolvedCarrier} from '../composables';
 import {getResolvedValue} from './getResolvedValue';
@@ -59,7 +60,16 @@ export const getResolvedCarrier = (
   const shipmentOptionsPerPackageType = computed(() => {
     return Object.fromEntries(
       Object.entries(toValue(carrier.shipmentOptionsPerPackageType)).map(([packageType, options]) => {
-        return [packageType, filterSet(options, (option) => resolveOption(option, carrierIdentifier))];
+        return [
+          packageType,
+          filterSet(options, (option) => {
+            if (option === ShipmentOptionName.PriorityDelivery && address.cc !== NETHERLANDS) {
+              return false;
+            }
+
+            return resolveOption(option, carrierIdentifier);
+          }),
+        ];
       }),
     );
   });

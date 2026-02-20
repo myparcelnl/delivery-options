@@ -3,9 +3,12 @@ import {describe, it, expect, beforeEach} from 'vitest';
 import {normalizeDate} from '@vueuse/core';
 import {mockGetDeliveryOptions, getShipmentOptions} from '@myparcel-dev/do-shared/testing';
 import {
+  AddressField,
   CarrierSetting,
+  ConfigSetting,
   createTimestamp,
   DEFAULT_PLATFORM,
+  KEY_ADDRESS,
   KEY_CARRIER_SETTINGS,
   KEY_CONFIG,
   type SupportedPackageTypeName,
@@ -96,4 +99,54 @@ describe('useShipmentOptionsOptions', () => {
       expect(toValue(result)).toMatchSnapshot();
     },
   );
+
+  it('hides priority delivery outside NL even if API returns it', async () => {
+    const date = normalizeDate('2022-01-01T15:00:00');
+
+    mockGetDeliveryOptions.mockReturnValue(
+      Promise.resolve([
+        {
+          carrier: CarrierName.PostNl,
+          date: createTimestamp(date),
+          possibilities: [
+            createDeliveryPossibility(date, {
+              package_type: PackageTypeName.Mailbox,
+              shipment_options: getShipmentOptions([ShipmentOptionName.PriorityDelivery]),
+            }),
+          ],
+        },
+      ]),
+    );
+
+    mockDeliveryOptionsConfig(
+      getMockDeliveryOptionsConfiguration({
+        [KEY_ADDRESS]: {
+          [AddressField.Country]: 'BE',
+        },
+        [KEY_CONFIG]: {
+          [ConfigSetting.ShowDeliveryDate]: true,
+          [CarrierSetting.AllowDeliveryOptions]: true,
+          [CarrierSetting.AllowStandardDelivery]: true,
+          [CarrierSetting.AllowPriorityDelivery]: true,
+          [CarrierSetting.PackageType]: PackageTypeName.Mailbox,
+          [KEY_CARRIER_SETTINGS]: {
+            [CarrierName.PostNl]: {
+              [CarrierSetting.AllowPriorityDelivery]: true,
+            },
+          },
+        },
+      }),
+    );
+    useResolvedDeliveryOptions.clear();
+
+    await waitForDeliveryOptions(CarrierName.PostNl);
+
+    const moments = useResolvedDeliveryOptions();
+    const momentsForCarrier = moments.value.filter(({carrier}) => carrier === CarrierName.PostNl);
+    useSelectedValues().deliveryMoment.value = JSON.stringify(momentsForCarrier?.[0]);
+
+    const result = useShipmentOptionsOptions();
+
+    expect(toValue(result)).toEqual([]);
+  });
 });
