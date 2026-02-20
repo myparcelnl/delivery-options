@@ -2,7 +2,7 @@ import {type CapabilitiesRequest, type CapabilitiesResponse, type RequestHandler
 import {useRequest} from './useRequest';
 
 const REQUEST_KEY_CAPABILITIES = 'capabilities';
-const CAPABILITIES_BEARER_TOKEN = 'YWY2MjFlM2YzNWEwYzdkODY1ZTA5ZWJjMzYxMTliMzQ5ZGRmNzRlYw==';
+const CAPABILITIES_BEARER_TOKEN = 'fore-testing-purposes-only-already-rotated';
 
 export const useCapabilitiesRequest = (
   apiBaseUrl: string,
