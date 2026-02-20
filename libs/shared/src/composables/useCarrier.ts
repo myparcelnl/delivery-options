@@ -4,43 +4,41 @@ import {type ShipmentOptionName} from '@myparcel-dev/constants';
 import {
   resolveCarrierName,
   waitForRequestData,
-  getCarrierConfiguration,
   getConfigKey,
   getPackageTypePriceKey,
   type ComputedAsync,
   computedAsync,
+  mapCapabilityDeliveryType,
+  mapCapabilityPackageType,
+  mapCapabilityOption,
+  mapCapabilityOptionToCustomDeliveryType,
 } from '../utils';
 import {
   type CarrierIdentifier,
-  type SupportedPlatformName,
   type SupportedPackageTypeName,
   type SupportedDeliveryTypeName,
   type SupportedShipmentOptionName,
-  type CarrierConfiguration,
   type CarrierWithIdentifier,
   type ConfigKey,
+  type CarrierCapability,
 } from '../types';
+import {useCapabilities} from './useCapabilities';
 import {useCarrierFromCache} from './sdk';
 
 interface UseCarrierOptions {
   carrierIdentifier: MaybeRef<CarrierIdentifier | undefined>;
-  platformName: MaybeRef<SupportedPlatformName>;
+  apiBaseUrl: string;
+  countryCode: string;
+  packageType?: string;
 }
 
 export interface UseCarrier {
   carrier: ComputedAsync<CarrierWithIdentifier>;
-  config: ComputedRef<CarrierConfiguration | undefined>;
-  deliveryCountries: ComputedRef<Set<string>>;
+  capability: ComputedRef<CarrierCapability | undefined>;
   deliveryTypes: ComputedRef<Set<SupportedDeliveryTypeName>>;
-  fakeDelivery: ComputedRef<boolean>;
-  fakeDeliveryBlacklist: ComputedRef<Set<string>>;
   features: ComputedRef<Set<string>>;
   packageTypes: ComputedRef<Set<SupportedPackageTypeName>>;
-  pickupCountries: ComputedRef<Set<string>>;
-  shipmentOptionsPerPackageType: ComputedRef<
-    Partial<Record<SupportedPackageTypeName, Set<SupportedShipmentOptionName>>>
-  >;
-  smallPackagePickupCountries: ComputedRef<Set<string>>;
+  shipmentOptions: ComputedRef<Set<SupportedShipmentOptionName>>;
 }
 
 // eslint-disable-next-line max-lines-per-function
@@ -74,80 +72,89 @@ export const useCarrier = useMemoize((options: UseCarrierOptions): UseCarrier =>
     {immediate: true},
   );
 
-  const config = computed(() => {
-    if (!carrierName.value) return undefined;
+  const capabilities = useCapabilities(options.apiBaseUrl, options.countryCode, options.packageType);
 
-    try {
-      return getCarrierConfiguration(carrierName.value, toValue(options.platformName));
-    } catch {
-      // Intentional fallthrough
-      return null;
+  const capability = computed(() => {
+    if (!carrierName.value) {
+      return undefined;
     }
+
+    return capabilities.getCarrierCapability(carrierName.value);
   });
 
-  const fakeDelivery = computed(() => Boolean(config.value?.fakeDelivery));
-  const fakeDeliveryBlacklist = computed(() => new Set(config.value?.fakeDeliveryBlacklist ?? []));
+  const deliveryTypes = computed(() => {
+    const cap = capability.value;
 
-  const pickupCountries = computed(() => new Set(config.value?.pickupCountries ?? []));
-  const deliveryCountries = computed(() => new Set(config.value?.deliveryCountries ?? []));
-  const packageTypes = computed(() => new Set(config.value?.packageTypes ?? []));
-  const deliveryTypes = computed(() => new Set(config.value?.deliveryTypes ?? []));
-  const shipmentOptionsPerPackageType = computed(() => {
-    // For each package type, convert the array of shipment options to a set
-    return Object.entries(config.value?.shipmentOptionsPerPackageType ?? {}).reduce((acc, [key, options]) => {
-      acc[key as SupportedPackageTypeName] = new Set(options);
-      return acc;
-    }, {} as Partial<Record<SupportedPackageTypeName, Set<SupportedShipmentOptionName>>>);
-  });
+    if (!cap) {
+      return new Set<SupportedDeliveryTypeName>();
+    }
 
-  const features = computed(() => {
-    // Combine all the shipment option names from `shipmentOptionsPerPackageType` into a single array
-    const shipmentOptionSets = Object.values(shipmentOptionsPerPackageType.value);
-    const allShipmentOptions: ShipmentOptionName[] = [];
-    for (const shipmentOptionSet of shipmentOptionSets) {
-      // Inject only those items that are not already in the array
-      const newOptions = [...shipmentOptionSet].filter((item) => !allShipmentOptions.includes(item));
+    const mapped = cap.deliveryTypes
+      .map(mapCapabilityDeliveryType)
+      .filter((dt): dt is SupportedDeliveryTypeName => dt !== undefined);
 
-      if (newOptions.length) {
-        allShipmentOptions.push(...newOptions);
+    // Also add custom delivery types from options (sameDayDelivery, mondayDelivery, saturdayDelivery)
+    for (const optionName of Object.keys(cap.options)) {
+      const customType = mapCapabilityOptionToCustomDeliveryType(optionName);
+
+      if (customType) {
+        mapped.push(customType);
       }
     }
 
-    // Map the options their corresponding config keys, skipping undefined one (as proposition may include as of yet unsupported options)
+    return new Set(mapped);
+  });
+
+  const packageTypes = computed(() => {
+    const cap = capability.value;
+
+    if (!cap) {
+      return new Set<SupportedPackageTypeName>();
+    }
+
+    const mapped = cap.packageTypes
+      .map(mapCapabilityPackageType)
+      .filter((pt): pt is SupportedPackageTypeName => pt !== undefined);
+
+    return new Set(mapped);
+  });
+
+  const shipmentOptions = computed(() => {
+    const cap = capability.value;
+
+    if (!cap) {
+      return new Set<SupportedShipmentOptionName>();
+    }
+
+    const mapped = Object.keys(cap.options)
+      .map(mapCapabilityOption)
+      .filter((opt): opt is SupportedShipmentOptionName => opt !== undefined);
+
+    return new Set(mapped);
+  });
+
+  const features = computed(() => {
     const getConfigKeyWithoutError = (option: string): ConfigKey | null => {
       try {
         return getConfigKey(option as SupportedDeliveryTypeName | ShipmentOptionName);
-      } catch (e) {
-        console.warn('excluded feature due to error.', e);
+      } catch {
         return null;
       }
     };
 
     return new Set([
-      ...(config.value?.features ?? []),
       ...[...packageTypes.value].map(getPackageTypePriceKey),
-      ...[...deliveryTypes.value, ...allShipmentOptions].map(getConfigKeyWithoutError).filter((key) => key !== null),
+      ...[...deliveryTypes.value, ...shipmentOptions.value].map(getConfigKeyWithoutError).filter((key) => key !== null),
     ]);
   });
-
-  const smallPackagePickupCountries = computed(() => new Set(config.value?.smallPackagePickupCountries ?? []));
 
   return {
     // @ts-expect-error todo
     carrier: apiCarrier,
-
-    config,
-
-    fakeDelivery,
-    fakeDeliveryBlacklist,
-
-    pickupCountries,
-    deliveryCountries,
-    packageTypes,
+    capability,
     deliveryTypes,
-    shipmentOptionsPerPackageType,
-    smallPackagePickupCountries,
-
+    packageTypes,
+    shipmentOptions,
     features,
   };
 });

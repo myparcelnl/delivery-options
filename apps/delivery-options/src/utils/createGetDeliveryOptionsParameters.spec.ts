@@ -1,5 +1,6 @@
 import {beforeEach, describe, expect, it, vi, afterEach} from 'vitest';
 import {assign} from 'radash';
+import {flushPromises} from '@vue/test-utils';
 import {type EndpointParameters, type GetDeliveryOptions} from '@myparcel-dev/sdk';
 import {
   type CarrierIdentifier,
@@ -14,11 +15,13 @@ import {getMockDeliveryOptionsConfiguration, mockDeliveryOptionsConfig} from '..
 import {getResolvedCarrier} from './getResolvedCarrier';
 import {createGetDeliveryOptionsParameters} from './createGetDeliveryOptionsParameters';
 
+const DEFAULT_COUNTRY = 'NL';
+const DEFAULT_API_BASE_URL = 'https://api.myparcel.nl';
+
 interface TestInput {
   carrier: CarrierIdentifier;
   config: Partial<InputCarrierSettings>;
   output: Partial<EndpointParameters<GetDeliveryOptions>>;
-  platform: PlatformName;
 }
 
 describe('createGetDeliveryOptionsParameters', () => {
@@ -32,7 +35,6 @@ describe('createGetDeliveryOptionsParameters', () => {
 
   it.each([
     {
-      platform: PlatformName.MyParcel,
       carrier: CarrierName.PostNl,
       config: {
         [CarrierSetting.AllowMondayDelivery]: true,
@@ -43,7 +45,6 @@ describe('createGetDeliveryOptionsParameters', () => {
         [CarrierSetting.PackageType]: PackageTypeName.Mailbox,
       },
       output: {
-        platform: PlatformName.MyParcel,
         carrier: CarrierName.PostNl,
         package_type: PackageTypeName.Mailbox,
         cutoff_time: '13:00',
@@ -55,7 +56,6 @@ describe('createGetDeliveryOptionsParameters', () => {
       },
     },
     {
-      platform: PlatformName.MyParcel,
       carrier: CarrierName.DhlForYou,
       config: {
         [CarrierSetting.AllowSameDayDelivery]: true,
@@ -67,7 +67,6 @@ describe('createGetDeliveryOptionsParameters', () => {
         [CarrierSetting.PackageType]: PackageTypeName.DigitalStamp,
       },
       output: {
-        platform: PlatformName.MyParcel,
         carrier: CarrierName.DhlForYou,
         package_type: PackageTypeName.Package,
         cutoff_time: '12:30',
@@ -78,37 +77,36 @@ describe('createGetDeliveryOptionsParameters', () => {
         include: 'shipment_options',
       },
     },
-
-    // TODO: remove this once the dpd workaround is removed
     {
-      platform: PlatformName.MyParcel,
       carrier: CarrierName.Dpd,
       config: {},
       output: {
-        // Expect package_type to be removed
         carrier: CarrierName.Dpd,
+        package_type: PackageTypeName.Package,
         cutoff_time: '16:00',
         deliverydays_window: 7,
         dropoff_days: '1;2;3;4;5',
         dropoff_delay: 1,
         include: 'shipment_options',
-        platform: PlatformName.MyParcel,
       },
     },
-  ] satisfies TestInput[])('returns the correct parameters', async ({carrier, platform, config, output}) => {
+  ] satisfies TestInput[])('returns the correct parameters', async ({carrier, config, output}) => {
     expect.assertions(1);
     vi.setSystemTime('2021-06-01T10:00:00');
 
-    const configuration = mockDeliveryOptionsConfig(
-      getMockDeliveryOptionsConfiguration({[KEY_CONFIG]: {platform, [KEY_CARRIER_SETTINGS]: {[carrier]: {...config}}}}),
+    mockDeliveryOptionsConfig(
+      getMockDeliveryOptionsConfiguration({[KEY_CONFIG]: {[KEY_CARRIER_SETTINGS]: {[carrier]: {...config}}}}),
     );
 
-    const resolvedCarrier = await getResolvedCarrier(carrier, configuration.config.platform);
+    const resolvedCarrier = getResolvedCarrier(carrier, DEFAULT_COUNTRY, DEFAULT_API_BASE_URL);
+
+    await flushPromises();
+
     const parameters = createGetDeliveryOptionsParameters(resolvedCarrier);
 
     expect(parameters).toEqual(
       assign<Partial<EndpointParameters<GetDeliveryOptions>>>(
-        {cc: 'NL', city: 'Hoofddorp', postal_code: '2132 JE', street: 'Antareslaan 31'},
+        {platform: PlatformName.MyParcel, cc: 'NL', city: 'Hoofddorp', postal_code: '2132 JE', street: 'Antareslaan 31'},
         output,
       ),
     );

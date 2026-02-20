@@ -1,4 +1,5 @@
 export * from './address.types';
+export * from './capabilities.types';
 export * from './carriers.types';
 export * from './common.types';
 export * from './config.types';

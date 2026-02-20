@@ -25,7 +25,7 @@ export const useShipmentOptionsOptions = (): ComputedRef<SelectOption[]> => {
   const deliveryMoment = useSelectedDeliveryMoment();
 
   return computed(() => {
-    const {carrier, shipmentOptionsPerPackageType} = useResolvedCarrier(deliveryMoment.value?.carrier);
+    const {carrier, shipmentOptions} = useResolvedCarrier(deliveryMoment.value?.carrier);
 
     if (deliveryOptions.loading.value || !carrier.value) {
       return [];
@@ -35,21 +35,15 @@ export const useShipmentOptionsOptions = (): ComputedRef<SelectOption[]> => {
 
     return availableShipmentOptions.value
       .filter((option) => {
-        // TODO: create test coverage for this logic
-        const selectedPackageType = toValue(deliveryMoment)?.packageType;
-        const optionsForPackageType = selectedPackageType
-          ? toValue(shipmentOptionsPerPackageType)[selectedPackageType]
-          : undefined;
+        const carrierShipmentOptions = toValue(shipmentOptions);
 
-        // If there are no delivery moments (eg. fake delivery), show all available options for the package type
+        // If there are no delivery moments, show all available options from capabilities
         if (!momentShipmentOptions?.length) {
-          return optionsForPackageType ? optionsForPackageType.has(option) : false;
+          return carrierShipmentOptions.has(option);
         }
 
-        // Otherwise, only show options that are available for the package type AND in the delivery moments in the API response
-        return optionsForPackageType
-          ? optionsForPackageType.has(option) && momentShipmentOptions?.some(({name}) => name === option)
-          : false;
+        // Otherwise, only show options that are in capabilities AND in the API response
+        return carrierShipmentOptions.has(option) && momentShipmentOptions?.some(({name}) => name === option);
       })
       .map((name) => {
         const match = momentShipmentOptions?.find((option) => option.name === name);

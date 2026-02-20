@@ -23,7 +23,11 @@ export const getNextDeliveryOption = async (
 ): Promise<FakeDeliveryOption> => {
   const currentDeliveryDate = addDays(new Date(currentDate), daysOffset);
 
-  const carrierInstance = useCarrier({carrierIdentifier: args.carrier, platformName: args.platform});
+  const carrierInstance = useCarrier({
+    carrierIdentifier: args.carrier,
+    apiBaseUrl: 'https://api.myparcel.nl',
+    countryCode: 'NL',
+  });
 
   const canHaveSameDay = carrierInstance.features.value.has(CarrierSetting.AllowSameDayDelivery);
   const hasSameDayDelivery = daysOffset === 0 && canHaveSameDay;

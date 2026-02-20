@@ -1,6 +1,6 @@
 import {describe, it, expect, beforeEach, vi} from 'vitest';
 import {type AnyTranslatable} from '@myparcel-dev/do-shared';
-import {useAddressStore, useConfigStore} from '../stores';
+import {useConfigStore} from '../stores';
 import {useLanguage} from './useLanguage';
 
 describe('useLanguage', () => {

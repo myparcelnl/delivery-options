@@ -23,7 +23,7 @@ describe('useDeliveryOptionsOutgoingEvents', () => {
   const dispatchEventSpy = vi.spyOn(global.document, 'dispatchEvent');
   const emitSpy = vi.fn();
 
-  const renderComponent = async (): Promise<RenderResult> => {
+  const renderComponent = (): RenderResult => {
     return render(
       defineComponent({
         render: () => null,
@@ -44,7 +44,7 @@ describe('useDeliveryOptionsOutgoingEvents', () => {
     [FIELD_DELIVERY_MOMENT]: {date: '2023-01-02 16:00:00', time: '16:00'},
   });
 
-  beforeEach(async () => {
+  beforeEach(() => {
     vi.useFakeTimers();
     useConfigStore().reset();
     dispatchEventSpy.mockImplementation(() => true);
@@ -58,7 +58,7 @@ describe('useDeliveryOptionsOutgoingEvents', () => {
   it('should emit an event with the values', async () => {
     expect.assertions(7);
 
-    await renderComponent();
+    renderComponent();
     mockSelectedDeliveryOptions(DEFAULT_VALUES);
     await flush();
 
@@ -85,7 +85,7 @@ describe('useDeliveryOptionsOutgoingEvents', () => {
   it('should only emit an event if the new values are different', async () => {
     expect.assertions(2);
 
-    await renderComponent();
+    renderComponent();
 
     mockSelectedDeliveryOptions(DEFAULT_VALUES);
     await flush();
@@ -100,7 +100,7 @@ describe('useDeliveryOptionsOutgoingEvents', () => {
   it('should emit another event if the values are different', async () => {
     expect.assertions(2);
 
-    await renderComponent();
+    renderComponent();
 
     mockSelectedDeliveryOptions(DEFAULT_VALUES);
     await flush();
@@ -115,7 +115,7 @@ describe('useDeliveryOptionsOutgoingEvents', () => {
   it('debounces the emit', async () => {
     expect.assertions(2);
 
-    await renderComponent();
+    renderComponent();
 
     mockSelectedDeliveryOptions(DEFAULT_VALUES);
     mockSelectedDeliveryOptions(DIFFERENT_VALUES);
@@ -128,7 +128,7 @@ describe('useDeliveryOptionsOutgoingEvents', () => {
   it('does nothing if no delivery options are selected', async () => {
     expect.assertions(2);
 
-    await renderComponent();
+    renderComponent();
 
     // Not calling mockSelectedDeliveryOptions
     await flush();
@@ -140,7 +140,7 @@ describe('useDeliveryOptionsOutgoingEvents', () => {
   it('removes the listener on unmount', async () => {
     expect.assertions(2);
 
-    const {unmount} = await renderComponent();
+    const {unmount} = renderComponent();
 
     unmount();
 
@@ -154,7 +154,7 @@ describe('useDeliveryOptionsOutgoingEvents', () => {
   it('should dispatch an error event when a new exception is received', async () => {
     expect.assertions(4);
 
-    await renderComponent();
+    renderComponent();
 
     // Use the same helper as in shared tests to create an ApiException
     const createException = (code = 123, message = 'Test error') =>

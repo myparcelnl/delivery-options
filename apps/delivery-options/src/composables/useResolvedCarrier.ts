@@ -4,46 +4,36 @@ import {
   type CarrierIdentifier,
   type ComputedAsync,
   type CarrierWithIdentifier,
-  type CarrierConfiguration,
+  type CarrierCapability,
   type SupportedDeliveryTypeName,
   type SupportedPackageTypeName,
   type SupportedShipmentOptionName,
   type ConfigKey,
   type CarrierSettingsKey,
-  type DeliveryOptionsConfig,
-  type CarrierSettings,
+  mapPackageTypeToCapability,
 } from '@myparcel-dev/do-shared';
 import {getResolvedCarrier} from '../utils';
-import {useConfigStore} from '../stores';
+import {useAddressStore, useConfigStore} from '../stores';
 
 export type UseResolvedCarrier = {
   carrier: ComputedAsync<CarrierWithIdentifier>;
-  config: ComputedRef<CarrierConfiguration | undefined>;
-  pickupCountries: ComputedRef<Set<string>>;
-  deliveryCountries: ComputedRef<Set<string>>;
+  capability: ComputedRef<CarrierCapability | undefined>;
   deliveryTypes: ComputedRef<Set<SupportedDeliveryTypeName>>;
   disabledDeliveryTypes: Ref<Set<SupportedDeliveryTypeName>>;
   packageTypes: ComputedRef<Set<SupportedPackageTypeName>>;
-  shipmentOptionsPerPackageType: ComputedRef<
-    Partial<Record<SupportedPackageTypeName, Set<SupportedShipmentOptionName>>>
-  >;
+  shipmentOptions: ComputedRef<Set<SupportedShipmentOptionName>>;
   features: ComputedRef<Set<string>>;
   hasDelivery: ComputedRef<boolean>;
-  hasFakeDelivery: ComputedRef<boolean>;
   hasAnyDelivery: ComputedRef<boolean>;
   hasPickup: ComputedRef<boolean>;
-  hasSmallPackagePickup: ComputedRef<boolean>;
-  get<Key extends ConfigKey | CarrierSettingsKey>(
-    key: Key,
-    defaultValue?: NonNullable<Key extends ConfigKey ? DeliveryOptionsConfig[Key] : CarrierSettings[Key]>,
-  ): Key extends ConfigKey ? DeliveryOptionsConfig[Key] : CarrierSettings[Key];
-
-  options: ComputedRef<Record<string, any>>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  get(key: ConfigKey | CarrierSettingsKey, defaultValue?: any): any;
 };
 
 export const useResolvedCarrier = (carrierIdentifier: MaybeRef<CarrierIdentifier | undefined>): UseResolvedCarrier => {
   const {state: config} = useConfigStore();
+  const {state: address} = useAddressStore();
   const identifier = toValue(carrierIdentifier);
 
-  return getResolvedCarrier(identifier, config.platform);
+  return getResolvedCarrier(identifier, address.cc, config.apiBaseUrl, mapPackageTypeToCapability(config.packageType));
 };

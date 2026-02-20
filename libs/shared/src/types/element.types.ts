@@ -13,6 +13,7 @@ export type GlobalFieldProps = {
   value?: unknown;
 };
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export interface ElementInstance<Props extends Record<string, unknown> = Record<string, unknown>, Type = unknown> {
   name: string;
   props: Props & GlobalFieldProps;

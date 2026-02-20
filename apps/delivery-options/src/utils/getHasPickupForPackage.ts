@@ -1,18 +1,8 @@
 import {toValue} from 'vue';
-import {PACKAGE_TYPE_DEFAULT, PACKAGE_TYPE_SMALL} from '@myparcel-dev/do-shared';
 import {type PackageTypeName} from '@myparcel-dev/constants';
 import {type UseResolvedCarrier} from '../composables';
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const getHasPickupForPackage = (carrier: UseResolvedCarrier, packageTypeName: PackageTypeName): boolean => {
-  let hasPickup = false;
-
-  if (PACKAGE_TYPE_DEFAULT === packageTypeName) {
-    hasPickup = toValue(carrier.hasPickup);
-  }
-
-  if (PACKAGE_TYPE_SMALL === packageTypeName) {
-    hasPickup = toValue(carrier.hasSmallPackagePickup);
-  }
-
-  return hasPickup;
+  return toValue(carrier.hasPickup);
 };

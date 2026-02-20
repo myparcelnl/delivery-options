@@ -77,6 +77,7 @@ const applyDeprecatedShowDeliveryDate = (
   }
 };
 
+/* eslint-disable max-params */
 const normalizeDropOffDays = (
   resolvedConfig: DeliveryOptionsConfig | CarrierSettings,
   restConfig: InputDeliveryOptionsConfig | InputCarrierSettings,
@@ -84,6 +85,7 @@ const normalizeDropOffDays = (
   saturdayCutoffTime: string | undefined,
   logger: ReturnType<typeof useLogger>,
 ): void => {
+  /* eslint-enable max-params */
   if (isString(restConfig.dropOffDays)) {
     logger.deprecated(`Passing ${CarrierSetting.DropOffDays} as a string`, `an array`);
     resolvedConfig.dropOffDays = parseDropOffDays(restConfig.dropOffDays);
