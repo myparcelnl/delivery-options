@@ -1,6 +1,6 @@
 {
   "name": "@myparcel-dev/do-build-vite",
-  "version": "6.26.0",
+  "version": "6.26.1",
   "private": true,
   "repository": {
     "type": "git",

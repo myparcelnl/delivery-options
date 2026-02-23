@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel-dev/delivery-options-v6.26.1](https://github.com/myparcelnl/delivery-options/compare/v6.26.0...v6.26.1) (2026-02-23)
+
+### :bug: Bug Fixes
+
+* priority delivery should only be available in NL ([#394](https://github.com/myparcelnl/delivery-options/issues/394)) ([6981b26](https://github.com/myparcelnl/delivery-options/commit/6981b2611afa20e1bfcd53bf8ce9d5d44844d7b5))
+
 ## [@myparcel-dev/delivery-options-v6.26.0](https://github.com/myparcelnl/delivery-options/compare/v6.25.0...v6.26.0) (2026-02-10)
 
 ### :sparkles: New Features
