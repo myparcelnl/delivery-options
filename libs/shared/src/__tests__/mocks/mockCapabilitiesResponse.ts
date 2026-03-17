@@ -99,6 +99,32 @@ export const MOCK_CAPABILITIES_RESPONSE: CapabilitiesResponse = {
 const SUPPORTED_COUNTRIES = ['NL', 'BE'];
 
 /**
+ * Filters capabilities to remove country-specific options.
+ * Priority delivery is only available in the Netherlands.
+ */
+const filterCapabilitiesByCountry = (
+  capabilities: CarrierCapability[],
+  countryCode: string,
+): CarrierCapability[] => {
+  if (countryCode === 'NL') {
+    return capabilities; // Netherlands gets all options
+  }
+
+  // For non-NL countries, filter out priorityDelivery
+  return capabilities.map((carrier) => {
+    if (carrier.carrier !== 'POSTNL') {
+      return carrier; // Only POSTNL has priority delivery
+    }
+
+    const {priorityDelivery, ...otherOptions} = carrier.options;
+    return {
+      ...carrier,
+      options: otherOptions,
+    };
+  });
+};
+
+/**
  * Mock function for global.fetch that returns capabilities data.
  * Returns capabilities for supported countries, empty results for others.
  * Can be overridden per-test by changing the return value.
@@ -106,9 +132,11 @@ const SUPPORTED_COUNTRIES = ['NL', 'BE'];
 export const mockCapabilitiesFetch = vi.fn((url: string, options?: RequestInit): Promise<Response> => {
   void url;
   const body = options?.body ? JSON.parse(options.body as string) : {};
-  const countryCode = body?.recipient?.countryCode;
+  const countryCode = body?.recipient?.countryCode || 'NL';
 
-  const results = SUPPORTED_COUNTRIES.includes(countryCode) ? MOCK_CAPABILITIES : [];
+  const results = SUPPORTED_COUNTRIES.includes(countryCode)
+    ? filterCapabilitiesByCountry(MOCK_CAPABILITIES, countryCode)
+    : [];
 
   return Promise.resolve({
     ok: true,

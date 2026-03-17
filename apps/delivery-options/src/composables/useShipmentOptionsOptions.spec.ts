@@ -100,7 +100,12 @@ describe('useShipmentOptionsOptions', () => {
           possibilities: [
             createDeliveryPossibility(date, {
               package_type: PackageTypeName.Mailbox,
-              shipment_options: getShipmentOptions([ShipmentOptionName.PriorityDelivery]),
+              shipment_options: [
+                {
+                  name: ShipmentOptionName.PriorityDelivery,
+                  schema: {type: 'boolean', enum: [true, false]},
+                },
+              ],
             }),
           ],
         },

@@ -177,10 +177,14 @@ describe('useResolvedValues', () => {
             [CarrierSetting.AllowPriorityDelivery]: true,
             [CarrierSetting.AllowOnlyRecipient]: false,
             [CarrierSetting.AllowSignature]: false,
+            [CarrierSetting.AllowDeliveryOptions]: true,
+            [CarrierSetting.AllowStandardDelivery]: true,
           },
         },
       },
     });
+
+    await Promise.all([useCarriersRequest().load(), waitForDeliveryOptions()]);
 
     mockSelectedDeliveryOptions(
       createInternalOutput({
