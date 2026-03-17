@@ -1,6 +1,6 @@
 import {computed, ref, watch, type Ref, type ComputedRef} from 'vue';
 import {useMemoize} from '@vueuse/core';
-import {normalizeCarrierName} from '../utils/capabilitiesMapping';
+import {normalizeCarrierName} from '../utils';
 import {type CarrierCapability, type CapabilitiesRequest, type CapabilitiesResponse} from '../types';
 import {useCapabilitiesRequest, useReactiveCapabilitiesRequest} from './sdk';
 

@@ -18,8 +18,7 @@ import {
   getPackageTypePriceKey,
 } from '@myparcel-dev/do-shared';
 import {type ShipmentOptionName, DeliveryTypeName} from '@myparcel-dev/constants';
-import {type UseResolvedCarrier} from '../composables/useResolvedCarrier';
-import {useBroadCapabilities} from '../composables/useBroadCapabilities';
+import {type UseResolvedCarrier, useBroadCapabilities} from '../composables';
 import {getResolvedValue} from './getResolvedValue';
 
 const DELIVERY_TYPES = [
@@ -149,7 +148,7 @@ export const getResolvedCarrier = useMemoize(
     // dependency on capabilities.value — avoids going through the deep computed chain
     // (capability → allDeliveryTypes → deliveryTypes) which can miss reactive updates.
     const hasDelivery = computed(() => {
-      if (!Boolean(getResolvedValue(CarrierSetting.AllowDeliveryOptions, carrierIdentifier))) {
+      if (!getResolvedValue(CarrierSetting.AllowDeliveryOptions, carrierIdentifier)) {
         return false;
       }
 

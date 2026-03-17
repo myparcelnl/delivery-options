@@ -1,7 +1,7 @@
-import {DeliveryTypeName, PackageTypeName, ShipmentOptionName} from '@myparcel-dev/constants';
 import type {SupportedDeliveryTypeName, SupportedPackageTypeName, SupportedShipmentOptionName} from '../types';
+import {DeliveryTypeName, PackageTypeName, ShipmentOptionName} from '@myparcel-dev/constants';
 // Import directly from enum source to avoid circular dependency through barrel.
-import {CarrierSetting, CustomDeliveryType} from '../data/enums';
+import {CarrierSetting, CustomDeliveryType} from '../data';
 
 /**
  * Normalize a carrier name by lowercasing and removing all underscores.
