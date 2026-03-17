@@ -11,15 +11,14 @@ import {
   CarrierSetting,
   addLoadingProperties,
   watchUntil,
-  useCapabilities,
   normalizeCarrierName,
-  mapPackageTypeToCapability,
   type CarrierIdentifier,
 } from '@myparcel-dev/do-shared';
 import {getResolvedCarrier, createLatLngParameters, createGetDeliveryOptionsParameters} from '../utils';
 import {type ResolvedPickupLocation, type LatLng} from '../types';
 import {useAddressStore, useConfigStore} from '../stores';
 import {type UseResolvedCarrier} from './useResolvedCarrier';
+import {useBroadCapabilities} from './useBroadCapabilities';
 
 interface UseResolvedPickupLocations {
   carriersWithPickup: ComputedRef<UseResolvedCarrier[]>;
@@ -111,9 +110,9 @@ const callback = (): UseResolvedPickupLocations => {
    * Determine carriers with pickup directly from capabilities + config.
    * This avoids relying on the deep reactive chain through useActiveCarriers → hasPickup.
    */
+  const capabilities = useBroadCapabilities();
+
   const carriersWithPickup = computed((): UseResolvedCarrier[] => {
-    const capPackageType = mapPackageTypeToCapability(config.packageType);
-    const capabilities = useCapabilities(config.apiBaseUrl, address.cc, capPackageType);
     const configCarriers = Object.keys(config.carrierSettings ?? {}) as CarrierIdentifier[];
 
     return configCarriers
@@ -131,7 +130,7 @@ const callback = (): UseResolvedPickupLocations => {
 
         return hasPickupInCapabilities && allowPickup;
       })
-      .map((identifier) => getResolvedCarrier(identifier, address.cc, config.apiBaseUrl, capPackageType));
+      .map((identifier) => getResolvedCarrier(identifier, address.cc, config.apiBaseUrl));
   });
 
   const currentLocations = computedAsync<ResolvedPickupLocation[]>(async () => {

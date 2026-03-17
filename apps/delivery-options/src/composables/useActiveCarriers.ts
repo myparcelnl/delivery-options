@@ -6,15 +6,14 @@ import {
   CarrierSetting,
   splitCarrierIdentifier,
   normalizeCarrierName,
-  mapPackageTypeToCapability,
   mapCapabilityDeliveryType,
-  useCapabilities,
   type SupportedDeliveryTypeName,
 } from '@myparcel-dev/do-shared';
 import {DeliveryTypeName} from '@myparcel-dev/constants';
 import {getResolvedCarrier, getResolvedValue} from '../utils';
 import {useAddressStore, useConfigStore} from '../stores';
 import {type UseResolvedCarrier} from './useResolvedCarrier';
+import {useBroadCapabilities} from './useBroadCapabilities';
 
 const DELIVERY_TYPES = [
   DeliveryTypeName.Standard,
@@ -36,9 +35,9 @@ export const useActiveCarriers = useMemoize((): ComputedRef<UseResolvedCarrier[]
   const {state: config} = useConfigStore();
   const {state: address} = useAddressStore();
 
+  const capabilities = useBroadCapabilities();
+
   return computed(() => {
-    const capPackageType = mapPackageTypeToCapability(config.packageType);
-    const capabilities = useCapabilities(config.apiBaseUrl, address.cc, capPackageType);
     const entries = Object.entries(config.carrierSettings) as [CarrierIdentifier, CarrierSettings][];
 
     const sortedCarrierSettings = entries
@@ -98,7 +97,7 @@ export const useActiveCarriers = useMemoize((): ComputedRef<UseResolvedCarrier[]
         return hasDelivery || hasPickup;
       })
       .map(([identifier]) => {
-        return getResolvedCarrier(identifier, address.cc, config.apiBaseUrl, capPackageType);
+        return getResolvedCarrier(identifier, address.cc, config.apiBaseUrl);
       });
   });
 });

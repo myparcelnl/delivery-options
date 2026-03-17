@@ -10,7 +10,6 @@ import {
   type ConfigSetting,
   CarrierSetting,
   type ConfigKey,
-  useCapabilities,
   normalizeCarrierName,
   mapCapabilityDeliveryType,
   mapCapabilityPackageType,
@@ -19,7 +18,8 @@ import {
   getPackageTypePriceKey,
 } from '@myparcel-dev/do-shared';
 import {type ShipmentOptionName, DeliveryTypeName} from '@myparcel-dev/constants';
-import {type UseResolvedCarrier} from '../composables';
+import {type UseResolvedCarrier} from '../composables/useResolvedCarrier';
+import {useBroadCapabilities} from '../composables/useBroadCapabilities';
 import {getResolvedValue} from './getResolvedValue';
 
 const DELIVERY_TYPES = [
@@ -61,18 +61,16 @@ export const getResolvedCarrier = useMemoize(
     carrierIdentifier: CarrierIdentifier | undefined,
     countryCode: string,
     apiBaseUrl: string,
-    packageType?: string,
+    _packageType?: string,
   ): UseResolvedCarrier => {
     const carrier = useCarrier({
       carrierIdentifier,
       apiBaseUrl,
       countryCode,
-      packageType,
     });
 
-    // Read capabilities directly for reliable reactivity — useCapabilities is memoized,
-    // so this returns the same instance used elsewhere.
-    const capabilities = useCapabilities(apiBaseUrl, countryCode, packageType);
+    // Use the singleton reactive capabilities instance.
+    const capabilities = useBroadCapabilities();
     const carrierPart = carrierIdentifier?.split(':')[0] ?? carrierIdentifier ?? '';
     const normalizedName = normalizeCarrierName(carrierPart);
 

@@ -1,5 +1,7 @@
 export * from './events';
 export * from './useActiveCarriers';
+export * from './useBroadCapabilities';
+export * from './useCapabilitiesRequestParams';
 export * from './useBreakpoints';
 export * from './useDateFormat';
 export * from './useFeatures';

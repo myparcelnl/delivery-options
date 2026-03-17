@@ -10,6 +10,7 @@ import {
   type TimestampString,
   DAY_FRIDAY,
   DROP_OFF_WEEKDAY,
+  AddressField,
 } from '@myparcel-dev/do-shared';
 import {CarrierName} from '@myparcel-dev/constants';
 import {useConfigStore, useAddressStore} from '../stores';
@@ -37,6 +38,13 @@ describe('calculateCutoffTime', () => {
     useConfigStore().reset();
     useAddressStore().reset();
     vi.setSystemTime(TUESDAY_08_00);
+
+    useAddressStore().update({
+      [AddressField.Country]: DEFAULT_COUNTRY,
+      [AddressField.City]: '',
+      [AddressField.Street]: '',
+      [AddressField.PostalCode]: '',
+    });
 
     mockDeliveryOptionsConfig({[KEY_CONFIG]: getDefaultCarrierSettings()});
   });

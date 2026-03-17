@@ -1,8 +1,8 @@
 import {computed, ref, watch, type Ref, type ComputedRef} from 'vue';
 import {useMemoize} from '@vueuse/core';
 import {normalizeCarrierName} from '../utils/capabilitiesMapping';
-import {type CarrierCapability, type CapabilitiesResponse} from '../types';
-import {useCapabilitiesRequest} from './sdk';
+import {type CarrierCapability, type CapabilitiesRequest, type CapabilitiesResponse} from '../types';
+import {useCapabilitiesRequest, useReactiveCapabilitiesRequest} from './sdk';
 
 export interface UseCapabilities {
   capabilities: Ref<CapabilitiesResponse>;
@@ -52,3 +52,38 @@ export const useCapabilities = useMemoize(
     };
   },
 );
+
+const createCapabilitiesInterface = (
+  capabilities: Ref<CapabilitiesResponse>,
+  loading: Ref<boolean> | ComputedRef<boolean>,
+): UseCapabilities => {
+  const getCarrierCapability = (carrierIdentifier: string): CarrierCapability | undefined => {
+    const normalized = normalizeCarrierName(carrierIdentifier);
+
+    return capabilities.value.results.find((cap) => normalizeCarrierName(cap.carrier) === normalized);
+  };
+
+  const availableCarrierNames = computed(() => {
+    return capabilities.value.results.map((cap) => normalizeCarrierName(cap.carrier));
+  });
+
+  return {
+    capabilities,
+    getCarrierCapability,
+    availableCarrierNames,
+    loading: computed(() => loading.value),
+  };
+};
+
+/**
+ * Reactive capabilities that re-fetch when the request ref changes.
+ * Not memoized — caller is responsible for managing the instance lifecycle.
+ */
+export const useReactiveCapabilities = (
+  apiBaseUrl: string,
+  requestRef: Ref<CapabilitiesRequest> | ComputedRef<CapabilitiesRequest>,
+): UseCapabilities => {
+  const {data, loading} = useReactiveCapabilitiesRequest(apiBaseUrl, requestRef);
+
+  return createCapabilitiesInterface(data, loading);
+};

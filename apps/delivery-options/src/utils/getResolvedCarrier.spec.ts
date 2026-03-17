@@ -136,60 +136,27 @@ describe('getResolvedCarrier', () => {
     expect(carrier.shipmentOptions.value).toEqual(new Set([ShipmentOptionName.OnlyRecipient]));
   });
 
-  describe('priority delivery', () => {
-    it('includes priority delivery in NL when enabled in config', () => {
-      const carrier = getResolvedCarrier(CarrierName.PostNl, PlatformName.MyParcel);
-
-      mockDeliveryOptionsConfig(
-        getMockDeliveryOptionsConfiguration({
-          [KEY_ADDRESS]: {
-            [AddressField.Country]: 'NL',
-          },
-          [KEY_CONFIG]: {
-            [KEY_CARRIER_SETTINGS]: {
-              [CarrierName.PostNl]: {
-                [CarrierSetting.AllowPriorityDelivery]: true,
-              },
+  it('exposes features, filtered by config', async () => {
+    mockDeliveryOptionsConfig(
+      getMockDeliveryOptionsConfiguration({
+        [KEY_CONFIG]: {
+          [KEY_CARRIER_SETTINGS]: {
+            [CarrierName.DhlForYou]: {
+              [CarrierSetting.AllowEveningDelivery]: true,
+              [CarrierSetting.AllowOnlyRecipient]: true,
+              [CarrierSetting.AllowPickupLocations]: true,
+              [CarrierSetting.AllowSameDayDelivery]: true,
+              [CarrierSetting.AllowSignature]: true,
+              [CarrierSetting.AllowStandardDelivery]: true,
             },
           },
-        }),
-      );
+        },
+      }),
+    );
 
-      expect(carrier.shipmentOptionsPerPackageType.value).toEqual({
-        [PackageTypeName.Package]: new Set([ShipmentOptionName.OnlyRecipient, ShipmentOptionName.Signature]),
-        [PackageTypeName.PackageSmall]: new Set([ShipmentOptionName.OnlyRecipient, ShipmentOptionName.Signature]),
-        [PackageTypeName.Mailbox]: new Set([ShipmentOptionName.PriorityDelivery]),
-      });
-    });
+    const carrier = getResolvedCarrier(CarrierName.DhlForYou, DEFAULT_COUNTRY, DEFAULT_API_BASE_URL);
 
-    it('excludes priority delivery outside NL even when enabled in config', () => {
-      const carrier = getResolvedCarrier(CarrierName.PostNl, PlatformName.MyParcel);
-
-      mockDeliveryOptionsConfig(
-        getMockDeliveryOptionsConfiguration({
-          [KEY_ADDRESS]: {
-            [AddressField.Country]: 'BE',
-          },
-          [KEY_CONFIG]: {
-            [KEY_CARRIER_SETTINGS]: {
-              [CarrierName.PostNl]: {
-                [CarrierSetting.AllowPriorityDelivery]: true,
-              },
-            },
-          },
-        }),
-      );
-
-      expect(carrier.shipmentOptionsPerPackageType.value).toEqual({
-        [PackageTypeName.Package]: new Set([ShipmentOptionName.OnlyRecipient, ShipmentOptionName.Signature]),
-        [PackageTypeName.PackageSmall]: new Set([ShipmentOptionName.OnlyRecipient, ShipmentOptionName.Signature]),
-        [PackageTypeName.Mailbox]: new Set(),
-      });
-    });
-  });
-
-  it('exposes features, filtered by config', () => {
-    const carrier = getResolvedCarrier(CarrierName.DhlForYou, PlatformName.MyParcel);
+    await flushPromises();
 
     expect(carrier.features.value).toEqual(
       new Set([

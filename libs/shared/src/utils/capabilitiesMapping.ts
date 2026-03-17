@@ -89,6 +89,28 @@ export const mapCapabilityOptionToCarrierSetting = (capOption: string): CarrierS
   return CAPABILITY_OPTION_TO_CARRIER_SETTING[capOption];
 };
 
+const SDK_DELIVERY_TYPE_TO_CAPABILITY: Record<string, string> = Object.fromEntries(
+  Object.entries(CAPABILITY_DELIVERY_TYPE_MAP).map(([cap, sdk]) => [sdk, cap]),
+);
+
+/**
+ * Map an SDK/internal delivery type name to capabilities format (UPPER_CASE).
+ */
+export const mapDeliveryTypeToCapability = (sdkType: SupportedDeliveryTypeName): string | undefined => {
+  return SDK_DELIVERY_TYPE_TO_CAPABILITY[sdkType];
+};
+
+const SDK_OPTION_TO_CAPABILITY: Record<string, string> = Object.fromEntries(
+  Object.entries(CAPABILITY_OPTION_MAP).map(([cap, sdk]) => [sdk, cap]),
+);
+
+/**
+ * Map an SDK/internal shipment option name to capabilities format (camelCase).
+ */
+export const mapShipmentOptionToCapability = (sdkOption: SupportedShipmentOptionName): string | undefined => {
+  return SDK_OPTION_TO_CAPABILITY[sdkOption];
+};
+
 const SDK_PACKAGE_TYPE_TO_CAPABILITY: Record<string, string> = {
   [PackageTypeName.Package]: 'PACKAGE',
   [PackageTypeName.Mailbox]: 'MAILBOX',
