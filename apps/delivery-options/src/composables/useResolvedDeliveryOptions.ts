@@ -1,17 +1,22 @@
-import {toValue, type ComputedRef} from 'vue';
+import {toValue, ref, type ComputedRef, type Ref} from 'vue';
 import {pascal} from 'radash';
 import {startOfDay} from 'date-fns';
 import {useMemoize} from '@vueuse/core';
+import {isOfType} from '@myparcel-dev/ts-utils';
+import {type ApiException} from '@myparcel-dev/sdk';
 import {
   useDeliveryOptionsRequest,
+  useApiExceptions,
   computedAsync,
   type AnyTranslatable,
+  type CarrierIdentifier,
   createUntranslatable,
   type ComputedAsync,
   CarrierSetting,
   DELIVERY_DAYS_WINDOW_DEFAULT,
   createTranslatable,
   ConfigSetting,
+  REQUEST_KEY_DELIVERY_OPTIONS,
 } from '@myparcel-dev/do-shared';
 import {createGetDeliveryOptionsParameters, getResolvedDeliveryType, calculateCutoffTime} from '../utils';
 import {type SelectedDeliveryMoment} from '../types';
@@ -29,10 +34,19 @@ type DeliveryDatesPerCarrier = {
 
 type UseResolvedDeliveryOptions = ComputedAsync<SelectedDeliveryMoment[]>;
 
+interface DeliveryOptionsApiResult {
+  results: DeliveryDatesPerCarrier[];
+  errors: ApiException[];
+  failedCarrierIdentifiers: CarrierIdentifier[];
+}
+
 const getDeliveryOptionsFromApi = async (
   carriers: ComputedRef<UseResolvedCarrier[]>,
-): Promise<DeliveryDatesPerCarrier[]> => {
-  return Promise.all(
+): Promise<DeliveryOptionsApiResult> => {
+  const errors: ApiException[] = [];
+  const failedCarrierIdentifiers: CarrierIdentifier[] = [];
+
+  const results = await Promise.all(
     toValue(carriers)
       .filter((carrier) => toValue(carrier.hasAnyDelivery))
       .map(async (carrier) => {
@@ -49,6 +63,10 @@ const getDeliveryOptionsFromApi = async (
           await query.load();
         } catch (error) {
           console.error('Error loading delivery options:', error); // eslint-disable-line no-console
+          failedCarrierIdentifiers.push(carrier.carrier.value.identifier);
+          if (isOfType<ApiException>(error, 'data')) {
+            errors.push(error);
+          }
           return null;
         }
 
@@ -72,6 +90,8 @@ const getDeliveryOptionsFromApi = async (
         };
       }),
   );
+
+  return {results, errors, failedCarrierIdentifiers};
 };
 
 /**
@@ -238,16 +258,28 @@ const formatDatesAsDeliveryMoments = (
   }, [] as SelectedDeliveryMoment[]);
 };
 
+const failedDeliveryCarriers: Ref<CarrierIdentifier[]> = ref([]);
+
+export const useFailedDeliveryCarriers = (): Ref<CarrierIdentifier[]> => failedDeliveryCarriers;
+
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const callback = (): UseResolvedDeliveryOptions => {
   const carriers = useActiveCarriers();
 
   return computedAsync<SelectedDeliveryMoment[]>(
     async () => {
-      const datesPerCarrier = await getDeliveryOptionsFromApi(carriers);
+      const {results, errors, failedCarrierIdentifiers} = await getDeliveryOptionsFromApi(carriers);
+
+      failedDeliveryCarriers.value = failedCarrierIdentifiers;
 
       // Filter out any nulls (failed requests)
-      const filteredDates = removeEmptyEntries(datesPerCarrier);
+      const filteredDates = removeEmptyEntries(results);
+
+      // Only show errors when all carriers failed
+      if (filteredDates.length === 0 && errors.length > 0) {
+        const {addException} = useApiExceptions();
+        errors.forEach((error) => addException([REQUEST_KEY_DELIVERY_OPTIONS, null], error));
+      }
 
       // Flatten the dates into SelectedDeliveryMoment objects.
       return formatDatesAsDeliveryMoments(filteredDates);

@@ -6,8 +6,7 @@ import {
   type ApiException,
 } from '@myparcel-dev/sdk';
 import {useSdk} from '../useSdk';
-import {useApiExceptions} from '../useApiExceptions';
-import {type RequestHandler, type RequestKey} from '../../types';
+import {type RequestHandler} from '../../types';
 import {REQUEST_KEY_DELIVERY_OPTIONS} from '../../data';
 import {useRequest} from './useRequest';
 
@@ -23,9 +22,7 @@ export const useDeliveryOptionsRequest = (
     },
     {
       fallback: [],
-      onError(error: ApiException, requestKey: RequestKey): PromiseOr<void> {
-        const {addException} = useApiExceptions();
-        addException(requestKey, error);
+      onError(error: ApiException): PromiseOr<void> {
         throw error;
       },
     },
