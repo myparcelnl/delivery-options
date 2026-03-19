@@ -3,7 +3,7 @@ import {type CapabilitiesRequest, type CapabilitiesResponse, type RequestHandler
 import {useRequest} from './useRequest';
 
 const REQUEST_KEY_CAPABILITIES = 'capabilities';
-const CAPABILITIES_BEARER_TOKEN = 'MTEzNjc4NzU3NjhjZTJlZjliYzBmMDlhNzM0NWNiNDIwZjFhNGFjZA==';
+const CAPABILITIES_BEARER_TOKEN = 'your_capabilities_bearer_token_here';
 
 const EMPTY_RESPONSE: CapabilitiesResponse = {results: []};
 
@@ -37,13 +37,9 @@ export const useCapabilitiesRequest = (
   apiBaseUrl: string,
   request: CapabilitiesRequest,
 ): RequestHandler<CapabilitiesResponse> => {
-  return useRequest(
-    [REQUEST_KEY_CAPABILITIES, request],
-    () => fetchCapabilities(apiBaseUrl, request),
-    {
-      fallback: EMPTY_RESPONSE,
-    },
-  );
+  return useRequest([REQUEST_KEY_CAPABILITIES, request], () => fetchCapabilities(apiBaseUrl, request), {
+    fallback: EMPTY_RESPONSE,
+  });
 };
 
 export interface ReactiveCapabilitiesRequest {
