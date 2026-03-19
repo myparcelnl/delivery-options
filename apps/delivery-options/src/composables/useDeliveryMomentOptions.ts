@@ -5,20 +5,17 @@ import {useConfigStore} from '../stores';
 import {DELIVERY_MOMENT_PACKAGE_TYPES, SHOWN_SHIPMENT_OPTIONS} from '../data';
 import {useResolvedDeliveryMoments} from './useResolvedDeliveryMoments';
 import {useActiveCarriers} from './useActiveCarriers';
-import {useFailedDeliveryCarriers} from './useResolvedDeliveryOptions';
 
 export const useDeliveryMomentOptions = (): ComputedRef<SelectOption<string>[]> => {
   const {state: config} = useConfigStore();
   const deliveryMoments = useResolvedDeliveryMoments();
   const activeCarriers = useActiveCarriers();
-  const failedCarriers = useFailedDeliveryCarriers();
 
   return computed(() => {
     // Some package types will not return any date/time moments from the API - we show one option per carrier instead without any date/time.
     if (!DELIVERY_MOMENT_PACKAGE_TYPES.includes(config.packageType)) {
       return activeCarriers.value
         .filter((carrier) => toValue(carrier.hasAnyDelivery) && toValue(carrier.packageTypes).has(config.packageType))
-        .filter((carrier) => !failedCarriers.value.includes(toValue(carrier.carrier).identifier))
         .map((carrier) => {
           const carrierIdentifier = toValue(carrier.carrier).identifier;
 
