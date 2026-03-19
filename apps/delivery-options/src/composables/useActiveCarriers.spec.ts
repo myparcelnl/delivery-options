@@ -106,6 +106,38 @@ describe('useActiveCarriers', () => {
     expect(pickupIdentifiers).toContain(CarrierName.Dpd);
   });
 
+  it('returns empty array when capabilities return no results for unsupported country', async () => {
+    expect.assertions(1);
+
+    useActiveCarriers.clear();
+
+    const carrierSettings = Object.fromEntries(
+      [CarrierName.PostNl].map((identifier) => [
+        identifier,
+        {
+          [CarrierSetting.AllowDeliveryOptions]: true,
+          [CarrierSetting.AllowStandardDelivery]: true,
+        },
+      ]),
+    );
+
+    mockDeliveryOptionsConfig({
+      [KEY_ADDRESS]: {
+        [AddressField.Country]: 'DE',
+      },
+      [KEY_CONFIG]: {
+        [KEY_CARRIER_SETTINGS]: carrierSettings,
+      },
+    });
+
+    const carriers = useActiveCarriers();
+
+    toValue(carriers);
+    await flushPromises();
+
+    expect(toValue(carriers)).toEqual([]);
+  });
+
   it('returns carriers with hasAnyDelivery=true for carriers with delivery types', async () => {
     useActiveCarriers.clear();
 
