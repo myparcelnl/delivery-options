@@ -34,17 +34,10 @@ type DeliveryDatesPerCarrier = {
 
 type UseResolvedDeliveryOptions = ComputedAsync<SelectedDeliveryMoment[]>;
 
-interface DeliveryOptionsApiResult {
-  results: DeliveryDatesPerCarrier[];
-  errors: ApiException[];
-  failedCarrierIdentifiers: CarrierIdentifier[];
-}
-
 const getDeliveryOptionsFromApi = async (
   carriers: ComputedRef<UseResolvedCarrier[]>,
-): Promise<DeliveryOptionsApiResult> => {
-  const errors: ApiException[] = [];
-  const failedCarrierIdentifiers: CarrierIdentifier[] = [];
+): Promise<{results: DeliveryDatesPerCarrier[]; failures: Map<CarrierIdentifier, ApiException>}> => {
+  const failures = new Map<CarrierIdentifier, ApiException>();
 
   const results = await Promise.all(
     toValue(carriers)
@@ -63,10 +56,11 @@ const getDeliveryOptionsFromApi = async (
           await query.load();
         } catch (error) {
           console.error('Error loading delivery options:', error); // eslint-disable-line no-console
-          failedCarrierIdentifiers.push(carrier.carrier.value.identifier);
+
           if (isOfType<ApiException>(error, 'data')) {
-            errors.push(error);
+            failures.set(carrier.carrier.value.identifier, error);
           }
+
           return null;
         }
 
@@ -91,7 +85,7 @@ const getDeliveryOptionsFromApi = async (
       }),
   );
 
-  return {results, errors, failedCarrierIdentifiers};
+  return {results, failures};
 };
 
 /**
@@ -268,17 +262,17 @@ const callback = (): UseResolvedDeliveryOptions => {
 
   return computedAsync<SelectedDeliveryMoment[]>(
     async () => {
-      const {results, errors, failedCarrierIdentifiers} = await getDeliveryOptionsFromApi(carriers);
+      const {results, failures} = await getDeliveryOptionsFromApi(carriers);
 
-      failedDeliveryCarriers.value = failedCarrierIdentifiers;
+      failedDeliveryCarriers.value = [...failures.keys()];
 
       // Filter out any nulls (failed requests)
       const filteredDates = removeEmptyEntries(results);
 
       // Only show errors when all carriers failed
-      if (filteredDates.length === 0 && errors.length > 0) {
+      if (filteredDates.length === 0 && failures.size > 0) {
         const {addException} = useApiExceptions();
-        errors.forEach((error) => addException([REQUEST_KEY_DELIVERY_OPTIONS, null], error));
+        failures.forEach((error) => addException([REQUEST_KEY_DELIVERY_OPTIONS, null], error));
       }
 
       // Flatten the dates into SelectedDeliveryMoment objects.
