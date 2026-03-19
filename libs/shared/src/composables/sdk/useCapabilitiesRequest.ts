@@ -96,6 +96,7 @@ export const useReactiveCapabilitiesRequest = (
         return;
       }
 
+      console.error('Capabilities request failed:', error);
       data.value = EMPTY_RESPONSE;
       lastResponseJson = '';
     } finally {
