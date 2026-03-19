@@ -2,15 +2,19 @@ import {computed, ref} from 'vue';
 import {useMemoize} from '@vueuse/core';
 import {
   type CarrierIdentifier,
+  type CarrierWithIdentifier,
   getConfigKey,
   type SupportedDeliveryTypeName,
   type SupportedShipmentOptionName,
   type SupportedPackageTypeName,
-  useCarrier,
   type ConfigSetting,
   CarrierSetting,
   type ConfigKey,
   normalizeCarrierName,
+  resolveCarrierName,
+  computedAsync,
+  waitForRequestData,
+  useCarrierFromCache,
   mapCapabilityDeliveryType,
   mapCapabilityPackageType,
   mapCapabilityOption,
@@ -62,16 +66,23 @@ export const getResolvedCarrier = useMemoize(
     apiBaseUrl: string,
     _packageType?: string,
   ): UseResolvedCarrier => {
-    const carrier = useCarrier({
-      carrierIdentifier,
-      apiBaseUrl,
-      countryCode,
-    });
+    const carrierName = resolveCarrierName(carrierIdentifier ?? '');
+
+    const apiCarrier = computedAsync(
+      async () => {
+        const data = await waitForRequestData(useCarrierFromCache, [carrierName]);
+
+        if (!data) throw new Error();
+
+        return {...data, name: carrierName, identifier: carrierIdentifier} as CarrierWithIdentifier;
+      },
+      {name: carrierName, identifier: carrierIdentifier} as CarrierWithIdentifier,
+      {immediate: true},
+    );
 
     // Use the singleton reactive capabilities instance.
     const capabilities = useBroadCapabilities();
-    const carrierPart = carrierIdentifier?.split(':')[0] ?? carrierIdentifier ?? '';
-    const normalizedName = normalizeCarrierName(carrierPart);
+    const normalizedName = normalizeCarrierName(carrierName);
 
     const capability = computed(() => capabilities.getCarrierCapability(normalizedName));
 
@@ -198,7 +209,7 @@ export const getResolvedCarrier = useMemoize(
     });
 
     return {
-      carrier: carrier.carrier,
+      carrier: apiCarrier,
       capability,
       deliveryTypes,
       packageTypes,

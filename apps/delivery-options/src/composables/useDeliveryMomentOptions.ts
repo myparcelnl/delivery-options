@@ -1,9 +1,11 @@
 import {type ComputedRef, computed, toValue} from 'vue';
-import {type SelectOption, DELIVERY_TYPE_DEFAULT} from '@myparcel-dev/do-shared';
+import {type SelectOption, DELIVERY_TYPE_DEFAULT, CarrierSetting, DELIVERY_DAYS_WINDOW_DEFAULT, createTranslatable} from '@myparcel-dev/do-shared';
+import {pascal} from 'radash';
 import {getDeliveryTypePrice, createPackageTypeTranslatable} from '../utils';
 import {useConfigStore} from '../stores';
 import {DELIVERY_MOMENT_PACKAGE_TYPES, SHOWN_SHIPMENT_OPTIONS} from '../data';
 import {useResolvedDeliveryMoments} from './useResolvedDeliveryMoments';
+import {useResolvedDeliveryOptions} from './useResolvedDeliveryOptions';
 import {useActiveCarriers} from './useActiveCarriers';
 
 export const useDeliveryMomentOptions = (): ComputedRef<SelectOption<string>[]> => {
@@ -36,7 +38,7 @@ export const useDeliveryMomentOptions = (): ComputedRef<SelectOption<string>[]> 
     }
 
     // Parse the deliveryMoments from the API for the other package types
-    return deliveryMoments.value
+    const momentOptions = deliveryMoments.value
       .filter((option) => option.packageType === config.packageType)
       .map((option) => {
         return {
@@ -53,5 +55,45 @@ export const useDeliveryMomentOptions = (): ComputedRef<SelectOption<string>[]> 
           }),
         };
       });
+
+    // Fallback for active carriers without moments on ANY date (API failed / no dates at all)
+    const allDeliveryOptions = useResolvedDeliveryOptions();
+    const carriersWithAnyMoments = new Set(
+      allDeliveryOptions.value
+        .filter((opt) => opt.packageType === config.packageType)
+        .map((opt) => opt.carrier),
+    );
+    const fallbackOptions = activeCarriers.value
+      .filter((carrier) => {
+        const id = toValue(carrier.carrier).identifier;
+
+        if (carriersWithAnyMoments.has(id)) return false;
+        if (!toValue(carrier.hasDelivery)) return false;
+
+        const deliveryDaysWindow = carrier.get(CarrierSetting.DeliveryDaysWindow, DELIVERY_DAYS_WINDOW_DEFAULT);
+
+        if (deliveryDaysWindow === 0) return false;
+
+        return true;
+      })
+      .map((carrier) => {
+        const carrierIdentifier = toValue(carrier.carrier).identifier;
+
+        return {
+          carrier: carrierIdentifier,
+          label: createTranslatable(`delivery${pascal(DELIVERY_TYPE_DEFAULT)}Title`),
+          price: getDeliveryTypePrice(DELIVERY_TYPE_DEFAULT, carrierIdentifier),
+          value: JSON.stringify({
+            carrier: carrierIdentifier,
+            date: null,
+            deliveryType: DELIVERY_TYPE_DEFAULT,
+            packageType: config.packageType,
+            shipmentOptions: [],
+            time: null,
+          }),
+        };
+      });
+
+    return [...momentOptions, ...fallbackOptions];
   });
 };
