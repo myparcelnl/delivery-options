@@ -18,7 +18,7 @@ export const useBroadCapabilities = (): UseCapabilities => {
       const {state: config} = useConfigStore();
       const requestRef = useBroadCapabilitiesParams();
 
-      return useReactiveCapabilities(config.apiBaseUrl, requestRef);
+      return useReactiveCapabilities(config.proxyCapabilities, requestRef);
     })!;
   }
 

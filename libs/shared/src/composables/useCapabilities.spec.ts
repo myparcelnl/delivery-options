@@ -2,7 +2,7 @@ import {describe, it, expect} from 'vitest';
 import {flushPromises} from '@vue/test-utils';
 import {useCapabilities} from './useCapabilities';
 
-const API_BASE_URL = 'https://api.myparcel.nl';
+const API_BASE_URL = 'https://proxy.example.com/capabilities';
 
 describe('useCapabilities', () => {
   it('returns capabilities data after loading', async () => {

@@ -27,7 +27,7 @@ import {useCarrierFromCache} from './sdk';
 
 interface UseCarrierOptions {
   carrierIdentifier: MaybeRef<CarrierIdentifier | undefined>;
-  apiBaseUrl: string;
+  proxyCapabilities: string;
   countryCode: string;
   packageType?: string;
 }
@@ -72,7 +72,7 @@ export const useCarrier = useMemoize((options: UseCarrierOptions): UseCarrier =>
     {immediate: true},
   );
 
-  const capabilities = useCapabilities(options.apiBaseUrl, options.countryCode, options.packageType);
+  const capabilities = useCapabilities(options.proxyCapabilities, options.countryCode, options.packageType);
 
   const capability = computed(() => {
     if (!carrierName.value) {

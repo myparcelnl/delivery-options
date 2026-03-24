@@ -36,14 +36,18 @@ const createCapabilitiesInterface = (
 };
 
 export const useCapabilities = useMemoize(
-  (apiBaseUrl: string, countryCode: string, packageType?: string): UseCapabilities => {
+  (proxyCapabilities: string, countryCode: string, packageType?: string, apiKey?: string): UseCapabilities => {
     const capabilities = ref<CapabilitiesResponse>(EMPTY_RESPONSE);
     const loading = ref(true);
 
-    const request = useCapabilitiesRequest(apiBaseUrl, {
-      recipient: {countryCode},
-      ...(packageType ? {packageType} : {}),
-    });
+    const request = useCapabilitiesRequest(
+      proxyCapabilities,
+      {
+        recipient: {countryCode},
+        ...(packageType ? {packageType} : {}),
+      },
+      apiKey,
+    );
 
     watch(
       () => request.data.value,
@@ -65,10 +69,11 @@ export const useCapabilities = useMemoize(
  * Not memoized — caller is responsible for managing the instance lifecycle.
  */
 export const useReactiveCapabilities = (
-  apiBaseUrl: string,
+  proxyCapabilities: string,
   requestRef: Ref<CapabilitiesRequest> | ComputedRef<CapabilitiesRequest>,
+  apiKey?: string,
 ): UseCapabilities => {
-  const {data, loading} = useReactiveCapabilitiesRequest(apiBaseUrl, requestRef);
+  const {data, loading} = useReactiveCapabilitiesRequest(proxyCapabilities, requestRef, apiKey);
 
   return createCapabilitiesInterface(data, loading);
 };

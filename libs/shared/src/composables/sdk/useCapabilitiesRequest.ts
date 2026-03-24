@@ -3,22 +3,27 @@ import {type CapabilitiesRequest, type CapabilitiesResponse, type RequestHandler
 import {useRequest} from './useRequest';
 
 const REQUEST_KEY_CAPABILITIES = 'capabilities';
-const CAPABILITIES_BEARER_TOKEN = 'your_capabilities_bearer_token_here';
 
 const EMPTY_RESPONSE: CapabilitiesResponse = {results: []};
 
 const fetchCapabilities = async (
-  apiBaseUrl: string,
+  proxyCapabilities: string,
   request: CapabilitiesRequest,
+  apiKey?: string,
   signal?: AbortSignal,
 ): Promise<CapabilitiesResponse> => {
-  const response = await fetch(`${apiBaseUrl}/shipments/capabilities`, {
+  const headers: Record<string, string> = {
+    Accept: 'application/json;charset=utf-8;version=2.0',
+    'Content-Type': 'application/json',
+  };
+
+  if (apiKey) {
+    headers.Authorization = `Bearer ${btoa(apiKey)}`;
+  }
+
+  const response = await fetch(proxyCapabilities, {
     method: 'POST',
-    headers: {
-      Authorization: `Bearer ${CAPABILITIES_BEARER_TOKEN}`,
-      Accept: 'application/json;charset=utf-8;version=2.0',
-      'Content-Type': 'application/json',
-    },
+    headers,
     body: JSON.stringify(request),
     signal,
   });
@@ -34,12 +39,17 @@ const fetchCapabilities = async (
  * Static (memoized) capabilities request — used by useCarrier in shared lib.
  */
 export const useCapabilitiesRequest = (
-  apiBaseUrl: string,
+  proxyCapabilities: string,
   request: CapabilitiesRequest,
+  apiKey?: string,
 ): RequestHandler<CapabilitiesResponse> => {
-  return useRequest([REQUEST_KEY_CAPABILITIES, request], () => fetchCapabilities(apiBaseUrl, request), {
-    fallback: EMPTY_RESPONSE,
-  });
+  return useRequest(
+    [REQUEST_KEY_CAPABILITIES, request],
+    () => fetchCapabilities(proxyCapabilities, request, apiKey, undefined),
+    {
+      fallback: EMPTY_RESPONSE,
+    },
+  );
 };
 
 export interface ReactiveCapabilitiesRequest {
@@ -52,8 +62,9 @@ export interface ReactiveCapabilitiesRequest {
  * Aborts stale in-flight requests. Deduplicates identical requests via JSON comparison.
  */
 export const useReactiveCapabilitiesRequest = (
-  apiBaseUrl: string,
+  proxyCapabilities: string,
   requestRef: Ref<CapabilitiesRequest> | ComputedRef<CapabilitiesRequest>,
+  apiKey?: string,
 ): ReactiveCapabilitiesRequest => {
   const data = ref<CapabilitiesResponse>(EMPTY_RESPONSE);
   const loading = ref(true);
@@ -79,7 +90,7 @@ export const useReactiveCapabilitiesRequest = (
     loading.value = true;
 
     try {
-      const result = await fetchCapabilities(apiBaseUrl, request, abortController.signal);
+      const result = await fetchCapabilities(proxyCapabilities, request, apiKey, abortController.signal);
       const resultJson = JSON.stringify(result);
 
       // Only update when the response actually changed, to avoid triggering downstream watchers

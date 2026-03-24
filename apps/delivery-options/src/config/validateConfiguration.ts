@@ -76,6 +76,11 @@ const additionalOptions: ConfigOption[] = [
     validators: [validateIsString()],
   },
   {
+    key: ConfigSetting.ProxyCapabilities,
+    perCarrier: false,
+    validators: [validateIsString()],
+  },
+  {
     key: ConfigSetting.ShowPrices,
     perCarrier: false,
     validators: [validateIsBoolean()],

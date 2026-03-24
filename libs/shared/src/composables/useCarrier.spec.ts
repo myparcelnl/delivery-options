@@ -3,14 +3,14 @@ import {flushPromises} from '@vue/test-utils';
 import {useCarrier, CustomDeliveryType} from '@myparcel-dev/do-shared';
 import {CarrierName, DeliveryTypeName, ShipmentOptionName} from '@myparcel-dev/constants';
 
-const DEFAULT_API_BASE_URL = 'https://api.myparcel.nl';
+const DEFAULT_API_BASE_URL = 'https://proxy.example.com/capabilities';
 const DEFAULT_COUNTRY = 'NL';
 
 describe('useCarrier', () => {
   it('returns delivery types from capabilities for PostNL', async () => {
     const carrier = useCarrier({
       carrierIdentifier: CarrierName.PostNl,
-      apiBaseUrl: DEFAULT_API_BASE_URL,
+      proxyCapabilities: DEFAULT_API_BASE_URL,
       countryCode: DEFAULT_COUNTRY,
     });
 
@@ -30,7 +30,7 @@ describe('useCarrier', () => {
   it('returns shipment options from capabilities for PostNL', async () => {
     const carrier = useCarrier({
       carrierIdentifier: CarrierName.PostNl,
-      apiBaseUrl: DEFAULT_API_BASE_URL,
+      proxyCapabilities: DEFAULT_API_BASE_URL,
       countryCode: DEFAULT_COUNTRY,
     });
 
@@ -44,7 +44,7 @@ describe('useCarrier', () => {
   it('returns delivery types from capabilities for DHL For You', async () => {
     const carrier = useCarrier({
       carrierIdentifier: CarrierName.DhlForYou,
-      apiBaseUrl: DEFAULT_API_BASE_URL,
+      proxyCapabilities: DEFAULT_API_BASE_URL,
       countryCode: DEFAULT_COUNTRY,
     });
 

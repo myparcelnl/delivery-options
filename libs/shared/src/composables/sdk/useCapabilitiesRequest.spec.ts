@@ -5,7 +5,7 @@ import {type CapabilitiesRequest} from '../../types';
 import {mockCapabilitiesFetch} from '../../__tests__/mocks/mockCapabilitiesResponse';
 import {useReactiveCapabilitiesRequest} from './useCapabilitiesRequest';
 
-const API_BASE_URL = 'https://api.myparcel.nl';
+const PROXY_URL = 'https://proxy.example.com/capabilities';
 
 describe('useReactiveCapabilitiesRequest', () => {
   beforeEach(() => {
@@ -15,7 +15,7 @@ describe('useReactiveCapabilitiesRequest', () => {
   it('fetches on creation and returns data', async () => {
     const requestRef = ref<CapabilitiesRequest>({recipient: {countryCode: 'NL'}});
 
-    const {data, loading} = useReactiveCapabilitiesRequest(API_BASE_URL, requestRef);
+    const {data, loading} = useReactiveCapabilitiesRequest(PROXY_URL, requestRef);
 
     expect(loading.value).toBe(true);
 
@@ -26,22 +26,40 @@ describe('useReactiveCapabilitiesRequest', () => {
     expect(mockCapabilitiesFetch).toHaveBeenCalledOnce();
   });
 
-  it('calls fetch with correct URL, method, and headers', async () => {
+  it('calls fetch with correct URL, method, and headers (no auth header without apiKey)', async () => {
     const requestRef = ref<CapabilitiesRequest>({recipient: {countryCode: 'NL'}});
 
-    useReactiveCapabilitiesRequest(API_BASE_URL, requestRef);
+    useReactiveCapabilitiesRequest(PROXY_URL, requestRef);
     await flushPromises();
 
     expect(mockCapabilitiesFetch).toHaveBeenCalledWith(
-      `${API_BASE_URL}/shipments/capabilities`,
+      PROXY_URL,
       expect.objectContaining({
         method: 'POST',
         headers: expect.objectContaining({
-          Authorization: expect.stringMatching(/^Bearer /),
           Accept: 'application/json;charset=utf-8;version=2.0',
           'Content-Type': 'application/json',
         }),
         body: JSON.stringify({recipient: {countryCode: 'NL'}}),
+      }),
+    );
+
+    const callHeaders = (mockCapabilitiesFetch.mock.calls[0][1] as RequestInit).headers as Record<string, string>;
+    expect(callHeaders['Authorization']).toBeUndefined();
+  });
+
+  it('includes Authorization header when apiKey is provided', async () => {
+    const requestRef = ref<CapabilitiesRequest>({recipient: {countryCode: 'NL'}});
+
+    useReactiveCapabilitiesRequest(PROXY_URL, requestRef, 'test-api-key');
+    await flushPromises();
+
+    expect(mockCapabilitiesFetch).toHaveBeenCalledWith(
+      PROXY_URL,
+      expect.objectContaining({
+        headers: expect.objectContaining({
+          Authorization: `Bearer ${btoa('test-api-key')}`,
+        }),
       }),
     );
   });
@@ -49,7 +67,7 @@ describe('useReactiveCapabilitiesRequest', () => {
   it('re-fetches when request ref changes', async () => {
     const requestRef = ref<CapabilitiesRequest>({recipient: {countryCode: 'NL'}});
 
-    useReactiveCapabilitiesRequest(API_BASE_URL, requestRef);
+    useReactiveCapabilitiesRequest(PROXY_URL, requestRef);
     await flushPromises();
 
     expect(mockCapabilitiesFetch).toHaveBeenCalledTimes(1);
@@ -64,7 +82,7 @@ describe('useReactiveCapabilitiesRequest', () => {
   it('skips fetch when request JSON is identical', async () => {
     const requestRef = ref<CapabilitiesRequest>({recipient: {countryCode: 'NL'}});
 
-    useReactiveCapabilitiesRequest(API_BASE_URL, requestRef);
+    useReactiveCapabilitiesRequest(PROXY_URL, requestRef);
     await flushPromises();
 
     // Set to the same value (new object, same JSON)
@@ -80,7 +98,7 @@ describe('useReactiveCapabilitiesRequest', () => {
 
     const requestRef = ref<CapabilitiesRequest>({recipient: {countryCode: 'NL'}});
 
-    useReactiveCapabilitiesRequest(API_BASE_URL, requestRef);
+    useReactiveCapabilitiesRequest(PROXY_URL, requestRef);
 
     // Change before first request resolves
     requestRef.value = {recipient: {countryCode: 'BE'}};
@@ -94,7 +112,7 @@ describe('useReactiveCapabilitiesRequest', () => {
   it('resets to empty response on non-abort error', async () => {
     const requestRef = ref<CapabilitiesRequest>({recipient: {countryCode: 'NL'}});
 
-    const {data} = useReactiveCapabilitiesRequest(API_BASE_URL, requestRef);
+    const {data} = useReactiveCapabilitiesRequest(PROXY_URL, requestRef);
     await flushPromises();
 
     expect(data.value.results.length).toBeGreaterThan(0);
@@ -112,7 +130,7 @@ describe('useReactiveCapabilitiesRequest', () => {
   it('does not reset data on abort error', async () => {
     const requestRef = ref<CapabilitiesRequest>({recipient: {countryCode: 'NL'}});
 
-    const {data} = useReactiveCapabilitiesRequest(API_BASE_URL, requestRef);
+    const {data} = useReactiveCapabilitiesRequest(PROXY_URL, requestRef);
     await flushPromises();
 
     const dataBeforeAbort = data.value;
@@ -133,7 +151,7 @@ describe('useReactiveCapabilitiesRequest', () => {
   it('sets loading to false after fetch resolves', async () => {
     const requestRef = ref<CapabilitiesRequest>({recipient: {countryCode: 'NL'}});
 
-    const {loading} = useReactiveCapabilitiesRequest(API_BASE_URL, requestRef);
+    const {loading} = useReactiveCapabilitiesRequest(PROXY_URL, requestRef);
 
     expect(loading.value).toBe(true);
 
@@ -147,7 +165,7 @@ describe('useReactiveCapabilitiesRequest', () => {
 
     const requestRef = ref<CapabilitiesRequest>({recipient: {countryCode: 'NL'}});
 
-    const {loading} = useReactiveCapabilitiesRequest(API_BASE_URL, requestRef);
+    const {loading} = useReactiveCapabilitiesRequest(PROXY_URL, requestRef);
     await flushPromises();
 
     expect(loading.value).toBe(false);

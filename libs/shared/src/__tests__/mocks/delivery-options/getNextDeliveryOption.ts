@@ -25,7 +25,7 @@ export const getNextDeliveryOption = async (
 
   const carrierInstance = useCarrier({
     carrierIdentifier: args.carrier,
-    apiBaseUrl: 'https://api.myparcel.nl',
+    proxyCapabilities: 'https://proxy.example.com/capabilities',
     countryCode: 'NL',
   });
 

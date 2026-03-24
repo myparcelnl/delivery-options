@@ -90,6 +90,7 @@ export type CarrierSettingsObject = Partial<Record<CarrierIdentifier, CarrierSet
 export interface DeliveryOptionsConfig extends Partial<Record<ConfigSetting, unknown>>, CarrierSettings {
   allowPickupLocationsViewSelection: boolean;
   apiBaseUrl: string;
+  proxyCapabilities: string;
   carrierSettings: CarrierSettingsObject;
   closedDays: Date[];
   /**
@@ -114,6 +115,7 @@ export interface DeliveryOptionsConfig extends Partial<Record<ConfigSetting, unk
 export type ResolvedDeliveryOptionsConfig = MakeRequired<
   DeliveryOptionsConfig,
   | ConfigSetting.ApiBaseUrl
+  | ConfigSetting.ProxyCapabilities
   | ConfigSetting.Currency
   | ConfigSetting.Locale
   | ConfigSetting.PickupLocationsDefaultView
