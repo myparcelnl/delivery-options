@@ -118,8 +118,8 @@ const excludeParcelLockers = computed({
 });
 
 const pickupLocationOptions = [
-  {label: 'List', value: 'list'},
-  {label: 'Map', value: 'map'},
+  {label: 'list', value: 'List'},
+  {label: 'map', value: 'Map'},
 ];
 
 const {translate} = useLanguage();
