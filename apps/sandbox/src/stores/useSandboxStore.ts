@@ -49,6 +49,20 @@ export const useSandboxStore = defineStore('sandbox', {
       this.config = restConfig;
       this.carrierSettings = carrierSettings ?? {};
     },
+
+    syncCarriersFromCapabilities(carrierNames: string[]): void {
+      const sandboxDefaults = getDefaultSandboxCarrierSettings();
+      const fallbackSettings = sandboxDefaults[Object.keys(sandboxDefaults)[0] as keyof CarrierSettingsObject];
+
+      this.carrierSettings = Object.fromEntries(
+        carrierNames.map((name) => [
+          name,
+          (this.carrierSettings as Record<string, unknown>)[name] ??
+            (sandboxDefaults as Record<string, unknown>)[name] ??
+            fallbackSettings,
+        ]),
+      ) as CarrierSettingsObject;
+    },
   },
 
   getters: {

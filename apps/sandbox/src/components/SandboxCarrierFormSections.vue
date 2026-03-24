@@ -15,9 +15,11 @@ import {computed} from 'vue';
 import {type CarrierIdentifier, CarrierBox} from '@myparcel-dev/do-shared';
 import {getConfigSandboxSections} from '../form';
 import {useSandboxStore} from '../stores';
+import {useSandboxCapabilities} from '../composables';
 import {SandboxSettingsSection} from './form';
 
 const store = useSandboxStore();
+useSandboxCapabilities(); // activates capabilities sync with the store
 
 const carrierSections = computed(() => {
   const carriers = Object.keys(store.carrierSettings) as CarrierIdentifier[];
