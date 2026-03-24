@@ -38,7 +38,7 @@ export const useLogger = useMemoize((): LoggerInstance => {
       return;
     }
 
-    console.warn('%c[WARNING]', 'color: #ff0', ...messages);
+    console.warn('%c[WARNING]', 'color: #000; background: #ff0', ...messages);
   };
 
   const error = (...messages: ConsoleMessages): void => {
