@@ -1,6 +1,7 @@
 import {ref, computed, watch, toValue, type MaybeRefOrGetter, type Ref, type ComputedRef} from 'vue';
 import {type CapabilitiesRequest, type CapabilitiesResponse, type RequestHandler} from '../../types';
 import {useRequest} from './useRequest';
+import {useLogger} from '../useLogger';
 
 const REQUEST_KEY_CAPABILITIES = 'capabilities';
 
@@ -18,6 +19,7 @@ const fetchCapabilities = async (
   };
 
   if (apiKey) {
+    useLogger().warning('⚠️ Unsafe use of api key, do not use in production');
     headers.Authorization = `Bearer ${btoa(apiKey)}`;
   }
 
