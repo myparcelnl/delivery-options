@@ -7,11 +7,13 @@ import {DELIVERY_MOMENT_PACKAGE_TYPES, SHOWN_SHIPMENT_OPTIONS} from '../data';
 import {useResolvedDeliveryMoments} from './useResolvedDeliveryMoments';
 import {useResolvedDeliveryOptions} from './useResolvedDeliveryOptions';
 import {useActiveCarriers} from './useActiveCarriers';
+import {useFeatures} from './useFeatures';
 
 export const useDeliveryMomentOptions = (): ComputedRef<SelectOption<string>[]> => {
   const {state: config} = useConfigStore();
   const deliveryMoments = useResolvedDeliveryMoments();
   const activeCarriers = useActiveCarriers();
+  const {showDeliveryDate} = useFeatures();
 
   return computed(() => {
     // Some package types will not return any date/time moments from the API - we show one option per carrier instead without any date/time.
@@ -24,6 +26,30 @@ export const useDeliveryMomentOptions = (): ComputedRef<SelectOption<string>[]> 
           return {
             carrier: carrierIdentifier,
             label: createPackageTypeTranslatable(config.packageType),
+            price: getDeliveryTypePrice(DELIVERY_TYPE_DEFAULT, carrierIdentifier),
+            value: JSON.stringify({
+              carrier: carrierIdentifier,
+              date: null,
+              deliveryType: DELIVERY_TYPE_DEFAULT,
+              packageType: config.packageType,
+              shipmentOptions: [],
+              time: null,
+            }),
+          };
+        });
+    }
+
+    // When delivery date is hidden (deliveryDaysWindow <= 1 or showDeliveryDate config is false):
+    // show one option per active carrier without date
+    if (!showDeliveryDate.value) {
+      return activeCarriers.value
+        .filter((carrier) => toValue(carrier.hasDelivery))
+        .map((carrier) => {
+          const carrierIdentifier = toValue(carrier.carrier).identifier;
+
+          return {
+            carrier: carrierIdentifier,
+            label: createTranslatable(`delivery${pascal(DELIVERY_TYPE_DEFAULT)}Title`),
             price: getDeliveryTypePrice(DELIVERY_TYPE_DEFAULT, carrierIdentifier),
             value: JSON.stringify({
               carrier: carrierIdentifier,

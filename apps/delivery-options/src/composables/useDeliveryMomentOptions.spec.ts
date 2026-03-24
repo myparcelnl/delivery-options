@@ -29,7 +29,10 @@ import {useDeliveryMomentOptions} from './useDeliveryMomentOptions';
 
 const MOCK_DATE = '2025-01-15';
 
-const setup = async (packageType?: SupportedPackageTypeName): Promise<ComputedRef<SelectOption<string>[]>> => {
+const setup = async (
+  packageType?: SupportedPackageTypeName,
+  extraConfig: Record<string, unknown> = {},
+): Promise<ComputedRef<SelectOption<string>[]>> => {
   // For API-path package types, mock a controlled delivery options response
   if (packageType && DELIVERY_MOMENT_PACKAGE_TYPES.includes(packageType)) {
     mockGetDeliveryOptions.mockImplementation(() =>
@@ -72,6 +75,7 @@ const setup = async (packageType?: SupportedPackageTypeName): Promise<ComputedRe
         },
         // TODO: allow optional key to be passed with undefined as value
         ...(packageType ? {[CarrierSetting.PackageType]: packageType} : {}),
+        ...extraConfig,
       },
     }),
   );
@@ -118,6 +122,25 @@ describe('useDeliveryMomentOptions', () => {
       ...option,
       value: parseJson<SelectedDeliveryMoment>(option.value),
     }));
+
+    expect(resolved).toMatchSnapshot();
+  });
+
+  it('returns one option per carrier without date when deliveryDaysWindow is 1', async () => {
+    expect.assertions(3);
+
+    const options = await setup(PackageTypeName.Package, {[CarrierSetting.DeliveryDaysWindow]: 1});
+
+    // Two carriers are configured (postnl and postnl:123), both supporting delivery
+    expect(options.value).toHaveLength(2);
+
+    const resolved = options.value.map((option) => ({
+      ...option,
+      value: parseJson<SelectedDeliveryMoment>(option.value),
+    }));
+
+    // All options must have date: null (no date shown)
+    expect(resolved.every((opt) => opt.value.date === null)).toBe(true);
 
     expect(resolved).toMatchSnapshot();
   });
