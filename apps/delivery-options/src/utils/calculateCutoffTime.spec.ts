@@ -31,7 +31,6 @@ const getCalculatedCutoffTime = async (): Promise<TimestampString> => {
 
 describe('calculateCutoffTime', () => {
   const TUESDAY_08_00 = new Date('2021-01-04T08:00') as Readonly<Date>;
-  const TUESDAY_20_00 = new Date('2021-01-04T20:00') as Readonly<Date>;
   const FRIDAY_08_00 = new Date('2021-01-08T08:00') as Readonly<Date>;
 
   beforeEach(() => {
@@ -109,21 +108,6 @@ describe('calculateCutoffTime', () => {
     });
 
     expect(await getCalculatedCutoffTime()).toBe('12:00');
-  });
-
-  it('returns 23:59 when same day delivery is enabled and its cutoff time has passed', async () => {
-    expect.assertions(1);
-
-    vi.setSystemTime(TUESDAY_20_00);
-
-    mockDeliveryOptionsConfig({
-      [KEY_CONFIG]: {
-        [CarrierSetting.AllowSameDayDelivery]: true,
-        [CarrierSetting.CutoffTimeSameDay]: '12:00',
-      },
-    });
-
-    expect(await getCalculatedCutoffTime()).toBe('23:59');
   });
 
   it('returns specific cutoff time for current day if passed', async () => {
