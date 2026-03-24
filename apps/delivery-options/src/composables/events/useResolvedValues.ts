@@ -9,8 +9,8 @@ import {
   getConfigKey,
   type CarrierIdentifier,
 } from '@myparcel-dev/do-shared';
-import {DeliveryTypeName, ShipmentOptionName} from '@myparcel-dev/constants';
 import {NETHERLANDS} from '@myparcel-dev/constants/countries';
+import {DeliveryTypeName, ShipmentOptionName} from '@myparcel-dev/constants';
 import {useSelectedValues} from '../useSelectedValues';
 import {useSelectedPickupLocation} from '../useSelectedPickupLocation';
 import {useResolvedDeliveryOptions} from '../useResolvedDeliveryOptions';

@@ -1,6 +1,11 @@
 import {useNavigatorLanguage} from '@vueuse/core';
 import {type ResolvedDeliveryOptionsConfig} from '../types';
-import {DELIVERY_DAYS_WINDOW_DEFAULT, DROP_OFF_DELAY_DEFAULT, PACKAGE_TYPE_DEFAULT, PLATFORM_DEFAULT} from './settingsConsts';
+import {
+  DELIVERY_DAYS_WINDOW_DEFAULT,
+  DROP_OFF_DELAY_DEFAULT,
+  PACKAGE_TYPE_DEFAULT,
+  PLATFORM_DEFAULT,
+} from './settingsConsts';
 import {getDefaultCarrierSettings} from './getDefaultCarrierSettings';
 import {CarrierSetting, ConfigSetting, PickupLocationsView} from './enums';
 import {DAY_MONDAY, DAY_TUESDAY, DAY_WEDNESDAY, DAY_THURSDAY, DAY_FRIDAY} from './constants';

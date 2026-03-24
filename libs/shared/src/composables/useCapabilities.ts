@@ -60,7 +60,10 @@ export const useCapabilities = useMemoize(
       {immediate: true},
     );
 
-    return createCapabilitiesInterface(capabilities, computed(() => loading.value));
+    return createCapabilitiesInterface(
+      capabilities,
+      computed(() => loading.value),
+    );
   },
 );
 

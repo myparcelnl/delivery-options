@@ -102,18 +102,15 @@ const SUPPORTED_COUNTRIES = ['NL', 'BE'];
  * Filters capabilities to remove country-specific options.
  * Priority delivery is only available in the Netherlands.
  */
-const filterCapabilitiesByCountry = (
-  capabilities: CarrierCapability[],
-  countryCode: string,
-): CarrierCapability[] => {
+const filterCapabilitiesByCountry = (capabilities: CarrierCapability[], countryCode: string): CarrierCapability[] => {
   if (countryCode === 'NL') {
-    return capabilities; // Netherlands gets all options
+    return capabilities;
   }
 
   // For non-NL countries, filter out priorityDelivery
   return capabilities.map((carrier) => {
     if (carrier.carrier !== 'POSTNL') {
-      return carrier; // Only POSTNL has priority delivery
+      return carrier;
     }
 
     const {priorityDelivery, ...otherOptions} = carrier.options;

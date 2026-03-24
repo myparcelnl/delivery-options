@@ -106,7 +106,13 @@ describe('createGetDeliveryOptionsParameters', () => {
 
     expect(parameters).toEqual(
       assign<Partial<EndpointParameters<GetDeliveryOptions>>>(
-        {platform: PlatformName.MyParcel, cc: 'NL', city: 'Hoofddorp', postal_code: '2132 JE', street: 'Antareslaan 31'},
+        {
+          platform: PlatformName.MyParcel,
+          cc: 'NL',
+          city: 'Hoofddorp',
+          postal_code: '2132 JE',
+          street: 'Antareslaan 31',
+        },
         output,
       ),
     );

@@ -1,5 +1,5 @@
-import {describe, it, expect, vi, beforeEach} from 'vitest';
 import {ref, nextTick} from 'vue';
+import {describe, it, expect, vi, beforeEach} from 'vitest';
 import {flushPromises} from '@vue/test-utils';
 import {type CapabilitiesRequest} from '../../types';
 import {mockCapabilitiesFetch} from '../../__tests__/mocks/mockCapabilitiesResponse';
@@ -45,7 +45,7 @@ describe('useReactiveCapabilitiesRequest', () => {
     );
 
     const callHeaders = (mockCapabilitiesFetch.mock.calls[0][1] as RequestInit).headers as Record<string, string>;
-    expect(callHeaders['Authorization']).toBeUndefined();
+    expect(callHeaders.Authorization).toBeUndefined();
   });
 
   it('includes Authorization header when apiKey is provided', async () => {

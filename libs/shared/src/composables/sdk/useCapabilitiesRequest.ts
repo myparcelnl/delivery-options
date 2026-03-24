@@ -63,6 +63,7 @@ export interface ReactiveCapabilitiesRequest {
  * Reactive capabilities request that re-fetches when the request ref changes.
  * Aborts stale in-flight requests. Deduplicates identical requests via JSON comparison.
  */
+// eslint-disable-next-line max-lines-per-function
 export const useReactiveCapabilitiesRequest = (
   proxyCapabilities: string,
   requestRef: Ref<CapabilitiesRequest> | ComputedRef<CapabilitiesRequest>,
@@ -106,7 +107,7 @@ export const useReactiveCapabilitiesRequest = (
         return;
       }
 
-      console.error('Capabilities request failed:', error);
+      useLogger().error('Capabilities request failed:', error);
       data.value = EMPTY_RESPONSE;
       lastResponseJson = '';
     } finally {

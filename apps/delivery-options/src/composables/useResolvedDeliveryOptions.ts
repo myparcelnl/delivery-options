@@ -18,8 +18,8 @@ import {type SelectedDeliveryMoment} from '../types';
 import {useTimeRange} from './useTimeRange';
 import {useSelectedValues} from './useSelectedValues';
 import {type UseResolvedCarrier} from './useResolvedCarrier';
-import {useActiveCarriers} from './useActiveCarriers';
 import {useBroadCapabilities} from './useBroadCapabilities';
+import {useActiveCarriers} from './useActiveCarriers';
 
 type DeliveryOptionsApiData = ReturnType<typeof useDeliveryOptionsRequest>['data']['value'];
 

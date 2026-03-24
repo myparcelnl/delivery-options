@@ -37,6 +37,7 @@ export const useActiveCarriers = useMemoize((): ComputedRef<UseResolvedCarrier[]
 
   const capabilities = useBroadCapabilities();
 
+  // eslint-disable-next-line max-lines-per-function
   return computed(() => {
     const entries = Object.entries(config.carrierSettings) as [CarrierIdentifier, CarrierSettings][];
 
@@ -72,9 +73,9 @@ export const useActiveCarriers = useMemoize((): ComputedRef<UseResolvedCarrier[]
       .filter(([identifier]) => {
         const carrierPart = identifier.split(':')[0] ?? identifier;
         const normalized = normalizeCarrierName(carrierPart);
-        const cap = capabilities.getCarrierCapability(normalized);
+        const capability = capabilities.getCarrierCapability(normalized);
 
-        if (!cap) {
+        if (!capability) {
           return false;
         }
 
@@ -82,7 +83,7 @@ export const useActiveCarriers = useMemoize((): ComputedRef<UseResolvedCarrier[]
         const hasDelivery =
           getResolvedValue(CarrierSetting.AllowDeliveryOptions, identifier) &&
           DELIVERY_TYPES.some((deliveryType) => {
-            const capDeliveryTypes = cap.deliveryTypes
+            const capDeliveryTypes = capability.deliveryTypes
               .map(mapCapabilityDeliveryType)
               .filter((dt): dt is SupportedDeliveryTypeName => dt !== undefined);
 
@@ -91,7 +92,7 @@ export const useActiveCarriers = useMemoize((): ComputedRef<UseResolvedCarrier[]
 
         // Check for pickup: carrier has PICKUP_DELIVERY AND config allows it
         const hasPickup =
-          cap.deliveryTypes.includes('PICKUP_DELIVERY') &&
+          capability.deliveryTypes.includes('PICKUP_DELIVERY') &&
           Boolean(getResolvedValue(CarrierSetting.AllowPickupLocations, identifier));
 
         return hasDelivery || hasPickup;

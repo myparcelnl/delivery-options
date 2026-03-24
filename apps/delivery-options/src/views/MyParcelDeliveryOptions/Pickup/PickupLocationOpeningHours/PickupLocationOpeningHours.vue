@@ -39,9 +39,10 @@ const props = defineProps<{locationCode: string; expanded?: boolean; carrierIden
 const propRefs = toRefs(props);
 const {pickupLocation} = usePickupLocation(propRefs.locationCode, propRefs.carrierIdentifier);
 
+const NUMBER_OF_DAYS_IN_WEEK = 7;
 const openingHours = computed(() => {
   const openingHoursData = toValue(pickupLocation)?.openingHours ?? [];
-  return Array.from({length: 7}).map((_, weekdayIndex) => {
+  return Array.from({length: NUMBER_OF_DAYS_IN_WEEK}).map((_, weekdayIndex) => {
     const localizedWeekday = getLocalizedWeekdayName(weekdayIndex);
     const dayData = openingHoursData.find((entry: {weekday: number}) => entry.weekday === weekdayIndex);
 

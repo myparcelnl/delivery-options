@@ -24,7 +24,7 @@
 </template>
 
 <script lang="ts" setup>
-import {toRefs, watch, onMounted, toValue} from 'vue';
+import {toRefs, watch, toValue} from 'vue';
 import {CarrierBox, type SelectOption, RadioInput} from '@myparcel-dev/do-shared';
 import {DeliveryTypeName} from '@myparcel-dev/constants';
 import {parseJson} from '../../../../utils';
@@ -43,7 +43,7 @@ const propRefs = toRefs(props);
 const model = defineModel<string | undefined>({required: true});
 
 const {translate} = useLanguage();
-const {grouped} = useOptionsGroupedByCarrier(propRefs.options as any);
+const {grouped} = useOptionsGroupedByCarrier(propRefs.options as never);
 const {deliveryDate} = useSelectedValues();
 
 /**

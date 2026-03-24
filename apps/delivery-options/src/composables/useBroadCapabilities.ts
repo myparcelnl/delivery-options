@@ -14,6 +14,7 @@ export const useBroadCapabilities = (): UseCapabilities => {
   if (!instance) {
     scope = effectScope();
 
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     instance = scope.run(() => {
       const {state: config} = useConfigStore();
       const requestRef = useBroadCapabilitiesParams();

@@ -22,7 +22,7 @@ describe('useCapabilities', () => {
     const postnl = getCarrierCapability('postnl');
 
     expect(postnl).toBeDefined();
-    expect(postnl!.carrier).toBe('POSTNL');
+    expect(postnl?.carrier).toBe('POSTNL');
   });
 
   it('finds DHL For You by UPPER_CASE name', async () => {
@@ -33,7 +33,7 @@ describe('useCapabilities', () => {
     const dhl = getCarrierCapability('DHL_FOR_YOU');
 
     expect(dhl).toBeDefined();
-    expect(dhl!.carrier).toBe('DHL_FOR_YOU');
+    expect(dhl?.carrier).toBe('DHL_FOR_YOU');
   });
 
   it('returns undefined for nonexistent carrier', async () => {

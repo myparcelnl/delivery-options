@@ -1,20 +1,28 @@
 import {type ComputedRef, computed, toValue} from 'vue';
-import {type SelectOption, DELIVERY_TYPE_DEFAULT, CarrierSetting, DELIVERY_DAYS_WINDOW_DEFAULT, createTranslatable} from '@myparcel-dev/do-shared';
 import {pascal} from 'radash';
+import {
+  type SelectOption,
+  DELIVERY_TYPE_DEFAULT,
+  CarrierSetting,
+  DELIVERY_DAYS_WINDOW_DEFAULT,
+  createTranslatable,
+} from '@myparcel-dev/do-shared';
 import {getDeliveryTypePrice, createPackageTypeTranslatable} from '../utils';
 import {useConfigStore} from '../stores';
 import {DELIVERY_MOMENT_PACKAGE_TYPES, SHOWN_SHIPMENT_OPTIONS} from '../data';
-import {useResolvedDeliveryMoments} from './useResolvedDeliveryMoments';
 import {useResolvedDeliveryOptions} from './useResolvedDeliveryOptions';
-import {useActiveCarriers} from './useActiveCarriers';
+import {useResolvedDeliveryMoments} from './useResolvedDeliveryMoments';
 import {useFeatures} from './useFeatures';
+import {useActiveCarriers} from './useActiveCarriers';
 
+// eslint-disable-next-line max-lines-per-function
 export const useDeliveryMomentOptions = (): ComputedRef<SelectOption<string>[]> => {
   const {state: config} = useConfigStore();
   const deliveryMoments = useResolvedDeliveryMoments();
   const activeCarriers = useActiveCarriers();
   const {showDeliveryDate} = useFeatures();
 
+  // eslint-disable-next-line max-lines-per-function
   return computed(() => {
     // Some package types will not return any date/time moments from the API - we show one option per carrier instead without any date/time.
     if (!DELIVERY_MOMENT_PACKAGE_TYPES.includes(config.packageType)) {
@@ -85,15 +93,14 @@ export const useDeliveryMomentOptions = (): ComputedRef<SelectOption<string>[]> 
     // Fallback for active carriers without moments on ANY date (API failed / no dates at all)
     const allDeliveryOptions = useResolvedDeliveryOptions();
     const carriersWithAnyMoments = new Set(
-      allDeliveryOptions.value
-        .filter((opt) => opt.packageType === config.packageType)
-        .map((opt) => opt.carrier),
+      allDeliveryOptions.value.filter((opt) => opt.packageType === config.packageType).map((opt) => opt.carrier),
     );
     const fallbackOptions = activeCarriers.value
       .filter((carrier) => {
         const id = toValue(carrier.carrier).identifier;
 
         if (carriersWithAnyMoments.has(id)) return false;
+
         if (!toValue(carrier.hasDelivery)) return false;
 
         const deliveryDaysWindow = carrier.get(CarrierSetting.DeliveryDaysWindow, DELIVERY_DAYS_WINDOW_DEFAULT);
