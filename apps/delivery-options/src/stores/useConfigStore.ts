@@ -21,6 +21,10 @@ function update(configuration: DeliveryOptionsConfig, withDefaults = true): void
 
 // Reset to the initial state
 function reset(): void {
+  for (const key of Object.keys(state)) {
+    // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
+    delete (state as Record<string, unknown>)[key];
+  }
   Object.assign(state, initialState);
 }
 

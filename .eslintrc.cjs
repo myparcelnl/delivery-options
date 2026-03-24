@@ -18,7 +18,7 @@ module.exports = {
       extends: ['@myparcel-dev/eslint-config-prettier-typescript-vue', '@myparcel-dev/eslint-config-import'],
       files: ['./**/*.vue'],
       parserOptions: {
-        project: ['./tsconfig.json', './apps/*/tsconfig.json', './libs/*/tsconfig.json'],
+        project: ['./tsconfig.json', './apps/*/tsconfig.base.json', './libs/*/tsconfig.base.json'],
       },
       rules: {
         '@typescript-eslint/no-misused-promises': 'off',

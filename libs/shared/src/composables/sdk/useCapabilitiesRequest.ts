@@ -1,7 +1,7 @@
 import {ref, computed, watch, toValue, type MaybeRefOrGetter, type Ref, type ComputedRef} from 'vue';
+import {useLogger} from '../useLogger';
 import {type CapabilitiesRequest, type CapabilitiesResponse, type RequestHandler} from '../../types';
 import {useRequest} from './useRequest';
-import {useLogger} from '../useLogger';
 
 const REQUEST_KEY_CAPABILITIES = 'capabilities';
 
@@ -19,7 +19,7 @@ const fetchCapabilities = async (
   };
 
   if (apiKey) {
-    useLogger().warning('⚠️ Unsafe use of api key, do not use in production');
+    useLogger().warning('⚠️ Unsafe use of API key, do not use in production.');
     headers.Authorization = `Bearer ${btoa(apiKey)}`;
   }
 
@@ -115,9 +115,7 @@ export const useReactiveCapabilitiesRequest = (
   };
 
   // Watch a serialized version of the request + apiKey to avoid false triggers from deep watch
-  const fetchKey = computed(() =>
-    JSON.stringify({request: toValue(requestRef), apiKey: toValue(apiKey)}),
-  );
+  const fetchKey = computed(() => JSON.stringify({request: toValue(requestRef), apiKey: toValue(apiKey)}));
 
   // Initial fetch
   void doFetch();
