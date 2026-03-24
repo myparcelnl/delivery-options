@@ -6,17 +6,11 @@ import {CarrierName} from '@myparcel-dev/constants';
 import {getResolvedCarrier, createGetDeliveryOptionsParameters} from '../../utils';
 import {useResolvedDeliveryOptions} from '../../composables';
 
-const DEFAULT_COUNTRY = 'NL';
-const DEFAULT_API_BASE_URL = 'https://api.myparcel.nl';
-
-export const waitForDeliveryOptions = async (
-  carrier?: CarrierName,
-  countryCode?: string,
-): Promise<DeliveryOption[]> => {
+export const waitForDeliveryOptions = async (carrier?: CarrierName): Promise<DeliveryOption[]> => {
   const carrierName = carrier ?? CarrierName.PostNl;
   const options = useResolvedDeliveryOptions();
 
-  const resolvedCarrier = getResolvedCarrier(carrierName, countryCode ?? DEFAULT_COUNTRY, DEFAULT_API_BASE_URL);
+  const resolvedCarrier = getResolvedCarrier(carrierName);
 
   await flushPromises();
 

@@ -11,7 +11,7 @@ import {
 } from '@myparcel-dev/do-shared';
 import {DeliveryTypeName} from '@myparcel-dev/constants';
 import {getResolvedCarrier, getResolvedValue} from '../utils';
-import {useAddressStore, useConfigStore} from '../stores';
+import {useConfigStore} from '../stores';
 import {type UseResolvedCarrier} from './useResolvedCarrier';
 import {useBroadCapabilities} from './useBroadCapabilities';
 
@@ -33,7 +33,6 @@ const DELIVERY_TYPES = [
 // eslint-disable-next-line max-lines-per-function
 export const useActiveCarriers = useMemoize((): ComputedRef<UseResolvedCarrier[]> => {
   const {state: config} = useConfigStore();
-  const {state: address} = useAddressStore();
 
   const capabilities = useBroadCapabilities();
 
@@ -98,7 +97,7 @@ export const useActiveCarriers = useMemoize((): ComputedRef<UseResolvedCarrier[]
         return hasDelivery || hasPickup;
       })
       .map(([identifier]) => {
-        return getResolvedCarrier(identifier, address.cc, config.apiBaseUrl);
+        return getResolvedCarrier(identifier);
       });
   });
 });

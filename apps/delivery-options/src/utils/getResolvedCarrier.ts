@@ -60,12 +60,7 @@ const getConfigKeyOrNull = (option: string): ConfigKey | null => {
 
 export const getResolvedCarrier = useMemoize(
   // eslint-disable-next-line max-lines-per-function
-  (
-    carrierIdentifier: CarrierIdentifier | undefined,
-    countryCode: string,
-    apiBaseUrl: string,
-    _packageType?: string,
-  ): UseResolvedCarrier => {
+  (carrierIdentifier: CarrierIdentifier | undefined): UseResolvedCarrier => {
     const carrierName = resolveCarrierName(carrierIdentifier ?? '');
 
     const apiCarrier = computedAsync(

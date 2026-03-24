@@ -15,9 +15,6 @@ import {useAddressStore, useConfigStore} from '../stores';
 import {mockDeliveryOptionsConfig, getMockDeliveryOptionsConfiguration} from '../__tests__';
 import {getResolvedCarrier} from './getResolvedCarrier';
 
-const DEFAULT_COUNTRY = 'NL';
-const DEFAULT_API_BASE_URL = 'https://api.myparcel.nl';
-
 describe('getResolvedCarrier', () => {
   beforeEach(() => {
     useConfigStore().reset();
@@ -26,7 +23,7 @@ describe('getResolvedCarrier', () => {
 
   describe('delivery types', () => {
     it('exposes delivery types', async () => {
-      const carrier = getResolvedCarrier(CarrierName.DhlForYou, DEFAULT_COUNTRY, DEFAULT_API_BASE_URL);
+      const carrier = getResolvedCarrier(CarrierName.DhlForYou);
 
       mockDeliveryOptionsConfig(
         getMockDeliveryOptionsConfiguration({
@@ -47,7 +44,7 @@ describe('getResolvedCarrier', () => {
     });
 
     it('filters delivery types by config', async () => {
-      const carrier = getResolvedCarrier(CarrierName.DhlForYou, DEFAULT_COUNTRY, DEFAULT_API_BASE_URL);
+      const carrier = getResolvedCarrier(CarrierName.DhlForYou);
       mockDeliveryOptionsConfig(
         getMockDeliveryOptionsConfiguration({
           [KEY_CONFIG]: {
@@ -87,7 +84,7 @@ describe('getResolvedCarrier', () => {
         }),
       );
 
-      const carrier = getResolvedCarrier(CarrierName.DhlForYou, DEFAULT_COUNTRY, DEFAULT_API_BASE_URL);
+      const carrier = getResolvedCarrier(CarrierName.DhlForYou);
 
       await flushPromises();
 
@@ -100,7 +97,7 @@ describe('getResolvedCarrier', () => {
   });
 
   it('exposes shipment options, filtered by what is allowed in config', async () => {
-    const carrier = getResolvedCarrier(CarrierName.DhlForYou, DEFAULT_COUNTRY, DEFAULT_API_BASE_URL);
+    const carrier = getResolvedCarrier(CarrierName.DhlForYou);
 
     mockDeliveryOptionsConfig(
       getMockDeliveryOptionsConfiguration({
@@ -154,7 +151,7 @@ describe('getResolvedCarrier', () => {
       }),
     );
 
-    const carrier = getResolvedCarrier(CarrierName.DhlForYou, DEFAULT_COUNTRY, DEFAULT_API_BASE_URL);
+    const carrier = getResolvedCarrier(CarrierName.DhlForYou);
 
     await flushPromises();
 
@@ -191,7 +188,7 @@ describe('getResolvedCarrier', () => {
 
   describe('hasDelivery', () => {
     it('returns false if no delivery types are available', async () => {
-      const carrier = getResolvedCarrier(CarrierName.DhlForYou, ZIMBABWE, DEFAULT_API_BASE_URL);
+      const carrier = getResolvedCarrier(CarrierName.DhlForYou);
 
       mockDeliveryOptionsConfig(
         getMockDeliveryOptionsConfiguration({
@@ -217,7 +214,7 @@ describe('getResolvedCarrier', () => {
 
   describe('hasPickup', () => {
     it('returns true if pickup is enabled', async () => {
-      const carrier = getResolvedCarrier(CarrierName.DhlForYou, DEFAULT_COUNTRY, DEFAULT_API_BASE_URL);
+      const carrier = getResolvedCarrier(CarrierName.DhlForYou);
 
       mockDeliveryOptionsConfig(
         getMockDeliveryOptionsConfiguration({
@@ -249,7 +246,7 @@ describe('getResolvedCarrier', () => {
         }),
       );
 
-      const carrier = getResolvedCarrier(CarrierName.DhlForYou, DEFAULT_COUNTRY, DEFAULT_API_BASE_URL);
+      const carrier = getResolvedCarrier(CarrierName.DhlForYou);
 
       await flushPromises();
 
@@ -274,7 +271,7 @@ describe('getResolvedCarrier', () => {
         }),
       );
 
-      const postNl = getResolvedCarrier(CarrierName.DhlForYou, DEFAULT_COUNTRY, DEFAULT_API_BASE_URL);
+      const postNl = getResolvedCarrier(CarrierName.DhlForYou);
 
       await flushPromises();
 
@@ -299,7 +296,7 @@ describe('getResolvedCarrier', () => {
         }),
       );
 
-      const postnl = getResolvedCarrier(CarrierName.DhlForYou, DEFAULT_COUNTRY, DEFAULT_API_BASE_URL);
+      const postnl = getResolvedCarrier(CarrierName.DhlForYou);
 
       await flushPromises();
 

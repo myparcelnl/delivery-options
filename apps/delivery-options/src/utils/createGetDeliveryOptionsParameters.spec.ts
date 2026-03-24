@@ -15,9 +15,6 @@ import {getMockDeliveryOptionsConfiguration, mockDeliveryOptionsConfig} from '..
 import {getResolvedCarrier} from './getResolvedCarrier';
 import {createGetDeliveryOptionsParameters} from './createGetDeliveryOptionsParameters';
 
-const DEFAULT_COUNTRY = 'NL';
-const DEFAULT_API_BASE_URL = 'https://api.myparcel.nl';
-
 interface TestInput {
   carrier: CarrierIdentifier;
   config: Partial<InputCarrierSettings>;
@@ -98,7 +95,7 @@ describe('createGetDeliveryOptionsParameters', () => {
       getMockDeliveryOptionsConfiguration({[KEY_CONFIG]: {[KEY_CARRIER_SETTINGS]: {[carrier]: {...config}}}}),
     );
 
-    const resolvedCarrier = getResolvedCarrier(carrier, DEFAULT_COUNTRY, DEFAULT_API_BASE_URL);
+    const resolvedCarrier = getResolvedCarrier(carrier);
 
     await flushPromises();
 

@@ -130,7 +130,7 @@ const callback = (): UseResolvedPickupLocations => {
 
         return hasPickupInCapabilities && allowPickup;
       })
-      .map((identifier) => getResolvedCarrier(identifier, address.cc, config.apiBaseUrl));
+      .map((identifier) => getResolvedCarrier(identifier));
   });
 
   const currentLocations = computedAsync<ResolvedPickupLocation[]>(async () => {

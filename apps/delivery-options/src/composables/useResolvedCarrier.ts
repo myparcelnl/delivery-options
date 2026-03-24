@@ -10,10 +10,8 @@ import {
   type SupportedShipmentOptionName,
   type ConfigKey,
   type CarrierSettingsKey,
-  mapPackageTypeToCapability,
 } from '@myparcel-dev/do-shared';
 import {getResolvedCarrier} from '../utils';
-import {useAddressStore, useConfigStore} from '../stores';
 
 export type UseResolvedCarrier = {
   carrier: ComputedAsync<CarrierWithIdentifier>;
@@ -31,9 +29,5 @@ export type UseResolvedCarrier = {
 };
 
 export const useResolvedCarrier = (carrierIdentifier: MaybeRef<CarrierIdentifier | undefined>): UseResolvedCarrier => {
-  const {state: config} = useConfigStore();
-  const {state: address} = useAddressStore();
-  const identifier = toValue(carrierIdentifier);
-
-  return getResolvedCarrier(identifier, address.cc, config.apiBaseUrl, mapPackageTypeToCapability(config.packageType));
+  return getResolvedCarrier(toValue(carrierIdentifier));
 };

@@ -18,11 +18,8 @@ import {mockDeliveryOptionsConfig} from '../__tests__';
 import {getResolvedCarrier} from './getResolvedCarrier';
 import {calculateCutoffTime} from './calculateCutoffTime';
 
-const DEFAULT_COUNTRY = 'NL';
-const DEFAULT_API_BASE_URL = 'https://api.myparcel.nl';
-
 const getCalculatedCutoffTime = async (): Promise<TimestampString> => {
-  const resolvedCarrier = getResolvedCarrier(CarrierName.DhlForYou, DEFAULT_COUNTRY, DEFAULT_API_BASE_URL);
+  const resolvedCarrier = getResolvedCarrier(CarrierName.DhlForYou);
 
   await flushPromises();
 
@@ -39,7 +36,7 @@ describe('calculateCutoffTime', () => {
     vi.setSystemTime(TUESDAY_08_00);
 
     useAddressStore().update({
-      [AddressField.Country]: DEFAULT_COUNTRY,
+      [AddressField.Country]: 'NL',
       [AddressField.City]: '',
       [AddressField.Street]: '',
       [AddressField.PostalCode]: '',
