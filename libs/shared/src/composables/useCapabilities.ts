@@ -1,4 +1,4 @@
-import {computed, ref, watch, type Ref, type ComputedRef} from 'vue';
+import {computed, ref, watch, type MaybeRefOrGetter, type Ref, type ComputedRef} from 'vue';
 import {useMemoize} from '@vueuse/core';
 import {normalizeCarrierName} from '../utils';
 import {type CarrierCapability, type CapabilitiesRequest, type CapabilitiesResponse} from '../types';
@@ -71,7 +71,7 @@ export const useCapabilities = useMemoize(
 export const useReactiveCapabilities = (
   proxyCapabilities: string,
   requestRef: Ref<CapabilitiesRequest> | ComputedRef<CapabilitiesRequest>,
-  apiKey?: string,
+  apiKey?: MaybeRefOrGetter<string | undefined>,
 ): UseCapabilities => {
   const {data, loading} = useReactiveCapabilitiesRequest(proxyCapabilities, requestRef, apiKey);
 

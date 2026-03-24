@@ -47,6 +47,7 @@ export enum CarrierSetting {
 export enum ConfigSetting {
   ApiBaseUrl = 'apiBaseUrl',
   ProxyCapabilities = 'proxyCapabilities',
+  ApiKey = 'apiKey',
   Currency = 'currency',
   Locale = 'locale',
   PickupLocationsDefaultView = 'pickupLocationsDefaultView',

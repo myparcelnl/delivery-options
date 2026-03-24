@@ -1,4 +1,4 @@
-import {ref, computed, watch, toValue, type Ref, type ComputedRef} from 'vue';
+import {ref, computed, watch, toValue, type MaybeRefOrGetter, type Ref, type ComputedRef} from 'vue';
 import {type CapabilitiesRequest, type CapabilitiesResponse, type RequestHandler} from '../../types';
 import {useRequest} from './useRequest';
 
@@ -64,7 +64,7 @@ export interface ReactiveCapabilitiesRequest {
 export const useReactiveCapabilitiesRequest = (
   proxyCapabilities: string,
   requestRef: Ref<CapabilitiesRequest> | ComputedRef<CapabilitiesRequest>,
-  apiKey?: string,
+  apiKey?: MaybeRefOrGetter<string | undefined>,
 ): ReactiveCapabilitiesRequest => {
   const data = ref<CapabilitiesResponse>(EMPTY_RESPONSE);
   const loading = ref(true);
@@ -74,13 +74,14 @@ export const useReactiveCapabilitiesRequest = (
 
   const doFetch = async () => {
     const request = toValue(requestRef);
-    const requestJson = JSON.stringify(request);
+    const currentApiKey = toValue(apiKey);
+    const fetchKeyJson = JSON.stringify({request, apiKey: currentApiKey});
 
-    if (requestJson === lastRequestJson) {
+    if (fetchKeyJson === lastRequestJson) {
       return;
     }
 
-    lastRequestJson = requestJson;
+    lastRequestJson = fetchKeyJson;
 
     if (abortController) {
       abortController.abort();
@@ -90,7 +91,7 @@ export const useReactiveCapabilitiesRequest = (
     loading.value = true;
 
     try {
-      const result = await fetchCapabilities(proxyCapabilities, request, apiKey, abortController.signal);
+      const result = await fetchCapabilities(proxyCapabilities, request, currentApiKey, abortController.signal);
       const resultJson = JSON.stringify(result);
 
       // Only update when the response actually changed, to avoid triggering downstream watchers
@@ -111,13 +112,15 @@ export const useReactiveCapabilitiesRequest = (
     }
   };
 
-  // Watch a serialized version of the request to avoid false triggers from deep watch
-  const requestJson = computed(() => JSON.stringify(toValue(requestRef)));
+  // Watch a serialized version of the request + apiKey to avoid false triggers from deep watch
+  const fetchKey = computed(() =>
+    JSON.stringify({request: toValue(requestRef), apiKey: toValue(apiKey)}),
+  );
 
   // Initial fetch
   void doFetch();
 
-  watch(requestJson, () => {
+  watch(fetchKey, () => {
     void doFetch();
   });
 

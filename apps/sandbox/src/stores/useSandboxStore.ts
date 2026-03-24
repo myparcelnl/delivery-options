@@ -76,6 +76,7 @@ export const useSandboxStore = defineStore('sandbox', {
           ...this.config,
           [KEY_CARRIER_SETTINGS]: cleanedCarrierSettings,
           [ConfigSetting.Locale]: language.value.code,
+          [ConfigSetting.ProxyCapabilities]: `${this.config.apiBaseUrl ?? 'https://api.myparcel.nl'}/shipments/capabilities`,
         } satisfies InputDeliveryOptionsConfig,
         [KEY_ADDRESS]: this.address,
         [KEY_STRINGS]: strings.value,

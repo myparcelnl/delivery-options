@@ -1,4 +1,4 @@
-import {effectScope, type EffectScope} from 'vue';
+import {computed, effectScope, type EffectScope} from 'vue';
 import {type UseCapabilities, useReactiveCapabilities} from '@myparcel-dev/do-shared';
 import {useConfigStore} from '../stores';
 import {useBroadCapabilitiesParams} from './useCapabilitiesRequestParams';
@@ -18,7 +18,8 @@ export const useBroadCapabilities = (): UseCapabilities => {
       const {state: config} = useConfigStore();
       const requestRef = useBroadCapabilitiesParams();
 
-      return useReactiveCapabilities(config.proxyCapabilities, requestRef);
+      const apiKeyRef = computed(() => config.apiKey);
+      return useReactiveCapabilities(config.proxyCapabilities, requestRef, apiKeyRef);
     })!;
   }
 

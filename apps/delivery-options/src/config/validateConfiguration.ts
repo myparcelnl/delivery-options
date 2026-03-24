@@ -81,6 +81,11 @@ const additionalOptions: ConfigOption[] = [
     validators: [validateIsString()],
   },
   {
+    key: ConfigSetting.ApiKey,
+    perCarrier: false,
+    validators: [],
+  },
+  {
     key: ConfigSetting.ShowPrices,
     perCarrier: false,
     validators: [validateIsBoolean()],

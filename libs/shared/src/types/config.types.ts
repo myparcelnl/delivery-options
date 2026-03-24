@@ -91,6 +91,7 @@ export interface DeliveryOptionsConfig extends Partial<Record<ConfigSetting, unk
   allowPickupLocationsViewSelection: boolean;
   apiBaseUrl: string;
   proxyCapabilities: string;
+  apiKey?: string;
   carrierSettings: CarrierSettingsObject;
   closedDays: Date[];
   /**
