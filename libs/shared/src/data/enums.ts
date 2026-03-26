@@ -1,5 +1,4 @@
 export enum CarrierSetting {
-  AllowDeliveryOptions = 'allowDeliveryOptions',
   AllowEveningDelivery = 'allowEveningDelivery',
   AllowMondayDelivery = 'allowMondayDelivery',
   AllowMorningDelivery = 'allowMorningDelivery',

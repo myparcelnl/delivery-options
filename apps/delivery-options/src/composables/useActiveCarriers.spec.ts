@@ -41,7 +41,6 @@ describe('useActiveCarriers', () => {
       identifiers.map((identifier) => [
         identifier,
         {
-          [CarrierSetting.AllowDeliveryOptions]: true,
           [CarrierSetting.AllowStandardDelivery]: true,
         },
       ]),
@@ -75,7 +74,6 @@ describe('useActiveCarriers', () => {
       [CarrierName.PostNl, CarrierName.DhlForYou, CarrierName.Dpd].map((identifier) => [
         identifier,
         {
-          [CarrierSetting.AllowDeliveryOptions]: true,
           [CarrierSetting.AllowStandardDelivery]: true,
           [CarrierSetting.AllowPickupLocations]: true,
         },
@@ -115,7 +113,6 @@ describe('useActiveCarriers', () => {
       [CarrierName.PostNl].map((identifier) => [
         identifier,
         {
-          [CarrierSetting.AllowDeliveryOptions]: true,
           [CarrierSetting.AllowStandardDelivery]: true,
         },
       ]),
@@ -145,7 +142,6 @@ describe('useActiveCarriers', () => {
       [CarrierName.PostNl, CarrierName.DhlForYou, CarrierName.Dpd].map((identifier) => [
         identifier,
         {
-          [CarrierSetting.AllowDeliveryOptions]: true,
           [CarrierSetting.AllowStandardDelivery]: true,
           [CarrierSetting.AllowPickupLocations]: true,
         },

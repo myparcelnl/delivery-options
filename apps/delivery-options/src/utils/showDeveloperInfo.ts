@@ -46,11 +46,11 @@ export const showDeveloperInfo = (): void => {
     config: {
       [KEY_CARRIER_SETTINGS]: {
         [CarrierName.PostNl]: {
-          [CarrierSetting.AllowDeliveryOptions]: true,
+          [CarrierSetting.AllowStandardDelivery]: true,
           [CarrierSetting.AllowPickupLocations]: true,
         },
         [CarrierName.DhlForYou]: {
-          [CarrierSetting.AllowDeliveryOptions]: true,
+          [CarrierSetting.AllowStandardDelivery]: true,
           [CarrierSetting.AllowPickupLocations]: true,
         },
       },

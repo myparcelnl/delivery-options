@@ -53,7 +53,6 @@ describe('main', () => {
         [KEY_CONFIG]: {
           [KEY_CARRIER_SETTINGS]: {
             [CarrierName.PostNl]: {
-              [CarrierSetting.AllowDeliveryOptions]: true,
               [CarrierSetting.AllowStandardDelivery]: true,
             },
           },
@@ -72,7 +71,6 @@ describe('main', () => {
       [KEY_CONFIG]: {
         [KEY_CARRIER_SETTINGS]: {
           [CarrierName.PostNl]: {
-            [CarrierSetting.AllowDeliveryOptions]: true,
             [CarrierSetting.AllowStandardDelivery]: true,
           },
         },

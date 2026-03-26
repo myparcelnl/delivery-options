@@ -42,7 +42,6 @@ const setup = async (packageType: SupportedPackageTypeName, carrierIdentifier: C
   mockDeliveryOptionsConfig(
     getMockDeliveryOptionsConfiguration({
       [KEY_CONFIG]: {
-        [CarrierSetting.AllowDeliveryOptions]: true,
         [CarrierSetting.AllowStandardDelivery]: true,
         [CarrierSetting.AllowEveningDelivery]: true,
         [CarrierSetting.AllowMorningDelivery]: true,
@@ -117,7 +116,6 @@ describe('useShipmentOptionsOptions', () => {
           [AddressField.Country]: 'BE',
         },
         [KEY_CONFIG]: {
-          [CarrierSetting.AllowDeliveryOptions]: true,
           [CarrierSetting.AllowStandardDelivery]: true,
           [CarrierSetting.AllowPriorityDelivery]: true,
           [CarrierSetting.PackageType]: PackageTypeName.Mailbox,

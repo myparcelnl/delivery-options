@@ -41,7 +41,7 @@ describe('useSandboxStore', () => {
     store.carrierSettings = {
       postnl: {
         [CarrierSetting.DeliveryDaysWindow]: 0,
-        [CarrierSetting.AllowDeliveryOptions]: true,
+        [CarrierSetting.AllowStandardDelivery]: true,
       },
     };
 
@@ -51,7 +51,7 @@ describe('useSandboxStore', () => {
 
     expect(resolvedConfig[CarrierSetting.DeliveryDaysWindow]).toBe(3);
     expect(resolvedCarrierSettings.postnl[CarrierSetting.DeliveryDaysWindow]).toBeUndefined();
-    expect(resolvedCarrierSettings.postnl[CarrierSetting.AllowDeliveryOptions]).toBe(true);
+    expect(resolvedCarrierSettings.postnl[CarrierSetting.AllowStandardDelivery]).toBe(true);
   });
 
   it('updates state from updateConfiguration input', () => {
@@ -60,7 +60,7 @@ describe('useSandboxStore', () => {
       [KEY_CONFIG]: {
         [KEY_CARRIER_SETTINGS]: {
           postnl: {
-            [CarrierSetting.AllowDeliveryOptions]: true,
+            [CarrierSetting.AllowStandardDelivery]: true,
           },
         },
       },
@@ -77,7 +77,7 @@ describe('useSandboxStore', () => {
 
     expect(store.carrierSettings).toEqual({
       postnl: {
-        [CarrierSetting.AllowDeliveryOptions]: true,
+        [CarrierSetting.AllowStandardDelivery]: true,
       },
     });
     expect(store.address).toEqual(configuration[KEY_ADDRESS]);

@@ -36,7 +36,6 @@ export const getDefaultDeliveryOptionsConfig = (): ResolvedDeliveryOptionsConfig
     [CarrierSetting.DropOffDelay]: DROP_OFF_DELAY_DEFAULT,
 
     // Delivery
-    [CarrierSetting.AllowDeliveryOptions]: true,
     [CarrierSetting.AllowStandardDelivery]: true,
     [CarrierSetting.AllowEveningDelivery]: true,
     [CarrierSetting.AllowMorningDelivery]: true,

@@ -48,12 +48,10 @@ describe('useResolvedValues', () => {
         [KEY_CONFIG]: {
           [KEY_CARRIER_SETTINGS]: {
             [CarrierName.PostNl]: {
-              [CarrierSetting.AllowDeliveryOptions]: true,
               [CarrierSetting.AllowStandardDelivery]: true,
               [CarrierSetting.AllowPickupLocations]: true,
             },
             [CarrierName.DhlForYou]: {
-              [CarrierSetting.AllowDeliveryOptions]: true,
               [CarrierSetting.AllowStandardDelivery]: true,
               [CarrierSetting.AllowPickupLocations]: true,
             },
@@ -158,7 +156,6 @@ describe('useResolvedValues', () => {
             [CarrierSetting.AllowPriorityDelivery]: true,
             [CarrierSetting.AllowOnlyRecipient]: false,
             [CarrierSetting.AllowSignature]: false,
-            [CarrierSetting.AllowDeliveryOptions]: true,
             [CarrierSetting.AllowStandardDelivery]: true,
           },
         },

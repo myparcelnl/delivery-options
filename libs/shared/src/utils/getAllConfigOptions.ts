@@ -16,8 +16,6 @@ import {declareOption} from './declareOption';
 
 // eslint-disable-next-line max-lines-per-function
 export const getAllConfigOptions = useMemoize((): ConfigOption[] => [
-  declareOption({key: CarrierSetting.AllowDeliveryOptions, perCarrier: true}),
-
   ...declareOptionWithPrice(CarrierSetting.AllowStandardDelivery, CarrierSetting.PriceStandardDelivery),
   ...declareOptionWithPrice(CarrierSetting.AllowExpressDelivery, CarrierSetting.PriceExpressDelivery),
   ...declareOptionWithPrice(CarrierSetting.AllowMorningDelivery, CarrierSetting.PriceMorningDelivery),

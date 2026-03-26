@@ -44,7 +44,6 @@ const setupPostNl = async (config: RecursivePartial<InputDeliveryOptionsConfigur
   );
 
   const carrierSettings = {
-    [CarrierSetting.AllowDeliveryOptions]: true,
     [CarrierSetting.AllowEveningDelivery]: true,
     [CarrierSetting.AllowMorningDelivery]: true,
     [CarrierSetting.AllowStandardDelivery]: true,
@@ -101,7 +100,6 @@ describe('useResolvedDeliveryOptions', () => {
         [KEY_CONFIG]: {
           [KEY_CARRIER_SETTINGS]: {
             [CarrierName.PostNl]: {
-              [CarrierSetting.AllowDeliveryOptions]: true,
               [CarrierSetting.AllowStandardDelivery]: true,
             },
           },
@@ -119,7 +117,6 @@ describe('useResolvedDeliveryOptions', () => {
   it('returns an empty array if all delivery options requests fail', () => {
     // Set up config for PostNL (or any carrier)
     const carrierSettings = {
-      [CarrierSetting.AllowDeliveryOptions]: true,
       [CarrierSetting.AllowStandardDelivery]: true,
     };
     mockDeliveryOptionsConfig(
@@ -180,7 +177,6 @@ describe('useResolvedDeliveryOptions', () => {
       mockGetDeliveryOptions.mockImplementation(() => Promise.resolve(deliveryOptions));
 
       const carrierSettings = {
-        [CarrierSetting.AllowDeliveryOptions]: true,
         [CarrierSetting.AllowStandardDelivery]: true,
         [CarrierSetting.DropOffDelay]: dropOffDelay,
         [CarrierSetting.CutoffTime]: cutoffTime,

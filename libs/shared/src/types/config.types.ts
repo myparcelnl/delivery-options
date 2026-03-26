@@ -45,7 +45,6 @@ export type TimestampString = `${number}:${number}` | string;
 export type Price = number | null;
 
 export interface CarrierSettings extends Partial<Record<CarrierSettingsKey, unknown>> {
-  allowDeliveryOptions?: boolean | FilterableOption;
   allowEveningDelivery?: boolean | FilterableOption;
   allowExpressDelivery?: boolean | FilterableOption;
   allowMondayDelivery?: boolean;
@@ -126,7 +125,6 @@ export type ResolvedDeliveryOptionsConfig = MakeRequired<
   | ConfigSetting.ShowPrices
   | ConfigSetting.ShowPriceZeroAsFree
   | ConfigSetting.ClosedDays
-  | CarrierSetting.AllowDeliveryOptions
   | CarrierSetting.AllowEveningDelivery
   | CarrierSetting.AllowMondayDelivery
   | CarrierSetting.AllowMorningDelivery

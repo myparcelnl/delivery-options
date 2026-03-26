@@ -198,7 +198,6 @@ describe('getResolvedCarrier', () => {
           [KEY_CONFIG]: {
             [KEY_CARRIER_SETTINGS]: {
               [CarrierName.DhlForYou]: {
-                [CarrierSetting.AllowDeliveryOptions]: true,
                 [CarrierSetting.AllowStandardDelivery]: true,
               },
             },

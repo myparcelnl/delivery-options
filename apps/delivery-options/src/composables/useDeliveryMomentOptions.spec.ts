@@ -56,7 +56,6 @@ const setup = async (
   mockDeliveryOptionsConfig(
     getMockDeliveryOptionsConfiguration({
       [KEY_CONFIG]: {
-        [CarrierSetting.AllowDeliveryOptions]: true,
         [CarrierSetting.AllowStandardDelivery]: true,
         [CarrierSetting.AllowEveningDelivery]: true,
         [CarrierSetting.AllowMorningDelivery]: true,

@@ -9,7 +9,6 @@ exports[`createTestConfiguration > creates a default test configuration with uni
     "street": "Antareslaan 31",
   },
   "config": {
-    "allowDeliveryOptions": true,
     "allowEveningDelivery": true,
     "allowExpressDelivery": true,
     "allowMondayDelivery": true,

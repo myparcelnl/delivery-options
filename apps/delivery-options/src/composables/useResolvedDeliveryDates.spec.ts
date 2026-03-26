@@ -17,11 +17,9 @@ const SHARED_CONFIG = getMockDeliveryOptionsConfiguration({
   [KEY_CONFIG]: {
     [KEY_CARRIER_SETTINGS]: {
       [CarrierName.PostNl]: {
-        [CarrierSetting.AllowDeliveryOptions]: true,
         [CarrierSetting.AllowStandardDelivery]: true,
       },
       [CarrierName.DhlForYou]: {
-        [CarrierSetting.AllowDeliveryOptions]: true,
         [CarrierSetting.AllowStandardDelivery]: true,
         [CarrierSetting.AllowSameDayDelivery]: true,
       },
@@ -46,11 +44,9 @@ describe('useResolvedDeliveryDates', () => {
         [CarrierSetting.DeliveryDaysWindow]: 1,
         [KEY_CARRIER_SETTINGS]: {
           [CarrierName.PostNl]: {
-            [CarrierSetting.AllowDeliveryOptions]: true,
             [CarrierSetting.AllowStandardDelivery]: true,
           },
           [CarrierName.DhlForYou]: {
-            [CarrierSetting.AllowDeliveryOptions]: true,
             [CarrierSetting.AllowStandardDelivery]: true,
             [CarrierSetting.AllowSameDayDelivery]: true,
           },

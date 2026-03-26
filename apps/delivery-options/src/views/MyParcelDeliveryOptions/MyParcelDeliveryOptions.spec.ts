@@ -41,7 +41,6 @@ describe('MyParcelDeliveryOptions.vue', () => {
       [KEY_CONFIG]: {
         [KEY_CARRIER_SETTINGS]: {
           [CarrierName.PostNl]: {
-            [CarrierSetting.AllowDeliveryOptions]: true,
           },
         },
       },

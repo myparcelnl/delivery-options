@@ -137,6 +137,6 @@ describe('mapCarrierSettingToCapabilityKey', () => {
   });
 
   it('returns undefined for unmapped setting', () => {
-    expect(mapCarrierSettingToCapabilityKey(CarrierSetting.AllowDeliveryOptions)).toBeUndefined();
+    expect(mapCarrierSettingToCapabilityKey(CarrierSetting.Collect)).toBeUndefined();
   });
 });
