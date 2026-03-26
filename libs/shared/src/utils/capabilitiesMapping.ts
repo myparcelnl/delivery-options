@@ -51,7 +51,7 @@ const CAPABILITY_OPTION_MAP: Record<string, SupportedShipmentOptionName> = {
 
 /**
  * Map a capabilities option name (camelCase) to its SDK/internal shipment option name.
- * Returns undefined for options not relevant to UI display (e.g., insurance, insurance, etc.)
+ * Returns undefined for options not relevant to UI display (e.g., insurance)
  */
 export const mapCapabilityOption = (capOption: string): SupportedShipmentOptionName | undefined => {
   return CAPABILITY_OPTION_MAP[capOption];

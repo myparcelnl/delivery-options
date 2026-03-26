@@ -3,24 +3,13 @@ import {useMemoize} from '@vueuse/core';
 import {
   type CarrierIdentifier,
   type CarrierSettings,
-  CarrierSetting,
   splitCarrierIdentifier,
   normalizeCarrierName,
-  mapCapabilityDeliveryType,
-  type SupportedDeliveryTypeName,
 } from '@myparcel-dev/do-shared';
-import {DeliveryTypeName} from '@myparcel-dev/constants';
-import {getResolvedCarrier, getResolvedValue} from '../utils';
+import {getResolvedCarrier, hasDeliveryForCarrier, hasPickupForCarrier} from '../utils';
 import {useConfigStore} from '../stores';
 import {type UseResolvedCarrier} from './useResolvedCarrier';
 import {useBroadCapabilities} from './useBroadCapabilities';
-
-const DELIVERY_TYPES = [
-  DeliveryTypeName.Standard,
-  DeliveryTypeName.Express,
-  DeliveryTypeName.Evening,
-  DeliveryTypeName.Morning,
-];
 
 /**
  * Get the carriers that are currently active in the delivery options config.
@@ -78,23 +67,7 @@ export const useActiveCarriers = useMemoize((): ComputedRef<UseResolvedCarrier[]
           return false;
         }
 
-        // Check for delivery: carrier has non-pickup delivery types AND config allows it
-        const hasDelivery =
-          getResolvedValue(CarrierSetting.AllowDeliveryOptions, identifier) &&
-          DELIVERY_TYPES.some((deliveryType) => {
-            const capDeliveryTypes = capability.deliveryTypes
-              .map(mapCapabilityDeliveryType)
-              .filter((dt): dt is SupportedDeliveryTypeName => dt !== undefined);
-
-            return capDeliveryTypes.includes(deliveryType);
-          });
-
-        // Check for pickup: carrier has PICKUP_DELIVERY AND config allows it
-        const hasPickup =
-          capability.deliveryTypes.includes('PICKUP_DELIVERY') &&
-          Boolean(getResolvedValue(CarrierSetting.AllowPickupLocations, identifier));
-
-        return hasDelivery || hasPickup;
+        return hasDeliveryForCarrier(capability, identifier) || hasPickupForCarrier(capability, identifier);
       })
       .map(([identifier]) => {
         return getResolvedCarrier(identifier);

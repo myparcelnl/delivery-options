@@ -8,15 +8,19 @@ import {
   type ComputedAsync,
   usePickupLocationsByLatLngRequest,
   ConfigSetting,
-  CarrierSetting,
   addLoadingProperties,
   watchUntil,
   normalizeCarrierName,
   type CarrierIdentifier,
 } from '@myparcel-dev/do-shared';
-import {getResolvedCarrier, createLatLngParameters, createGetDeliveryOptionsParameters} from '../utils';
+import {
+  getResolvedCarrier,
+  createLatLngParameters,
+  createGetDeliveryOptionsParameters,
+  hasPickupForCarrier,
+} from '../utils';
 import {type ResolvedPickupLocation, type LatLng} from '../types';
-import {useAddressStore, useConfigStore} from '../stores';
+import {useConfigStore} from '../stores';
 import {type UseResolvedCarrier} from './useResolvedCarrier';
 import {useBroadCapabilities} from './useBroadCapabilities';
 
@@ -85,26 +89,12 @@ const loadPickupLocations = async (carrier: UseResolvedCarrier, latLng?: LatLng)
   return locations.map((location) => formatPickupLocation(carrier, location as PickupLocation));
 };
 
-const getResolvedValue = (key: string, carrierIdentifier?: CarrierIdentifier) => {
-  const {state: config} = useConfigStore();
-  const generalValue = config[key as keyof typeof config];
-
-  if (!carrierIdentifier) {
-    return generalValue;
-  }
-
-  const carrierValue = config.carrierSettings?.[carrierIdentifier]?.[key as keyof typeof config.carrierSettings];
-
-  return carrierValue ?? generalValue;
-};
-
 // eslint-disable-next-line max-lines-per-function
 const callback = (): UseResolvedPickupLocations => {
   const latLng = ref<LatLng>(undefined);
 
   const allLocations = ref<ResolvedPickupLocation[]>([]);
   const {state: config} = useConfigStore();
-  const {state: address} = useAddressStore();
 
   /**
    * Determine carriers with pickup directly from capabilities + config.
@@ -121,14 +111,7 @@ const callback = (): UseResolvedPickupLocations => {
         const normalized = normalizeCarrierName(carrierPart);
         const capability = capabilities.getCarrierCapability(normalized);
 
-        if (!capability) {
-          return false;
-        }
-
-        const hasPickupInCapabilities = capability.deliveryTypes.includes('PICKUP_DELIVERY');
-        const allowPickup = Boolean(getResolvedValue(CarrierSetting.AllowPickupLocations, identifier));
-
-        return hasPickupInCapabilities && allowPickup;
+        return Boolean(capability && hasPickupForCarrier(capability, identifier));
       })
       .map((identifier) => getResolvedCarrier(identifier));
   });

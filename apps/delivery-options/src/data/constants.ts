@@ -1,4 +1,4 @@
-import {PackageTypeName, ShipmentOptionName} from '@myparcel-dev/constants';
+import {DeliveryTypeName, PackageTypeName, ShipmentOptionName} from '@myparcel-dev/constants';
 
 /**
  * Stores whether home delivery or pickup is selected.
@@ -56,3 +56,13 @@ export const OUTPUT_EVENT_DEBOUNCE_DELAY = 10;
 export const DATES_SHOWN_SM = 2;
 
 export const DATES_SHOWN_MD = 4;
+
+/**
+ * Non-pickup delivery types used to determine if a carrier has delivery options.
+ */
+export const DELIVERY_TYPES = [
+  DeliveryTypeName.Standard,
+  DeliveryTypeName.Express,
+  DeliveryTypeName.Evening,
+  DeliveryTypeName.Morning,
+];

@@ -8,29 +8,22 @@ import {
   type SupportedShipmentOptionName,
   type SupportedPackageTypeName,
   type ConfigSetting,
-  CarrierSetting,
   type ConfigKey,
   normalizeCarrierName,
   resolveCarrierName,
   computedAsync,
   waitForRequestData,
   useCarrierFromCache,
-  mapCapabilityDeliveryType,
   mapCapabilityPackageType,
   mapCapabilityOption,
-  mapCapabilityOptionToCustomDeliveryType,
   getPackageTypePriceKey,
 } from '@myparcel-dev/do-shared';
-import {type ShipmentOptionName, DeliveryTypeName} from '@myparcel-dev/constants';
+import {type ShipmentOptionName} from '@myparcel-dev/constants';
 import {type UseResolvedCarrier, useBroadCapabilities} from '../composables';
+import {hasPickupForCarrier} from './hasPickupForCarrier';
+import {hasDeliveryForCarrier} from './hasDeliveryForCarrier';
 import {getResolvedValue} from './getResolvedValue';
-
-const DELIVERY_TYPES = [
-  DeliveryTypeName.Standard,
-  DeliveryTypeName.Express,
-  DeliveryTypeName.Evening,
-  DeliveryTypeName.Morning,
-];
+import {getCapabilityDeliveryTypes} from './getCapabilityDeliveryTypes';
 
 const resolveOption = (
   input: SupportedDeliveryTypeName | SupportedShipmentOptionName,
@@ -91,19 +84,7 @@ export const getResolvedCarrier = useMemoize(
         return new Set<SupportedDeliveryTypeName>();
       }
 
-      const mapped = cap.deliveryTypes
-        .map(mapCapabilityDeliveryType)
-        .filter((dt): dt is SupportedDeliveryTypeName => dt !== undefined);
-
-      for (const optionName of Object.keys(cap.options)) {
-        const customType = mapCapabilityOptionToCustomDeliveryType(optionName);
-
-        if (customType) {
-          mapped.push(customType);
-        }
-      }
-
-      return new Set(mapped);
+      return new Set(getCapabilityDeliveryTypes(cap));
     });
 
     const deliveryTypes = computed(() => {
@@ -154,53 +135,15 @@ export const getResolvedCarrier = useMemoize(
     // dependency on capabilities.value — avoids going through the deep computed chain
     // (capability → allDeliveryTypes → deliveryTypes) which can miss reactive updates.
     const hasDelivery = computed(() => {
-      if (!getResolvedValue(CarrierSetting.AllowDeliveryOptions, carrierIdentifier)) {
-        return false;
-      }
-
       const cap = capabilities.getCarrierCapability(normalizedName);
 
-      if (!cap) {
-        return false;
-      }
-
-      return DELIVERY_TYPES.some((deliveryType) => {
-        const configKey = getConfigKey(deliveryType);
-        const configEnabled = getResolvedValue(configKey, carrierIdentifier);
-
-        if (!configEnabled) {
-          return false;
-        }
-
-        // Check capabilities directly for this delivery type
-        const capDeliveryTypes = cap.deliveryTypes
-          .map(mapCapabilityDeliveryType)
-          .filter((dt): dt is SupportedDeliveryTypeName => dt !== undefined);
-
-        // Also check options that map to custom delivery types
-        for (const optionName of Object.keys(cap.options)) {
-          const customType = mapCapabilityOptionToCustomDeliveryType(optionName);
-
-          if (customType) {
-            capDeliveryTypes.push(customType);
-          }
-        }
-
-        return capDeliveryTypes.includes(deliveryType);
-      });
+      return Boolean(cap && hasDeliveryForCarrier(cap, carrierIdentifier));
     });
 
     const hasPickup = computed(() => {
       const cap = capabilities.getCarrierCapability(normalizedName);
 
-      if (!cap) {
-        return false;
-      }
-
-      return (
-        cap.deliveryTypes.includes('PICKUP_DELIVERY') &&
-        Boolean(getResolvedValue(CarrierSetting.AllowPickupLocations, carrierIdentifier))
-      );
+      return Boolean(cap && hasPickupForCarrier(cap, carrierIdentifier));
     });
 
     return {
