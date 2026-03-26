@@ -24,5 +24,3 @@ export {default as SandboxAddressBox} from './SandboxAddressBox.vue';
 export {default as SandboxCarrierFormSections} from './SandboxCarrierFormSections.vue';
 
 export {default as SandboxConfiguration} from './SandboxConfiguration.vue';
-
-export {default as SandboxPlatformBox} from './SandboxPlatformBox.vue';
