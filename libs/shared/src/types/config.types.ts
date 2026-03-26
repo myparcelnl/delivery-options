@@ -79,8 +79,8 @@ export interface CarrierSettings extends Partial<Record<CarrierSettingsKey, unkn
   pricePriorityDelivery?: Price;
 }
 
-export interface InputCarrierSettings extends Omit<CarrierSettings, 'dropOffDays'>, DeprecatedConfigOptions {
-  dropOffDays?: DropOffEntry[] | string;
+export interface InputCarrierSettings extends Omit<CarrierSettings, 'dropOffDays'> {
+  dropOffDays?: DropOffEntry[];
 }
 
 export type InputCarrierSettingsObject = Partial<Record<CarrierIdentifier, InputCarrierSettings>>;
@@ -106,8 +106,6 @@ export interface DeliveryOptionsConfig extends Partial<Record<ConfigSetting, unk
   pickupLocationsMapTileLayerData: string | MapTileLayerData;
   pickupShowDistance: boolean;
   platform: SupportedPlatformName;
-  /** @deprecated show delivery date is always enabled */
-  showDeliveryDate: boolean;
   showPriceSurcharge: boolean;
   showPriceZeroAsFree: boolean;
   showPrices: boolean;
@@ -124,7 +122,6 @@ export type ResolvedDeliveryOptionsConfig = MakeRequired<
   | ConfigSetting.PickupLocationsMapTileLayerData
   | ConfigSetting.PickupShowDistance
   | ConfigSetting.Platform
-  | ConfigSetting.ShowDeliveryDate
   | ConfigSetting.ShowPriceSurcharge
   | ConfigSetting.ShowPrices
   | ConfigSetting.ShowPriceZeroAsFree
@@ -144,23 +141,10 @@ export type ResolvedDeliveryOptionsConfig = MakeRequired<
   | CarrierSetting.PackageType
 >;
 
-export interface DeprecatedConfigOptions {
-  /** @deprecated use ShowDeliveryDate instead */
-  allowShowDeliveryDate?: boolean;
-  /** @deprecated use dropOffDays instead */
-  fridayCutoffTime?: TimestampString;
-  /** @deprecated use dropOffDays instead */
-  saturdayCutoffTime?: TimestampString;
-}
-
-/**
- * Includes deprecated options which will be filtered out.
- */
 export type InputDeliveryOptionsConfig = {
-  dropOffDays?: DropOffEntry[] | string;
+  dropOffDays?: DropOffEntry[];
   carrierSettings?: InputCarrierSettingsObject;
-} & Omit<MakeOptional<DeliveryOptionsConfig, keyof DeliveryOptionsConfig>, 'carrierSettings' | 'dropOffDays'> &
-  DeprecatedConfigOptions;
+} & Omit<MakeOptional<DeliveryOptionsConfig, keyof DeliveryOptionsConfig>, 'carrierSettings' | 'dropOffDays'>;
 
 export interface DeliveryOptionsConfiguration {
   address: DeliveryOptionsAddress;

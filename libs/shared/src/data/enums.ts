@@ -1,13 +1,3 @@
-export enum DeprecatedCarrierSetting {
-  /** @deprecated use ShowDeliveryDate instead */
-  AllowShowDeliveryDate = 'allowShowDeliveryDate',
-
-  /** @deprecated use DropOffDays instead */
-  FridayCutoffTime = 'fridayCutoffTime',
-  /** @deprecated use DropOffDays instead */
-  SaturdayCutoffTime = 'saturdayCutoffTime',
-}
-
 export enum CarrierSetting {
   AllowDeliveryOptions = 'allowDeliveryOptions',
   AllowEveningDelivery = 'allowEveningDelivery',
@@ -56,8 +46,6 @@ export enum ConfigSetting {
   PickupMapAllowLoadMore = 'pickupMapAllowLoadMore',
   PickupShowDistance = 'pickupShowDistance',
   Platform = 'platform',
-  /** @deprecated show delivery date is always enabled */
-  ShowDeliveryDate = 'showDeliveryDate',
   ShowPriceSurcharge = 'showPriceSurcharge',
   ShowPrices = 'showPrices',
   ShowPriceZeroAsFree = 'showPriceZeroAsFree',

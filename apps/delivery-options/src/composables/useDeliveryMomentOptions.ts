@@ -47,7 +47,7 @@ export const useDeliveryMomentOptions = (): ComputedRef<SelectOption<string>[]> 
         });
     }
 
-    // When delivery date is hidden (deliveryDaysWindow <= 1 or showDeliveryDate config is false):
+    // When delivery date is hidden (deliveryDaysWindow <= 1):
     // show one option per active carrier without date
     if (!showDeliveryDate.value) {
       return activeCarriers.value

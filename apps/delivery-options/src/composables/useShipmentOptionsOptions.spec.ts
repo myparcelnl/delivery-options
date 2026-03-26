@@ -5,7 +5,6 @@ import {mockGetDeliveryOptions, getShipmentOptions} from '@myparcel-dev/do-share
 import {
   AddressField,
   CarrierSetting,
-  ConfigSetting,
   createTimestamp,
   KEY_ADDRESS,
   KEY_CARRIER_SETTINGS,
@@ -118,7 +117,6 @@ describe('useShipmentOptionsOptions', () => {
           [AddressField.Country]: 'BE',
         },
         [KEY_CONFIG]: {
-          [ConfigSetting.ShowDeliveryDate]: true,
           [CarrierSetting.AllowDeliveryOptions]: true,
           [CarrierSetting.AllowStandardDelivery]: true,
           [CarrierSetting.AllowPriorityDelivery]: true,

@@ -11,8 +11,8 @@ import {
   SWEDEN,
   DENMARK,
 } from '@myparcel-dev/constants/countries';
+import {useSandboxStore} from '../stores';
 import {getDefaultSandboxAddress} from '../config';
-import {useSandboxStore} from '../stores/useSandboxStore';
 
 const ADDRESSES_START_AMOUNT = 6;
 const ADDRESSES_LOAD_STEP = 2;

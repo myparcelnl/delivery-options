@@ -9,7 +9,6 @@ import {
   KEY_CARRIER_SETTINGS,
   KEY_CONFIG,
   useCarriersRequest,
-  ConfigSetting,
   type InputDeliveryOptionsConfig,
 } from '@myparcel-dev/do-shared';
 import {CarrierName, DeliveryTypeName, PackageTypeName, ShipmentOptionName} from '@myparcel-dev/constants';
@@ -147,24 +146,6 @@ describe('useResolvedValues', () => {
       expect(resolvedValues.value).toEqual(external);
     },
   );
-
-  it('respects deprecated show delivery date setting while it still exists', async () => {
-    mockDeliveryOptionsConfig({[KEY_CONFIG]: {[ConfigSetting.ShowDeliveryDate]: true}});
-    mockSelectedDeliveryOptions();
-    await flushPromises();
-
-    const resolvedValues = useResolvedValues();
-
-    expect(resolvedValues.value).toBeDefined();
-    expect(resolvedValues.value?.date).toBeDefined();
-
-    mockDeliveryOptionsConfig({
-      [KEY_CONFIG]: {[ConfigSetting.ShowDeliveryDate]: false},
-    });
-    await flushPromises();
-
-    expect(resolvedValues.value?.date).toBeUndefined();
-  });
 
   it('does not expose priorityDelivery outside NL even when selected and enabled', async () => {
     mockDeliveryOptionsConfig({

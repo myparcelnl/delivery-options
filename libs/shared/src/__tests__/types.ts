@@ -16,7 +16,6 @@ export interface MockDeliveryOptionsParameters {
 export type ResolvedMockDeliveryOptionsParameters = Required<MockDeliveryOptionsParameters>;
 
 export interface ExtraDelivery {
-  cutoffTime: string;
   deliveryDay: Weekday;
   dropOffDay: Weekday;
   feature: string;
