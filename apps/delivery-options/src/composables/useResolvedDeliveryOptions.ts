@@ -12,6 +12,7 @@ import {
   DELIVERY_DAYS_WINDOW_DEFAULT,
   createTranslatable,
   ConfigSetting,
+  useLogger,
 } from '@myparcel-dev/do-shared';
 import {createGetDeliveryOptionsParameters, getResolvedDeliveryType, calculateCutoffTime} from '../utils';
 import {type SelectedDeliveryMoment} from '../types';
@@ -49,7 +50,7 @@ const getDeliveryOptionsFromApi = async (
         try {
           await query.load();
         } catch (error) {
-          console.error('Error loading delivery options:', error); // eslint-disable-line no-console
+          useLogger().error('Error loading delivery options:', error);
 
           return null;
         }

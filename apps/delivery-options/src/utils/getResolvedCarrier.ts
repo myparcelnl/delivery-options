@@ -17,6 +17,7 @@ import {
   mapCapabilityPackageType,
   mapCapabilityOption,
   getPackageTypePriceKey,
+  useLogger,
 } from '@myparcel-dev/do-shared';
 import {type ShipmentOptionName} from '@myparcel-dev/constants';
 import {type UseResolvedCarrier, useBroadCapabilities} from '../composables';
@@ -33,7 +34,7 @@ const resolveOption = (
   try {
     key = getConfigKey(input);
   } catch (error) {
-    console.warn(error, 'disabling option'); // eslint-disable-line no-console
+    useLogger().warning(error, 'disabling option');
   }
 
   return Boolean(key && getResolvedValue(key, carrierIdentifier));
@@ -53,8 +54,8 @@ const getConfigKeyOrNull = (option: string): ConfigKey | null => {
 
 export const getResolvedCarrier = useMemoize(
   // eslint-disable-next-line max-lines-per-function
-  (carrierIdentifier: CarrierIdentifier | undefined): UseResolvedCarrier => {
-    const carrierName = resolveCarrierName(carrierIdentifier ?? '');
+  (carrierIdentifier: CarrierIdentifier): UseResolvedCarrier => {
+    const carrierName = resolveCarrierName(carrierIdentifier);
 
     const apiCarrier = computedAsync(
       async () => {
