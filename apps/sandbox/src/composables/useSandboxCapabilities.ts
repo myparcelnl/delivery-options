@@ -23,13 +23,13 @@ export const useSandboxCapabilities = useMemoize(() => {
 
   const apiKey = computed(() => store.config.apiKey || undefined);
 
-  const {availableCarrierNames, loading} = useReactiveCapabilities(proxyCapabilities, request, apiKey);
+  const caps = useReactiveCapabilities(proxyCapabilities, request, apiKey);
 
-  watch(availableCarrierNames, (names) => {
+  watch(caps.availableCarrierNames, (names) => {
     if (apiKey.value && names.length) {
       store.syncCarriersFromCapabilities(names);
     }
   });
 
-  return {availableCarrierNames, loading};
+  return caps;
 });

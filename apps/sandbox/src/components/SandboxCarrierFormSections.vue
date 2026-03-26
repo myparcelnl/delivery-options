@@ -19,9 +19,11 @@ import {useSandboxCapabilities} from '../composables';
 import {SandboxSettingsSection} from './form';
 
 const store = useSandboxStore();
-useSandboxCapabilities(); // activates capabilities sync with the store
+const {capabilities} = useSandboxCapabilities();
 
 const carrierSections = computed(() => {
+  // Touch capabilities to create reactive dependency — recompute sections when capabilities change
+  void capabilities.value;
   const carriers = Object.keys(store.carrierSettings) as CarrierIdentifier[];
 
   return (
