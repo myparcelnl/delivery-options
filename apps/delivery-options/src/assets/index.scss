@@ -3,17 +3,22 @@
 @tailwind utilities;
 
 $dhl-color: #FFCB01;
+$ups-color: #300;
 
 $carriers: (
   bpost: #EF2637,
+  brt: #DC0032,
   dhl: $dhl-color,
   dhleuroplus: $dhl-color,
   dhlforyou: $dhl-color,
   dhlparcelconnect: $dhl-color,
   dpd: #DC0032,
+  gls: #061AB1,
+  inpost: #FFCD00,
   postnl: #ED8C00,
-  upsstandard: #300,
-  upsexpresssaver: #300,
+  trunkrs: #220C4A,
+  upsstandard: $ups-color,
+  upsexpresssaver: $ups-color
 );
 
 @import "./leaflet";
