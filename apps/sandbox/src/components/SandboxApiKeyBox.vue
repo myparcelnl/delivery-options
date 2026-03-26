@@ -1,14 +1,21 @@
 <template>
-  <Box class="mp-gap-4 mp-grid">
-    <h2 v-text="translate('api_key_header')" />
-    <FormTextInput
-      v-model="apiKey"
-      class="mp-w-full" />
+  <Box>
+    <Expandable :open="true">
+      <template #title>
+        <h2 v-text="translate('api_key_header')" />
+      </template>
 
-    <h2 v-text="translate('platform_header')" />
-    <FormSelectInput
-      v-model="platform"
-      :options="platformOptions" />
+      <div class="mp-gap-4 mp-grid mp-pt-4">
+        <FormTextInput
+          v-model="apiKey"
+          class="mp-w-full" />
+
+        <h2 v-text="translate('platform_header')" />
+        <FormSelectInput
+          v-model="platform"
+          :options="platformOptions" />
+      </div>
+    </Expandable>
   </Box>
 </template>
 
@@ -20,6 +27,7 @@ import {useSandboxStore} from '../stores';
 import {useLanguage} from '../composables';
 import FormTextInput from './form/input/FormTextInput.vue';
 import FormSelectInput from './form/input/FormSelectInput.vue';
+import Expandable from './Expandable.vue';
 import {Box} from './Box';
 
 const {translate} = useLanguage();
