@@ -1,5 +1,6 @@
 import {type ComputedRef, computed, toValue} from 'vue';
 import {pascal} from 'radash';
+import {isToday} from 'date-fns';
 import {
   type SelectOption,
   DELIVERY_TYPE_DEFAULT,
@@ -7,11 +8,12 @@ import {
   DELIVERY_DAYS_WINDOW_DEFAULT,
   createTranslatable,
 } from '@myparcel-dev/do-shared';
-import {getDeliveryTypePrice, createPackageTypeTranslatable} from '../utils';
+import {getDeliveryTypePrice, createPackageTypeTranslatable, stringToDate} from '../utils';
 import {useConfigStore} from '../stores';
 import {DELIVERY_MOMENT_PACKAGE_TYPES, SHOWN_SHIPMENT_OPTIONS} from '../data';
 import {useResolvedDeliveryOptions} from './useResolvedDeliveryOptions';
 import {useResolvedDeliveryMoments} from './useResolvedDeliveryMoments';
+import {useSelectedValues} from './useSelectedValues';
 import {useFeatures} from './useFeatures';
 import {useActiveCarriers} from './useActiveCarriers';
 
@@ -92,10 +94,15 @@ export const useDeliveryMomentOptions = (): ComputedRef<SelectOption<string>[]> 
 
     // Fallback for active carriers without moments on ANY date (API failed / no dates at all)
     const allDeliveryOptions = useResolvedDeliveryOptions();
+    const {deliveryDate} = useSelectedValues();
+    const selectedDateIsToday = deliveryDate.value && isToday(stringToDate(deliveryDate.value));
+
     const carriersWithAnyMoments = new Set(
       allDeliveryOptions.value.filter((opt) => opt.packageType === config.packageType).map((opt) => opt.carrier),
     );
-    const fallbackOptions = activeCarriers.value
+    const fallbackOptions = selectedDateIsToday
+      ? []
+      : activeCarriers.value
       .filter((carrier) => {
         const id = toValue(carrier.carrier).identifier;
 
