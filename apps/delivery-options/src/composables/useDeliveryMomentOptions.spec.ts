@@ -125,7 +125,6 @@ const setup = async (
             [CarrierSetting.PricePackageTypeDigitalStamp]: 4,
           },
         },
-        // TODO: allow optional key to be passed with undefined as value
         ...(packageType ? {[CarrierSetting.PackageType]: packageType} : {}),
         ...(extraConfig ?? {}),
       },
