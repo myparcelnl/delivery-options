@@ -241,4 +241,42 @@ describe('useResolvedDeliveryOptions', () => {
       expect(availableDates.some((date) => isDateMatch(date, 2025, 1, 2))).toBe(false);
     });
   });
+
+  it('skips API call for carriers that do not support the configured package type', async () => {
+    mockGetDeliveryOptions.mockReturnValue(
+      Promise.resolve([
+        {
+          date: createTimestamp(normalizeDate('2022-01-01T15:00:00Z')),
+          possibilities: [createDeliveryPossibility(normalizeDate('2022-01-01T15:00:00Z'))],
+        },
+      ]),
+    );
+
+    mockDeliveryOptionsConfig(
+      getMockDeliveryOptionsConfiguration({
+        [KEY_CONFIG]: {
+          [CarrierSetting.PackageType]: 'mailbox',
+          [CarrierSetting.AllowStandardDelivery]: true,
+          [KEY_CARRIER_SETTINGS]: {
+            [CarrierName.PostNl]: {
+              [CarrierSetting.AllowStandardDelivery]: true,
+            },
+          },
+        },
+      }),
+    );
+
+    await waitForDeliveryOptions();
+
+    const options = useResolvedDeliveryOptions();
+
+    // PostNL supports mailbox in mock capabilities, so it should have results.
+    // DhlForYou does NOT support mailbox, so it should be skipped.
+    const carriers = new Set(options.value.map((opt) => opt.carrier));
+
+    expect(carriers.has(CarrierName.PostNl)).toBe(true);
+    expect(carriers.has(CarrierName.DhlForYou)).toBe(false);
+    // only 1 call should be made for PostNL, DhlForYou should be skipped entirely.
+    expect(mockGetDeliveryOptions).toHaveBeenCalledTimes(1);
+  });
 });

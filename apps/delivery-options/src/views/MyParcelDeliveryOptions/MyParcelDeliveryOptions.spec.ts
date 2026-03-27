@@ -1,7 +1,7 @@
 import {afterEach, beforeEach, describe, expect, it, type MockInstance, vi} from 'vitest';
 import {createPinia} from 'pinia';
 import {render, type RenderOptions, type RenderResult} from '@testing-library/vue';
-import {CarrierSetting, KEY_CARRIER_SETTINGS, KEY_CONFIG} from '@myparcel-dev/do-shared';
+import {KEY_CARRIER_SETTINGS, KEY_CONFIG} from '@myparcel-dev/do-shared';
 import {CarrierName} from '@myparcel-dev/constants';
 import {getMockDeliveryOptionsConfiguration} from '../../__tests__';
 import MyParcelDeliveryOptions from './MyParcelDeliveryOptions.vue';
@@ -40,8 +40,7 @@ describe('MyParcelDeliveryOptions.vue', () => {
     const config = getMockDeliveryOptionsConfiguration({
       [KEY_CONFIG]: {
         [KEY_CARRIER_SETTINGS]: {
-          [CarrierName.PostNl]: {
-          },
+          [CarrierName.PostNl]: {},
         },
       },
     });

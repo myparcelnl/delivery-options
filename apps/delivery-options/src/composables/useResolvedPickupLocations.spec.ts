@@ -98,6 +98,19 @@ describe('useResolvedPickupLocations', () => {
     expect(mockGetPickupLocations).toHaveBeenCalledTimes(4);
   });
 
+  it('only fetches pickup locations for carriers with pickup capability enabled', async () => {
+    await load();
+
+    const {locations} = useResolvedPickupLocations();
+    const carriers = new Set(locations.value.map((loc) => loc.carrier));
+
+    // PostNL and DhlForYou:123 have AllowPickupLocations=true AND PICKUP_DELIVERY in capabilities
+    // DhlForYou and Dpd have AllowPickupLocations=false, so should be excluded
+    expect(carriers.has(CarrierName.PostNl)).toBe(true);
+    expect(carriers.has(CarrierName.DhlForYou)).toBe(false);
+    expect(carriers.has(CarrierName.Dpd)).toBe(false);
+  });
+
   it('can reset pickup locations array', async () => {
     await load();
 

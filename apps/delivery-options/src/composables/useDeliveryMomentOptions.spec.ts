@@ -27,21 +27,31 @@ import {useSelectedValues} from './useSelectedValues';
 import {useResolvedDeliveryOptions} from './useResolvedDeliveryOptions';
 import {useDeliveryMomentOptions} from './useDeliveryMomentOptions';
 
+const {mockStringToDateResult} = vi.hoisted(() => ({mockStringToDateResult: {value: undefined as Date | undefined}}));
+
+vi.mock('../utils', async (importOriginal) => {
+  // eslint-disable-next-line @typescript-eslint/consistent-type-imports
+  const actual = await importOriginal<typeof import('../utils')>();
+
+  return {
+    ...actual,
+    stringToDate: (date: string) => mockStringToDateResult.value ?? actual.stringToDate(date),
+  };
+});
+
 const MOCK_DATE = '2025-01-15';
 
-const setup = async (
-  packageType?: SupportedPackageTypeName,
-  extraConfig: Record<string, unknown> = {},
-): Promise<ComputedRef<SelectOption<string>[]>> => {
-  // For API-path package types, mock a controlled delivery options response
-  if (packageType && DELIVERY_MOMENT_PACKAGE_TYPES.includes(packageType)) {
-    mockGetDeliveryOptions.mockImplementation(() =>
-      Promise.resolve([
+const createFallbackMock = (dateString: string) => () => {
+  mockGetDeliveryOptions.mockImplementation((endpoint, opts) => {
+    void endpoint;
+
+    if (opts.parameters?.carrier === CarrierName.PostNl) {
+      return Promise.resolve([
         {
-          date: createTimestamp(`${MOCK_DATE} 00:00:00`),
+          date: createTimestamp(`${dateString} 12:00:00`),
           possibilities: [
-            createDeliveryPossibility(normalizeDate(`${MOCK_DATE}T15:00:00`), {
-              package_type: packageType,
+            createDeliveryPossibility(normalizeDate(`${dateString}T15:00:00`), {
+              package_type: PackageTypeName.Package,
               shipment_options: [
                 {name: ShipmentOptionName.Signature, schema: {type: 'boolean', enum: [true, false]}},
                 {name: ShipmentOptionName.OnlyRecipient, schema: {type: 'boolean', enum: [true, false]}},
@@ -49,8 +59,51 @@ const setup = async (
             }),
           ],
         },
-      ]),
-    );
+      ]);
+    }
+
+    return Promise.resolve([]);
+  });
+};
+
+const FALLBACK_EXTRA_CONFIG = {
+  [KEY_CARRIER_SETTINGS]: {
+    [CarrierName.PostNl]: {
+      [CarrierSetting.AllowStandardDelivery]: true,
+    },
+    [CarrierName.DhlForYou]: {
+      [CarrierSetting.AllowStandardDelivery]: true,
+    },
+  },
+};
+
+const setup = async (
+  packageType?: SupportedPackageTypeName,
+  extraConfig?: Record<string, unknown>,
+  mockDeliveryResponse?: () => void,
+): Promise<ComputedRef<SelectOption<string>[]>> => {
+  // For API-path package types, mock a controlled delivery options response
+  if (packageType && DELIVERY_MOMENT_PACKAGE_TYPES.includes(packageType)) {
+    if (mockDeliveryResponse) {
+      mockDeliveryResponse();
+    } else {
+      mockGetDeliveryOptions.mockImplementation(() =>
+        Promise.resolve([
+          {
+            date: createTimestamp(`${MOCK_DATE} 00:00:00`),
+            possibilities: [
+              createDeliveryPossibility(normalizeDate(`${MOCK_DATE}T15:00:00`), {
+                package_type: packageType,
+                shipment_options: [
+                  {name: ShipmentOptionName.Signature, schema: {type: 'boolean', enum: [true, false]}},
+                  {name: ShipmentOptionName.OnlyRecipient, schema: {type: 'boolean', enum: [true, false]}},
+                ],
+              }),
+            ],
+          },
+        ]),
+      );
+    }
   }
 
   mockDeliveryOptionsConfig(
@@ -74,7 +127,7 @@ const setup = async (
         },
         // TODO: allow optional key to be passed with undefined as value
         ...(packageType ? {[CarrierSetting.PackageType]: packageType} : {}),
-        ...extraConfig,
+        ...(extraConfig ?? {}),
       },
     }),
   );
@@ -102,6 +155,7 @@ describe('useDeliveryMomentOptions', () => {
   });
 
   afterEach(() => {
+    mockStringToDateResult.value = undefined;
     vi.restoreAllMocks();
   });
 
@@ -142,5 +196,31 @@ describe('useDeliveryMomentOptions', () => {
     expect(resolved.every((opt) => opt.value.date === null)).toBe(true);
 
     expect(resolved).toMatchSnapshot();
+  });
+
+  it('does not show fallback carriers when selected date is today', async () => {
+    mockStringToDateResult.value = new Date();
+
+    const options = await setup(PackageTypeName.Package, FALLBACK_EXTRA_CONFIG, createFallbackMock(MOCK_DATE));
+
+    const carriers = options.value.map((option) => parseJson<SelectedDeliveryMoment>(option.value).carrier);
+
+    expect(carriers).toContain(CarrierName.PostNl);
+    expect(carriers).not.toContain(CarrierName.DhlForYou);
+  });
+
+  it('shows fallback carriers when selected date is in the future', async () => {
+    const options = await setup(PackageTypeName.Package, FALLBACK_EXTRA_CONFIG, createFallbackMock(MOCK_DATE));
+
+    const resolved = options.value.map((option) => parseJson<SelectedDeliveryMoment>(option.value));
+    const carriers = resolved.map((opt) => opt.carrier);
+
+    expect(carriers).toContain(CarrierName.PostNl);
+    expect(carriers).toContain(CarrierName.DhlForYou);
+
+    const fallbackOption = resolved.find((opt) => opt.carrier === CarrierName.DhlForYou);
+
+    expect(fallbackOption?.date).toBeNull();
+    expect(fallbackOption?.time).toBeNull();
   });
 });

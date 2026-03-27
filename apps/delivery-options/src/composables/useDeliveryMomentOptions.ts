@@ -11,9 +11,9 @@ import {
 import {getDeliveryTypePrice, createPackageTypeTranslatable, stringToDate} from '../utils';
 import {useConfigStore} from '../stores';
 import {DELIVERY_MOMENT_PACKAGE_TYPES, SHOWN_SHIPMENT_OPTIONS} from '../data';
+import {useSelectedValues} from './useSelectedValues';
 import {useResolvedDeliveryOptions} from './useResolvedDeliveryOptions';
 import {useResolvedDeliveryMoments} from './useResolvedDeliveryMoments';
-import {useSelectedValues} from './useSelectedValues';
 import {useFeatures} from './useFeatures';
 import {useActiveCarriers} from './useActiveCarriers';
 
@@ -103,36 +103,34 @@ export const useDeliveryMomentOptions = (): ComputedRef<SelectOption<string>[]> 
     const fallbackOptions = selectedDateIsToday
       ? []
       : activeCarriers.value
-      .filter((carrier) => {
-        const id = toValue(carrier.carrier).identifier;
+          .filter((carrier) => {
+            const id = toValue(carrier.carrier).identifier;
 
-        if (carriersWithAnyMoments.has(id)) return false;
+            if (carriersWithAnyMoments.has(id)) return false;
 
-        if (!toValue(carrier.hasDelivery)) return false;
+            if (!toValue(carrier.hasDelivery)) return false;
 
-        const deliveryDaysWindow = carrier.get(CarrierSetting.DeliveryDaysWindow, DELIVERY_DAYS_WINDOW_DEFAULT);
+            const deliveryDaysWindow = carrier.get(CarrierSetting.DeliveryDaysWindow, DELIVERY_DAYS_WINDOW_DEFAULT);
 
-        if (deliveryDaysWindow === 0) return false;
+            return deliveryDaysWindow !== 0;
+          })
+          .map((carrier) => {
+            const carrierIdentifier = toValue(carrier.carrier).identifier;
 
-        return true;
-      })
-      .map((carrier) => {
-        const carrierIdentifier = toValue(carrier.carrier).identifier;
-
-        return {
-          carrier: carrierIdentifier,
-          label: createTranslatable(`delivery${pascal(DELIVERY_TYPE_DEFAULT)}Title`),
-          price: getDeliveryTypePrice(DELIVERY_TYPE_DEFAULT, carrierIdentifier),
-          value: JSON.stringify({
-            carrier: carrierIdentifier,
-            date: null,
-            deliveryType: DELIVERY_TYPE_DEFAULT,
-            packageType: config.packageType,
-            shipmentOptions: [],
-            time: null,
-          }),
-        };
-      });
+            return {
+              carrier: carrierIdentifier,
+              label: createTranslatable(`delivery${pascal(DELIVERY_TYPE_DEFAULT)}Title`),
+              price: getDeliveryTypePrice(DELIVERY_TYPE_DEFAULT, carrierIdentifier),
+              value: JSON.stringify({
+                carrier: carrierIdentifier,
+                date: null,
+                deliveryType: DELIVERY_TYPE_DEFAULT,
+                packageType: config.packageType,
+                shipmentOptions: [],
+                time: null,
+              }),
+            };
+          });
 
     return [...momentOptions, ...fallbackOptions];
   });

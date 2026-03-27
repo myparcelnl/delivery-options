@@ -10,7 +10,7 @@ import {
   AddressField,
 } from '@myparcel-dev/do-shared';
 import {ZIMBABWE} from '@myparcel-dev/constants/countries';
-import {CarrierName, DeliveryTypeName, ShipmentOptionName} from '@myparcel-dev/constants';
+import {CarrierName, DeliveryTypeName, PackageTypeName, ShipmentOptionName} from '@myparcel-dev/constants';
 import {useAddressStore, useConfigStore} from '../stores';
 import {mockDeliveryOptionsConfig, getMockDeliveryOptionsConfiguration} from '../__tests__';
 import {getResolvedCarrier} from './getResolvedCarrier';
@@ -131,6 +131,33 @@ describe('getResolvedCarrier', () => {
     );
 
     expect(carrier.shipmentOptions.value).toEqual(new Set([ShipmentOptionName.OnlyRecipient]));
+  });
+
+  it('derives packageTypes from capabilities', async () => {
+    const carrier = getResolvedCarrier(CarrierName.PostNl);
+
+    mockDeliveryOptionsConfig(getMockDeliveryOptionsConfiguration());
+
+    await flushPromises();
+
+    expect(carrier.packageTypes.value).toEqual(
+      new Set([
+        PackageTypeName.Package,
+        PackageTypeName.Mailbox,
+        PackageTypeName.DigitalStamp,
+        PackageTypeName.PackageSmall,
+      ]),
+    );
+  });
+
+  it('returns empty packageTypes set for unknown carrier', async () => {
+    const carrier = getResolvedCarrier('unknown_carrier');
+
+    mockDeliveryOptionsConfig(getMockDeliveryOptionsConfiguration());
+
+    await flushPromises();
+
+    expect(carrier.packageTypes.value).toEqual(new Set());
   });
 
   it('exposes features, filtered by config', async () => {
