@@ -120,9 +120,13 @@ export const useReactiveCapabilitiesRequest = (
   // Initial fetch
   void doFetch();
 
-  watch(fetchKey, () => {
-    void doFetch();
-  });
+  watch(
+    fetchKey,
+    () => {
+      void doFetch();
+    },
+    {flush: 'sync'},
+  );
 
   return {data, loading};
 };

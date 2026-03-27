@@ -1,13 +1,7 @@
-import {
-  type EndpointParameters,
-  type EndpointResponse,
-  type GetDeliveryOptions,
-  type ApiException,
-} from '@myparcel-dev/sdk';
+import {type EndpointParameters, type EndpointResponse, type GetDeliveryOptions} from '@myparcel-dev/sdk';
 import {useSdk} from '../useSdk';
 import {useLogger} from '../useLogger';
-import {useApiExceptions} from '../useApiExceptions';
-import {type RequestHandler, type RequestKey} from '../../types';
+import {type RequestHandler} from '../../types';
 import {REQUEST_KEY_DELIVERY_OPTIONS} from '../../data';
 import {useRequest} from './useRequest';
 
@@ -23,10 +17,8 @@ export const useDeliveryOptionsRequest = (
     },
     {
       fallback: [],
-      onError(error: ApiException, requestKey: RequestKey): void {
-        useLogger().debug('Skip delivery options', error);
-        const {addException} = useApiExceptions();
-        addException(requestKey, error);
+      onError(error): void {
+        useLogger().debug(`Skip delivery moments for ${parameters.carrier}.`, error);
       },
     },
   );
