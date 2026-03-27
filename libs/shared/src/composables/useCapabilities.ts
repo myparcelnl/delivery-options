@@ -11,7 +11,7 @@ export interface UseCapabilities {
   loading: ComputedRef<boolean>;
 }
 
-const EMPTY_RESPONSE: CapabilitiesResponse = {results: [] as CarrierCapability[]};
+export const EMPTY_RESPONSE: CapabilitiesResponse = {results: [] as CarrierCapability[]};
 
 const createCapabilitiesInterface = (
   capabilities: Ref<CapabilitiesResponse>,

@@ -3,8 +3,8 @@ import {useMemoize} from '@vueuse/core';
 import {
   type CarrierIdentifier,
   type CarrierSettings,
+  resolveCarrierName,
   splitCarrierIdentifier,
-  normalizeCarrierName,
 } from '@myparcel-dev/do-shared';
 import {getResolvedCarrier, hasDeliveryForCarrier, hasPickupForCarrier} from '../utils';
 import {useConfigStore} from '../stores';
@@ -47,11 +47,11 @@ export const useActiveCarriers = useMemoize((): ComputedRef<UseResolvedCarrier[]
         const configKeys = Object.keys(config.carrierSettings);
         const indexA = configKeys.findIndex(
           // eslint-disable-next-line max-nested-callbacks
-          (k) => normalizeCarrierName(k.split(':')[0] ?? k) === normalizeCarrierName(nameA),
+          (k) => resolveCarrierName(k as CarrierIdentifier) === nameA,
         );
         const indexB = configKeys.findIndex(
           // eslint-disable-next-line max-nested-callbacks
-          (k) => normalizeCarrierName(k.split(':')[0] ?? k) === normalizeCarrierName(nameB),
+          (k) => resolveCarrierName(k as CarrierIdentifier) === nameB,
         );
 
         return indexA - indexB;
@@ -59,8 +59,7 @@ export const useActiveCarriers = useMemoize((): ComputedRef<UseResolvedCarrier[]
 
     return sortedCarrierSettings
       .filter(([identifier]) => {
-        const carrierPart = identifier.split(':')[0] ?? identifier;
-        const normalized = normalizeCarrierName(carrierPart);
+        const normalized = resolveCarrierName(identifier);
         const capability = capabilities.getCarrierCapability(normalized);
 
         if (!capability) {

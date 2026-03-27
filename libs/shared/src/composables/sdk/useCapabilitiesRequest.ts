@@ -1,11 +1,10 @@
 import {ref, computed, watch, toValue, type MaybeRefOrGetter, type Ref, type ComputedRef} from 'vue';
 import {useLogger} from '../useLogger';
+import {EMPTY_RESPONSE} from '../useCapabilities';
 import {type CapabilitiesRequest, type CapabilitiesResponse, type RequestHandler} from '../../types';
 import {useRequest} from './useRequest';
 
 const REQUEST_KEY_CAPABILITIES = 'capabilities';
-
-const EMPTY_RESPONSE: CapabilitiesResponse = {results: []};
 
 const fetchCapabilities = async (
   proxyCapabilities: string,

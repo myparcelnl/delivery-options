@@ -75,18 +75,18 @@ export const getResolvedCarrier = useMemoize(
 
     const capability = computed(() => capabilities.getCarrierCapability(normalizedName));
 
+    const fromCapability = <T>(transform: (cap: NonNullable<ReturnType<(typeof capability)['value']>>) => Set<T>): Set<T> => {
+      const cap = capability.value;
+      if (!cap) return new Set<T>();
+      return transform(cap);
+    };
+
     const disabledDeliveryTypes = ref(new Set<SupportedDeliveryTypeName>());
 
     // Derive delivery types directly from capabilities for reliable reactivity.
-    const allDeliveryTypes = computed(() => {
-      const cap = capability.value;
-
-      if (!cap) {
-        return new Set<SupportedDeliveryTypeName>();
-      }
-
-      return new Set(getCapabilityDeliveryTypes(cap));
-    });
+    const allDeliveryTypes = computed(() =>
+      fromCapability((cap) => new Set(getCapabilityDeliveryTypes(cap))),
+    );
 
     const deliveryTypes = computed(() => {
       return filterSet(allDeliveryTypes.value, (option) => {
@@ -94,34 +94,24 @@ export const getResolvedCarrier = useMemoize(
       });
     });
 
-    const packageTypes = computed(() => {
-      const cap = capability.value;
+    const packageTypes = computed(() =>
+      fromCapability((cap) =>
+        new Set(cap.packageTypes.map(mapCapabilityPackageType).filter((pt): pt is SupportedPackageTypeName => pt !== undefined)),
+      ),
+    );
 
-      if (!cap) {
-        return new Set<SupportedPackageTypeName>();
-      }
-
-      return new Set(
-        cap.packageTypes.map(mapCapabilityPackageType).filter((pt): pt is SupportedPackageTypeName => pt !== undefined),
-      );
-    });
-
-    const shipmentOptions = computed(() => {
-      const cap = capability.value;
-
-      if (!cap) {
-        return new Set<SupportedShipmentOptionName>();
-      }
-
-      return filterSet(
-        new Set(
-          Object.keys(cap.options)
-            .map(mapCapabilityOption)
-            .filter((opt): opt is SupportedShipmentOptionName => opt !== undefined),
+    const shipmentOptions = computed(() =>
+      fromCapability((cap) =>
+        filterSet(
+          new Set(
+            Object.keys(cap.options)
+              .map(mapCapabilityOption)
+              .filter((opt): opt is SupportedShipmentOptionName => opt !== undefined),
+          ),
+          (option) => resolveOption(option, carrierIdentifier),
         ),
-        (option) => resolveOption(option, carrierIdentifier),
-      );
-    });
+      ),
+    );
 
     const features = computed(() => {
       return new Set(
