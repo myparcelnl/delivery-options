@@ -25,11 +25,11 @@ export const useShipmentOptionsOptions = (): ComputedRef<SelectOption[]> => {
   const deliveryMoment = useSelectedDeliveryMoment();
 
   return computed(() => {
-    const {carrier, shipmentOptions} = useResolvedCarrier(deliveryMoment.value?.carrier);
-
-    if (deliveryOptions.loading.value || !carrier.value) {
+    if (deliveryOptions.loading.value || !deliveryMoment.value?.carrier) {
       return [];
     }
+
+    const {carrier, shipmentOptions} = useResolvedCarrier(deliveryMoment.value.carrier);
 
     const momentShipmentOptions = toValue(deliveryMoment)?.shipmentOptions;
 

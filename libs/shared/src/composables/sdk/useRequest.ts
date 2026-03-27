@@ -60,7 +60,7 @@ const createRequestHandler = <T>(
     storage.set(queryKey, data.value);
   };
 
-  void load();
+  void load().catch(() => {});
 
   return {
     data,
@@ -78,7 +78,7 @@ const cb = <T>(
 
   const query = createRequestHandler<T>(requestStorage, key, callback, options);
 
-  void query.load();
+  void query.load().catch(() => {});
 
   return query as RequestHandler<T extends Promise<infer U> ? U : T>;
 };

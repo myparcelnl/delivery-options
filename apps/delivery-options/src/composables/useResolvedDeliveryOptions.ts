@@ -12,7 +12,6 @@ import {
   DELIVERY_DAYS_WINDOW_DEFAULT,
   createTranslatable,
   ConfigSetting,
-  useLogger,
 } from '@myparcel-dev/do-shared';
 import {createGetDeliveryOptionsParameters, getResolvedDeliveryType, calculateCutoffTime} from '../utils';
 import {type SelectedDeliveryMoment} from '../types';
@@ -47,13 +46,7 @@ const getDeliveryOptionsFromApi = async (
         const params = createGetDeliveryOptionsParameters(carrier);
         const query = useDeliveryOptionsRequest(params);
 
-        try {
-          await query.load();
-        } catch (error) {
-          useLogger().error('Error loading delivery options:', error);
-
-          return null;
-        }
+        await query.load();
 
         const closedDays = getClosedDaysWindow(carrier.get(ConfigSetting.ClosedDays));
 
@@ -246,54 +239,44 @@ const callback = (): UseResolvedDeliveryOptions => {
   const carriers = useActiveCarriers();
   const capabilities = useBroadCapabilities();
 
-  return computedAsync<SelectedDeliveryMoment[]>(
-    async () => {
-      /*
-       * Guard: wait for capabilities to finish loading before fetching delivery options.
-       *
-       * When the address changes, the capabilities API re-fetches asynchronously.
-       * During that fetch, capabilities.value still holds data from the PREVIOUS address.
-       * useActiveCarriers (which depends on capabilities) would compute with stale
-       * carrier data + the new address, producing wrong carrier combinations.
-       *
-       * API calls with wrong carriers fail (e.g. "street is required") and add exceptions
-       * that persist even after correct carriers load and their API calls succeed.
-       *
-       * By awaiting here, we keep the delivery options in their loading state (preserving
-       * the previous value in the UI) until capabilities are current, then proceed with
-       * correct carrier data.
-       */
-      if (capabilities.loading.value) {
-        await new Promise<void>((resolve) => {
-          const unwatch = watch(
-            () => capabilities.loading.value,
-            (isLoading) => {
-              if (!isLoading) {
-                unwatch();
-                resolve();
-              }
-            },
-          );
-        });
-      }
+  return computedAsync<SelectedDeliveryMoment[]>(async () => {
+    /*
+     * Guard: wait for capabilities to finish loading before fetching delivery options.
+     *
+     * When the address changes, the capabilities API re-fetches asynchronously.
+     * During that fetch, capabilities.value still holds data from the PREVIOUS address.
+     * useActiveCarriers (which depends on capabilities) would compute with stale
+     * carrier data + the new address, producing wrong carrier combinations.
+     *
+     * API calls with wrong carriers fail (e.g. "street is required") and add exceptions
+     * that persist even after correct carriers load and their API calls succeed.
+     *
+     * By awaiting here, we keep the delivery options in their loading state (preserving
+     * the previous value in the UI) until capabilities are current, then proceed with
+     * correct carrier data.
+     */
+    if (capabilities.loading.value) {
+      await new Promise<void>((resolve) => {
+        const unwatch = watch(
+          () => capabilities.loading.value,
+          (isLoading) => {
+            if (!isLoading) {
+              unwatch();
+              resolve();
+            }
+          },
+        );
+      });
+    }
 
-      const datesPerCarrier = await getDeliveryOptionsFromApi(carriers);
+    const datesPerCarrier = await getDeliveryOptionsFromApi(carriers);
 
-      // Filter out any nulls (failed requests)
-      const filteredDates = removeEmptyEntries(datesPerCarrier);
+    // Filter out any nulls (failed requests)
+    const filteredDates = removeEmptyEntries(datesPerCarrier);
 
-      // Flatten the dates into SelectedDeliveryMoment objects.
-      return formatDatesAsDeliveryMoments(filteredDates);
-    },
-    [],
-    {
-      // eslint-disable-next-line id-length
-      onError: (e) => {
-        // eslint-disable-next-line no-console
-        console.error(e);
-      },
-    },
-  );
+    // Flatten the dates into SelectedDeliveryMoment objects.
+    return formatDatesAsDeliveryMoments(filteredDates);
+  }, []);
 };
 
 export const useResolvedDeliveryOptions = useMemoize(callback);

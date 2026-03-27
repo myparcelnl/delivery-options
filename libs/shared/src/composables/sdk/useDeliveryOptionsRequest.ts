@@ -1,4 +1,3 @@
-import type {PromiseOr} from '@myparcel-dev/ts-utils';
 import {
   type EndpointParameters,
   type EndpointResponse,
@@ -6,7 +5,9 @@ import {
   type ApiException,
 } from '@myparcel-dev/sdk';
 import {useSdk} from '../useSdk';
-import {type RequestHandler} from '../../types';
+import {useLogger} from '../useLogger';
+import {useApiExceptions} from '../useApiExceptions';
+import {type RequestHandler, type RequestKey} from '../../types';
 import {REQUEST_KEY_DELIVERY_OPTIONS} from '../../data';
 import {useRequest} from './useRequest';
 
@@ -22,8 +23,10 @@ export const useDeliveryOptionsRequest = (
     },
     {
       fallback: [],
-      onError(error: ApiException): PromiseOr<void> {
-        throw error;
+      onError(error: ApiException, requestKey: RequestKey): void {
+        useLogger().debug('Skip delivery options', error);
+        const {addException} = useApiExceptions();
+        addException(requestKey, error);
       },
     },
   );
