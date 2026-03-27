@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-MyParcel Delivery Options is a Vue 3 widget for e-commerce checkouts that displays delivery and pickup options to customers based on their location and merchant settings. It supports MyParcel (NL) and SendMyParcel (BE) platforms.
+MyParcel Delivery Options is a Vue 3 widget for e-commerce checkouts that displays delivery and pickup options to customers based on their location and merchant settings. It is used by MyParcel customers. Available carriers and options are determined at runtime by fetching capabilities from a backend proxy URL supplied by the integrating platform.
 
 ## Commands
 
@@ -42,6 +42,7 @@ yarn typecheck
 ```
 
 Individual workspace tests can be run directly with vitest:
+
 ```bash
 cd apps/delivery-options && vitest run           # run once
 cd apps/delivery-options && vitest run src/composables/useActiveCarriers.spec.ts  # single file
@@ -58,6 +59,7 @@ This is an Nx + Yarn workspaces monorepo:
 - **`libs/build-vite/`** — Shared Vite/build configuration
 
 TypeScript path aliases (from `tsconfig.base.json`):
+
 - `@myparcel-dev/delivery-options` → `./apps/delivery-options/src`
 - `@myparcel-dev/do-shared/testing` → `./libs/shared/src/__tests__`
 - `@myparcel-dev/do-*` → `./libs/*/src`
@@ -71,6 +73,7 @@ Entry point is `apps/delivery-options/src/main.ts` which calls `bootDeliveryOpti
 1. Platform fires `myparcel_render_delivery_options` CustomEvent (with config in `event.detail`)
 2. `initializeApp()` extracts config (from event detail or fallback `window.MyParcelConfig`)
 3. `mountApp()` creates and mounts a Vue 3 app to the DOM
+4. `useBroadCapabilities()` POSTs to the `proxyCapabilities` URL with the current address and package type, receiving a `CapabilitiesResponse` that drives which carriers, delivery types, and options are shown
 
 ### Event-Driven Communication
 
@@ -82,28 +85,44 @@ The widget communicates with the host platform via custom DOM events (`apps/deli
 ### State Management
 
 Uses Pinia stores in `apps/delivery-options/src/stores/`:
+
 - `useConfigStore()` — holds the resolved `DeliveryOptionsConfig`
 - `useAddressStore()` — holds the current address
+
+`useBroadCapabilities()` (`apps/delivery-options/src/composables/useBroadCapabilities.ts`) is an effectScope singleton that holds the live `CapabilitiesResponse`. It re-fetches reactively whenever the address or package type changes and resets on app teardown.
 
 ### Key Source Directories (under `apps/delivery-options/src/`)
 
 - **`views/`** — Vue page components. Root is `MyParcelDeliveryOptions.vue` with `Delivery/` and `Pickup/` subviews
 - **`composables/`** — Business logic as Vue composables (e.g., `useResolvedDeliveryOptions`, `useSelectedValues`, `useActiveCarriers`, `useDeliveryMomentOptions`)
 - **`utils/`** — Pure utility functions (cutoff time calculation, price retrieval, API parameter building)
-- **`config/`** — Configuration initialization, validation, and platform defaults
+- **`config/`** — Configuration initialization and validation (platform defaults are no longer hardcoded; they come from the capabilities response)
 - **`components/`** — Reusable UI components (buttons, form inputs, icons, loaders, map)
+
+### Capabilities
+
+Capabilities are the runtime source of truth for what the widget renders. The composable chain:
+
+- `useCapabilitiesRequestParams` (`apps/delivery-options/src/composables/useCapabilitiesRequestParams.ts`) — builds a reactive `CapabilitiesRequest` from the current address and package type
+- `useReactiveCapabilities` (`libs/shared/src/composables/useCapabilities.ts`) — sends the request to `proxyCapabilities`, re-fetches when the request changes, deduplicates via JSON comparison, and cancels in-flight requests with an AbortController
+- `useBroadCapabilities` (`apps/delivery-options/src/composables/useBroadCapabilities.ts`) — app-level singleton wrapping the above; all composables that need capabilities call this
+
+Key types in `libs/shared/src/types/capabilities.types.ts`: `CapabilitiesRequest`, `CapabilitiesResponse`, `CarrierCapability`, `CapabilityOption`.
+
+Each `CarrierCapability` lists supported `packageTypes`, `deliveryTypes`, and `options`. Each option carries `requires`, `excludes`, `isSelectedByDefault`, and `isRequired` rules that drive UI state.
 
 ### Shared Library (`libs/shared/src/`)
 
-- **`types/`** — Core TypeScript interfaces (`DeliveryOptionsConfig`, carrier types, address types)
+- **`types/`** — Core TypeScript interfaces (`DeliveryOptionsConfig`, `CapabilitiesRequest/Response`, carrier types, address types)
 - **`data/`** — Enums (`ConfigSetting`, `CarrierSetting`, `AddressField`) and default config factories
 - **`validator/`** — Input validators built with `defineValidator()` pattern
-- **`composables/`** — Shared composables (`useSdk`, `useCarrier`, `useLogger`, form input contexts)
+- **`composables/`** — Shared composables (`useSdk`, `useCarrier`, `useLogger`, `useCapabilities`, `useCapabilitiesRequest`, form input contexts)
 - **`components/`** — Shared Vue components (form inputs, map, icons)
 
 ### Build Targets
 
 The delivery-options app has multiple Vite build configs:
+
 - `vite.config.ts` — ES + CJS modules (default)
 - `vite-myparcel.config.ts` — UMD with Vue bundled (for script tag usage)
 - `vite-myparcel-lib.config.ts` — UMD without Vue (for integration into Vue apps)
