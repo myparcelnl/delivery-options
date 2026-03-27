@@ -153,7 +153,10 @@ const validateConfig = (input: InputDeliveryOptionsConfig): DeliveryOptionsConfi
 };
 
 export const validateConfiguration = (input: InputDeliveryOptionsConfiguration): DeliveryOptionsConfiguration => {
-  const filteredAddressConfig: DeliveryOptionsAddress = filterConfig({...input[KEY_ADDRESS]}, addressOptions);
+  const addressInput = Object.fromEntries(
+    Object.entries(input[KEY_ADDRESS] ?? {}).filter(([, value]) => value !== '' && value != null),
+  );
+  const filteredAddressConfig: DeliveryOptionsAddress = filterConfig(addressInput, addressOptions);
 
   const result: Partial<InputDeliveryOptionsConfiguration> = {
     [KEY_ADDRESS]: filteredAddressConfig,
