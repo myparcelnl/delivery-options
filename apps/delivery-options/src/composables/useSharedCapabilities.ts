@@ -1,7 +1,7 @@
 import {computed, effectScope, type EffectScope} from 'vue';
 import {type UseCapabilities, useReactiveCapabilities} from '@myparcel-dev/do-shared';
 import {useConfigStore} from '../stores';
-import {useBroadCapabilitiesParams} from './useCapabilitiesRequestParams';
+import {useCapabilitiesRequestParams} from './useCapabilitiesRequestParams';
 
 let instance: UseCapabilities | null = null;
 let scope: EffectScope | null = null;
@@ -10,14 +10,14 @@ let scope: EffectScope | null = null;
  * Singleton reactive capabilities instance that re-fetches
  * when address or packageType changes.
  */
-export const useBroadCapabilities = (): UseCapabilities => {
+export const useSharedCapabilities = (): UseCapabilities => {
   if (!instance) {
     scope = effectScope();
 
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     instance = scope.run(() => {
       const {state: config} = useConfigStore();
-      const requestRef = useBroadCapabilitiesParams();
+      const requestRef = useCapabilitiesRequestParams();
 
       const apiKeyRef = computed(() => config.apiKey);
       return useReactiveCapabilities(config.proxyCapabilities, requestRef, apiKeyRef);
@@ -32,7 +32,7 @@ export const useBroadCapabilities = (): UseCapabilities => {
  * Stops all reactive effects and clears data to prevent stale references
  * from triggering downstream reactive chains.
  */
-export const resetBroadCapabilities = (): void => {
+export const resetSharedCapabilities = (): void => {
   if (instance) {
     instance.capabilities.value = {results: []};
   }

@@ -20,7 +20,7 @@ import {
   useLogger,
 } from '@myparcel-dev/do-shared';
 import {type ShipmentOptionName} from '@myparcel-dev/constants';
-import {type UseResolvedCarrier, useBroadCapabilities} from '../composables';
+import {type UseResolvedCarrier, useSharedCapabilities} from '../composables';
 import {hasPickupForCarrier} from './hasPickupForCarrier';
 import {hasDeliveryForCarrier} from './hasDeliveryForCarrier';
 import {getResolvedValue} from './getResolvedValue';
@@ -70,7 +70,7 @@ export const getResolvedCarrier = useMemoize(
     );
 
     // Use the singleton reactive capabilities instance.
-    const capabilities = useBroadCapabilities();
+    const capabilities = useSharedCapabilities();
     const normalizedName = normalizeCarrierName(carrierName);
 
     const capability = computed(() => capabilities.getCarrierCapability(normalizedName));

@@ -22,7 +22,7 @@ import {
 import {type ResolvedPickupLocation, type LatLng} from '../types';
 import {useConfigStore} from '../stores';
 import {type UseResolvedCarrier} from './useResolvedCarrier';
-import {useBroadCapabilities} from './useBroadCapabilities';
+import {useSharedCapabilities} from './useSharedCapabilities';
 
 interface UseResolvedPickupLocations {
   carriersWithPickup: ComputedRef<UseResolvedCarrier[]>;
@@ -100,7 +100,7 @@ const callback = (): UseResolvedPickupLocations => {
    * Determine carriers with pickup directly from capabilities + config.
    * This avoids relying on the deep reactive chain through useActiveCarriers → hasPickup.
    */
-  const capabilities = useBroadCapabilities();
+  const capabilities = useSharedCapabilities();
 
   const carriersWithPickup = computed((): UseResolvedCarrier[] => {
     const configCarriers = Object.keys(config.carrierSettings ?? {}) as CarrierIdentifier[];

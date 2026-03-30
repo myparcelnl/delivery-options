@@ -6,7 +6,7 @@ import {useAddressStore, useConfigStore} from '../stores';
  * Build reactive capabilities request params from store state.
  * Does NOT include user selections (carrier/deliveryType/options).
  */
-export const useBroadCapabilitiesParams = (): ComputedRef<CapabilitiesRequest> => {
+export const useCapabilitiesRequestParams = (): ComputedRef<CapabilitiesRequest> => {
   const {state: config} = useConfigStore();
   const {state: address} = useAddressStore();
 

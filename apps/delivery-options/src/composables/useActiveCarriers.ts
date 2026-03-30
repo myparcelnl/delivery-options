@@ -9,7 +9,7 @@ import {
 import {getResolvedCarrier, hasDeliveryForCarrier, hasPickupForCarrier} from '../utils';
 import {useConfigStore} from '../stores';
 import {type UseResolvedCarrier} from './useResolvedCarrier';
-import {useBroadCapabilities} from './useBroadCapabilities';
+import {useSharedCapabilities} from './useSharedCapabilities';
 
 /**
  * Get the carriers that are currently active in the delivery options config.
@@ -23,7 +23,7 @@ import {useBroadCapabilities} from './useBroadCapabilities';
 export const useActiveCarriers = useMemoize((): ComputedRef<UseResolvedCarrier[]> => {
   const {state: config} = useConfigStore();
 
-  const capabilities = useBroadCapabilities();
+  const capabilities = useSharedCapabilities();
 
   // eslint-disable-next-line max-lines-per-function
   return computed(() => {

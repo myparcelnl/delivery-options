@@ -18,7 +18,7 @@ import {type SelectedDeliveryMoment} from '../types';
 import {useTimeRange} from './useTimeRange';
 import {useSelectedValues} from './useSelectedValues';
 import {type UseResolvedCarrier} from './useResolvedCarrier';
-import {useBroadCapabilities} from './useBroadCapabilities';
+import {useSharedCapabilities} from './useSharedCapabilities';
 import {useActiveCarriers} from './useActiveCarriers';
 
 type DeliveryOptionsApiData = ReturnType<typeof useDeliveryOptionsRequest>['data']['value'];
@@ -299,7 +299,7 @@ const formatDatesAsDeliveryMoments = (
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const callback = (): UseResolvedDeliveryOptions => {
   const carriers = useActiveCarriers();
-  const capabilities = useBroadCapabilities();
+  const capabilities = useSharedCapabilities();
 
   return computedAsync<SelectedDeliveryMoment[]>(async () => {
     /*

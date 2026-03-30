@@ -73,7 +73,7 @@ Entry point is `apps/delivery-options/src/main.ts` which calls `bootDeliveryOpti
 1. Platform fires `myparcel_render_delivery_options` CustomEvent (with config in `event.detail`)
 2. `initializeApp()` extracts config (from event detail or fallback `window.MyParcelConfig`)
 3. `mountApp()` creates and mounts a Vue 3 app to the DOM
-4. `useBroadCapabilities()` POSTs to the `proxyCapabilities` URL with the current address and package type, receiving a `CapabilitiesResponse` that drives which carriers, delivery types, and options are shown
+4. `useSharedCapabilities()` POSTs to the `proxyCapabilities` URL with the current address and package type, receiving a `CapabilitiesResponse` that drives which carriers, delivery types, and options are shown
 
 ### Event-Driven Communication
 
@@ -89,7 +89,7 @@ Uses Pinia stores in `apps/delivery-options/src/stores/`:
 - `useConfigStore()` — holds the resolved `DeliveryOptionsConfig`
 - `useAddressStore()` — holds the current address
 
-`useBroadCapabilities()` (`apps/delivery-options/src/composables/useBroadCapabilities.ts`) is an effectScope singleton that holds the live `CapabilitiesResponse`. It re-fetches reactively whenever the address or package type changes and resets on app teardown.
+`useSharedCapabilities()` (`apps/delivery-options/src/composables/useSharedCapabilities.ts`) is an effectScope singleton that holds the live `CapabilitiesResponse`. It re-fetches reactively whenever the address or package type changes and resets on app teardown.
 
 ### Key Source Directories (under `apps/delivery-options/src/`)
 
@@ -105,7 +105,7 @@ Capabilities are the runtime source of truth for what the widget renders. The co
 
 - `useCapabilitiesRequestParams` (`apps/delivery-options/src/composables/useCapabilitiesRequestParams.ts`) — builds a reactive `CapabilitiesRequest` from the current address and package type
 - `useReactiveCapabilities` (`libs/shared/src/composables/useCapabilities.ts`) — sends the request to `proxyCapabilities`, re-fetches when the request changes, deduplicates via JSON comparison, and cancels in-flight requests with an AbortController
-- `useBroadCapabilities` (`apps/delivery-options/src/composables/useBroadCapabilities.ts`) — app-level singleton wrapping the above; all composables that need capabilities call this
+- `useSharedCapabilities` (`apps/delivery-options/src/composables/useSharedCapabilities.ts`) — app-level singleton wrapping the above; all composables that need capabilities call this
 
 Key types in `libs/shared/src/types/capabilities.types.ts`: `CapabilitiesRequest`, `CapabilitiesResponse`, `CarrierCapability`, `CapabilityOption`.
 

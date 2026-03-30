@@ -56,13 +56,13 @@ import HomeDelivery from '../Delivery/HomeDelivery.vue';
 import {getHasPickupForPackage} from '../../../utils/getHasPickupForPackage';
 import {useConfigStore} from '../../../stores';
 import {FIELD_HOME_OR_PICKUP, HOME_OR_PICKUP_HOME, HOME_OR_PICKUP_PICKUP} from '../../../data';
-import {useActiveCarriers, useBroadCapabilities, useLanguage, useSelectedValues} from '../../../composables';
+import {useActiveCarriers, useSharedCapabilities, useLanguage, useSelectedValues} from '../../../composables';
 import {CaretRightIcon, RadioGroupInput} from '../../../components';
 
 await waitForRequestData(useCarriersRequest);
 
 const carriers = useActiveCarriers();
-const {loading: capabilitiesLoading} = useBroadCapabilities();
+const {loading: capabilitiesLoading} = useSharedCapabilities();
 const {state: config} = useConfigStore();
 
 const {translate} = useLanguage();

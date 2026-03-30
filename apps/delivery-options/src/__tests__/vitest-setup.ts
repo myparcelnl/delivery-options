@@ -1,6 +1,6 @@
 import {afterEach} from 'vitest';
-import {resetBroadCapabilities} from '../composables/useBroadCapabilities';
+import {resetSharedCapabilities} from '../composables/useSharedCapabilities';
 
 afterEach(() => {
-  resetBroadCapabilities();
+  resetSharedCapabilities();
 });
