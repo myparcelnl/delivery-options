@@ -6,6 +6,8 @@ Version 7 removes statically embedded platform configurations (MyParcel NL / Sen
 
 The widget no longer knows which carriers or delivery options are available by default. Instead, it POSTs a `CapabilitiesRequest` to the URL you supply in the `proxyCapabilities` config field, and uses the response to decide what to show.
 
+⚠️ This also means that the sandbox is somewhat reactive to the country and package type you select there, regarding the carriers and options shown.
+
 ### 1. Add `proxyCapabilities` to your config
 
 ```js
@@ -63,12 +65,15 @@ interface CapabilitiesResponse {
     carrier: string;
     packageTypes: string[];
     deliveryTypes: string[];
-    options: Record<string, {
-      requires: string[];
-      excludes: string[];
-      isSelectedByDefault: boolean;
-      isRequired: boolean;
-    }>;
+    options: Record<
+      string,
+      {
+        requires: string[];
+        excludes: string[];
+        isSelectedByDefault: boolean;
+        isRequired: boolean;
+      }
+    >;
     transactionTypes?: string[];
     physicalProperties?: Record<string, unknown>;
     collo?: {max: number};
@@ -80,14 +85,19 @@ interface CapabilitiesResponse {
 
 ```js
 app.post('/myparcel/capabilities', async (req, res) => {
-  const response = await fetch('https://api.myparcel.nl/shipments/capabilities', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json;charset=utf-8;version=2.0',
-      Authorization: `Bearer ${Buffer.from(process.env.MYPARCEL_API_KEY).toString('base64')}`,
+  const response = await fetch(
+    'https://api.myparcel.nl/shipments/capabilities',
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8;version=2.0',
+        Authorization: `Bearer ${Buffer.from(
+          process.env.MYPARCEL_API_KEY,
+        ).toString('base64')}`,
+      },
+      body: JSON.stringify(req.body),
     },
-    body: JSON.stringify(req.body),
-  });
+  );
   const data = await response.json();
   res.status(response.status).json(data);
 });
@@ -111,21 +121,21 @@ config: {
 
 ### New required field
 
-| Field | Type | Description |
-|---|---|---|
+| Field               | Type     | Description                                   |
+| ------------------- | -------- | --------------------------------------------- |
 | `proxyCapabilities` | `string` | URL the widget POSTs capabilities requests to |
 
 ### Removed fields
 
-| Field | Notes |
-|---|---|
+| Field                                    | Notes                                                             |
+| ---------------------------------------- | ----------------------------------------------------------------- |
 | `allowDeliveryOptions` (carrier setting) | Removed — use capabilities response to control available carriers |
-| `showDeliveryDate` | Removed |
+| `showDeliveryDate`                       | Removed                                                           |
 
 ### Changed fields
 
-| Field | Change |
-|---|---|
+| Field         | Change                                                     |
+| ------------- | ---------------------------------------------------------- |
 | `dropOffDays` | No longer accepts a plain string; must be `DropOffEntry[]` |
 
 ### Removed: deprecated options
@@ -138,12 +148,12 @@ The `DeprecatedConfigOptions` group is no longer accepted. Any previously deprec
 
 The following were removed from `@myparcel/delivery-options` and `@myparcel-dev/do-shared`:
 
-| Export | Replacement |
-|---|---|
-| `PlatformConfiguration` type | No direct replacement — capabilities response drives platform behaviour |
-| `PlatformName` enum | No direct replacement |
-| `usePlatform()` composable | No direct replacement |
-| `getDefaultConfigForPlatform()` | No direct replacement |
-| `useCurrentPlatform()` composable | No direct replacement |
+| Export                            | Replacement                                                             |
+| --------------------------------- | ----------------------------------------------------------------------- |
+| `PlatformConfiguration` type      | No direct replacement — capabilities response drives platform behaviour |
+| `PlatformName` enum               | No direct replacement                                                   |
+| `usePlatform()` composable        | No direct replacement                                                   |
+| `getDefaultConfigForPlatform()`   | No direct replacement                                                   |
+| `useCurrentPlatform()` composable | No direct replacement                                                   |
 
 If you were importing any of these, remove the imports and rely on the capabilities response instead.
