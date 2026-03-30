@@ -9,6 +9,8 @@ import {
   KEY_ADDRESS,
   KEY_CARRIER_SETTINGS,
   KEY_CONFIG,
+  ONLY_RECIPIENT_TITLE,
+  SIGNATURE_TITLE,
   type SupportedPackageTypeName,
 } from '@myparcel-dev/do-shared';
 import {CarrierName, PackageTypeName, ShipmentOptionName} from '@myparcel-dev/constants';
@@ -46,7 +48,7 @@ const setup = async (packageType: SupportedPackageTypeName, carrierIdentifier: C
         [CarrierSetting.AllowEveningDelivery]: true,
         [CarrierSetting.AllowMorningDelivery]: true,
         [CarrierSetting.AllowSignature]: true,
-        [CarrierSetting.AllowOnlyRecipient]: true,
+        [CarrierSetting.AllowOnlyRecipient]: false,
         [CarrierSetting.PriceStandardDelivery]: 3,
         [KEY_CARRIER_SETTINGS]: {
           [carrierIdentifier]: {
@@ -83,7 +85,15 @@ describe('useShipmentOptionsOptions', () => {
 
       const result = useShipmentOptionsOptions();
 
-      expect(toValue(result)).toMatchSnapshot();
+      expect(toValue(result)).toEqual([
+        {
+          label: SIGNATURE_TITLE,
+          value: ShipmentOptionName.Signature,
+          disabled: true,
+          selected: true,
+          price: 0,
+        },
+      ]);
     },
   );
 

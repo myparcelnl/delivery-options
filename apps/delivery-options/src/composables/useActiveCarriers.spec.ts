@@ -23,9 +23,12 @@ describe('useActiveCarriers', () => {
 
   const identifiers = [
     `${CarrierName.DhlForYou}:3456`,
+    CarrierName.CheapCargo,
+    CarrierName.Bol,
     CarrierName.DhlParcelConnect,
     `${CarrierName.DhlForYou}:1234`,
     `${CarrierName.DhlParcelConnect}:422`,
+    CarrierName.Bpost,
     CarrierName.PostNl,
     CarrierName.DhlEuroPlus,
     `${CarrierName.PostNl}:4242`,
@@ -64,7 +67,21 @@ describe('useActiveCarriers', () => {
     // After capabilities load, the computed re-evaluates with carrier data
     const carrierIdentifiers = toValue(carriers).map((carrier) => carrier.carrier.value.identifier);
 
-    expect(carrierIdentifiers).toContain(CarrierName.PostNl);
+    /**
+     * carriers should conform to what capabilities mock returns libs/shared/src/__tests__/mocks/mockCapabilitiesResponse.ts:64–71
+     * the order is determined by identifiers itself here
+     */
+    expect(carrierIdentifiers).toStrictEqual([
+      'dhlforyou',
+      'dhlforyou:1234',
+      'dhlforyou:3456',
+      'dhlparcelconnect',
+      'dhlparcelconnect:422',
+      'bpost',
+      'postnl',
+      'postnl:4242',
+      'dhleuroplus',
+    ]);
   });
 
   it('returns multiple carriers with pickup from capabilities', async () => {

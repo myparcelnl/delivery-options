@@ -16,9 +16,9 @@ import {
 import {createGetDeliveryOptionsParameters, getResolvedDeliveryType, calculateCutoffTime} from '../utils';
 import {type SelectedDeliveryMoment} from '../types';
 import {useTimeRange} from './useTimeRange';
+import {useSharedCapabilities} from './useSharedCapabilities';
 import {useSelectedValues} from './useSelectedValues';
 import {type UseResolvedCarrier} from './useResolvedCarrier';
-import {useSharedCapabilities} from './useSharedCapabilities';
 import {useActiveCarriers} from './useActiveCarriers';
 
 type DeliveryOptionsApiData = ReturnType<typeof useDeliveryOptionsRequest>['data']['value'];
@@ -72,10 +72,15 @@ const getDeliveryOptionsFromApi = async (
 
 /**
  * This returns all the closed days within the window of 14 days from today.
+ * @param {Date[] | undefined} closedDays
+ * @returns {Date[]}
  */
 const getClosedDaysWindow = (closedDays: Date[] | undefined): Date[] => {
+  // We use 14 day as the window for closed days. Because that is the maximum number of days that can be selected
+  // inside the plugin.
   const daysWindow = 14;
 
+  // If closedDays is undefined or null, return empty array
   if (!closedDays) {
     return [];
   }
@@ -85,6 +90,7 @@ const getClosedDaysWindow = (closedDays: Date[] | undefined): Date[] => {
   maxDate.setDate(today.getDate() + daysWindow);
 
   return closedDays.filter((date) => {
+    // Normalize the date to start of day for consistent comparison
     const normalizedDate = startOfDay(date);
     return normalizedDate >= today && normalizedDate <= maxDate;
   });
