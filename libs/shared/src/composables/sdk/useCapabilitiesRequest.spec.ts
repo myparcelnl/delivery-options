@@ -1,8 +1,8 @@
 import {ref, nextTick} from 'vue';
 import {describe, it, expect, vi, beforeEach} from 'vitest';
 import {flushPromises} from '@vue/test-utils';
+import {mockCapabilitiesFetch} from '@myparcel-dev/do-shared/testing';
 import {type CapabilitiesRequest} from '../../types';
-import {mockCapabilitiesFetch} from '../../__tests__/mocks/mockCapabilitiesResponse';
 import {useReactiveCapabilitiesRequest} from './useCapabilitiesRequest';
 
 const PROXY_URL = 'https://proxy.example.com/capabilities';

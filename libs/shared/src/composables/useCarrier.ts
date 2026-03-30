@@ -22,6 +22,7 @@ import {
   type ConfigKey,
   type CarrierCapability,
 } from '../types';
+import {useLogger} from './useLogger.ts';
 import {useCapabilities} from './useCapabilities';
 import {useCarrierFromCache} from './sdk';
 
@@ -138,6 +139,7 @@ export const useCarrier = useMemoize((options: UseCarrierOptions): UseCarrier =>
       try {
         return getConfigKey(option as SupportedDeliveryTypeName | ShipmentOptionName);
       } catch {
+        useLogger().warning(`Unknown option "${option}" for carrier "${carrierName.value}"`);
         return null;
       }
     };
