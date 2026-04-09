@@ -1,12 +1,10 @@
 # Migrating from v6 to v7
 
-Version 7 removes statically embedded platform configurations (MyParcel NL / SendMyParcel BE) in favour of fetching carrier capabilities at runtime from a backend proxy that you control. This is a **breaking change** that requires changes to your integration.
+Version 7 removes statically embedded platform configurations (MyParcel NL / SendMyParcel BE) in favor of fetching carrier capabilities at runtime from a backend proxy that you control. This is a **breaking change** that requires changes to your integration.
 
 ## Required: implement a capabilities proxy
 
 The widget no longer knows which carriers or delivery options are available by default. Instead, it POSTs a `CapabilitiesRequest` to the URL you supply in the `proxyCapabilities` config field, and uses the response to decide what to show.
-
-⚠️ This also means that the sandbox is somewhat reactive to the country and package type you select there, regarding the carriers and options shown.
 
 ### 1. Add `proxyCapabilities` to your config
 
@@ -148,12 +146,12 @@ The `DeprecatedConfigOptions` group is no longer accepted. Any previously deprec
 
 The following were removed from `@myparcel/delivery-options` and `@myparcel-dev/do-shared`:
 
-| Export                            | Replacement                                                             |
-| --------------------------------- | ----------------------------------------------------------------------- |
-| `PlatformConfiguration` type      | No direct replacement — capabilities response drives platform behaviour |
-| `PlatformName` enum               | No direct replacement                                                   |
-| `usePlatform()` composable        | No direct replacement                                                   |
-| `getDefaultConfigForPlatform()`   | No direct replacement                                                   |
-| `useCurrentPlatform()` composable | No direct replacement                                                   |
+| Export                            | Replacement                                                                                                                     |
+| --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| `PlatformConfiguration` type      | No direct replacement — capabilities response drives platform behaviour                                                         |
+| `PlatformName` enum               | Not replaced. `platform` is still a required config field, just pass the platform string received from the api for the api key. |
+| `usePlatform()` composable        | No direct replacement                                                                                                           |
+| `getDefaultConfigForPlatform()`   | No direct replacement                                                                                                           |
+| `useCurrentPlatform()` composable | No direct replacement                                                                                                           |
 
 If you were importing any of these, remove the imports and rely on the capabilities response instead.
