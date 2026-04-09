@@ -20,9 +20,7 @@
 </template>
 
 <script lang="ts" setup>
-import type {PlatformName} from '@myparcel-dev/constants';
 import {computed} from 'vue';
-import {SUPPORTED_PLATFORMS} from '@myparcel-dev/do-shared';
 import {useSandboxStore} from '../stores';
 import {useLanguage} from '../composables';
 import FormTextInput from './form/input/FormTextInput.vue';
@@ -33,6 +31,8 @@ import {Box} from './Box';
 const {translate} = useLanguage();
 const sandboxStore = useSandboxStore();
 
+const PLATFORMS = ['myparcel', 'belgie', 'italy'] as const;
+
 const apiKey = computed({
   get: () => sandboxStore.config.apiKey ?? '',
   set: (value) => {
@@ -42,12 +42,12 @@ const apiKey = computed({
 
 const platform = computed({
   get: () => sandboxStore.config.platform,
-  set: (value: PlatformName) => {
+  set: (value: string) => {
     sandboxStore.config.platform = value;
   },
 });
 
-const platformOptions = SUPPORTED_PLATFORMS.map((value) => ({
+const platformOptions = PLATFORMS.map((value) => ({
   label: `platform_${value}`,
   value,
 }));

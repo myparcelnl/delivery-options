@@ -2,12 +2,6 @@ import {DeliveryTypeName, PackageTypeName, PlatformName, ShipmentOptionName} fro
 import {type DropOffEntryObject} from '../types';
 import {CarrierSetting} from './enums';
 
-export const SUPPORTED_PLATFORMS = Object.freeze([
-  PlatformName.MyParcel,
-  PlatformName.SendMyParcel,
-  PlatformName.Italy,
-]);
-
 export const SUPPORTED_DELIVERY_TYPES = Object.freeze([
   DeliveryTypeName.Standard,
   DeliveryTypeName.Evening,

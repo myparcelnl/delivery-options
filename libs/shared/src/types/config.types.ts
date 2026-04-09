@@ -8,7 +8,7 @@ import {
   type RelatedConfigOptionType,
 } from '../data';
 import {type CustomValidator} from './validation.types';
-import {type SupportedPackageTypeName, type SupportedPlatformName} from './platform.types';
+import {type SupportedPackageTypeName} from './platform.types';
 import {type DeliveryOptionsOutput} from './output.types';
 import {type SelectOption} from './options.types';
 import {type MakeRequired} from './common.types';
@@ -104,7 +104,7 @@ export interface DeliveryOptionsConfig extends Partial<Record<ConfigSetting, unk
   pickupLocationsDefaultView: PickupLocationsView;
   pickupLocationsMapTileLayerData: string | MapTileLayerData;
   pickupShowDistance: boolean;
-  platform: SupportedPlatformName;
+  platform: string;
   showPriceSurcharge: boolean;
   showPriceZeroAsFree: boolean;
   showPrices: boolean;
