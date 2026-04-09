@@ -1,6 +1,8 @@
 import {ref, computed, watch, toValue, type MaybeRefOrGetter, type Ref, type ComputedRef} from 'vue';
 import {useLogger} from '../useLogger';
+import {useApiExceptions} from '../useApiExceptions';
 import {EMPTY_RESPONSE} from '../useCapabilities';
+import {NO_DELIVERY_OPTIONS_AVAILABLE} from '../../data';
 import {type CapabilitiesRequest, type CapabilitiesResponse, type RequestHandler} from '../../types';
 import {useRequest} from './useRequest';
 
@@ -109,6 +111,13 @@ export const useReactiveCapabilitiesRequest = (
       useLogger().error('Capabilities request failed:', error);
       data.value = EMPTY_RESPONSE;
       lastResponseJson = '';
+
+      const {exceptions} = useApiExceptions();
+      exceptions.value.push({
+        code: 1,
+        label: NO_DELIVERY_OPTIONS_AVAILABLE,
+        message: error instanceof Error ? error.message : String(error),
+      });
     } finally {
       loading.value = false;
     }
