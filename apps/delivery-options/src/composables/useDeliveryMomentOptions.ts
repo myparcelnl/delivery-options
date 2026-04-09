@@ -88,7 +88,9 @@ export const useDeliveryMomentOptions = (): ComputedRef<SelectOption<string>[]> 
             date: option.date,
             deliveryType: option.deliveryType,
             packageType: option.packageType,
-            shipmentOptions: option.shipmentOptions.filter((option) => SUPPORTED_SHIPMENT_OPTIONS.includes(option.name)),
+            shipmentOptions: option.shipmentOptions.filter((option) =>
+              SUPPORTED_SHIPMENT_OPTIONS.includes(option.name),
+            ),
           }),
         };
       });

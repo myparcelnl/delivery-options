@@ -1,5 +1,5 @@
 import {type SupportedDeliveryTypeName} from '../types';
-import {CarrierSetting} from '../data';
+import {type CarrierSetting} from '../data';
 import {
   DELIVERY_TYPE_MAP,
   DELIVERY_DAY_OPTION_MAP,
@@ -17,4 +17,4 @@ export const getDeliveryTypeConfigMap = (): Record<SupportedDeliveryTypeName, Ca
         toOptionAllowKey(sdkParam),
       ]),
     ),
-  }) as Record<SupportedDeliveryTypeName, CarrierSetting>;
+  } as Record<SupportedDeliveryTypeName, CarrierSetting>);

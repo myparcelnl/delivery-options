@@ -82,9 +82,13 @@ export const getResolvedCarrier = useMemoize(
     /** Looks up this carrier's entry in the shared capabilities response. */
     const capability = computed(() => capabilities.getCarrierCapability(normalizedName));
 
-    const fromCapability = <T>(transform: (cap: NonNullable<ReturnType<(typeof capability)['value']>>) => Set<T>): Set<T> => {
+    const fromCapability = <T>(
+      transform: (cap: NonNullable<ReturnType<(typeof capability)['value']>>) => Set<T>,
+    ): Set<T> => {
       const cap = capability.value;
+
       if (!cap) return new Set<T>();
+
       return transform(cap);
     };
 
@@ -92,9 +96,7 @@ export const getResolvedCarrier = useMemoize(
     const disabledDeliveryTypes = ref(new Set<SupportedDeliveryTypeName>());
 
     // Derive delivery types directly from capabilities for reliable reactivity.
-    const allDeliveryTypes = computed(() =>
-      fromCapability((cap) => new Set(getCapabilityDeliveryTypes(cap))),
-    );
+    const allDeliveryTypes = computed(() => fromCapability((cap) => new Set(getCapabilityDeliveryTypes(cap))));
 
     /** Delivery types this carrier supports, filtered by config settings. */
     const deliveryTypes = computed(() => {
@@ -105,8 +107,13 @@ export const getResolvedCarrier = useMemoize(
 
     /** Package types this carrier supports, mapped from capability. */
     const packageTypes = computed(() =>
-      fromCapability((cap) =>
-        new Set(cap.packageTypes.map(mapCapabilityPackageType).filter((pt): pt is SupportedPackageTypeName => pt !== undefined)),
+      fromCapability(
+        (cap) =>
+          new Set(
+            cap.packageTypes
+              .map(mapCapabilityPackageType)
+              .filter((pt): pt is SupportedPackageTypeName => pt !== undefined),
+          ),
       ),
     );
 

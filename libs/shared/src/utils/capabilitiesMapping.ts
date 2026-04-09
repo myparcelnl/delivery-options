@@ -1,6 +1,6 @@
 import type {SupportedDeliveryTypeName, SupportedPackageTypeName, SupportedShipmentOptionName} from '../types';
 // Import directly from enum source to avoid circular dependency through barrel.
-import {CarrierSetting, CustomDeliveryType} from '../data/enums';
+import {CarrierSetting, type CustomDeliveryType} from '../data';
 
 /**
  * Normalize a carrier name by lowercasing and removing all underscores.
@@ -45,34 +45,28 @@ export const PACKAGE_TYPE_MAP = {
 
 // ─── Naming-convention helpers ─────────────────────────────────────────────
 
-const toCamelCase = (s: string): string => s.replace(/_([a-z])/g, (_, c: string) => c.toUpperCase());
-const capitalize = (s: string): string => s.charAt(0).toUpperCase() + s.slice(1);
-const toPascalCase = (s: string): string => capitalize(toCamelCase(s));
+const toCamelCase = (str: string): string => str.replace(/_([a-z])/g, (_, strCase: string) => strCase.toUpperCase());
+const capitalize = (str: string): string => str.charAt(0).toUpperCase() + str.slice(1);
+const toPascalCase = (str: string): string => capitalize(toCamelCase(str));
 
 /**
  * Delivery types: 'standard' → allowStandardDelivery / priceStandardDelivery.
  * Exception: 'pickup' → allowPickupLocations / pricePickup.
  */
 export const toDeliveryAllowKey = (sdk: string): CarrierSetting =>
-  sdk === 'pickup'
-    ? CarrierSetting.AllowPickupLocations
-    : (`allow${capitalize(sdk)}Delivery` as CarrierSetting);
+  sdk === 'pickup' ? CarrierSetting.AllowPickupLocations : (`allow${capitalize(sdk)}Delivery` as CarrierSetting);
 
 export const toDeliveryPriceKey = (sdk: string): CarrierSetting =>
-  sdk === 'pickup'
-    ? CarrierSetting.PricePickup
-    : (`price${capitalize(sdk)}Delivery` as CarrierSetting);
+  sdk === 'pickup' ? CarrierSetting.PricePickup : (`price${capitalize(sdk)}Delivery` as CarrierSetting);
 
 /**
  * Shipment options + delivery day SDK params:
  * 'only_recipient' → allowOnlyRecipient / priceOnlyRecipient
  * 'same_day_delivery' → allowSameDayDelivery / priceSameDayDelivery
  */
-export const toOptionAllowKey = (sdk: string): CarrierSetting =>
-  `allow${toPascalCase(sdk)}` as CarrierSetting;
+export const toOptionAllowKey = (sdk: string): CarrierSetting => `allow${toPascalCase(sdk)}` as CarrierSetting;
 
-export const toOptionPriceKey = (sdk: string): CarrierSetting =>
-  `price${toPascalCase(sdk)}` as CarrierSetting;
+export const toOptionPriceKey = (sdk: string): CarrierSetting => `price${toPascalCase(sdk)}` as CarrierSetting;
 
 /**
  * Package types: 'mailbox' → pricePackageTypeMailbox
@@ -104,14 +98,14 @@ export const SUPPORTED_SHIPMENT_OPTIONS = Object.freeze(Object.values(SHIPMENT_O
  * [allowSetting, priceSetting] pairs for every capability-based option.
  * Consumed by getAllConfigOptions to register all options without manual enumeration.
  */
-export const CAPABILITY_SETTINGS_PAIRS: ReadonlyArray<[CarrierSetting, CarrierSetting]> = [
+export const CAPABILITY_SETTINGS_PAIRS: readonly [CarrierSetting, CarrierSetting][] = [
   ...Object.values(DELIVERY_TYPE_MAP).map((sdk): [CarrierSetting, CarrierSetting] => [
     toDeliveryAllowKey(sdk),
     toDeliveryPriceKey(sdk),
   ]),
-  ...Object.values(DELIVERY_DAY_OPTION_MAP).map((p): [CarrierSetting, CarrierSetting] => [
-    toOptionAllowKey(p),
-    toOptionPriceKey(p),
+  ...Object.values(DELIVERY_DAY_OPTION_MAP).map((sdk): [CarrierSetting, CarrierSetting] => [
+    toOptionAllowKey(sdk),
+    toOptionPriceKey(sdk),
   ]),
   ...Object.values(SHIPMENT_OPTION_MAP).map((sdk): [CarrierSetting, CarrierSetting] => [
     toOptionAllowKey(sdk),

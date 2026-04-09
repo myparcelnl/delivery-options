@@ -1,5 +1,5 @@
-import {PackageTypeName} from '@myparcel-dev/constants';
 import {DELIVERY_TYPE_MAP} from '@myparcel-dev/do-shared';
+import {PackageTypeName} from '@myparcel-dev/constants';
 
 /**
  * Stores whether home delivery or pickup is selected.
@@ -55,4 +55,4 @@ export const DATES_SHOWN_MD = 4;
 /**
  * Non-pickup delivery types used to determine if a carrier has delivery options.
  */
-export const DELIVERY_TYPES = Object.values(DELIVERY_TYPE_MAP).filter((t) => t !== 'pickup');
+export const DELIVERY_TYPES = Object.values(DELIVERY_TYPE_MAP).filter((type) => type !== 'pickup');
