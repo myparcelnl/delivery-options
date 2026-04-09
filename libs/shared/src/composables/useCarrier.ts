@@ -1,5 +1,4 @@
 import {type MaybeRef, computed, toValue, type ComputedRef} from 'vue';
-import {useMemoize} from '@vueuse/core';
 import {type ShipmentOptionName} from '@myparcel-dev/constants';
 import {
   resolveCarrierName,
@@ -23,14 +22,12 @@ import {
   type CarrierCapability,
 } from '../types';
 import {useLogger} from './useLogger.ts';
-import {useCapabilities} from './useCapabilities';
+import {type UseCapabilities} from './useCapabilities';
 import {useCarrierFromCache} from './sdk';
 
 interface UseCarrierOptions {
   carrierIdentifier: MaybeRef<CarrierIdentifier | undefined>;
-  proxyCapabilities: string;
-  countryCode: string;
-  packageType?: string;
+  capabilities: UseCapabilities;
 }
 
 export interface UseCarrier {
@@ -43,12 +40,12 @@ export interface UseCarrier {
 }
 
 /**
- * Memoized composable that resolves carrier metadata and capabilities for a
- * given carrier identifier, country code, and package type. Shared across
- * components — same options object returns the same cached instance.
+ * Resolves carrier metadata and capabilities for a given carrier identifier.
+ * The caller is responsible for providing a shared capabilities instance
+ * (e.g. from useCapabilities), avoiding duplicate capability fetches.
  */
 // eslint-disable-next-line max-lines-per-function
-export const useCarrier = useMemoize((options: UseCarrierOptions): UseCarrier => {
+export const useCarrier = (options: UseCarrierOptions): UseCarrier => {
   const carrierName = computed(() => {
     const identifier = toValue(options.carrierIdentifier);
 
@@ -78,14 +75,12 @@ export const useCarrier = useMemoize((options: UseCarrierOptions): UseCarrier =>
     {immediate: true},
   );
 
-  const capabilities = useCapabilities(options.proxyCapabilities, options.countryCode, options.packageType);
-
   const capability = computed(() => {
     if (!carrierName.value) {
       return undefined;
     }
 
-    return capabilities.getCarrierCapability(carrierName.value);
+    return options.capabilities.getCarrierCapability(carrierName.value);
   });
 
   const deliveryTypes = computed(() => {
@@ -164,4 +159,4 @@ export const useCarrier = useMemoize((options: UseCarrierOptions): UseCarrier =>
     shipmentOptions,
     features,
   };
-});
+};

@@ -1,6 +1,6 @@
 import {describe, it, expect} from 'vitest';
 import {flushPromises} from '@vue/test-utils';
-import {useCarrier, CustomDeliveryType} from '@myparcel-dev/do-shared';
+import {useCarrier, useCapabilities, CustomDeliveryType} from '@myparcel-dev/do-shared';
 import {CarrierName, DeliveryTypeName, ShipmentOptionName} from '@myparcel-dev/constants';
 
 const DEFAULT_API_BASE_URL = 'https://proxy.example.com/capabilities';
@@ -8,10 +8,10 @@ const DEFAULT_COUNTRY = 'NL';
 
 describe('useCarrier', () => {
   it('returns delivery types from capabilities for PostNL', async () => {
+    const capabilities = useCapabilities(DEFAULT_API_BASE_URL, DEFAULT_COUNTRY);
     const carrier = useCarrier({
       carrierIdentifier: CarrierName.PostNl,
-      proxyCapabilities: DEFAULT_API_BASE_URL,
-      countryCode: DEFAULT_COUNTRY,
+      capabilities,
     });
 
     await flushPromises();
@@ -28,10 +28,10 @@ describe('useCarrier', () => {
   });
 
   it('returns shipment options from capabilities for PostNL', async () => {
+    const capabilities = useCapabilities(DEFAULT_API_BASE_URL, DEFAULT_COUNTRY);
     const carrier = useCarrier({
       carrierIdentifier: CarrierName.PostNl,
-      proxyCapabilities: DEFAULT_API_BASE_URL,
-      countryCode: DEFAULT_COUNTRY,
+      capabilities,
     });
 
     await flushPromises();
@@ -42,10 +42,10 @@ describe('useCarrier', () => {
   });
 
   it('returns delivery types from capabilities for DHL For You', async () => {
+    const capabilities = useCapabilities(DEFAULT_API_BASE_URL, DEFAULT_COUNTRY);
     const carrier = useCarrier({
       carrierIdentifier: CarrierName.DhlForYou,
-      proxyCapabilities: DEFAULT_API_BASE_URL,
-      countryCode: DEFAULT_COUNTRY,
+      capabilities,
     });
 
     await flushPromises();

@@ -1,9 +1,9 @@
 import {ref, computed, watch, toValue, type MaybeRefOrGetter, type Ref, type ComputedRef} from 'vue';
 import {useLogger} from '../useLogger';
-import {useApiExceptions} from '../useApiExceptions';
 import {EMPTY_RESPONSE} from '../useCapabilities';
-import {NO_DELIVERY_OPTIONS_AVAILABLE} from '../../data';
+import {useApiExceptions} from '../useApiExceptions';
 import {type CapabilitiesRequest, type CapabilitiesResponse, type RequestHandler} from '../../types';
+import {NO_DELIVERY_OPTIONS_AVAILABLE} from '../../data';
 import {useRequest} from './useRequest';
 
 const REQUEST_KEY_CAPABILITIES = 'capabilities';
@@ -72,20 +72,12 @@ export const useReactiveCapabilitiesRequest = (
 ): ReactiveCapabilitiesRequest => {
   const data = ref<CapabilitiesResponse>(EMPTY_RESPONSE);
   const loading = ref(true);
-  let lastRequestJson = '';
   let lastResponseJson = '';
   let abortController: AbortController | null = null;
 
   const doFetch = async () => {
     const request = toValue(requestRef);
     const currentApiKey = toValue(apiKey);
-    const fetchKeyJson = JSON.stringify({request, apiKey: currentApiKey});
-
-    if (fetchKeyJson === lastRequestJson) {
-      return;
-    }
-
-    lastRequestJson = fetchKeyJson;
 
     if (abortController) {
       abortController.abort();
@@ -123,8 +115,8 @@ export const useReactiveCapabilitiesRequest = (
     }
   };
 
-  // Watch a serialized version of the request + apiKey to avoid false triggers from deep watch
-  const fetchKey = computed(() => JSON.stringify({request: toValue(requestRef), apiKey: toValue(apiKey)}));
+  // Watch a serialized version of the request to avoid false triggers from deep watch
+  const fetchKey = computed(() => JSON.stringify(toValue(requestRef)));
 
   // Initial fetch
   void doFetch();

@@ -2,7 +2,7 @@ import {addDays} from 'date-fns';
 import {type DeliveryOption} from '@myparcel-dev/sdk';
 import {type ResolvedMockDeliveryOptionsParameters} from '../../types';
 import {CarrierSetting} from '../../../data';
-import {useCarrier} from '../../../composables';
+import {useCarrier, useCapabilities} from '../../../composables';
 import {shouldSkipToNextDeliveryDate} from './shouldSkipToNextDeliveryDate';
 import {findExtraDelivery} from './findExtraDelivery';
 import {getDeliveryOptionsEntry} from './entries/getDeliveryOptionsEntry';
@@ -23,10 +23,10 @@ export const getNextDeliveryOption = async (
 ): Promise<FakeDeliveryOption> => {
   const currentDeliveryDate = addDays(new Date(currentDate), daysOffset);
 
+  const capabilities = useCapabilities('https://proxy.example.com/capabilities', 'NL');
   const carrierInstance = useCarrier({
     carrierIdentifier: args.carrier,
-    proxyCapabilities: 'https://proxy.example.com/capabilities',
-    countryCode: 'NL',
+    capabilities,
   });
 
   const canHaveSameDay = carrierInstance.features.value.has(CarrierSetting.AllowSameDayDelivery);

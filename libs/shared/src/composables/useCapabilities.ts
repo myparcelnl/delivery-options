@@ -13,7 +13,7 @@ export interface UseCapabilities {
 
 export const EMPTY_RESPONSE: CapabilitiesResponse = {results: [] as CarrierCapability[]};
 
-const createCapabilitiesInterface = (
+const wrapCapabilities = (
   capabilities: Ref<CapabilitiesResponse>,
   loading: Ref<boolean> | ComputedRef<boolean>,
 ): UseCapabilities => {
@@ -65,7 +65,7 @@ export const useCapabilities = useMemoize(
       {immediate: true},
     );
 
-    return createCapabilitiesInterface(
+    return wrapCapabilities(
       capabilities,
       computed(() => loading.value),
     );
@@ -83,5 +83,5 @@ export const useReactiveCapabilities = (
 ): UseCapabilities => {
   const {data, loading} = useReactiveCapabilitiesRequest(proxyCapabilities, requestRef, apiKey);
 
-  return createCapabilitiesInterface(data, loading);
+  return wrapCapabilities(data, loading);
 };
