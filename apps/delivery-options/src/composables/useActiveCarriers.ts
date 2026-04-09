@@ -8,8 +8,8 @@ import {
 } from '@myparcel-dev/do-shared';
 import {getResolvedCarrier, hasDeliveryForCarrier, hasPickupForCarrier} from '../utils';
 import {useConfigStore} from '../stores';
-import {type UseResolvedCarrier} from './useResolvedCarrier';
 import {useSharedCapabilities} from './useSharedCapabilities';
+import {type UseResolvedCarrier} from './useResolvedCarrier';
 
 /**
  * Get the carriers that are currently active in the delivery options config.

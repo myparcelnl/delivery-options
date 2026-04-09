@@ -1,4 +1,9 @@
-import type {SupportedDeliveryTypeName, SupportedPackageTypeName, SupportedShipmentOptionName} from '../types';
+import type {
+  ConfigPriceKey,
+  SupportedDeliveryTypeName,
+  SupportedPackageTypeName,
+  SupportedShipmentOptionName,
+} from '../types';
 // Import directly from enum source to avoid circular dependency through barrel.
 import {CarrierSetting, type CustomDeliveryType} from '../data';
 
@@ -98,18 +103,18 @@ export const SUPPORTED_SHIPMENT_OPTIONS = Object.freeze(Object.values(SHIPMENT_O
  * [allowSetting, priceSetting] pairs for every capability-based option.
  * Consumed by getAllConfigOptions to register all options without manual enumeration.
  */
-export const CAPABILITY_SETTINGS_PAIRS: readonly [CarrierSetting, CarrierSetting][] = [
-  ...Object.values(DELIVERY_TYPE_MAP).map((sdk): [CarrierSetting, CarrierSetting] => [
+export const CAPABILITY_SETTINGS_PAIRS: readonly [CarrierSetting, ConfigPriceKey][] = [
+  ...Object.values(DELIVERY_TYPE_MAP).map((sdk): [CarrierSetting, ConfigPriceKey] => [
     toDeliveryAllowKey(sdk),
-    toDeliveryPriceKey(sdk),
+    toDeliveryPriceKey(sdk) as ConfigPriceKey,
   ]),
-  ...Object.values(DELIVERY_DAY_OPTION_MAP).map((sdk): [CarrierSetting, CarrierSetting] => [
+  ...Object.values(DELIVERY_DAY_OPTION_MAP).map((sdk): [CarrierSetting, ConfigPriceKey] => [
     toOptionAllowKey(sdk),
-    toOptionPriceKey(sdk),
+    toOptionPriceKey(sdk) as ConfigPriceKey,
   ]),
-  ...Object.values(SHIPMENT_OPTION_MAP).map((sdk): [CarrierSetting, CarrierSetting] => [
+  ...Object.values(SHIPMENT_OPTION_MAP).map((sdk): [CarrierSetting, ConfigPriceKey] => [
     toOptionAllowKey(sdk),
-    toOptionPriceKey(sdk),
+    toOptionPriceKey(sdk) as ConfigPriceKey,
   ]),
 ];
 

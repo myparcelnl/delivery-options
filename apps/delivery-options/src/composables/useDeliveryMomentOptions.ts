@@ -89,7 +89,7 @@ export const useDeliveryMomentOptions = (): ComputedRef<SelectOption<string>[]> 
             deliveryType: option.deliveryType,
             packageType: option.packageType,
             shipmentOptions: option.shipmentOptions.filter((option) =>
-              SUPPORTED_SHIPMENT_OPTIONS.includes(option.name),
+              (SUPPORTED_SHIPMENT_OPTIONS as readonly string[]).includes(option.name),
             ),
           }),
         };

@@ -1,13 +1,13 @@
 import {computed, ref} from 'vue';
 import {useMemoize} from '@vueuse/core';
 import {
+  type CarrierCapability,
   type CarrierIdentifier,
   type CarrierWithIdentifier,
   getConfigKey,
   type SupportedDeliveryTypeName,
   type SupportedShipmentOptionName,
   type SupportedPackageTypeName,
-  type ConfigSetting,
   type ConfigKey,
   normalizeCarrierName,
   resolveCarrierName,
@@ -19,7 +19,6 @@ import {
   getPackageTypePriceKey,
   useLogger,
 } from '@myparcel-dev/do-shared';
-import {type ShipmentOptionName} from '@myparcel-dev/constants';
 import {type UseResolvedCarrier, useSharedCapabilities} from '../composables';
 import {hasPickupForCarrier} from './hasPickupForCarrier';
 import {hasDeliveryForCarrier} from './hasDeliveryForCarrier';
@@ -46,7 +45,7 @@ const filterSet = <T>(set: Set<T>, cb: (value: T) => boolean) => {
 
 const getConfigKeyOrNull = (option: string): ConfigKey | null => {
   try {
-    return getConfigKey(option as SupportedDeliveryTypeName | ShipmentOptionName);
+    return getConfigKey(option as SupportedDeliveryTypeName | SupportedShipmentOptionName);
   } catch {
     return null;
   }
@@ -82,9 +81,7 @@ export const getResolvedCarrier = useMemoize(
     /** Looks up this carrier's entry in the shared capabilities response. */
     const capability = computed(() => capabilities.getCarrierCapability(normalizedName));
 
-    const fromCapability = <T>(
-      transform: (cap: NonNullable<ReturnType<(typeof capability)['value']>>) => Set<T>,
-    ): Set<T> => {
+    const fromCapability = <T>(transform: (cap: CarrierCapability) => Set<T>): Set<T> => {
       const cap = capability.value;
 
       if (!cap) return new Set<T>();
@@ -112,7 +109,7 @@ export const getResolvedCarrier = useMemoize(
           new Set(
             cap.packageTypes
               .map(mapCapabilityPackageType)
-              .filter((pt): pt is SupportedPackageTypeName => pt !== undefined),
+              .filter((pt: SupportedPackageTypeName | undefined): pt is SupportedPackageTypeName => pt !== undefined),
           ),
       ),
     );
@@ -135,9 +132,9 @@ export const getResolvedCarrier = useMemoize(
     const features = computed(() => {
       return new Set(
         [
-          ...[...packageTypes.value].map(getPackageTypePriceKey),
+          ...[...packageTypes.value].map((pt) => getPackageTypePriceKey(pt)),
           ...[...deliveryTypes.value, ...shipmentOptions.value].map(getConfigKeyOrNull).filter((key) => key !== null),
-        ].filter((key) => Boolean(getResolvedValue(key as ConfigSetting, carrierIdentifier))),
+        ].filter((key) => Boolean(getResolvedValue(key, carrierIdentifier))),
       );
     });
 

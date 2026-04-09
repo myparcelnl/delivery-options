@@ -1,5 +1,4 @@
 import {type MaybeRef, computed, toValue, type ComputedRef} from 'vue';
-import {type ShipmentOptionName} from '@myparcel-dev/constants';
 import {
   resolveCarrierName,
   waitForRequestData,
@@ -137,7 +136,7 @@ export const useCarrier = (options: UseCarrierOptions): UseCarrier => {
   const features = computed(() => {
     const getConfigKeyWithoutError = (option: string): ConfigKey | null => {
       try {
-        return getConfigKey(option as SupportedDeliveryTypeName | ShipmentOptionName);
+        return getConfigKey(option as SupportedDeliveryTypeName | SupportedShipmentOptionName);
       } catch {
         useLogger().warning(`Unknown option "${option}" for carrier "${carrierName.value}"`);
         return null;

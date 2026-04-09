@@ -32,7 +32,7 @@ function reset(): void {
 export const useConfigStore = (): DeliveryOptionsStore<
   ResolvedDeliveryOptionsConfig,
   DeliveryOptionsConfig,
-  [boolean]
+  [boolean?]
 > => {
   return {
     state,

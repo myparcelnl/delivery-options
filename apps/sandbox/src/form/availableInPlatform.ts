@@ -10,6 +10,10 @@ export const availableInCarrier = (fieldPath: string): boolean => {
   const carrierName = parts[0];
   const settingKey = parts[1] as CarrierSetting;
 
+  if (!carrierName) {
+    return true;
+  }
+
   const capMapping = mapCarrierSettingToCapabilityKey(settingKey);
 
   if (!capMapping) {

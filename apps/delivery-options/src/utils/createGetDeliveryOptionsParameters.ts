@@ -27,7 +27,7 @@ export const createGetDeliveryOptionsParameters = (
   const resolvedPackageType = calculatePackageType(resolvedCarrier);
 
   return shake({
-    platform: config.platform ?? PlatformName.MyParcel,
+    platform: (config.platform ?? PlatformName.MyParcel) as PlatformName,
     carrier: resolveCarrierName(carrier.value.identifier),
     package_type: resolvedPackageType,
 
@@ -50,5 +50,5 @@ export const createGetDeliveryOptionsParameters = (
     exclude_parcel_lockers: config.excludeParcelLockers ? true : undefined,
 
     ...additionalParameters,
-  } satisfies EndpointParameters<GetDeliveryOptions>);
+  } satisfies EndpointParameters<GetDeliveryOptions>) as EndpointParameters<GetDeliveryOptions>;
 };

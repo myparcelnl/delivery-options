@@ -29,5 +29,5 @@ export type UseResolvedCarrier = {
 };
 
 export const useResolvedCarrier = (carrierIdentifier: MaybeRef<CarrierIdentifier | undefined>): UseResolvedCarrier => {
-  return getResolvedCarrier(toValue(carrierIdentifier));
+  return getResolvedCarrier(toValue(carrierIdentifier)!);
 };

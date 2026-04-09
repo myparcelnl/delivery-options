@@ -4,18 +4,17 @@ import {
   type CarrierSettingsKey,
   type DeliveryOptionsConfig,
   KEY_CARRIER_SETTINGS,
-  type ConfigSetting,
+  type ConfigKey,
 } from '@myparcel-dev/do-shared';
 import {useConfigStore} from '../stores';
 
-type ResolvedValue<T extends ConfigSetting | CarrierSettingsKey> = T extends ConfigSetting
+type ResolvedValue<T extends ConfigKey> = T extends keyof DeliveryOptionsConfig
   ? DeliveryOptionsConfig[T]
-  : CarrierSettings[T];
+  : T extends CarrierSettingsKey
+  ? CarrierSettings[T]
+  : unknown;
 
-export const getResolvedValue = <
-  T extends ConfigSetting | CarrierSettingsKey,
-  Default extends NonNullable<ResolvedValue<T>>,
->(
+export const getResolvedValue = <T extends ConfigKey, Default extends NonNullable<ResolvedValue<T>>>(
   key: T,
   carrierIdentifier?: CarrierIdentifier,
   defaultValue?: Default,
@@ -23,10 +22,10 @@ export const getResolvedValue = <
 ): Default extends any ? NonNullable<ResolvedValue<T>> | Default : ResolvedValue<T> => {
   const {state: config} = useConfigStore();
 
+  // @ts-expect-error ConfigKey includes PackageTypeName which isn't a direct key of ResolvedDeliveryOptionsConfig
   const generalValue = config[key] ?? defaultValue;
 
   if (!carrierIdentifier) {
-    // @ts-expect-error todo
     return generalValue;
   }
 

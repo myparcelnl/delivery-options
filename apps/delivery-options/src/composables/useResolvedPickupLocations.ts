@@ -21,8 +21,8 @@ import {
 } from '../utils';
 import {type ResolvedPickupLocation, type LatLng} from '../types';
 import {useConfigStore} from '../stores';
-import {type UseResolvedCarrier} from './useResolvedCarrier';
 import {useSharedCapabilities} from './useSharedCapabilities';
+import {type UseResolvedCarrier} from './useResolvedCarrier';
 
 interface UseResolvedPickupLocations {
   carriersWithPickup: ComputedRef<UseResolvedCarrier[]>;

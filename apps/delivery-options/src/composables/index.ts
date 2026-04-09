@@ -1,7 +1,6 @@
 export * from './events';
 export * from './useActiveCarriers';
 export * from './useBreakpoints';
-export * from './useSharedCapabilities';
 export * from './useCapabilitiesRequestParams';
 export * from './useDateFormat';
 export * from './useFeatures';
@@ -12,6 +11,7 @@ export * from './useOptionsGroupedByCarrier';
 export * from './usePickupLocation';
 export * from './usePickupLocationsMap';
 export * from './useProvideElementWidth';
+export * from './useSharedCapabilities';
 export * from './useResolvedCarrier';
 export * from './useResolvedDeliveryDates';
 export * from './useResolvedDeliveryMoments';
