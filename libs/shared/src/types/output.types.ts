@@ -1,13 +1,15 @@
+import type {SHIPMENT_OPTION_MAP} from '../utils';
 import {type Replace} from '@myparcel-dev/ts-utils';
 import {type DeliveryTypeName, type PackageTypeName, type ShipmentOptionName} from '@myparcel-dev/constants';
 import {type PickupLocationType} from '../data';
+// Import directly from module to avoid circular dependency through barrel.
 import {type CarrierIdentifier} from './config.types';
 
-interface ShipmentOptionsOutput {
-  onlyRecipient?: boolean;
-  signature?: boolean;
-  priorityDelivery?: boolean;
-}
+type SnakeToCamel<S extends string> = S extends `${infer P}_${infer R}` ? `${P}${Capitalize<SnakeToCamel<R>>}` : S;
+
+type ShipmentOptionsOutput = {
+  [K in (typeof SHIPMENT_OPTION_MAP)[keyof typeof SHIPMENT_OPTION_MAP] as SnakeToCamel<K>]?: boolean;
+};
 
 interface BaseOutput {
   carrier: CarrierIdentifier;

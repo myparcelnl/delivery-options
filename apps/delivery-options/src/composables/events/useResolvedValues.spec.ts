@@ -66,6 +66,9 @@ describe('useResolvedValues', () => {
   it.each([
     {
       name: 'default values',
+      config: {
+        [CarrierSetting.AllowPriorityDelivery]: false,
+      },
       internal: createInternalOutput(),
       external: createExternalOutput({
         [FIELD_SHIPMENT_OPTIONS]: {
@@ -79,6 +82,7 @@ describe('useResolvedValues', () => {
       config: {
         [CarrierSetting.AllowSignature]: false,
         [CarrierSetting.AllowOnlyRecipient]: false,
+        [CarrierSetting.AllowPriorityDelivery]: false,
       },
       internal: createInternalOutput(),
       external: createExternalOutput(),
@@ -88,6 +92,7 @@ describe('useResolvedValues', () => {
       name: 'onlyRecipient enabled but not selected',
       config: {
         [CarrierSetting.AllowOnlyRecipient]: true,
+        [CarrierSetting.AllowPriorityDelivery]: false,
       },
 
       internal: createInternalOutput({

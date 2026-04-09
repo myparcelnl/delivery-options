@@ -48,9 +48,20 @@ export const PACKAGE_TYPE_MAP = {
   PALLET: 'pallet',
 } as const;
 
+// ─── Derived utility types ────────────────────────────────────────────────
+
+type SnakeToCamel<S extends string> = S extends `${infer P}_${infer R}` ? `${P}${Capitalize<SnakeToCamel<R>>}` : S;
+
+/** Type-safe defaults object: { allowSignature: true; allowOnlyRecipient: true; ... } — auto-derived from SHIPMENT_OPTION_MAP. */
+export type ShipmentOptionAllowDefaults = {
+  [K in (typeof SHIPMENT_OPTION_MAP)[keyof typeof SHIPMENT_OPTION_MAP] as `allow${Capitalize<SnakeToCamel<K>>}`]: true;
+};
+
 // ─── Naming-convention helpers ─────────────────────────────────────────────
 
-const toCamelCase = (str: string): string => str.replace(/_([a-z])/g, (_, strCase: string) => strCase.toUpperCase());
+export const toCamelCase = (str: string): string =>
+  str.replace(/_([a-z])/g, (_, strCase: string) => strCase.toUpperCase());
+
 const capitalize = (str: string): string => str.charAt(0).toUpperCase() + str.slice(1);
 const toPascalCase = (str: string): string => capitalize(toCamelCase(str));
 
@@ -98,6 +109,11 @@ export const SUPPORTED_DELIVERY_TYPES = Object.freeze(Object.values(DELIVERY_TYP
  * Replaces the hardcoded SUPPORTED_SHIPMENT_OPTIONS array in constants.ts.
  */
 export const SUPPORTED_SHIPMENT_OPTIONS = Object.freeze(Object.values(SHIPMENT_OPTION_MAP));
+
+/** All shipment options default to allowed. Auto-derived from SHIPMENT_OPTION_MAP. */
+export const SHIPMENT_OPTION_ALLOW_DEFAULTS = Object.fromEntries(
+  Object.values(SHIPMENT_OPTION_MAP).map((sdk) => [toOptionAllowKey(sdk), true]),
+) as ShipmentOptionAllowDefaults;
 
 /**
  * [allowSetting, priceSetting] pairs for every capability-based option.

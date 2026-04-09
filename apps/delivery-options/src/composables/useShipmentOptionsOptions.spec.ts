@@ -9,7 +9,6 @@ import {
   KEY_ADDRESS,
   KEY_CARRIER_SETTINGS,
   KEY_CONFIG,
-  ONLY_RECIPIENT_TITLE,
   SIGNATURE_TITLE,
   type SupportedPackageTypeName,
 } from '@myparcel-dev/do-shared';
@@ -49,6 +48,7 @@ const setup = async (packageType: SupportedPackageTypeName, carrierIdentifier: C
         [CarrierSetting.AllowMorningDelivery]: true,
         [CarrierSetting.AllowSignature]: true,
         [CarrierSetting.AllowOnlyRecipient]: false,
+        [CarrierSetting.AllowPriorityDelivery]: false,
         [CarrierSetting.PriceStandardDelivery]: 3,
         [KEY_CARRIER_SETTINGS]: {
           [carrierIdentifier]: {

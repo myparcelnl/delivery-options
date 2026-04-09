@@ -1,30 +1,14 @@
 import {computed, type ComputedRef, toValue} from 'vue';
-import {
-  ONLY_RECIPIENT_TITLE,
-  PRIORITY_DELIVERY_TITLE,
-  type SelectOption,
-  SIGNATURE_TITLE,
-} from '@myparcel-dev/do-shared';
-import {ShipmentOptionName} from '@myparcel-dev/constants';
+import {SHIPMENT_OPTION_MAP, toCamelCase, type SelectOption} from '@myparcel-dev/do-shared';
 import {getConfigPriceKey, getResolvedValue} from '../utils';
 import {useSelectedDeliveryMoment} from './useSelectedDeliveryMoment';
 import {useResolvedDeliveryOptions} from './useResolvedDeliveryOptions';
 import {useResolvedCarrier} from './useResolvedCarrier';
 import {useFeatures} from './useFeatures';
 
-const TRANSLATION_MAP = Object.freeze({
-  [ShipmentOptionName.AgeCheck]: 'age_check',
-  [ShipmentOptionName.Collect]: 'collect',
-  [ShipmentOptionName.CooledDelivery]: 'cooled_delivery',
-  [ShipmentOptionName.Insurance]: 'insurance',
-  [ShipmentOptionName.LargeFormat]: 'large_format',
-  [ShipmentOptionName.OnlyRecipient]: ONLY_RECIPIENT_TITLE,
-  [ShipmentOptionName.PrinterlessReturn]: 'printerless_return',
-  [ShipmentOptionName.PriorityDelivery]: PRIORITY_DELIVERY_TITLE,
-  [ShipmentOptionName.Return]: 'return',
-  [ShipmentOptionName.SameDayDelivery]: 'same_day_delivery',
-  [ShipmentOptionName.Signature]: SIGNATURE_TITLE,
-} as const);
+const TRANSLATION_MAP: Record<string, string> = Object.freeze(
+  Object.fromEntries(Object.values(SHIPMENT_OPTION_MAP).map((sdk) => [sdk, `${toCamelCase(sdk)}Title`])),
+);
 
 export const useShipmentOptionsOptions = (): ComputedRef<SelectOption[]> => {
   const {availableShipmentOptions} = useFeatures();
@@ -61,7 +45,7 @@ export const useShipmentOptionsOptions = (): ComputedRef<SelectOption[]> => {
         const priceKey = getConfigPriceKey(name);
 
         return {
-          label: TRANSLATION_MAP[name],
+          label: TRANSLATION_MAP[name] ?? name,
           value: name,
           disabled: hasOnlyOneOption,
           selected: hasOnlyOneOption ? match?.schema.enum[0] : false,

@@ -1,6 +1,8 @@
 import {computed, type ComputedRef} from 'vue';
 import {isDef} from '@vueuse/core';
 import {
+  SHIPMENT_OPTION_MAP,
+  toCamelCase,
   type DeliveryOutput,
   type PickupOutput,
   type SupportedDeliveryTypeName,
@@ -24,11 +26,9 @@ const DELIVERY_DELIVERY_TYPES = Object.freeze([
   DeliveryTypeName.Standard,
 ] satisfies SupportedDeliveryTypeName[]);
 
-const SHIPMENT_OPTION_OUTPUT_MAP = Object.freeze({
-  [ShipmentOptionName.Signature]: 'signature',
-  [ShipmentOptionName.OnlyRecipient]: 'onlyRecipient',
-  [ShipmentOptionName.PriorityDelivery]: 'priorityDelivery',
-} as Record<SupportedShipmentOptionName, keyof DeliveryOutput['shipmentOptions']>);
+const SHIPMENT_OPTION_OUTPUT_MAP = Object.freeze(
+  Object.fromEntries(Object.values(SHIPMENT_OPTION_MAP).map((sdk) => [sdk, toCamelCase(sdk)])),
+) as Record<SupportedShipmentOptionName, keyof DeliveryOutput['shipmentOptions']>;
 
 /**
  * Given an array of sipmentOptions, create an object with only the shipmentOptions that are enabled for the carrier.

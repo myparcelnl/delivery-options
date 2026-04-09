@@ -1,9 +1,10 @@
 import {PackageTypeName, PlatformName} from '@myparcel-dev/constants';
-import {SUPPORTED_DELIVERY_TYPES, SUPPORTED_SHIPMENT_OPTIONS} from '../utils';
+// Import directly from module to avoid circular dependency through the utils barrel.
+import {SHIPMENT_OPTION_ALLOW_DEFAULTS, SUPPORTED_DELIVERY_TYPES, SUPPORTED_SHIPMENT_OPTIONS} from '../utils';
 import {type DropOffEntryObject} from '../types';
 import {CarrierSetting} from './enums';
 
-export {SUPPORTED_DELIVERY_TYPES, SUPPORTED_SHIPMENT_OPTIONS};
+export {SHIPMENT_OPTION_ALLOW_DEFAULTS, SUPPORTED_DELIVERY_TYPES, SUPPORTED_SHIPMENT_OPTIONS};
 
 export const SUPPORTED_PACKAGE_TYPES = Object.freeze([
   PackageTypeName.Package,
