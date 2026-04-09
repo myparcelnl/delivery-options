@@ -131,6 +131,7 @@ describe('mapCarrierSettingToCapabilityKey', () => {
     [CarrierSetting.AllowPickupLocations, {type: 'deliveryType', name: 'PICKUP_DELIVERY'}],
     [CarrierSetting.AllowExpressDelivery, {type: 'deliveryType', name: 'EXPRESS_DELIVERY'}],
     [CarrierSetting.AllowSameDayDelivery, {type: 'option', name: 'sameDayDelivery'}],
+    [CarrierSetting.AllowMondayDelivery, {type: 'option', name: 'mondayDelivery'}],
     [CarrierSetting.AllowSaturdayDelivery, {type: 'option', name: 'saturdayDelivery'}],
   ])('maps %s to correct shape', (setting, expected) => {
     expect(mapCarrierSettingToCapabilityKey(setting)).toEqual(expected);

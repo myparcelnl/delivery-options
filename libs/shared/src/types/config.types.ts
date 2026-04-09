@@ -1,5 +1,5 @@
 import {type MakeOptional} from '@myparcel-dev/ts-utils';
-import {type CarrierName} from '@myparcel-dev/constants';
+import {type CarrierName, type PackageTypeName} from '@myparcel-dev/constants';
 import {
   type CarrierSetting,
   type ConfigSetting,
@@ -183,4 +183,4 @@ export type ResolvedConfigOption<O extends ConfigKey | ConfigOption> = O extends
 
 export type CarrierSettingsKey = CarrierSetting;
 
-export type ConfigKey = ConfigSetting | CarrierSettingsKey;
+export type ConfigKey = ConfigSetting | CarrierSettingsKey | PackageTypeName;

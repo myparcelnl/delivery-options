@@ -13,22 +13,11 @@ import {
 } from '../data';
 import {declareOptionWithPrice} from './declareOptionWithPrice';
 import {declareOption} from './declareOption';
+import {CAPABILITY_SETTINGS_PAIRS} from './capabilitiesMapping';
 
 // eslint-disable-next-line max-lines-per-function
 export const getAllConfigOptions = useMemoize((): ConfigOption[] => [
-  ...declareOptionWithPrice(CarrierSetting.AllowStandardDelivery, CarrierSetting.PriceStandardDelivery),
-  ...declareOptionWithPrice(CarrierSetting.AllowExpressDelivery, CarrierSetting.PriceExpressDelivery),
-  ...declareOptionWithPrice(CarrierSetting.AllowMorningDelivery, CarrierSetting.PriceMorningDelivery),
-  ...declareOptionWithPrice(CarrierSetting.AllowEveningDelivery, CarrierSetting.PriceEveningDelivery),
-  ...declareOptionWithPrice(CarrierSetting.AllowSameDayDelivery, CarrierSetting.PriceSameDayDelivery),
-  ...declareOptionWithPrice(CarrierSetting.AllowMondayDelivery, CarrierSetting.PriceMondayDelivery),
-  ...declareOptionWithPrice(CarrierSetting.AllowSaturdayDelivery, CarrierSetting.PriceSaturdayDelivery),
-  ...declareOptionWithPrice(CarrierSetting.AllowPriorityDelivery, CarrierSetting.PricePriorityDelivery),
-
-  ...declareOptionWithPrice(CarrierSetting.AllowOnlyRecipient, CarrierSetting.PriceOnlyRecipient),
-  ...declareOptionWithPrice(CarrierSetting.AllowSignature, CarrierSetting.PriceSignature),
-
-  ...declareOptionWithPrice(CarrierSetting.AllowPickupLocations, CarrierSetting.PricePickup),
+  ...CAPABILITY_SETTINGS_PAIRS.flatMap(([allow, price]) => declareOptionWithPrice(allow, price)),
 
   ...declareOptionWithPrice(PackageTypeName.Mailbox, CarrierSetting.PricePackageTypeMailbox),
   ...declareOptionWithPrice(PackageTypeName.DigitalStamp, CarrierSetting.PricePackageTypeDigitalStamp),

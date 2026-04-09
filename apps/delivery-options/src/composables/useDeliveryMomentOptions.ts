@@ -6,11 +6,12 @@ import {
   DELIVERY_TYPE_DEFAULT,
   CarrierSetting,
   DELIVERY_DAYS_WINDOW_DEFAULT,
+  SUPPORTED_SHIPMENT_OPTIONS,
   createTranslatable,
 } from '@myparcel-dev/do-shared';
 import {getDeliveryTypePrice, createPackageTypeTranslatable, stringToDate} from '../utils';
 import {useConfigStore} from '../stores';
-import {DELIVERY_MOMENT_PACKAGE_TYPES, SHOWN_SHIPMENT_OPTIONS} from '../data';
+import {DELIVERY_MOMENT_PACKAGE_TYPES} from '../data';
 import {useSelectedValues} from './useSelectedValues';
 import {useResolvedDeliveryOptions} from './useResolvedDeliveryOptions';
 import {useResolvedDeliveryMoments} from './useResolvedDeliveryMoments';
@@ -87,7 +88,7 @@ export const useDeliveryMomentOptions = (): ComputedRef<SelectOption<string>[]> 
             date: option.date,
             deliveryType: option.deliveryType,
             packageType: option.packageType,
-            shipmentOptions: option.shipmentOptions.filter((option) => SHOWN_SHIPMENT_OPTIONS.includes(option.name)),
+            shipmentOptions: option.shipmentOptions.filter((option) => SUPPORTED_SHIPMENT_OPTIONS.includes(option.name)),
           }),
         };
       });

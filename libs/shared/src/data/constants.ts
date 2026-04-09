@@ -1,25 +1,16 @@
-import {DeliveryTypeName, PackageTypeName, PlatformName, ShipmentOptionName} from '@myparcel-dev/constants';
+import {PackageTypeName, PlatformName} from '@myparcel-dev/constants';
+import {SUPPORTED_DELIVERY_TYPES, SUPPORTED_SHIPMENT_OPTIONS} from '../utils';
 import {type DropOffEntryObject} from '../types';
 import {CarrierSetting} from './enums';
 
-export const SUPPORTED_DELIVERY_TYPES = Object.freeze([
-  DeliveryTypeName.Standard,
-  DeliveryTypeName.Evening,
-  DeliveryTypeName.Morning,
-  DeliveryTypeName.Pickup,
-]);
-
-export const SUPPORTED_SHIPMENT_OPTIONS = Object.freeze([
-  ShipmentOptionName.OnlyRecipient,
-  ShipmentOptionName.Signature,
-  ShipmentOptionName.PriorityDelivery,
-]);
+export {SUPPORTED_DELIVERY_TYPES, SUPPORTED_SHIPMENT_OPTIONS};
 
 export const SUPPORTED_PACKAGE_TYPES = Object.freeze([
   PackageTypeName.Package,
   PackageTypeName.Mailbox,
   PackageTypeName.DigitalStamp,
   PackageTypeName.PackageSmall,
+  PackageTypeName.Envelope,
 ]);
 
 export const DEFAULT_PLATFORM = PlatformName.MyParcel;

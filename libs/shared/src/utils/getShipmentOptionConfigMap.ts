@@ -1,12 +1,10 @@
-import {ShipmentOptionName} from '@myparcel-dev/constants';
 import {type SupportedShipmentOptionName} from '../types';
-import {CarrierSetting} from '../data';
+import {type CarrierSetting} from '../data';
+import {SHIPMENT_OPTION_MAP, toOptionAllowKey} from './capabilitiesMapping';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const getShipmentOptionConfigMap = (): Record<SupportedShipmentOptionName, CarrierSetting> => {
-  return {
-    [ShipmentOptionName.PriorityDelivery]: CarrierSetting.AllowPriorityDelivery,
-    [ShipmentOptionName.Signature]: CarrierSetting.AllowSignature,
-    [ShipmentOptionName.OnlyRecipient]: CarrierSetting.AllowOnlyRecipient,
-  };
-};
+export const getShipmentOptionConfigMap = (): Record<SupportedShipmentOptionName, CarrierSetting> =>
+  Object.fromEntries(Object.values(SHIPMENT_OPTION_MAP).map((sdk) => [sdk, toOptionAllowKey(sdk)])) as Record<
+    SupportedShipmentOptionName,
+    CarrierSetting
+  >;

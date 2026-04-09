@@ -1,4 +1,5 @@
-import {DeliveryTypeName, PackageTypeName, ShipmentOptionName} from '@myparcel-dev/constants';
+import {PackageTypeName} from '@myparcel-dev/constants';
+import {DELIVERY_TYPE_MAP} from '@myparcel-dev/do-shared';
 
 /**
  * Stores whether home delivery or pickup is selected.
@@ -34,12 +35,6 @@ export const FIELD_PICKUP_LOCATION = 'pickupLocation';
  */
 export const FIELD_CARRIER = 'carrier';
 
-export const SHOWN_SHIPMENT_OPTIONS = Object.freeze<ShipmentOptionName[]>([
-  ShipmentOptionName.Signature,
-  ShipmentOptionName.OnlyRecipient,
-  ShipmentOptionName.PriorityDelivery,
-]);
-
 /**
  * Enable date/time selection for these package types.
  */
@@ -60,9 +55,4 @@ export const DATES_SHOWN_MD = 4;
 /**
  * Non-pickup delivery types used to determine if a carrier has delivery options.
  */
-export const DELIVERY_TYPES = [
-  DeliveryTypeName.Standard,
-  DeliveryTypeName.Express,
-  DeliveryTypeName.Evening,
-  DeliveryTypeName.Morning,
-];
+export const DELIVERY_TYPES = Object.values(DELIVERY_TYPE_MAP).filter((t) => t !== 'pickup');

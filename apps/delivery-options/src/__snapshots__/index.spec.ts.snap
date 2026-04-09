@@ -53,7 +53,6 @@ exports[`exports > exports from index.ts 1`] = `
   "RadioButtonLoader",
   "RadioGroupInput",
   "SHOWN_OPENING_HOURS",
-  "SHOWN_SHIPMENT_OPTIONS",
   "SHOW_DELIVERY_OPTIONS",
   "SUPPORTED_DELIVERY_TYPES",
   "SUPPORTED_PACKAGE_TYPES",

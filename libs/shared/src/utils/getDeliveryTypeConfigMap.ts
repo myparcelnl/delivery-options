@@ -1,14 +1,20 @@
-import {DeliveryTypeName} from '@myparcel-dev/constants';
 import {type SupportedDeliveryTypeName} from '../types';
-import {CarrierSetting, CustomDeliveryType} from '../data';
+import {CarrierSetting} from '../data';
+import {
+  DELIVERY_TYPE_MAP,
+  DELIVERY_DAY_OPTION_MAP,
+  toDeliveryAllowKey,
+  toOptionAllowKey,
+  toCustomDeliveryType,
+} from './capabilitiesMapping';
 
-export const getDeliveryTypeConfigMap = (): Record<SupportedDeliveryTypeName, CarrierSetting> => ({
-  [DeliveryTypeName.Standard]: CarrierSetting.AllowStandardDelivery,
-  [DeliveryTypeName.Express]: CarrierSetting.AllowExpressDelivery,
-  [DeliveryTypeName.Evening]: CarrierSetting.AllowEveningDelivery,
-  [DeliveryTypeName.Morning]: CarrierSetting.AllowMorningDelivery,
-  [DeliveryTypeName.Pickup]: CarrierSetting.AllowPickupLocations,
-  [CustomDeliveryType.SameDay]: CarrierSetting.AllowSameDayDelivery,
-  [CustomDeliveryType.Monday]: CarrierSetting.AllowMondayDelivery,
-  [CustomDeliveryType.Saturday]: CarrierSetting.AllowSaturdayDelivery,
-});
+export const getDeliveryTypeConfigMap = (): Record<SupportedDeliveryTypeName, CarrierSetting> =>
+  ({
+    ...Object.fromEntries(Object.values(DELIVERY_TYPE_MAP).map((sdk) => [sdk, toDeliveryAllowKey(sdk)])),
+    ...Object.fromEntries(
+      Object.values(DELIVERY_DAY_OPTION_MAP).map((sdkParam) => [
+        toCustomDeliveryType(sdkParam),
+        toOptionAllowKey(sdkParam),
+      ]),
+    ),
+  }) as Record<SupportedDeliveryTypeName, CarrierSetting>;
