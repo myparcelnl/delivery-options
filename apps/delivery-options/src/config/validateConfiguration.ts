@@ -29,7 +29,6 @@ import {
   type DeliveryOptionsAddress,
 } from '@myparcel-dev/do-shared';
 import {PackageTypeName} from '@myparcel-dev/constants';
-import {handleDeprecatedOptions} from './handleDeprecatedOptions';
 import {filterConfig} from './filterConfig';
 
 const addressOptions: ConfigOption[] = [
@@ -129,7 +128,7 @@ const processConfig = <T extends InputDeliveryOptionsConfig | CarrierSettings>(
   input: T,
   configOptions: ConfigOption[],
 ): T extends InputDeliveryOptionsConfig ? DeliveryOptionsConfig : CarrierSettings => {
-  return filterConfig(handleDeprecatedOptions(input), configOptions);
+  return filterConfig({...input}, configOptions);
 };
 
 const validateConfig = (input: InputDeliveryOptionsConfig): DeliveryOptionsConfig => {
