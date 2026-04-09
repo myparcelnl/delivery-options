@@ -87,12 +87,6 @@ export enum OptionType {
   MultiSelect = 'multiSelect',
 }
 
-export enum SubscriptionType {
-  Required = 1,
-  Never = 0,
-  Optional = -1,
-}
-
 export enum RelatedConfigOptionType {
   Allow = 'allow',
   Price = 'price',

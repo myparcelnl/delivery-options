@@ -13,9 +13,17 @@ import {useResolvedCarrier} from './useResolvedCarrier';
 import {useFeatures} from './useFeatures';
 
 const TRANSLATION_MAP = Object.freeze({
-  [ShipmentOptionName.Signature]: SIGNATURE_TITLE,
+  [ShipmentOptionName.AgeCheck]: 'age_check',
+  [ShipmentOptionName.Collect]: 'collect',
+  [ShipmentOptionName.CooledDelivery]: 'cooled_delivery',
+  [ShipmentOptionName.Insurance]: 'insurance',
+  [ShipmentOptionName.LargeFormat]: 'large_format',
   [ShipmentOptionName.OnlyRecipient]: ONLY_RECIPIENT_TITLE,
+  [ShipmentOptionName.PrinterlessReturn]: 'printerless_return',
   [ShipmentOptionName.PriorityDelivery]: PRIORITY_DELIVERY_TITLE,
+  [ShipmentOptionName.Return]: 'return',
+  [ShipmentOptionName.SameDayDelivery]: 'same_day_delivery',
+  [ShipmentOptionName.Signature]: SIGNATURE_TITLE,
 } as const);
 
 export const useShipmentOptionsOptions = (): ComputedRef<SelectOption[]> => {
@@ -53,7 +61,6 @@ export const useShipmentOptionsOptions = (): ComputedRef<SelectOption[]> => {
         const priceKey = getConfigPriceKey(name);
 
         return {
-          // @ts-expect-error todo: fix this error
           label: TRANSLATION_MAP[name],
           value: name,
           disabled: hasOnlyOneOption,

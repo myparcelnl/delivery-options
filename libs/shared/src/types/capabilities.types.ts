@@ -1,3 +1,4 @@
+// @TODO generate capability types automatically
 export interface CapabilityOption {
   requires: string[];
   excludes: string[];

@@ -25,9 +25,6 @@ const extended = Object.freeze([
   {key: CarrierSetting.AllowMondayDelivery},
   {key: CarrierSetting.PriceMondayDelivery, parents: [CarrierSetting.AllowMondayDelivery]},
 
-  {key: CarrierSetting.AllowMondayDelivery},
-  {key: CarrierSetting.PriceMondayDelivery, parents: [CarrierSetting.AllowMondayDelivery]},
-
   {key: CarrierSetting.AllowSaturdayDelivery},
   {key: CarrierSetting.PriceSaturdayDelivery, parents: [CarrierSetting.AllowSaturdayDelivery]},
 
