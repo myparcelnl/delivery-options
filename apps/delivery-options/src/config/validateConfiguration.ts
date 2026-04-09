@@ -21,6 +21,7 @@ import {
   validateIsString,
   validateIsTime,
   validateIsValue,
+  validateMatch,
   defineConfig,
   KEY_ADDRESS,
   KEY_CONFIG,
@@ -78,12 +79,12 @@ const additionalOptions: ConfigOption[] = [
   {
     key: ConfigSetting.ProxyCapabilities,
     perCarrier: false,
-    validators: [validateIsString()],
+    validators: [validateIsString(), validateMatch(/.+/)],
   },
   {
     key: ConfigSetting.ApiKey,
     perCarrier: false,
-    validators: [],
+    validators: [validateIsString()],
   },
   {
     key: ConfigSetting.ShowPrices,
