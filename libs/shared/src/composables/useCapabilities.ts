@@ -35,6 +35,11 @@ const createCapabilitiesInterface = (
   };
 };
 
+/**
+ * Memoized capabilities composable — use when the request params are static
+ * (e.g. inside useCarrier in the shared lib). For reactive params that change
+ * over time (address, packageType), use useReactiveCapabilities instead.
+ */
 export const useCapabilities = useMemoize(
   (proxyCapabilities: string, countryCode: string, packageType?: string, apiKey?: string): UseCapabilities => {
     const capabilities = ref<CapabilitiesResponse>(EMPTY_RESPONSE);

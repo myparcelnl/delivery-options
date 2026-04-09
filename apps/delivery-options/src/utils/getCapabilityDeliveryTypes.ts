@@ -5,6 +5,11 @@ import {
   mapCapabilityOptionToCustomDeliveryType,
 } from '@myparcel-dev/do-shared';
 
+/**
+ * Extracts all delivery types available for a carrier from its capabilities,
+ * including standard delivery types and custom types (same-day, Monday,
+ * Saturday) derived from capability options.
+ */
 export const getCapabilityDeliveryTypes = (cap: CarrierCapability): SupportedDeliveryTypeName[] => {
   const mapped = cap.deliveryTypes
     .map(mapCapabilityDeliveryType)

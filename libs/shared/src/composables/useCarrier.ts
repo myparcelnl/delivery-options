@@ -42,6 +42,11 @@ export interface UseCarrier {
   shipmentOptions: ComputedRef<Set<SupportedShipmentOptionName>>;
 }
 
+/**
+ * Memoized composable that resolves carrier metadata and capabilities for a
+ * given carrier identifier, country code, and package type. Shared across
+ * components — same options object returns the same cached instance.
+ */
 // eslint-disable-next-line max-lines-per-function
 export const useCarrier = useMemoize((options: UseCarrierOptions): UseCarrier => {
   const carrierName = computed(() => {

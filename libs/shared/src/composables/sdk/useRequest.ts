@@ -83,4 +83,10 @@ const cb = <T>(
   return query as RequestHandler<T extends Promise<infer U> ? U : T>;
 };
 
+/**
+ * Memoized data-fetching composable. Returns a handler with reactive `data`,
+ * `loading`, and a manual `load()` function. Requests with the same `key`
+ * return the same cached handler — call `.clear()` on the returned handler
+ * to invalidate the cache for that key.
+ */
 export const useRequest = useMemoize(cb, {getKey: (key) => requestKeyToString(key)}) as typeof cb & {clear: () => void};
