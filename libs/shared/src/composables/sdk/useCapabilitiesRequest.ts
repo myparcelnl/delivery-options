@@ -105,11 +105,13 @@ export const useReactiveCapabilitiesRequest = (
       lastResponseJson = '';
 
       const {exceptions} = useApiExceptions();
-      exceptions.value.push({
-        code: 1,
-        label: NO_DELIVERY_OPTIONS_AVAILABLE,
-        message: error instanceof Error ? error.message : String(error),
-      });
+      if (!exceptions.value.some((e) => e.code === 1)) {
+        exceptions.value.push({
+          code: 1,
+          label: NO_DELIVERY_OPTIONS_AVAILABLE,
+          message: error instanceof Error ? error.message : String(error),
+        });
+      }
     } finally {
       loading.value = false;
     }
