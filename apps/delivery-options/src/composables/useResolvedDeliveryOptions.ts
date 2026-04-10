@@ -35,7 +35,7 @@ const getDeliveryOptionsFromApi = async (
 ): Promise<DeliveryDatesPerCarrier[]> => {
   return Promise.all(
     toValue(carriers)
-      .filter((carrier) => toValue(carrier.hasAnyDelivery))
+      .filter((carrier) => toValue(carrier.hasDelivery))
       .map(async (carrier) => {
         const deliveryDaysWindow = carrier.get(CarrierSetting.DeliveryDaysWindow, DELIVERY_DAYS_WINDOW_DEFAULT);
 
@@ -216,7 +216,8 @@ const filterClosedDays = (
   cutoffDate.setHours(hours, minutes);
 
   const filteredDates = deliveryOptionsApiData.filter((data) => {
-    const deliveryDate = startOfDay(new Date(data.date.date)); // Normalize to start of day
+    // Normalize to start of day
+    const deliveryDate = startOfDay(new Date(data.date.date));
 
     // Check if this delivery date should be filtered out
     return !shouldFilterDeliveryDate(deliveryDate, closedDays, dropOffDelay, cutoffDate);
@@ -229,7 +230,7 @@ const filterClosedDays = (
  * Remove any date records which are completely empty (null or undefined) and
  *  ensures any selected values are cleared if no dates are available.
  *
- * @param dates
+ * @param datesPerCarrier
  * @returns
  */
 const removeEmptyEntries = (datesPerCarrier: DeliveryDatesPerCarrier[]): NonNullable<DeliveryDatesPerCarrier>[] => {

@@ -22,7 +22,6 @@ export type UseResolvedCarrier = {
   shipmentOptions: ComputedRef<Set<SupportedShipmentOptionName>>;
   features: ComputedRef<Set<string>>;
   hasDelivery: ComputedRef<boolean>;
-  hasAnyDelivery: ComputedRef<boolean>;
   hasPickup: ComputedRef<boolean>;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   get(key: ConfigKey | CarrierSettingsKey, defaultValue?: any): any;

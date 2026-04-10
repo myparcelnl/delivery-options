@@ -154,7 +154,6 @@ export const getResolvedCarrier = useMemoize(
       shipmentOptions,
       features,
 
-      hasAnyDelivery: computed(() => hasDelivery.value),
       hasDelivery,
       hasPickup,
 

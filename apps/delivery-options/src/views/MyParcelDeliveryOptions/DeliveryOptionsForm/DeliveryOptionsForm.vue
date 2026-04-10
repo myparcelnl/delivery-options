@@ -72,7 +72,7 @@ const options = computed(() => {
   const optionList: SelectOption<string>[] = [];
   const resolvedCarriers = toValue(carriers) ?? [];
 
-  if (resolvedCarriers.some((carrier) => toValue(carrier.hasAnyDelivery))) {
+  if (resolvedCarriers.some((carrier) => toValue(carrier.hasDelivery))) {
     optionList.push({
       label: DELIVERY_TITLE,
       value: HOME_OR_PICKUP_HOME,

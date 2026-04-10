@@ -152,7 +152,7 @@ describe('useActiveCarriers', () => {
     expect(toValue(carriers)).toEqual([]);
   });
 
-  it('returns carriers with hasAnyDelivery=true for carriers with delivery types', async () => {
+  it('returns carriers with hasDelivery=true for carriers with delivery types', async () => {
     useActiveCarriers.clear();
 
     const carrierSettings = Object.fromEntries(
@@ -180,7 +180,7 @@ describe('useActiveCarriers', () => {
     await flushPromises();
 
     const resolved = toValue(carriers);
-    const withDelivery = resolved.filter((carrier) => toValue(carrier.hasAnyDelivery));
+    const withDelivery = resolved.filter((carrier) => toValue(carrier.hasDelivery));
     const deliveryIdentifiers = withDelivery.map((carrier) => carrier.carrier.value.identifier);
 
     // PostNL, DHL_FOR_YOU, and DPD all have STANDARD_DELIVERY in mock capabilities

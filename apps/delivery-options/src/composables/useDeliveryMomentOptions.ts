@@ -30,7 +30,7 @@ export const useDeliveryMomentOptions = (): ComputedRef<SelectOption<string>[]> 
     // Some package types will not return any date/time moments from the API - we show one option per carrier instead without any date/time.
     if (!DELIVERY_MOMENT_PACKAGE_TYPES.includes(config.packageType)) {
       return activeCarriers.value
-        .filter((carrier) => toValue(carrier.hasAnyDelivery) && toValue(carrier.packageTypes).has(config.packageType))
+        .filter((carrier) => toValue(carrier.hasDelivery) && toValue(carrier.packageTypes).has(config.packageType))
         .map((carrier) => {
           const carrierIdentifier = toValue(carrier.carrier).identifier;
 
