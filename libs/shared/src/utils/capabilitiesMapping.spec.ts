@@ -96,12 +96,18 @@ describe('mapCapabilityOption / mapShipmentOptionToCapability', () => {
     expect(mapCapabilityOption('unknownOption')).toBeUndefined();
   });
 
-  it('logs a debug message for unmapped option', () => {
-    mapCapabilityOption('unknownOption');
+  it('does not log for known-but-ignored options', () => {
+    mapCapabilityOption('insurance');
+    mapCapabilityOption('scheduledCollection');
+    expect(consoleLogSpy).not.toHaveBeenCalled();
+  });
+
+  it('logs a debug message for truly unrecognized options', () => {
+    mapCapabilityOption('someNewFutureOption');
     expect(consoleLogSpy).toHaveBeenCalledWith(
       '%c[DEBUG]',
       'color: #999',
-      'Unmapped capability option: "unknownOption"',
+      'Unmapped capability option: "someNewFutureOption"',
     );
   });
 });

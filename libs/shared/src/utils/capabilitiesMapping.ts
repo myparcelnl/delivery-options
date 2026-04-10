@@ -149,6 +149,32 @@ const CAPABILITY_OPTION_MAP: Record<string, SupportedShipmentOptionName> = {
   ...SHIPMENT_OPTION_MAP,
 } as Record<string, SupportedShipmentOptionName>;
 
+/** All capability option keys known from the API — both mapped and intentionally ignored. */
+const KNOWN_CAPABILITY_OPTIONS = new Set([
+  ...Object.keys(SHIPMENT_OPTION_MAP),
+  ...Object.keys(DELIVERY_DAY_OPTION_MAP),
+  // Known options not relevant to the widget UI
+  'additionalInsurance',
+  'cooledDelivery',
+  'customLabelText',
+  'deliverAtPostalPoint',
+  'deliveryDate',
+  'freshFood',
+  'frozen',
+  'hideSender',
+  'insurance',
+  'noTracking',
+  'oversizedPackage',
+  'printReturnLabelAtDropOff',
+  'requiresAgeVerification',
+  'requiresCashOnDelivery',
+  'requiresReceiptCode',
+  'returnContributionFee',
+  'returnOnFirstFailedDelivery',
+  'scheduledCollection',
+  'tracked',
+]);
+
 const CAPABILITY_OPTION_TO_SDK_PARAM: Record<string, string> = {...DELIVERY_DAY_OPTION_MAP};
 
 const CAPABILITY_OPTION_TO_CARRIER_SETTING: Record<string, CarrierSetting> = Object.fromEntries(
@@ -230,7 +256,7 @@ export const mapCapabilityPackageType = (capType: string): SupportedPackageTypeN
 export const mapCapabilityOption = (capOption: string): SupportedShipmentOptionName | undefined => {
   const mapped = CAPABILITY_OPTION_MAP[capOption];
 
-  if (!mapped) {
+  if (!mapped && !KNOWN_CAPABILITY_OPTIONS.has(capOption)) {
     useLogger().debug(`Unmapped capability option: "${capOption}"`);
   }
 
