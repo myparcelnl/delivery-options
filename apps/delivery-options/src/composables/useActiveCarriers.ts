@@ -29,8 +29,17 @@ export const useActiveCarriers = useMemoize((): ComputedRef<UseResolvedCarrier[]
   return computed(() => {
     const entries = Object.entries(config.carrierSettings) as [CarrierIdentifier, CarrierSettings][];
 
+    // Build a carrier-name → index map once so sorting is O(n log n) instead of O(n² log n)
+    const carrierOrderIndex = new Map<string, number>();
+    Object.keys(config.carrierSettings).forEach((key, index) => {
+      const name = resolveCarrierName(key as CarrierIdentifier);
+
+      if (!carrierOrderIndex.has(name)) {
+        carrierOrderIndex.set(name, index);
+      }
+    });
+
     const sortedCarrierSettings = entries
-      // Sort by order in MyParcelConfig carrierSettings keys, then by subscription ID
       .sort(([identifierA], [identifierB]) => {
         const [nameA, subscriptionIdA] = splitCarrierIdentifier(identifierA);
         const [nameB, subscriptionIdB] = splitCarrierIdentifier(identifierB);
@@ -43,18 +52,7 @@ export const useActiveCarriers = useMemoize((): ComputedRef<UseResolvedCarrier[]
           return subscriptionIdA.localeCompare(subscriptionIdB);
         }
 
-        // Sort by order in which they appear in config.carrierSettings
-        const configKeys = Object.keys(config.carrierSettings);
-        const indexA = configKeys.findIndex(
-          // eslint-disable-next-line max-nested-callbacks
-          (k) => resolveCarrierName(k as CarrierIdentifier) === nameA,
-        );
-        const indexB = configKeys.findIndex(
-          // eslint-disable-next-line max-nested-callbacks
-          (k) => resolveCarrierName(k as CarrierIdentifier) === nameB,
-        );
-
-        return indexA - indexB;
+        return (carrierOrderIndex.get(nameA) ?? 0) - (carrierOrderIndex.get(nameB) ?? 0);
       });
 
     return sortedCarrierSettings

@@ -74,7 +74,7 @@ export const getResolvedCarrier = useMemoize(
       {immediate: true},
     );
 
-    // Use the singleton reactive capabilities instance.
+    /** Use the singleton reactive capabilities instance. */
     const capabilities = useSharedCapabilities();
     const normalizedName = normalizeCarrierName(carrierName);
 
@@ -92,7 +92,7 @@ export const getResolvedCarrier = useMemoize(
     /** Mutable set of delivery types currently disabled (e.g. due to API errors). */
     const disabledDeliveryTypes = ref(new Set<SupportedDeliveryTypeName>());
 
-    // Derive delivery types directly from capabilities for reliable reactivity.
+    /** Derive delivery types directly from capabilities for reliable reactivity. */
     const allDeliveryTypes = computed(() => fromCapability((cap) => new Set(getCapabilityDeliveryTypes(cap))));
 
     /** Delivery types this carrier supports, filtered by config settings. */
