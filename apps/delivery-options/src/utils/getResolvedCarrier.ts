@@ -138,21 +138,12 @@ export const getResolvedCarrier = useMemoize(
       );
     });
 
-    // Read capabilities directly for hasDelivery/hasPickup to ensure a direct reactive
-    // dependency on capabilities.value — avoids going through the deep computed chain
-    // (capability → allDeliveryTypes → deliveryTypes) which can miss reactive updates.
-    /** True if the carrier has at least one active delivery type. Reads capabilities directly to ensure reactive updates. */
     const hasDelivery = computed(() => {
-      const cap = capabilities.getCarrierCapability(normalizedName);
-
-      return Boolean(cap && hasDeliveryForCarrier(cap, carrierIdentifier));
+      return Boolean(capability.value && hasDeliveryForCarrier(capability.value, carrierIdentifier));
     });
 
-    /** True if the carrier has pickup locations available. Reads capabilities directly. */
     const hasPickup = computed(() => {
-      const cap = capabilities.getCarrierCapability(normalizedName);
-
-      return Boolean(cap && hasPickupForCarrier(cap, carrierIdentifier));
+      return Boolean(capability.value && hasPickupForCarrier(capability.value, carrierIdentifier));
     });
 
     return {
