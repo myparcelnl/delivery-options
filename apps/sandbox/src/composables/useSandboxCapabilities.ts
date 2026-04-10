@@ -2,11 +2,12 @@ import {computed, watch} from 'vue';
 import {useMemoize} from '@vueuse/core';
 import {mapPackageTypeToCapability, useReactiveCapabilities} from '@myparcel-dev/do-shared';
 import {useSandboxStore} from '../stores';
+import {getProxyCapabilitiesUrl} from '../constants';
 
 export const useSandboxCapabilities = useMemoize(() => {
   const store = useSandboxStore();
 
-  const proxyCapabilities = `${store.config.apiBaseUrl ?? 'https://api.myparcel.nl'}/shipments/capabilities`;
+  const proxyCapabilities = getProxyCapabilitiesUrl(store.config.apiBaseUrl);
 
   const request = computed(() => {
     const capPackageType = store.config.packageType

@@ -15,6 +15,7 @@ import {
   KEY_CONFIG,
   KEY_STRINGS,
 } from '@myparcel-dev/do-shared';
+import {getProxyCapabilitiesUrl} from '../constants';
 import {getDefaultSandboxAddress, getDefaultSandboxCarrierSettings, getDefaultSandboxConfig} from '../config';
 import {useLanguage} from '../composables';
 
@@ -74,10 +75,10 @@ export const useSandboxStore = defineStore('sandbox', {
             return [identifier, settings];
           }
 
-          const {
-            [CarrierSetting.DeliveryDaysWindow]: deliveryDaysWindow,
-            ...rest
-          } = settings as Record<string, unknown>;
+          const {[CarrierSetting.DeliveryDaysWindow]: deliveryDaysWindow, ...rest} = settings as Record<
+            string,
+            unknown
+          >;
 
           void deliveryDaysWindow;
 
@@ -90,7 +91,7 @@ export const useSandboxStore = defineStore('sandbox', {
           ...this.config,
           [KEY_CARRIER_SETTINGS]: cleanedCarrierSettings,
           [ConfigSetting.Locale]: language.value.code,
-          [ConfigSetting.ProxyCapabilities]: `${this.config.apiBaseUrl ?? 'https://api.myparcel.nl'}/shipments/capabilities`,
+          [ConfigSetting.ProxyCapabilities]: getProxyCapabilitiesUrl(this.config.apiBaseUrl),
         } satisfies InputDeliveryOptionsConfig,
         [KEY_ADDRESS]: this.address,
         [KEY_STRINGS]: strings.value,
