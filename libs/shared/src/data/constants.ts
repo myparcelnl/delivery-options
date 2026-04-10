@@ -1,6 +1,10 @@
 import {PackageTypeName, PlatformName} from '@myparcel-dev/constants';
 // Import directly from module to avoid circular dependency through the utils barrel.
-import {SHIPMENT_OPTION_ALLOW_DEFAULTS, SUPPORTED_DELIVERY_TYPES, SUPPORTED_SHIPMENT_OPTIONS} from '../utils/capabilitiesMapping';
+import {
+  SHIPMENT_OPTION_ALLOW_DEFAULTS,
+  SUPPORTED_DELIVERY_TYPES,
+  SUPPORTED_SHIPMENT_OPTIONS,
+} from '../utils/capabilitiesMapping';
 import {type DropOffEntryObject} from '../types';
 import {CarrierSetting} from './enums';
 

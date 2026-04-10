@@ -39,21 +39,20 @@ export const useActiveCarriers = useMemoize((): ComputedRef<UseResolvedCarrier[]
       }
     });
 
-    const sortedCarrierSettings = entries
-      .sort(([identifierA], [identifierB]) => {
-        const [nameA, subscriptionIdA] = splitCarrierIdentifier(identifierA);
-        const [nameB, subscriptionIdB] = splitCarrierIdentifier(identifierB);
+    const sortedCarrierSettings = entries.sort(([identifierA], [identifierB]) => {
+      const [nameA, subscriptionIdA] = splitCarrierIdentifier(identifierA);
+      const [nameB, subscriptionIdB] = splitCarrierIdentifier(identifierB);
 
-        if (nameA === nameB) {
-          if (!subscriptionIdA || !subscriptionIdB) {
-            return subscriptionIdA ? 1 : -1;
-          }
-
-          return subscriptionIdA.localeCompare(subscriptionIdB);
+      if (nameA === nameB) {
+        if (!subscriptionIdA || !subscriptionIdB) {
+          return subscriptionIdA ? 1 : -1;
         }
 
-        return (carrierOrderIndex.get(nameA) ?? 0) - (carrierOrderIndex.get(nameB) ?? 0);
-      });
+        return subscriptionIdA.localeCompare(subscriptionIdB);
+      }
+
+      return (carrierOrderIndex.get(nameA) ?? 0) - (carrierOrderIndex.get(nameB) ?? 0);
+    });
 
     return sortedCarrierSettings
       .filter(([identifier]) => {

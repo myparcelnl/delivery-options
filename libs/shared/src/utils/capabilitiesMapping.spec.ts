@@ -46,7 +46,11 @@ describe('mapCapabilityDeliveryType / mapDeliveryTypeToCapability', () => {
 
   it('logs a debug message for unmapped delivery type', () => {
     mapCapabilityDeliveryType('NONEXISTENT');
-    expect(consoleLogSpy).toHaveBeenCalledWith('%c[DEBUG]', 'color: #999', 'Unmapped capability delivery type: "NONEXISTENT"');
+    expect(consoleLogSpy).toHaveBeenCalledWith(
+      '%c[DEBUG]',
+      'color: #999',
+      'Unmapped capability delivery type: "NONEXISTENT"',
+    );
   });
 });
 
@@ -70,7 +74,11 @@ describe('mapCapabilityPackageType / mapPackageTypeToCapability', () => {
 
   it('logs a debug message for unmapped package type', () => {
     mapCapabilityPackageType('NONEXISTENT');
-    expect(consoleLogSpy).toHaveBeenCalledWith('%c[DEBUG]', 'color: #999', 'Unmapped capability package type: "NONEXISTENT"');
+    expect(consoleLogSpy).toHaveBeenCalledWith(
+      '%c[DEBUG]',
+      'color: #999',
+      'Unmapped capability package type: "NONEXISTENT"',
+    );
   });
 });
 
@@ -90,7 +98,11 @@ describe('mapCapabilityOption / mapShipmentOptionToCapability', () => {
 
   it('logs a debug message for unmapped option', () => {
     mapCapabilityOption('unknownOption');
-    expect(consoleLogSpy).toHaveBeenCalledWith('%c[DEBUG]', 'color: #999', 'Unmapped capability option: "unknownOption"');
+    expect(consoleLogSpy).toHaveBeenCalledWith(
+      '%c[DEBUG]',
+      'color: #999',
+      'Unmapped capability option: "unknownOption"',
+    );
   });
 });
 

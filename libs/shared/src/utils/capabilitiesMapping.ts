@@ -202,9 +202,11 @@ const SDK_PACKAGE_TYPE_TO_CAPABILITY: Record<string, string> = Object.fromEntrie
  */
 export const mapCapabilityDeliveryType = (capType: string): SupportedDeliveryTypeName | undefined => {
   const mapped = CAPABILITY_DELIVERY_TYPE_MAP[capType];
+
   if (!mapped) {
     useLogger().debug(`Unmapped capability delivery type: "${capType}"`);
   }
+
   return mapped;
 };
 
@@ -213,9 +215,11 @@ export const mapCapabilityDeliveryType = (capType: string): SupportedDeliveryTyp
  */
 export const mapCapabilityPackageType = (capType: string): SupportedPackageTypeName | undefined => {
   const mapped = CAPABILITY_PACKAGE_TYPE_MAP[capType];
+
   if (!mapped) {
     useLogger().debug(`Unmapped capability package type: "${capType}"`);
   }
+
   return mapped;
 };
 
@@ -225,9 +229,11 @@ export const mapCapabilityPackageType = (capType: string): SupportedPackageTypeN
  */
 export const mapCapabilityOption = (capOption: string): SupportedShipmentOptionName | undefined => {
   const mapped = CAPABILITY_OPTION_MAP[capOption];
+
   if (!mapped) {
     useLogger().debug(`Unmapped capability option: "${capOption}"`);
   }
+
   return mapped;
 };
 
