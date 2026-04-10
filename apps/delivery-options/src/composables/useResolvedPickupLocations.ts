@@ -10,18 +10,11 @@ import {
   ConfigSetting,
   addLoadingProperties,
   watchUntil,
-  normalizeCarrierName,
-  type CarrierIdentifier,
 } from '@myparcel-dev/do-shared';
-import {
-  getResolvedCarrier,
-  createLatLngParameters,
-  createGetDeliveryOptionsParameters,
-  hasPickupForCarrier,
-} from '../utils';
+import {createLatLngParameters, createGetDeliveryOptionsParameters} from '../utils';
 import {type ResolvedPickupLocation, type LatLng} from '../types';
 import {useConfigStore} from '../stores';
-import {useSharedCapabilities} from './useSharedCapabilities';
+import {useActiveCarriers} from './useActiveCarriers';
 import {type UseResolvedCarrier} from './useResolvedCarrier';
 
 interface UseResolvedPickupLocations {
@@ -89,31 +82,16 @@ const loadPickupLocations = async (carrier: UseResolvedCarrier, latLng?: LatLng)
   return locations.map((location) => formatPickupLocation(carrier, location as PickupLocation));
 };
 
-// eslint-disable-next-line max-lines-per-function
 const callback = (): UseResolvedPickupLocations => {
   const latLng = ref<LatLng>(undefined);
 
   const allLocations = ref<ResolvedPickupLocation[]>([]);
   const {state: config} = useConfigStore();
 
-  /**
-   * Determine carriers with pickup directly from capabilities + config.
-   * This avoids relying on the deep reactive chain through useActiveCarriers → hasPickup.
-   */
-  const capabilities = useSharedCapabilities();
+  const activeCarriers = useActiveCarriers();
 
   const carriersWithPickup = computed((): UseResolvedCarrier[] => {
-    const configCarriers = Object.keys(config.carrierSettings ?? {}) as CarrierIdentifier[];
-
-    return configCarriers
-      .filter((identifier) => {
-        const carrierPart = identifier.split(':')[0] ?? identifier;
-        const normalized = normalizeCarrierName(carrierPart);
-        const capability = capabilities.getCarrierCapability(normalized);
-
-        return Boolean(capability && hasPickupForCarrier(capability, identifier));
-      })
-      .map((identifier) => getResolvedCarrier(identifier));
+    return activeCarriers.value.filter((carrier) => toValue(carrier.hasPickup));
   });
 
   const currentLocations = computedAsync<ResolvedPickupLocation[]>(async () => {
