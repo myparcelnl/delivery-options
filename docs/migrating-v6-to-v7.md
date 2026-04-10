@@ -142,6 +142,14 @@ The `DeprecatedConfigOptions` group is no longer accepted. Any previously deprec
 
 ---
 
+## Behavior changes
+
+### Address validation no longer prevents carriers from showing up
+
+In v6 if a carrier returned with an error when asking for delivery moments, for example a malformed address, an error would be shown, e.g. missing postal code. In v7 there is no such address validation, choices that are available according to capabilities will be shown. Address validation must be performed separately.
+
+---
+
 ## Removed exports
 
 The following were removed from `@myparcel/delivery-options` and `@myparcel-dev/do-shared`:
