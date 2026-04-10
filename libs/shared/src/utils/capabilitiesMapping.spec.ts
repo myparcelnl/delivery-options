@@ -1,6 +1,7 @@
 import {describe, expect, it} from 'vitest';
 import {DeliveryTypeName, PackageTypeName, ShipmentOptionName} from '@myparcel-dev/constants';
-import {CarrierSetting, CustomDeliveryType} from '../data';
+import {CarrierSetting, CustomDeliveryType} from '../data/enums';
+import {consoleLogSpy} from '../__tests__/utils/mockConsole';
 import {
   normalizeCarrierName,
   mapCapabilityDeliveryType,
@@ -42,6 +43,11 @@ describe('mapCapabilityDeliveryType / mapDeliveryTypeToCapability', () => {
   it('returns undefined for unknown delivery type', () => {
     expect(mapCapabilityDeliveryType('NONEXISTENT')).toBeUndefined();
   });
+
+  it('logs a debug message for unmapped delivery type', () => {
+    mapCapabilityDeliveryType('NONEXISTENT');
+    expect(consoleLogSpy).toHaveBeenCalledWith('%c[DEBUG]', 'color: #999', 'Unmapped capability delivery type: "NONEXISTENT"');
+  });
 });
 
 describe('mapCapabilityPackageType / mapPackageTypeToCapability', () => {
@@ -61,6 +67,11 @@ describe('mapCapabilityPackageType / mapPackageTypeToCapability', () => {
   it('returns undefined for unknown package type', () => {
     expect(mapCapabilityPackageType('NONEXISTENT')).toBeUndefined();
   });
+
+  it('logs a debug message for unmapped package type', () => {
+    mapCapabilityPackageType('NONEXISTENT');
+    expect(consoleLogSpy).toHaveBeenCalledWith('%c[DEBUG]', 'color: #999', 'Unmapped capability package type: "NONEXISTENT"');
+  });
 });
 
 describe('mapCapabilityOption / mapShipmentOptionToCapability', () => {
@@ -75,6 +86,11 @@ describe('mapCapabilityOption / mapShipmentOptionToCapability', () => {
 
   it('returns undefined for unknown option', () => {
     expect(mapCapabilityOption('unknownOption')).toBeUndefined();
+  });
+
+  it('logs a debug message for unmapped option', () => {
+    mapCapabilityOption('unknownOption');
+    expect(consoleLogSpy).toHaveBeenCalledWith('%c[DEBUG]', 'color: #999', 'Unmapped capability option: "unknownOption"');
   });
 });
 

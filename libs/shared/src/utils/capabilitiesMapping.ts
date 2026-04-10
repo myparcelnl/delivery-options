@@ -5,7 +5,8 @@ import type {
   SupportedShipmentOptionName,
 } from '../types';
 // Import directly from enum source to avoid circular dependency through barrel.
-import {CarrierSetting, type CustomDeliveryType} from '../data';
+import {CarrierSetting, type CustomDeliveryType} from '../data/enums';
+import {useLogger} from '../composables/useLogger';
 
 /**
  * Normalize a carrier name by lowercasing and removing all underscores.
@@ -199,21 +200,36 @@ const SDK_PACKAGE_TYPE_TO_CAPABILITY: Record<string, string> = Object.fromEntrie
 /**
  * Map a capabilities delivery type (UPPER_CASE) to its SDK/internal name.
  */
-export const mapCapabilityDeliveryType = (capType: string): SupportedDeliveryTypeName | undefined =>
-  CAPABILITY_DELIVERY_TYPE_MAP[capType];
+export const mapCapabilityDeliveryType = (capType: string): SupportedDeliveryTypeName | undefined => {
+  const mapped = CAPABILITY_DELIVERY_TYPE_MAP[capType];
+  if (!mapped) {
+    useLogger().debug(`Unmapped capability delivery type: "${capType}"`);
+  }
+  return mapped;
+};
 
 /**
  * Map a capabilities package type (UPPER_CASE) to its SDK/internal name.
  */
-export const mapCapabilityPackageType = (capType: string): SupportedPackageTypeName | undefined =>
-  CAPABILITY_PACKAGE_TYPE_MAP[capType];
+export const mapCapabilityPackageType = (capType: string): SupportedPackageTypeName | undefined => {
+  const mapped = CAPABILITY_PACKAGE_TYPE_MAP[capType];
+  if (!mapped) {
+    useLogger().debug(`Unmapped capability package type: "${capType}"`);
+  }
+  return mapped;
+};
 
 /**
  * Map a capabilities option name (camelCase) to its SDK/internal shipment option name.
  * Returns undefined for options not relevant to UI display (e.g. insurance).
  */
-export const mapCapabilityOption = (capOption: string): SupportedShipmentOptionName | undefined =>
-  CAPABILITY_OPTION_MAP[capOption];
+export const mapCapabilityOption = (capOption: string): SupportedShipmentOptionName | undefined => {
+  const mapped = CAPABILITY_OPTION_MAP[capOption];
+  if (!mapped) {
+    useLogger().debug(`Unmapped capability option: "${capOption}"`);
+  }
+  return mapped;
+};
 
 /**
  * Map capabilities option to SDK parameter name (for delivery day flags).

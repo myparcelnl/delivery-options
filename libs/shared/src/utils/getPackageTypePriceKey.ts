@@ -1,6 +1,7 @@
 import {PackageTypeName} from '@myparcel-dev/constants';
 import {type ConfigPriceKey, type SupportedPackageTypeName} from '../types';
-import {CarrierSetting} from '../data';
+// Import directly from enum source to avoid circular dependency through barrel.
+import {CarrierSetting} from '../data/enums';
 
 const map = Object.freeze({
   [PackageTypeName.Package]: CarrierSetting.PriceStandardDelivery,
