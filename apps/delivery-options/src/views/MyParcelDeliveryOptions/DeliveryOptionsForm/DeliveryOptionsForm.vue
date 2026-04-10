@@ -53,7 +53,6 @@ import {
 } from '@myparcel-dev/do-shared';
 import PickupLocations from '../Pickup/PickupLocations.vue';
 import HomeDelivery from '../Delivery/HomeDelivery.vue';
-import {getHasPickupForPackage} from '../../../utils/getHasPickupForPackage';
 import {useConfigStore} from '../../../stores';
 import {FIELD_HOME_OR_PICKUP, HOME_OR_PICKUP_HOME, HOME_OR_PICKUP_PICKUP} from '../../../data';
 import {useActiveCarriers, useSharedCapabilities, useLanguage, useSelectedValues} from '../../../composables';
@@ -81,7 +80,7 @@ const options = computed(() => {
 
   if (
     config.allowPickupLocations &&
-    resolvedCarriers.some((carrier) => getHasPickupForPackage(carrier, config.packageType))
+    resolvedCarriers.some((carrier) => toValue(carrier.hasPickup))
   ) {
     optionList.push({
       label: PICKUP_TITLE,
