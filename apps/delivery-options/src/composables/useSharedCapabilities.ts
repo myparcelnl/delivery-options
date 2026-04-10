@@ -1,7 +1,12 @@
 import {computed, effectScope, type EffectScope} from 'vue';
-import {type UseCapabilities, useReactiveCapabilities} from '@myparcel-dev/do-shared';
-import {useConfigStore} from '../stores';
-import {useCapabilitiesRequestParams} from './useCapabilitiesRequestParams';
+import {
+  type UseCapabilities,
+  type CapabilitiesRequest,
+  useReactiveCapabilitiesRequest,
+  normalizeCarrierName,
+  mapPackageTypeToCapability,
+} from '@myparcel-dev/do-shared';
+import {useAddressStore, useConfigStore} from '../stores';
 
 let instance: UseCapabilities | null = null;
 let scope: EffectScope | null = null;
@@ -17,10 +22,44 @@ export const useSharedCapabilities = (): UseCapabilities => {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     instance = scope.run(() => {
       const {state: config} = useConfigStore();
-      const requestRef = useCapabilitiesRequestParams();
+      const {state: address} = useAddressStore();
+
+      const requestRef = computed<CapabilitiesRequest>(() => {
+        const request: CapabilitiesRequest = {
+          recipient: {
+            countryCode: address.cc,
+            ...(address.postalCode ? {postalCode: address.postalCode} : {}),
+          },
+        };
+
+        const capPackageType = mapPackageTypeToCapability(config.packageType);
+
+        if (capPackageType) {
+          request.packageType = capPackageType;
+        }
+
+        return request;
+      });
 
       const apiKeyRef = computed(() => config.apiKey);
-      return useReactiveCapabilities(config.proxyCapabilities, requestRef, apiKeyRef);
+      const {data, loading} = useReactiveCapabilitiesRequest(config.proxyCapabilities, requestRef, apiKeyRef);
+
+      const getCarrierCapability = (carrierIdentifier: string) => {
+        const normalized = normalizeCarrierName(carrierIdentifier);
+
+        return data.value.results.find((cap) => normalizeCarrierName(cap.carrier) === normalized);
+      };
+
+      const availableCarrierNames = computed(() => {
+        return data.value.results.map((cap) => normalizeCarrierName(cap.carrier));
+      });
+
+      return {
+        capabilities: data,
+        getCarrierCapability,
+        availableCarrierNames,
+        loading: computed(() => loading.value),
+      };
     })!;
   }
 
