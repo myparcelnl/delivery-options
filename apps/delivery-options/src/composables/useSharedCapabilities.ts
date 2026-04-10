@@ -2,8 +2,7 @@ import {computed, effectScope, type EffectScope} from 'vue';
 import {
   type UseCapabilities,
   type CapabilitiesRequest,
-  useReactiveCapabilitiesRequest,
-  normalizeCarrierName,
+  useReactiveCapabilities,
   mapPackageTypeToCapability,
 } from '@myparcel-dev/do-shared';
 import {useAddressStore, useConfigStore} from '../stores';
@@ -42,24 +41,8 @@ export const useSharedCapabilities = (): UseCapabilities => {
       });
 
       const apiKeyRef = computed(() => config.apiKey);
-      const {data, loading} = useReactiveCapabilitiesRequest(config.proxyCapabilities, requestRef, apiKeyRef);
 
-      const getCarrierCapability = (carrierIdentifier: string) => {
-        const normalized = normalizeCarrierName(carrierIdentifier);
-
-        return data.value.results.find((cap) => normalizeCarrierName(cap.carrier) === normalized);
-      };
-
-      const availableCarrierNames = computed(() => {
-        return data.value.results.map((cap) => normalizeCarrierName(cap.carrier));
-      });
-
-      return {
-        capabilities: data,
-        getCarrierCapability,
-        availableCarrierNames,
-        loading: computed(() => loading.value),
-      };
+      return useReactiveCapabilities(config.proxyCapabilities, requestRef, apiKeyRef);
     })!;
   }
 

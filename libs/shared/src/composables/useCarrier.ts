@@ -6,10 +6,9 @@ import {
   getPackageTypePriceKey,
   type ComputedAsync,
   computedAsync,
-  mapCapabilityDeliveryType,
   mapCapabilityPackageType,
   mapCapabilityOption,
-  mapCapabilityOptionToCustomDeliveryType,
+  getCapabilityDeliveryTypes,
 } from '../utils';
 import {
   type CarrierIdentifier,
@@ -89,20 +88,7 @@ export const useCarrier = (options: UseCarrierOptions): UseCarrier => {
       return new Set<SupportedDeliveryTypeName>();
     }
 
-    const mapped = cap.deliveryTypes
-      .map(mapCapabilityDeliveryType)
-      .filter((dt): dt is SupportedDeliveryTypeName => dt !== undefined);
-
-    // Also add custom delivery types from options (sameDayDelivery, mondayDelivery, saturdayDelivery)
-    for (const optionName of Object.keys(cap.options)) {
-      const customType = mapCapabilityOptionToCustomDeliveryType(optionName);
-
-      if (customType) {
-        mapped.push(customType);
-      }
-    }
-
-    return new Set(mapped);
+    return new Set(getCapabilityDeliveryTypes(cap));
   });
 
   const packageTypes = computed(() => {

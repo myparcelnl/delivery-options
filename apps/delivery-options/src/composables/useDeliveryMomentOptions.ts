@@ -13,12 +13,13 @@ import {
   createTranslatable,
 } from '@myparcel-dev/do-shared';
 import {getDeliveryTypePrice, createPackageTypeTranslatable, stringToDate} from '../utils';
+import {type SelectedDeliveryMoment} from '../types';
 import {useConfigStore} from '../stores';
 import {DELIVERY_MOMENT_PACKAGE_TYPES} from '../data';
-import {type UseResolvedCarrier} from './useResolvedCarrier';
 import {useSelectedValues} from './useSelectedValues';
 import {useResolvedDeliveryOptions} from './useResolvedDeliveryOptions';
 import {useResolvedDeliveryMoments} from './useResolvedDeliveryMoments';
+import {type UseResolvedCarrier} from './useResolvedCarrier';
 import {useFeatures} from './useFeatures';
 import {useActiveCarriers} from './useActiveCarriers';
 
@@ -62,6 +63,31 @@ const getPackageTypeOptions = (
       );
     });
 };
+
+/**
+ * Map resolved delivery moments for a given package type to select options.
+ */
+const getMomentOptions = (
+  moments: SelectedDeliveryMoment[],
+  packageType: SupportedPackageTypeName,
+): SelectOption<string>[] =>
+  moments
+    .filter((option) => option.packageType === packageType)
+    .map((option) => ({
+      carrier: option.carrier,
+      label: option.time,
+      price: getDeliveryTypePrice(option.deliveryType, option.carrier),
+      value: JSON.stringify({
+        time: option.time,
+        carrier: option.carrier,
+        date: option.date,
+        deliveryType: option.deliveryType,
+        packageType: option.packageType,
+        shipmentOptions: option.shipmentOptions.filter((opt) =>
+          (SUPPORTED_SHIPMENT_OPTIONS as readonly string[]).includes(opt.name),
+        ),
+      }),
+    }));
 
 /**
  * Options when the delivery date is hidden (deliveryDaysWindow <= 1).
@@ -132,25 +158,7 @@ export const useDeliveryMomentOptions = (): ComputedRef<SelectOption<string>[]> 
       return getDatelessDeliveryOptions(activeCarriers.value, config.packageType);
     }
 
-    const momentOptions = deliveryMoments.value
-      .filter((option) => option.packageType === config.packageType)
-      .map((option) => {
-        return {
-          carrier: option.carrier,
-          label: option.time,
-          price: getDeliveryTypePrice(option.deliveryType, option.carrier),
-          value: JSON.stringify({
-            time: option.time,
-            carrier: option.carrier,
-            date: option.date,
-            deliveryType: option.deliveryType,
-            packageType: option.packageType,
-            shipmentOptions: option.shipmentOptions.filter((option) =>
-              (SUPPORTED_SHIPMENT_OPTIONS as readonly string[]).includes(option.name),
-            ),
-          }),
-        };
-      });
+    const momentOptions = getMomentOptions(deliveryMoments.value, config.packageType);
 
     const allDeliveryOptions = useResolvedDeliveryOptions();
     const {deliveryDate} = useSelectedValues();

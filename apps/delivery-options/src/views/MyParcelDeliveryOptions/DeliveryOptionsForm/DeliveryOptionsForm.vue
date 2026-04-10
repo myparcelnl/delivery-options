@@ -78,10 +78,7 @@ const options = computed(() => {
     });
   }
 
-  if (
-    config.allowPickupLocations &&
-    resolvedCarriers.some((carrier) => toValue(carrier.hasPickup))
-  ) {
+  if (config.allowPickupLocations && resolvedCarriers.some((carrier) => toValue(carrier.hasPickup))) {
     optionList.push({
       label: PICKUP_TITLE,
       value: HOME_OR_PICKUP_PICKUP,

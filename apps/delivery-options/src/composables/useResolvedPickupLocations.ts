@@ -1,4 +1,4 @@
-import {ref, toValue, onUnmounted, computed, type ComputedRef} from 'vue';
+import {ref, toValue, onUnmounted, computed, type ComputedRef, type Ref, type MaybeRefOrGetter} from 'vue';
 import {useMemoize, watchImmediate} from '@vueuse/core';
 import {type PickupLocation} from '@myparcel-dev/sdk';
 import {
@@ -14,8 +14,8 @@ import {
 import {createLatLngParameters, createGetDeliveryOptionsParameters} from '../utils';
 import {type ResolvedPickupLocation, type LatLng} from '../types';
 import {useConfigStore} from '../stores';
-import {useActiveCarriers} from './useActiveCarriers';
 import {type UseResolvedCarrier} from './useResolvedCarrier';
+import {useActiveCarriers} from './useActiveCarriers';
 
 interface UseResolvedPickupLocations {
   carriersWithPickup: ComputedRef<UseResolvedCarrier[]>;
@@ -82,6 +82,33 @@ const loadPickupLocations = async (carrier: UseResolvedCarrier, latLng?: LatLng)
   return locations.map((location) => formatPickupLocation(carrier, location as PickupLocation));
 };
 
+const buildCurrentLocations = (
+  carriersWithPickup: ComputedRef<UseResolvedCarrier[]>,
+  latLng: Ref<LatLng>,
+  allowLoadMore: MaybeRefOrGetter<boolean | undefined>,
+): ComputedAsync<ResolvedPickupLocation[]> =>
+  computedAsync<ResolvedPickupLocation[]>(async () => {
+    const requests = toValue(carriersWithPickup)
+      .filter(() => !toValue(latLng) || toValue(allowLoadMore) !== false)
+      .map((carrier) => loadPickupLocations(carrier, latLng.value));
+
+    const foundLocations = await Promise.all(requests);
+
+    return foundLocations.flat(1);
+  }, []);
+
+const accumulateLocations = (
+  allLocations: Ref<ResolvedPickupLocation[]>,
+  currentLocations: ComputedAsync<ResolvedPickupLocation[]>,
+) =>
+  watchImmediate(currentLocations, (newLocations) => {
+    const duplicatesFiltered = allLocations.value.filter(
+      (location) => !newLocations.some((newLocation) => location.locationCode === newLocation.locationCode),
+    );
+
+    allLocations.value = [...duplicatesFiltered, ...newLocations];
+  });
+
 const callback = (): UseResolvedPickupLocations => {
   const latLng = ref<LatLng>(undefined);
 
@@ -94,33 +121,13 @@ const callback = (): UseResolvedPickupLocations => {
     return activeCarriers.value.filter((carrier) => toValue(carrier.hasPickup));
   });
 
-  const currentLocations = computedAsync<ResolvedPickupLocation[]>(async () => {
-    const requests = toValue(carriersWithPickup)
-      // When using latLng, only load more locations for carriers that allow it
-      .filter(() => {
-        if (!toValue(latLng)) {
-          return true;
-        }
+  const currentLocations = buildCurrentLocations(
+    carriersWithPickup,
+    latLng,
+    () => config[ConfigSetting.PickupMapAllowLoadMore],
+  );
 
-        return config[ConfigSetting.PickupMapAllowLoadMore] !== false;
-      })
-      .map((carrier) => loadPickupLocations(carrier, latLng.value));
-
-    const foundLocations = await Promise.all(requests);
-
-    return foundLocations.flat(1);
-  }, []);
-
-  /**
-   * Add new locations to the list of all locations.
-   */
-  const unwatchLocations = watchImmediate(currentLocations, (newLocations) => {
-    const duplicatesFiltered = allLocations.value.filter((location) => {
-      return !newLocations.some((newLocation) => location.locationCode === newLocation.locationCode);
-    });
-
-    allLocations.value = [...duplicatesFiltered, ...newLocations];
-  });
+  const unwatchLocations = accumulateLocations(allLocations, currentLocations);
 
   const locations = addLoadingProperties(
     computed(() => {
