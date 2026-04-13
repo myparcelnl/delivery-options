@@ -19,28 +19,51 @@ export const normalizeCarrierName = (name: string): string => name.toLowerCase()
 // To add a new option: add one entry to the right map below.
 // CarrierSettings (allow*/price*) are derived by naming convention — see helpers below.
 
-export const DELIVERY_TYPE_MAP = {
+export const DELIVERY_TYPE_MAP: {
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  readonly STANDARD_DELIVERY: 'standard';
+  readonly MORNING_DELIVERY: 'morning';
+  readonly EVENING_DELIVERY: 'evening';
+  readonly EXPRESS_DELIVERY: 'express';
+  readonly PICKUP_DELIVERY: 'pickup';
+} = {
   STANDARD_DELIVERY: 'standard',
   MORNING_DELIVERY: 'morning',
   EVENING_DELIVERY: 'evening',
   EXPRESS_DELIVERY: 'express',
   PICKUP_DELIVERY: 'pickup',
-} as const;
+};
 
 /** Capability option → SDK request param; allow/price settings follow the same convention. */
-export const DELIVERY_DAY_OPTION_MAP = {
+export const DELIVERY_DAY_OPTION_MAP: {
+  readonly sameDayDelivery: 'same_day_delivery';
+  readonly mondayDelivery: 'monday_delivery';
+  readonly saturdayDelivery: 'saturday_delivery';
+} = {
   sameDayDelivery: 'same_day_delivery',
   mondayDelivery: 'monday_delivery',
   saturdayDelivery: 'saturday_delivery',
-} as const;
+};
 
-export const SHIPMENT_OPTION_MAP = {
+export const SHIPMENT_OPTION_MAP: {
+  readonly requiresSignature: 'signature';
+  readonly recipientOnlyDelivery: 'only_recipient';
+  readonly priorityDelivery: 'priority_delivery';
+} = {
   requiresSignature: 'signature',
   recipientOnlyDelivery: 'only_recipient',
   priorityDelivery: 'priority_delivery',
-} as const;
+};
 
-export const PACKAGE_TYPE_MAP = {
+export const PACKAGE_TYPE_MAP: {
+  readonly PACKAGE: 'package';
+  readonly MAILBOX: 'mailbox';
+  readonly DIGITAL_STAMP: 'digital_stamp';
+  readonly SMALL_PACKAGE: 'package_small';
+  readonly UNFRANKED: 'letter';
+  readonly ENVELOPE: 'envelope';
+  readonly PALLET: 'pallet';
+} = {
   PACKAGE: 'package',
   MAILBOX: 'mailbox',
   DIGITAL_STAMP: 'digital_stamp',
@@ -48,7 +71,7 @@ export const PACKAGE_TYPE_MAP = {
   UNFRANKED: 'letter',
   ENVELOPE: 'envelope',
   PALLET: 'pallet',
-} as const;
+};
 
 // ─── Derived utility types ────────────────────────────────────────────────
 
@@ -61,8 +84,7 @@ export type ShipmentOptionAllowDefaults = {
 
 // ─── Naming-convention helpers ─────────────────────────────────────────────
 
-export const toCamelCase = (str: string): string =>
-  str.replace(/_([a-z])/g, (_, strCase: string) => strCase.toUpperCase());
+export const toCamelCase = (str: string): string => str.replace(/_([a-z])/g, (_, char: string) => char.toUpperCase());
 
 const capitalize = (str: string): string => str.charAt(0).toUpperCase() + str.slice(1);
 const toPascalCase = (str: string): string => capitalize(toCamelCase(str));
