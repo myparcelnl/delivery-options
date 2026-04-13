@@ -27,9 +27,9 @@ export const useSharedCapabilities = (): UseCapabilities => {
        * Request includes only session-scoped inputs: recipient address and
        * packageType (fixed by the integrating platform from the cart).
        * User-selectable fields (deliveryType, options, carrier) are intentionally
-       * omitted — the backend returns the full option graph with `requires`/
-       * `excludes` rules per option, and the widget filters client-side to avoid
-       * a network round-trip on every selection change.
+       * omitted — the backend returns the full option graph with only the shipment
+       * options listed that are available, and the widget filters client-side to
+       * avoid a network round-trip on every selection change.
        */
       const requestRef = computed<CapabilitiesRequest>(() => {
         const request: CapabilitiesRequest = {
