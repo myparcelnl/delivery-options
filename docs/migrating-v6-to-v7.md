@@ -55,6 +55,13 @@ interface CapabilitiesRequest {
 }
 ```
 
+In practice the widget only populates `recipient` (from the current address) and
+`packageType` (when supplied by the integrating platform from the cart). All other
+fields — `deliveryType`, `options`, `carrier`, `sender`, etc. — are intentionally
+omitted: the response carries `requires`/`excludes` rules per option, and the
+widget filters client-side so it doesn't need to refetch on every user selection.
+Your proxy should forward whatever it receives unchanged.
+
 **Response shape** (return this directly to the widget):
 
 ```ts
