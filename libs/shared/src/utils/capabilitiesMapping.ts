@@ -20,12 +20,13 @@ export const normalizeCarrierName = (name: string): string => name.toLowerCase()
 // CarrierSettings (allow*/price*) are derived by naming convention — see helpers below.
 
 export const DELIVERY_TYPE_MAP: {
-  // eslint-disable-next-line @typescript-eslint/naming-convention
+  /* eslint-disable-next-line @typescript-eslint/naming-convention */
   readonly STANDARD_DELIVERY: 'standard';
   readonly MORNING_DELIVERY: 'morning';
   readonly EVENING_DELIVERY: 'evening';
   readonly EXPRESS_DELIVERY: 'express';
   readonly PICKUP_DELIVERY: 'pickup';
+  /* eslint-enable-next-line @typescript-eslint/naming-convention */
 } = {
   STANDARD_DELIVERY: 'standard',
   MORNING_DELIVERY: 'morning',
@@ -56,6 +57,7 @@ export const SHIPMENT_OPTION_MAP: {
 };
 
 export const PACKAGE_TYPE_MAP: {
+  /* eslint-disable-next-line @typescript-eslint/naming-convention */
   readonly PACKAGE: 'package';
   readonly MAILBOX: 'mailbox';
   readonly DIGITAL_STAMP: 'digital_stamp';
@@ -63,6 +65,7 @@ export const PACKAGE_TYPE_MAP: {
   readonly UNFRANKED: 'letter';
   readonly ENVELOPE: 'envelope';
   readonly PALLET: 'pallet';
+  /* eslint-enable-next-line @typescript-eslint/naming-convention */
 } = {
   PACKAGE: 'package',
   MAILBOX: 'mailbox',
