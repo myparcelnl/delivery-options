@@ -5,6 +5,7 @@ import {useSelectedDeliveryMoment} from './useSelectedDeliveryMoment';
 import {useResolvedDeliveryOptions} from './useResolvedDeliveryOptions';
 import {useResolvedCarrier} from './useResolvedCarrier';
 import {useFeatures} from './useFeatures';
+import {useShipmentOptionRules} from './useShipmentOptionRules';
 
 const TRANSLATION_MAP: Record<string, string> = Object.freeze(
   Object.fromEntries(Object.values(SHIPMENT_OPTION_MAP).map((sdk) => [sdk, `${toCamelCase(sdk)}Title`])),
@@ -15,6 +16,7 @@ export const useShipmentOptionsOptions = (): ComputedRef<SelectOption[]> => {
 
   const deliveryOptions = useResolvedDeliveryOptions();
   const deliveryMoment = useSelectedDeliveryMoment();
+  const {forcedOn, forcedOff} = useShipmentOptionRules();
 
   return computed(() => {
     if (deliveryOptions.loading.value || !deliveryMoment.value?.carrier) {
@@ -52,7 +54,7 @@ export const useShipmentOptionsOptions = (): ComputedRef<SelectOption[]> => {
         return {
           label: TRANSLATION_MAP[name] ?? name,
           value: name,
-          disabled: hasOnlyOneOption,
+          disabled: hasOnlyOneOption || forcedOn.value.has(name) || forcedOff.value.has(name),
           selected: hasOnlyOneOption ? match?.schema.enum[0] : false,
           price: getResolvedValue(priceKey, carrier.value?.identifier) ?? undefined,
         } satisfies SelectOption;

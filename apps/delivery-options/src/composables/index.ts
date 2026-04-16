@@ -19,5 +19,6 @@ export * from './useSelectedDeliveryMoment';
 export * from './useSelectedPickupLocation';
 export * from './useSelectedValues';
 export * from './useSharedCapabilities';
+export * from './useShipmentOptionRules';
 export * from './useShipmentOptionsOptions';
 export * from './useTimeRange';
