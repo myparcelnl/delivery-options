@@ -2,11 +2,8 @@ import {ref, computed, watch, toValue, type MaybeRefOrGetter, type Ref, type Com
 import {useLogger} from '../useLogger';
 import {EMPTY_RESPONSE} from '../useCapabilities';
 import {useApiExceptions} from '../useApiExceptions';
-import {type CapabilitiesRequest, type CapabilitiesResponse, type RequestHandler} from '../../types';
+import {type CapabilitiesRequest, type CapabilitiesResponse} from '../../types';
 import {NO_DELIVERY_OPTIONS_AVAILABLE} from '../../data';
-import {useRequest} from './useRequest';
-
-const REQUEST_KEY_CAPABILITIES = 'capabilities';
 
 const fetchCapabilities = async (
   proxyCapabilities: string,
@@ -36,23 +33,6 @@ const fetchCapabilities = async (
   }
 
   return response.json();
-};
-
-/**
- * Static (memoized) capabilities request — used by useCarrier in shared lib.
- */
-export const useCapabilitiesRequest = (
-  proxyCapabilities: string,
-  request: CapabilitiesRequest,
-  apiKey?: string,
-): RequestHandler<CapabilitiesResponse> => {
-  return useRequest(
-    [REQUEST_KEY_CAPABILITIES, request],
-    () => fetchCapabilities(proxyCapabilities, request, apiKey, undefined),
-    {
-      fallback: EMPTY_RESPONSE,
-    },
-  );
 };
 
 export interface ReactiveCapabilitiesRequest {
@@ -105,7 +85,8 @@ export const useReactiveCapabilitiesRequest = (
       lastResponseJson = '';
 
       const {exceptions} = useApiExceptions();
-      if (!exceptions.value.some((e) => e.code === 1)) {
+
+      if (!exceptions.value.some((parsedError) => parsedError.code === 1)) {
         exceptions.value.push({
           code: 1,
           label: NO_DELIVERY_OPTIONS_AVAILABLE,

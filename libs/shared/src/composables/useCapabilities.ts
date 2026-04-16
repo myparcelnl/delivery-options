@@ -1,8 +1,7 @@
-import {computed, ref, watch, type MaybeRefOrGetter, type Ref, type ComputedRef} from 'vue';
-import {useMemoize} from '@vueuse/core';
+import {computed, type MaybeRefOrGetter, type Ref, type ComputedRef} from 'vue';
 import {normalizeCarrierName} from '../utils';
 import {type CarrierCapability, type CapabilitiesRequest, type CapabilitiesResponse} from '../types';
-import {useCapabilitiesRequest, useReactiveCapabilitiesRequest} from './sdk';
+import {useReactiveCapabilitiesRequest} from './sdk';
 
 export interface UseCapabilities {
   capabilities: Ref<CapabilitiesResponse>;
@@ -12,65 +11,6 @@ export interface UseCapabilities {
 }
 
 export const EMPTY_RESPONSE: CapabilitiesResponse = {results: [] as CarrierCapability[]};
-
-const wrapCapabilities = (
-  capabilities: Ref<CapabilitiesResponse>,
-  loading: Ref<boolean> | ComputedRef<boolean>,
-): UseCapabilities => {
-  const getCarrierCapability = (carrierIdentifier: string): CarrierCapability | undefined => {
-    const normalized = normalizeCarrierName(carrierIdentifier);
-
-    return capabilities.value.results.find((cap) => normalizeCarrierName(cap.carrier) === normalized);
-  };
-
-  const availableCarrierNames = computed(() => {
-    return capabilities.value.results.map((cap) => normalizeCarrierName(cap.carrier));
-  });
-
-  return {
-    capabilities,
-    getCarrierCapability,
-    availableCarrierNames,
-    loading: computed(() => loading.value),
-  };
-};
-
-/**
- * Memoized capabilities composable — use when the request params are static
- * (e.g. inside useCarrier in the shared lib). For reactive params that change
- * over time (address, packageType), use useReactiveCapabilities instead.
- */
-export const useCapabilities = useMemoize(
-  (proxyCapabilities: string, countryCode: string, packageType?: string, apiKey?: string): UseCapabilities => {
-    const capabilities = ref<CapabilitiesResponse>(EMPTY_RESPONSE);
-    const loading = ref(true);
-
-    const request = useCapabilitiesRequest(
-      proxyCapabilities,
-      {
-        recipient: {countryCode},
-        ...(packageType ? {packageType} : {}),
-      },
-      apiKey,
-    );
-
-    watch(
-      () => request.data.value,
-      (data) => {
-        if (data) {
-          capabilities.value = data as CapabilitiesResponse;
-          loading.value = false;
-        }
-      },
-      {immediate: true},
-    );
-
-    return wrapCapabilities(
-      capabilities,
-      computed(() => loading.value),
-    );
-  },
-);
 
 /**
  * Reactive capabilities that re-fetch when the request ref changes.
@@ -83,5 +23,20 @@ export const useReactiveCapabilities = (
 ): UseCapabilities => {
   const {data, loading} = useReactiveCapabilitiesRequest(proxyCapabilities, requestRef, apiKey);
 
-  return wrapCapabilities(data, loading);
+  const getCarrierCapability = (carrierIdentifier: string): CarrierCapability | undefined => {
+    const normalized = normalizeCarrierName(carrierIdentifier);
+
+    return data.value.results.find((cap) => normalizeCarrierName(cap.carrier) === normalized);
+  };
+
+  const availableCarrierNames = computed(() => {
+    return data.value.results.map((cap) => normalizeCarrierName(cap.carrier));
+  });
+
+  return {
+    capabilities: data,
+    getCarrierCapability,
+    availableCarrierNames,
+    loading: computed(() => loading.value),
+  };
 };

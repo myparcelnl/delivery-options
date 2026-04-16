@@ -1,6 +1,6 @@
 import {type ExtraDelivery, type ResolvedMockDeliveryOptionsParameters} from '../../types';
 import {CarrierSetting, DAY_FRIDAY, DAY_MONDAY, DAY_SATURDAY} from '../../../data';
-import {type UseCarrier} from '../../../composables';
+import {type UseCarrier} from './useCarrier';
 
 /**
  * Settings for extra delivery days.

@@ -1,8 +1,10 @@
+import {ref} from 'vue';
 import {addDays} from 'date-fns';
 import {type DeliveryOption} from '@myparcel-dev/sdk';
 import {type ResolvedMockDeliveryOptionsParameters} from '../../types';
 import {CarrierSetting} from '../../../data';
-import {useCarrier, useCapabilities} from '../../../composables';
+import {useReactiveCapabilities} from '../../../composables';
+import {useCarrier} from './useCarrier';
 import {shouldSkipToNextDeliveryDate} from './shouldSkipToNextDeliveryDate';
 import {findExtraDelivery} from './findExtraDelivery';
 import {getDeliveryOptionsEntry} from './entries/getDeliveryOptionsEntry';
@@ -23,7 +25,10 @@ export const getNextDeliveryOption = async (
 ): Promise<FakeDeliveryOption> => {
   const currentDeliveryDate = addDays(new Date(currentDate), daysOffset);
 
-  const capabilities = useCapabilities('https://proxy.example.com/capabilities', 'NL');
+  const capabilities = useReactiveCapabilities(
+    'https://proxy.example.com/capabilities',
+    ref({recipient: {countryCode: 'NL'}}),
+  );
   const carrierInstance = useCarrier({
     carrierIdentifier: args.carrier,
     capabilities,

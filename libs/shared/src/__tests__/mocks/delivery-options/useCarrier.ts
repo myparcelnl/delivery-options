@@ -9,7 +9,7 @@ import {
   mapCapabilityPackageType,
   mapCapabilityOption,
   getCapabilityDeliveryTypes,
-} from '../utils';
+} from '../../../utils';
 import {
   type CarrierIdentifier,
   type SupportedPackageTypeName,
@@ -18,10 +18,10 @@ import {
   type CarrierWithIdentifier,
   type ConfigKey,
   type CarrierCapability,
-} from '../types';
-import {useLogger} from './useLogger.ts';
-import {type UseCapabilities} from './useCapabilities';
-import {useCarrierFromCache} from './sdk';
+} from '../../../types';
+import {useLogger} from '../../../composables/useLogger';
+import {type UseCapabilities} from '../../../composables/useCapabilities';
+import {useCarrierFromCache} from '../../../composables/sdk';
 
 interface UseCarrierOptions {
   carrierIdentifier: MaybeRef<CarrierIdentifier | undefined>;
@@ -40,7 +40,9 @@ export interface UseCarrier {
 /**
  * Resolves carrier metadata and capabilities for a given carrier identifier.
  * The caller is responsible for providing a shared capabilities instance
- * (e.g. from useCapabilities), avoiding duplicate capability fetches.
+ * (e.g. from useReactiveCapabilities), avoiding duplicate capability fetches.
+ *
+ * Test-only utility — not part of the public shared lib API.
  */
 // eslint-disable-next-line max-lines-per-function
 export const useCarrier = (options: UseCarrierOptions): UseCarrier => {
@@ -48,7 +50,7 @@ export const useCarrier = (options: UseCarrierOptions): UseCarrier => {
     const identifier = toValue(options.carrierIdentifier);
 
     if (!identifier) {
-      return undefined;
+      throw new Error('useCarrier requires a carrier identifier');
     }
 
     return resolveCarrierName(identifier);
@@ -56,28 +58,22 @@ export const useCarrier = (options: UseCarrierOptions): UseCarrier => {
 
   const apiCarrier = computedAsync(
     async () => {
-      if (!carrierName.value) return undefined;
-
       const apiCarrier = await waitForRequestData(useCarrierFromCache, [carrierName.value]);
 
       if (!apiCarrier) {
-        throw new Error();
+        throw new Error(`Carrier "${carrierName.value}" not found`);
       }
 
-      return {...apiCarrier, name: carrierName.value, identifier: toValue(options.carrierIdentifier)};
+      return {...apiCarrier, name: carrierName.value, identifier: toValue(options.carrierIdentifier)!};
     },
     {
       name: carrierName.value,
-      identifier: toValue(options.carrierIdentifier),
+      identifier: toValue(options.carrierIdentifier)!,
     } as CarrierWithIdentifier,
     {immediate: true},
   );
 
   const capability = computed(() => {
-    if (!carrierName.value) {
-      return undefined;
-    }
-
     return options.capabilities.getCarrierCapability(carrierName.value);
   });
 
@@ -136,7 +132,6 @@ export const useCarrier = (options: UseCarrierOptions): UseCarrier => {
   });
 
   return {
-    // @ts-expect-error todo
     carrier: apiCarrier,
     capability,
     deliveryTypes,
