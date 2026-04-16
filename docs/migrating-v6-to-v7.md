@@ -134,7 +134,7 @@ config: {
 
 | Field                                    | Notes                                                             |
 | ---------------------------------------- | ----------------------------------------------------------------- |
-| `allowDeliveryOptions` (carrier setting) | Removed — use capabilities response to control available carriers |
+| `allowDeliveryOptions` (carrier setting) | Removed — to disable a carrier, either avoid loading the widget altogether or set all its `allow*` delivery type settings to `false` |
 | `showDeliveryDate`                       | Removed                                                           |
 
 ### Changed fields

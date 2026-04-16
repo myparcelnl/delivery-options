@@ -23,6 +23,11 @@ export const useShipmentOptionsOptions = (): ComputedRef<SelectOption[]> => {
 
     const {carrier, shipmentOptions} = useResolvedCarrier(deliveryMoment.value.carrier);
 
+    // Per-delivery-type option availability is determined by the GetDeliveryOptions API
+    // response, which returns shipment options per delivery moment (date + time + type).
+    // The capabilities request intentionally omits deliveryType to avoid refetching on
+    // every selection change — capabilities provides the superset, and this filter narrows
+    // it to what the delivery options API confirms is valid for the selected moment.
     const momentShipmentOptions = toValue(deliveryMoment)?.shipmentOptions;
 
     return availableShipmentOptions.value

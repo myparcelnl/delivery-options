@@ -1,4 +1,4 @@
-// @TODO generate capability types automatically
+// @TODO INT-1266: replace with generated types from JS-SDK CoreAPI client
 export interface CapabilityOption {
   requires: string[];
   excludes: string[];
