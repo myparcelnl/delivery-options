@@ -19,11 +19,13 @@ export const useShipmentOptionsOptions = (): ComputedRef<SelectOption[]> => {
   const {forcedOn, forcedOff} = useShipmentOptionRules();
 
   return computed(() => {
-    if (deliveryOptions.loading.value || !deliveryMoment.value?.carrier) {
+    const carrierId = deliveryMoment.value?.carrier;
+
+    if (deliveryOptions.loading.value || !carrierId) {
       return [];
     }
 
-    const {carrier, shipmentOptions} = useResolvedCarrier(deliveryMoment.value.carrier);
+    const {carrier, shipmentOptions} = useResolvedCarrier(carrierId);
 
     // Per-delivery-type option availability is determined by the GetDeliveryOptions API
     // response, which returns shipment options per delivery moment (date + time + type).

@@ -27,12 +27,6 @@ export type UseResolvedCarrier = {
   get(key: ConfigKey | CarrierSettingsKey, defaultValue?: any): any;
 };
 
-export const useResolvedCarrier = (carrierIdentifier: MaybeRef<CarrierIdentifier | undefined>): UseResolvedCarrier => {
-  const resolved = toValue(carrierIdentifier);
-
-  if (!resolved) {
-    throw new Error('useResolvedCarrier: carrierIdentifier is required');
-  }
-
-  return getResolvedCarrier(resolved);
+export const useResolvedCarrier = (carrierIdentifier: MaybeRef<CarrierIdentifier>): UseResolvedCarrier => {
+  return getResolvedCarrier(toValue(carrierIdentifier));
 };
