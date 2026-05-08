@@ -39,16 +39,16 @@ describe('allParentsHave', () => {
     },
     {
       it: 'returns true if all parents are enabled',
-      parents: [CarrierSetting.AllowDeliveryOptions],
-      configuration: {[CarrierSetting.AllowDeliveryOptions]: true},
+      parents: [CarrierSetting.AllowStandardDelivery],
+      configuration: {[CarrierSetting.AllowStandardDelivery]: true},
       prefix: 'config',
       result: true,
     },
     {
       it: 'returns false if one of the parents is disabled',
-      parents: [CarrierSetting.AllowDeliveryOptions, CarrierSetting.AllowPickupLocations],
+      parents: [CarrierSetting.AllowStandardDelivery, CarrierSetting.AllowPickupLocations],
       configuration: {
-        [CarrierSetting.AllowDeliveryOptions]: true,
+        [CarrierSetting.AllowStandardDelivery]: true,
         [CarrierSetting.AllowPickupLocations]: false,
       },
       prefix: 'config',
@@ -56,9 +56,9 @@ describe('allParentsHave', () => {
     },
     {
       it: 'works with prefixes',
-      parents: [CarrierSetting.AllowDeliveryOptions],
+      parents: [CarrierSetting.AllowStandardDelivery],
       configuration: {
-        some_long_prefix: {[CarrierSetting.AllowDeliveryOptions]: true},
+        some_long_prefix: {[CarrierSetting.AllowStandardDelivery]: true},
       },
       prefix: 'config.some_long_prefix',
       result: true,

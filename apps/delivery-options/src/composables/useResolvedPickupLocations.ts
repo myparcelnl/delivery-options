@@ -1,4 +1,4 @@
-import {ref, toValue, onUnmounted, computed, type ComputedRef} from 'vue';
+import {ref, toValue, onUnmounted, computed, type ComputedRef, type Ref, type MaybeRefOrGetter} from 'vue';
 import {useMemoize, watchImmediate} from '@vueuse/core';
 import {type PickupLocation} from '@myparcel-dev/sdk';
 import {
@@ -11,8 +11,6 @@ import {
   addLoadingProperties,
   watchUntil,
 } from '@myparcel-dev/do-shared';
-import {DeliveryTypeName} from '@myparcel-dev/constants';
-import {getHasPickupForPackage} from '../utils/getHasPickupForPackage';
 import {createLatLngParameters, createGetDeliveryOptionsParameters} from '../utils';
 import {type ResolvedPickupLocation, type LatLng} from '../types';
 import {useConfigStore} from '../stores';
@@ -77,37 +75,21 @@ const loadPickupLocations = async (carrier: UseResolvedCarrier, latLng?: LatLng)
 
   const locations = toValue(query.data) ?? [];
 
-  if (!latLng && !locations.length) {
-    // Delete the pickup delivery type if there are no pickup locations to hide pickup after a failed request
-    carrier.disabledDeliveryTypes.value.add(DeliveryTypeName.Pickup);
+  if (!locations.length) {
     return [];
   }
 
   return locations.map((location) => formatPickupLocation(carrier, location as PickupLocation));
 };
 
-// eslint-disable-next-line max-lines-per-function
-const callback = (): UseResolvedPickupLocations => {
-  const carriers = useActiveCarriers();
-  const latLng = ref<LatLng>(undefined);
-
-  const allLocations = ref<ResolvedPickupLocation[]>([]);
-  const {state: config} = useConfigStore();
-
-  const carriersWithPickup = computed(() =>
-    toValue(carriers).filter((carrier) => getHasPickupForPackage(carrier, config.packageType)),
-  );
-
-  const currentLocations = computedAsync<ResolvedPickupLocation[]>(async () => {
+const buildCurrentLocations = (
+  carriersWithPickup: ComputedRef<UseResolvedCarrier[]>,
+  latLng: Ref<LatLng>,
+  allowLoadMore: MaybeRefOrGetter<boolean | undefined>,
+): ComputedAsync<ResolvedPickupLocation[]> =>
+  computedAsync<ResolvedPickupLocation[]>(async () => {
     const requests = toValue(carriersWithPickup)
-      // When using latLng, only load more locations for carriers that allow it
-      .filter((carrier) => {
-        if (!toValue(latLng)) {
-          return true;
-        }
-
-        return toValue(carrier.features).has(ConfigSetting.PickupMapAllowLoadMore);
-      })
+      .filter(() => !toValue(latLng) || toValue(allowLoadMore) !== false)
       .map((carrier) => loadPickupLocations(carrier, latLng.value));
 
     const foundLocations = await Promise.all(requests);
@@ -115,16 +97,37 @@ const callback = (): UseResolvedPickupLocations => {
     return foundLocations.flat(1);
   }, []);
 
-  /**
-   * Add new locations to the list of all locations.
-   */
-  const unwatchLocations = watchImmediate(currentLocations, (newLocations) => {
-    const duplicatesFiltered = allLocations.value.filter((location) => {
-      return !newLocations.some((newLocation) => location.locationCode === newLocation.locationCode);
-    });
+const accumulateLocations = (
+  allLocations: Ref<ResolvedPickupLocation[]>,
+  currentLocations: ComputedAsync<ResolvedPickupLocation[]>,
+) =>
+  watchImmediate(currentLocations, (newLocations) => {
+    const duplicatesFiltered = allLocations.value.filter(
+      (location) => !newLocations.some((newLocation) => location.locationCode === newLocation.locationCode),
+    );
 
     allLocations.value = [...duplicatesFiltered, ...newLocations];
   });
+
+const callback = (): UseResolvedPickupLocations => {
+  const latLng = ref<LatLng>(undefined);
+
+  const allLocations = ref<ResolvedPickupLocation[]>([]);
+  const {state: config} = useConfigStore();
+
+  const activeCarriers = useActiveCarriers();
+
+  const carriersWithPickup = computed((): UseResolvedCarrier[] => {
+    return activeCarriers.value.filter((carrier) => toValue(carrier.hasPickup));
+  });
+
+  const currentLocations = buildCurrentLocations(
+    carriersWithPickup,
+    latLng,
+    () => config[ConfigSetting.PickupMapAllowLoadMore],
+  );
+
+  const unwatchLocations = accumulateLocations(allLocations, currentLocations);
 
   const locations = addLoadingProperties(
     computed(() => {

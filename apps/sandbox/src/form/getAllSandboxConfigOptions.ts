@@ -7,41 +7,36 @@ export type SandboxConfigOption = ConfigOption & {
 
 const extended = Object.freeze([
   /* Delivery */
-  {key: CarrierSetting.AllowDeliveryOptions},
-
-  {key: CarrierSetting.AllowStandardDelivery, parents: [CarrierSetting.AllowDeliveryOptions]},
+  {key: CarrierSetting.AllowStandardDelivery},
   {key: CarrierSetting.PriceStandardDelivery, parents: [CarrierSetting.AllowStandardDelivery]},
 
-  {key: CarrierSetting.AllowSameDayDelivery, parents: [CarrierSetting.AllowDeliveryOptions]},
+  {key: CarrierSetting.AllowSameDayDelivery},
   {key: CarrierSetting.PriceSameDayDelivery, parents: [CarrierSetting.AllowSameDayDelivery]},
 
-  {key: CarrierSetting.AllowExpressDelivery, parents: [CarrierSetting.AllowDeliveryOptions]},
+  {key: CarrierSetting.AllowExpressDelivery},
   {key: CarrierSetting.PriceExpressDelivery, parents: [CarrierSetting.AllowExpressDelivery]},
 
-  {key: CarrierSetting.AllowMorningDelivery, parents: [CarrierSetting.AllowDeliveryOptions]},
+  {key: CarrierSetting.AllowMorningDelivery},
   {key: CarrierSetting.PriceMorningDelivery, parents: [CarrierSetting.AllowMorningDelivery]},
 
-  {key: CarrierSetting.AllowEveningDelivery, parents: [CarrierSetting.AllowDeliveryOptions]},
+  {key: CarrierSetting.AllowEveningDelivery},
   {key: CarrierSetting.PriceEveningDelivery, parents: [CarrierSetting.AllowEveningDelivery]},
 
-  {key: CarrierSetting.AllowMondayDelivery, parents: [CarrierSetting.AllowDeliveryOptions]},
+  {key: CarrierSetting.AllowMondayDelivery},
   {key: CarrierSetting.PriceMondayDelivery, parents: [CarrierSetting.AllowMondayDelivery]},
 
-  {key: CarrierSetting.AllowMondayDelivery, parents: [CarrierSetting.AllowDeliveryOptions]},
-  {key: CarrierSetting.PriceMondayDelivery, parents: [CarrierSetting.AllowMondayDelivery]},
-
-  {key: CarrierSetting.AllowSaturdayDelivery, parents: [CarrierSetting.AllowDeliveryOptions]},
+  {key: CarrierSetting.AllowSaturdayDelivery},
   {key: CarrierSetting.PriceSaturdayDelivery, parents: [CarrierSetting.AllowSaturdayDelivery]},
 
-  {key: CarrierSetting.AllowSignature, parents: [CarrierSetting.AllowDeliveryOptions]},
+  {key: CarrierSetting.AllowSignature},
   {key: CarrierSetting.PriceSignature, parents: [CarrierSetting.AllowSignature]},
 
-  {key: CarrierSetting.AllowOnlyRecipient, parents: [CarrierSetting.AllowDeliveryOptions]},
+  {key: CarrierSetting.AllowOnlyRecipient},
   {key: CarrierSetting.PriceOnlyRecipient, parents: [CarrierSetting.AllowOnlyRecipient]},
 
-  {key: CarrierSetting.PricePackageTypeMailbox, parents: [CarrierSetting.AllowDeliveryOptions]},
-  {key: CarrierSetting.PricePackageTypeDigitalStamp, parents: [CarrierSetting.AllowDeliveryOptions]},
-  {key: CarrierSetting.PricePackageTypePackageSmall, parents: [CarrierSetting.AllowDeliveryOptions]},
+  {key: CarrierSetting.PricePackageTypeMailbox, parents: []},
+  {key: CarrierSetting.PricePackageTypeDigitalStamp, parents: []},
+  {key: CarrierSetting.PricePackageTypePackageSmall, parents: []},
 
   /* Pickup */
   {key: CarrierSetting.PricePickup, parents: [CarrierSetting.AllowPickupLocations]},

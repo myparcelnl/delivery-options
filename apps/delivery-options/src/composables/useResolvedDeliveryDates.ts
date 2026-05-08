@@ -18,6 +18,7 @@ export const useResolvedDeliveryDates = useMemoize((): ComputedRef<ResolvedDeliv
     return deliveryOptions.value
       .filter((option) => option.packageType === config.packageType)
       .reduce((acc, option) => {
+        // eslint-disable-next-line max-nested-callbacks
         if (option.date && !acc.some((item) => item.date === option.date)) {
           acc.push(option as ResolvedDeliveryOptions);
         }

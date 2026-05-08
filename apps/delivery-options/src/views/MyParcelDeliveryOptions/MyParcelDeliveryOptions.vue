@@ -22,7 +22,7 @@ import {useEventListener} from '@vueuse/core';
 import {useLogger, useApiExceptions} from '@myparcel-dev/do-shared';
 import {getConfigFromWindow} from '../../utils';
 import {type DeliveryOptionsEmits, type DeliveryOptionsProps} from '../../types';
-import {useAddressStore, useConfigStore} from '../../stores';
+import {useAddressStore} from '../../stores';
 import {HIDE_DELIVERY_OPTIONS, SHOW_DELIVERY_OPTIONS} from '../../data';
 import {setConfiguration} from '../../config';
 import {
@@ -39,14 +39,13 @@ const emit = defineEmits<DeliveryOptionsEmits>();
 const propRefs = toRefs(props);
 
 const logger = useLogger();
-const {state: config} = useConfigStore();
 const {state: address} = useAddressStore();
 
 const wrapper = ref<HTMLFormElement>();
 
 const {hasExceptions} = useApiExceptions();
 
-const ready = computed(() => Boolean(config.platform && address.cc));
+const ready = computed(() => Boolean(address.cc));
 
 const show = ref(true);
 

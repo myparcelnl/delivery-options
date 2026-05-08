@@ -34,7 +34,6 @@ export const createTestConfiguration = (): InputDeliveryOptionsConfiguration => 
   return {
     ...getMockDeliveryOptionsConfiguration(),
     [KEY_CONFIG]: {
-      [CarrierSetting.AllowDeliveryOptions]: true,
       [CarrierSetting.AllowEveningDelivery]: true,
       [CarrierSetting.AllowMondayDelivery]: true,
       [CarrierSetting.AllowMorningDelivery]: true,

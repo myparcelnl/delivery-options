@@ -1,7 +1,8 @@
 import {computed, type ComputedRef} from 'vue';
 import {isDef} from '@vueuse/core';
 import {
-  ConfigSetting,
+  SHIPMENT_OPTION_MAP,
+  toCamelCase,
   type DeliveryOutput,
   type PickupOutput,
   type SupportedDeliveryTypeName,
@@ -9,8 +10,8 @@ import {
   getConfigKey,
   type CarrierIdentifier,
 } from '@myparcel-dev/do-shared';
-import {DeliveryTypeName, ShipmentOptionName} from '@myparcel-dev/constants';
 import {NETHERLANDS} from '@myparcel-dev/constants/countries';
+import {DeliveryTypeName, ShipmentOptionName} from '@myparcel-dev/constants';
 import {useSelectedValues} from '../useSelectedValues';
 import {useSelectedPickupLocation} from '../useSelectedPickupLocation';
 import {useResolvedDeliveryOptions} from '../useResolvedDeliveryOptions';
@@ -25,11 +26,9 @@ const DELIVERY_DELIVERY_TYPES = Object.freeze([
   DeliveryTypeName.Standard,
 ] satisfies SupportedDeliveryTypeName[]);
 
-const SHIPMENT_OPTION_OUTPUT_MAP = Object.freeze({
-  [ShipmentOptionName.Signature]: 'signature',
-  [ShipmentOptionName.OnlyRecipient]: 'onlyRecipient',
-  [ShipmentOptionName.PriorityDelivery]: 'priorityDelivery',
-} as Record<SupportedShipmentOptionName, keyof DeliveryOutput['shipmentOptions']>);
+const SHIPMENT_OPTION_OUTPUT_MAP = Object.freeze(
+  Object.fromEntries(Object.values(SHIPMENT_OPTION_MAP).map((sdk) => [sdk, toCamelCase(sdk)])),
+) as Record<SupportedShipmentOptionName, keyof DeliveryOutput['shipmentOptions']>;
 
 /**
  * Given an array of sipmentOptions, create an object with only the shipmentOptions that are enabled for the carrier.
@@ -90,7 +89,6 @@ export const useResolvedValues = (): ComputedRef<PickupOutput | DeliveryOutput |
     }
 
     const parsedMoment = parseJson<SelectedDeliveryMomentDelivery>(selectedValues[FIELD_DELIVERY_MOMENT].value);
-    const showDeliveryDate = getResolvedValue(ConfigSetting.ShowDeliveryDate, undefined, true);
     const shipmentOptions = selectedValues[FIELD_SHIPMENT_OPTIONS].value ?? [];
 
     const deliveryType = DELIVERY_DELIVERY_TYPES.includes(parsedMoment.deliveryType)
@@ -99,7 +97,7 @@ export const useResolvedValues = (): ComputedRef<PickupOutput | DeliveryOutput |
 
     return {
       carrier: parsedMoment.carrier,
-      date: showDeliveryDate ? parsedMoment?.date : undefined,
+      date: parsedMoment?.date,
       deliveryType,
       isPickup: false,
       packageType: parsedMoment.packageType,

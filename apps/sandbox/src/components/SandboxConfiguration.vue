@@ -1,6 +1,6 @@
 <template>
-  <div class="mp-grid mp-gap-4 mp-mb-4">
-    <SandboxPlatformBox />
+  <div class="mp-gap-4 mp-grid mp-mb-4">
+    <SandboxApiKeyBox />
 
     <SandboxAddressBox />
 
@@ -14,10 +14,10 @@
 
 <script lang="ts" setup>
 import {useLanguage} from '../composables';
-import SandboxPlatformBox from './SandboxPlatformBox.vue';
 import SandboxPackageTypeBox from './SandboxPackageTypeBox.vue';
 import SandboxFeaturesBox from './SandboxFeaturesBox.vue';
 import SandboxCarrierConfigBox from './SandboxCarrierConfigBox.vue';
+import SandboxApiKeyBox from './SandboxApiKeyBox.vue';
 import SandboxAddressBox from './SandboxAddressBox.vue';
 
 await useLanguage().load();

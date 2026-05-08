@@ -1,7 +1,7 @@
 import {afterEach, beforeEach, describe, expect, it, type MockInstance, vi} from 'vitest';
 import {createPinia} from 'pinia';
 import {render, type RenderOptions, type RenderResult} from '@testing-library/vue';
-import {CarrierSetting, KEY_CARRIER_SETTINGS, KEY_CONFIG} from '@myparcel-dev/do-shared';
+import {KEY_CARRIER_SETTINGS, KEY_CONFIG} from '@myparcel-dev/do-shared';
 import {CarrierName} from '@myparcel-dev/constants';
 import {getMockDeliveryOptionsConfiguration} from '../../__tests__';
 import MyParcelDeliveryOptions from './MyParcelDeliveryOptions.vue';
@@ -20,9 +20,9 @@ describe('MyParcelDeliveryOptions.vue', () => {
   let errorSpy: MockInstance;
 
   beforeEach(() => {
-    errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
-    vi.spyOn(console, 'warn').mockImplementation(() => {});
-    vi.spyOn(console, 'log').mockImplementation(() => {});
+    errorSpy = vi.spyOn(console, 'error').mockImplementation(() => undefined);
+    vi.spyOn(console, 'warn').mockImplementation(() => undefined);
+    vi.spyOn(console, 'log').mockImplementation(() => undefined);
   });
 
   afterEach(() => {
@@ -40,9 +40,7 @@ describe('MyParcelDeliveryOptions.vue', () => {
     const config = getMockDeliveryOptionsConfiguration({
       [KEY_CONFIG]: {
         [KEY_CARRIER_SETTINGS]: {
-          [CarrierName.PostNl]: {
-            [CarrierSetting.AllowDeliveryOptions]: true,
-          },
+          [CarrierName.PostNl]: {},
         },
       },
     });

@@ -1,9 +1,7 @@
 export * from './events';
 export * from './useActiveCarriers';
 export * from './useBreakpoints';
-export * from './useCurrentPlatform';
 export * from './useDateFormat';
-export * from './useFakeShipmentOptions';
 export * from './useFeatures';
 export * from './useFormatDistance';
 export * from './useLanguage';
@@ -20,5 +18,7 @@ export * from './useResolvedPickupLocations';
 export * from './useSelectedDeliveryMoment';
 export * from './useSelectedPickupLocation';
 export * from './useSelectedValues';
+export * from './useSharedCapabilities';
+export * from './useShipmentOptionRules';
 export * from './useShipmentOptionsOptions';
 export * from './useTimeRange';

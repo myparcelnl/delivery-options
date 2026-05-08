@@ -7,6 +7,8 @@ export const CITY = 'city';
 
 export const POSTAL_CODE = 'postalCode';
 
+export const NO_DELIVERY_OPTIONS_AVAILABLE = 'noDeliveryOptionsAvailable';
+
 export const NUMBER = 'number';
 
 export const STREET = 'street';
@@ -77,6 +79,7 @@ export const ALL_STRINGS = [
   ECO_FRIENDLY,
   FROM,
   HEADER_DELIVERY_OPTIONS,
+  NO_DELIVERY_OPTIONS_AVAILABLE,
   NUMBER,
   ONLY_RECIPIENT_TITLE,
   OPENING_HOURS,

@@ -1,55 +1,50 @@
 import {computed, type ComputedRef, toValue} from 'vue';
-import {
-  ONLY_RECIPIENT_TITLE,
-  PRIORITY_DELIVERY_TITLE,
-  type SelectOption,
-  SIGNATURE_TITLE,
-} from '@myparcel-dev/do-shared';
-import {ShipmentOptionName} from '@myparcel-dev/constants';
+import {SHIPMENT_OPTION_MAP, toCamelCase, type SelectOption} from '@myparcel-dev/do-shared';
 import {getConfigPriceKey, getResolvedValue} from '../utils';
 import {useSelectedDeliveryMoment} from './useSelectedDeliveryMoment';
 import {useResolvedDeliveryOptions} from './useResolvedDeliveryOptions';
 import {useResolvedCarrier} from './useResolvedCarrier';
 import {useFeatures} from './useFeatures';
+import {useShipmentOptionRules} from './useShipmentOptionRules';
 
-const TRANSLATION_MAP = Object.freeze({
-  [ShipmentOptionName.Signature]: SIGNATURE_TITLE,
-  [ShipmentOptionName.OnlyRecipient]: ONLY_RECIPIENT_TITLE,
-  [ShipmentOptionName.PriorityDelivery]: PRIORITY_DELIVERY_TITLE,
-} as const);
+const TRANSLATION_MAP: Record<string, string> = Object.freeze(
+  Object.fromEntries(Object.values(SHIPMENT_OPTION_MAP).map((sdk) => [sdk, `${toCamelCase(sdk)}Title`])),
+);
 
 export const useShipmentOptionsOptions = (): ComputedRef<SelectOption[]> => {
   const {availableShipmentOptions} = useFeatures();
 
   const deliveryOptions = useResolvedDeliveryOptions();
   const deliveryMoment = useSelectedDeliveryMoment();
+  const {forcedOn, forcedOff} = useShipmentOptionRules();
 
   return computed(() => {
-    const {carrier, shipmentOptionsPerPackageType} = useResolvedCarrier(deliveryMoment.value?.carrier);
+    const carrierId = deliveryMoment.value?.carrier;
 
-    if (deliveryOptions.loading.value || !carrier.value) {
+    if (deliveryOptions.loading.value || !carrierId) {
       return [];
     }
 
+    const {carrier, shipmentOptions} = useResolvedCarrier(carrierId);
+
+    // Per-delivery-type option availability is determined by the GetDeliveryOptions API
+    // response, which returns shipment options per delivery moment (date + time + type).
+    // The capabilities request intentionally omits deliveryType to avoid refetching on
+    // every selection change — capabilities provides the superset, and this filter narrows
+    // it to what the delivery options API confirms is valid for the selected moment.
     const momentShipmentOptions = toValue(deliveryMoment)?.shipmentOptions;
 
     return availableShipmentOptions.value
       .filter((option) => {
-        // TODO: create test coverage for this logic
-        const selectedPackageType = toValue(deliveryMoment)?.packageType;
-        const optionsForPackageType = selectedPackageType
-          ? toValue(shipmentOptionsPerPackageType)[selectedPackageType]
-          : undefined;
+        const carrierShipmentOptions = toValue(shipmentOptions);
 
-        // If there are no delivery moments (eg. fake delivery), show all available options for the package type
+        // If there are no delivery moments, show all available options from capabilities
         if (!momentShipmentOptions?.length) {
-          return optionsForPackageType ? optionsForPackageType.has(option) : false;
+          return carrierShipmentOptions.has(option);
         }
 
-        // Otherwise, only show options that are available for the package type AND in the delivery moments in the API response
-        return optionsForPackageType
-          ? optionsForPackageType.has(option) && momentShipmentOptions?.some(({name}) => name === option)
-          : false;
+        // Otherwise, only show options that are in capabilities AND in the API response
+        return carrierShipmentOptions.has(option) && momentShipmentOptions?.some(({name}) => name === option);
       })
       .map((name) => {
         const match = momentShipmentOptions?.find((option) => option.name === name);
@@ -59,10 +54,9 @@ export const useShipmentOptionsOptions = (): ComputedRef<SelectOption[]> => {
         const priceKey = getConfigPriceKey(name);
 
         return {
-          // @ts-expect-error todo: fix this error
-          label: TRANSLATION_MAP[name],
+          label: TRANSLATION_MAP[name] ?? name,
           value: name,
-          disabled: hasOnlyOneOption,
+          disabled: hasOnlyOneOption || forcedOn.value.has(name) || forcedOff.value.has(name),
           selected: hasOnlyOneOption ? match?.schema.enum[0] : false,
           price: getResolvedValue(priceKey, carrier.value?.identifier) ?? undefined,
         } satisfies SelectOption;
