@@ -4,10 +4,7 @@ import {useSelectedValues} from './useSelectedValues';
 import {useResolvedDeliveryOptions} from './useResolvedDeliveryOptions';
 
 /**
- * Composable to filters the resolved delivery options based on the selected delivery date.
- *
- * As a workaround, it also returns all options without a date (most likely "fake" options),
- *  as there is no place for this in the UI if there are other options *with* dates.
+ * Composable that filters the resolved delivery options based on the selected delivery date.
  *
  * @returns ComputedRef of ResolvedDeliveryOptions[]
  */

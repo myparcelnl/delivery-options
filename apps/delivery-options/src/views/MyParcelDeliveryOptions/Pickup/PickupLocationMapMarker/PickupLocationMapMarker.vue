@@ -20,9 +20,7 @@ const propRefs = toRefs(props);
 
 const {pickupLocation} = usePickupLocation(propRefs.locationCode, propRefs.carrierIdentifier);
 
-const carrierName = computed(() => pickupLocation.value?.carrier);
-
-const resolvedCarrier = useResolvedCarrier(carrierName).carrier.value;
+const resolvedCarrier = useResolvedCarrier(propRefs.carrierIdentifier).carrier.value;
 
 const center = computed(() => {
   if (!isDef(pickupLocation.value)) {

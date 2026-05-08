@@ -22,9 +22,9 @@ describe('MyParcelDeliveryOptions.vue', () => {
   let errorSpy: MockInstance;
 
   beforeEach(() => {
-    errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
-    vi.spyOn(console, 'warn').mockImplementation(() => {});
-    vi.spyOn(console, 'log').mockImplementation(() => {});
+    errorSpy = vi.spyOn(console, 'error').mockImplementation(() => undefined);
+    vi.spyOn(console, 'warn').mockImplementation(() => undefined);
+    vi.spyOn(console, 'log').mockImplementation(() => undefined);
   });
 
   afterEach(() => {
@@ -42,9 +42,7 @@ describe('MyParcelDeliveryOptions.vue', () => {
     const config = getMockDeliveryOptionsConfiguration({
       [KEY_CONFIG]: {
         [KEY_CARRIER_SETTINGS]: {
-          [CarrierName.PostNl]: {
-            [CarrierSetting.AllowDeliveryOptions]: true,
-          },
+          [CarrierName.PostNl]: {},
         },
       },
     });

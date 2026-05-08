@@ -13,7 +13,7 @@ export const getDefaultSandboxConfig = (): InputDeliveryOptionsConfig => {
   const defaults = getDefaultDeliveryOptionsConfig();
 
   return assign<InputDeliveryOptionsConfig>(defaults, {
-    [CarrierSetting.DropOffDelay]: 1,
+    [CarrierSetting.DropOffDelay]: 0,
     [CarrierSetting.DeliveryDaysWindow]: 7,
     [CarrierSetting.DropOffDays]: [
       {

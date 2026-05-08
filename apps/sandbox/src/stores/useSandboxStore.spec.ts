@@ -3,11 +3,9 @@ import {createPinia, setActivePinia} from 'pinia';
 import {ref} from 'vue';
 import {
   CarrierSetting,
-  ConfigSetting,
   KEY_ADDRESS,
   KEY_CARRIER_SETTINGS,
   KEY_CONFIG,
-  KEY_PLATFORM_CONFIG,
   KEY_STRINGS,
 } from '@myparcel-dev/do-shared';
 import {useSandboxStore} from './useSandboxStore';
@@ -43,7 +41,7 @@ describe('useSandboxStore', () => {
     store.carrierSettings = {
       postnl: {
         [CarrierSetting.DeliveryDaysWindow]: 0,
-        [CarrierSetting.AllowDeliveryOptions]: true,
+        [CarrierSetting.AllowStandardDelivery]: true,
       },
     };
 
@@ -53,17 +51,16 @@ describe('useSandboxStore', () => {
 
     expect(resolvedConfig[CarrierSetting.DeliveryDaysWindow]).toBe(3);
     expect(resolvedCarrierSettings.postnl[CarrierSetting.DeliveryDaysWindow]).toBeUndefined();
-    expect(resolvedCarrierSettings.postnl[CarrierSetting.AllowDeliveryOptions]).toBe(true);
+    expect(resolvedCarrierSettings.postnl[CarrierSetting.AllowStandardDelivery]).toBe(true);
   });
 
   it('updates state from updateConfiguration input', () => {
     const store = useSandboxStore();
     const configuration = {
       [KEY_CONFIG]: {
-        [ConfigSetting.Platform]: 'myparcel',
         [KEY_CARRIER_SETTINGS]: {
           postnl: {
-            [CarrierSetting.AllowDeliveryOptions]: true,
+            [CarrierSetting.AllowStandardDelivery]: true,
           },
         },
       },
@@ -74,19 +71,15 @@ describe('useSandboxStore', () => {
         street: 'Antareslaan 31',
       },
       [KEY_STRINGS]: {foo: 'bar'},
-      [KEY_PLATFORM_CONFIG]: {carriers: []},
     };
 
     store.updateConfiguration(configuration);
 
-    expect(store.platform).toBe('myparcel');
-    expect(store.config[ConfigSetting.Platform]).toBe('myparcel');
     expect(store.carrierSettings).toEqual({
       postnl: {
-        [CarrierSetting.AllowDeliveryOptions]: true,
+        [CarrierSetting.AllowStandardDelivery]: true,
       },
     });
     expect(store.address).toEqual(configuration[KEY_ADDRESS]);
-    expect(store.platformConfig).toEqual(configuration[KEY_PLATFORM_CONFIG]);
   });
 });

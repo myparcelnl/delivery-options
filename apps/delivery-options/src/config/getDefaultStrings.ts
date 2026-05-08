@@ -1,5 +1,6 @@
 import {
   ADDRESS_NOT_FOUND,
+  CC,
   CITY,
   CLOSED,
   COMPACT_BACK_TO_OVERVIEW,
@@ -7,6 +8,7 @@ import {
   COMPACT_PICKUP,
   DELIVERY_TITLE,
   DISCOUNT,
+  ECO_FRIENDLY,
   ERROR_3212,
   ERROR_3224,
   ERROR_3501,
@@ -15,16 +17,19 @@ import {
   ERROR_3728,
   FROM,
   HEADER_DELIVERY_OPTIONS,
+  NO_DELIVERY_OPTIONS_AVAILABLE,
   NUMBER,
   ONLY_RECIPIENT_TITLE,
   OPENING_HOURS,
   OPTIONS,
+  PARCEL_LOCKER,
   PICK_UP,
   PICK_UP_FROM,
   PICKUP_LOCATIONS_LIST_BUTTON,
   PICKUP_LOCATIONS_MAP_BUTTON,
   PICKUP_TITLE,
   POSTAL_CODE,
+  PRIORITY_DELIVERY_TITLE,
   SHOW_MORE_HOURS,
   SHOW_MORE_LOCATIONS,
   SIGNATURE_TITLE,
@@ -38,6 +43,7 @@ import {
  */
 export const getDefaultStrings = (): Record<string, string> => ({
   // Address strings
+  [CC]: 'Land',
   [CITY]: 'Plaats',
   [POSTAL_CODE]: 'Postcode',
   [NUMBER]: 'Huisnummer',
@@ -63,10 +69,15 @@ export const getDefaultStrings = (): Record<string, string> => ({
 
   // Title of options
   [DELIVERY_TITLE]: 'Thuis of op het werk bezorgen',
+  deliveryStandardTitle: 'Standaard bezorging',
+  [ECO_FRIENDLY]: 'Meest milieuvriendelijk',
+  [NO_DELIVERY_OPTIONS_AVAILABLE]: 'Geen bezorgopties beschikbaar',
   [ONLY_RECIPIENT_TITLE]: 'Alleen ontvanger',
+  [PARCEL_LOCKER]: 'Pakketautomaat',
   [PICK_UP]: 'Afhalen',
   [PICK_UP_FROM]: 'Afhalen vanaf',
   [PICKUP_TITLE]: 'Afhalen op locatie',
+  [PRIORITY_DELIVERY_TITLE]: 'Prioriteit bezorging',
   [SIGNATURE_TITLE]: 'Handtekening voor ontvangst',
 
   // Opening hours

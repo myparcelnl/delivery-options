@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts" setup>
-import {type TextInputEmits, type TextInputProps} from '../types';
+import {type TextInputProps} from '../types';
 
 // eslint-disable-next-line vue/no-unused-properties
 const props = defineProps<TextInputProps>();

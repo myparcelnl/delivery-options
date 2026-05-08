@@ -1,0 +1,142 @@
+import {type MaybeRef, computed, toValue, type ComputedRef} from 'vue';
+import {
+  resolveCarrierName,
+  waitForRequestData,
+  getConfigKey,
+  getPackageTypePriceKey,
+  type ComputedAsync,
+  computedAsync,
+  mapCapabilityPackageType,
+  mapCapabilityOption,
+  getCapabilityDeliveryTypes,
+} from '../../../utils';
+import {
+  type CarrierIdentifier,
+  type SupportedPackageTypeName,
+  type SupportedDeliveryTypeName,
+  type SupportedShipmentOptionName,
+  type CarrierWithIdentifier,
+  type ConfigKey,
+  type CarrierCapability,
+} from '../../../types';
+import {useLogger} from '../../../composables/useLogger';
+import {type UseCapabilities} from '../../../composables/useCapabilities';
+import {useCarrierFromCache} from '../../../composables/sdk';
+
+interface UseCarrierOptions {
+  carrierIdentifier: MaybeRef<CarrierIdentifier | undefined>;
+  capabilities: UseCapabilities;
+}
+
+export interface UseCarrier {
+  carrier: ComputedAsync<CarrierWithIdentifier>;
+  capability: ComputedRef<CarrierCapability | undefined>;
+  deliveryTypes: ComputedRef<Set<SupportedDeliveryTypeName>>;
+  features: ComputedRef<Set<string>>;
+  packageTypes: ComputedRef<Set<SupportedPackageTypeName>>;
+  shipmentOptions: ComputedRef<Set<SupportedShipmentOptionName>>;
+}
+
+/**
+ * Resolves carrier metadata and capabilities for a given carrier identifier.
+ * The caller is responsible for providing a shared capabilities instance
+ * (e.g. from useReactiveCapabilities), avoiding duplicate capability fetches.
+ *
+ * Test-only utility — not part of the public shared lib API.
+ */
+// eslint-disable-next-line max-lines-per-function
+export const useCarrier = (options: UseCarrierOptions): UseCarrier => {
+  const carrierName = computed(() => {
+    const identifier = toValue(options.carrierIdentifier);
+
+    if (!identifier) {
+      throw new Error('useCarrier requires a carrier identifier');
+    }
+
+    return resolveCarrierName(identifier);
+  });
+
+  const apiCarrier = computedAsync(
+    async () => {
+      const apiCarrier = await waitForRequestData(useCarrierFromCache, [carrierName.value]);
+
+      if (!apiCarrier) {
+        throw new Error(`Carrier "${carrierName.value}" not found`);
+      }
+
+      return {...apiCarrier, name: carrierName.value, identifier: toValue(options.carrierIdentifier)!};
+    },
+    {
+      name: carrierName.value,
+      identifier: toValue(options.carrierIdentifier)!,
+    } as CarrierWithIdentifier,
+    {immediate: true},
+  );
+
+  const capability = computed(() => {
+    return options.capabilities.getCarrierCapability(carrierName.value);
+  });
+
+  const deliveryTypes = computed(() => {
+    const cap = capability.value;
+
+    if (!cap) {
+      return new Set<SupportedDeliveryTypeName>();
+    }
+
+    return new Set(getCapabilityDeliveryTypes(cap));
+  });
+
+  const packageTypes = computed(() => {
+    const cap = capability.value;
+
+    if (!cap) {
+      return new Set<SupportedPackageTypeName>();
+    }
+
+    const mapped = cap.packageTypes
+      .map(mapCapabilityPackageType)
+      .filter((pt): pt is SupportedPackageTypeName => pt !== undefined);
+
+    return new Set(mapped);
+  });
+
+  const shipmentOptions = computed(() => {
+    const cap = capability.value;
+
+    if (!cap) {
+      return new Set<SupportedShipmentOptionName>();
+    }
+
+    const mapped = Object.keys(cap.options)
+      .map(mapCapabilityOption)
+      .filter((opt): opt is SupportedShipmentOptionName => opt !== undefined);
+
+    return new Set(mapped);
+  });
+
+  const features = computed(() => {
+    const getConfigKeyWithoutError = (option: string): ConfigKey | null => {
+      try {
+        return getConfigKey(option as SupportedDeliveryTypeName | SupportedShipmentOptionName);
+      } catch {
+        useLogger().warning(`Unknown option "${option}" for carrier "${carrierName.value}"`);
+        return null;
+      }
+    };
+
+    return new Set([
+      ...[...packageTypes.value].map(getPackageTypePriceKey),
+      ...[...deliveryTypes.value, ...shipmentOptions.value].map(getConfigKeyWithoutError).filter((key) => key !== null),
+    ]);
+  });
+
+  return {
+    carrier: apiCarrier,
+    capability,
+    deliveryTypes,
+    packageTypes,
+    shipmentOptions,
+    features,
+  };
+};

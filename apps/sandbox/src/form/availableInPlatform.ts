@@ -1,80 +1,35 @@
-import {toValue} from 'vue';
-import {useMemoize, isDefined} from '@vueuse/core';
-import {isEnumValue} from '@myparcel-dev/ts-utils';
-import {
-  type ConfigKey,
-  useLogger,
-  CarrierSetting,
-  KEY_CARRIER_SETTINGS,
-  useCarrier,
-  resolveCarrierName,
-  type CarrierIdentifier,
-  type SupportedPlatformName,
-  usePlatform,
-} from '@myparcel-dev/do-shared';
-import {CarrierName} from '@myparcel-dev/constants';
-
-const ALWAYS_ENABLED_FIELDS: readonly string[] = Object.freeze([CarrierSetting.AllowDeliveryOptions]);
-
-const isValidCarrier = (carrierIdentifier?: CarrierIdentifier): carrierIdentifier is CarrierIdentifier => {
-  return isDefined(carrierIdentifier) && isEnumValue(resolveCarrierName(carrierIdentifier), CarrierName);
-};
+import {type CarrierSetting, mapCarrierSettingToCapabilityKey} from '@myparcel-dev/do-shared';
+import {useSandboxCapabilities} from '../composables';
 
 /**
- * Given a carrier, platform and field, returns whether the feature is enabled for that carrier.
- *
- * @param carrierIdentifier
- * @param platformName
- * @param field
- * @returns
+ * Check if a given carrier setting is supported by the carrier's capabilities.
+ * Settings without a capability mapping (e.g. prices, dropoff config) are always shown.
  */
-const featureIsEnabled = (
-  carrierIdentifier: CarrierIdentifier,
-  platformName: SupportedPlatformName,
-  field: ConfigKey,
-): boolean => {
-  const {features} = useCarrier({carrierIdentifier, platformName});
+export const availableInCarrier = (fieldPath: string): boolean => {
+  const parts = fieldPath.split('.');
+  const carrierName = parts[0];
+  const settingKey = parts[1] as CarrierSetting;
 
-  if (!toValue(features)?.size) {
-    return false;
-  }
-
-  return toValue(features).has(field);
-};
-
-/**
- * Check if a given field is enabled by name for the carrier in the specified platform.
- * When a child field is given (dot notation in field name), the root-level field is checked.
- *
- * @param fieldPath the full nested path of the field in the config (e.g. postnl.allowFeatureX.priceFeatureX)
- */
-export const availableInCarrier = useMemoize((fieldPath: string, platformName: SupportedPlatformName): boolean => {
-  const logger = useLogger();
-
-  const split = fieldPath?.split('.');
-  const baseField = split?.pop() as ConfigKey;
-
-  if (!baseField) {
-    if (import.meta.env.DEV) logger.warning('Could not determine base field from', fieldPath);
-
-    return false;
-  }
-
-  if (ALWAYS_ENABLED_FIELDS.includes(baseField)) {
+  if (!carrierName) {
     return true;
   }
 
-  const carrierIdentifier = split?.[split.indexOf(KEY_CARRIER_SETTINGS) + 1] as CarrierIdentifier | undefined;
+  const capMapping = mapCarrierSettingToCapabilityKey(settingKey);
 
-  if (!isValidCarrier(carrierIdentifier)) {
+  if (!capMapping) {
     return true;
   }
 
-  const {hasCarrier} = usePlatform(platformName);
+  const {getCarrierCapability} = useSandboxCapabilities();
+  const cap = getCarrierCapability(carrierName);
 
-  if (!hasCarrier(carrierIdentifier)) {
-    return false;
+  if (!cap) {
+    return true;
   }
 
-  return featureIsEnabled(carrierIdentifier, platformName, baseField);
-});
+  if (capMapping.type === 'deliveryType') {
+    return cap.deliveryTypes.includes(capMapping.name);
+  }
+
+  return capMapping.name in cap.options;
+};

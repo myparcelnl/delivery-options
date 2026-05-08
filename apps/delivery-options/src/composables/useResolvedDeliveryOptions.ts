@@ -1,13 +1,10 @@
-import {toValue, type ComputedRef} from 'vue';
+import {toValue, watch, type ComputedRef} from 'vue';
 import {pascal} from 'radash';
 import {startOfDay} from 'date-fns';
 import {useMemoize} from '@vueuse/core';
-import {type Replace} from '@myparcel-dev/ts-utils';
-import {type Timestamp, type DeliveryOption, type DeliveryPossibility, type DeliveryTimeFrame} from '@myparcel-dev/sdk';
 import {
   useDeliveryOptionsRequest,
   computedAsync,
-  DELIVERY_TYPE_DEFAULT,
   type AnyTranslatable,
   createUntranslatable,
   type ComputedAsync,
@@ -18,49 +15,17 @@ import {
 } from '@myparcel-dev/do-shared';
 import {createGetDeliveryOptionsParameters, getResolvedDeliveryType, calculateCutoffTime} from '../utils';
 import {type SelectedDeliveryMoment} from '../types';
-import {DELIVERY_MOMENT_PACKAGE_TYPES} from '../data';
 import {useTimeRange} from './useTimeRange';
+import {useSharedCapabilities} from './useSharedCapabilities';
 import {useSelectedValues} from './useSelectedValues';
 import {type UseResolvedCarrier} from './useResolvedCarrier';
-import {createFakeShipmentOptions} from './useFakeShipmentOptions';
 import {useActiveCarriers} from './useActiveCarriers';
-
-type FakeDeliveryDates = Replace<
-  Replace<DeliveryOption, 'possibilities', Replace<DeliveryPossibility, 'delivery_time_frames', DeliveryTimeFrame[]>[]>,
-  'date',
-  Timestamp | undefined
->;
 
 type DeliveryOptionsApiData = ReturnType<typeof useDeliveryOptionsRequest>['data']['value'];
 
-/**
- * Create "fake" (undefined) delivery dates and shipment options for each delivery type
- * @returns
- */
-const createFakeDeliveryDates = (carrier: UseResolvedCarrier): FakeDeliveryDates[] => {
-  // Create fake delivery dates for each package type which may have time frames, if configured for the carrier
-  return DELIVERY_MOMENT_PACKAGE_TYPES.reduce((acc, packageType) => {
-    if (toValue(carrier.config)?.packageTypes.includes(packageType)) {
-      acc.push({
-        date: undefined,
-        possibilities: [
-          {
-            type: DELIVERY_TYPE_DEFAULT,
-            package_type: packageType,
-            delivery_time_frames: [],
-            shipment_options: createFakeShipmentOptions(carrier, packageType),
-          },
-        ],
-      });
-    }
-
-    return acc;
-  }, [] as FakeDeliveryDates[]);
-};
-
 type DeliveryDatesPerCarrier = {
   carrier: UseResolvedCarrier;
-  dates: FakeDeliveryDates[] | NonNullable<DeliveryOptionsApiData>;
+  dates: NonNullable<DeliveryOptionsApiData>;
 } | null;
 
 type UseResolvedDeliveryOptions = ComputedAsync<SelectedDeliveryMoment[]>;
@@ -70,28 +35,18 @@ const getDeliveryOptionsFromApi = async (
 ): Promise<DeliveryDatesPerCarrier[]> => {
   return Promise.all(
     toValue(carriers)
-      .filter((carrier) => toValue(carrier.hasAnyDelivery))
+      .filter((carrier) => toValue(carrier.hasDelivery))
       .map(async (carrier) => {
         const deliveryDaysWindow = carrier.get(CarrierSetting.DeliveryDaysWindow, DELIVERY_DAYS_WINDOW_DEFAULT);
 
         if (!toValue(carrier.hasDelivery) || deliveryDaysWindow === 0) {
-          return Promise.resolve({
-            carrier,
-            dates: createFakeDeliveryDates(carrier),
-          });
+          return null;
         }
 
         const params = createGetDeliveryOptionsParameters(carrier);
         const query = useDeliveryOptionsRequest(params);
 
-        try {
-          await query.load();
-        } catch (e) {
-          console.error('Error loading delivery options:', e);
-          // If loading fails, return null so it can be filtered out
-
-          return null;
-        }
+        await query.load();
 
         const closedDays = getClosedDaysWindow(carrier.get(ConfigSetting.ClosedDays));
 
@@ -103,9 +58,13 @@ const getDeliveryOptionsFromApi = async (
           dates = filterClosedDays(dates, closedDays, dropOffDelay, cutoffTime);
         }
 
+        if (!dates?.length) {
+          return null;
+        }
+
         return {
           carrier,
-          dates: dates?.length ? dates : createFakeDeliveryDates(carrier),
+          dates,
         };
       }),
   );
@@ -159,6 +118,7 @@ const getClosedDaysWindow = (closedDays: Date[] | undefined): Date[] => {
  * @param cutoffDate - The cutoff time for same-day orders (affects effective order date)
  * @returns true if the delivery date should be filtered out (made unavailable)
  */
+// eslint-disable-next-line max-lines-per-function
 const shouldFilterDeliveryDate = (
   deliveryDate: Date,
   closedDays: Date[],
@@ -175,7 +135,7 @@ const shouldFilterDeliveryDate = (
   });
 
   // Sort closed days to identify consecutive sequences
-  const sortedClosedDays = [...normalizedClosedDays].sort((a, b) => a.getTime() - b.getTime());
+  const sortedClosedDays = [...normalizedClosedDays].sort((dayA, dayB) => dayA.getTime() - dayB.getTime());
 
   // Check if the delivery date is a closed day
   const isClosedDay = sortedClosedDays.some((closedDay) => closedDay.getTime() === deliveryDate.getTime());
@@ -189,12 +149,13 @@ const shouldFilterDeliveryDate = (
 
     if (!isDayBeforeClosed) {
       // This is the first closed day in a sequence, apply the original processing time logic
-      const requiredDaysBefore = dropOffDelay || 0;
+      const requiredDaysBefore = dropOffDelay ?? 0;
 
       const now = new Date();
       const isOrderBeforeCutoff = now <= cutoffDate;
 
-      const effectiveOrderDate = isOrderBeforeCutoff ? today : new Date(today.getTime() + 24 * 60 * 60 * 1000);
+      const MS_PER_DAY = 24 * 60 * 60 * 1000; // eslint-disable-line @typescript-eslint/no-magic-numbers
+      const effectiveOrderDate = isOrderBeforeCutoff ? today : new Date(today.getTime() + MS_PER_DAY);
 
       const dayBeforeDropOffDelay = new Date(effectiveOrderDate);
       dayBeforeDropOffDelay.setDate(effectiveOrderDate.getDate() + requiredDaysBefore);
@@ -214,7 +175,7 @@ const shouldFilterDeliveryDate = (
   // Check if delivery date is the day after any closed day or within the dropOffDelay period
   const shouldFilter = sortedClosedDays.some((closedDay) => {
     // Calculate additional days to filter after the closed day
-    const additionalDays = dropOffDelay || 0;
+    const additionalDays = dropOffDelay ?? 0;
     const lastDayToFilter = new Date(closedDay);
     lastDayToFilter.setDate(closedDay.getDate() + 1 + additionalDays);
 
@@ -250,12 +211,13 @@ const filterClosedDays = (
     return null;
   }
 
-  const [hours, minutes] = cutoffTime.split(':').map(Number);
+  const [hours = 0, minutes = 0] = cutoffTime.split(':').map(Number);
   const cutoffDate = new Date();
   cutoffDate.setHours(hours, minutes);
 
   const filteredDates = deliveryOptionsApiData.filter((data) => {
-    const deliveryDate = startOfDay(new Date(data.date.date)); // Normalize to start of day
+    // Normalize to start of day
+    const deliveryDate = startOfDay(new Date(data.date.date));
 
     // Check if this delivery date should be filtered out
     return !shouldFilterDeliveryDate(deliveryDate, closedDays, dropOffDelay, cutoffDate);
@@ -268,7 +230,7 @@ const filterClosedDays = (
  * Remove any date records which are completely empty (null or undefined) and
  *  ensures any selected values are cleared if no dates are available.
  *
- * @param dates
+ * @param datesPerCarrier
  * @returns
  */
 const removeEmptyEntries = (datesPerCarrier: DeliveryDatesPerCarrier[]): NonNullable<DeliveryDatesPerCarrier>[] => {
@@ -297,8 +259,8 @@ const formatDatesAsDeliveryMoments = (
        * Sort the possibilities by start date.
        */
       const possibilities = [...dateOption.possibilities].sort((optionA, optionB) => {
-        const startA = optionA.delivery_time_frames[0]?.date_time.date;
-        const startB = optionB.delivery_time_frames[0]?.date_time.date;
+        const startA = optionA.delivery_time_frames[0]?.date_time.date ?? '';
+        const startB = optionB.delivery_time_frames[0]?.date_time.date ?? '';
 
         return startA.localeCompare(startB);
       });
@@ -316,7 +278,7 @@ const formatDatesAsDeliveryMoments = (
             : createTranslatable(`delivery${pascal(datePossibility.type)}Title`);
 
         const deliveryType = getResolvedDeliveryType(
-          carrier.config.value?.deliveryTypes ?? [],
+          [...carrier.deliveryTypes.value],
           dateOption.date?.date,
           datePossibility.type,
         );
@@ -344,26 +306,46 @@ const formatDatesAsDeliveryMoments = (
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const callback = (): UseResolvedDeliveryOptions => {
   const carriers = useActiveCarriers();
+  const capabilities = useSharedCapabilities();
 
-  return computedAsync<SelectedDeliveryMoment[]>(
-    async () => {
-      const datesPerCarrier = await getDeliveryOptionsFromApi(carriers);
+  return computedAsync<SelectedDeliveryMoment[]>(async () => {
+    /*
+     * Guard: wait for capabilities to finish loading before fetching delivery options.
+     *
+     * When the address changes, the capabilities API re-fetches asynchronously.
+     * During that fetch, capabilities.value still holds data from the PREVIOUS address.
+     * useActiveCarriers (which depends on capabilities) would compute with stale
+     * carrier data + the new address, producing wrong carrier combinations.
+     *
+     * API calls with wrong carriers fail (e.g. "street is required") and add exceptions
+     * that persist even after correct carriers load and their API calls succeed.
+     *
+     * By awaiting here, we keep the delivery options in their loading state (preserving
+     * the previous value in the UI) until capabilities are current, then proceed with
+     * correct carrier data.
+     */
+    if (capabilities.loading.value) {
+      await new Promise<void>((resolve) => {
+        const unwatch = watch(
+          () => capabilities.loading.value,
+          (isLoading) => {
+            if (!isLoading) {
+              unwatch();
+              resolve();
+            }
+          },
+        );
+      });
+    }
 
-      // Filter out any nulls (failed requests)
-      const filteredDates = removeEmptyEntries(datesPerCarrier);
+    const datesPerCarrier = await getDeliveryOptionsFromApi(carriers);
 
-      // Flatten the dates into SelectedDeliveryMoment objects.
-      return formatDatesAsDeliveryMoments(filteredDates);
-    },
-    [],
-    {
-      // eslint-disable-next-line id-length
-      onError: (e) => {
-        // eslint-disable-next-line no-console
-        console.error(e);
-      },
-    },
-  );
+    // Filter out any nulls (failed requests)
+    const filteredDates = removeEmptyEntries(datesPerCarrier);
+
+    // Flatten the dates into SelectedDeliveryMoment objects.
+    return formatDatesAsDeliveryMoments(filteredDates);
+  }, []);
 };
 
 export const useResolvedDeliveryOptions = useMemoize(callback);

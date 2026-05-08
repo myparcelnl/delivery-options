@@ -8,7 +8,14 @@ import {
 } from './settingsConsts';
 import {getDefaultCarrierSettings} from './getDefaultCarrierSettings';
 import {CarrierSetting, ConfigSetting, PickupLocationsView} from './enums';
-import {DAY_MONDAY, DAY_TUESDAY, DAY_WEDNESDAY, DAY_THURSDAY, DAY_FRIDAY} from './constants';
+import {
+  DAY_MONDAY,
+  DAY_TUESDAY,
+  DAY_WEDNESDAY,
+  DAY_THURSDAY,
+  DAY_FRIDAY,
+  SHIPMENT_OPTION_ALLOW_DEFAULTS,
+} from './constants';
 import {KEY_CARRIER_SETTINGS} from './config';
 
 const DEFAULT_DROP_OFF_DAYS = [DAY_MONDAY, DAY_TUESDAY, DAY_WEDNESDAY, DAY_THURSDAY, DAY_FRIDAY] as const;
@@ -23,6 +30,7 @@ export const getDefaultDeliveryOptionsConfig = (): ResolvedDeliveryOptionsConfig
     [ConfigSetting.Locale]: lang.language.value,
     [ConfigSetting.Currency]: 'EUR',
     [ConfigSetting.ApiBaseUrl]: 'https://api.myparcel.nl',
+    [ConfigSetting.ProxyCapabilities]: '',
 
     [ConfigSetting.ShowPrices]: true,
     [ConfigSetting.ShowPriceSurcharge]: false,
@@ -37,14 +45,12 @@ export const getDefaultDeliveryOptionsConfig = (): ResolvedDeliveryOptionsConfig
     [CarrierSetting.DropOffDelay]: DROP_OFF_DELAY_DEFAULT,
 
     // Delivery
-    [CarrierSetting.AllowDeliveryOptions]: true,
     [CarrierSetting.AllowStandardDelivery]: true,
     [CarrierSetting.AllowEveningDelivery]: true,
     [CarrierSetting.AllowMorningDelivery]: true,
     [CarrierSetting.AllowMondayDelivery]: true,
     [CarrierSetting.AllowSameDayDelivery]: true,
-    [CarrierSetting.AllowOnlyRecipient]: true,
-    [CarrierSetting.AllowSignature]: true,
+    ...SHIPMENT_OPTION_ALLOW_DEFAULTS,
 
     // Pickup
     [CarrierSetting.AllowPickupLocations]: true,
@@ -65,6 +71,7 @@ export const getDefaultDeliveryOptionsConfig = (): ResolvedDeliveryOptionsConfig
       // eslint-disable-next-line max-len,vue/max-len
       attribution:
         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Tiles style by <a href="https://www.hotosm.org/" target="_blank">Humanitarian OpenStreetMap Team</a> hosted by <a href="https://openstreetmap.fr/" target="_blank">OpenStreetMap France</a>',
+      // eslint-disable-next-line @typescript-eslint/no-magic-numbers
       maxZoom: 19,
     }),
 

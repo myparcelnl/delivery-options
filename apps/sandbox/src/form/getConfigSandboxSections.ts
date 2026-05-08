@@ -5,7 +5,7 @@ import {resolveSandboxSection} from './resolveSandboxSection';
 const CONFIG_GROUPS = Object.freeze([
   {
     name: OptionGroup.Delivery,
-    items: [CarrierSetting.AllowDeliveryOptions],
+    items: [],
     children: [
       {
         name: OptionGroup.DeliveryMoments,

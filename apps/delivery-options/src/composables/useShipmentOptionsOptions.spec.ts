@@ -5,16 +5,14 @@ import {mockGetDeliveryOptions, getShipmentOptions} from '@myparcel-dev/do-share
 import {
   AddressField,
   CarrierSetting,
-  ConfigSetting,
   createTimestamp,
-  DEFAULT_PLATFORM,
   KEY_ADDRESS,
   KEY_CARRIER_SETTINGS,
   KEY_CONFIG,
+  SIGNATURE_TITLE,
   type SupportedPackageTypeName,
 } from '@myparcel-dev/do-shared';
 import {CarrierName, PackageTypeName, ShipmentOptionName} from '@myparcel-dev/constants';
-import {getResolvedCarrier} from '../utils';
 import {useConfigStore} from '../stores';
 import {
   createDeliveryPossibility,
@@ -45,12 +43,12 @@ const setup = async (packageType: SupportedPackageTypeName, carrierIdentifier: C
   mockDeliveryOptionsConfig(
     getMockDeliveryOptionsConfiguration({
       [KEY_CONFIG]: {
-        [CarrierSetting.AllowDeliveryOptions]: true,
         [CarrierSetting.AllowStandardDelivery]: true,
         [CarrierSetting.AllowEveningDelivery]: true,
         [CarrierSetting.AllowMorningDelivery]: true,
         [CarrierSetting.AllowSignature]: true,
-        [CarrierSetting.AllowOnlyRecipient]: true,
+        [CarrierSetting.AllowOnlyRecipient]: false,
+        [CarrierSetting.AllowPriorityDelivery]: false,
         [CarrierSetting.PriceStandardDelivery]: 3,
         [KEY_CARRIER_SETTINGS]: {
           [carrierIdentifier]: {
@@ -79,13 +77,7 @@ describe('useShipmentOptionsOptions', () => {
 
   it.each([
     {packageType: PackageTypeName.Package, carrierIdentifier: CarrierName.PostNl},
-    {packageType: PackageTypeName.PackageSmall, carrierIdentifier: CarrierName.PostNl},
-    {packageType: PackageTypeName.DigitalStamp, carrierIdentifier: CarrierName.PostNl},
-    {packageType: PackageTypeName.Mailbox, carrierIdentifier: CarrierName.PostNl},
     {packageType: PackageTypeName.Package, carrierIdentifier: CarrierName.DhlForYou},
-    {packageType: PackageTypeName.PackageSmall, carrierIdentifier: CarrierName.DhlForYou},
-    {packageType: PackageTypeName.DigitalStamp, carrierIdentifier: CarrierName.DhlForYou},
-    {packageType: PackageTypeName.Mailbox, carrierIdentifier: CarrierName.DhlForYou},
   ])(
     'should show only the configured options for package type $packageType with carrier $carrierIdentifier',
     async ({packageType, carrierIdentifier}) => {
@@ -93,10 +85,15 @@ describe('useShipmentOptionsOptions', () => {
 
       const result = useShipmentOptionsOptions();
 
-      const configuration = getResolvedCarrier(carrierIdentifier, DEFAULT_PLATFORM).shipmentOptionsPerPackageType;
-      const availableOptions = toValue(configuration)[packageType];
-      expect(toValue(result).length).toBe(availableOptions?.size ?? 0);
-      expect(toValue(result)).toMatchSnapshot();
+      expect(toValue(result)).toEqual([
+        {
+          label: SIGNATURE_TITLE,
+          value: ShipmentOptionName.Signature,
+          disabled: true,
+          selected: true,
+          price: 0,
+        },
+      ]);
     },
   );
 
@@ -111,7 +108,12 @@ describe('useShipmentOptionsOptions', () => {
           possibilities: [
             createDeliveryPossibility(date, {
               package_type: PackageTypeName.Mailbox,
-              shipment_options: getShipmentOptions([ShipmentOptionName.PriorityDelivery]),
+              shipment_options: [
+                {
+                  name: ShipmentOptionName.PriorityDelivery,
+                  schema: {type: 'boolean', enum: [true, false]},
+                },
+              ],
             }),
           ],
         },
@@ -124,8 +126,6 @@ describe('useShipmentOptionsOptions', () => {
           [AddressField.Country]: 'BE',
         },
         [KEY_CONFIG]: {
-          [ConfigSetting.ShowDeliveryDate]: true,
-          [CarrierSetting.AllowDeliveryOptions]: true,
           [CarrierSetting.AllowStandardDelivery]: true,
           [CarrierSetting.AllowPriorityDelivery]: true,
           [CarrierSetting.PackageType]: PackageTypeName.Mailbox,

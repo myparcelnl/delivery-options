@@ -1127,7 +1127,6 @@ __metadata:
     "@myparcel-dev/constants": "npm:^2.9.0"
     "@myparcel-dev/do-build-vite": "workspace:*"
     "@myparcel-dev/do-semantic-release-plugin": "workspace:*"
-    "@myparcel-dev/do-shared": "workspace:*"
     "@myparcel-dev/sdk": "npm:^5.0.0"
     "@myparcel-dev/ts-utils": "npm:^1.15.0"
     "@pinia/testing": "npm:^0.1.3"

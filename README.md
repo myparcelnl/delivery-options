@@ -7,7 +7,7 @@
 
 ## Introduction
 
-This is the MyParcel delivery options module for use in any e-commerce platform's checkout, by [MyParcel] and [SendMyParcel] customers. It's used to show your customers the possible delivery and/or pickup options for their location, based on your settings.
+This is the MyParcel delivery options module for use in any e-commerce platform's checkout, by [MyParcel] and [SendMyParcel] customers. It's used to show your customers the possible delivery and/or pickup options for their location, based on your settings. The widget fetches available carriers and options at runtime via a backend proxy URL (`proxyCapabilities`) that you provide in the configuration.
 
 ## Documentation
 
@@ -23,7 +23,7 @@ See the [GitHub releases page] or [CHANGELOG.md].
 
 ## Upgrading
 
-See [Upgrading].
+See [Upgrading] or the [migration guide] in this repository.
 
 [CHANGELOG.md]: ./apps/delivery-options/CHANGELOG.md
 [Github releases page]: https://github.com/myparcelnl/delivery-options/releases
@@ -31,4 +31,5 @@ See [Upgrading].
 [SendMyParcel]: https://sendmyparcel.be
 [documentation]: https://developer.myparcel.nl/documentation/60.delivery-options.html
 [Upgrading]: https://developer.myparcel.nl/documentation/60.delivery-options.html#upgrading
+[migration guide]: ./docs/migrating-v6-to-v7.md
 [sandbox]: https://myparcelnl.github.io/delivery-options/

@@ -1,15 +1,4 @@
-export enum DeprecatedCarrierSetting {
-  /** @deprecated use ShowDeliveryDate instead */
-  AllowShowDeliveryDate = 'allowShowDeliveryDate',
-
-  /** @deprecated use DropOffDays instead */
-  FridayCutoffTime = 'fridayCutoffTime',
-  /** @deprecated use DropOffDays instead */
-  SaturdayCutoffTime = 'saturdayCutoffTime',
-}
-
 export enum CarrierSetting {
-  AllowDeliveryOptions = 'allowDeliveryOptions',
   AllowEveningDelivery = 'allowEveningDelivery',
   AllowMondayDelivery = 'allowMondayDelivery',
   AllowMorningDelivery = 'allowMorningDelivery',
@@ -46,6 +35,8 @@ export enum CarrierSetting {
 
 export enum ConfigSetting {
   ApiBaseUrl = 'apiBaseUrl',
+  ProxyCapabilities = 'proxyCapabilities',
+  ApiKey = 'apiKey',
   Currency = 'currency',
   Locale = 'locale',
   PickupLocationsDefaultView = 'pickupLocationsDefaultView',
@@ -54,8 +45,6 @@ export enum ConfigSetting {
   PickupMapAllowLoadMore = 'pickupMapAllowLoadMore',
   PickupShowDistance = 'pickupShowDistance',
   Platform = 'platform',
-  /** @deprecated show delivery date is always enabled */
-  ShowDeliveryDate = 'showDeliveryDate',
   ShowPriceSurcharge = 'showPriceSurcharge',
   ShowPrices = 'showPrices',
   ShowPriceZeroAsFree = 'showPriceZeroAsFree',
@@ -97,12 +86,6 @@ export enum OptionType {
   Time = 'time',
   Select = 'select',
   MultiSelect = 'multiSelect',
-}
-
-export enum SubscriptionType {
-  Required = 1,
-  Never = 0,
-  Optional = -1,
 }
 
 export enum RelatedConfigOptionType {

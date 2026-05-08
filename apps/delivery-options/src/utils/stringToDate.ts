@@ -43,5 +43,7 @@ export const stringToDate = (date: string): Date => {
    *
    * @example new Date(2019, 9, 15, 8, 0, 0)
    */
-  return new Date(parseInt(dateArr[0]), parseInt(dateArr[1]), parseInt(dateArr[2]), hours, minutes, seconds);
+  const [year, month, day] = dateArr.map(Number);
+
+  return new Date(year, month, day, hours, minutes, seconds);
 };

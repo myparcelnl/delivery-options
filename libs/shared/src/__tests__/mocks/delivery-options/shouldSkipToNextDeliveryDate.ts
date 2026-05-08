@@ -1,14 +1,10 @@
 import {getDay, isSameDay} from 'date-fns';
-import {PlatformName} from '@myparcel-dev/constants';
 import {type ExtraDelivery, type ResolvedMockDeliveryOptionsParameters} from '../../types';
 import {isPastTime} from '../../../utils';
-import {DAY_MONDAY, DAY_SATURDAY, DAY_SUNDAY} from '../../../data';
+import {DAY_MONDAY, DAY_SUNDAY} from '../../../data';
 import {getDropOffDay} from './getDropOffDay';
 
-const daysWithoutDelivery = {
-  [PlatformName.MyParcel]: [DAY_MONDAY, DAY_SUNDAY],
-  [PlatformName.SendMyParcel]: [DAY_SATURDAY, DAY_SUNDAY],
-};
+const DAYS_WITHOUT_DELIVERY = [DAY_MONDAY, DAY_SUNDAY];
 
 export const shouldSkipToNextDeliveryDate = (
   args: ResolvedMockDeliveryOptionsParameters,
@@ -16,7 +12,7 @@ export const shouldSkipToNextDeliveryDate = (
   currentDeliveryDate: Date,
   extraDelivery?: ExtraDelivery,
 ): boolean => {
-  const todayIsDisallowed = daysWithoutDelivery[args.platform].includes(currentDeliveryDate.getDay());
+  const todayIsDisallowed = DAYS_WITHOUT_DELIVERY.includes(currentDeliveryDate.getDay());
   const dropOffDay = getDropOffDay(date, currentDeliveryDate, args.dropOffDays);
 
   // Skip Saturday or Monday if its setting is not enabled.

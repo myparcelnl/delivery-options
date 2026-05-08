@@ -1,7 +1,8 @@
-import type {InputDeliveryOptionsConfiguration} from '@myparcel-dev/do-shared';
+import {type InputDeliveryOptionsConfiguration, useLogger} from '@myparcel-dev/do-shared';
 import {CarrierName} from '@myparcel-dev/constants';
 
 // This function maps deprecated UPS carrier settings to the new UPS Standard settings.
+// eslint-disable-next-line complexity
 export const mapDeprecatedUpsCarrierConfig = (
   input: InputDeliveryOptionsConfiguration,
 ): InputDeliveryOptionsConfiguration => {
@@ -20,8 +21,8 @@ export const mapDeprecatedUpsCarrierConfig = (
     );
   }
 
-  console.warn(
-    `The ${CarrierName.Ups} carrier settings are deprecated. settings are mapped to ${CarrierName.UpsStandard}`,
+  useLogger().warning(
+    `The ${CarrierName.Ups} carrier settings are deprecated. Settings are mapped to ${CarrierName.UpsStandard}`,
   );
 
   switch (input.config.carrierSettings.ups !== null) {

@@ -12,7 +12,6 @@ export type {
   ResolvedDeliveryOptionsConfig,
   SupportedDeliveryTypeName,
   SupportedPackageTypeName,
-  SupportedPlatformName,
   SupportedShipmentOptionName,
 } from '@myparcel-dev/do-shared';
 

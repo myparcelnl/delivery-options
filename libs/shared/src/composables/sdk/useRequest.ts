@@ -46,7 +46,8 @@ const createRequestHandler = <T>(
   options?: UseRequestOptions<T>,
 ): RequestHandler<T> => {
   const data = ref(null);
-  const loading = computed(() => !data.value);
+  const isLoading = ref(true);
+  const loading = computed(() => isLoading.value);
 
   const load = async () => {
     if (!storage.has(queryKey)) {
@@ -58,9 +59,12 @@ const createRequestHandler = <T>(
     data.value = await storage.get(queryKey);
 
     storage.set(queryKey, data.value);
+    isLoading.value = false;
   };
 
-  void load();
+  void load().catch(() => {
+    isLoading.value = false;
+  });
 
   return {
     data,
@@ -78,9 +82,13 @@ const cb = <T>(
 
   const query = createRequestHandler<T>(requestStorage, key, callback, options);
 
-  void query.load();
-
   return query as RequestHandler<T extends Promise<infer U> ? U : T>;
 };
 
+/**
+ * Memoized data-fetching composable. Returns a handler with reactive `data`,
+ * `loading`, and a manual `load()` function. Requests with the same `key`
+ * return the same cached handler — call `.clear()` on the returned handler
+ * to invalidate the cache for that key.
+ */
 export const useRequest = useMemoize(cb, {getKey: (key) => requestKeyToString(key)}) as typeof cb & {clear: () => void};

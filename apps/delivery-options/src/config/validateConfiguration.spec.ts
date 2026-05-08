@@ -1,4 +1,4 @@
-import {afterEach, beforeEach, describe, expect, it, type MockInstance, vi} from 'vitest';
+import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest';
 import {get, set} from 'radash';
 import {
   AddressField,
@@ -21,8 +21,6 @@ interface TestInput {
 }
 
 describe('validateConfiguration', () => {
-  let errorSpy: MockInstance;
-
   const VALUE_MISSING = 'MISSING';
 
   const VALID_CONFIG = Object.freeze({
@@ -38,7 +36,7 @@ describe('validateConfiguration', () => {
   }) satisfies Omit<InputDeliveryOptionsConfiguration, 'components'>;
 
   beforeEach(() => {
-    errorSpy = vi.spyOn(console, 'error');
+    vi.spyOn(console, 'error');
   });
 
   afterEach(() => {
@@ -61,6 +59,9 @@ describe('validateConfiguration', () => {
     {key: `${KEY_CONFIG}.${CarrierSetting.CutoffTime}`, value: '15:00', valid: true},
     {key: `${KEY_CONFIG}.${CarrierSetting.DropOffDays}`, value: [1, 2, 3], valid: true},
     {key: `${KEY_CONFIG}.${CarrierSetting.DropOffDays}`, value: [8], valid: false},
+    {key: `${KEY_CONFIG}.${ConfigSetting.Platform}`, value: 'myparcel', valid: true},
+    {key: `${KEY_CONFIG}.${ConfigSetting.Platform}`, value: 'belgie', valid: true},
+    {key: `${KEY_CONFIG}.${ConfigSetting.Platform}`, value: 123, valid: false},
     {key: `${KEY_CONFIG}.${ConfigSetting.CompactView}`, value: true, valid: true},
     {key: `${KEY_CONFIG}.${ConfigSetting.CompactView}`, value: false, valid: true},
     {key: `${KEY_CONFIG}.${ConfigSetting.CompactView}`, value: 'invalid', valid: false},

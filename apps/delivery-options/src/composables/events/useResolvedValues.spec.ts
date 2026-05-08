@@ -9,7 +9,6 @@ import {
   KEY_CARRIER_SETTINGS,
   KEY_CONFIG,
   useCarriersRequest,
-  ConfigSetting,
   type InputDeliveryOptionsConfig,
 } from '@myparcel-dev/do-shared';
 import {CarrierName, DeliveryTypeName, PackageTypeName, ShipmentOptionName} from '@myparcel-dev/constants';
@@ -49,12 +48,10 @@ describe('useResolvedValues', () => {
         [KEY_CONFIG]: {
           [KEY_CARRIER_SETTINGS]: {
             [CarrierName.PostNl]: {
-              [CarrierSetting.AllowDeliveryOptions]: true,
               [CarrierSetting.AllowStandardDelivery]: true,
               [CarrierSetting.AllowPickupLocations]: true,
             },
             [CarrierName.DhlForYou]: {
-              [CarrierSetting.AllowDeliveryOptions]: true,
               [CarrierSetting.AllowStandardDelivery]: true,
               [CarrierSetting.AllowPickupLocations]: true,
             },
@@ -69,6 +66,9 @@ describe('useResolvedValues', () => {
   it.each([
     {
       name: 'default values',
+      config: {
+        [CarrierSetting.AllowPriorityDelivery]: false,
+      },
       internal: createInternalOutput(),
       external: createExternalOutput({
         [FIELD_SHIPMENT_OPTIONS]: {
@@ -82,6 +82,7 @@ describe('useResolvedValues', () => {
       config: {
         [CarrierSetting.AllowSignature]: false,
         [CarrierSetting.AllowOnlyRecipient]: false,
+        [CarrierSetting.AllowPriorityDelivery]: false,
       },
       internal: createInternalOutput(),
       external: createExternalOutput(),
@@ -91,6 +92,7 @@ describe('useResolvedValues', () => {
       name: 'onlyRecipient enabled but not selected',
       config: {
         [CarrierSetting.AllowOnlyRecipient]: true,
+        [CarrierSetting.AllowPriorityDelivery]: false,
       },
 
       internal: createInternalOutput({
@@ -148,24 +150,6 @@ describe('useResolvedValues', () => {
     },
   );
 
-  it('respects deprecated show delivery date setting while it still exists', async () => {
-    mockDeliveryOptionsConfig({[KEY_CONFIG]: {[ConfigSetting.ShowDeliveryDate]: true}});
-    mockSelectedDeliveryOptions();
-    await flushPromises();
-
-    const resolvedValues = useResolvedValues();
-
-    expect(resolvedValues.value).toBeDefined();
-    expect(resolvedValues.value?.date).toBeDefined();
-
-    mockDeliveryOptionsConfig({
-      [KEY_CONFIG]: {[ConfigSetting.ShowDeliveryDate]: false},
-    });
-    await flushPromises();
-
-    expect(resolvedValues.value?.date).toBeUndefined();
-  });
-
   it('does not expose priorityDelivery outside NL even when selected and enabled', async () => {
     mockDeliveryOptionsConfig({
       [KEY_ADDRESS]: {
@@ -177,10 +161,13 @@ describe('useResolvedValues', () => {
             [CarrierSetting.AllowPriorityDelivery]: true,
             [CarrierSetting.AllowOnlyRecipient]: false,
             [CarrierSetting.AllowSignature]: false,
+            [CarrierSetting.AllowStandardDelivery]: true,
           },
         },
       },
     });
+
+    await Promise.all([useCarriersRequest().load(), waitForDeliveryOptions()]);
 
     mockSelectedDeliveryOptions(
       createInternalOutput({

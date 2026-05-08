@@ -1,5 +1,5 @@
 import {type MakeOptional} from '@myparcel-dev/ts-utils';
-import {type CarrierName} from '@myparcel-dev/constants';
+import {type CarrierName, type PackageTypeName} from '@myparcel-dev/constants';
 import {
   type CarrierSetting,
   type ConfigSetting,
@@ -8,7 +8,7 @@ import {
   type RelatedConfigOptionType,
 } from '../data';
 import {type CustomValidator} from './validation.types';
-import {type SupportedPackageTypeName, type SupportedPlatformName, type PlatformConfiguration} from './platform.types';
+import {type SupportedPackageTypeName} from './platform.types';
 import {type DeliveryOptionsOutput} from './output.types';
 import {type SelectOption} from './options.types';
 import {type MakeRequired} from './common.types';
@@ -45,7 +45,6 @@ export type TimestampString = `${number}:${number}` | string;
 export type Price = number | null;
 
 export interface CarrierSettings extends Partial<Record<CarrierSettingsKey, unknown>> {
-  allowDeliveryOptions?: boolean | FilterableOption;
   allowEveningDelivery?: boolean | FilterableOption;
   allowExpressDelivery?: boolean | FilterableOption;
   allowMondayDelivery?: boolean;
@@ -79,8 +78,8 @@ export interface CarrierSettings extends Partial<Record<CarrierSettingsKey, unkn
   pricePriorityDelivery?: Price;
 }
 
-export interface InputCarrierSettings extends Omit<CarrierSettings, 'dropOffDays'>, DeprecatedConfigOptions {
-  dropOffDays?: DropOffEntry[] | string;
+export interface InputCarrierSettings extends Omit<CarrierSettings, 'dropOffDays'> {
+  dropOffDays?: DropOffEntry[];
 }
 
 export type InputCarrierSettingsObject = Partial<Record<CarrierIdentifier, InputCarrierSettings>>;
@@ -90,6 +89,8 @@ export type CarrierSettingsObject = Partial<Record<CarrierIdentifier, CarrierSet
 export interface DeliveryOptionsConfig extends Partial<Record<ConfigSetting, unknown>>, CarrierSettings {
   allowPickupLocationsViewSelection: boolean;
   apiBaseUrl: string;
+  proxyCapabilities: string;
+  apiKey?: string;
   carrierSettings: CarrierSettingsObject;
   closedDays: Date[];
   /**
@@ -103,9 +104,7 @@ export interface DeliveryOptionsConfig extends Partial<Record<ConfigSetting, unk
   pickupLocationsDefaultView: PickupLocationsView;
   pickupLocationsMapTileLayerData: string | MapTileLayerData;
   pickupShowDistance: boolean;
-  platform: SupportedPlatformName;
-  /** @deprecated show delivery date is always enabled */
-  showDeliveryDate: boolean;
+  platform: string;
   showPriceSurcharge: boolean;
   showPriceZeroAsFree: boolean;
   showPrices: boolean;
@@ -114,6 +113,7 @@ export interface DeliveryOptionsConfig extends Partial<Record<ConfigSetting, unk
 export type ResolvedDeliveryOptionsConfig = MakeRequired<
   DeliveryOptionsConfig,
   | ConfigSetting.ApiBaseUrl
+  | ConfigSetting.ProxyCapabilities
   | ConfigSetting.Currency
   | ConfigSetting.Locale
   | ConfigSetting.PickupLocationsDefaultView
@@ -121,12 +121,10 @@ export type ResolvedDeliveryOptionsConfig = MakeRequired<
   | ConfigSetting.PickupLocationsMapTileLayerData
   | ConfigSetting.PickupShowDistance
   | ConfigSetting.Platform
-  | ConfigSetting.ShowDeliveryDate
   | ConfigSetting.ShowPriceSurcharge
   | ConfigSetting.ShowPrices
   | ConfigSetting.ShowPriceZeroAsFree
   | ConfigSetting.ClosedDays
-  | CarrierSetting.AllowDeliveryOptions
   | CarrierSetting.AllowEveningDelivery
   | CarrierSetting.AllowMondayDelivery
   | CarrierSetting.AllowMorningDelivery
@@ -141,29 +139,15 @@ export type ResolvedDeliveryOptionsConfig = MakeRequired<
   | CarrierSetting.PackageType
 >;
 
-export interface DeprecatedConfigOptions {
-  /** @deprecated use ShowDeliveryDate instead */
-  allowShowDeliveryDate?: boolean;
-  /** @deprecated use dropOffDays instead */
-  fridayCutoffTime?: TimestampString;
-  /** @deprecated use dropOffDays instead */
-  saturdayCutoffTime?: TimestampString;
-}
-
-/**
- * Includes deprecated options which will be filtered out.
- */
 export type InputDeliveryOptionsConfig = {
-  dropOffDays?: DropOffEntry[] | string;
+  dropOffDays?: DropOffEntry[];
   carrierSettings?: InputCarrierSettingsObject;
-} & Omit<MakeOptional<DeliveryOptionsConfig, keyof DeliveryOptionsConfig>, 'carrierSettings' | 'dropOffDays'> &
-  DeprecatedConfigOptions;
+} & Omit<MakeOptional<DeliveryOptionsConfig, keyof DeliveryOptionsConfig>, 'carrierSettings' | 'dropOffDays'>;
 
 export interface DeliveryOptionsConfiguration {
   address: DeliveryOptionsAddress;
   config: DeliveryOptionsConfig;
   initial: Partial<DeliveryOptionsOutput>;
-  platformConfig: PlatformConfiguration;
   strings: DeliveryOptionsStrings;
 }
 
@@ -171,7 +155,6 @@ export interface InputDeliveryOptionsConfiguration {
   address: DeliveryOptionsAddress;
   config: InputDeliveryOptionsConfig;
   initial?: Partial<DeliveryOptionsOutput>;
-  platformConfig: PlatformConfiguration;
   strings?: DeliveryOptionsStrings;
 }
 
@@ -200,4 +183,4 @@ export type ResolvedConfigOption<O extends ConfigKey | ConfigOption> = O extends
 
 export type CarrierSettingsKey = CarrierSetting;
 
-export type ConfigKey = ConfigSetting | CarrierSettingsKey;
+export type ConfigKey = ConfigSetting | CarrierSettingsKey | PackageTypeName;

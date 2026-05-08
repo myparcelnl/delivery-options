@@ -1,5 +1,6 @@
 import {type EndpointParameters, type EndpointResponse, type GetPickupLocations} from '@myparcel-dev/sdk';
 import {useSdk} from '../useSdk';
+import {useLogger} from '../useLogger';
 import {type RequestHandler} from '../../types';
 import {REQUEST_KEY_PICKUP_LOCATIONS} from '../../data';
 import {useRequest} from './useRequest';
@@ -14,6 +15,11 @@ export const usePickupLocationsRequest = (
 
       return sdk.getPickupLocations({parameters});
     },
-    {fallback: []},
+    {
+      fallback: [],
+      onError(error): void {
+        useLogger().debug(`Skip pickup locations for ${parameters.carrier}.`, error);
+      },
+    },
   );
 };

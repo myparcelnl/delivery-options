@@ -14,6 +14,7 @@ export const getShipmentOptions = (required: ShipmentOptionName[] = []): Deliver
     option(ShipmentOptionName.AgeCheck),
     option(ShipmentOptionName.LargeFormat),
     option(ShipmentOptionName.OnlyRecipient),
+    option(ShipmentOptionName.PriorityDelivery),
     option(ShipmentOptionName.Return),
     option(ShipmentOptionName.SameDayDelivery),
     option(ShipmentOptionName.Signature),

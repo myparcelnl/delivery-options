@@ -1,6 +1,6 @@
 {
   "name": "@myparcel-dev/do-shared",
-  "version": "6.26.1",
+  "version": "7.0.0",
   "description": "",
   "repository": {
     "type": "git",
@@ -32,7 +32,6 @@
   },
   "dependencies": {
     "@myparcel-dev/constants": "^2.9.0",
-    "@myparcel-dev/do-shared": "workspace:*",
     "@myparcel-dev/sdk": "^5.0.0",
     "@myparcel-dev/ts-utils": "^1.15.0",
     "@vueuse/core": "^10.6.0",

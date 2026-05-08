@@ -128,8 +128,8 @@ const compactView = computed({
 });
 
 const pickupLocationOptions = [
-  {label: 'List', value: 'list'},
-  {label: 'Map', value: 'map'},
+  {label: 'list', value: 'list'},
+  {label: 'map', value: 'map'},
 ];
 
 const {translate} = useLanguage();

@@ -1,4 +1,3 @@
-import {toRaw} from 'vue';
 import {isEnumValue} from '@myparcel-dev/ts-utils';
 import {
   AddressField,
@@ -22,15 +21,14 @@ import {
   validateIsString,
   validateIsTime,
   validateIsValue,
+  validateMatch,
   defineConfig,
   KEY_ADDRESS,
   KEY_CONFIG,
   KEY_STRINGS,
-  KEY_PLATFORM_CONFIG,
   type DeliveryOptionsAddress,
 } from '@myparcel-dev/do-shared';
 import {PackageTypeName} from '@myparcel-dev/constants';
-import {handleDeprecatedOptions} from './handleDeprecatedOptions';
 import {filterConfig} from './filterConfig';
 
 const addressOptions: ConfigOption[] = [
@@ -58,6 +56,11 @@ const addressOptions: ConfigOption[] = [
 
 const additionalOptions: ConfigOption[] = [
   {
+    key: ConfigSetting.Platform,
+    perCarrier: false,
+    validators: [validateIsString()],
+  },
+  {
     key: ConfigSetting.Locale,
     perCarrier: false,
     validators: [validateIsString()],
@@ -68,22 +71,22 @@ const additionalOptions: ConfigOption[] = [
     validators: [validateIsString()],
   },
   {
-    key: ConfigSetting.Platform,
-    perCarrier: false,
-    validators: [validateIsString()],
-  },
-  {
     key: ConfigSetting.ApiBaseUrl,
     perCarrier: false,
     validators: [validateIsString()],
   },
   {
-    key: ConfigSetting.ShowPrices,
+    key: ConfigSetting.ProxyCapabilities,
     perCarrier: false,
-    validators: [validateIsBoolean()],
+    validators: [validateIsString(), validateMatch(/.+/)],
   },
   {
-    key: ConfigSetting.ShowDeliveryDate,
+    key: ConfigSetting.ApiKey,
+    perCarrier: false,
+    validators: [validateIsString()],
+  },
+  {
+    key: ConfigSetting.ShowPrices,
     perCarrier: false,
     validators: [validateIsBoolean()],
   },
@@ -130,7 +133,7 @@ const processConfig = <T extends InputDeliveryOptionsConfig | CarrierSettings>(
   input: T,
   configOptions: ConfigOption[],
 ): T extends InputDeliveryOptionsConfig ? DeliveryOptionsConfig : CarrierSettings => {
-  return filterConfig(handleDeprecatedOptions(input), configOptions);
+  return filterConfig({...input}, configOptions);
 };
 
 const validateConfig = (input: InputDeliveryOptionsConfig): DeliveryOptionsConfig => {
@@ -155,7 +158,10 @@ const validateConfig = (input: InputDeliveryOptionsConfig): DeliveryOptionsConfi
 };
 
 export const validateConfiguration = (input: InputDeliveryOptionsConfiguration): DeliveryOptionsConfiguration => {
-  const filteredAddressConfig: DeliveryOptionsAddress = filterConfig({...input[KEY_ADDRESS]}, addressOptions);
+  const addressInput = Object.fromEntries(
+    Object.entries(input[KEY_ADDRESS] ?? {}).filter(([, value]) => value !== '' && value !== null),
+  );
+  const filteredAddressConfig: DeliveryOptionsAddress = filterConfig(addressInput, addressOptions);
 
   const result: Partial<InputDeliveryOptionsConfiguration> = {
     [KEY_ADDRESS]: filteredAddressConfig,
@@ -168,10 +174,6 @@ export const validateConfiguration = (input: InputDeliveryOptionsConfiguration):
 
   if (input[KEY_STRINGS] !== undefined) {
     result[KEY_STRINGS] = {...input[KEY_STRINGS]};
-  }
-
-  if (input[KEY_PLATFORM_CONFIG] !== undefined) {
-    result[KEY_PLATFORM_CONFIG] = toRaw(input[KEY_PLATFORM_CONFIG]);
   }
 
   // Ensure address is always present
