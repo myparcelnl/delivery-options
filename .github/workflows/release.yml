@@ -80,7 +80,7 @@ jobs:
       - name: 'Determine CDN URLs to Purge'
         id: purge_urls
         run: |
-          baseUrl="https://cdn.jsdelivr.net/npm/@myparcel-dev/delivery-options@6"
+          baseUrl="https://cdn.jsdelivr.net/npm/@myparcel-dev/delivery-options@7"
           urls=""
           cd apps/delivery-options
           for f in `find dist -name "*.js" -o -name "*.css" -type f`; do
