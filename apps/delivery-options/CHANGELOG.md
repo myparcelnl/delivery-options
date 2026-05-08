@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel-dev/delivery-options-v7.0.0](https://github.com/myparcelnl/delivery-options/compare/v6.26.1...v7.0.0) (2026-05-08)
+
+### ⚠ BREAKING CHANGES
+
+* load config through capabilities proxy (#396)
+
+### :sparkles: New Features
+
+* load config through capabilities proxy ([#396](https://github.com/myparcelnl/delivery-options/issues/396)) ([f3f2534](https://github.com/myparcelnl/delivery-options/commit/f3f25344331fcc7057b920f0618f78322806f8de))
+
 ## [@myparcel-dev/delivery-options-v6.26.1](https://github.com/myparcelnl/delivery-options/compare/v6.26.0...v6.26.1) (2026-02-23)
 
 ### :bug: Bug Fixes
