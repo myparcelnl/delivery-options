@@ -59,7 +59,6 @@ describe('MyParcelDeliveryOptions.vue', () => {
         [ConfigSetting.CompactView]: true,
         [KEY_CARRIER_SETTINGS]: {
           [CarrierName.PostNl]: {
-            [CarrierSetting.AllowDeliveryOptions]: true,
             [CarrierSetting.AllowStandardDelivery]: true,
           },
         },
@@ -81,7 +80,6 @@ describe('MyParcelDeliveryOptions.vue', () => {
         [ConfigSetting.CompactView]: true,
         [KEY_CARRIER_SETTINGS]: {
           [CarrierName.PostNl]: {
-            [CarrierSetting.AllowDeliveryOptions]: true,
             [CarrierSetting.AllowStandardDelivery]: true,
           },
         },

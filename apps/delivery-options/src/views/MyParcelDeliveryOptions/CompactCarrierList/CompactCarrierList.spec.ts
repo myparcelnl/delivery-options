@@ -43,12 +43,10 @@ describe('CompactCarrierList.vue', () => {
           [ConfigSetting.CompactView]: true,
           [KEY_CARRIER_SETTINGS]: {
             [CarrierName.PostNl]: {
-              [CarrierSetting.AllowDeliveryOptions]: true,
               [CarrierSetting.AllowStandardDelivery]: true,
               [CarrierSetting.AllowPickupLocations]: true,
             },
             [CarrierName.DhlForYou]: {
-              [CarrierSetting.AllowDeliveryOptions]: true,
               [CarrierSetting.AllowStandardDelivery]: true,
               [CarrierSetting.AllowPickupLocations]: false,
             },

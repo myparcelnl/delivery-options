@@ -43,7 +43,6 @@ describe('DeliveryOptionsForm.vue — terug-knop', () => {
         [ConfigSetting.CompactView]: compactView,
         [KEY_CARRIER_SETTINGS]: {
           [CarrierName.PostNl]: {
-            [CarrierSetting.AllowDeliveryOptions]: true,
             [CarrierSetting.AllowStandardDelivery]: true,
           },
         },

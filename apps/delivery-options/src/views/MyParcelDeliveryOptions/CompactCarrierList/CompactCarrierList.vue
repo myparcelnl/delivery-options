@@ -62,7 +62,7 @@ const items = computed<CompactItem[]>(() => {
 
     if (!id) continue;
 
-    if (toValue(c.hasAnyDelivery)) {
+    if (toValue(c.hasDelivery)) {
       list.push({
         value: `${id}__home`,
         carrierIdentifier: id,
