@@ -2,12 +2,18 @@
   <div
     v-show="show"
     ref="wrapper">
-    <Suspense>
-      <DeliveryOptionsForm
-        v-if="ready"
+    <template v-if="ready">
+      <CompactCarrierList
+        v-if="showCompact"
         v-show="!hasExceptions"
-        class="myparcel-delivery-options" />
-    </Suspense>
+        data-testid="compact-carrier-list" />
+      <Suspense v-else>
+        <DeliveryOptionsForm
+          v-show="!hasExceptions"
+          class="myparcel-delivery-options"
+          data-testid="delivery-options-form" />
+      </Suspense>
+    </template>
 
     <KeepAlive>
       <Errors v-if="hasExceptions" />
@@ -29,9 +35,11 @@ import {
   useDeliveryOptionsIncomingEvents,
   useDeliveryOptionsOutgoingEvents,
   useProvideElementWidth,
+  useSelectedValues,
 } from '../../composables';
 import Errors from './Errors.vue';
 import DeliveryOptionsForm from './DeliveryOptionsForm/DeliveryOptionsForm.vue';
+import CompactCarrierList from './CompactCarrierList/CompactCarrierList.vue';
 
 const props = defineProps<DeliveryOptionsProps>();
 const emit = defineEmits<DeliveryOptionsEmits>();
@@ -46,7 +54,9 @@ const wrapper = ref<HTMLFormElement>();
 
 const {hasExceptions} = useApiExceptions();
 
+const {carrier} = useSelectedValues();
 const ready = computed(() => Boolean(config.platform && address.cc));
+const showCompact = computed(() => config.compactView === true && carrier.value === undefined);
 
 const show = ref(true);
 

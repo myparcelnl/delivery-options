@@ -36,6 +36,9 @@
       <FormToggleInput v-model="excludeParcelLockers" />
       <!-- exclude parcel lockers -->
     </FieldWrapper>
+    <FieldWrapper :field="{key: ConfigSetting.CompactView}">
+      <FormToggleInput v-model="compactView" />
+    </FieldWrapper>
   </Box>
 </template>
 
@@ -114,6 +117,13 @@ const excludeParcelLockers = computed({
   get: () => sandboxStore.config.excludeParcelLockers,
   set: (value) => {
     sandboxStore.config.excludeParcelLockers = value;
+  },
+});
+
+const compactView = computed({
+  get: () => sandboxStore.config.compactView,
+  set: (value) => {
+    sandboxStore.config.compactView = value;
   },
 });
 

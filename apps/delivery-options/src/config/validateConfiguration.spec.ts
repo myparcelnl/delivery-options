@@ -3,6 +3,7 @@ import {get, set} from 'radash';
 import {
   AddressField,
   CarrierSetting,
+  ConfigSetting,
   type InputDeliveryOptionsConfiguration,
   KEY_ADDRESS,
   KEY_CARRIER_SETTINGS,
@@ -60,6 +61,9 @@ describe('validateConfiguration', () => {
     {key: `${KEY_CONFIG}.${CarrierSetting.CutoffTime}`, value: '15:00', valid: true},
     {key: `${KEY_CONFIG}.${CarrierSetting.DropOffDays}`, value: [1, 2, 3], valid: true},
     {key: `${KEY_CONFIG}.${CarrierSetting.DropOffDays}`, value: [8], valid: false},
+    {key: `${KEY_CONFIG}.${ConfigSetting.CompactView}`, value: true, valid: true},
+    {key: `${KEY_CONFIG}.${ConfigSetting.CompactView}`, value: false, valid: true},
+    {key: `${KEY_CONFIG}.${ConfigSetting.CompactView}`, value: 'invalid', valid: false},
   ] satisfies TestInput[])('validates $key with value $value to $valid', (data) => {
     const newConfig = set({...VALID_CONFIG}, data.key, data.value);
 
