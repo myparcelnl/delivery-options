@@ -39,6 +39,9 @@
     <FieldWrapper :field="{key: ConfigSetting.CompactView}">
       <FormToggleInput v-model="compactView" />
     </FieldWrapper>
+    <FieldWrapper :field="{key: ConfigSetting.CompactBackToOverviewText}">
+      <FormTextInput v-model="compactBackToOverviewText" />
+    </FieldWrapper>
   </Box>
 </template>
 
@@ -55,6 +58,7 @@ import {
 import {useSandboxStore} from '../stores';
 import {useLanguage} from '../composables';
 import FormToggleInput from './form/input/FormToggleInput.vue';
+import FormTextInput from './form/input/FormTextInput.vue';
 import FormRadioGroupInput from './form/input/FormRadioGroupInput.vue';
 import FormNumberInput from './form/input/FormNumberInput.vue';
 import FormMultiDateSelect from './form/input/FormMultiDateSelect.vue';
@@ -124,6 +128,13 @@ const compactView = computed({
   get: () => sandboxStore.config.compactView,
   set: (value) => {
     sandboxStore.config.compactView = value;
+  },
+});
+
+const compactBackToOverviewText = computed({
+  get: () => sandboxStore.config.compactBackToOverviewText ?? '',
+  set: (value) => {
+    sandboxStore.config.compactBackToOverviewText = value;
   },
 });
 
