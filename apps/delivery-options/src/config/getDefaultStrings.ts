@@ -28,6 +28,9 @@ import {
   PICKUP_LOCATIONS_LIST_BUTTON,
   PICKUP_LOCATIONS_MAP_BUTTON,
   PICKUP_TITLE,
+  POP_UP_MAP_CONFIRM,
+  POP_UP_MAP_OPEN,
+  POP_UP_MAP_TITLE,
   POSTAL_CODE,
   PRIORITY_DELIVERY_TITLE,
   SHOW_MORE_HOURS,
@@ -66,6 +69,11 @@ export const getDefaultStrings = (): Record<string, string> => ({
   [COMPACT_DELIVERY]: 'Thuisbezorgen',
   [COMPACT_PICKUP]: 'Afhalen op locatie',
   [COMPACT_BACK_TO_OVERVIEW]: 'Terug naar overzicht',
+
+  // Pop-up map
+  [POP_UP_MAP_OPEN]: 'Open kaart',
+  [POP_UP_MAP_CONFIRM]: 'Bevestigen',
+  [POP_UP_MAP_TITLE]: 'Afhaallocatie kiezen',
 
   // Title of options
   [DELIVERY_TITLE]: 'Thuis of op het werk bezorgen',

@@ -51,6 +51,7 @@ export enum ConfigSetting {
   ClosedDays = 'closedDays',
   CompactView = 'compactView',
   ExcludeParcelLockers = 'excludeParcelLockers',
+  PopUpMap = 'popUpMap',
 }
 
 export enum PickupLocationsView {

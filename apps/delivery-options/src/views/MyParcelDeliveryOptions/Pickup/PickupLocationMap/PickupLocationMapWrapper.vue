@@ -4,7 +4,8 @@
   <KeepAlive>
     <PickupLocationMap
       v-if="loadedOnce"
-      v-show="loadedOnce || !loading" />
+      v-show="loadedOnce || !loading"
+      :hide-details="hideDetails" />
   </KeepAlive>
 </template>
 
@@ -13,6 +14,8 @@ import {ref, onMounted, computed} from 'vue';
 import {useResolvedPickupLocations} from '../../../../composables';
 import PickupLocationMapLoader from './PickupLocationMapLoader.vue';
 import PickupLocationMap from './PickupLocationMap.vue';
+
+withDefaults(defineProps<{hideDetails?: boolean}>(), {hideDetails: false});
 
 const {locations} = useResolvedPickupLocations();
 

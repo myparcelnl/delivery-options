@@ -106,6 +106,11 @@ const additionalOptions: ConfigOption[] = [
     validators: [validateIsBoolean()],
   },
   {
+    key: ConfigSetting.PopUpMap,
+    perCarrier: false,
+    validators: [validateIsBoolean()],
+  },
+  {
     key: KEY_CARRIER_SETTINGS,
     perCarrier: false,
     validators: [validateIsObject(), validateHasMinKeys(1)],

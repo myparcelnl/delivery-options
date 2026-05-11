@@ -10,12 +10,12 @@
 
 <script lang="ts" setup>
 /* eslint-disable new-cap */
-import {ref, onMounted, toValue, onUnmounted, onActivated} from 'vue';
+import {ref, nextTick, onMounted, toValue, onUnmounted, onActivated} from 'vue';
 import {asyncComputed, useStyleTag, useScriptTag} from '@vueuse/core';
 import {usePickupLocationsMap} from '../../../composables';
 import LeafletMapLoadMoreButton from './LeafletMapLoadMoreButton.vue';
 
-const unmountHooks = [];
+const unmountHooks: (() => void)[] = [];
 const container = ref<HTMLElement>();
 
 const css = asyncComputed(async () => {
@@ -45,7 +45,15 @@ onMounted(async () => {
 
   const teardownMap = initializeMap(container);
 
-  unmountHooks.push(teardownMap);
+  if (teardownMap) {
+    unmountHooks.push(teardownMap);
+  }
+
+  // Required when the map is mounted inside a previously-hidden container
+  // (e.g. a modal). Harmless when mounted inline since the container size
+  // doesn't change.
+  await nextTick();
+  map.value?.invalidateSize();
 });
 
 onUnmounted(() => {

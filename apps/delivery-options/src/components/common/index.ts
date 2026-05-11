@@ -6,4 +6,6 @@ export {default as IconButton} from './IconButton/IconButton.vue';
 
 export {default as InfoLabel} from './InfoLabel/InfoLabel.vue';
 
+export {default as Modal} from './Modal/Modal.vue';
+
 export {default as PriceTag} from './PriceTag/PriceTag.vue';
