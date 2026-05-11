@@ -50,6 +50,7 @@ export enum ConfigSetting {
   ShowPriceZeroAsFree = 'showPriceZeroAsFree',
   ClosedDays = 'closedDays',
   CompactView = 'compactView',
+  CompactBackToOverviewText = 'compactBackToOverviewText',
   ExcludeParcelLockers = 'excludeParcelLockers',
   PopUpMap = 'popUpMap',
 }

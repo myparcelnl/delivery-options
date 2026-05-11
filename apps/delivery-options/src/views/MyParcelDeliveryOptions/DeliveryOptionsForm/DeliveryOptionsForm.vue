@@ -12,7 +12,7 @@
       class="focus:mp-outline-none focus:mp-underline hover:mp-underline mp-cursor-pointer mp-gap-1 mp-inline-flex mp-items-center mp-mb-3 mp-text-sm"
       @click="onBack">
       <CaretLeftIcon class="mp-flex-shrink-0" />
-      {{ translate(COMPACT_BACK_TO_OVERVIEW) }}
+      {{ compactBackLabel }}
     </button>
 
     <component
@@ -89,6 +89,12 @@ const {translate} = useLanguage();
 const {homeOrPickup, carrier, deliveryDate, clearSelectedValues} = useSelectedValues();
 
 const compactFocused = computed(() => Boolean(config.compactView && carrier.value));
+
+/**
+ * Optional merchant-provided override for the back-button text. When empty,
+ * falls back to the translation system.
+ */
+const compactBackLabel = computed(() => config.compactBackToOverviewText || translate(COMPACT_BACK_TO_OVERVIEW));
 
 /**
  * Back to compact overview: full reset including deliveryDate AND any memoized

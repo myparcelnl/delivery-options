@@ -42,6 +42,9 @@
     <FieldWrapper :field="{key: ConfigSetting.PopUpMap}">
       <FormToggleInput v-model="popUpMap" />
     </FieldWrapper>
+    <FieldWrapper :field="{key: ConfigSetting.CompactBackToOverviewText}">
+      <FormTextInput v-model="compactBackToOverviewText" />
+    </FieldWrapper>
   </Box>
 </template>
 
@@ -58,6 +61,7 @@ import {
 import {useSandboxStore} from '../stores';
 import {useLanguage} from '../composables';
 import FormToggleInput from './form/input/FormToggleInput.vue';
+import FormTextInput from './form/input/FormTextInput.vue';
 import FormRadioGroupInput from './form/input/FormRadioGroupInput.vue';
 import FormNumberInput from './form/input/FormNumberInput.vue';
 import FormMultiDateSelect from './form/input/FormMultiDateSelect.vue';
@@ -134,6 +138,13 @@ const popUpMap = computed({
   get: () => sandboxStore.config.popUpMap,
   set: (value) => {
     sandboxStore.config.popUpMap = value;
+  },
+});
+
+const compactBackToOverviewText = computed({
+  get: () => sandboxStore.config.compactBackToOverviewText ?? '',
+  set: (value) => {
+    sandboxStore.config.compactBackToOverviewText = value;
   },
 });
 
