@@ -3,7 +3,13 @@ import {createPinia, setActivePinia} from 'pinia';
 import {flushPromises} from '@vue/test-utils';
 import {render} from '@testing-library/vue';
 import {mockGetPickupLocations, fakePickupLocationsResponse} from '@myparcel-dev/do-shared/testing';
-import {KEY_CONFIG, KEY_CARRIER_SETTINGS, CarrierSetting, ConfigSetting, PickupLocationsView} from '@myparcel-dev/do-shared';
+import {
+  KEY_CONFIG,
+  KEY_CARRIER_SETTINGS,
+  CarrierSetting,
+  ConfigSetting,
+  PickupLocationsView,
+} from '@myparcel-dev/do-shared';
 import {CarrierName} from '@myparcel-dev/constants';
 import {useSelectedValues} from '../../../composables';
 import {
@@ -60,11 +66,25 @@ describe('PickupLocations.vue — carrier-preferred auto-select', () => {
     mockGetPickupLocations.mockClear();
   });
 
+  /**
+   * Stub the map wrapper so Leaflet's CDN script load doesn't fire in happy-dom.
+   * Both list and map wrappers mount in parallel via v-show in production, so
+   * just configuring default view = List isn't enough.
+   */
+  const renderOptions = {
+    global: {
+      stubs: {
+        PickupLocationMapWrapper: true,
+        PickupLocationMapModal: true,
+      },
+    },
+  };
+
   it('prefers a location matching the pre-selected carrier instead of value[0]', async () => {
     const {carrier, pickupLocation} = useSelectedValues();
     carrier.value = CarrierName.PostNl;
 
-    render(PickupLocations);
+    render(PickupLocations, renderOptions);
     await waitForPickupLocations();
     await flushPromises();
 
@@ -76,7 +96,7 @@ describe('PickupLocations.vue — carrier-preferred auto-select', () => {
     const {carrier, pickupLocation} = useSelectedValues();
     carrier.value = undefined;
 
-    render(PickupLocations);
+    render(PickupLocations, renderOptions);
     await waitForPickupLocations();
     await flushPromises();
 
