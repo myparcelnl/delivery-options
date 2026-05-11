@@ -65,7 +65,7 @@ export const getDefaultStrings = (): Record<string, string> => ({
   // Compact view
   [COMPACT_DELIVERY]: 'Thuisbezorgen',
   [COMPACT_PICKUP]: 'Afhalen op locatie',
-  [COMPACT_BACK_TO_OVERVIEW]: '← Terug naar overzicht',
+  [COMPACT_BACK_TO_OVERVIEW]: 'Terug naar overzicht',
 
   // Title of options
   [DELIVERY_TITLE]: 'Thuis of op het werk bezorgen',

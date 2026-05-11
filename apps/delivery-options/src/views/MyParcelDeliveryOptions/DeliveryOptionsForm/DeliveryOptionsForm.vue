@@ -9,8 +9,9 @@
       v-if="config.compactView"
       data-testid="compact-back-button"
       type="button"
-      class="focus:mp-outline-none focus:mp-underline hover:mp-underline mp-cursor-pointer mp-gap-1 mp-inline-flex mp-items-center mp-mb-3 mp-text-sm mp-transition-colors"
+      class="focus:mp-outline-none focus:mp-underline hover:mp-underline mp-cursor-pointer mp-gap-1 mp-inline-flex mp-items-center mp-mb-3 mp-text-sm"
       @click="onBack">
+      <CaretLeftIcon class="mp-flex-shrink-0" />
       {{ translate(COMPACT_BACK_TO_OVERVIEW) }}
     </button>
 
@@ -76,7 +77,7 @@ import {
   useResolvedDeliveryOptions,
   useSelectedValues,
 } from '../../../composables';
-import {CaretRightIcon, RadioGroupInput} from '../../../components';
+import {CaretLeftIcon, CaretRightIcon, RadioGroupInput} from '../../../components';
 
 await waitForRequestData(useCarriersRequest);
 
