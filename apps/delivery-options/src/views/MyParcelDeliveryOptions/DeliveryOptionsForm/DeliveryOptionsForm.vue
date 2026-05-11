@@ -5,7 +5,21 @@
     v-text="translate(NO_DELIVERY_OPTIONS_AVAILABLE)" />
 
   <form v-else>
+    <button
+      v-if="config.compactView"
+      data-testid="compact-back-button"
+      type="button"
+      class="focus:mp-outline-none focus:mp-underline hover:mp-underline mp-cursor-pointer mp-gap-1 mp-inline-flex mp-items-center mp-mb-3 mp-text-sm"
+      @click="onBack">
+      <CaretLeftIcon class="mp-flex-shrink-0" />
+      {{ compactBackLabel }}
+    </button>
+
+    <component
+      v-if="compactFocused"
+      :is="currentComponent" />
     <RadioGroupInput
+      v-else
       :id="FIELD_HOME_OR_PICKUP"
       v-model="homeOrPickup"
       :options="options">
@@ -44,6 +58,7 @@
 <script lang="ts" setup>
 import {computed, toValue} from 'vue';
 import {
+  COMPACT_BACK_TO_OVERVIEW,
   DELIVERY_TITLE,
   NO_DELIVERY_OPTIONS_AVAILABLE,
   PICKUP_TITLE,
@@ -55,8 +70,14 @@ import PickupLocations from '../Pickup/PickupLocations.vue';
 import HomeDelivery from '../Delivery/HomeDelivery.vue';
 import {useConfigStore} from '../../../stores';
 import {FIELD_HOME_OR_PICKUP, HOME_OR_PICKUP_HOME, HOME_OR_PICKUP_PICKUP} from '../../../data';
-import {useActiveCarriers, useSharedCapabilities, useLanguage, useSelectedValues} from '../../../composables';
-import {CaretRightIcon, RadioGroupInput} from '../../../components';
+import {
+  useActiveCarriers,
+ useSharedCapabilities, useLanguage,
+  useResolvedDeliveryDates,
+  useResolvedDeliveryOptions,
+  useSelectedValues,
+} from '../../../composables';
+import {CaretLeftIcon, CaretRightIcon, RadioGroupInput} from '../../../components';
 
 await waitForRequestData(useCarriersRequest);
 
@@ -65,7 +86,27 @@ const {loading: capabilitiesLoading} = useSharedCapabilities();
 const {state: config} = useConfigStore();
 
 const {translate} = useLanguage();
-const {homeOrPickup} = useSelectedValues();
+const {homeOrPickup, carrier, deliveryDate, clearSelectedValues} = useSelectedValues();
+
+const compactFocused = computed(() => Boolean(config.compactView && carrier.value));
+
+/**
+ * Optional merchant-provided override for the back-button text. When empty,
+ * falls back to the translation system.
+ */
+const compactBackLabel = computed(() => config.compactBackToOverviewText || translate(COMPACT_BACK_TO_OVERVIEW));
+
+/**
+ * Back to compact overview: full reset including deliveryDate AND any memoized
+ * delivery-option data, so the next carrier picked starts from a clean state with
+ * fresh auto-selections rather than inheriting state from the previous carrier.
+ */
+function onBack(): void {
+  clearSelectedValues();
+  deliveryDate.value = undefined;
+  useResolvedDeliveryOptions.clear();
+  useResolvedDeliveryDates.clear();
+}
 
 const options = computed(() => {
   const optionList: SelectOption<string>[] = [];

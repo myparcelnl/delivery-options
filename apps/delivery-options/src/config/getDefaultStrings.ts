@@ -3,6 +3,9 @@ import {
   CC,
   CITY,
   CLOSED,
+  COMPACT_BACK_TO_OVERVIEW,
+  COMPACT_DELIVERY,
+  COMPACT_PICKUP,
   DELIVERY_TITLE,
   DISCOUNT,
   ECO_FRIENDLY,
@@ -58,6 +61,11 @@ export const getDefaultStrings = (): Record<string, string> => ({
 
   // Main header
   [HEADER_DELIVERY_OPTIONS]: '',
+
+  // Compact view
+  [COMPACT_DELIVERY]: 'Thuisbezorgen',
+  [COMPACT_PICKUP]: 'Afhalen op locatie',
+  [COMPACT_BACK_TO_OVERVIEW]: 'Terug naar overzicht',
 
   // Title of options
   [DELIVERY_TITLE]: 'Thuis of op het werk bezorgen',

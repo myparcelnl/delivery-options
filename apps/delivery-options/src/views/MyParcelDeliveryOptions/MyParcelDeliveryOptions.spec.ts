@@ -1,8 +1,10 @@
 import {afterEach, beforeEach, describe, expect, it, type MockInstance, vi} from 'vitest';
 import {createPinia} from 'pinia';
+import {flushPromises} from '@vue/test-utils';
 import {render, type RenderOptions, type RenderResult} from '@testing-library/vue';
-import {KEY_CARRIER_SETTINGS, KEY_CONFIG} from '@myparcel-dev/do-shared';
+import {CarrierSetting, ConfigSetting, KEY_CARRIER_SETTINGS, KEY_CONFIG} from '@myparcel-dev/do-shared';
 import {CarrierName} from '@myparcel-dev/constants';
+import {useSelectedValues} from '../../composables';
 import {getMockDeliveryOptionsConfiguration} from '../../__tests__';
 import MyParcelDeliveryOptions from './MyParcelDeliveryOptions.vue';
 
@@ -49,5 +51,48 @@ describe('MyParcelDeliveryOptions.vue', () => {
 
     expect(errorSpy).not.toHaveBeenCalled();
     expect(instance.container.children[0].children).toHaveLength(0);
+  });
+
+  it('renders CompactCarrierList when compactView=true and no carrier selected', async () => {
+    const config = getMockDeliveryOptionsConfiguration({
+      [KEY_CONFIG]: {
+        [ConfigSetting.CompactView]: true,
+        [KEY_CARRIER_SETTINGS]: {
+          [CarrierName.PostNl]: {
+            [CarrierSetting.AllowStandardDelivery]: true,
+          },
+        },
+      },
+    });
+
+    const {findByTestId, queryByTestId} = renderDeliveryOptions({
+      props: {configuration: config},
+    });
+    await flushPromises();
+
+    expect(await findByTestId('compact-carrier-list')).toBeTruthy();
+    expect(queryByTestId('delivery-options-form')).toBeNull();
+  });
+
+  it('switches to DeliveryOptionsForm when carrier becomes defined', async () => {
+    const config = getMockDeliveryOptionsConfiguration({
+      [KEY_CONFIG]: {
+        [ConfigSetting.CompactView]: true,
+        [KEY_CARRIER_SETTINGS]: {
+          [CarrierName.PostNl]: {
+            [CarrierSetting.AllowStandardDelivery]: true,
+          },
+        },
+      },
+    });
+
+    const {findByTestId} = renderDeliveryOptions({props: {configuration: config}});
+    await flushPromises();
+
+    const {carrier} = useSelectedValues();
+    carrier.value = CarrierName.PostNl;
+    await flushPromises();
+
+    expect(await findByTestId('delivery-options-form')).toBeTruthy();
   });
 });

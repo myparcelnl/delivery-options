@@ -132,10 +132,10 @@ config: {
 
 ### Removed fields
 
-| Field                                    | Notes                                                             |
-| ---------------------------------------- | ----------------------------------------------------------------- |
+| Field                                    | Notes                                                                                                                                |
+| ---------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
 | `allowDeliveryOptions` (carrier setting) | Removed — to disable a carrier, either avoid loading the widget altogether or set all its `allow*` delivery type settings to `false` |
-| `showDeliveryDate`                       | Removed                                                           |
+| `showDeliveryDate`                       | Removed                                                                                                                              |
 
 ### Changed fields
 

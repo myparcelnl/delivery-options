@@ -15,7 +15,7 @@
       <Suspense>
         <template #default>
           <PickupLocationMapMarker
-            v-for="location in locations"
+            v-for="location in visibleLocations"
             :key="location.locationCode"
             :active="locationCode === location.locationCode"
             :carrier-identifier="location.carrier"
@@ -40,9 +40,9 @@
 </template>
 
 <script lang="ts" setup>
-import {onUnmounted, watch} from 'vue';
+import {computed, onUnmounted, watch} from 'vue';
 import PickupLocationMapMarker from '../PickupLocationMapMarker/PickupLocationMapMarker.vue';
-import {useAddressStore} from '../../../../stores';
+import {useAddressStore, useConfigStore} from '../../../../stores';
 import {
   useBreakpoints,
   useResolvedPickupLocations,
@@ -54,9 +54,19 @@ import PickupLocationDetails from './PickupLocationDetails.vue';
 
 const {locations, reset} = useResolvedPickupLocations();
 const addressStore = useAddressStore();
+const {state: config} = useConfigStore();
 const {locationCode} = useSelectedPickupLocation();
 const {md} = useBreakpoints();
 const selectedValues = useSelectedValues();
+
+const visibleLocations = computed(() => {
+  if (config.compactView && selectedValues.carrier.value) {
+    const selected = selectedValues.carrier.value;
+    return locations.value.filter((location) => location.carrier === selected);
+  }
+
+  return locations.value;
+});
 
 /**
  * When the address changes, reset the pickup locations array and selected pickup location.

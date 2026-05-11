@@ -21,6 +21,7 @@ export const SHIPMENT_OPTION_MAP = {
 ```
 
 Everything else derives automatically from this entry:
+
 - `SUPPORTED_SHIPMENT_OPTIONS` array
 - `SHIPMENT_OPTION_ALLOW_DEFAULTS` (defaults to allowed)
 - `CAPABILITY_SETTINGS_PAIRS` (allow/price config registration)
@@ -117,12 +118,12 @@ Add allow and price entries to the `extended` array. The `parents` field control
 
 All derived values follow these conventions from the SDK name (e.g., `only_recipient`):
 
-| Derived value | Convention | Example |
-|---|---|---|
+| Derived value    | Convention           | Example              |
+| ---------------- | -------------------- | -------------------- |
 | Allow config key | `allow` + PascalCase | `allowOnlyRecipient` |
 | Price config key | `price` + PascalCase | `priceOnlyRecipient` |
-| Translation key | camelCase + `Title` | `onlyRecipientTitle` |
-| Output key | camelCase | `onlyRecipient` |
+| Translation key  | camelCase + `Title`  | `onlyRecipientTitle` |
+| Output key       | camelCase            | `onlyRecipient`      |
 
 ## How it works
 

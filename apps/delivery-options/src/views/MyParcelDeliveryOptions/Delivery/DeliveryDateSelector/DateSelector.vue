@@ -45,6 +45,7 @@
 <script lang="ts" setup>
 import {computed, ref, watch, toValue} from 'vue';
 import {Loader} from '@myparcel-dev/do-shared';
+import {useConfigStore} from '../../../../stores';
 import {DATES_SHOWN_MD, DATES_SHOWN_SM} from '../../../../data';
 import {
   useBreakpoints,
@@ -59,15 +60,34 @@ const model = defineModel<string>();
 
 const deliveryOptions = useResolvedDeliveryOptions();
 const dates = useResolvedDeliveryDates();
+const {state: config} = useConfigStore();
+const {carrier, deliveryDate} = useSelectedValues();
 
 const cursor = ref(0);
 
 const {sm} = useBreakpoints();
 
 const shownItems = computed(() => (sm.value ? DATES_SHOWN_SM : DATES_SHOWN_MD));
-const visibleDates = computed(() => dates.value.slice(cursor.value, cursor.value + shownItems.value));
+
+/**
+ * In compact-view mode with a selected carrier, hide dates that have no options
+ * for that carrier. Outside compact mode (or before any carrier is picked), all
+ * dates remain visible.
+ */
+const filteredDates = computed(() => {
+  if (config.compactView && carrier.value) {
+    const selected = carrier.value;
+    return dates.value.filter((option) =>
+      deliveryOptions.value.some((moment) => moment.date === option.date && moment.carrier === selected),
+    );
+  }
+
+  return dates.value;
+});
+
+const visibleDates = computed(() => filteredDates.value.slice(cursor.value, cursor.value + shownItems.value));
 const loading = computed(() => toValue(deliveryOptions.loading));
-const showNavigation = computed(() => dates.value.length > shownItems.value);
+const showNavigation = computed(() => filteredDates.value.length > shownItems.value);
 
 const previous = () => {
   if (cursor.value <= 0) {
@@ -78,7 +98,7 @@ const previous = () => {
 };
 
 const next = () => {
-  if (cursor.value >= dates.value.length - shownItems.value) {
+  if (cursor.value >= filteredDates.value.length - shownItems.value) {
     return;
   }
 
@@ -86,20 +106,19 @@ const next = () => {
 };
 
 watch(
-  dates,
+  filteredDates,
   (dates) => {
     model.value = dates[0]?.date;
+    cursor.value = 0;
   },
-  {immediate: dates.value.length > 0},
+  {immediate: filteredDates.value.length > 0},
 );
-
-const {deliveryDate} = useSelectedValues();
 
 watch(
   model,
   (value) => {
     deliveryDate.value = value;
   },
-  {immediate: dates.value.length > 0},
+  {immediate: filteredDates.value.length > 0},
 );
 </script>

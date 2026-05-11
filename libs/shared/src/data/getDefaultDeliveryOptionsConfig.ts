@@ -34,6 +34,8 @@ export const getDefaultDeliveryOptionsConfig = (): ResolvedDeliveryOptionsConfig
 
     [ConfigSetting.ShowPrices]: true,
     [ConfigSetting.ShowPriceSurcharge]: false,
+    [ConfigSetting.CompactView]: false,
+    [ConfigSetting.CompactBackToOverviewText]: '',
 
     [CarrierSetting.PackageType]: PACKAGE_TYPE_DEFAULT,
 

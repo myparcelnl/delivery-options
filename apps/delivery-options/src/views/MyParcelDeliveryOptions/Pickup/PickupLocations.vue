@@ -63,7 +63,12 @@ onUnmounted(
         return;
       }
 
-      const [firstLocation] = value;
+      const preferred = carrier.value ? value.find((loc) => loc.carrier === carrier.value) : undefined;
+      const firstLocation = preferred ?? value[0];
+
+      if (!firstLocation) {
+        return;
+      }
 
       selectedPickupLocation.value = firstLocation.locationCode;
       carrier.value = firstLocation.carrier;

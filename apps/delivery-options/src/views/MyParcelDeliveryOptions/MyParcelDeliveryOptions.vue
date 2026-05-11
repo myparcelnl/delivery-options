@@ -2,12 +2,18 @@
   <div
     v-show="show"
     ref="wrapper">
-    <Suspense>
-      <DeliveryOptionsForm
-        v-if="ready"
+    <template v-if="ready">
+      <CompactCarrierList
+        v-if="showCompact"
         v-show="!hasExceptions"
-        class="myparcel-delivery-options" />
-    </Suspense>
+        data-testid="compact-carrier-list" />
+      <Suspense v-else>
+        <DeliveryOptionsForm
+          v-show="!hasExceptions"
+          class="myparcel-delivery-options"
+          data-testid="delivery-options-form" />
+      </Suspense>
+    </template>
 
     <KeepAlive>
       <Errors v-if="hasExceptions" />
@@ -22,16 +28,18 @@ import {useEventListener} from '@vueuse/core';
 import {useLogger, useApiExceptions} from '@myparcel-dev/do-shared';
 import {getConfigFromWindow} from '../../utils';
 import {type DeliveryOptionsEmits, type DeliveryOptionsProps} from '../../types';
-import {useAddressStore} from '../../stores';
+import {useAddressStore, useConfigStore} from '../../stores';
 import {HIDE_DELIVERY_OPTIONS, SHOW_DELIVERY_OPTIONS} from '../../data';
 import {setConfiguration} from '../../config';
 import {
   useDeliveryOptionsIncomingEvents,
   useDeliveryOptionsOutgoingEvents,
   useProvideElementWidth,
+  useSelectedValues,
 } from '../../composables';
 import Errors from './Errors.vue';
 import DeliveryOptionsForm from './DeliveryOptionsForm/DeliveryOptionsForm.vue';
+import CompactCarrierList from './CompactCarrierList/CompactCarrierList.vue';
 
 const props = defineProps<DeliveryOptionsProps>();
 const emit = defineEmits<DeliveryOptionsEmits>();
@@ -39,13 +47,16 @@ const emit = defineEmits<DeliveryOptionsEmits>();
 const propRefs = toRefs(props);
 
 const logger = useLogger();
+const {state: config} = useConfigStore();
 const {state: address} = useAddressStore();
 
 const wrapper = ref<HTMLFormElement>();
 
 const {hasExceptions} = useApiExceptions();
 
+const {carrier} = useSelectedValues();
 const ready = computed(() => Boolean(address.cc));
+const showCompact = computed(() => config.compactView === true && carrier.value === undefined);
 
 const show = ref(true);
 

@@ -55,6 +55,12 @@ export const STRINGS_PACKAGE_TYPE_DIGITAL_STAMP = 'packageTypeDigitalStamp';
 
 export const STRINGS_PACKAGE_TYPE_MAILBOX = 'packageTypeMailbox';
 
+export const COMPACT_DELIVERY = 'compactDelivery';
+
+export const COMPACT_PICKUP = 'compactPickup';
+
+export const COMPACT_BACK_TO_OVERVIEW = 'compactBackToOverview';
+
 export const ECO_FRIENDLY = 'ecoFriendly';
 
 export const ERROR_3212 = 'error3212';
@@ -74,6 +80,9 @@ export const ALL_STRINGS = [
   CC,
   CITY,
   CLOSED,
+  COMPACT_BACK_TO_OVERVIEW,
+  COMPACT_DELIVERY,
+  COMPACT_PICKUP,
   DELIVERY_TITLE,
   DISCOUNT,
   ECO_FRIENDLY,
