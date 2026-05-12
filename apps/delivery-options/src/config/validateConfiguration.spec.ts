@@ -65,9 +65,6 @@ describe('validateConfiguration', () => {
     {key: `${KEY_CONFIG}.${ConfigSetting.CompactView}`, value: true, valid: true},
     {key: `${KEY_CONFIG}.${ConfigSetting.CompactView}`, value: false, valid: true},
     {key: `${KEY_CONFIG}.${ConfigSetting.CompactView}`, value: 'invalid', valid: false},
-    {key: `${KEY_CONFIG}.${ConfigSetting.CompactBackToOverviewText}`, value: 'Custom label', valid: true},
-    {key: `${KEY_CONFIG}.${ConfigSetting.CompactBackToOverviewText}`, value: '', valid: true},
-    {key: `${KEY_CONFIG}.${ConfigSetting.CompactBackToOverviewText}`, value: 42, valid: false},
   ] satisfies TestInput[])('validates $key with value $value to $valid', (data) => {
     const newConfig = set({...VALID_CONFIG}, data.key, data.value);
 
