@@ -56,25 +56,26 @@ const {homeOrPickup, carrier} = useSelectedValues();
 const items = computed<CompactItem[]>(() => {
   const list: CompactItem[] = [];
 
-  for (const c of toValue(carriers) ?? []) {
-    const id = c.carrier.value?.identifier as CarrierIdentifier | undefined;
-    const human = c.carrier.value?.human ?? c.carrier.value?.name ?? id;
+  for (const resolvedCarrier of toValue(carriers) ?? []) {
+    const carrierData = toValue(resolvedCarrier.carrier);
+    const identifier = carrierData?.identifier as CarrierIdentifier | undefined;
+    const human = carrierData?.human ?? carrierData?.name ?? identifier;
 
-    if (!id) continue;
+    if (!identifier) continue;
 
-    if (toValue(c.hasDelivery)) {
+    if (toValue(resolvedCarrier.hasDelivery)) {
       list.push({
-        value: `${id}__home`,
-        carrierIdentifier: id,
+        value: `${identifier}__home`,
+        carrierIdentifier: identifier,
         carrierHuman: String(human),
         typeLabel: COMPACT_DELIVERY,
       });
     }
 
-    if (toValue(c.hasPickup)) {
+    if (toValue(resolvedCarrier.hasPickup)) {
       list.push({
-        value: `${id}__pickup`,
-        carrierIdentifier: id,
+        value: `${identifier}__pickup`,
+        carrierIdentifier: identifier,
         carrierHuman: String(human),
         typeLabel: COMPACT_PICKUP,
       });

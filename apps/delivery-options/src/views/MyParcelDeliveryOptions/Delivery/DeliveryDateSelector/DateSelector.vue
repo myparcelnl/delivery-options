@@ -75,14 +75,15 @@ const shownItems = computed(() => (sm.value ? DATES_SHOWN_SM : DATES_SHOWN_MD));
  * dates remain visible.
  */
 const filteredDates = computed(() => {
-  if (config.compactView && carrier.value) {
-    const selected = carrier.value;
-    return dates.value.filter((option) =>
-      deliveryOptions.value.some((moment) => moment.date === option.date && moment.carrier === selected),
+  const selected = toValue(carrier);
+
+  if (config.compactView && selected) {
+    return toValue(dates).filter((option) =>
+      toValue(deliveryOptions).some((moment) => moment.date === option.date && moment.carrier === selected),
     );
   }
 
-  return dates.value;
+  return toValue(dates);
 });
 
 const visibleDates = computed(() => filteredDates.value.slice(cursor.value, cursor.value + shownItems.value));

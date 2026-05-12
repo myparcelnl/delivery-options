@@ -106,11 +106,6 @@ const additionalOptions: ConfigOption[] = [
     validators: [validateIsBoolean()],
   },
   {
-    key: ConfigSetting.CompactBackToOverviewText,
-    perCarrier: false,
-    validators: [validateIsString()],
-  },
-  {
     key: KEY_CARRIER_SETTINGS,
     perCarrier: false,
     validators: [validateIsObject(), validateHasMinKeys(1)],
