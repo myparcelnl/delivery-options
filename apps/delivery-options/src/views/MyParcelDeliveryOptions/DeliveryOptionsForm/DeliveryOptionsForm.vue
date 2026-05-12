@@ -7,17 +7,17 @@
   <form v-else>
     <button
       v-if="config.compactView"
+      class="focus:mp-outline-none focus:mp-underline hover:mp-underline mp-cursor-pointer mp-gap-1 mp-inline-flex mp-items-center mp-mb-3 mp-text-sm"
       data-testid="compact-back-button"
       type="button"
-      class="focus:mp-outline-none focus:mp-underline hover:mp-underline mp-cursor-pointer mp-gap-1 mp-inline-flex mp-items-center mp-mb-3 mp-text-sm"
       @click="onBack">
       <CaretLeftIcon class="mp-flex-shrink-0" />
-      {{ compactBackLabel }}
+      {{ translate(COMPACT_BACK_TO_OVERVIEW) }}
     </button>
 
     <component
-      v-if="compactFocused"
-      :is="currentComponent" />
+      :is="currentComponent"
+      v-if="compactFocused" />
     <RadioGroupInput
       v-else
       :id="FIELD_HOME_OR_PICKUP"
@@ -34,8 +34,8 @@
           <input
             v-model="homeOrPickup"
             :value="option.value"
-            type="radio"
-            class="mp-sr-only" />
+            class="mp-sr-only"
+            type="radio" />
         </span>
       </template>
 
@@ -72,7 +72,8 @@ import {useConfigStore} from '../../../stores';
 import {FIELD_HOME_OR_PICKUP, HOME_OR_PICKUP_HOME, HOME_OR_PICKUP_PICKUP} from '../../../data';
 import {
   useActiveCarriers,
- useSharedCapabilities, useLanguage,
+  useSharedCapabilities,
+  useLanguage,
   useResolvedDeliveryDates,
   useResolvedDeliveryOptions,
   useSelectedValues,
@@ -89,12 +90,6 @@ const {translate} = useLanguage();
 const {homeOrPickup, carrier, deliveryDate, clearSelectedValues} = useSelectedValues();
 
 const compactFocused = computed(() => Boolean(config.compactView && carrier.value));
-
-/**
- * Optional merchant-provided override for the back-button text. When empty,
- * falls back to the translation system.
- */
-const compactBackLabel = computed(() => config.compactBackToOverviewText || translate(COMPACT_BACK_TO_OVERVIEW));
 
 /**
  * Back to compact overview: full reset including deliveryDate AND any memoized
