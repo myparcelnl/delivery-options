@@ -2,10 +2,10 @@
   <Teleport to="body">
     <div
       v-show="modelValue"
-      role="dialog"
       aria-modal="true"
+      class="mp-fixed mp-flex mp-inset-0 mp-items-center mp-justify-center mp-z-99999"
       data-testid="modal"
-      class="mp-fixed mp-flex mp-inset-0 mp-items-center mp-justify-center mp-z-50"
+      role="dialog"
       @click.self="close">
       <div
         class="mp-absolute mp-bg-black mp-inset-0 mp-opacity-40"
