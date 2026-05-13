@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel-dev/delivery-options-v7.3.0](https://github.com/myparcelnl/delivery-options/compare/v7.2.0...v7.3.0) (2026-05-13)
+
+### :sparkles: New Features
+
+* add pop up map setting ([#435](https://github.com/myparcelnl/delivery-options/issues/435)) ([9d9463b](https://github.com/myparcelnl/delivery-options/commit/9d9463bbc46f520dc422509e52ed05c2fdfcd17c))
+
 ## [@myparcel-dev/delivery-options-v7.2.0](https://github.com/myparcelnl/delivery-options/compare/v7.1.0...v7.2.0) (2026-05-12)
 
 ### :sparkles: New Features
