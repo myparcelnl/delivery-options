@@ -44,6 +44,7 @@ exports[`exports > exports from index.ts 1`] = `
   "LeafletMarker",
   "MAP_MARKER_CLASS_ACTIVE",
   "MAP_MARKER_CLASS_PREFIX",
+  "Modal",
   "MyParcelDeliveryOptions",
   "OUTPUT_EVENT_DEBOUNCE_DELAY",
   "ParcelLockerIcon",

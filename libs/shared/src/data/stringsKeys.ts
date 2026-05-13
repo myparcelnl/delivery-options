@@ -61,6 +61,12 @@ export const COMPACT_PICKUP = 'compactPickup';
 
 export const COMPACT_BACK_TO_OVERVIEW = 'compactBackToOverview';
 
+export const POP_UP_MAP_OPEN = 'popUpMapOpen';
+
+export const POP_UP_MAP_CONFIRM = 'popUpMapConfirm';
+
+export const POP_UP_MAP_TITLE = 'popUpMapTitle';
+
 export const ECO_FRIENDLY = 'ecoFriendly';
 
 export const ERROR_3212 = 'error3212';
@@ -98,6 +104,9 @@ export const ALL_STRINGS = [
   PICKUP_TITLE,
   PICK_UP,
   PICK_UP_FROM,
+  POP_UP_MAP_CONFIRM,
+  POP_UP_MAP_OPEN,
+  POP_UP_MAP_TITLE,
   POSTAL_CODE,
   SHOW_MORE_HOURS,
   SHOW_MORE_LOCATIONS,

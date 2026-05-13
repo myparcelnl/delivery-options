@@ -39,6 +39,9 @@
     <FieldWrapper :field="{key: ConfigSetting.CompactView}">
       <FormToggleInput v-model="compactView" />
     </FieldWrapper>
+    <FieldWrapper :field="{key: ConfigSetting.PopUpMap}">
+      <FormToggleInput v-model="popUpMap" />
+    </FieldWrapper>
   </Box>
 </template>
 
@@ -124,6 +127,13 @@ const compactView = computed({
   get: () => sandboxStore.config.compactView,
   set: (value) => {
     sandboxStore.config.compactView = value;
+  },
+});
+
+const popUpMap = computed({
+  get: () => sandboxStore.config.popUpMap,
+  set: (value) => {
+    sandboxStore.config.popUpMap = value;
   },
 });
 
