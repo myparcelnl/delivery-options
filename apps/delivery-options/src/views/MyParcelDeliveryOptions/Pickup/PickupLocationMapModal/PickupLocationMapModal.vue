@@ -6,9 +6,9 @@
       <strong v-text="translate(POP_UP_MAP_TITLE)" />
     </template>
 
-    <div
-      :id="POP_UP_MAP_TARGET_ID"
-      class="mp-h-full mp-p-2" />
+    <div class="mp-h-full mp-p-2">
+      <slot />
+    </div>
 
     <template #footer>
       <DoButton @click="confirm">
@@ -17,12 +17,6 @@
     </template>
   </Modal>
 </template>
-
-<script lang="ts">
-export const POP_UP_MAP_TARGET_ID = 'pop-up-map-target';
-
-export const POP_UP_MAP_TARGET = `#${POP_UP_MAP_TARGET_ID}`;
-</script>
 
 <script lang="ts" setup>
 import {POP_UP_MAP_CONFIRM, POP_UP_MAP_TITLE} from '@myparcel-dev/do-shared';

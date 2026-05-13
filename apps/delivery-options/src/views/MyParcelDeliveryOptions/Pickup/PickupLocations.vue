@@ -30,9 +30,12 @@
         {{ translate(POP_UP_MAP_OPEN) }}
       </button>
 
+      <PickupLocationMapWrapper v-if="!config.popUpMap" />
+
       <Teleport
+        v-if="config.popUpMap && modalMapTarget"
         :disabled="!isInModal"
-        :to="POP_UP_MAP_TARGET"
+        :to="modalMapTarget"
         defer>
         <PickupLocationMapWrapper :hide-details="isInModal" />
       </Teleport>
@@ -41,12 +44,16 @@
     <PickupLocationMapModal
       v-if="config.popUpMap"
       :model-value="mapModalOpen"
-      @update:modelValue="mapModalOpen = $event" />
+      @update:modelValue="mapModalOpen = $event">
+      <div
+        ref="modalMapTarget"
+        class="mp-h-full" />
+    </PickupLocationMapModal>
   </div>
 </template>
 
 <script lang="ts" setup>
-import {computed, ref, watch, nextTick, onUnmounted} from 'vue';
+import {computed, nextTick, ref, watch, onUnmounted} from 'vue';
 import {PickupLocationsView, POP_UP_MAP_OPEN} from '@myparcel-dev/do-shared';
 import {useConfigStore} from '../../../stores';
 import {
@@ -57,7 +64,7 @@ import {
   useActiveCarriers,
 } from '../../../composables';
 import {DoButton} from '../../../components';
-import PickupLocationMapModal, {POP_UP_MAP_TARGET} from './PickupLocationMapModal/PickupLocationMapModal.vue';
+import PickupLocationMapModal from './PickupLocationMapModal/PickupLocationMapModal.vue';
 import PickupLocationMapWrapper from './PickupLocationMap/PickupLocationMapWrapper.vue';
 import PickupLocationListWrapper from './PickupLocationList/PickupLocationListWrapper.vue';
 import PickupLocationInput from './PickupLocationInput/PickupLocationInput.vue';
@@ -74,9 +81,18 @@ const allowViewSelection = ref<boolean>(config.allowPickupLocationsViewSelection
 const mode = ref<PickupLocationsView>(config.pickupLocationsDefaultView);
 const mapModalOpen = ref<boolean>(config.popUpMap === true && mode.value === PickupLocationsView.Map);
 
+const modalMapTarget = ref<HTMLElement>();
+
 const isInModal = computed(
   () => config.popUpMap === true && mode.value === PickupLocationsView.Map && mapModalOpen.value,
 );
+
+const {map} = usePickupLocationsMap();
+
+watch(isInModal, async () => {
+  await nextTick();
+  map.value?.invalidateSize();
+});
 
 function selectView(view: PickupLocationsView): void {
   mode.value = view;
@@ -87,17 +103,6 @@ function selectView(view: PickupLocationsView): void {
     mapModalOpen.value = false;
   }
 }
-
-/**
- * When the map's DOM moves between inline and modal, Leaflet caches the wrong container
- * size. invalidateSize() forces a recalculation; fitBounds() re-centers on the markers.
- */
-const {map: leafletMap, fitBounds} = usePickupLocationsMap();
-watch(isInModal, async () => {
-  await nextTick();
-  leafletMap.value?.invalidateSize();
-  fitBounds();
-});
 
 const immediate = locations.value.length > 0;
 
