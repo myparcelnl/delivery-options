@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel-dev/delivery-options-v7.2.0](https://github.com/myparcelnl/delivery-options/compare/v7.1.0...v7.2.0) (2026-05-12)
+
+### :sparkles: New Features
+
+* compact view pr comments Freek ([#437](https://github.com/myparcelnl/delivery-options/issues/437)) ([dfec757](https://github.com/myparcelnl/delivery-options/commit/dfec757c6bf63a74a313ba977d663b21a8a9ca44))
+
 ## [@myparcel-dev/delivery-options-v7.1.0](https://github.com/myparcelnl/delivery-options/compare/v7.0.0...v7.1.0) (2026-05-11)
 
 ### :sparkles: New Features
