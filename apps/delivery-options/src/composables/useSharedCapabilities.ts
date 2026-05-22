@@ -50,7 +50,11 @@ export const useSharedCapabilities = (): UseCapabilities => {
 
       const apiKeyRef = computed(() => config.apiKey);
 
-      return useReactiveCapabilities(config.proxyCapabilities, requestRef, apiKeyRef);
+      // Pass proxyCapabilities as a getter so the URL is read at fetch time,
+      // not snapshotted now — config may not yet be populated on the first call
+      // (e.g. when useResolvedDeliveryOptions runs in the root's <script setup>
+      // before onMounted/setConfiguration).
+      return useReactiveCapabilities(() => config.proxyCapabilities, requestRef, apiKeyRef);
     })!;
   }
 
