@@ -23,6 +23,7 @@ export enum CarrierSetting {
   PriceOnlyRecipient = 'priceOnlyRecipient',
   PricePriorityDelivery = 'pricePriorityDelivery',
   PricePackageTypeDigitalStamp = 'pricePackageTypeDigitalStamp',
+  PricePackageTypeEnvelope = 'pricePackageTypeEnvelope',
   PricePackageTypeMailbox = 'pricePackageTypeMailbox',
   PricePackageTypePackageSmall = 'pricePackageTypePackageSmall',
   PricePickup = 'pricePickup',

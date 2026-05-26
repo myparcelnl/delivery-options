@@ -8,6 +8,7 @@ const map = Object.freeze({
   [PackageTypeName.Mailbox]: CarrierSetting.PricePackageTypeMailbox,
   [PackageTypeName.DigitalStamp]: CarrierSetting.PricePackageTypeDigitalStamp,
   [PackageTypeName.PackageSmall]: CarrierSetting.PricePackageTypePackageSmall,
+  [PackageTypeName.Envelope]: CarrierSetting.PricePackageTypeEnvelope,
 } satisfies Record<SupportedPackageTypeName, CarrierSetting>);
 
 export const getPackageTypePriceKey = (packageType: SupportedPackageTypeName): ConfigPriceKey => map[packageType];

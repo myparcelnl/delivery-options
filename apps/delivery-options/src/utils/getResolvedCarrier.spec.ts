@@ -146,6 +146,7 @@ describe('getResolvedCarrier', () => {
         PackageTypeName.Mailbox,
         PackageTypeName.DigitalStamp,
         PackageTypeName.PackageSmall,
+        PackageTypeName.Envelope,
       ]),
     );
   });

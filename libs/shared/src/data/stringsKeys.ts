@@ -53,6 +53,8 @@ export const PICKUP_LOCATIONS_MAP_BUTTON = 'pickupLocationsMapButton';
 
 export const STRINGS_PACKAGE_TYPE_DIGITAL_STAMP = 'packageTypeDigitalStamp';
 
+export const STRINGS_PACKAGE_TYPE_ENVELOPE = 'packageTypeEnvelope';
+
 export const STRINGS_PACKAGE_TYPE_MAILBOX = 'packageTypeMailbox';
 
 export const COMPACT_DELIVERY = 'compactDelivery';
@@ -113,6 +115,7 @@ export const ALL_STRINGS = [
   SIGNATURE_TITLE,
   STREET,
   STRINGS_PACKAGE_TYPE_DIGITAL_STAMP,
+  STRINGS_PACKAGE_TYPE_ENVELOPE,
   STRINGS_PACKAGE_TYPE_MAILBOX,
   ERROR_3212,
   ERROR_3224,

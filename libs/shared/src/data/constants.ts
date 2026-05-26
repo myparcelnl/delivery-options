@@ -15,6 +15,7 @@ export const SUPPORTED_PACKAGE_TYPES = Object.freeze([
   PackageTypeName.Mailbox,
   PackageTypeName.DigitalStamp,
   PackageTypeName.PackageSmall,
+  PackageTypeName.Envelope,
 ]);
 
 export const DEFAULT_PLATFORM = PlatformName.MyParcel;
