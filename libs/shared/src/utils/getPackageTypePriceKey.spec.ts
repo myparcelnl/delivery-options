@@ -10,6 +10,7 @@ describe('getPackageTypePriceKey', () => {
     [PackageTypeName.Mailbox, CarrierSetting.PricePackageTypeMailbox],
     [PackageTypeName.DigitalStamp, CarrierSetting.PricePackageTypeDigitalStamp],
     [PackageTypeName.PackageSmall, CarrierSetting.PricePackageTypePackageSmall],
+    [PackageTypeName.Envelope, CarrierSetting.PricePackageTypeEnvelope],
   ] satisfies [SupportedPackageTypeName, CarrierSetting][])(
     'returns the correct price key for %s',
     (packageType, expected) => {
