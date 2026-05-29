@@ -11,7 +11,7 @@ const DEFAULT_OPTION = {
 export const MOCK_CAPABILITIES: CarrierCapability[] = [
   {
     carrier: 'POSTNL',
-    packageTypes: ['PACKAGE', 'MAILBOX', 'DIGITAL_STAMP', 'SMALL_PACKAGE'],
+    packageTypes: ['PACKAGE', 'MAILBOX', 'DIGITAL_STAMP', 'SMALL_PACKAGE', 'ENVELOPE'],
     deliveryTypes: ['STANDARD_DELIVERY', 'MORNING_DELIVERY', 'EVENING_DELIVERY', 'PICKUP_DELIVERY'],
     options: {
       requiresSignature: {...DEFAULT_OPTION},

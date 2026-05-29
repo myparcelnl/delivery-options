@@ -68,6 +68,7 @@ export interface CarrierSettings extends Partial<Record<CarrierSettingsKey, unkn
   priceMorningDelivery?: Price;
   priceOnlyRecipient?: Price;
   pricePackageTypeDigitalStamp?: Price;
+  pricePackageTypeEnvelope?: Price;
   pricePackageTypeMailbox?: Price;
   pricePackageTypePackageSmall?: Price;
   pricePickup?: Price;

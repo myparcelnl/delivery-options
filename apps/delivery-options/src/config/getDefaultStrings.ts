@@ -38,6 +38,7 @@ import {
   SIGNATURE_TITLE,
   STREET,
   STRINGS_PACKAGE_TYPE_DIGITAL_STAMP,
+  STRINGS_PACKAGE_TYPE_ENVELOPE,
   STRINGS_PACKAGE_TYPE_MAILBOX,
 } from '@myparcel-dev/do-shared';
 
@@ -96,6 +97,7 @@ export const getDefaultStrings = (): Record<string, string> => ({
   [PICKUP_LOCATIONS_MAP_BUTTON]: 'Kaart',
 
   [STRINGS_PACKAGE_TYPE_DIGITAL_STAMP]: 'Digitale postzegel',
+  [STRINGS_PACKAGE_TYPE_ENVELOPE]: 'Envelop',
   [STRINGS_PACKAGE_TYPE_MAILBOX]: 'Brievenbuspakje',
 
   [ERROR_3212]: '{} is verplicht.',

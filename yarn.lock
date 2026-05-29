@@ -1005,12 +1005,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@myparcel-dev/constants@npm:^2.9.0":
-  version: 2.9.0
-  resolution: "@myparcel-dev/constants@npm:2.9.0"
+"@myparcel-dev/constants@npm:^2.10.0":
+  version: 2.10.0
+  resolution: "@myparcel-dev/constants@npm:2.10.0"
   dependencies:
     "@myparcel-dev/ts-utils": "npm:^1.15.0"
-  checksum: 10c0/2adbb3953dad60f76b75d86023537659c1d7dde2ad62e5fd08e4ba00a1a718f14e753302bd187e5e123d5a87f87ecdfa213a141a4f1bf585801015ae5c6daaa3
+  checksum: 10c0/b7f7907a694a6deb5458b25f2489b3c54c3fc7e640328f18b1f31e908006d57e514aa3bcde4ccd63bed0a5aab0813df0dded6251f4b1319f33a15d6d89006cfb
   languageName: node
   linkType: hard
 
@@ -1020,7 +1020,7 @@ __metadata:
   dependencies:
     "@codecov/vite-plugin": "npm:^1.9.1"
     "@histoire/plugin-vue": "npm:^0.17.6"
-    "@myparcel-dev/constants": "npm:^2.9.0"
+    "@myparcel-dev/constants": "npm:^2.10.0"
     "@myparcel-dev/do-build-vite": "workspace:*"
     "@myparcel-dev/do-semantic-release-plugin": "workspace:*"
     "@myparcel-dev/do-shared": "workspace:*"
@@ -1080,7 +1080,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@myparcel-dev/do-sandbox@workspace:apps/sandbox"
   dependencies:
-    "@myparcel-dev/constants": "npm:^2.9.0"
+    "@myparcel-dev/constants": "npm:^2.10.0"
     "@myparcel-dev/delivery-options": "workspace:*"
     "@myparcel-dev/do-build-vite": "workspace:*"
     "@myparcel-dev/do-shared": "workspace:*"
@@ -1124,7 +1124,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@myparcel-dev/do-shared@workspace:libs/shared"
   dependencies:
-    "@myparcel-dev/constants": "npm:^2.9.0"
+    "@myparcel-dev/constants": "npm:^2.10.0"
     "@myparcel-dev/do-build-vite": "workspace:*"
     "@myparcel-dev/do-semantic-release-plugin": "workspace:*"
     "@myparcel-dev/sdk": "npm:^5.0.0"

@@ -601,6 +601,7 @@ exports[`createTestConfiguration > creates a default test configuration with uni
     "openingHours": "Openingstijden",
     "options": "Opties",
     "packageTypeDigitalStamp": "Digitale postzegel",
+    "packageTypeEnvelope": "Envelop",
     "packageTypeMailbox": "Brievenbuspakje",
     "parcelLocker": "Pakketautomaat",
     "pickUp": "Afhalen",
