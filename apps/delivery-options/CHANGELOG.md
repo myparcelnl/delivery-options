@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel-dev/delivery-options-v7.4.0](https://github.com/myparcelnl/delivery-options/compare/v7.3.0...v7.4.0) (2026-05-29)
+
+### :sparkles: New Features
+
+* add package type envelope ([#441](https://github.com/myparcelnl/delivery-options/issues/441)) ([39e5c78](https://github.com/myparcelnl/delivery-options/commit/39e5c78ba97b218102d6ab937e2559643e2d9dba))
+
 ## [@myparcel-dev/delivery-options-v7.3.0](https://github.com/myparcelnl/delivery-options/compare/v7.2.0...v7.3.0) (2026-05-13)
 
 ### :sparkles: New Features
