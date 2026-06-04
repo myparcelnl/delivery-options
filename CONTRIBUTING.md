@@ -4,7 +4,7 @@ First read the [Developer Guide for contributing to MyParcel repositories]. Then
 
 ## Pre-requisites
 
-To run this project, you need Node 24 and Yarn. Yarn is bundled with the project, but you need to have (any version) globally to use the `yarn` command.
+To run this project, you need Node 24 and Yarn. If you use Volta, it will automatically install/use the pinned Yarn version from `package.json`.
 
 We recommend using [Volta](https://volta.sh) for Node management. It'll automatically make sure the right version of Node is used within our projects.
 
