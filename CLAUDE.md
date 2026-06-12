@@ -79,7 +79,7 @@ Entry point is `apps/delivery-options/src/main.ts` which calls `bootDeliveryOpti
 
 The widget communicates with the host platform via custom DOM events (`apps/delivery-options/src/data/events.ts`):
 
-- **Inbound**: `myparcel_render_delivery_options`, `myparcel_update_delivery_options`, `myparcel_disable_delivery_options`, `myparcel_show/hide_delivery_options`
+- **Inbound**: `myparcel_render_delivery_options`, `myparcel_update_delivery_options`, `myparcel_update_config`, `myparcel_unselect_delivery_options`, `myparcel_show_delivery_options`, `myparcel_hide_delivery_options`
 - **Outbound**: `myparcel_updated_delivery_options` (selection changed), `myparcel_updated_address`, `myparcel_error_delivery_options`
 
 ### State Management
