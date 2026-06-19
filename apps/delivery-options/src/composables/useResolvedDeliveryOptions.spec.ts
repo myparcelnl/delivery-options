@@ -2,6 +2,7 @@ import {describe, it, expect, beforeEach, afterEach, vi} from 'vitest';
 import {assign} from 'radash';
 import {normalizeDate} from '@vueuse/core';
 import {flushPromises} from '@vue/test-utils';
+import {waitFor} from '@testing-library/vue';
 import {type RecursivePartial} from '@myparcel-dev/ts-utils';
 import {mockGetDeliveryOptions} from '@myparcel-dev/do-shared/testing';
 import {
@@ -13,7 +14,7 @@ import {
   KEY_ADDRESS,
   ConfigSetting,
 } from '@myparcel-dev/do-shared';
-import {DeliveryTypeName, CarrierName} from '@myparcel-dev/constants';
+import {DeliveryTypeName, CarrierName, PackageTypeName} from '@myparcel-dev/constants';
 import {useConfigStore} from '../stores';
 import {
   waitForDeliveryOptions,
@@ -21,6 +22,7 @@ import {
   getMockDeliveryOptionsConfiguration,
   createDeliveryPossibility,
 } from '../__tests__';
+import {useSelectedValues} from './useSelectedValues';
 import {useResolvedDeliveryOptions} from './useResolvedDeliveryOptions';
 
 const CARRIER_IDENTIFIER_WITH_CONTRACT = `${CarrierName.PostNl}:1234`;
@@ -136,6 +138,55 @@ describe('useResolvedDeliveryOptions', () => {
 
     const options = useResolvedDeliveryOptions();
     expect(options.value).toEqual([]);
+  });
+
+  describe('clearing selected values when no dates are available', () => {
+    // The dates API returns nothing for every carrier, so the resolver yields an empty result.
+    // waitForDeliveryOptions() can't be used here: it waits for request data that never arrives.
+    const setupEmptyResult = async (packageType: PackageTypeName): Promise<void> => {
+      mockGetDeliveryOptions.mockResolvedValue([]);
+
+      mockDeliveryOptionsConfig(
+        getMockDeliveryOptionsConfiguration({
+          [KEY_CONFIG]: {
+            [CarrierSetting.PackageType]: packageType,
+            [CarrierSetting.AllowStandardDelivery]: true,
+            [KEY_CARRIER_SETTINGS]: {
+              [CarrierName.PostNl]: {
+                [CarrierSetting.AllowStandardDelivery]: true,
+              },
+            },
+          },
+        }),
+      );
+
+      useResolvedDeliveryOptions.clear();
+      const options = useResolvedDeliveryOptions();
+      void options.load();
+      // waitFor flushes while polling, letting capabilities + the delivery-options pipeline settle.
+      await waitFor(() => expect(options.loading.value).toBe(false), {timeout: 3000});
+      await flushPromises();
+
+      expect(options.value).toEqual([]);
+    };
+
+    it('does not clear the selection for package types whose options come from another path (mailbox)', async () => {
+      const clearSpy = vi.spyOn(useSelectedValues(), 'clearSelectedValues');
+
+      await setupEmptyResult(PackageTypeName.Mailbox);
+
+      expect(clearSpy).not.toHaveBeenCalled();
+      clearSpy.mockRestore();
+    });
+
+    it('clears the selection for delivery-moment package types when no dates are available', async () => {
+      const clearSpy = vi.spyOn(useSelectedValues(), 'clearSelectedValues');
+
+      await setupEmptyResult(PackageTypeName.Package);
+
+      expect(clearSpy).toHaveBeenCalled();
+      clearSpy.mockRestore();
+    });
   });
 
   describe('Closed Days Filtering', () => {
