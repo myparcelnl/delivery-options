@@ -68,15 +68,18 @@ const {grouped} = useOptionsGroupedByCarrier(visibleOptions as any);
  * Ensure a valid delivery moment is selected whenever the available options change.
  *
  * Re-applies a default only when the current selection is missing or no longer present in the
- * options (e.g. after an address/package-type change cleared it). A still-valid selection —
- * including a user's manual pick — is preserved. Watching `model` lets the selection self-heal if
- * it gets cleared elsewhere (e.g. by the delivery-options resolver) while options still exist.
+ * newly available options (e.g. after an address/package-type change). A still-valid selection —
+ * including a user's manual pick — is preserved.
+ *
+ * Only the option set and selected date are watched, never `model` itself: an external clear of
+ * the selection (e.g. the host's UNSELECT_DELIVERY_OPTIONS event) must stay cleared rather than
+ * being auto-restored here.
  *
  * Prefers a moment for the pre-selected carrier when one exists, so that compact-view selections
  * survive into the home flow.
  */
 watch(
-  [visibleOptions, deliveryDate, model],
+  [visibleOptions, deliveryDate],
   () => {
     const resolvedOptions = toValue(visibleOptions);
 

@@ -3,6 +3,7 @@ import {describe, it, expect, beforeEach} from 'vitest';
 import {createPinia, setActivePinia} from 'pinia';
 import {flushPromises} from '@vue/test-utils';
 import {render} from '@testing-library/vue';
+import {CustomEvent} from 'happy-dom';
 import {
   type SelectOption,
   KEY_CONFIG,
@@ -11,8 +12,9 @@ import {
   createUntranslatable,
 } from '@myparcel-dev/do-shared';
 import {CarrierName, DeliveryTypeName, PackageTypeName} from '@myparcel-dev/constants';
-import {useLanguage, useSelectedValues} from '../../../../composables';
+import {useLanguage, useSelectedValues, useDeliveryOptionsIncomingEvents} from '../../../../composables';
 import {mockDeliveryOptionsConfig, getMockDeliveryOptionsConfiguration} from '../../../../__tests__';
+import {UNSELECT_DELIVERY_OPTIONS} from '../../../../data';
 import DeliveryMomentInput from './DeliveryMomentInput.vue';
 
 const makeOption = (
@@ -100,18 +102,22 @@ describe('DeliveryMomentInput.vue', () => {
     expect(deliveryMoment.value).toBe(DHL.value);
   });
 
-  it('re-applies a default when the selection is cleared externally while options exist', async () => {
+  it('keeps the selection cleared after the host fires UNSELECT_DELIVERY_OPTIONS', async () => {
     const {deliveryMoment} = useSelectedValues();
+
+    // Register the real unselect handler, exactly as the app does on boot. It calls
+    // clearSelectedValues() in response to the host's UNSELECT_DELIVERY_OPTIONS event.
+    useDeliveryOptionsIncomingEvents();
 
     renderInput(ref([POSTNL, DHL]));
     await flushPromises();
     expect(deliveryMoment.value).toBe(POSTNL.value);
 
-    // Simulate clearSelectedValues() wiping the selection (e.g. from the delivery-options resolver).
-    deliveryMoment.value = undefined;
+    // The host explicitly clears the selection. It must stay cleared.
+    document.dispatchEvent(new CustomEvent(UNSELECT_DELIVERY_OPTIONS));
     await flushPromises();
 
-    expect(deliveryMoment.value).toBe(POSTNL.value);
+    expect(deliveryMoment.value).toBeUndefined();
   });
 
   it('leaves the selection untouched when there are no options', async () => {
