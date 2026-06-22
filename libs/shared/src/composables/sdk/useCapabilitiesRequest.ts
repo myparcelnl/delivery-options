@@ -69,8 +69,7 @@ export const useReactiveCapabilitiesRequest = (
     // Skip fetch when URL isn't set yet (e.g. host hasn't pushed config). The
     // watch below re-runs once the URL becomes available.
     if (!url) {
-      loading.value = false;
-      abortController = null;
+      // intentionally keep loading state, for the delivery options will only start working after the url is set
       return;
     }
 
