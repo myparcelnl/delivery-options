@@ -1,8 +1,8 @@
 import {defineConfig} from 'vitest/config';
+import tsconfigPaths from 'vite-tsconfig-paths';
 import customTsConfig from 'vite-plugin-custom-tsconfig';
 import {isCI} from 'ci-info';
 import vue from '@vitejs/plugin-vue';
-import {resolveAlias} from '@myparcel-dev/do-build-vite';
 import {version} from './package.json';
 
 export const PORT = 9860;
@@ -13,7 +13,12 @@ export default defineConfig(({mode}) => {
   const isProd = mode === 'production';
 
   return {
-    plugins: [vue(), customTsConfig({tsConfigPath: 'tsconfig.base.json'})],
+    // tsconfigPaths + loose: see libs/build-vite/index.js for the rationale.
+    plugins: [
+      vue(),
+      customTsConfig({tsConfigPath: 'tsconfig.base.json'}),
+      tsconfigPaths({loose: true}),
+    ],
 
     base: isProd && isCI && !process.env.NETLIFY ? '/delivery-options/' : '/',
 
@@ -34,10 +39,6 @@ export default defineConfig(({mode}) => {
       },
     },
 
-    resolve: {
-      alias: resolveAlias,
-    },
-
     define: {
       'process.env.NODE_ENV': JSON.stringify(mode),
       __VERSION__: JSON.stringify(version),
@@ -45,7 +46,9 @@ export default defineConfig(({mode}) => {
     },
 
     test: {
-      setupFiles: [`${dirname}/../../libs/shared/src/__tests__/vitest-setup.ts`],
+      setupFiles: [
+        `${dirname}/../../libs/shared/src/__tests__/vitest-setup.ts`,
+      ],
       coverage: {
         all: true,
         enabled: false,

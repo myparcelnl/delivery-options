@@ -13,6 +13,11 @@ export default createViteConfig((env) => {
 
     build: {
       sourcemap: !isCI && isProd,
+      // The `testing` entry imports `vi` from vitest; consumers already run under vitest,
+      // so keep it external instead of inlining the whole runtime into the shipped bundle.
+      rollupOptions: {
+        external: [/^vitest(\/|$)/, /^@vitest\//],
+      },
       lib: {
         entry: {
           index: `${dirname}/src/index.ts`,
