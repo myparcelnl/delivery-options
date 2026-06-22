@@ -1,5 +1,4 @@
 import {type UserConfig, type ConfigEnv} from 'vite';
-import {resolveAlias} from '@myparcel-dev/do-build-vite';
 import {version} from '../package.json';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -11,10 +10,6 @@ export const getSharedConfig = ({mode}: ConfigEnv) => {
       __CLASS_BASE__: JSON.stringify('myparcel-delivery-options'),
       __URL_DOCUMENTATION__: JSON.stringify('https://developer.myparcel.nl/documentation/60.delivery-options.html'),
       __URL_SANDBOX__: JSON.stringify('https://myparcelnl.github.io/delivery-options/'),
-    },
-
-    resolve: {
-      alias: [...resolveAlias],
     },
   } satisfies Partial<UserConfig>;
 };

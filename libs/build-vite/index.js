@@ -1,39 +1,20 @@
-import path from 'node:path';
+import tsconfigPaths from 'vite-tsconfig-paths';
 import customTsConfig from 'vite-plugin-custom-tsconfig';
 import {mergeConfig} from 'vite';
 import vue from '@vitejs/plugin-vue';
-
-const dirname = path.dirname(new URL(import.meta.url).pathname);
-
-/** @type {import('vitest/config').Alias[]} */
-export const resolveAlias = [
-  {
-    find: '@myparcel-dev/delivery-options',
-    replacement: path.resolve(dirname, '../../apps/delivery-options/src'),
-  },
-  {
-    find: '@myparcel-dev/do-shared/testing',
-    replacement: path.resolve(dirname, '../../libs/shared/src/__tests__'),
-  },
-  {
-    find: /^@myparcel-dev\/do-(shared|build-vite|semantic-release-plugin)$/,
-    replacement: path.resolve(dirname, '../../libs/$1/src'),
-  },
-];
 
 /** @type {import('vitest/config').UserConfigFn} */
 const createCommonViteConfig = (env) => {
   const isProd = env.mode === 'production';
   return {
-    plugins: [vue(), customTsConfig({tsConfigPath: 'tsconfig.base.json'})],
+    // Resolve the monorepo aliases from tsconfig.base.json `paths` (single source of truth).
+    // `loose: true` also resolves them in *.spec.ts files, which tsconfig.base.json excludes —
+    // otherwise those imports fall back to the built dist and load a second Vue copy in tests.
+    plugins: [vue(), customTsConfig({tsConfigPath: 'tsconfig.base.json'}), tsconfigPaths({loose: true})],
 
     build: {
       minify: isProd,
       sourcemap: !isProd,
-    },
-
-    resolve: {
-      alias: resolveAlias,
     },
 
     test: {

@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-magic-numbers,no-magic-numbers */
 import {type Config} from 'tailwindcss';
-import {tailwindPreflightPlugin} from './private';
+// Import the plugin from its own file, not the ./private barrel. The barrel also pulls in Vite
+// build helpers, and Tailwind's config loader can't run Vite's code — it would crash on load.
+import {tailwindPreflightPlugin} from './private/tailwindPreflightPlugin';
 
 const config: Config = {
   content: ['src/**/*.{js,ts,vue,scss}', '../../libs/shared/src/**/*.{js,ts,vue,scss}'],
