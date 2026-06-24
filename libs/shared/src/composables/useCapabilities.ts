@@ -15,9 +15,12 @@ export const EMPTY_RESPONSE: CapabilitiesResponse = {results: [] as CarrierCapab
 /**
  * Reactive capabilities that re-fetch when the request ref changes.
  * Not memoized — caller is responsible for managing the instance lifecycle.
+ *
+ * `proxyCapabilities` accepts a MaybeRefOrGetter so the URL is resolved per
+ * fetch — see useReactiveCapabilitiesRequest for the rationale.
  */
 export const useReactiveCapabilities = (
-  proxyCapabilities: string,
+  proxyCapabilities: MaybeRefOrGetter<string>,
   requestRef: Ref<CapabilitiesRequest> | ComputedRef<CapabilitiesRequest>,
   apiKey?: MaybeRefOrGetter<string | undefined>,
 ): UseCapabilities => {

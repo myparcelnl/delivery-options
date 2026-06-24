@@ -1,6 +1,8 @@
 import {type RecursivePartial} from '@myparcel-dev/ts-utils';
 import {
   CarrierSetting,
+  ConfigSetting,
+  type DeliveryOptionsConfig,
   type DeliveryOptionsConfiguration,
   KEY_CARRIER_SETTINGS,
   KEY_CONFIG,
@@ -10,6 +12,12 @@ import {CarrierName} from '@myparcel-dev/constants';
 import {useAddressStore, useConfigStore} from '../../stores';
 import {validateConfiguration} from '../../config';
 import {getMockDeliveryOptionsConfiguration} from './getMockDeliveryOptionsConfiguration';
+
+// Tests don't supply a real proxyCapabilities URL, but the production guard in
+// useReactiveCapabilitiesRequest skips the fetch when the URL is empty. The
+// vitest global.fetch stub ignores the URL value, so any truthy placeholder is
+// enough to make the capabilities pipeline run during tests.
+const TEST_PROXY_CAPABILITIES_URL = 'https://example.test/proxyCapabilities';
 
 export const mockDeliveryOptionsConfig = <I extends RecursivePartial<DeliveryOptionsConfiguration>>(input?: I): I => {
   const resolvedInput =
@@ -35,7 +43,12 @@ export const mockDeliveryOptionsConfig = <I extends RecursivePartial<DeliveryOpt
     delete validated[KEY_CONFIG][KEY_CARRIER_SETTINGS];
   }
 
-  configStore.update(validated?.[KEY_CONFIG] ?? {}, false);
+  const configUpdate: DeliveryOptionsConfig = {...(validated?.[KEY_CONFIG] ?? {})};
+  if (!configUpdate[ConfigSetting.ProxyCapabilities]) {
+    configUpdate[ConfigSetting.ProxyCapabilities] = TEST_PROXY_CAPABILITIES_URL;
+  }
+
+  configStore.update(configUpdate, false);
   addressStore.update(validated?.[KEY_ADDRESS] ?? {});
 
   return resolvedInput ?? {};
