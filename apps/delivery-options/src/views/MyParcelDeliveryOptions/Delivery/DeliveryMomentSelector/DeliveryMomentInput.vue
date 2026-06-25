@@ -65,9 +65,18 @@ const visibleOptions = computed(() => {
 const {grouped} = useOptionsGroupedByCarrier(visibleOptions as any);
 
 /**
- * Automatically select the first standard delivery moment whenever the selected date changes.
- * Prefers a moment for the pre-selected carrier when one exists, so that compact-view
- * selections survive into the home flow.
+ * Ensure a valid delivery moment is selected whenever the available options change.
+ *
+ * Re-applies a default only when the current selection is missing or no longer present in the
+ * newly available options (e.g. after an address/package-type change). A still-valid selection —
+ * including a user's manual pick — is preserved.
+ *
+ * Only the option set and selected date are watched, never `model` itself: an external clear of
+ * the selection (e.g. the host's UNSELECT_DELIVERY_OPTIONS event) must stay cleared rather than
+ * being auto-restored here.
+ *
+ * Prefers a moment for the pre-selected carrier when one exists, so that compact-view selections
+ * survive into the home flow.
  */
 watch(
   [visibleOptions, deliveryDate],
@@ -75,6 +84,10 @@ watch(
     const resolvedOptions = toValue(visibleOptions);
 
     if (resolvedOptions.length === 0) {
+      return;
+    }
+
+    if (model.value && resolvedOptions.some((option) => option.value === model.value)) {
       return;
     }
 
