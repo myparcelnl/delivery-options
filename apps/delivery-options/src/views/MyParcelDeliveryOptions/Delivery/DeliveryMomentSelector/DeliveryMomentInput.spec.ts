@@ -102,6 +102,16 @@ describe('DeliveryMomentInput.vue', () => {
     expect(deliveryMoment.value).toBe(DHL.value);
   });
 
+  it('replaces a stale selection that is no longer present in the options with the default', async () => {
+    const {deliveryMoment} = useSelectedValues();
+    deliveryMoment.value = 'stale-value';
+
+    renderInput(ref([POSTNL, DHL]));
+    await flushPromises();
+
+    expect(deliveryMoment.value).toBe(POSTNL.value);
+  });
+
   it('keeps the selection cleared after the host fires UNSELECT_DELIVERY_OPTIONS', async () => {
     const {deliveryMoment} = useSelectedValues();
 
