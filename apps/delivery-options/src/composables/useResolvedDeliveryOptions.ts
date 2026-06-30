@@ -15,6 +15,8 @@ import {
 } from '@myparcel-dev/do-shared';
 import {createGetDeliveryOptionsParameters, getResolvedDeliveryType, calculateCutoffTime} from '../utils';
 import {type SelectedDeliveryMoment} from '../types';
+import {useConfigStore} from '../stores';
+import {DELIVERY_MOMENT_PACKAGE_TYPES} from '../data';
 import {useTimeRange} from './useTimeRange';
 import {useSharedCapabilities} from './useSharedCapabilities';
 import {useSelectedValues} from './useSelectedValues';
@@ -237,8 +239,13 @@ const removeEmptyEntries = (datesPerCarrier: DeliveryDatesPerCarrier[]): NonNull
   const filteredDates = datesPerCarrier ? datesPerCarrier.filter((item) => item !== null) : [];
 
   if (filteredDates.length === 0) {
-    const {clearSelectedValues} = useSelectedValues();
-    clearSelectedValues();
+    const {state: config} = useConfigStore();
+
+    if (DELIVERY_MOMENT_PACKAGE_TYPES.includes(config.packageType)) {
+      const {clearSelectedValues} = useSelectedValues();
+      clearSelectedValues();
+    }
+
     return [];
   }
 
