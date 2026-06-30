@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel-dev/delivery-options-v7.4.2](https://github.com/myparcelnl/delivery-options/compare/v7.4.1...v7.4.2) (2026-06-30)
+
+### :bug: Bug Fixes
+
+* keep valid selection when changing address ([#451](https://github.com/myparcelnl/delivery-options/issues/451)) ([bbeda6b](https://github.com/myparcelnl/delivery-options/commit/bbeda6bae4550ebdf9191e4da87bfeccbe4cfbf4))
+* resolve proxyCapabilities at fetch time, not at singleton creation ([#440](https://github.com/myparcelnl/delivery-options/issues/440)) ([2da9570](https://github.com/myparcelnl/delivery-options/commit/2da9570f77a6fd871c8868ae225a97a59843f886))
+
 ## [@myparcel-dev/delivery-options-v7.4.1](https://github.com/myparcelnl/delivery-options/compare/v7.4.0...v7.4.1) (2026-06-22)
 
 ## [@myparcel-dev/delivery-options-v7.4.0](https://github.com/myparcelnl/delivery-options/compare/v7.3.0...v7.4.0) (2026-05-29)
