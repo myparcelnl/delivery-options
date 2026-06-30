@@ -43,10 +43,16 @@ export interface ReactiveCapabilitiesRequest {
 /**
  * Reactive capabilities request that re-fetches when the request ref changes.
  * Aborts stale in-flight requests. Deduplicates identical requests via JSON comparison.
+ *
+ * `proxyCapabilities` accepts a MaybeRefOrGetter so the URL is resolved at fetch
+ * time, not at construction time. This is essential for hosts that mount the
+ * widget *before* providing the config (e.g. Magento checkout fires the render
+ * event with no detail, then sets `window.MyParcelConfig` later via an update).
+ * Snapshotting the URL would otherwise pin the singleton to an empty string.
  */
 // eslint-disable-next-line max-lines-per-function
 export const useReactiveCapabilitiesRequest = (
-  proxyCapabilities: string,
+  proxyCapabilities: MaybeRefOrGetter<string>,
   requestRef: Ref<CapabilitiesRequest> | ComputedRef<CapabilitiesRequest>,
   apiKey?: MaybeRefOrGetter<string | undefined>,
 ): ReactiveCapabilitiesRequest => {
@@ -58,6 +64,14 @@ export const useReactiveCapabilitiesRequest = (
   const doFetch = async () => {
     const request = toValue(requestRef);
     const currentApiKey = toValue(apiKey);
+    const url = toValue(proxyCapabilities);
+
+    // Skip fetch when URL isn't set yet (e.g. host hasn't pushed config). The
+    // watch below re-runs once the URL becomes available.
+    if (!url) {
+      // intentionally keep loading state, for the delivery options will only start working after the url is set
+      return;
+    }
 
     if (abortController) {
       abortController.abort();
@@ -67,7 +81,7 @@ export const useReactiveCapabilitiesRequest = (
     loading.value = true;
 
     try {
-      const result = await fetchCapabilities(proxyCapabilities, request, currentApiKey, abortController.signal);
+      const result = await fetchCapabilities(url, request, currentApiKey, abortController.signal);
       const resultJson = JSON.stringify(result);
 
       // Only update when the response actually changed, to avoid triggering downstream watchers
@@ -98,8 +112,10 @@ export const useReactiveCapabilitiesRequest = (
     }
   };
 
-  // Watch a serialized version of the request to avoid false triggers from deep watch
-  const fetchKey = computed(() => JSON.stringify(toValue(requestRef)));
+  // Watch a serialized version of the request *and* the resolved URL to avoid
+  // false triggers from deep watch, while still re-fetching when the URL flips
+  // from empty to a real value.
+  const fetchKey = computed(() => `${toValue(proxyCapabilities)}|${JSON.stringify(toValue(requestRef))}`);
 
   // Initial fetch
   void doFetch();

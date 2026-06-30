@@ -170,4 +170,24 @@ describe('useReactiveCapabilitiesRequest', () => {
 
     expect(loading.value).toBe(false);
   });
+
+  it('skips fetch while proxyCapabilities is empty and fetches once the URL is set', async () => {
+    const urlRef = ref('');
+    const requestRef = ref<CapabilitiesRequest>({recipient: {countryCode: 'NL'}});
+
+    const {loading} = useReactiveCapabilitiesRequest(urlRef, requestRef);
+
+    await flushPromises();
+
+    expect(mockCapabilitiesFetch).not.toHaveBeenCalled();
+    expect(loading.value).toBe(true);
+
+    urlRef.value = PROXY_URL;
+    await nextTick();
+    await flushPromises();
+
+    expect(mockCapabilitiesFetch).toHaveBeenCalledOnce();
+    expect(mockCapabilitiesFetch).toHaveBeenCalledWith(PROXY_URL, expect.any(Object));
+    expect(loading.value).toBe(false);
+  });
 });
