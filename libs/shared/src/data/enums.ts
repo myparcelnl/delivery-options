@@ -53,6 +53,7 @@ export enum ConfigSetting {
   CompactView = 'compactView',
   ExcludeParcelLockers = 'excludeParcelLockers',
   PopUpMap = 'popUpMap',
+  IsBusiness = 'isBusiness',
 }
 
 export enum PickupLocationsView {

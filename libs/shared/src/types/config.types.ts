@@ -92,6 +92,13 @@ export interface DeliveryOptionsConfig extends Partial<Record<ConfigSetting, unk
   apiBaseUrl: string;
   proxyCapabilities: string;
   apiKey?: string;
+  /**
+   * Whether the recipient is a business, forwarded onto the capabilities recipient so B2B and B2C
+   * get their correct delivery options. The integrating platform sets it (the PDK derives it from
+   * a company name in the checkout address). Left undefined by hosts that don't send it yet — the
+   * widget then omits it from the request, so older platforms keep working unchanged.
+   */
+  isBusiness?: boolean;
   carrierSettings: CarrierSettingsObject;
   closedDays: Date[];
   /**

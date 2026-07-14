@@ -36,6 +36,9 @@ export const useSharedCapabilities = (): UseCapabilities => {
           recipient: {
             countryCode: address.cc,
             ...(address.postalCode ? {postalCode: address.postalCode} : {}),
+            // Forward the business flag when the platform sets it (true or false are distinct states
+            // to the API). Omit it entirely when undefined, so hosts that don't send it keep working.
+            ...(config.isBusiness === undefined ? {} : {isBusiness: config.isBusiness}),
           },
         };
 
