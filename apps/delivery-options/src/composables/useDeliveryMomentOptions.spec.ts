@@ -251,6 +251,68 @@ describe('useDeliveryMomentOptions', () => {
     expect(parsed[0].time).toBeNull();
   });
 
+  it('shows a per-carrier window=0 carrier as dateless next to a carrier that has dates', async () => {
+    // Mixed windows: PostNl has window=0 (dateless "fake" option), DhlForYou inherits the
+    // global window and returns real dates. Both must show.
+    mockGetDeliveryOptions.mockImplementation((endpoint, opts) => {
+      void endpoint;
+
+      if (opts.parameters?.carrier === CarrierName.DhlForYou) {
+        return Promise.resolve([
+          {
+            date: createTimestamp(`${MOCK_DATE} 00:00:00`),
+            possibilities: [
+              createDeliveryPossibility(normalizeDate(`${MOCK_DATE}T15:00:00`), {
+                package_type: PackageTypeName.Package,
+                shipment_options: [],
+              }),
+            ],
+          },
+        ]);
+      }
+
+      return Promise.resolve([]);
+    });
+
+    mockDeliveryOptionsConfig(
+      getMockDeliveryOptionsConfiguration({
+        [KEY_CONFIG]: {
+          [CarrierSetting.PackageType]: PackageTypeName.Package,
+          [KEY_CARRIER_SETTINGS]: {
+            [CarrierName.PostNl]: {
+              [CarrierSetting.AllowStandardDelivery]: true,
+              [CarrierSetting.DeliveryDaysWindow]: 0,
+            },
+            [CarrierName.DhlForYou]: {[CarrierSetting.AllowStandardDelivery]: true},
+          },
+        },
+      }),
+    );
+    mockSelectedDeliveryOptions();
+
+    const options = useDeliveryMomentOptions();
+    await waitForDeliveryOptions(CarrierName.DhlForYou);
+    await flushPromises();
+
+    // Select the DhlForYou date so its moment shows up, like DateSelector.vue does.
+    const resolvedOptions = useResolvedDeliveryOptions();
+
+    if (resolvedOptions.value.length > 0 && resolvedOptions.value[0].date) {
+      const {deliveryDate} = useSelectedValues();
+      deliveryDate.value = resolvedOptions.value[0].date;
+      await flushPromises();
+    }
+
+    const parsed = options.value.map((option) => parseJson<SelectedDeliveryMoment>(option.value));
+    const postnl = parsed.find((opt) => opt.carrier === CarrierName.PostNl);
+    const dhl = parsed.find((opt) => opt.carrier === CarrierName.DhlForYou);
+
+    // PostNl (window=0) is a dateless fake option; DhlForYou (inherits global) has a real date.
+    expect(postnl?.date).toBeNull();
+    expect(postnl?.time).toBeNull();
+    expect(dhl?.date).not.toBeNull();
+  });
+
   it('does not show fallback carriers when selected date is today', async () => {
     mockStringToDateResult.value = new Date();
 

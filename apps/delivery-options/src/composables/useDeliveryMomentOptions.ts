@@ -90,15 +90,20 @@ const getMomentOptions = (
     }));
 
 /**
- * Options when the delivery date is hidden (deliveryDaysWindow <= 1).
- * One generic "standard delivery" option per carrier.
+ * Dateless "fake" options for carriers with a delivery-days window of 0: the carrier shows
+ * up without a date or time. Carriers with a window of 1 or more are handled through their
+ * API delivery moments instead, so they are skipped here.
  */
 const getDatelessDeliveryOptions = (
   carriers: UseResolvedCarrier[],
   packageType: SupportedPackageTypeName,
 ): SelectOption<string>[] => {
   return carriers
-    .filter((carrier) => toValue(carrier.hasDelivery))
+    .filter(
+      (carrier) =>
+        toValue(carrier.hasDelivery) &&
+        carrier.get(CarrierSetting.DeliveryDaysWindow, DELIVERY_DAYS_WINDOW_DEFAULT) === 0,
+    )
     .map((carrier) => {
       return createDatelessDeliveryOption(
         toValue(carrier.carrier).identifier,
@@ -158,6 +163,11 @@ export const useDeliveryMomentOptions = (): ComputedRef<SelectOption<string>[]> 
       return getDatelessDeliveryOptions(activeCarriers.value, config.packageType);
     }
 
+    // Carriers with a delivery-days window of 0 never have dates, so show them as a single
+    // dateless "fake" option next to the dated carriers - the same behaviour as a global
+    // window of 0, just applied per carrier.
+    const datelessOptions = getDatelessDeliveryOptions(activeCarriers.value, config.packageType);
+
     const momentOptions = getMomentOptions(deliveryMoments.value, config.packageType);
 
     const allDeliveryOptions = useResolvedDeliveryOptions();
@@ -175,6 +185,6 @@ export const useDeliveryMomentOptions = (): ComputedRef<SelectOption<string>[]> 
       selectedDateIsToday,
     );
 
-    return [...momentOptions, ...fallbackOptions];
+    return [...datelessOptions, ...momentOptions, ...fallbackOptions];
   });
 };
