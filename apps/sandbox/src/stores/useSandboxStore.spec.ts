@@ -34,7 +34,7 @@ describe('useSandboxStore', () => {
     vi.clearAllMocks();
   });
 
-  it('strips per-carrier deliveryDaysWindow in resolvedConfiguration', () => {
+  it('keeps a per-carrier deliveryDaysWindow (0 included) so it can override the global window', () => {
     const store = useSandboxStore();
 
     store.config = {[CarrierSetting.DeliveryDaysWindow]: 3};
@@ -50,6 +50,27 @@ describe('useSandboxStore', () => {
     const resolvedCarrierSettings = resolvedConfig[KEY_CARRIER_SETTINGS] as Record<string, Record<string, unknown>>;
 
     expect(resolvedConfig[CarrierSetting.DeliveryDaysWindow]).toBe(3);
+    expect(resolvedCarrierSettings.postnl[CarrierSetting.DeliveryDaysWindow]).toBe(0);
+    expect(resolvedCarrierSettings.postnl[CarrierSetting.AllowStandardDelivery]).toBe(true);
+  });
+
+  it('omits an empty per-carrier deliveryDaysWindow so it inherits the global window', () => {
+    const store = useSandboxStore();
+
+    store.config = {[CarrierSetting.DeliveryDaysWindow]: 3};
+    store.carrierSettings = {
+      postnl: {
+        // A cleared number input emits an empty string.
+        [CarrierSetting.DeliveryDaysWindow]: '' as unknown as number,
+        [CarrierSetting.AllowStandardDelivery]: true,
+      },
+    };
+
+    const resolvedCarrierSettings = store.resolvedConfiguration[KEY_CONFIG][KEY_CARRIER_SETTINGS] as Record<
+      string,
+      Record<string, unknown>
+    >;
+
     expect(resolvedCarrierSettings.postnl[CarrierSetting.DeliveryDaysWindow]).toBeUndefined();
     expect(resolvedCarrierSettings.postnl[CarrierSetting.AllowStandardDelivery]).toBe(true);
   });

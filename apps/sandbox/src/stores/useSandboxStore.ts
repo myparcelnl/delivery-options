@@ -69,6 +69,10 @@ export const useSandboxStore = defineStore('sandbox', {
   getters: {
     resolvedConfiguration(): InputDeliveryOptionsConfiguration {
       const {language, strings} = useLanguage();
+
+      // Keep a per-carrier deliveryDaysWindow only when it is an actual number (0 included).
+      // An empty field (undefined or the "" a cleared number input emits) is omitted so the
+      // carrier inherits the global window - keeping the UI and the passed config consistent.
       const cleanedCarrierSettings = Object.fromEntries(
         Object.entries(this.carrierSettings).map(([identifier, settings]) => {
           if (!settings) {
@@ -80,9 +84,9 @@ export const useSandboxStore = defineStore('sandbox', {
             unknown
           >;
 
-          void deliveryDaysWindow;
-
-          return [identifier, rest];
+          return typeof deliveryDaysWindow === 'number' && Number.isFinite(deliveryDaysWindow)
+            ? [identifier, {...rest, [CarrierSetting.DeliveryDaysWindow]: deliveryDaysWindow}]
+            : [identifier, rest];
         }),
       ) as InputCarrierSettingsObject;
 
