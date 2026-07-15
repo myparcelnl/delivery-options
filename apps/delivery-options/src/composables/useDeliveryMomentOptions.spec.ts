@@ -209,11 +209,9 @@ describe('useDeliveryMomentOptions', () => {
     expect(parsed.every((opt) => opt.date === null && opt.time === null)).toBe(true);
   });
 
-  // Reproduces INT-1679. The "no date" (window=0) handling must be the same for the
-  // per-carrier setting as for the global one. When a carrier has window=0 but the GLOBAL
-  // window keeps its default (7), showDeliveryDate reads the global value and stays true,
-  // so the dateless path is skipped; the per-carrier window=0 then produces no API dates
-  // and the fallback filter drops the carrier (deliveryDaysWindow !== 0), leaving nothing.
+  // Regression test for INT-1679: "no date" (deliveryDaysWindow=0) must behave the same per carrier as globally.
+  // A carrier with deliveryDaysWindow=0 should still render as a single dateless option,
+  // even when the global deliveryDaysWindow is > 0.
   // Not reproducible in the sandbox because the sandbox sets the window globally.
   // @TODO: currently RED on purpose (proves INT-1679); should pass once the fix lands.
   it('shows a per-carrier deliveryDaysWindow=0 carrier as a dateless option, just like the global setting', async () => {
