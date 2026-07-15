@@ -114,4 +114,45 @@ describe('createGetDeliveryOptionsParameters', () => {
       ),
     );
   });
+
+  it('inherits the global deliveryDaysWindow when the carrier has none set', async () => {
+    expect.assertions(1);
+
+    mockDeliveryOptionsConfig(
+      getMockDeliveryOptionsConfiguration({
+        [KEY_CONFIG]: {
+          [CarrierSetting.DeliveryDaysWindow]: 3,
+          [KEY_CARRIER_SETTINGS]: {[CarrierName.PostNl]: {[CarrierSetting.AllowStandardDelivery]: true}},
+        },
+      }),
+    );
+
+    const resolvedCarrier = getResolvedCarrier(CarrierName.PostNl);
+    await flushPromises();
+
+    expect(createGetDeliveryOptionsParameters(resolvedCarrier).deliverydays_window).toBe(3);
+  });
+
+  it('uses the per-carrier deliveryDaysWindow over the global one', async () => {
+    expect.assertions(1);
+
+    mockDeliveryOptionsConfig(
+      getMockDeliveryOptionsConfiguration({
+        [KEY_CONFIG]: {
+          [CarrierSetting.DeliveryDaysWindow]: 3,
+          [KEY_CARRIER_SETTINGS]: {
+            [CarrierName.PostNl]: {
+              [CarrierSetting.AllowStandardDelivery]: true,
+              [CarrierSetting.DeliveryDaysWindow]: 5,
+            },
+          },
+        },
+      }),
+    );
+
+    const resolvedCarrier = getResolvedCarrier(CarrierName.PostNl);
+    await flushPromises();
+
+    expect(createGetDeliveryOptionsParameters(resolvedCarrier).deliverydays_window).toBe(5);
+  });
 });
