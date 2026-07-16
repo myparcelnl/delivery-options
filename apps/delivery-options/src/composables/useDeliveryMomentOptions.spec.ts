@@ -212,8 +212,8 @@ describe('useDeliveryMomentOptions', () => {
   // Regression test for INT-1679: "no date" (deliveryDaysWindow=0) must behave the same per carrier as globally.
   // A carrier with deliveryDaysWindow=0 should still render as a single dateless option,
   // even when the global deliveryDaysWindow is > 0.
-  // Not reproducible in the sandbox because the sandbox sets the window globally.
-  // @TODO: currently RED on purpose (proves INT-1679); should pass once the fix lands.
+  // Reproducible in the sandbox by setting a per-carrier deliveryDaysWindow override.
+  // This test should stay green to prevent regressions.
   it('shows a per-carrier deliveryDaysWindow=0 carrier as a dateless option, just like the global setting', async () => {
     mockDeliveryOptionsConfig(
       getMockDeliveryOptionsConfiguration({
