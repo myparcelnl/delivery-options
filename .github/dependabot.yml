@@ -4,13 +4,17 @@ updates:
     directory: '/'
     schedule:
       interval: 'weekly'
-    reviewers: ['myparcelnl/integration']
+    commit-message:
+      prefix: 'build'
+      include: 'scope'
 
   - package-ecosystem: 'npm'
     directory: '/'
     schedule:
       interval: 'daily'
-    reviewers: ['myparcelnl/integration']
+    commit-message:
+      prefix: 'build'
+      include: 'scope'
     versioning-strategy: increase-if-necessary
     groups:
       minor-js-updates:
