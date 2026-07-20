@@ -3,6 +3,7 @@ import {reactive} from 'vue';
 import {assign} from 'radash';
 import {
   getDefaultDeliveryOptionsConfig,
+  setSdkBaseUrl,
   type DeliveryOptionsConfig,
   type ResolvedDeliveryOptionsConfig,
 } from '@myparcel-dev/do-shared';
@@ -17,6 +18,8 @@ function update(configuration: DeliveryOptionsConfig, withDefaults = true): void
   } else {
     Object.assign(state, configuration);
   }
+
+  setSdkBaseUrl(state.apiBaseUrl);
 }
 
 // Reset to the initial state
@@ -27,6 +30,8 @@ function reset(): void {
   }
 
   Object.assign(state, initialState);
+
+  setSdkBaseUrl(state.apiBaseUrl);
 }
 
 export const useConfigStore = (): DeliveryOptionsStore<
