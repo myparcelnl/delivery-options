@@ -52,6 +52,18 @@ describe('hasDeliveryForCarrier', () => {
     expect(hasDeliveryForCarrier(cap)).toBe(false);
   });
 
+  it('returns true when capability only has the same day delivery type and config allows it', () => {
+    mockDeliveryOptionsConfig(
+      getMockDeliveryOptionsConfiguration({
+        [KEY_CONFIG]: {[CarrierSetting.AllowSameDayDelivery]: true},
+      }),
+    );
+
+    const cap = createCapability(['SAME_DAY_DELIVERY']);
+
+    expect(hasDeliveryForCarrier(cap)).toBe(true);
+  });
+
   it('returns false when capability has no delivery types', () => {
     mockDeliveryOptionsConfig(
       getMockDeliveryOptionsConfiguration({

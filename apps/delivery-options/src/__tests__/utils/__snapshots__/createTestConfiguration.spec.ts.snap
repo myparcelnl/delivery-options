@@ -583,6 +583,7 @@ exports[`createTestConfiguration > creates a default test configuration with uni
     "compactBackToOverview": "Terug naar overzicht",
     "compactDelivery": "Thuisbezorgen",
     "compactPickup": "Afhalen op locatie",
+    "deliverySameDayTitle": "Vandaag bezorgd",
     "deliveryStandardTitle": "Standaard bezorging",
     "deliveryTitle": "Thuis of op het werk bezorgen",
     "discount": "Korting",

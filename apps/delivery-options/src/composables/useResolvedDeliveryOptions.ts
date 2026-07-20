@@ -1,6 +1,6 @@
 import {toValue, watch, type ComputedRef} from 'vue';
 import {pascal} from 'radash';
-import {startOfDay} from 'date-fns';
+import {format, isToday, startOfDay} from 'date-fns';
 import {useMemoize} from '@vueuse/core';
 import {
   useDeliveryOptionsRequest,
@@ -9,11 +9,19 @@ import {
   createUntranslatable,
   type ComputedAsync,
   CarrierSetting,
+  CustomDeliveryType,
   DELIVERY_DAYS_WINDOW_DEFAULT,
   createTranslatable,
   ConfigSetting,
 } from '@myparcel-dev/do-shared';
-import {createGetDeliveryOptionsParameters, getResolvedDeliveryType, calculateCutoffTime} from '../utils';
+import {
+  createGetDeliveryOptionsParameters,
+  getResolvedDeliveryType,
+  calculateCutoffTime,
+  isFallbackEligible,
+  isSameDayAvailable,
+  stringToDate,
+} from '../utils';
 import {type SelectedDeliveryMoment} from '../types';
 import {useConfigStore} from '../stores';
 import {DELIVERY_MOMENT_PACKAGE_TYPES} from '../data';
@@ -315,6 +323,7 @@ const formatDatesAsDeliveryMoments = (
           date: dateOption.date?.date,
           time: timeString,
           deliveryType,
+          originalDeliveryType: datePossibility.type,
           packageType: datePossibility.package_type,
           shipmentOptions: datePossibility.shipment_options,
         });
@@ -323,6 +332,41 @@ const formatDatesAsDeliveryMoments = (
 
     return acc;
   }, [] as SelectedDeliveryMoment[]);
+};
+
+/**
+ * The legacy delivery options API does not support every carrier (e.g. Trunkrs).
+ * Carriers with same-day delivery enabled and available that got no dates from
+ * the API receive a synthetic moment for today, as long as their same-day
+ * cutoff has not passed. Remove when the API supports these carriers.
+ */
+const createSameDayFallbackMoments = (
+  carriers: UseResolvedCarrier[],
+  moments: SelectedDeliveryMoment[],
+): SelectedDeliveryMoment[] => {
+  const {state: config} = useConfigStore();
+
+  if (!DELIVERY_MOMENT_PACKAGE_TYPES.includes(config.packageType)) {
+    return [];
+  }
+
+  const carriersWithMoments = new Set(moments.map((moment) => moment.carrier));
+
+  // The date string is the join key for the date picker and moment filtering,
+  // so reuse the date string of an existing API today-moment when there is one.
+  const todayFromApi = moments.find((moment) => moment.date && isToday(stringToDate(moment.date)))?.date;
+  const todayDate = todayFromApi ?? `${format(new Date(), 'yyyy-MM-dd')} 00:00:00`;
+
+  return carriers
+    .filter((carrier) => isFallbackEligible(carrier, carriersWithMoments) && isSameDayAvailable(carrier))
+    .map((carrier) => ({
+      carrier: toValue(carrier.carrier).identifier,
+      date: todayDate,
+      time: createTranslatable(`delivery${pascal(CustomDeliveryType.SameDay)}Title`),
+      deliveryType: CustomDeliveryType.SameDay,
+      packageType: config.packageType,
+      shipmentOptions: [],
+    }));
 };
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -366,7 +410,9 @@ const callback = (): UseResolvedDeliveryOptions => {
     const filteredDates = removeEmptyEntries(datesPerCarrier, toValue(carriers));
 
     // Flatten the dates into SelectedDeliveryMoment objects.
-    return formatDatesAsDeliveryMoments(filteredDates);
+    const moments = formatDatesAsDeliveryMoments(filteredDates);
+
+    return [...moments, ...createSameDayFallbackMoments(toValue(carriers), moments)];
   }, []);
 };
 

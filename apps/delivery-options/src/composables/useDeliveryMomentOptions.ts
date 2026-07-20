@@ -5,14 +5,20 @@ import {
   type AnyTranslatable,
   type CarrierIdentifier,
   type SelectOption,
+  type SupportedDeliveryTypeName,
   type SupportedPackageTypeName,
+  CustomDeliveryType,
   DELIVERY_TYPE_DEFAULT,
-  CarrierSetting,
-  DELIVERY_DAYS_WINDOW_DEFAULT,
   SUPPORTED_SHIPMENT_OPTIONS,
   createTranslatable,
 } from '@myparcel-dev/do-shared';
-import {getDeliveryTypePrice, createPackageTypeTranslatable, stringToDate} from '../utils';
+import {
+  getDeliveryTypePrice,
+  createPackageTypeTranslatable,
+  stringToDate,
+  isFallbackEligible,
+  isSameDayAvailable,
+} from '../utils';
 import {type SelectedDeliveryMoment} from '../types';
 import {useConfigStore} from '../stores';
 import {DELIVERY_MOMENT_PACKAGE_TYPES} from '../data';
@@ -31,14 +37,15 @@ const createDatelessDeliveryOption = (
   carrierIdentifier: CarrierIdentifier,
   label: AnyTranslatable,
   packageType: SupportedPackageTypeName,
+  deliveryType: SupportedDeliveryTypeName = DELIVERY_TYPE_DEFAULT,
 ): SelectOption<string> => ({
   carrier: carrierIdentifier,
   label,
-  price: getDeliveryTypePrice(DELIVERY_TYPE_DEFAULT, carrierIdentifier),
+  price: getDeliveryTypePrice(deliveryType, carrierIdentifier),
   value: JSON.stringify({
     carrier: carrierIdentifier,
     date: null,
-    deliveryType: DELIVERY_TYPE_DEFAULT,
+    deliveryType,
     packageType,
     shipmentOptions: [],
     time: null,
@@ -82,6 +89,7 @@ const getMomentOptions = (
         carrier: option.carrier,
         date: option.date,
         deliveryType: option.deliveryType,
+        originalDeliveryType: option.originalDeliveryType,
         packageType: option.packageType,
         shipmentOptions: option.shipmentOptions.filter((opt) =>
           (SUPPORTED_SHIPMENT_OPTIONS as readonly string[]).includes(opt.name),
@@ -90,9 +98,9 @@ const getMomentOptions = (
     }));
 
 /**
- * Dateless "fake" options for carriers with a delivery-days window of 0: the carrier shows
- * up without a date or time. Carriers with a window of 1 or more are handled through their
- * API delivery moments instead, so they are skipped here.
+ * Options when the delivery date is hidden (deliveryDaysWindow = 0): a generic
+ * "standard delivery" option per carrier supporting it, plus a same-day option
+ * for carriers where same-day is currently available.
  */
 const getDatelessDeliveryOptions = (
   carriers: UseResolvedCarrier[],
@@ -104,12 +112,32 @@ const getDatelessDeliveryOptions = (
         toValue(carrier.hasDelivery) &&
         carrier.get(CarrierSetting.DeliveryDaysWindow, DELIVERY_DAYS_WINDOW_DEFAULT) === 0,
     )
-    .map((carrier) => {
-      return createDatelessDeliveryOption(
-        toValue(carrier.carrier).identifier,
-        createTranslatable(`delivery${pascal(DELIVERY_TYPE_DEFAULT)}Title`),
-        packageType,
-      );
+    .flatMap((carrier) => {
+      const {identifier} = toValue(carrier.carrier);
+      const options: SelectOption<string>[] = [];
+
+      if (toValue(carrier.deliveryTypes).has(DELIVERY_TYPE_DEFAULT)) {
+        options.push(
+          createDatelessDeliveryOption(
+            identifier,
+            createTranslatable(`delivery${pascal(DELIVERY_TYPE_DEFAULT)}Title`),
+            packageType,
+          ),
+        );
+      }
+
+      if (isSameDayAvailable(carrier)) {
+        options.push(
+          createDatelessDeliveryOption(
+            identifier,
+            createTranslatable(`delivery${pascal(CustomDeliveryType.SameDay)}Title`),
+            packageType,
+            CustomDeliveryType.SameDay,
+          ),
+        );
+      }
+
+      return options;
     });
 };
 
@@ -129,15 +157,12 @@ const getFallbackCarrierOptions = (
 
   return carriers
     .filter((carrier) => {
-      const id = toValue(carrier.carrier).identifier;
-
-      if (carriersWithAnyMoments.has(id)) return false;
-
-      if (!toValue(carrier.hasDelivery)) return false;
-
-      const deliveryDaysWindow = carrier.get(CarrierSetting.DeliveryDaysWindow, DELIVERY_DAYS_WINDOW_DEFAULT);
-
-      return deliveryDaysWindow !== 0;
+      // The fallback claims a standard delivery, so the carrier must actually
+      // support standard delivery and have it enabled (e.g. a same-day-only
+      // carrier like Trunkrs must not get a standard fallback).
+      return (
+        isFallbackEligible(carrier, carriersWithAnyMoments) && toValue(carrier.deliveryTypes).has(DELIVERY_TYPE_DEFAULT)
+      );
     })
     .map((carrier) => {
       return createDatelessDeliveryOption(

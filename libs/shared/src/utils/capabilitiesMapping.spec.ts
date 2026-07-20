@@ -13,7 +13,10 @@ import {
   mapCapabilityOptionToSdkParam,
   mapCapabilityOptionToCarrierSetting,
   mapCapabilityOptionToCustomDeliveryType,
-  mapCarrierSettingToCapabilityKey,
+  mapCarrierSettingToCapabilityKeys,
+  toDeliveryAllowKey,
+  toDeliveryPriceKey,
+  CAPABILITY_SETTINGS_PAIRS,
 } from './capabilitiesMapping';
 
 describe('normalizeCarrierName', () => {
@@ -35,6 +38,7 @@ describe('mapCapabilityDeliveryType / mapDeliveryTypeToCapability', () => {
     ['EVENING_DELIVERY', DeliveryTypeName.Evening],
     ['PICKUP_DELIVERY', DeliveryTypeName.Pickup],
     ['EXPRESS_DELIVERY', DeliveryTypeName.Express],
+    ['SAME_DAY_DELIVERY', CustomDeliveryType.SameDay],
   ] as const)('maps %s -> %s and back', (capType, sdkType) => {
     expect(mapCapabilityDeliveryType(capType)).toBe(sdkType);
     expect(mapDeliveryTypeToCapability(sdkType)).toBe(capType);
@@ -42,6 +46,11 @@ describe('mapCapabilityDeliveryType / mapDeliveryTypeToCapability', () => {
 
   it('returns undefined for unknown delivery type', () => {
     expect(mapCapabilityDeliveryType('NONEXISTENT')).toBeUndefined();
+  });
+
+  it('does not log for the same day delivery type', () => {
+    mapCapabilityDeliveryType('SAME_DAY_DELIVERY');
+    expect(consoleLogSpy).not.toHaveBeenCalled();
   });
 
   it('logs a debug message for unmapped delivery type', () => {
@@ -154,24 +163,50 @@ describe('mapCapabilityOptionToCustomDeliveryType', () => {
   });
 });
 
-describe('mapCarrierSettingToCapabilityKey', () => {
+describe('toDeliveryAllowKey / toDeliveryPriceKey', () => {
   it.each([
-    [CarrierSetting.AllowSignature, {type: 'option', name: 'requiresSignature'}],
-    [CarrierSetting.AllowOnlyRecipient, {type: 'option', name: 'recipientOnlyDelivery'}],
-    [CarrierSetting.AllowPriorityDelivery, {type: 'option', name: 'priorityDelivery'}],
-    [CarrierSetting.AllowStandardDelivery, {type: 'deliveryType', name: 'STANDARD_DELIVERY'}],
-    [CarrierSetting.AllowMorningDelivery, {type: 'deliveryType', name: 'MORNING_DELIVERY'}],
-    [CarrierSetting.AllowEveningDelivery, {type: 'deliveryType', name: 'EVENING_DELIVERY'}],
-    [CarrierSetting.AllowPickupLocations, {type: 'deliveryType', name: 'PICKUP_DELIVERY'}],
-    [CarrierSetting.AllowExpressDelivery, {type: 'deliveryType', name: 'EXPRESS_DELIVERY'}],
-    [CarrierSetting.AllowSameDayDelivery, {type: 'option', name: 'sameDayDelivery'}],
-    [CarrierSetting.AllowMondayDelivery, {type: 'option', name: 'mondayDelivery'}],
-    [CarrierSetting.AllowSaturdayDelivery, {type: 'option', name: 'saturdayDelivery'}],
-  ])('maps %s to correct shape', (setting, expected) => {
-    expect(mapCarrierSettingToCapabilityKey(setting)).toEqual(expected);
+    ['standard', CarrierSetting.AllowStandardDelivery, CarrierSetting.PriceStandardDelivery],
+    ['same_day', CarrierSetting.AllowSameDayDelivery, CarrierSetting.PriceSameDayDelivery],
+    ['pickup', CarrierSetting.AllowPickupLocations, CarrierSetting.PricePickup],
+  ] as const)('derives keys for %s', (sdkType, allowKey, priceKey) => {
+    expect(toDeliveryAllowKey(sdkType)).toBe(allowKey);
+    expect(toDeliveryPriceKey(sdkType)).toBe(priceKey);
+  });
+});
+
+describe('CAPABILITY_SETTINGS_PAIRS', () => {
+  it('contains no duplicate allow keys', () => {
+    const allowKeys = CAPABILITY_SETTINGS_PAIRS.map(([allow]) => allow);
+
+    expect(new Set(allowKeys).size).toBe(allowKeys.length);
+  });
+});
+
+describe('mapCarrierSettingToCapabilityKeys', () => {
+  it.each([
+    [CarrierSetting.AllowStandardDelivery, [{type: 'deliveryType', name: 'STANDARD_DELIVERY'}]],
+    [CarrierSetting.AllowMorningDelivery, [{type: 'deliveryType', name: 'MORNING_DELIVERY'}]],
+    [CarrierSetting.AllowEveningDelivery, [{type: 'deliveryType', name: 'EVENING_DELIVERY'}]],
+    [CarrierSetting.AllowPickupLocations, [{type: 'deliveryType', name: 'PICKUP_DELIVERY'}]],
+    [CarrierSetting.AllowExpressDelivery, [{type: 'deliveryType', name: 'EXPRESS_DELIVERY'}]],
+    [CarrierSetting.AllowSignature, [{type: 'option', name: 'requiresSignature'}]],
+    [CarrierSetting.AllowOnlyRecipient, [{type: 'option', name: 'recipientOnlyDelivery'}]],
+    [CarrierSetting.AllowPriorityDelivery, [{type: 'option', name: 'priorityDelivery'}]],
+    [CarrierSetting.AllowMondayDelivery, [{type: 'option', name: 'mondayDelivery'}]],
+    [CarrierSetting.AllowSaturdayDelivery, [{type: 'option', name: 'saturdayDelivery'}]],
+    [
+      // Same-day is exposed as a delivery type by some carriers and as an option by others.
+      CarrierSetting.AllowSameDayDelivery,
+      [
+        {type: 'deliveryType', name: 'SAME_DAY_DELIVERY'},
+        {type: 'option', name: 'sameDayDelivery'},
+      ],
+    ],
+  ])('maps %s to all capability representations', (setting, expected) => {
+    expect(mapCarrierSettingToCapabilityKeys(setting)).toEqual(expected);
   });
 
-  it('returns undefined for unmapped setting', () => {
-    expect(mapCarrierSettingToCapabilityKey(CarrierSetting.Collect)).toBeUndefined();
+  it('returns an empty array for unmapped settings', () => {
+    expect(mapCarrierSettingToCapabilityKeys(CarrierSetting.Collect)).toEqual([]);
   });
 });

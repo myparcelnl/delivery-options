@@ -1,5 +1,6 @@
 import {describe, it, expect, beforeEach, afterEach, vi} from 'vitest';
 import {assign} from 'radash';
+import {format, isToday} from 'date-fns';
 import {normalizeDate} from '@vueuse/core';
 import {flushPromises} from '@vue/test-utils';
 import {waitFor} from '@testing-library/vue';
@@ -13,6 +14,7 @@ import {
   type InputDeliveryOptionsConfiguration,
   KEY_ADDRESS,
   ConfigSetting,
+  CustomDeliveryType,
 } from '@myparcel-dev/do-shared';
 import {DeliveryTypeName, CarrierName, PackageTypeName} from '@myparcel-dev/constants';
 import {useConfigStore} from '../stores';
@@ -290,6 +292,180 @@ describe('useResolvedDeliveryOptions', () => {
       const availableDates = await testClosedDaysFiltering(['2025-01-02'], 1, '16:00', '2025-01-01T15:00:00Z');
 
       expect(availableDates.some((date) => isDateMatch(date, 2025, 1, 2))).toBe(false);
+    });
+  });
+
+  describe('same-day fallback moments', () => {
+    // The legacy delivery options API does not support every carrier (e.g. Trunkrs).
+    // Carriers whose only delivery type is same-day get a synthetic moment for today
+    // as long as the same-day cutoff has not passed.
+    const CUTOFF_NOT_PASSED = '23:59';
+    const CUTOFF_PASSED = '00:00';
+
+    afterEach(() => {
+      vi.clearAllMocks();
+    });
+
+    const setupWithEmptyApi = async (
+      carrierSettings: Record<string, Record<string, unknown>>,
+    ): Promise<ReturnType<typeof useResolvedDeliveryOptions>> => {
+      mockGetDeliveryOptions.mockResolvedValue([]);
+
+      mockDeliveryOptionsConfig(
+        getMockDeliveryOptionsConfiguration({
+          [KEY_CONFIG]: {
+            [KEY_CARRIER_SETTINGS]: carrierSettings,
+          },
+        }),
+      );
+
+      useResolvedDeliveryOptions.clear();
+      const options = useResolvedDeliveryOptions();
+      void options.load();
+      await waitFor(() => expect(options.loading.value).toBe(false), {timeout: 3000});
+      await flushPromises();
+
+      return options;
+    };
+
+    it('synthesizes a same-day moment for a same-day-only carrier without API moments', async () => {
+      const options = await setupWithEmptyApi({
+        [CarrierName.Trunkrs]: {
+          [CarrierSetting.AllowSameDayDelivery]: true,
+          [CarrierSetting.CutoffTimeSameDay]: CUTOFF_NOT_PASSED,
+        },
+      });
+
+      expect(options.value).toHaveLength(1);
+
+      const [moment] = options.value;
+
+      expect(moment.carrier).toBe(CarrierName.Trunkrs);
+      expect(moment.deliveryType).toBe(CustomDeliveryType.SameDay);
+      expect(moment.date && isToday(new Date(moment.date))).toBe(true);
+    });
+
+    it('does not synthesize a same-day moment past the same-day cutoff', async () => {
+      const options = await setupWithEmptyApi({
+        [CarrierName.Trunkrs]: {
+          [CarrierSetting.AllowSameDayDelivery]: true,
+          [CarrierSetting.CutoffTimeSameDay]: CUTOFF_PASSED,
+        },
+      });
+
+      expect(options.value).toEqual([]);
+    });
+
+    it('does not synthesize a same-day moment when same-day delivery is disabled', async () => {
+      const options = await setupWithEmptyApi({
+        [CarrierName.Trunkrs]: {
+          [CarrierSetting.AllowSameDayDelivery]: false,
+          [CarrierSetting.CutoffTimeSameDay]: CUTOFF_NOT_PASSED,
+        },
+      });
+
+      expect(options.value).toEqual([]);
+    });
+
+    it('reuses the API today date string for synthesized moments so the date list stays deduplicated', async () => {
+      // Another carrier may get a real today-date from the API (e.g. DHL For You
+      // same-day). The synthetic moment must share that exact date string, since
+      // the date string is the join key for the date picker and moment filtering.
+      const apiTodayDate = `${format(new Date(), 'yyyy-MM-dd')} 08:30:00`;
+
+      mockGetDeliveryOptions.mockImplementation((endpoint, opts) => {
+        void endpoint;
+
+        if (opts.parameters?.carrier === CarrierName.DhlForYou) {
+          return Promise.resolve([
+            {
+              date: createTimestamp(apiTodayDate),
+              possibilities: [createDeliveryPossibility(normalizeDate(new Date()))],
+            },
+          ]);
+        }
+
+        return Promise.resolve([]);
+      });
+
+      mockDeliveryOptionsConfig(
+        getMockDeliveryOptionsConfiguration({
+          [KEY_CONFIG]: {
+            [KEY_CARRIER_SETTINGS]: {
+              [CarrierName.DhlForYou]: {
+                [CarrierSetting.AllowStandardDelivery]: true,
+                [CarrierSetting.AllowSameDayDelivery]: true,
+                [CarrierSetting.CutoffTimeSameDay]: CUTOFF_NOT_PASSED,
+              },
+              [CarrierName.Trunkrs]: {
+                [CarrierSetting.AllowSameDayDelivery]: true,
+                [CarrierSetting.CutoffTimeSameDay]: CUTOFF_NOT_PASSED,
+              },
+            },
+          },
+        }),
+      );
+
+      useResolvedDeliveryOptions.clear();
+      const options = useResolvedDeliveryOptions();
+      void options.load();
+      await waitFor(() => expect(options.loading.value).toBe(false), {timeout: 3000});
+      await flushPromises();
+
+      const trunkrsMoment = options.value.find((moment) => moment.carrier === CarrierName.Trunkrs);
+      const dhlMoment = options.value.find((moment) => moment.carrier === CarrierName.DhlForYou);
+
+      expect(dhlMoment?.date).toBe(apiTodayDate);
+      expect(trunkrsMoment?.date).toBe(apiTodayDate);
+    });
+
+    it('does not synthesize a same-day moment when the API returns dates without today', async () => {
+      // The API is authoritative when it responds with dates: a carrier that
+      // supports both same-day and standard delivery, but gets no today-date
+      // back, must only render the dates the API returned.
+      mockGetDeliveryOptions.mockResolvedValue([
+        {
+          date: createTimestamp('2099-01-02 00:00:00'),
+          possibilities: [createDeliveryPossibility(normalizeDate('2099-01-02T15:00:00'))],
+        },
+      ]);
+
+      mockDeliveryOptionsConfig(
+        getMockDeliveryOptionsConfiguration({
+          [KEY_CONFIG]: {
+            [KEY_CARRIER_SETTINGS]: {
+              [CarrierName.DhlForYou]: {
+                [CarrierSetting.AllowStandardDelivery]: true,
+                [CarrierSetting.AllowSameDayDelivery]: true,
+                [CarrierSetting.CutoffTimeSameDay]: CUTOFF_NOT_PASSED,
+              },
+            },
+          },
+        }),
+      );
+
+      useResolvedDeliveryOptions.clear();
+      const options = useResolvedDeliveryOptions();
+      void options.load();
+      await waitFor(() => expect(options.loading.value).toBe(false), {timeout: 3000});
+      await flushPromises();
+
+      const deliveryTypes = options.value.map((moment) => moment.deliveryType);
+
+      expect(deliveryTypes).toContain(DeliveryTypeName.Standard);
+      expect(deliveryTypes).not.toContain(CustomDeliveryType.SameDay);
+    });
+
+    it('does not synthesize a same-day moment for carriers without same-day support', async () => {
+      const options = await setupWithEmptyApi({
+        [CarrierName.PostNl]: {
+          [CarrierSetting.AllowStandardDelivery]: true,
+          [CarrierSetting.AllowSameDayDelivery]: true,
+          [CarrierSetting.CutoffTimeSameDay]: CUTOFF_NOT_PASSED,
+        },
+      });
+
+      expect(options.value).toEqual([]);
     });
   });
 

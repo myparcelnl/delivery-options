@@ -14,6 +14,13 @@ export interface ResolvedDeliveryOptions {
   carrier: CarrierIdentifier;
   date: undefined | string;
   deliveryType: DeliveryTypeName;
+  /**
+   * The delivery type as returned by the API, before being resolved to a custom
+   * type (e.g. an evening moment dated today resolves to same_day). Internal
+   * tracking only: used to emit the actual delivery type for carriers exposing
+   * same-day as a shipment option. Never part of the external output.
+   */
+  originalDeliveryType?: DeliveryTypeName;
   packageType: PackageTypeName;
   shipmentOptions: DeepReadonly<DeliveryOption['possibilities'][number]['shipment_options']>;
   time: AnyTranslatable;

@@ -46,6 +46,20 @@ describe('getCapabilityDeliveryTypes', () => {
     ]);
   });
 
+  it('maps the same day delivery type to the same_day custom type', () => {
+    const cap = createCapability(['SAME_DAY_DELIVERY']);
+
+    expect(getCapabilityDeliveryTypes(cap)).toEqual([CustomDeliveryType.SameDay]);
+  });
+
+  it('does not duplicate same_day when exposed as both delivery type and option', () => {
+    const cap = createCapability(['SAME_DAY_DELIVERY'], {
+      sameDayDelivery: {requires: [], excludes: [], isSelectedByDefault: false, isRequired: false},
+    });
+
+    expect(getCapabilityDeliveryTypes(cap)).toEqual([CustomDeliveryType.SameDay]);
+  });
+
   it('returns empty array for empty capabilities', () => {
     const cap = createCapability();
 

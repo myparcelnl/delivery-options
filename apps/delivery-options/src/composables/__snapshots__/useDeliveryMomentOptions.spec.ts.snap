@@ -88,6 +88,7 @@ exports[`useDeliveryMomentOptions > returns delivery moment options with package
       "carrier": "postnl",
       "date": "2025-01-15 24:00:00",
       "deliveryType": "standard",
+      "originalDeliveryType": "standard",
       "packageType": "package",
       "shipmentOptions": [
         {
@@ -129,6 +130,7 @@ exports[`useDeliveryMomentOptions > returns delivery moment options with package
       "carrier": "postnl:123",
       "date": "2025-01-15 24:00:00",
       "deliveryType": "standard",
+      "originalDeliveryType": "standard",
       "packageType": "package",
       "shipmentOptions": [
         {
@@ -175,6 +177,7 @@ exports[`useDeliveryMomentOptions > returns delivery moment options with package
       "carrier": "postnl",
       "date": "2025-01-15 24:00:00",
       "deliveryType": "standard",
+      "originalDeliveryType": "standard",
       "packageType": "package_small",
       "shipmentOptions": [
         {
@@ -216,6 +219,7 @@ exports[`useDeliveryMomentOptions > returns delivery moment options with package
       "carrier": "postnl:123",
       "date": "2025-01-15 24:00:00",
       "deliveryType": "standard",
+      "originalDeliveryType": "standard",
       "packageType": "package_small",
       "shipmentOptions": [
         {

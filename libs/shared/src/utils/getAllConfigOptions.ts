@@ -37,6 +37,11 @@ export const getAllConfigOptions = useMemoize((): ConfigOption[] => [
   }),
 
   declareOption({
+    key: CarrierSetting.CutoffTimeSameDay,
+    type: OptionType.Time,
+  }),
+
+  declareOption({
     key: ConfigSetting.PickupLocationsDefaultView,
     type: OptionType.Select,
   }),

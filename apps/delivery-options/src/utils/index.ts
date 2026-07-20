@@ -17,6 +17,8 @@ export * from './getResolvedValue';
 export * from './hasDeliveryForCarrier';
 export * from './hasPickupForCarrier';
 export * from './hasSlotContent';
+export * from './isFallbackEligible';
+export * from './isSameDayAvailable';
 export * from './language';
 export * from './padTime';
 export * from './parseJson';
