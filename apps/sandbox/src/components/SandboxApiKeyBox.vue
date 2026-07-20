@@ -10,6 +10,12 @@
           v-model="apiKey"
           class="mp-w-full" />
 
+        <h2 v-text="translate('api_base_url_header')" />
+        <FormTextInput
+          v-model="apiBaseUrl"
+          :placeholder="DEFAULT_API_BASE_URL"
+          class="mp-w-full" />
+
         <h2 v-text="translate('platform_header')" />
         <FormSelectInput
           v-model="platform"
@@ -22,6 +28,7 @@
 <script lang="ts" setup>
 import {computed} from 'vue';
 import {useSandboxStore} from '../stores';
+import {DEFAULT_API_BASE_URL} from '../constants';
 import {useLanguage} from '../composables';
 import FormTextInput from './form/input/FormTextInput.vue';
 import FormSelectInput from './form/input/FormSelectInput.vue';
@@ -37,6 +44,15 @@ const apiKey = computed({
   get: () => sandboxStore.config.apiKey ?? '',
   set: (value) => {
     sandboxStore.config.apiKey = value || undefined;
+  },
+});
+
+// Override the API the sandbox talks to (e.g. https://api.acceptance.myparcel.nl
+// with a matching acceptance API key). Empty means production.
+const apiBaseUrl = computed({
+  get: () => sandboxStore.config.apiBaseUrl ?? '',
+  set: (value) => {
+    sandboxStore.config.apiBaseUrl = value || undefined;
   },
 });
 
