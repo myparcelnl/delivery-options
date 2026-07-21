@@ -8,6 +8,7 @@ import {
   type AnyTranslatable,
   createUntranslatable,
   type ComputedAsync,
+  API_DATE_FORMAT,
   CarrierSetting,
   CustomDeliveryType,
   DELIVERY_DAYS_WINDOW_DEFAULT,
@@ -358,7 +359,7 @@ const createSameDayFallbackMoments = (
   // The date string is the join key for the date picker and moment filtering,
   // so reuse the date string of an existing API today-moment when there is one.
   const todayFromApi = moments.find((moment) => moment.date && isToday(stringToDate(moment.date)))?.date;
-  const todayDate = todayFromApi ?? `${format(new Date(), 'yyyy-MM-dd')} 00:00:00`;
+  const todayDate = todayFromApi ?? format(startOfDay(new Date()), API_DATE_FORMAT);
 
   return carriers
     .filter((carrier) => isFallbackEligible(carrier, carriersWithMoments) && isSameDayAvailable(carrier))
