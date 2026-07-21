@@ -297,8 +297,10 @@ describe('useResolvedDeliveryOptions', () => {
 
   describe('same-day fallback moments', () => {
     // The legacy delivery options API does not support every carrier (e.g. Trunkrs).
-    // Carriers whose only delivery type is same-day get a synthetic moment for today
-    // as long as the same-day cutoff has not passed.
+    // Same-day carriers without API moments get a synthetic today-moment, but only
+    // when another carrier returned real API dates (so a date list exists to extend)
+    // and the same-day cutoff has not passed. Without any real API dates, the plain
+    // dateless fallback options cover these carriers instead.
     const CUTOFF_NOT_PASSED = '23:59';
     const CUTOFF_PASSED = '00:00';
 
@@ -328,7 +330,48 @@ describe('useResolvedDeliveryOptions', () => {
       return options;
     };
 
-    it('synthesizes a same-day moment for a same-day-only carrier without API moments', async () => {
+    const setupWithPostNlDates = async (
+      trunkrsSettings: Record<string, unknown>,
+      postNlDate = '2099-01-02 00:00:00',
+    ): Promise<ReturnType<typeof useResolvedDeliveryOptions>> => {
+      mockGetDeliveryOptions.mockImplementation((endpoint, opts) => {
+        void endpoint;
+
+        if (opts.parameters?.carrier === CarrierName.PostNl) {
+          return Promise.resolve([
+            {
+              date: createTimestamp(postNlDate),
+              possibilities: [createDeliveryPossibility(normalizeDate('2099-01-02T15:00:00'))],
+            },
+          ]);
+        }
+
+        return Promise.resolve([]);
+      });
+
+      mockDeliveryOptionsConfig(
+        getMockDeliveryOptionsConfiguration({
+          [KEY_CONFIG]: {
+            [KEY_CARRIER_SETTINGS]: {
+              [CarrierName.PostNl]: {
+                [CarrierSetting.AllowStandardDelivery]: true,
+              },
+              [CarrierName.Trunkrs]: trunkrsSettings,
+            },
+          },
+        }),
+      );
+
+      useResolvedDeliveryOptions.clear();
+      const options = useResolvedDeliveryOptions();
+      void options.load();
+      await waitFor(() => expect(options.loading.value).toBe(false), {timeout: 3000});
+      await flushPromises();
+
+      return options;
+    };
+
+    it('does not synthesize a same-day moment when no carrier got real API dates', async () => {
       const options = await setupWithEmptyApi({
         [CarrierName.Trunkrs]: {
           [CarrierSetting.AllowSameDayDelivery]: true,
@@ -336,35 +379,40 @@ describe('useResolvedDeliveryOptions', () => {
         },
       });
 
-      expect(options.value).toHaveLength(1);
+      expect(options.value).toEqual([]);
+    });
 
-      const [moment] = options.value;
+    it('synthesizes a tagged today-moment when another carrier has real API dates', async () => {
+      const options = await setupWithPostNlDates({
+        [CarrierSetting.AllowSameDayDelivery]: true,
+        [CarrierSetting.CutoffTimeSameDay]: CUTOFF_NOT_PASSED,
+      });
 
-      expect(moment.carrier).toBe(CarrierName.Trunkrs);
-      expect(moment.deliveryType).toBe(CustomDeliveryType.SameDay);
-      expect(moment.date && isToday(new Date(moment.date))).toBe(true);
+      const trunkrsMoment = options.value.find((moment) => moment.carrier === CarrierName.Trunkrs);
+      const postNlMoment = options.value.find((moment) => moment.carrier === CarrierName.PostNl);
+
+      expect(trunkrsMoment?.deliveryType).toBe(CustomDeliveryType.SameDay);
+      expect(trunkrsMoment?.date && isToday(new Date(trunkrsMoment.date))).toBe(true);
+      expect(trunkrsMoment?.isSynthetic).toBe(true);
+      expect(postNlMoment?.isSynthetic).toBeUndefined();
     });
 
     it('does not synthesize a same-day moment past the same-day cutoff', async () => {
-      const options = await setupWithEmptyApi({
-        [CarrierName.Trunkrs]: {
-          [CarrierSetting.AllowSameDayDelivery]: true,
-          [CarrierSetting.CutoffTimeSameDay]: CUTOFF_PASSED,
-        },
+      const options = await setupWithPostNlDates({
+        [CarrierSetting.AllowSameDayDelivery]: true,
+        [CarrierSetting.CutoffTimeSameDay]: CUTOFF_PASSED,
       });
 
-      expect(options.value).toEqual([]);
+      expect(options.value.some((moment) => moment.carrier === CarrierName.Trunkrs)).toBe(false);
     });
 
     it('does not synthesize a same-day moment when same-day delivery is disabled', async () => {
-      const options = await setupWithEmptyApi({
-        [CarrierName.Trunkrs]: {
-          [CarrierSetting.AllowSameDayDelivery]: false,
-          [CarrierSetting.CutoffTimeSameDay]: CUTOFF_NOT_PASSED,
-        },
+      const options = await setupWithPostNlDates({
+        [CarrierSetting.AllowSameDayDelivery]: false,
+        [CarrierSetting.CutoffTimeSameDay]: CUTOFF_NOT_PASSED,
       });
 
-      expect(options.value).toEqual([]);
+      expect(options.value.some((moment) => moment.carrier === CarrierName.Trunkrs)).toBe(false);
     });
 
     it('reuses the API today date string for synthesized moments so the date list stays deduplicated', async () => {

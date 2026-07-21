@@ -1,16 +1,16 @@
-import {toValue} from 'vue';
-import {CustomDeliveryType, isPastTime} from '@myparcel-dev/do-shared';
+import {isPastTime} from '@myparcel-dev/do-shared';
 import {type UseResolvedCarrier} from '../composables';
+import {supportsSameDay} from './supportsSameDay';
 import {calculateCutoffTime} from './calculateCutoffTime';
 
 /**
- * Whether same-day delivery can currently be offered for this carrier:
- * available in its capabilities, enabled in the config, and before the
- * carrier's same-day cutoff time. The cutoff comes from today's drop-off day
- * entry when present, falling back to the flat cutoffTimeSameDay setting.
+ * Whether same-day delivery can be offered for delivery on today itself: the
+ * carrier supports it and the same-day cutoff time has not passed. The cutoff
+ * comes from today's drop-off day entry when present, falling back to the
+ * flat cutoffTimeSameDay setting.
  */
 export const isSameDayAvailable = (carrier: UseResolvedCarrier): boolean => {
-  if (!toValue(carrier.deliveryTypes).has(CustomDeliveryType.SameDay)) {
+  if (!supportsSameDay(carrier)) {
     return false;
   }
 

@@ -24,4 +24,5 @@ export * from './padTime';
 export * from './parseJson';
 export * from './showDeveloperInfo';
 export * from './stringToDate';
+export * from './supportsSameDay';
 export * from './toTime';

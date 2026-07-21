@@ -357,7 +357,7 @@ describe('useDeliveryMomentOptions', () => {
     expect(resolved.some((opt) => opt.carrier === CarrierName.PostNl && opt.deliveryType === 'standard')).toBe(true);
   });
 
-  it('does not render a same-day option in dateless mode past the cutoff', async () => {
+  it('renders a same-day option in dateless mode past the cutoff', async () => {
     const options = await setup(PackageTypeName.Package, {
       [CarrierSetting.DeliveryDaysWindow]: 1,
       [KEY_CARRIER_SETTINGS]: {
@@ -373,7 +373,7 @@ describe('useDeliveryMomentOptions', () => {
 
     const carriers = options.value.map((option) => parseJson<SelectedDeliveryMoment>(option.value).carrier);
 
-    expect(carriers).not.toContain(CarrierName.Trunkrs);
+    expect(carriers).toContain(CarrierName.Trunkrs);
   });
 
   it('does not show a standard fallback for carriers that do not support standard delivery', async () => {
@@ -425,9 +425,101 @@ describe('useDeliveryMomentOptions', () => {
     await flushPromises();
 
     const resolved = options.value.map((option) => parseJson<SelectedDeliveryMoment>(option.value));
+    const trunkrsOptions = resolved.filter((opt) => opt.carrier === CarrierName.Trunkrs);
 
-    expect(resolved.some((opt) => opt.carrier === CarrierName.Trunkrs && opt.deliveryType === 'same_day')).toBe(true);
+    // Exactly one option: the synthetic today-moment, without a duplicate dateless fallback.
+    expect(trunkrsOptions).toHaveLength(1);
+    expect(trunkrsOptions[0].deliveryType).toBe('same_day');
+    // Synthetic moments are not backed by an API response, so the selectable
+    // value must never promise a delivery date.
+    expect(trunkrsOptions[0].date).toBeNull();
     // PostNL has no moments for today and gets no standard fallback either (selected date is today).
     expect(resolved.some((opt) => opt.carrier === CarrierName.PostNl)).toBe(false);
+  });
+
+  it('shows a dateless same-day fallback on a future date, regardless of the cutoff', async () => {
+    const options = await setup(
+      PackageTypeName.Package,
+      {
+        [KEY_CARRIER_SETTINGS]: {
+          [CarrierName.PostNl]: {
+            [CarrierSetting.AllowStandardDelivery]: true,
+          },
+          [CarrierName.Trunkrs]: {
+            [CarrierSetting.AllowSameDayDelivery]: true,
+            [CarrierSetting.CutoffTimeSameDay]: '00:00',
+          },
+        },
+      },
+      createFallbackMock(MOCK_DATE),
+    );
+
+    const resolved = options.value.map((option) => parseJson<SelectedDeliveryMoment>(option.value));
+    const trunkrsOption = resolved.find((opt) => opt.carrier === CarrierName.Trunkrs);
+
+    expect(trunkrsOption?.deliveryType).toBe('same_day');
+    expect(trunkrsOption?.date).toBeNull();
+  });
+
+  it('shows nothing for a same-day fallback carrier on today past the cutoff', async () => {
+    mockStringToDateResult.value = new Date();
+
+    const options = await setup(
+      PackageTypeName.Package,
+      {
+        [KEY_CARRIER_SETTINGS]: {
+          [CarrierName.PostNl]: {
+            [CarrierSetting.AllowStandardDelivery]: true,
+          },
+          [CarrierName.Trunkrs]: {
+            [CarrierSetting.AllowSameDayDelivery]: true,
+            [CarrierSetting.CutoffTimeSameDay]: '00:00',
+          },
+        },
+      },
+      createFallbackMock(MOCK_DATE),
+    );
+
+    const carriers = options.value.map((option) => parseJson<SelectedDeliveryMoment>(option.value).carrier);
+
+    expect(carriers).not.toContain(CarrierName.Trunkrs);
+  });
+
+  it('shows a plain dateless list including same-day when no carrier got API dates', async () => {
+    // setup() cannot be used here: waitForDeliveryOptions awaits load(), which
+    // only resolves once at least one moment exists, and this scenario has none.
+    mockGetDeliveryOptions.mockResolvedValue([]);
+
+    mockDeliveryOptionsConfig(
+      getMockDeliveryOptionsConfiguration({
+        [KEY_CONFIG]: {
+          [CarrierSetting.PackageType]: PackageTypeName.Package,
+          [KEY_CARRIER_SETTINGS]: {
+            [CarrierName.PostNl]: {
+              [CarrierSetting.AllowStandardDelivery]: true,
+            },
+            [CarrierName.Trunkrs]: {
+              [CarrierSetting.AllowSameDayDelivery]: true,
+              [CarrierSetting.CutoffTimeSameDay]: '00:00',
+            },
+          },
+        },
+      }),
+    );
+    mockSelectedDeliveryOptions();
+
+    const options = useDeliveryMomentOptions();
+
+    useResolvedDeliveryOptions.clear();
+    const deliveryOptions = useResolvedDeliveryOptions();
+    void deliveryOptions.load();
+    await waitFor(() => expect(deliveryOptions.loading.value).toBe(false), {timeout: 3000});
+    await flushPromises();
+
+    const resolved = options.value.map((option) => parseJson<SelectedDeliveryMoment>(option.value));
+
+    expect(resolved.some((opt) => opt.carrier === CarrierName.PostNl && opt.deliveryType === 'standard')).toBe(true);
+    expect(resolved.some((opt) => opt.carrier === CarrierName.Trunkrs && opt.deliveryType === 'same_day')).toBe(true);
+    expect(resolved.every((opt) => opt.date === null)).toBe(true);
   });
 });

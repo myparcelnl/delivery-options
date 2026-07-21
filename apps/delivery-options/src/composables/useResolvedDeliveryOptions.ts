@@ -338,7 +338,10 @@ const formatDatesAsDeliveryMoments = (
  * The legacy delivery options API does not support every carrier (e.g. Trunkrs).
  * Carriers with same-day delivery enabled and available that got no dates from
  * the API receive a synthetic moment for today, as long as their same-day
- * cutoff has not passed. Remove when the API supports these carriers.
+ * cutoff has not passed and at least one carrier returned real API dates (so
+ * there is a date list to extend). Without any real API dates the dateless
+ * fallback options cover these carriers instead. Remove when the API supports
+ * these carriers.
  */
 const createSameDayFallbackMoments = (
   carriers: UseResolvedCarrier[],
@@ -346,7 +349,7 @@ const createSameDayFallbackMoments = (
 ): SelectedDeliveryMoment[] => {
   const {state: config} = useConfigStore();
 
-  if (!DELIVERY_MOMENT_PACKAGE_TYPES.includes(config.packageType)) {
+  if (!DELIVERY_MOMENT_PACKAGE_TYPES.includes(config.packageType) || moments.length === 0) {
     return [];
   }
 
@@ -362,6 +365,7 @@ const createSameDayFallbackMoments = (
     .map((carrier) => ({
       carrier: toValue(carrier.carrier).identifier,
       date: todayDate,
+      isSynthetic: true,
       time: createTranslatable(`delivery${pascal(CustomDeliveryType.SameDay)}Title`),
       deliveryType: CustomDeliveryType.SameDay,
       packageType: config.packageType,
