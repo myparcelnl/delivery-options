@@ -1,5 +1,5 @@
 import {type InputDeliveryOptionsConfiguration, useApiExceptions} from '@myparcel-dev/do-shared';
-import {useAddressStore, useConfigStore} from '../stores';
+import {useAddressStore, useCartShipmentOptionsStore, useConfigStore} from '../stores';
 import {useLanguage} from '../composables';
 import {validateConfiguration} from './validateConfiguration';
 import {mapDeprecatedUpsCarrierConfig} from './mapDeprecatedUpsCarrierConfig';
@@ -7,6 +7,7 @@ import {mapDeprecatedUpsCarrierConfig} from './mapDeprecatedUpsCarrierConfig';
 export const setConfiguration = (config: InputDeliveryOptionsConfiguration): void => {
   const configStore = useConfigStore();
   const addressStore = useAddressStore();
+  const cartShipmentOptionsStore = useCartShipmentOptionsStore();
   const language = useLanguage();
   const {clear} = useApiExceptions();
 
@@ -20,6 +21,7 @@ export const setConfiguration = (config: InputDeliveryOptionsConfiguration): voi
   }
 
   addressStore.update(validated.address);
+  cartShipmentOptionsStore.update(validated.cartShipmentOptions ?? {});
 
   if (validated.strings) {
     language.setStrings(validated.strings);

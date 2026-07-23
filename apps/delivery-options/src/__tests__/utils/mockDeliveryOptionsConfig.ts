@@ -7,12 +7,13 @@ import {
   type DeliveryOptionsConfig,
   type DeliveryOptionsConfiguration,
   KEY_CARRIER_SETTINGS,
+  KEY_CART_SHIPMENT_OPTIONS,
   KEY_CONFIG,
   KEY_ADDRESS,
 } from '@myparcel-dev/do-shared';
 import {CarrierName} from '@myparcel-dev/constants';
 import {getDefaultAddress} from '../../utils';
-import {useAddressStore, useConfigStore} from '../../stores';
+import {useAddressStore, useCartShipmentOptionsStore, useConfigStore} from '../../stores';
 import {validateConfiguration} from '../../config';
 import {getMockDeliveryOptionsConfiguration} from './getMockDeliveryOptionsConfiguration';
 
@@ -60,6 +61,9 @@ export const mockDeliveryOptionsConfig = <I extends RecursivePartial<DeliveryOpt
 
   configStore.update(configUpdate, false);
   addressStore.update(addressUpdate);
+  // Absent means the plugin did not send cart shipment options; the store is emptied so
+  // no cart options leak in from a previous test.
+  useCartShipmentOptionsStore().update(validated?.[KEY_CART_SHIPMENT_OPTIONS] ?? {});
 
   return resolvedInput ?? {};
 };

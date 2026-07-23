@@ -9,3 +9,5 @@ export const KEY_CARRIER_SETTINGS = 'carrierSettings' satisfies keyof DeliveryOp
 export const KEY_STRINGS = 'strings' satisfies keyof DeliveryOptionsConfiguration;
 
 export const KEY_INITIAL = 'initial' satisfies keyof DeliveryOptionsConfiguration;
+
+export const KEY_CART_SHIPMENT_OPTIONS = 'cartShipmentOptions' satisfies keyof DeliveryOptionsConfiguration;

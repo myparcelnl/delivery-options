@@ -1,37 +1,40 @@
 import {toValue} from 'vue';
 import {describe, it, expect, beforeEach} from 'vitest';
 import {flushPromises} from '@vue/test-utils';
-import {mockCapabilitiesFetch} from '@myparcel-dev/do-shared/testing';
+import {DEFAULT_OPTION, mockCapabilitiesFetch} from '@myparcel-dev/do-shared/testing';
 import {
   AddressField,
   CarrierSetting,
   KEY_ADDRESS,
   KEY_CARRIER_SETTINGS,
+  KEY_CART_SHIPMENT_OPTIONS,
   KEY_CONFIG,
   type CarrierCapability,
+  type CartShipmentOptions,
   type CapabilitiesResponse,
 } from '@myparcel-dev/do-shared';
 import {CarrierName, ShipmentOptionName} from '@myparcel-dev/constants';
-import {useAddressStore, useConfigStore} from '../stores';
+import {useAddressStore, useCartShipmentOptionsStore, useConfigStore} from '../stores';
 import {mockDeliveryOptionsConfig} from '../__tests__';
-import {useShipmentOptionRules} from './useShipmentOptionRules';
+import {useShipmentOptionsState} from './useShipmentOptionsState';
 import {useSelectedValues} from './useSelectedValues';
 
-const DEFAULT_OPTION = {
-  requires: [] as string[],
-  excludes: [] as string[],
-  isSelectedByDefault: false,
-  isRequired: false,
-};
+/**
+ * Collect just the option names from a list of option states.
+ *
+ * @param states - The optionStates output of useShipmentOptionsState.
+ */
+const optionNames = (states: readonly {name: string}[]): string[] => states.map(({name}) => name);
 
 const setupWithCapabilities = async (
   carrier: CarrierName,
   capabilities?: CarrierCapability[],
   selectedOptions: string[] = [],
-): Promise<ReturnType<typeof useShipmentOptionRules>> => {
+  cartShipmentOptions: CartShipmentOptions | [] | undefined = undefined,
+): Promise<ReturnType<typeof useShipmentOptionsState>> => {
   if (capabilities) {
-    mockCapabilitiesFetch.mockImplementation((_url: string, options?: RequestInit) => {
-      void _url;
+    mockCapabilitiesFetch.mockImplementation((url: string, options?: RequestInit) => {
+      void url;
       const body = options?.body ? JSON.parse(options.body as string) : {};
       const countryCode = body?.recipient?.countryCode || 'NL';
 
@@ -59,6 +62,9 @@ const setupWithCapabilities = async (
         },
       },
     },
+    ...(cartShipmentOptions === undefined
+      ? {}
+      : {[KEY_CART_SHIPMENT_OPTIONS]: cartShipmentOptions as CartShipmentOptions}),
   });
 
   // Set delivery moment and selection BEFORE flushing so the reactive chain
@@ -67,22 +73,145 @@ const setupWithCapabilities = async (
   shipmentOptions.value = selectedOptions;
   useSelectedValues().deliveryMoment.value = JSON.stringify({carrier});
 
-  const rules = useShipmentOptionRules();
+  const state = useShipmentOptionsState();
 
   // Trigger evaluation to start capabilities loading
-  toValue(rules.forcedOn);
+  toValue(state.forcedOn);
   await flushPromises();
 
-  return rules;
+  return state;
 };
 
-describe('useShipmentOptionRules', () => {
+describe('useShipmentOptionsState', () => {
   beforeEach(() => {
     useSelectedValues.clear();
-    useShipmentOptionRules.clear();
     useConfigStore().reset();
     useAddressStore().reset();
+    useCartShipmentOptionsStore().reset();
     mockCapabilitiesFetch.mockRestore();
+  });
+
+  describe('cart shipment options', () => {
+    it('forces the requirements of a cart option the consumer cannot select', async () => {
+      // The PostNL mock capability has requiresAgeVerification with
+      // requires: ['recipientOnlyDelivery', 'requiresSignature']. Age check is not a
+      // consumer option, so shipping the cart with it must lock its requirements.
+      const {forcedOn, forcedOff, optionStates} = await setupWithCapabilities(CarrierName.PostNl, undefined, [], {
+        [CarrierName.PostNl]: {ageCheck: true},
+      });
+
+      const forced = toValue(forcedOn);
+
+      expect(forced.has(ShipmentOptionName.Signature)).toBe(true);
+      expect(forced.has(ShipmentOptionName.OnlyRecipient)).toBe(true);
+
+      // Names outside the widget's option set must never leak into the output.
+      const allOutputNames = [...toValue(forcedOn), ...toValue(forcedOff), ...optionNames(toValue(optionStates))];
+
+      expect(allOutputNames).not.toContain('requiresAgeVerification');
+      expect(allOutputNames).not.toContain('ageCheck');
+    });
+
+    it('does not force anything for a cart option that is off', async () => {
+      const {forcedOn, forcedOff} = await setupWithCapabilities(CarrierName.PostNl, undefined, [], {
+        [CarrierName.PostNl]: {ageCheck: false},
+      });
+
+      expect(toValue(forcedOn).size).toBe(0);
+      expect(toValue(forcedOff).size).toBe(0);
+    });
+
+    it('does not force a cart option the consumer can select themselves', async () => {
+      const {forcedOn} = await setupWithCapabilities(CarrierName.PostNl, undefined, [], {
+        [CarrierName.PostNl]: {signature: true},
+      });
+
+      expect(toValue(forcedOn).size).toBe(0);
+    });
+
+    it('does not force anything when the carrier does not support the cart option', async () => {
+      // DPD's mock capability has no requiresAgeVerification option.
+      const {forcedOn, forcedOff} = await setupWithCapabilities(CarrierName.Dpd, undefined, [], {
+        [CarrierName.Dpd]: {ageCheck: true},
+      });
+
+      expect(toValue(forcedOn).size).toBe(0);
+      expect(toValue(forcedOff).size).toBe(0);
+    });
+
+    it('does not apply cart options of one carrier to another carrier', async () => {
+      const {forcedOn} = await setupWithCapabilities(
+        CarrierName.DhlForYou,
+        [
+          {
+            carrier: 'DHL_FOR_YOU',
+            packageTypes: ['PACKAGE'],
+            deliveryTypes: ['STANDARD_DELIVERY'],
+            options: {
+              requiresSignature: {...DEFAULT_OPTION},
+              requiresAgeVerification: {...DEFAULT_OPTION, requires: ['requiresSignature']},
+            },
+          },
+        ],
+        [],
+        {[CarrierName.PostNl]: {ageCheck: true}},
+      );
+
+      expect(toValue(forcedOn).size).toBe(0);
+    });
+
+    it('follows requirements through options the widget cannot show', async () => {
+      // hideSender requires tracked, tracked requires requiresSignature. Neither hideSender
+      // nor tracked is a consumer option, but the signature requirement behind them must
+      // still be enforced.
+      const {forcedOn} = await setupWithCapabilities(
+        CarrierName.PostNl,
+        [
+          {
+            carrier: 'POSTNL',
+            packageTypes: ['PACKAGE'],
+            deliveryTypes: ['STANDARD_DELIVERY'],
+            options: {
+              requiresSignature: {...DEFAULT_OPTION},
+              tracked: {...DEFAULT_OPTION, requires: ['requiresSignature']},
+              hideSender: {...DEFAULT_OPTION, requires: ['tracked']},
+            },
+          },
+        ],
+        [],
+        {[CarrierName.PostNl]: {hideSender: true}},
+      );
+
+      const forced = toValue(forcedOn);
+
+      expect(forced.has(ShipmentOptionName.Signature)).toBe(true);
+      expect(forced.has('tracked')).toBe(false);
+      expect(forced.has('hideSender')).toBe(false);
+    });
+
+    it.each([
+      {label: 'absent', cart: undefined},
+      {label: 'an empty object', cart: {}},
+      {label: 'an empty array (PHP serialization)', cart: [] as const},
+    ])('behaves as without the feature when cartShipmentOptions is $label', async ({cart}) => {
+      const {forcedOn, forcedOff, defaults, optionStates} = await setupWithCapabilities(
+        CarrierName.PostNl,
+        undefined,
+        [ShipmentOptionName.OnlyRecipient],
+        cart,
+      );
+
+      // Same outcome as a run without cart shipment options: only the consumer-selected
+      // only_recipient forces its required signature; everything else stays untouched.
+      expect([...toValue(forcedOn)]).toEqual([ShipmentOptionName.Signature]);
+      expect(toValue(forcedOff).size).toBe(0);
+      expect(toValue(defaults)).toEqual([]);
+      expect(optionNames(toValue(optionStates))).toEqual([
+        ShipmentOptionName.Signature,
+        ShipmentOptionName.OnlyRecipient,
+        ShipmentOptionName.PriorityDelivery,
+      ]);
+    });
   });
 
   describe('forcedOn', () => {
@@ -95,11 +224,7 @@ describe('useShipmentOptionRules', () => {
 
     it('includes required options when a requiring option is selected', async () => {
       // PostNL: recipientOnlyDelivery.requires: ['requiresSignature']
-      const {forcedOn} = await setupWithCapabilities(
-        CarrierName.PostNl,
-        undefined,
-        [ShipmentOptionName.OnlyRecipient],
-      );
+      const {forcedOn} = await setupWithCapabilities(CarrierName.PostNl, undefined, [ShipmentOptionName.OnlyRecipient]);
 
       expect(toValue(forcedOn).has(ShipmentOptionName.Signature)).toBe(true);
     });
@@ -238,10 +363,9 @@ describe('useShipmentOptionRules', () => {
 
   describe('edge cases', () => {
     it('returns empty sets when no carrier is selected', () => {
-      useShipmentOptionRules.clear();
       mockDeliveryOptionsConfig();
 
-      const {forcedOn, forcedOff, defaults} = useShipmentOptionRules();
+      const {forcedOn, forcedOff, defaults} = useShipmentOptionsState();
 
       expect(toValue(forcedOn).size).toBe(0);
       expect(toValue(forcedOff).size).toBe(0);

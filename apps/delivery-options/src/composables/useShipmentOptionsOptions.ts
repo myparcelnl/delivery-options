@@ -1,22 +1,24 @@
-import {computed, type ComputedRef, toValue} from 'vue';
+import {computed, type ComputedRef} from 'vue';
 import {SHIPMENT_OPTION_MAP, toCamelCase, type SelectOption} from '@myparcel-dev/do-shared';
 import {getConfigPriceKey, getResolvedValue} from '../utils';
+import {useShipmentOptionsState} from './useShipmentOptionsState';
 import {useSelectedDeliveryMoment} from './useSelectedDeliveryMoment';
 import {useResolvedDeliveryOptions} from './useResolvedDeliveryOptions';
 import {useResolvedCarrier} from './useResolvedCarrier';
-import {useFeatures} from './useFeatures';
-import {useShipmentOptionRules} from './useShipmentOptionRules';
 
 const TRANSLATION_MAP: Record<string, string> = Object.freeze(
   Object.fromEntries(Object.values(SHIPMENT_OPTION_MAP).map((sdk) => [sdk, `${toCamelCase(sdk)}Title`])),
 );
 
+/**
+ * Build the shipment option checkboxes for the currently selected delivery moment. Which
+ * options show and whether they are locked or pre-set is decided by useShipmentOptionsState;
+ * this composable only adds the label and the price.
+ */
 export const useShipmentOptionsOptions = (): ComputedRef<SelectOption[]> => {
-  const {availableShipmentOptions} = useFeatures();
-
   const deliveryOptions = useResolvedDeliveryOptions();
   const deliveryMoment = useSelectedDeliveryMoment();
-  const {forcedOn, forcedOff} = useShipmentOptionRules();
+  const {optionStates} = useShipmentOptionsState();
 
   return computed(() => {
     const carrierId = deliveryMoment.value?.carrier;
@@ -25,41 +27,18 @@ export const useShipmentOptionsOptions = (): ComputedRef<SelectOption[]> => {
       return [];
     }
 
-    const {carrier, shipmentOptions} = useResolvedCarrier(carrierId);
+    const {carrier} = useResolvedCarrier(carrierId);
 
-    // Per-delivery-type option availability is determined by the GetDeliveryOptions API
-    // response, which returns shipment options per delivery moment (date + time + type).
-    // The capabilities request intentionally omits deliveryType to avoid refetching on
-    // every selection change — capabilities provides the superset, and this filter narrows
-    // it to what the delivery options API confirms is valid for the selected moment.
-    const momentShipmentOptions = toValue(deliveryMoment)?.shipmentOptions;
+    return optionStates.value.map(({name, disabled, selected}) => {
+      const priceKey = getConfigPriceKey(name);
 
-    return availableShipmentOptions.value
-      .filter((option) => {
-        const carrierShipmentOptions = toValue(shipmentOptions);
-
-        // If there are no delivery moments, show all available options from capabilities
-        if (!momentShipmentOptions?.length) {
-          return carrierShipmentOptions.has(option);
-        }
-
-        // Otherwise, only show options that are in capabilities AND in the API response
-        return carrierShipmentOptions.has(option) && momentShipmentOptions?.some(({name}) => name === option);
-      })
-      .map((name) => {
-        const match = momentShipmentOptions?.find((option) => option.name === name);
-
-        const hasOnlyOneOption = match?.schema.enum.length === 1;
-
-        const priceKey = getConfigPriceKey(name);
-
-        return {
-          label: TRANSLATION_MAP[name] ?? name,
-          value: name,
-          disabled: hasOnlyOneOption || forcedOn.value.has(name) || forcedOff.value.has(name),
-          selected: hasOnlyOneOption ? match?.schema.enum[0] : false,
-          price: getResolvedValue(priceKey, carrier.value?.identifier) ?? undefined,
-        } satisfies SelectOption;
-      });
+      return {
+        label: TRANSLATION_MAP[name] ?? name,
+        value: name,
+        disabled,
+        selected,
+        price: getResolvedValue(priceKey, carrier.value?.identifier) ?? undefined,
+      } satisfies SelectOption;
+    });
   });
 };
