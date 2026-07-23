@@ -233,17 +233,32 @@ const filterClosedDays = (
  *  ensures any selected values are cleared if no dates are available.
  *
  * @param datesPerCarrier
+ * @param carriers
  * @returns
  */
-const removeEmptyEntries = (datesPerCarrier: DeliveryDatesPerCarrier[]): NonNullable<DeliveryDatesPerCarrier>[] => {
+const removeEmptyEntries = (
+  datesPerCarrier: DeliveryDatesPerCarrier[],
+  carriers: UseResolvedCarrier[],
+): NonNullable<DeliveryDatesPerCarrier>[] => {
   const filteredDates = datesPerCarrier ? datesPerCarrier.filter((item) => item !== null) : [];
 
   if (filteredDates.length === 0) {
     const {state: config} = useConfigStore();
 
     if (DELIVERY_MOMENT_PACKAGE_TYPES.includes(config.packageType)) {
-      const {clearSelectedValues} = useSelectedValues();
-      clearSelectedValues();
+      const {carrier, clearSelectedValues} = useSelectedValues();
+
+      // A selected carrier with a delivery-days window of 0 intentionally has no
+      // dates (it renders as a dateless option), so an empty result must not
+      // clear the selection. In compact view that would bounce the user back to
+      // the carrier overview.
+      const selectedCarrier = carriers.find((item) => toValue(item.carrier).identifier === carrier.value);
+      const selectedCarrierIsDateless =
+        selectedCarrier?.get(CarrierSetting.DeliveryDaysWindow, DELIVERY_DAYS_WINDOW_DEFAULT) === 0;
+
+      if (!selectedCarrierIsDateless) {
+        clearSelectedValues();
+      }
     }
 
     return [];
@@ -348,7 +363,7 @@ const callback = (): UseResolvedDeliveryOptions => {
     const datesPerCarrier = await getDeliveryOptionsFromApi(carriers);
 
     // Filter out any nulls (failed requests)
-    const filteredDates = removeEmptyEntries(datesPerCarrier);
+    const filteredDates = removeEmptyEntries(datesPerCarrier, toValue(carriers));
 
     // Flatten the dates into SelectedDeliveryMoment objects.
     return formatDatesAsDeliveryMoments(filteredDates);
