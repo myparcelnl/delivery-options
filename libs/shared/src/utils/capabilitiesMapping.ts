@@ -40,25 +40,54 @@ export const DELIVERY_TYPE_MAP: {
   SAME_DAY_DELIVERY: 'same_day',
 };
 
-/** Capability option → SDK request param; allow/price settings follow the same convention. */
+/**
+ * Every capability option that is a shipment option, mapped to its delivery options
+ * (endpoint) name. This is the single list all shipment option mappings derive from:
+ * SHIPMENT_OPTION_MAP (the options a consumer can select in the widget) and the delivery
+ * day entries of DELIVERY_DAY_OPTION_MAP are subsets of it, and the plugin's
+ * cartShipmentOptions use the camelCase form of these names (e.g. 'age_check' → 'ageCheck').
+ */
+export const CAPABILITY_TO_SHIPMENT_OPTION = {
+  requiresSignature: 'signature',
+  recipientOnlyDelivery: 'only_recipient',
+  priorityDelivery: 'priority_delivery',
+  requiresAgeVerification: 'age_check',
+  requiresReceiptCode: 'receipt_code',
+  oversizedPackage: 'large_format',
+  hideSender: 'hide_sender',
+  printReturnLabelAtDropOff: 'return',
+  scheduledCollection: 'collect',
+  sameDayDelivery: 'same_day_delivery',
+  saturdayDelivery: 'saturday_delivery',
+  freshFood: 'fresh_food',
+  frozen: 'frozen',
+  tracked: 'tracked',
+} as const;
+
+/**
+ * Capability option → SDK request param; allow/price settings follow the same convention.
+ * mondayDelivery is deliberately only here: it is a delivery day flag, not a shipment option
+ * on the wire.
+ */
 export const DELIVERY_DAY_OPTION_MAP: {
   readonly sameDayDelivery: 'same_day_delivery';
   readonly mondayDelivery: 'monday_delivery';
   readonly saturdayDelivery: 'saturday_delivery';
 } = {
-  sameDayDelivery: 'same_day_delivery',
+  sameDayDelivery: CAPABILITY_TO_SHIPMENT_OPTION.sameDayDelivery,
   mondayDelivery: 'monday_delivery',
-  saturdayDelivery: 'saturday_delivery',
+  saturdayDelivery: CAPABILITY_TO_SHIPMENT_OPTION.saturdayDelivery,
 };
 
+/** The shipment options a consumer can select in the widget — a subset of the list above. */
 export const SHIPMENT_OPTION_MAP: {
   readonly requiresSignature: 'signature';
   readonly recipientOnlyDelivery: 'only_recipient';
   readonly priorityDelivery: 'priority_delivery';
 } = {
-  requiresSignature: 'signature',
-  recipientOnlyDelivery: 'only_recipient',
-  priorityDelivery: 'priority_delivery',
+  requiresSignature: CAPABILITY_TO_SHIPMENT_OPTION.requiresSignature,
+  recipientOnlyDelivery: CAPABILITY_TO_SHIPMENT_OPTION.recipientOnlyDelivery,
+  priorityDelivery: CAPABILITY_TO_SHIPMENT_OPTION.priorityDelivery,
 };
 
 export const PACKAGE_TYPE_MAP: {
@@ -185,29 +214,29 @@ const CAPABILITY_OPTION_MAP: Record<string, SupportedShipmentOptionName> = {
 
 /** All capability option keys known from the API — both mapped and intentionally ignored. */
 const KNOWN_CAPABILITY_OPTIONS = new Set([
-  ...Object.keys(SHIPMENT_OPTION_MAP),
+  ...Object.keys(CAPABILITY_TO_SHIPMENT_OPTION),
   ...Object.keys(DELIVERY_DAY_OPTION_MAP),
-  // Known options not relevant to the widget UI
+  // Known options that are not shipment options in the widget's sense
   'additionalInsurance',
   'cooledDelivery',
   'customLabelText',
   'deliverAtPostalPoint',
   'deliveryDate',
-  'freshFood',
-  'frozen',
-  'hideSender',
   'insurance',
   'noTracking',
-  'oversizedPackage',
-  'printReturnLabelAtDropOff',
-  'requiresAgeVerification',
   'requiresCashOnDelivery',
-  'requiresReceiptCode',
   'returnContributionFee',
   'returnOnFirstFailedDelivery',
-  'scheduledCollection',
-  'tracked',
 ]);
+
+/**
+ * The plugin's cart option names (camelCase, e.g. 'ageCheck') mapped back to capability keys.
+ * Derived from CAPABILITY_TO_SHIPMENT_OPTION: the plugin uses the camelCase form of the
+ * delivery options names.
+ */
+const CART_OPTION_TO_CAPABILITY: Record<string, string> = Object.fromEntries(
+  Object.entries(CAPABILITY_TO_SHIPMENT_OPTION).map(([capability, doName]) => [toCamelCase(doName), capability]),
+);
 
 const CAPABILITY_OPTION_TO_SDK_PARAM: Record<string, string> = {...DELIVERY_DAY_OPTION_MAP};
 
@@ -306,6 +335,16 @@ export const mapCapabilityOption = (capOption: string): SupportedShipmentOptionN
 
   return mapped;
 };
+
+/**
+ * Translate a plugin shipment option name (e.g. 'ageCheck') to its capabilities option key
+ * (e.g. 'requiresAgeVerification').
+ *
+ * @param name - The option name as the plugin sends it in cartShipmentOptions (camelCase).
+ * @returns The matching capabilities option key, or undefined when the name is not known.
+ */
+export const mapCartShipmentOptionToCapability = (name: string): string | undefined =>
+  CART_OPTION_TO_CAPABILITY[name];
 
 /**
  * Map capabilities option to SDK parameter name (for delivery day flags).

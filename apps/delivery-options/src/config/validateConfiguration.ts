@@ -1,9 +1,13 @@
+import {isObject} from 'radash';
 import {isEnumValue} from '@myparcel-dev/ts-utils';
 import {
   AddressField,
   CarrierSetting,
   type CarrierSettings,
   type CarrierSettingsObject,
+  type CartShipmentOptions,
+  type CarrierIdentifier,
+  resolveCarrierName,
   type ConfigOption,
   ConfigSetting,
   type DeliveryOptionsConfig,
@@ -12,6 +16,7 @@ import {
   type InputDeliveryOptionsConfig,
   type InputDeliveryOptionsConfiguration,
   KEY_CARRIER_SETTINGS,
+  KEY_CART_SHIPMENT_OPTIONS,
   validateDropOffDays,
   validateHasMinKeys,
   validateIsBoolean,
@@ -141,6 +146,37 @@ const processConfig = <T extends InputDeliveryOptionsConfig | CarrierSettings>(
   return filterConfig({...input}, configOptions);
 };
 
+/**
+ * Clean up the cartShipmentOptions input. PHP serializes an empty map as an empty array, so
+ * arrays and any other non-object input become an empty object. Carrier keys are normalized
+ * to the bare carrier name ('postnl:123' → 'postnl'), carrier entries that are not plain
+ * objects are dropped, and within each carrier only boolean option values are kept.
+ *
+ * A '__proto__' carrier key is dropped: Object.assign()-ing a map with that key onto another
+ * object (as the store does) would replace that object's prototype. When two keys normalize
+ * to the same carrier name, the last one wins.
+ *
+ * @param input - The raw cartShipmentOptions value from the configuration input.
+ * @returns A safe carrier name → option name → on/off map; empty when the input was unusable.
+ */
+const sanitizeCartShipmentOptions = (input: unknown): CartShipmentOptions => {
+  if (!isObject(input)) {
+    return {};
+  }
+
+  return Object.fromEntries(
+    Object.entries(input)
+      .filter((entry): entry is [string, Record<string, unknown>] => isObject(entry[1]))
+      .map(([carrier, carrierOptions]): [string, Record<string, boolean>] => [
+        resolveCarrierName(carrier as CarrierIdentifier),
+        Object.fromEntries(
+          Object.entries(carrierOptions).filter((entry): entry is [string, boolean] => typeof entry[1] === 'boolean'),
+        ),
+      ])
+      .filter(([carrier]) => carrier !== '__proto__'),
+  );
+};
+
 const validateConfig = (input: InputDeliveryOptionsConfig): DeliveryOptionsConfig => {
   const configOptions: ConfigOption[] = [...getAllConfigOptions(), ...additionalOptions];
   const configOptionsPerCarrier = configOptions.filter(
@@ -179,6 +215,10 @@ export const validateConfiguration = (input: InputDeliveryOptionsConfiguration):
 
   if (input[KEY_STRINGS] !== undefined) {
     result[KEY_STRINGS] = {...input[KEY_STRINGS]};
+  }
+
+  if (input[KEY_CART_SHIPMENT_OPTIONS] !== undefined) {
+    result[KEY_CART_SHIPMENT_OPTIONS] = sanitizeCartShipmentOptions(input[KEY_CART_SHIPMENT_OPTIONS]);
   }
 
   // Ensure address is always present

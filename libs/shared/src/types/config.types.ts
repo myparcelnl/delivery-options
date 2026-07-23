@@ -87,6 +87,14 @@ export type InputCarrierSettingsObject = Partial<Record<CarrierIdentifier, Input
 
 export type CarrierSettingsObject = Partial<Record<CarrierIdentifier, CarrierSettings>>;
 
+/**
+ * The shipment options the cart would currently be shipped with, calculated by the plugin per carrier.
+ * Keys are bare carrier names (e.g. 'postnl'); identifiers with a contract id are normalized
+ * to the bare name when the configuration is read. Values map a shipment option name
+ * (camelCase, e.g. 'ageCheck') to whether that option is on for this cart.
+ */
+export type CartShipmentOptions = Partial<Record<CarrierName, Record<string, boolean>>>;
+
 export interface DeliveryOptionsConfig extends Partial<Record<ConfigSetting, unknown>>, CarrierSettings {
   allowPickupLocationsViewSelection: boolean;
   apiBaseUrl: string;
@@ -150,6 +158,8 @@ export interface DeliveryOptionsConfiguration {
   config: DeliveryOptionsConfig;
   initial: Partial<DeliveryOptionsOutput>;
   strings: DeliveryOptionsStrings;
+  /** Absent when the plugin did not send cart shipment options; the widget then behaves as before. */
+  cartShipmentOptions?: CartShipmentOptions;
 }
 
 export interface InputDeliveryOptionsConfiguration {
@@ -157,6 +167,8 @@ export interface InputDeliveryOptionsConfiguration {
   config: InputDeliveryOptionsConfig;
   initial?: Partial<DeliveryOptionsOutput>;
   strings?: DeliveryOptionsStrings;
+  /** PHP serializes an empty map as an empty array, so a bare [] is accepted and treated as an empty object. */
+  cartShipmentOptions?: CartShipmentOptions | [];
 }
 
 export type RelatedConfigOption = {
