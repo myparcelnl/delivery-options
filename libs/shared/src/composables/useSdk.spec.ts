@@ -1,5 +1,6 @@
 import {describe, it, expect, afterEach} from 'vitest';
 import {useMockSdk} from '../__tests__/useMockSdk';
+import {useCarriersRequest} from './sdk/useCarriersRequest';
 import {setSdkBaseUrl, useSdk} from './useSdk';
 
 describe('useSdk', () => {
@@ -36,6 +37,22 @@ describe('useSdk', () => {
       useSdk();
 
       expect(clientConfig.value?.baseUrl).toBe('https://api.acceptance.myparcel.nl');
+    });
+
+    it('does not serve cached responses after the base url changes', async () => {
+      const {history} = useMockSdk();
+
+      const firstRequest = useCarriersRequest();
+      await firstRequest.load();
+
+      expect(history.value).toHaveLength(1);
+
+      setSdkBaseUrl('https://api.acceptance.myparcel.nl');
+
+      const secondRequest = useCarriersRequest();
+      await secondRequest.load();
+
+      expect(history.value).toHaveLength(2);
     });
 
     it('recreates the sdk client when the base url changes', () => {

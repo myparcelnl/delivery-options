@@ -7,6 +7,8 @@ import {
   GetDeliveryOptions,
   GetPickupLocations,
 } from '@myparcel-dev/sdk';
+import {useRequestStorage} from './sdk/useRequestStorage';
+import {useRequest} from './sdk/useRequest';
 
 let sdkBaseUrl: string | undefined;
 
@@ -25,6 +27,11 @@ export const setSdkBaseUrl = (url?: string): void => {
 
   sdkBaseUrl = newUrl;
   useSdk.clear();
+
+  // Cached responses belong to the previous environment; the request cache is
+  // keyed by request only, not by base url.
+  useRequest.clear();
+  useRequestStorage().clear();
 };
 
 export const useSdk = useMemoize(() => {
