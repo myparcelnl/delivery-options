@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel-dev/delivery-options-v7.4.3](https://github.com/myparcelnl/delivery-options/compare/v7.4.2...v7.4.3) (2026-07-28)
+
+### :bug: Bug Fixes
+
+* correct delivery-days window behaviour (global and per-carrier) ([#473](https://github.com/myparcelnl/delivery-options/issues/473)) ([907b149](https://github.com/myparcelnl/delivery-options/commit/907b1495cc97239ef6cb0a0a2ec8919d30a8e80f))
+
 ## [@myparcel-dev/delivery-options-v7.4.2](https://github.com/myparcelnl/delivery-options/compare/v7.4.1...v7.4.2) (2026-06-30)
 
 ### :bug: Bug Fixes
