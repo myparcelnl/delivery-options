@@ -230,12 +230,11 @@ const KNOWN_CAPABILITY_OPTIONS = new Set([
 ]);
 
 /**
- * The plugin's cart option names (camelCase, e.g. 'ageCheck') mapped back to capability keys.
- * Derived from CAPABILITY_TO_SHIPMENT_OPTION: the plugin uses the camelCase form of the
- * delivery options names.
+ * The plugin's cart option names (camelCase, e.g. 'ageCheck') mapped to delivery options names
+ * ('age_check'), so incoming cart data speaks the same vocabulary as the rest of the widget.
  */
-const CART_OPTION_TO_CAPABILITY: Record<string, string> = Object.fromEntries(
-  Object.entries(CAPABILITY_TO_SHIPMENT_OPTION).map(([capability, doName]) => [toCamelCase(doName), capability]),
+const CART_OPTION_TO_SHIPMENT_OPTION: Record<string, string> = Object.fromEntries(
+  Object.values(CAPABILITY_TO_SHIPMENT_OPTION).map((name) => [toCamelCase(name), name]),
 );
 
 const CAPABILITY_OPTION_TO_SDK_PARAM: Record<string, string> = {...DELIVERY_DAY_OPTION_MAP};
@@ -286,8 +285,8 @@ const SDK_DELIVERY_TYPE_TO_CAPABILITY: Record<string, string> = Object.fromEntri
   Object.entries(CAPABILITY_DELIVERY_TYPE_MAP).map(([cap, sdk]) => [sdk, cap]),
 );
 
-const SDK_OPTION_TO_CAPABILITY: Record<string, string> = Object.fromEntries(
-  Object.entries(CAPABILITY_OPTION_MAP).map(([cap, sdk]) => [sdk, cap]),
+const SHIPMENT_OPTION_TO_CAPABILITY: Record<string, string> = Object.fromEntries(
+  Object.entries(CAPABILITY_TO_SHIPMENT_OPTION).map(([capability, name]) => [name, capability]),
 );
 
 const SDK_PACKAGE_TYPE_TO_CAPABILITY: Record<string, string> = Object.fromEntries(
@@ -337,14 +336,13 @@ export const mapCapabilityOption = (capOption: string): SupportedShipmentOptionN
 };
 
 /**
- * Translate a plugin shipment option name (e.g. 'ageCheck') to its capabilities option key
- * (e.g. 'requiresAgeVerification').
+ * Translate an option name as the plugin sends it in cartShipmentOptions ('ageCheck') to the
+ * delivery options name the widget uses everywhere else ('age_check').
  *
- * @param name - The option name as the plugin sends it in cartShipmentOptions (camelCase).
- * @returns The matching capabilities option key, or undefined when the name is not known.
+ * @param name - The camelCase option name from the plugin.
+ * @returns The delivery options name, or undefined when the option is not known.
  */
-export const mapCartShipmentOptionToCapability = (name: string): string | undefined =>
-  CART_OPTION_TO_CAPABILITY[name];
+export const mapCartOptionName = (name: string): string | undefined => CART_OPTION_TO_SHIPMENT_OPTION[name];
 
 /**
  * Map capabilities option to SDK parameter name (for delivery day flags).
@@ -365,10 +363,33 @@ export const mapDeliveryTypeToCapability = (sdkType: SupportedDeliveryTypeName):
   SDK_DELIVERY_TYPE_TO_CAPABILITY[sdkType];
 
 /**
- * Map an SDK/internal shipment option name to capabilities format (camelCase).
+ * Map a shipment option name ('only_recipient', 'age_check') to its capabilities key
+ * ('recipientOnlyDelivery', 'requiresAgeVerification'). Covers every shipment option, not only
+ * the ones a consumer can select.
  */
-export const mapShipmentOptionToCapability = (sdkOption: SupportedShipmentOptionName): string | undefined =>
-  SDK_OPTION_TO_CAPABILITY[sdkOption];
+export const mapShipmentOptionToCapability = (name: string): string | undefined =>
+  SHIPMENT_OPTION_TO_CAPABILITY[name];
+
+/**
+ * Translate capability option keys to the widget's option names, dropping the keys the widget
+ * has no option for (insurance, for example). Use it wherever a set of capability keys has to
+ * be handed to something that speaks option names.
+ *
+ * @param capabilityKeys - Capability option keys, e.g. from requires or excludes lists.
+ */
+export const toShipmentOptionNames = (capabilityKeys: Iterable<string>): Set<string> => {
+  const names = new Set<string>();
+
+  for (const capabilityKey of capabilityKeys) {
+    const name = mapCapabilityOption(capabilityKey);
+
+    if (name) {
+      names.add(name);
+    }
+  }
+
+  return names;
+};
 
 /**
  * Map an SDK/internal package type name to capabilities format (UPPER_CASE).

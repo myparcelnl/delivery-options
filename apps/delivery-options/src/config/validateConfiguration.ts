@@ -17,6 +17,7 @@ import {
   type InputDeliveryOptionsConfiguration,
   KEY_CARRIER_SETTINGS,
   KEY_CART_SHIPMENT_OPTIONS,
+  mapCartOptionName,
   validateDropOffDays,
   validateHasMinKeys,
   validateIsBoolean,
@@ -148,9 +149,10 @@ const processConfig = <T extends InputDeliveryOptionsConfig | CarrierSettings>(
 
 /**
  * Clean up the cartShipmentOptions input. PHP serializes an empty map as an empty array, so
- * arrays and any other non-object input become an empty object. Carrier keys are normalized
- * to the bare carrier name ('postnl:123' → 'postnl'), carrier entries that are not plain
- * objects are dropped, and within each carrier only boolean option values are kept.
+ * arrays and any other non-object input become an empty object. Carrier keys are normalized to
+ * the bare carrier name ('postnl:123' → 'postnl') and option names to the widget's own names
+ * ('ageCheck' → 'age_check'), so the rest of the widget deals with one vocabulary. Carrier
+ * entries that are not plain objects are dropped, as are unknown options and non-boolean values.
  *
  * A '__proto__' carrier key is dropped: Object.assign()-ing a map with that key onto another
  * object (as the store does) would replace that object's prototype. When two keys normalize
@@ -170,7 +172,10 @@ const sanitizeCartShipmentOptions = (input: unknown): CartShipmentOptions => {
       .map(([carrier, carrierOptions]): [string, Record<string, boolean>] => [
         resolveCarrierName(carrier as CarrierIdentifier),
         Object.fromEntries(
-          Object.entries(carrierOptions).filter((entry): entry is [string, boolean] => typeof entry[1] === 'boolean'),
+          Object.entries(carrierOptions)
+            .filter((entry): entry is [string, boolean] => typeof entry[1] === 'boolean')
+            .map(([option, isOn]): [string | undefined, boolean] => [mapCartOptionName(option), isOn])
+            .filter((entry): entry is [string, boolean] => entry[0] !== undefined),
         ),
       ])
       .filter(([carrier]) => carrier !== '__proto__'),
