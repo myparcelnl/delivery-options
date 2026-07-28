@@ -84,16 +84,30 @@ describe('validateConfiguration', () => {
   });
 
   describe('cartShipmentOptions', () => {
-    it('copies a valid map', () => {
+    it('copies a valid map and names the options like the widget does', () => {
+      // The plugin sends camelCase names; the widget works with its own option names.
       const validated = validateConfiguration({
         ...VALID_CONFIG,
         [KEY_CART_SHIPMENT_OPTIONS]: {
-          [CarrierName.PostNl]: {ageCheck: true, signature: false},
+          [CarrierName.PostNl]: {ageCheck: true, onlyRecipient: false},
         },
       });
 
       expect(validated[KEY_CART_SHIPMENT_OPTIONS]).toEqual({
-        [CarrierName.PostNl]: {ageCheck: true, signature: false},
+        [CarrierName.PostNl]: {age_check: true, only_recipient: false},
+      });
+    });
+
+    it('drops options it does not know', () => {
+      const validated = validateConfiguration({
+        ...VALID_CONFIG,
+        [KEY_CART_SHIPMENT_OPTIONS]: {
+          [CarrierName.PostNl]: {ageCheck: true, madeUpOption: true},
+        },
+      } as unknown as InputDeliveryOptionsConfiguration);
+
+      expect(validated[KEY_CART_SHIPMENT_OPTIONS]).toEqual({
+        [CarrierName.PostNl]: {age_check: true},
       });
     });
 
@@ -122,7 +136,7 @@ describe('validateConfiguration', () => {
       } as unknown as InputDeliveryOptionsConfiguration);
 
       expect(validated[KEY_CART_SHIPMENT_OPTIONS]).toEqual({
-        [CarrierName.PostNl]: {ageCheck: true},
+        [CarrierName.PostNl]: {age_check: true},
       });
     });
 
@@ -157,7 +171,7 @@ describe('validateConfiguration', () => {
       } as unknown as InputDeliveryOptionsConfiguration);
 
       expect(validated[KEY_CART_SHIPMENT_OPTIONS]).toEqual({
-        [CarrierName.PostNl]: {ageCheck: true},
+        [CarrierName.PostNl]: {age_check: true},
       });
     });
   });
