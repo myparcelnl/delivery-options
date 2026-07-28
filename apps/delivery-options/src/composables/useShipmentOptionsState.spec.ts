@@ -1,5 +1,5 @@
-import {toValue} from 'vue';
-import {describe, it, expect, beforeEach} from 'vitest';
+import {nextTick, toValue, watch} from 'vue';
+import {describe, it, expect, beforeEach, vi} from 'vitest';
 import {flushPromises} from '@vue/test-utils';
 import {DEFAULT_OPTION, mockCapabilitiesFetch} from '@myparcel-dev/do-shared/testing';
 import {
@@ -25,6 +25,10 @@ import {useSelectedValues} from './useSelectedValues';
  * @param states - The optionStates output of useShipmentOptionsState.
  */
 const optionNames = (states: readonly {name: string}[]): string[] => states.map(({name}) => name);
+
+/** Whether one option's checkbox is locked. */
+const isDisabled = (states: readonly {name: string; disabled: boolean}[], name: string): boolean | undefined =>
+  states.find((state) => state.name === name)?.disabled;
 
 const setupWithCapabilities = async (
   carrier: CarrierName,
@@ -96,20 +100,31 @@ describe('useShipmentOptionsState', () => {
       // The PostNL mock capability has requiresAgeVerification with
       // requires: ['recipientOnlyDelivery', 'requiresSignature']. Age check is not a
       // consumer option, so shipping the cart with it must lock its requirements.
-      const {forcedOn, forcedOff, optionStates} = await setupWithCapabilities(CarrierName.PostNl, undefined, [], {
-        [CarrierName.PostNl]: {ageCheck: true},
-      });
+      const {forcedOn, forcedOff, defaults, optionStates, selection} = await setupWithCapabilities(
+        CarrierName.PostNl,
+        undefined,
+        [],
+        {[CarrierName.PostNl]: {ageCheck: true}},
+      );
 
       const forced = toValue(forcedOn);
 
       expect(forced.has(ShipmentOptionName.Signature)).toBe(true);
       expect(forced.has(ShipmentOptionName.OnlyRecipient)).toBe(true);
 
-      // Names outside the widget's option set must never leak into the output.
-      const allOutputNames = [...toValue(forcedOn), ...toValue(forcedOff), ...optionNames(toValue(optionStates))];
+      // Age check is not a widget option, so it may not turn up anywhere the widget reads or
+      // emits — not in the rendered options, and not in the selection that becomes the output.
+      const allOutputNames = [
+        ...toValue(forcedOn),
+        ...toValue(forcedOff),
+        ...toValue(defaults),
+        ...toValue(selection),
+        ...optionNames(toValue(optionStates)),
+      ];
 
-      expect(allOutputNames).not.toContain('requiresAgeVerification');
-      expect(allOutputNames).not.toContain('ageCheck');
+      for (const name of ['requiresAgeVerification', 'ageCheck', 'age_check']) {
+        expect(allOutputNames).not.toContain(name);
+      }
     });
 
     it('does not force anything for a cart option that is off', async () => {
@@ -119,6 +134,39 @@ describe('useShipmentOptionsState', () => {
 
       expect(toValue(forcedOn).size).toBe(0);
       expect(toValue(forcedOff).size).toBe(0);
+    });
+
+    it('starts a consumer option the cart enabled as checked, but leaves it toggleable', async () => {
+      const {defaults, forcedOn, optionStates} = await setupWithCapabilities(CarrierName.PostNl, undefined, [], {
+        [CarrierName.PostNl]: {signature: true},
+      });
+
+      // Checked to begin with...
+      expect(toValue(defaults)).toContain(ShipmentOptionName.Signature);
+
+      // ...but not locked: no rule forces it, so the consumer can turn it off again.
+      expect(toValue(forcedOn).has(ShipmentOptionName.Signature)).toBe(false);
+      expect(isDisabled(toValue(optionStates), ShipmentOptionName.Signature)).toBe(false);
+    });
+
+    it('starts a consumer option the cart disabled as unchecked, even when the carrier selects it by default', async () => {
+      const {defaults} = await setupWithCapabilities(
+        CarrierName.PostNl,
+        [
+          {
+            carrier: 'POSTNL',
+            packageTypes: ['PACKAGE'],
+            deliveryTypes: ['STANDARD_DELIVERY'],
+            options: {
+              requiresSignature: {...DEFAULT_OPTION, isSelectedByDefault: true},
+            },
+          },
+        ],
+        [],
+        {[CarrierName.PostNl]: {signature: false}},
+      );
+
+      expect(toValue(defaults)).not.toContain(ShipmentOptionName.Signature);
     });
 
     it('does not force a cart option the consumer can select themselves', async () => {
@@ -393,6 +441,63 @@ describe('useShipmentOptionsState', () => {
 
       expect(forced.has(ShipmentOptionName.Signature)).toBe(true);
       expect(forced.size).toBe(1);
+    });
+  });
+  describe('defaults', () => {
+    it('does not re-emit while the consumer changes their selection', async () => {
+      // The selector seeds the defaults whenever they change and nothing is picked yet. If the
+      // defaults re-emit on every click, unchecking the last option puts them all back.
+      const {defaults} = await setupWithCapabilities(CarrierName.PostNl, undefined, [], {
+        [CarrierName.PostNl]: {signature: true, onlyRecipient: true},
+      });
+
+      expect(toValue(defaults)).toEqual([ShipmentOptionName.Signature, ShipmentOptionName.OnlyRecipient]);
+
+      const onDefaultsChange = vi.fn();
+
+      watch(defaults, onDefaultsChange);
+
+      useSelectedValues().shipmentOptions.value = [ShipmentOptionName.Signature];
+      await nextTick();
+
+      useSelectedValues().shipmentOptions.value = [];
+      await nextTick();
+
+      expect(onDefaultsChange).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('carrier switching', () => {
+    it('leaves a picked option out once the carrier no longer offers it', async () => {
+      // Signature picked while PostNL is chosen: it is on screen, so it counts.
+      const postnl = await setupWithCapabilities(CarrierName.PostNl, undefined, [ShipmentOptionName.Signature]);
+
+      expect(toValue(postnl.selection)).toContain(ShipmentOptionName.Signature);
+
+      // DPD does not offer signature, so it is not on screen and drops out of the selection.
+      const dpd = await setupWithCapabilities(CarrierName.Dpd, undefined, [ShipmentOptionName.Signature]);
+
+      expect(toValue(dpd.selection)).not.toContain(ShipmentOptionName.Signature);
+    });
+
+    it('counts the options the cart forces as selected', async () => {
+      const {selection} = await setupWithCapabilities(CarrierName.PostNl, undefined, [], {
+        [CarrierName.PostNl]: {ageCheck: true},
+      });
+
+      expect(toValue(selection)).toContain(ShipmentOptionName.Signature);
+      expect(toValue(selection)).toContain(ShipmentOptionName.OnlyRecipient);
+    });
+
+    it('does not count an option that is forced off', async () => {
+      // requiresReceiptCode is excluded by age check in the PostNL mock capability.
+      const {selection, forcedOff} = await setupWithCapabilities(CarrierName.PostNl, undefined, [], {
+        [CarrierName.PostNl]: {ageCheck: true},
+      });
+
+      for (const option of toValue(forcedOff)) {
+        expect(toValue(selection)).not.toContain(option);
+      }
     });
   });
 });

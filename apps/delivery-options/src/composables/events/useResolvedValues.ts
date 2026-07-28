@@ -15,13 +15,14 @@ import {
 } from '@myparcel-dev/do-shared';
 import {NETHERLANDS} from '@myparcel-dev/constants/countries';
 import {DeliveryTypeName, ShipmentOptionName} from '@myparcel-dev/constants';
+import {useShipmentOptionsState} from '../useShipmentOptionsState';
 import {useSelectedValues} from '../useSelectedValues';
 import {useSelectedPickupLocation} from '../useSelectedPickupLocation';
 import {useResolvedDeliveryOptions} from '../useResolvedDeliveryOptions';
 import {getResolvedCarrier, getResolvedValue, parseJson} from '../../utils';
 import {type SelectedDeliveryMomentDelivery} from '../../types';
 import {useAddressStore, useConfigStore} from '../../stores';
-import {FIELD_DELIVERY_MOMENT, FIELD_SHIPMENT_OPTIONS, HOME_OR_PICKUP_PICKUP} from '../../data';
+import {FIELD_DELIVERY_MOMENT, HOME_OR_PICKUP_PICKUP} from '../../data';
 
 const DELIVERY_DELIVERY_TYPES = Object.freeze([
   DeliveryTypeName.Morning,
@@ -107,6 +108,7 @@ const createResolvedShipmentOptions = (
 
 export const useResolvedValues = (): ComputedRef<PickupOutput | DeliveryOutput | undefined> => {
   const selectedValues = useSelectedValues();
+  const {selection} = useShipmentOptionsState();
   const deliveryOptions = useResolvedDeliveryOptions();
   const pickupLocation = useSelectedPickupLocation();
   const {state: address} = useAddressStore();
@@ -135,7 +137,10 @@ export const useResolvedValues = (): ComputedRef<PickupOutput | DeliveryOutput |
     }
 
     const parsedMoment = parseJson<SelectedDeliveryMomentDelivery>(selectedValues[FIELD_DELIVERY_MOMENT].value);
-    const shipmentOptions = selectedValues[FIELD_SHIPMENT_OPTIONS].value ?? [];
+    // The resolved selection: widget options that a capability rule forces on (signature, for
+    // instance, when the cart ships with age check) count as selected here, even though the
+    // consumer never ticked them. Options the widget does not offer are never in it.
+    const shipmentOptions = selection.value;
 
     const {deliveryType, sameDayAsShipmentOption} = resolveOutputDeliveryType(parsedMoment);
 

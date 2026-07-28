@@ -5,7 +5,8 @@ import {flushPromises} from '@vue/test-utils';
 import {render, type RenderResult} from '@testing-library/vue';
 import {ApiException} from '@myparcel-dev/sdk';
 import {useApiExceptions} from '@myparcel-dev/do-shared';
-import {useConfigStore} from '../../stores';
+import {useSelectedValues} from '../useSelectedValues';
+import {useCartShipmentOptionsStore, useConfigStore} from '../../stores';
 import {FIELD_DELIVERY_MOMENT, FIELD_DELIVERY_DATE, UPDATED_DELIVERY_OPTIONS, ERROR_DELIVERY_OPTIONS} from '../../data';
 import {createInternalOutput, createExternalOutput, mockSelectedDeliveryOptions} from '../../__tests__';
 import {useDeliveryOptionsOutgoingEvents} from './useDeliveryOptionsOutgoingEvents';
@@ -46,7 +47,11 @@ describe('useDeliveryOptionsOutgoingEvents', () => {
 
   beforeEach(() => {
     vi.useFakeTimers();
+    // The selected values are shared, so without clearing them a previous test's delivery
+    // moment still counts as a selection here.
+    useSelectedValues.clear();
     useConfigStore().reset();
+    useCartShipmentOptionsStore().reset();
     dispatchEventSpy.mockImplementation(() => true);
   });
 

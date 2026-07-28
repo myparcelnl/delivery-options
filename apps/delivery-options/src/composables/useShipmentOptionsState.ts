@@ -2,24 +2,33 @@
  * Single owner of all shipment option decisions.
  *
  * Every rule that decides whether a shipment option is shown, checked, locked or selected by
- * default lives here, in the pure function resolveShipmentOptionsState. Everything else (the
- * options list builder, the selector component) only reads the outcome, so there is never a
- * second place that can disagree about an option's state.
+ * default lives here, in the pure resolve* functions. Everything else (the options list builder,
+ * the selector component) only reads the outcome, so there is never a second place that can
+ * disagree about an option's state.
  *
  * Flow, from input to screen:
  *
  *   capability options   (per carrier, from the capabilities API)   ─┐
  *   consumer selection   (checkboxes the consumer ticked)            │
- *   cart options         (per carrier, sent by the plugin)           ├─> resolveShipmentOptionsState()
- *   allowed options      (shop configuration allow* flags)           │           │
- *   delivery moment      (options of the selected moment)           ─┘           ▼
- *                                                {forcedOn, forcedOff, defaults, optionStates}
- *                                                                                │
- *                          ┌───────────────────────────────────────────────────┬─┘
- *                          ▼                                                   ▼
- *          useShipmentOptionsOptions                            ShipmentOptionsSelector.vue
- *          (adds label and price, no decisions)                 (applies defaults and forced
- *                                                                sets to the selection)
+ *   cart options         (per carrier, sent by the plugin: the       │
+ *                         starting state for options the consumer    │
+ *                         can pick, and active for the rules)        │
+ *   allowed options      (shop configuration allow* flags)           │
+ *   delivery moment      (options of the selected moment)           ─┘
+ *
+ *   resolveForcedOptions   → forcedOn / forcedOff   (rules, cart, selection)
+ *   resolveDefaultOptions  → defaults               (rules, cart, allowed)
+ *   resolveOptionStates    → optionStates           (allowed, moment, forced)
+ *   resolveSelection       → selection              (selection, forced, optionStates)
+ *                                                                │
+ *                          ┌───────────────────────────────────┬─┘
+ *                          ▼                                   ▼
+ *          useShipmentOptionsOptions              ShipmentOptionsSelector.vue
+ *          (adds label and price, no decisions)   (shows the selection, stores the
+ *                                                  consumer's own picks)
+ *
+ * Each outcome is a separate computed over only the inputs listed after it, so a change in one
+ * input cannot ripple into an outcome that does not depend on it.
  *
  * The rules are evaluated using capability option keys (e.g. 'requiresSignature') so that
  * requirements can pass through options the widget cannot show (e.g. 'requiresAgeVerification').
@@ -30,10 +39,9 @@ import {computed, type ComputedRef} from 'vue';
 import {
   type CapabilityOption,
   type SupportedShipmentOptionName,
-  mapCapabilityOption,
-  mapCartShipmentOptionToCapability,
   mapShipmentOptionToCapability,
   resolveCarrierName,
+  toShipmentOptionNames,
 } from '@myparcel-dev/do-shared';
 import {type SelectedDeliveryMoment} from '../types';
 import {useCartShipmentOptionsStore} from '../stores';
@@ -45,20 +53,11 @@ import {useFeatures} from './useFeatures';
 /** One shipment option as the delivery options API returns it for the selected delivery moment. */
 type MomentOption = SelectedDeliveryMoment['shipmentOptions'][number];
 
-export interface ResolveShipmentOptionsInput {
-  /** Capability options of the current carrier, keyed by capability key; undefined while capabilities have not loaded. */
-  capabilityOptions: Readonly<Record<string, CapabilityOption>> | undefined;
-  /** Widget option names the consumer has checked (e.g. 'signature'). */
-  selectedOptions: readonly string[];
-  /** Cart options for this carrier from the plugin (option name → on/off); undefined when the plugin sent none. */
-  cartOptions: Readonly<Record<string, boolean>> | undefined;
-  /** Widget option names the shop configuration allows showing (the allow* flags). */
-  allowedOptions: ReadonlySet<string>;
-  /** All widget option names, in display order. */
-  supportedOptions: readonly SupportedShipmentOptionName[];
-  /** The option list of the selected delivery moment, or undefined when the moment gives no list. */
-  momentOptions: readonly MomentOption[] | undefined;
-}
+/** Capability options of one carrier, keyed by capability key (e.g. 'requiresSignature'). */
+type CapabilityRules = Readonly<Record<string, CapabilityOption>>;
+
+/** Cart options for one carrier as the plugin calculated them (option name → on/off). */
+type CartOptions = Readonly<Record<string, boolean>> | undefined;
 
 export interface ShipmentOptionState {
   /** The widget option name, e.g. 'signature'. */
@@ -69,180 +68,78 @@ export interface ShipmentOptionState {
   selected: boolean;
 }
 
-export interface ResolvedShipmentOptionsState {
-  /** Widget option names that must be checked and locked. */
+/** Widget option names that must be checked, and those that must be unchecked. */
+export interface ForcedOptions {
   forcedOn: Set<string>;
-  /** Widget option names that must be unchecked and locked. */
   forcedOff: Set<string>;
-  /** Widget option names that start out checked when the consumer has not chosen anything yet. */
-  defaults: string[];
-  /** The options to render, in display order, each with its checkbox state. */
-  optionStates: ShipmentOptionState[];
 }
 
-/** The same outcomes as {@link ResolvedShipmentOptionsState}, exposed as reactive values. */
-type UseShipmentOptionsState = {
-  [Key in keyof ResolvedShipmentOptionsState]: ComputedRef<ResolvedShipmentOptionsState[Key]>;
-};
-
-/**
- * Translate a set of capability keys to widget option names, leaving out keys the widget
- * has no option for.
- *
- * @param capabilityKeys - Capability option keys, e.g. 'requiresSignature'.
- */
-const toUiNames = (capabilityKeys: Iterable<string>): Set<string> => {
-  const names = new Set<string>();
-
-  for (const capabilityKey of capabilityKeys) {
-    const uiName = mapCapabilityOption(capabilityKey);
-
-    if (uiName) {
-      names.add(uiName);
-    }
-  }
-
-  return names;
-};
-
-/**
- * Find the cart options that seed forcing. An entry qualifies when the cart ships with it
- * (true), the carrier's capability knows the option, and the consumer cannot select it
- * themselves. Options the consumer can already tick are left alone.
- *
- * @param rules - Capability options of the current carrier, keyed by capability key.
- * @param cartOptions - Cart options for this carrier (option name → on/off), or undefined when the plugin sent none.
- * @param allowedOptions - Widget option names the shop configuration allows showing.
- * @returns Capability keys of the cart options that must be forced.
- */
-const collectCartSeeds = (
-  rules: Readonly<Record<string, CapabilityOption>>,
-  cartOptions: Readonly<Record<string, boolean>> | undefined,
-  allowedOptions: ReadonlySet<string>,
-): string[] => {
-  const cartSeeds: string[] = [];
-
-  for (const [optionName, isOn] of Object.entries(cartOptions ?? {})) {
-    if (!isOn) {
-      continue;
-    }
-
-    const capabilityKey = mapCartShipmentOptionToCapability(optionName);
-
-    if (!capabilityKey || !(capabilityKey in rules)) {
-      continue;
-    }
-
-    const uiName = mapCapabilityOption(capabilityKey);
-    const isConsumerSelectable = uiName !== undefined && allowedOptions.has(uiName);
-
-    if (!isConsumerSelectable) {
-      cartSeeds.push(capabilityKey);
-    }
-  }
-
-  return cartSeeds;
-};
-
-/**
- * Work out which capability options are forced on. Options the carrier marks as required and
- * cart options force themselves plus everything they require; consumer-selected options force
- * only their requirements, not themselves — the consumer chose them and may still change
- * their mind. Requirement references are followed through options the widget cannot show, so
- * requirements behind them are not lost. Safe with circular requires.
- *
- * @param rules - Capability options of the current carrier, keyed by capability key.
- * @param cartSeeds - Capability keys of cart options that must be forced.
- * @param selectedCapabilityKeys - Capability keys of the options the consumer has checked.
- * @returns Capability keys that must be checked and locked.
- */
-const collectForcedOnCapability = (
-  rules: Readonly<Record<string, CapabilityOption>>,
-  cartSeeds: readonly string[],
-  selectedCapabilityKeys: readonly string[],
-): Set<string> => {
-  const forcedOnCapability = new Set<string>();
-  const visited = new Set<string>();
-
+export interface UseShipmentOptionsState {
+  /** Widget option names that must be checked and locked. */
+  forcedOn: ComputedRef<Set<string>>;
+  /** Widget option names that must be unchecked and locked. */
+  forcedOff: ComputedRef<Set<string>>;
+  /** Widget option names that start out checked when the consumer has not chosen anything yet. */
+  defaults: ComputedRef<string[]>;
+  /** The options to render, in display order, each with its checkbox state. */
+  optionStates: ComputedRef<ShipmentOptionState[]>;
   /**
-   * Add everything the given capability option requires, directly or through other options,
-   * to the forced-on set.
-   *
-   * @param capabilityKey - The capability option key to start from.
+   * The options that count as checked: the consumer's picks that are still on screen, plus
+   * everything forced on. A pick disappears by itself once the chosen carrier no longer offers
+   * the option, so nothing has to clean up after a carrier switch.
    */
-  const addRequirements = (capabilityKey: string): void => {
-    if (visited.has(capabilityKey)) {
-      return;
-    }
-
-    visited.add(capabilityKey);
-    const option = rules[capabilityKey];
-
-    if (!option) {
-      return;
-    }
-
-    for (const required of option.requires) {
-      forcedOnCapability.add(required);
-      addRequirements(required);
-    }
-  };
-
-  for (const [capabilityKey, option] of Object.entries(rules)) {
-    if (option.isRequired) {
-      forcedOnCapability.add(capabilityKey);
-      addRequirements(capabilityKey);
-    }
-  }
-
-  // The cart ships with these options, so the consumer must not be able to turn them or
-  // anything they depend on off.
-  for (const seed of cartSeeds) {
-    forcedOnCapability.add(seed);
-    addRequirements(seed);
-  }
-
-  for (const capabilityKey of selectedCapabilityKeys) {
-    addRequirements(capabilityKey);
-  }
-
-  return forcedOnCapability;
-};
+  selection: ComputedRef<string[]>;
+}
 
 /**
- * Work out which capability options are forced off. Every active option (consumer-selected,
- * forced on, or coming from the cart) blocks the options it excludes. When an option is both
- * forced on and excluded, forced on wins.
+ * Work out the capability options that are forced on or off for the options that are active
+ * right now.
+ *
+ * Active means: the carrier requires it, the cart ships with it, or the consumer checked it.
+ * Active options do not force themselves — their effect runs through the capability rules:
+ * everything an active option `requires` is forced on (followed through options the widget
+ * cannot show, so nothing behind them is lost), and everything an active option `excludes` is
+ * forced off. Options the carrier itself marks `isRequired` are the exception: those are forced
+ * on directly. Forced on beats forced off, and circular requires are safe.
  *
  * @param rules - Capability options of the current carrier, keyed by capability key.
- * @param selectedCapabilityKeys - Capability keys of the options the consumer has checked.
- * @param forcedOnCapability - Capability keys that are forced on; cart seeds are part of this set.
- * @returns Capability keys that must be unchecked and locked.
+ * @param activeKeys - Capability keys of the options that are on: from the cart and from the
+ *   consumer's selection.
  */
-const collectForcedOffCapability = (
+const collectForcedCapabilities = (
   rules: Readonly<Record<string, CapabilityOption>>,
-  selectedCapabilityKeys: readonly string[],
-  forcedOnCapability: ReadonlySet<string>,
-): Set<string> => {
-  const activeCapability = new Set<string>([...forcedOnCapability, ...selectedCapabilityKeys]);
+  activeKeys: readonly string[],
+): {forcedOnCapability: Set<string>; forcedOffCapability: Set<string>} => {
+  const requiredKeys = Object.keys(rules).filter((key) => rules[key]?.isRequired);
+  const forcedOnCapability = new Set<string>(requiredKeys);
+
+  const queue = [...requiredKeys, ...activeKeys];
+  const visited = new Set<string>(queue);
+
+  // A for-of over an array also visits what gets pushed while looping, so the queue grows as
+  // more requirements turn up.
+  for (const capabilityKey of queue) {
+    for (const required of rules[capabilityKey]?.requires ?? []) {
+      forcedOnCapability.add(required);
+
+      if (!visited.has(required)) {
+        visited.add(required);
+        queue.push(required);
+      }
+    }
+  }
 
   const forcedOffCapability = new Set<string>();
 
-  for (const activeKey of activeCapability) {
-    const option = rules[activeKey];
-
-    if (!option) {
-      continue;
-    }
-
-    for (const excluded of option.excludes) {
+  for (const capabilityKey of new Set([...forcedOnCapability, ...activeKeys])) {
+    for (const excluded of rules[capabilityKey]?.excludes ?? []) {
       if (!forcedOnCapability.has(excluded)) {
         forcedOffCapability.add(excluded);
       }
     }
   }
 
-  return forcedOffCapability;
+  return {forcedOnCapability, forcedOffCapability};
 };
 
 /**
@@ -252,12 +149,16 @@ const collectForcedOffCapability = (
  *   options, all widget option names in display order, the delivery moment's option list,
  *   and the resolved forced-on/forced-off sets (in widget option names).
  */
-const buildOptionStates = (
-  input: Pick<ResolveShipmentOptionsInput, 'allowedOptions' | 'supportedOptions' | 'momentOptions'> & {
-    forcedOn: ReadonlySet<string>;
-    forcedOff: ReadonlySet<string>;
-  },
-): ShipmentOptionState[] => {
+export const resolveOptionStates = (input: {
+  /** Widget option names the shop configuration allows showing (the allow* flags). */
+  allowedOptions: ReadonlySet<string>;
+  /** All widget option names, in display order. */
+  supportedOptions: readonly SupportedShipmentOptionName[];
+  /** The option list of the selected delivery moment, or undefined when it gives no list. */
+  momentOptions: readonly MomentOption[] | undefined;
+  forcedOn: ReadonlySet<string>;
+  forcedOff: ReadonlySet<string>;
+}): ShipmentOptionState[] => {
   const {allowedOptions, supportedOptions, momentOptions, forcedOn, forcedOff} = input;
 
   return supportedOptions.flatMap((name) => {
@@ -290,49 +191,93 @@ const buildOptionStates = (
 };
 
 /**
- * Decide the state of every shipment option: which are forced on or off, which are selected
- * by default, and which are rendered with what checkbox state. This is the only place where
- * those decisions are made — see the module docblock for the full flow.
+ * Work out which options must be checked and which must be unchecked, in widget option names.
+ * Options that are on — the cart's and the consumer's — do not force themselves; their effect
+ * runs through the capability rules. Capability options without a widget option are dropped at
+ * the end, so they can take part in the rules without ever reaching the screen.
  *
- * @param input - Plain data describing the current situation; see ResolveShipmentOptionsInput for what each field means.
+ * @param rules - Capability options of the current carrier.
+ * @param cartOptions - Cart options for this carrier.
+ * @param selectedOptions - Widget option names the consumer has checked.
  */
-export const resolveShipmentOptionsState = (input: ResolveShipmentOptionsInput): ResolvedShipmentOptionsState => {
-  const {capabilityOptions, selectedOptions, cartOptions, allowedOptions, supportedOptions, momentOptions} = input;
+export const resolveForcedOptions = (
+  rules: CapabilityRules,
+  cartOptions: CartOptions,
+  selectedOptions: readonly string[],
+): ForcedOptions => {
+  const activeKeys = [...Object.keys(cartOptions ?? {}).filter((name) => cartOptions?.[name]), ...selectedOptions]
+    .map((name) => mapShipmentOptionToCapability(name))
+    .filter((key): key is string => key !== undefined && key in rules);
 
-  const rules = capabilityOptions ?? {};
+  const {forcedOnCapability, forcedOffCapability} = collectForcedCapabilities(rules, activeKeys);
 
-  // Map the consumer's selection to capability keys once; both collectors read it.
-  const selectedCapabilityKeys = selectedOptions
-    .map((name) => mapShipmentOptionToCapability(name as SupportedShipmentOptionName))
-    .filter((key): key is string => key !== undefined);
-
-  const cartSeeds = collectCartSeeds(rules, cartOptions, allowedOptions);
-  const forcedOnCapability = collectForcedOnCapability(rules, cartSeeds, selectedCapabilityKeys);
-  const forcedOffCapability = collectForcedOffCapability(rules, selectedCapabilityKeys, forcedOnCapability);
-
-  // Options the carrier pre-selects, used for the initial selection.
-  const defaultKeys = Object.entries(rules)
-    .filter(([, option]) => option.isSelectedByDefault)
-    .map(([capabilityKey]) => capabilityKey);
-
-  // Translate to widget option names. Capability keys without a widget option
-  // (e.g. 'requiresAgeVerification') are dropped here — they never reach the screen.
-  const forcedOn = toUiNames(forcedOnCapability);
-  const forcedOff = toUiNames(forcedOffCapability);
-  const defaults = [...toUiNames(defaultKeys)];
-
-  const optionStates = buildOptionStates({allowedOptions, supportedOptions, momentOptions, forcedOn, forcedOff});
-
-  return {forcedOn, forcedOff, defaults, optionStates};
+  return {forcedOn: toShipmentOptionNames(forcedOnCapability), forcedOff: toShipmentOptionNames(forcedOffCapability)};
 };
 
 /**
- * Reactive wrapper around resolveShipmentOptionsState: gathers the inputs (capabilities,
- * consumer selection, cart options, shop configuration, delivery moment) and re-resolves
- * whenever one of them changes. Call it inside a component's setup or another composable;
- * every caller gets its own lightweight computed chain over the same shared stores, so the
- * outcomes are identical everywhere. Consumers only read the outputs; the rules live in the
- * pure function above.
+ * Work out which options start out checked when the consumer has not chosen anything yet: the
+ * ones the carrier selects by default, overruled by the cart's calculated value for every option
+ * the consumer can pick — on means checked to begin with, off means unchecked. Deliberately
+ * independent of the consumer's selection, so their clicks never change the starting state.
+ *
+ * @param rules - Capability options of the current carrier.
+ * @param cartOptions - Cart options for this carrier.
+ * @param allowedOptions - Widget option names the shop configuration allows showing.
+ */
+export const resolveDefaultOptions = (
+  rules: CapabilityRules,
+  cartOptions: CartOptions,
+  allowedOptions: ReadonlySet<string>,
+): string[] => {
+  const defaultKeys = Object.keys(rules).filter((key) => rules[key]?.isSelectedByDefault);
+  const defaults = toShipmentOptionNames(defaultKeys);
+
+  for (const [name, isOn] of Object.entries(cartOptions ?? {})) {
+    if (!allowedOptions.has(name)) {
+      continue;
+    }
+
+    if (isOn) {
+      defaults.add(name);
+    } else {
+      defaults.delete(name);
+    }
+  }
+
+  return [...defaults];
+};
+
+/**
+ * Work out which options count as checked: the consumer's picks that are still on screen, plus
+ * everything forced on, minus everything forced off.
+ *
+ * @param input - The consumer's picks, the forced sets, the options on screen, and whether the
+ *   carrier's capabilities have arrived — until they have, the picks are left alone, because
+ *   filtering on what is not known yet would briefly empty the output.
+ */
+export const resolveSelection = (input: {
+  selectedOptions: readonly string[];
+  forcedOn: ReadonlySet<string>;
+  forcedOff: ReadonlySet<string>;
+  optionStates: readonly ShipmentOptionState[];
+  capabilitiesKnown: boolean;
+}): string[] => {
+  const {selectedOptions, forcedOn, forcedOff, optionStates, capabilitiesKnown} = input;
+
+  const onScreen = new Set<string>(optionStates.map(({name}) => name));
+  const picked = capabilitiesKnown ? selectedOptions.filter((name) => onScreen.has(name)) : selectedOptions;
+
+  return [...new Set([...picked, ...forcedOn])].filter((name) => !forcedOff.has(name));
+};
+
+/**
+ * Reactive shipment option state for the carrier the consumer picked.
+ *
+ * Each outcome is its own computed over just the inputs it needs, so it is only recalculated
+ * when something it actually depends on changes: the defaults, for instance, do not depend on
+ * the consumer's selection, so clicking a checkbox leaves them untouched. Call it inside a
+ * component's setup or another composable; every caller reads the same shared stores, so the
+ * outcomes are identical everywhere.
  */
 export function useShipmentOptionsState(): UseShipmentOptionsState {
   const deliveryMoment = useSelectedDeliveryMoment();
@@ -340,26 +285,49 @@ export function useShipmentOptionsState(): UseShipmentOptionsState {
   const {state: cartShipmentOptions} = useCartShipmentOptionsStore();
   const {availableShipmentOptions} = useFeatures();
 
-  const resolved = computed((): ResolvedShipmentOptionsState => {
+  const carrier = computed(() => {
     const carrierId = deliveryMoment.value?.carrier;
-    const carrier = carrierId ? useResolvedCarrier(carrierId) : undefined;
 
-    return resolveShipmentOptionsState({
-      capabilityOptions: carrier?.capability.value?.options,
-      selectedOptions: selectedOptions.value,
-      // The cart options map is keyed by bare carrier name; identifiers with a contract id
-      // ('postnl:123') resolve to that name.
-      cartOptions: carrierId ? cartShipmentOptions[resolveCarrierName(carrierId)] : undefined,
-      allowedOptions: carrier?.shipmentOptions.value ?? new Set(),
-      supportedOptions: availableShipmentOptions.value,
-      momentOptions: deliveryMoment.value?.shipmentOptions,
-    });
+    return carrierId ? useResolvedCarrier(carrierId) : undefined;
   });
 
-  return {
-    forcedOn: computed(() => resolved.value.forcedOn),
-    forcedOff: computed(() => resolved.value.forcedOff),
-    defaults: computed(() => resolved.value.defaults),
-    optionStates: computed(() => resolved.value.optionStates),
-  };
+  const capabilityOptions = computed(() => carrier.value?.capability.value?.options);
+  const rules = computed<CapabilityRules>(() => capabilityOptions.value ?? {});
+  const allowedOptions = computed(() => carrier.value?.shipmentOptions.value ?? new Set<string>());
+
+  // The cart options map is keyed by bare carrier name; identifiers with a contract id
+  // ('postnl:123') resolve to that name.
+  const cartOptions = computed(() => {
+    const carrierId = deliveryMoment.value?.carrier;
+
+    return carrierId ? cartShipmentOptions[resolveCarrierName(carrierId)] : undefined;
+  });
+
+  const forced = computed(() => resolveForcedOptions(rules.value, cartOptions.value, selectedOptions.value));
+  const forcedOn = computed(() => forced.value.forcedOn);
+  const forcedOff = computed(() => forced.value.forcedOff);
+
+  const defaults = computed(() => resolveDefaultOptions(rules.value, cartOptions.value, allowedOptions.value));
+
+  const optionStates = computed(() =>
+    resolveOptionStates({
+      allowedOptions: allowedOptions.value,
+      supportedOptions: availableShipmentOptions.value,
+      momentOptions: deliveryMoment.value?.shipmentOptions,
+      forcedOn: forcedOn.value,
+      forcedOff: forcedOff.value,
+    }),
+  );
+
+  const selection = computed(() =>
+    resolveSelection({
+      selectedOptions: selectedOptions.value,
+      forcedOn: forcedOn.value,
+      forcedOff: forcedOff.value,
+      optionStates: optionStates.value,
+      capabilitiesKnown: capabilityOptions.value !== undefined,
+    }),
+  );
+
+  return {forcedOn, forcedOff, defaults, optionStates, selection};
 }
