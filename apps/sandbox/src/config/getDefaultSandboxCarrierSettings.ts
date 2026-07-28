@@ -25,8 +25,10 @@ const SANDBOX_CARRIERS = [
 export const getDefaultSandboxCarrierSettings = (): CarrierSettingsObject => {
   const defaultCarrierSettings = getDefaultCarrierSettings();
 
-  // Remove per-carrier dropOffDelay and deliveryDaysWindow as they cannot be set in the sandbox UI
+  // dropOffDelay has no per-carrier UI, so drop it from the defaults.
   delete defaultCarrierSettings[CarrierSetting.DropOffDelay];
+  // deliveryDaysWindow starts unset per carrier so it inherits the global window; it can be
+  // overridden per carrier in the sandbox UI.
   delete defaultCarrierSettings[CarrierSetting.DeliveryDaysWindow];
 
   return Object.fromEntries(
