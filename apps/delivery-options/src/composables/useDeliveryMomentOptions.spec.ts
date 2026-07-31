@@ -204,8 +204,9 @@ describe('useDeliveryMomentOptions', () => {
 
     const parsed = options.value.map((option) => parseJson<SelectedDeliveryMoment>(option.value));
 
-    // window=0 means "no date": each carrier shows a single dateless (fake) option.
-    expect(parsed).toHaveLength(2);
+    // window=0 means "no date": each carrier shows a dateless (fake) option.
+    // DhlForYou also offers same-day (sameDayDelivery capability), so it gets two.
+    expect(parsed).toHaveLength(3);
     expect(parsed.every((opt) => opt.date === null && opt.time === null)).toBe(true);
   });
 

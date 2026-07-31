@@ -7,7 +7,9 @@ import {
   type SelectOption,
   type SupportedDeliveryTypeName,
   type SupportedPackageTypeName,
+  CarrierSetting,
   CustomDeliveryType,
+  DELIVERY_DAYS_WINDOW_DEFAULT,
   DELIVERY_TYPE_DEFAULT,
   SUPPORTED_SHIPMENT_OPTIONS,
   createTranslatable,
@@ -151,6 +153,25 @@ const getDatelessDeliveryOptions = (
 };
 
 /**
+ * Dateless options for carriers whose own delivery-days window is 0. They never get
+ * dates from the API, so they show up next to the dated carriers - the same behaviour
+ * as a global window of 0, just applied per carrier. Carriers with a window of 1 or
+ * more are handled through their API delivery moments instead, so they are skipped.
+ */
+const getWindowZeroDatelessOptions = (
+  carriers: UseResolvedCarrier[],
+  packageType: SupportedPackageTypeName,
+): SelectOption<string>[] => {
+  return carriers
+    .filter(
+      (carrier) =>
+        toValue(carrier.hasDelivery) &&
+        carrier.get(CarrierSetting.DeliveryDaysWindow, DELIVERY_DAYS_WINDOW_DEFAULT) === 0,
+    )
+    .flatMap((carrier) => createCarrierDatelessOptions(carrier, packageType));
+};
+
+/**
  * Fallback options for carriers that have no real API delivery moments on any
  * date. Skipped when the selected date is today: a dateless standard delivery
  * cannot arrive today, and same-day on today is covered by the synthetic
@@ -186,10 +207,7 @@ export const useDeliveryMomentOptions = (): ComputedRef<SelectOption<string>[]> 
       return getDatelessDeliveryOptions(activeCarriers.value, config.packageType);
     }
 
-    // Carriers with a delivery-days window of 0 never have dates, so show them as a single
-    // dateless "fake" option next to the dated carriers - the same behaviour as a global
-    // window of 0, just applied per carrier.
-    const datelessOptions = getDatelessDeliveryOptions(activeCarriers.value, config.packageType);
+    const datelessOptions = getWindowZeroDatelessOptions(activeCarriers.value, config.packageType);
 
     const momentOptions = getMomentOptions(deliveryMoments.value, config.packageType);
 
