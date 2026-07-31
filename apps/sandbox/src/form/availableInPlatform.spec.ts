@@ -81,6 +81,22 @@ describe('availableInCarrier', () => {
     expect(availableInCarrier(`postnl.${CarrierSetting.AllowSignature}`)).toBe(false);
   });
 
+  describe('monday delivery', () => {
+    // No carrier reports mondayDelivery as a capability, so the sandbox keeps its
+    // own list of carriers that support it.
+    it('returns true for PostNL', () => {
+      __setMockCapabilities([createCapability('postnl', ['STANDARD_DELIVERY'], {})]);
+
+      expect(availableInCarrier(`postnl.${CarrierSetting.AllowMondayDelivery}`)).toBe(true);
+    });
+
+    it.each(['dpd', 'dhlforyou', 'upsstandard'])('returns false for %s', (carrier) => {
+      __setMockCapabilities([createCapability(carrier, ['STANDARD_DELIVERY'], {})]);
+
+      expect(availableInCarrier(`${carrier}.${CarrierSetting.AllowMondayDelivery}`)).toBe(false);
+    });
+  });
+
   it('returns true when no capability data is available for the carrier', () => {
     __setMockCapabilities([]);
 

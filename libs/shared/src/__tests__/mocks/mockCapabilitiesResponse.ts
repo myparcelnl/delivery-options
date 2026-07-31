@@ -8,6 +8,11 @@ const DEFAULT_OPTION = {
   isRequired: false,
 };
 
+/**
+ * Mirrors the live capabilities v2 response. Note that `mondayDelivery` is
+ * deliberately absent: Monday delivery is an endpoint query parameter, not a
+ * carrier capability, so no carrier ever reports it.
+ */
 export const MOCK_CAPABILITIES: CarrierCapability[] = [
   {
     carrier: 'POSTNL',
@@ -17,7 +22,6 @@ export const MOCK_CAPABILITIES: CarrierCapability[] = [
       requiresSignature: {...DEFAULT_OPTION},
       recipientOnlyDelivery: {...DEFAULT_OPTION, requires: ['requiresSignature']},
       priorityDelivery: {...DEFAULT_OPTION},
-      mondayDelivery: {...DEFAULT_OPTION},
     },
     collo: {max: 10},
   },

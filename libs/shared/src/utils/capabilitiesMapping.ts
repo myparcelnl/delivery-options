@@ -51,6 +51,18 @@ export const DELIVERY_DAY_OPTION_MAP: {
   saturdayDelivery: 'saturday_delivery',
 };
 
+/**
+ * Delivery days that are *extra options* rather than carrier capabilities: they
+ * are query parameters of the delivery_options endpoint that hint whether the
+ * day may be offered at all. The capabilities v2 contract does not describe
+ * them, so they must be driven by merchant config alone — gating them on
+ * capabilities means they are never enabled.
+ *
+ * `sameDayDelivery` is deliberately not listed: carriers do report same-day, as
+ * an option or as a delivery type, so it belongs in the capabilities response.
+ */
+const EXTRA_DELIVERY_DAY_OPTION_KEYS = Object.freeze(['mondayDelivery', 'saturdayDelivery'] as const);
+
 export const SHIPMENT_OPTION_MAP: {
   readonly requiresSignature: 'signature';
   readonly recipientOnlyDelivery: 'only_recipient';
@@ -142,6 +154,14 @@ export const SUPPORTED_DELIVERY_TYPES = Object.freeze(Object.values(DELIVERY_TYP
  * Replaces the hardcoded SUPPORTED_SHIPMENT_OPTIONS array in constants.ts.
  */
 export const SUPPORTED_SHIPMENT_OPTIONS = Object.freeze(Object.values(SHIPMENT_OPTION_MAP));
+
+/**
+ * Custom delivery types for the extra delivery days — available to every
+ * carrier, subject to merchant config only.
+ */
+export const EXTRA_DELIVERY_DAY_TYPES: readonly CustomDeliveryType[] = Object.freeze(
+  EXTRA_DELIVERY_DAY_OPTION_KEYS.map((key) => toCustomDeliveryType(DELIVERY_DAY_OPTION_MAP[key])),
+);
 
 /** All shipment options default to allowed. Auto-derived from SHIPMENT_OPTION_MAP. */
 export const SHIPMENT_OPTION_ALLOW_DEFAULTS = Object.fromEntries(

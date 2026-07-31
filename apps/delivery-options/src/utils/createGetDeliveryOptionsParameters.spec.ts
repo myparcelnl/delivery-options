@@ -71,6 +71,8 @@ describe('createGetDeliveryOptionsParameters', () => {
         dropoff_days: '0;2;3;4',
         dropoff_delay: 0,
         same_day_delivery: true,
+        // Inherited from the global allowMondayDelivery default.
+        monday_delivery: true,
         include: 'shipment_options',
       },
     },
@@ -84,6 +86,8 @@ describe('createGetDeliveryOptionsParameters', () => {
         deliverydays_window: 7,
         dropoff_days: '1;2;3;4;5',
         dropoff_delay: 1,
+        // Inherited from the global allowMondayDelivery default.
+        monday_delivery: true,
         include: 'shipment_options',
       },
     },
@@ -112,6 +116,56 @@ describe('createGetDeliveryOptionsParameters', () => {
         },
         output,
       ),
+    );
+  });
+
+  /**
+   * Monday and Saturday delivery are query parameters of the delivery_options
+   * endpoint, not carrier capabilities, so they are absent from the capabilities
+   * response. They must be driven by the carrier settings alone — gating them on
+   * capabilities meant they were never sent at all.
+   */
+  describe('extra delivery days are not gated on capabilities', () => {
+    it.each([
+      [CarrierSetting.AllowMondayDelivery, 'monday_delivery'],
+      [CarrierSetting.AllowSaturdayDelivery, 'saturday_delivery'],
+    ] satisfies [CarrierSetting, keyof EndpointParameters<GetDeliveryOptions>][])(
+      'sends %s as %s when enabled in the carrier settings',
+      async (setting, parameter) => {
+        expect.assertions(1);
+
+        mockDeliveryOptionsConfig(
+          getMockDeliveryOptionsConfiguration({
+            [KEY_CONFIG]: {[KEY_CARRIER_SETTINGS]: {[CarrierName.PostNl]: {[setting]: true}}},
+          }),
+        );
+
+        const resolvedCarrier = getResolvedCarrier(CarrierName.PostNl);
+        await flushPromises();
+
+        expect(createGetDeliveryOptionsParameters(resolvedCarrier)[parameter]).toBe(true);
+      },
+    );
+
+    it.each([
+      [CarrierSetting.AllowMondayDelivery, 'monday_delivery'],
+      [CarrierSetting.AllowSaturdayDelivery, 'saturday_delivery'],
+    ] satisfies [CarrierSetting, keyof EndpointParameters<GetDeliveryOptions>][])(
+      'omits %s when disabled in the carrier settings',
+      async (setting, parameter) => {
+        expect.assertions(1);
+
+        mockDeliveryOptionsConfig(
+          getMockDeliveryOptionsConfiguration({
+            [KEY_CONFIG]: {[KEY_CARRIER_SETTINGS]: {[CarrierName.PostNl]: {[setting]: false}}},
+          }),
+        );
+
+        const resolvedCarrier = getResolvedCarrier(CarrierName.PostNl);
+        await flushPromises();
+
+        expect(createGetDeliveryOptionsParameters(resolvedCarrier)).not.toHaveProperty(parameter);
+      },
     );
   });
 
