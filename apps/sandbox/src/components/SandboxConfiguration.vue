@@ -4,6 +4,8 @@
 
     <SandboxAddressBox />
 
+    <SandboxRecipientTypeBox />
+
     <SandboxPackageTypeBox />
 
     <SandboxCarrierConfigBox />
@@ -14,6 +16,7 @@
 
 <script lang="ts" setup>
 import {useLanguage} from '../composables';
+import SandboxRecipientTypeBox from './SandboxRecipientTypeBox.vue';
 import SandboxPackageTypeBox from './SandboxPackageTypeBox.vue';
 import SandboxFeaturesBox from './SandboxFeaturesBox.vue';
 import SandboxCarrierConfigBox from './SandboxCarrierConfigBox.vue';
