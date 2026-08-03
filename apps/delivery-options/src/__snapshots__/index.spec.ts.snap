@@ -90,6 +90,10 @@ exports[`exports > exports from index.ts 1`] = `
   "padTime",
   "parseJson",
   "resetSharedCapabilities",
+  "resolveDefaultOptions",
+  "resolveForcedOptions",
+  "resolveOptionStates",
+  "resolveSelection",
   "showDeveloperInfo",
   "stringToDate",
   "supportsSameDay",
@@ -97,6 +101,7 @@ exports[`exports > exports from index.ts 1`] = `
   "useActiveCarriers",
   "useAddressStore",
   "useBreakpoints",
+  "useCartShipmentOptionsStore",
   "useConfigStore",
   "useDateFormat",
   "useDeliveryOptionsIncomingEvents",
@@ -119,8 +124,8 @@ exports[`exports > exports from index.ts 1`] = `
   "useSelectedPickupLocation",
   "useSelectedValues",
   "useSharedCapabilities",
-  "useShipmentOptionRules",
   "useShipmentOptionsOptions",
+  "useShipmentOptionsState",
   "useTimeRange",
 ]
 `;

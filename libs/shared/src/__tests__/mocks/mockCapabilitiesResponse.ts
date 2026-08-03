@@ -1,7 +1,8 @@
 import {vi} from 'vitest';
 import {type CapabilitiesResponse, type CarrierCapability} from '../../types';
 
-const DEFAULT_OPTION = {
+/** A capability option with no rules — the baseline every mock option starts from. */
+export const DEFAULT_OPTION = {
   requires: [] as string[],
   excludes: [] as string[],
   isSelectedByDefault: false,
@@ -18,6 +19,11 @@ export const MOCK_CAPABILITIES: CarrierCapability[] = [
       recipientOnlyDelivery: {...DEFAULT_OPTION, requires: ['requiresSignature']},
       priorityDelivery: {...DEFAULT_OPTION},
       mondayDelivery: {...DEFAULT_OPTION},
+      requiresAgeVerification: {
+        ...DEFAULT_OPTION,
+        requires: ['recipientOnlyDelivery', 'requiresSignature'],
+        excludes: ['printReturnLabelAtDropOff', 'requiresReceiptCode'],
+      },
     },
     collo: {max: 10},
   },
