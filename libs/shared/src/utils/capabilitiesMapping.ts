@@ -26,6 +26,7 @@ export const DELIVERY_TYPE_MAP: {
   readonly EVENING_DELIVERY: 'evening';
   readonly EXPRESS_DELIVERY: 'express';
   readonly PICKUP_DELIVERY: 'pickup';
+  readonly SAME_DAY_DELIVERY: 'same_day';
   /* eslint-enable @typescript-eslint/naming-convention */
 } = {
   STANDARD_DELIVERY: 'standard',
@@ -33,6 +34,10 @@ export const DELIVERY_TYPE_MAP: {
   EVENING_DELIVERY: 'evening',
   EXPRESS_DELIVERY: 'express',
   PICKUP_DELIVERY: 'pickup',
+  // Some carriers expose same-day as a delivery type instead of (or in addition
+  // to) the 'sameDayDelivery' option in DELIVERY_DAY_OPTION_MAP. Both map to the
+  // same internal type and the same allow/price/cutoff settings.
+  SAME_DAY_DELIVERY: 'same_day',
 };
 
 /** Capability option → SDK request param; allow/price settings follow the same convention. */
@@ -93,14 +98,15 @@ const capitalize = (str: string): string => str.charAt(0).toUpperCase() + str.sl
 const toPascalCase = (str: string): string => capitalize(toCamelCase(str));
 
 /**
- * Delivery types: 'standard' → allowStandardDelivery / priceStandardDelivery.
+ * Delivery types: 'standard' → allowStandardDelivery / priceStandardDelivery,
+ * 'same_day' → allowSameDayDelivery / priceSameDayDelivery.
  * Exception: 'pickup' → allowPickupLocations / pricePickup.
  */
 export const toDeliveryAllowKey = (sdk: string): CarrierSetting =>
-  sdk === 'pickup' ? CarrierSetting.AllowPickupLocations : (`allow${capitalize(sdk)}Delivery` as CarrierSetting);
+  sdk === 'pickup' ? CarrierSetting.AllowPickupLocations : (`allow${toPascalCase(sdk)}Delivery` as CarrierSetting);
 
 export const toDeliveryPriceKey = (sdk: string): CarrierSetting =>
-  sdk === 'pickup' ? CarrierSetting.PricePickup : (`price${capitalize(sdk)}Delivery` as CarrierSetting);
+  sdk === 'pickup' ? CarrierSetting.PricePickup : (`price${toPascalCase(sdk)}Delivery` as CarrierSetting);
 
 /**
  * Shipment options + delivery day SDK params:
@@ -159,7 +165,9 @@ export const CAPABILITY_SETTINGS_PAIRS: readonly [CarrierSetting, ConfigPriceKey
     toOptionAllowKey(sdk),
     toOptionPriceKey(sdk) as ConfigPriceKey,
   ]),
-];
+  // Same-day appears in both DELIVERY_TYPE_MAP and DELIVERY_DAY_OPTION_MAP and
+  // derives identical keys from both; keep the first occurrence of each pair.
+].filter(([allowKey], index, pairs) => pairs.findIndex(([other]) => other === allowKey) === index);
 
 // ─── Derived internal lookup tables ───────────────────────────────────────
 
@@ -211,27 +219,37 @@ const CAPABILITY_OPTION_TO_CUSTOM_DELIVERY_TYPE: Record<string, CustomDeliveryTy
   Object.entries(DELIVERY_DAY_OPTION_MAP).map(([capKey, sdkParam]) => [capKey, toCustomDeliveryType(sdkParam)]),
 );
 
-const CARRIER_SETTING_TO_CAPABILITY: Record<string, {type: 'deliveryType' | 'option'; name: string}> =
-  Object.fromEntries([
-    ...Object.entries(DELIVERY_TYPE_MAP).map(
-      ([capKey, sdk]): [string, {type: 'deliveryType' | 'option'; name: string}] => [
-        toDeliveryAllowKey(sdk),
-        {type: 'deliveryType', name: capKey},
-      ],
-    ),
-    ...Object.entries(DELIVERY_DAY_OPTION_MAP).map(
-      ([capKey, sdkParam]): [string, {type: 'deliveryType' | 'option'; name: string}] => [
-        toOptionAllowKey(sdkParam),
-        {type: 'option', name: capKey},
-      ],
-    ),
-    ...Object.entries(SHIPMENT_OPTION_MAP).map(
-      ([capKey, sdk]): [string, {type: 'deliveryType' | 'option'; name: string}] => [
-        toOptionAllowKey(sdk),
-        {type: 'option', name: capKey},
-      ],
-    ),
-  ]);
+/** How a carrier setting is represented in a capabilities response. */
+export interface CarrierSettingCapabilityKey {
+  type: 'deliveryType' | 'option';
+  name: string;
+}
+
+const CARRIER_SETTING_CAPABILITY_ENTRIES: [string, CarrierSettingCapabilityKey][] = [
+  ...Object.entries(DELIVERY_TYPE_MAP).map(([capKey, sdk]): [string, CarrierSettingCapabilityKey] => [
+    toDeliveryAllowKey(sdk),
+    {type: 'deliveryType', name: capKey},
+  ]),
+  ...Object.entries(DELIVERY_DAY_OPTION_MAP).map(([capKey, sdkParam]): [string, CarrierSettingCapabilityKey] => [
+    toOptionAllowKey(sdkParam),
+    {type: 'option', name: capKey},
+  ]),
+  ...Object.entries(SHIPMENT_OPTION_MAP).map(([capKey, sdk]): [string, CarrierSettingCapabilityKey] => [
+    toOptionAllowKey(sdk),
+    {type: 'option', name: capKey},
+  ]),
+];
+
+/**
+ * A carrier setting can have multiple capability representations: same-day is a
+ * delivery type on some carriers and an option on others.
+ */
+const CARRIER_SETTING_TO_CAPABILITIES: Record<string, CarrierSettingCapabilityKey[]> =
+  CARRIER_SETTING_CAPABILITY_ENTRIES.reduce((acc, [settingKey, capability]) => {
+    (acc[settingKey] ??= []).push(capability);
+
+    return acc;
+  }, {} as Record<string, CarrierSettingCapabilityKey[]>);
 
 // ─── Reverse maps ──────────────────────────────────────────────────────────
 
@@ -320,11 +338,12 @@ export const mapPackageTypeToCapability = (sdkType: string): string | undefined 
   SDK_PACKAGE_TYPE_TO_CAPABILITY[sdkType];
 
 /**
- * Map a CarrierSetting allow key to its capabilities equivalent.
+ * Map a CarrierSetting allow key to all its capability representations. Same-day
+ * delivery is exposed as a delivery type by some carriers and as an option by
+ * others; a carrier supports the setting when any representation matches.
  */
-export const mapCarrierSettingToCapabilityKey = (
-  setting: CarrierSetting,
-): {type: 'deliveryType' | 'option'; name: string} | undefined => CARRIER_SETTING_TO_CAPABILITY[setting];
+export const mapCarrierSettingToCapabilityKeys = (setting: CarrierSetting): CarrierSettingCapabilityKey[] =>
+  CARRIER_SETTING_TO_CAPABILITIES[setting] ?? [];
 
 /**
  * Map capabilities delivery-day options to their corresponding CustomDeliveryType values.
@@ -345,7 +364,9 @@ export const getCapabilityDeliveryTypes = (cap: CarrierCapability): SupportedDel
   for (const optionName of Object.keys(cap.options)) {
     const customType = mapCapabilityOptionToCustomDeliveryType(optionName);
 
-    if (customType) {
+    // A carrier may expose same-day both as a delivery type and as an option;
+    // the delivery-type mapping above already added it in that case.
+    if (customType && !mapped.includes(customType)) {
       mapped.push(customType);
     }
   }

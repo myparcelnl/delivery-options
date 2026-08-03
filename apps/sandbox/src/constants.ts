@@ -1,6 +1,6 @@
 import {type LanguageDefinition} from './types';
 
-const DEFAULT_API_BASE_URL = 'https://api.myparcel.nl';
+export const DEFAULT_API_BASE_URL = 'https://api.myparcel.nl';
 
 export const getProxyCapabilitiesUrl = (apiBaseUrl?: string): string =>
   `${apiBaseUrl ?? DEFAULT_API_BASE_URL}/shipments/capabilities`;

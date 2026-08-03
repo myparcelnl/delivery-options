@@ -12,6 +12,7 @@ const extended = Object.freeze([
 
   {key: CarrierSetting.AllowSameDayDelivery},
   {key: CarrierSetting.PriceSameDayDelivery, parents: [CarrierSetting.AllowSameDayDelivery]},
+  {key: CarrierSetting.CutoffTimeSameDay, parents: [CarrierSetting.AllowSameDayDelivery]},
 
   {key: CarrierSetting.AllowExpressDelivery},
   {key: CarrierSetting.PriceExpressDelivery, parents: [CarrierSetting.AllowExpressDelivery]},

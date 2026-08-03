@@ -3,6 +3,7 @@ import {flushPromises} from '@vue/test-utils';
 import {
   AddressField,
   CarrierSetting,
+  CustomDeliveryType,
   type DeliveryOptionsOutput,
   type InternalOutput,
   KEY_ADDRESS,
@@ -149,6 +150,78 @@ describe('useResolvedValues', () => {
       expect(resolvedValues.value).toEqual(external);
     },
   );
+
+  it('emits same-day as delivery type for carriers exposing it as a delivery type', async () => {
+    mockDeliveryOptionsConfig({
+      [KEY_CONFIG]: {
+        [CarrierSetting.AllowSameDayDelivery]: true,
+        [CarrierSetting.AllowPriorityDelivery]: false,
+      },
+    });
+
+    mockSelectedDeliveryOptions(
+      createInternalOutput({
+        [FIELD_DELIVERY_DATE]: '2023-12-31',
+        [FIELD_DELIVERY_MOMENT]: {
+          // Trunkrs exposes same-day as a delivery type in its capabilities.
+          carrier: CarrierName.Trunkrs,
+          deliveryType: CustomDeliveryType.SameDay,
+        },
+      }),
+    );
+    await flushPromises();
+
+    const resolvedValues = useResolvedValues();
+
+    expect(resolvedValues.value).toEqual(
+      createExternalOutput({
+        carrier: CarrierName.Trunkrs,
+        date: '2023-12-31',
+        deliveryType: CustomDeliveryType.SameDay,
+        shipmentOptions: {
+          onlyRecipient: false,
+          signature: false,
+        },
+      }),
+    );
+  });
+
+  it('emits same-day as shipment option with the original delivery type for carriers exposing it as an option', async () => {
+    mockDeliveryOptionsConfig({
+      [KEY_CONFIG]: {
+        [CarrierSetting.AllowSameDayDelivery]: true,
+        [CarrierSetting.AllowPriorityDelivery]: false,
+      },
+    });
+
+    mockSelectedDeliveryOptions(
+      createInternalOutput({
+        [FIELD_DELIVERY_DATE]: '2023-12-31',
+        [FIELD_DELIVERY_MOMENT]: {
+          // DHL For You exposes same-day as the sameDayDelivery option in its capabilities.
+          carrier: CarrierName.DhlForYou,
+          deliveryType: CustomDeliveryType.SameDay,
+          originalDeliveryType: DeliveryTypeName.Evening,
+        },
+      }),
+    );
+    await flushPromises();
+
+    const resolvedValues = useResolvedValues();
+
+    expect(resolvedValues.value).toEqual(
+      createExternalOutput({
+        carrier: CarrierName.DhlForYou,
+        date: '2023-12-31',
+        deliveryType: DeliveryTypeName.Evening,
+        shipmentOptions: {
+          onlyRecipient: false,
+          signature: false,
+          sameDayDelivery: true,
+        },
+      }),
+    );
+  });
 
   it('does not expose priorityDelivery outside NL even when selected and enabled', async () => {
     mockDeliveryOptionsConfig({

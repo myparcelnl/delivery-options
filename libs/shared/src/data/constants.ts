@@ -54,7 +54,7 @@ export const NBSP = '\u00A0';
 
 export const CARRIER_IDENTIFIER_SEPARATOR = ':';
 
-export const API_DATE_FORMAT = 'y-MM-dd kk:mm:ss';
+export const API_DATE_FORMAT = 'y-MM-dd HH:mm:ss';
 
 export const DEFAULT_TIMEZONE_TYPE = 3;
 

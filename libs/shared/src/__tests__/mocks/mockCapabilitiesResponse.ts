@@ -89,6 +89,16 @@ export const MOCK_CAPABILITIES: CarrierCapability[] = [
     },
     collo: {max: 20},
   },
+  {
+    carrier: 'TRUNKRS',
+    packageTypes: ['PACKAGE'],
+    // Same-day as a delivery type (not a sameDayDelivery option) — mirrors the real Trunkrs contract.
+    deliveryTypes: ['SAME_DAY_DELIVERY'],
+    options: {
+      requiresSignature: {...DEFAULT_OPTION},
+    },
+    collo: {max: 20},
+  },
 ];
 
 export const MOCK_CAPABILITIES_RESPONSE: CapabilitiesResponse = {

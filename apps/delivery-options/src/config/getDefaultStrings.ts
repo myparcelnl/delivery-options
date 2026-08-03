@@ -79,6 +79,7 @@ export const getDefaultStrings = (): Record<string, string> => ({
   // Title of options
   [DELIVERY_TITLE]: 'Thuis of op het werk bezorgen',
   deliveryStandardTitle: 'Standaard bezorging',
+  deliverySameDayTitle: 'Vandaag bezorgd',
   [ECO_FRIENDLY]: 'Meest milieuvriendelijk',
   [NO_DELIVERY_OPTIONS_AVAILABLE]: 'Geen bezorgopties beschikbaar',
   [ONLY_RECIPIENT_TITLE]: 'Alleen ontvanger',

@@ -86,4 +86,26 @@ describe('availableInCarrier', () => {
 
     expect(availableInCarrier(`unknown.${CarrierSetting.AllowStandardDelivery}`)).toBe(true);
   });
+
+  it('returns true for same day when exposed as a delivery type', () => {
+    __setMockCapabilities([createCapability('trunkrs', ['SAME_DAY_DELIVERY'])]);
+
+    expect(availableInCarrier(`trunkrs.${CarrierSetting.AllowSameDayDelivery}`)).toBe(true);
+  });
+
+  it('returns true for same day when exposed as an option', () => {
+    __setMockCapabilities([
+      createCapability('dhlforyou', ['STANDARD_DELIVERY'], {
+        sameDayDelivery: {requires: [], excludes: [], isSelectedByDefault: false, isRequired: false},
+      }),
+    ]);
+
+    expect(availableInCarrier(`dhlforyou.${CarrierSetting.AllowSameDayDelivery}`)).toBe(true);
+  });
+
+  it('returns false for same day when neither representation is present', () => {
+    __setMockCapabilities([createCapability('postnl', ['STANDARD_DELIVERY'])]);
+
+    expect(availableInCarrier(`postnl.${CarrierSetting.AllowSameDayDelivery}`)).toBe(false);
+  });
 });

@@ -1,7 +1,10 @@
-import {computed, type ComputedRef} from 'vue';
+import {computed, toValue, type ComputedRef} from 'vue';
 import {isDef} from '@vueuse/core';
 import {
+  CarrierSetting,
+  CustomDeliveryType,
   SHIPMENT_OPTION_MAP,
+  mapCarrierSettingToCapabilityKeys,
   toCamelCase,
   type DeliveryOutput,
   type PickupOutput,
@@ -15,7 +18,7 @@ import {DeliveryTypeName, ShipmentOptionName} from '@myparcel-dev/constants';
 import {useSelectedValues} from '../useSelectedValues';
 import {useSelectedPickupLocation} from '../useSelectedPickupLocation';
 import {useResolvedDeliveryOptions} from '../useResolvedDeliveryOptions';
-import {getResolvedValue, parseJson} from '../../utils';
+import {getResolvedCarrier, getResolvedValue, parseJson} from '../../utils';
 import {type SelectedDeliveryMomentDelivery} from '../../types';
 import {useAddressStore, useConfigStore} from '../../stores';
 import {FIELD_DELIVERY_MOMENT, FIELD_SHIPMENT_OPTIONS, HOME_OR_PICKUP_PICKUP} from '../../data';
@@ -25,6 +28,49 @@ const DELIVERY_DELIVERY_TYPES = Object.freeze([
   DeliveryTypeName.Evening,
   DeliveryTypeName.Standard,
 ] satisfies SupportedDeliveryTypeName[]);
+
+const isDeliveryDeliveryType = (
+  type: SupportedDeliveryTypeName | DeliveryTypeName,
+): type is DeliveryTypeName.Morning | DeliveryTypeName.Evening | DeliveryTypeName.Standard =>
+  (DELIVERY_DELIVERY_TYPES as readonly string[]).includes(type);
+
+/**
+ * A selected same-day moment is emitted the way the carrier's capabilities
+ * represent it: as the same_day delivery type, or as the sameDayDelivery
+ * shipment option combined with the delivery type the API assigned to the
+ * moment before it was internally resolved to same_day.
+ */
+const resolveOutputDeliveryType = (
+  parsedMoment: SelectedDeliveryMomentDelivery,
+): {deliveryType: DeliveryOutput['deliveryType']; sameDayAsShipmentOption: boolean} => {
+  if (parsedMoment.deliveryType !== CustomDeliveryType.SameDay) {
+    return {
+      deliveryType: isDeliveryDeliveryType(parsedMoment.deliveryType)
+        ? parsedMoment.deliveryType
+        : DeliveryTypeName.Standard,
+      sameDayAsShipmentOption: false,
+    };
+  }
+
+  const capability = toValue(getResolvedCarrier(parsedMoment.carrier).capability);
+  const hasSameDayDeliveryType = mapCarrierSettingToCapabilityKeys(CarrierSetting.AllowSameDayDelivery).some(
+    (entry) => entry.type === 'deliveryType' && Boolean(capability?.deliveryTypes.includes(entry.name)),
+  );
+
+  if (hasSameDayDeliveryType) {
+    return {deliveryType: CustomDeliveryType.SameDay, sameDayAsShipmentOption: false};
+  }
+
+  const {originalDeliveryType} = parsedMoment;
+
+  return {
+    deliveryType:
+      originalDeliveryType && isDeliveryDeliveryType(originalDeliveryType)
+        ? originalDeliveryType
+        : DeliveryTypeName.Standard,
+    sameDayAsShipmentOption: true,
+  };
+};
 
 const SHIPMENT_OPTION_OUTPUT_MAP = Object.freeze(
   Object.fromEntries(Object.values(SHIPMENT_OPTION_MAP).map((sdk) => [sdk, toCamelCase(sdk)])),
@@ -91,9 +137,7 @@ export const useResolvedValues = (): ComputedRef<PickupOutput | DeliveryOutput |
     const parsedMoment = parseJson<SelectedDeliveryMomentDelivery>(selectedValues[FIELD_DELIVERY_MOMENT].value);
     const shipmentOptions = selectedValues[FIELD_SHIPMENT_OPTIONS].value ?? [];
 
-    const deliveryType = DELIVERY_DELIVERY_TYPES.includes(parsedMoment.deliveryType)
-      ? parsedMoment.deliveryType
-      : DeliveryTypeName.Standard;
+    const {deliveryType, sameDayAsShipmentOption} = resolveOutputDeliveryType(parsedMoment);
 
     return {
       carrier: parsedMoment.carrier,
@@ -101,7 +145,10 @@ export const useResolvedValues = (): ComputedRef<PickupOutput | DeliveryOutput |
       deliveryType,
       isPickup: false,
       packageType: parsedMoment.packageType,
-      shipmentOptions: createResolvedShipmentOptions(parsedMoment.carrier, shipmentOptions, address.cc),
+      shipmentOptions: {
+        ...createResolvedShipmentOptions(parsedMoment.carrier, shipmentOptions, address.cc),
+        ...(sameDayAsShipmentOption ? {sameDayDelivery: true} : {}),
+      },
     } satisfies DeliveryOutput;
   });
 };

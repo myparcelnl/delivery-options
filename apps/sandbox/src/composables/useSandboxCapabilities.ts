@@ -7,12 +7,12 @@ import {getProxyCapabilitiesUrl} from '../constants';
 export const useSandboxCapabilities = useMemoize(() => {
   const store = useSandboxStore();
 
-  const proxyCapabilities = getProxyCapabilitiesUrl(store.config.apiBaseUrl);
+  // Pass a getter so the url follows the apiBaseUrl override reactively;
+  // a plain value would be snapshotted before the user can change it.
+  const proxyCapabilities = (): string => getProxyCapabilitiesUrl(store.config.apiBaseUrl);
 
   const request = computed(() => {
-    const capPackageType = store.config.packageType
-      ? mapPackageTypeToCapability(store.config.packageType)
-      : undefined;
+    const capPackageType = store.config.packageType ? mapPackageTypeToCapability(store.config.packageType) : undefined;
 
     return {
       recipient: {

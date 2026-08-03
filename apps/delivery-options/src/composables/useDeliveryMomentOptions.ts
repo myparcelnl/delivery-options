@@ -5,14 +5,22 @@ import {
   type AnyTranslatable,
   type CarrierIdentifier,
   type SelectOption,
+  type SupportedDeliveryTypeName,
   type SupportedPackageTypeName,
-  DELIVERY_TYPE_DEFAULT,
   CarrierSetting,
+  CustomDeliveryType,
   DELIVERY_DAYS_WINDOW_DEFAULT,
+  DELIVERY_TYPE_DEFAULT,
   SUPPORTED_SHIPMENT_OPTIONS,
   createTranslatable,
 } from '@myparcel-dev/do-shared';
-import {getDeliveryTypePrice, createPackageTypeTranslatable, stringToDate} from '../utils';
+import {
+  getDeliveryTypePrice,
+  createPackageTypeTranslatable,
+  stringToDate,
+  isFallbackEligible,
+  supportsSameDay,
+} from '../utils';
 import {type SelectedDeliveryMoment} from '../types';
 import {useConfigStore} from '../stores';
 import {DELIVERY_MOMENT_PACKAGE_TYPES} from '../data';
@@ -31,14 +39,15 @@ const createDatelessDeliveryOption = (
   carrierIdentifier: CarrierIdentifier,
   label: AnyTranslatable,
   packageType: SupportedPackageTypeName,
+  deliveryType: SupportedDeliveryTypeName = DELIVERY_TYPE_DEFAULT,
 ): SelectOption<string> => ({
   carrier: carrierIdentifier,
   label,
-  price: getDeliveryTypePrice(DELIVERY_TYPE_DEFAULT, carrierIdentifier),
+  price: getDeliveryTypePrice(deliveryType, carrierIdentifier),
   value: JSON.stringify({
     carrier: carrierIdentifier,
     date: null,
-    deliveryType: DELIVERY_TYPE_DEFAULT,
+    deliveryType,
     packageType,
     shipmentOptions: [],
     time: null,
@@ -80,8 +89,12 @@ const getMomentOptions = (
       value: JSON.stringify({
         time: option.time,
         carrier: option.carrier,
-        date: option.date,
+        // A synthetic moment's date only extends the date picker; it is not
+        // backed by an API response, so the selectable value must never
+        // promise a delivery date.
+        date: option.isSynthetic ? null : option.date,
         deliveryType: option.deliveryType,
+        originalDeliveryType: option.originalDeliveryType,
         packageType: option.packageType,
         shipmentOptions: option.shipmentOptions.filter((opt) =>
           (SUPPORTED_SHIPMENT_OPTIONS as readonly string[]).includes(opt.name),
@@ -90,11 +103,62 @@ const getMomentOptions = (
     }));
 
 /**
- * Dateless "fake" options for carriers with a delivery-days window of 0: the carrier shows
- * up without a date or time. Carriers with a window of 1 or more are handled through their
- * API delivery moments instead, so they are skipped here.
+ * The dateless options a carrier can offer: a generic standard delivery
+ * option, and a same-day option. Same-day means shipped on the day of
+ * delivery, so it is plannable for any day; the cutoff time only gates
+ * delivery on today itself, which is handled by the synthetic today moment.
+ */
+const createCarrierDatelessOptions = (
+  carrier: UseResolvedCarrier,
+  packageType: SupportedPackageTypeName,
+): SelectOption<string>[] => {
+  const {identifier} = toValue(carrier.carrier);
+  const options: SelectOption<string>[] = [];
+
+  if (toValue(carrier.deliveryTypes).has(DELIVERY_TYPE_DEFAULT)) {
+    options.push(
+      createDatelessDeliveryOption(
+        identifier,
+        createTranslatable(`delivery${pascal(DELIVERY_TYPE_DEFAULT)}Title`),
+        packageType,
+      ),
+    );
+  }
+
+  if (supportsSameDay(carrier)) {
+    options.push(
+      createDatelessDeliveryOption(
+        identifier,
+        createTranslatable(`delivery${pascal(CustomDeliveryType.SameDay)}Title`),
+        packageType,
+        CustomDeliveryType.SameDay,
+      ),
+    );
+  }
+
+  return options;
+};
+
+/**
+ * Options when the delivery date is hidden (deliveryDaysWindow <= 1): the
+ * dateless options per carrier supporting delivery.
  */
 const getDatelessDeliveryOptions = (
+  carriers: UseResolvedCarrier[],
+  packageType: SupportedPackageTypeName,
+): SelectOption<string>[] => {
+  return carriers
+    .filter((carrier) => toValue(carrier.hasDelivery))
+    .flatMap((carrier) => createCarrierDatelessOptions(carrier, packageType));
+};
+
+/**
+ * Dateless options for carriers whose own delivery-days window is 0. They never get
+ * dates from the API, so they show up next to the dated carriers - the same behaviour
+ * as a global window of 0, just applied per carrier. Carriers with a window of 1 or
+ * more are handled through their API delivery moments instead, so they are skipped.
+ */
+const getWindowZeroDatelessOptions = (
   carriers: UseResolvedCarrier[],
   packageType: SupportedPackageTypeName,
 ): SelectOption<string>[] => {
@@ -104,23 +168,19 @@ const getDatelessDeliveryOptions = (
         toValue(carrier.hasDelivery) &&
         carrier.get(CarrierSetting.DeliveryDaysWindow, DELIVERY_DAYS_WINDOW_DEFAULT) === 0,
     )
-    .map((carrier) => {
-      return createDatelessDeliveryOption(
-        toValue(carrier.carrier).identifier,
-        createTranslatable(`delivery${pascal(DELIVERY_TYPE_DEFAULT)}Title`),
-        packageType,
-      );
-    });
+    .flatMap((carrier) => createCarrierDatelessOptions(carrier, packageType));
 };
 
 /**
- * Fallback options for carriers that have no API delivery moments on any date.
- * Skipped when the selected date is today (no same-day fallback).
+ * Fallback options for carriers that have no real API delivery moments on any
+ * date. Skipped when the selected date is today: a dateless standard delivery
+ * cannot arrive today, and same-day on today is covered by the synthetic
+ * today moment while its cutoff has not passed.
  */
 const getFallbackCarrierOptions = (
   carriers: UseResolvedCarrier[],
   packageType: SupportedPackageTypeName,
-  carriersWithAnyMoments: Set<CarrierIdentifier>,
+  carriersWithRealMoments: Set<CarrierIdentifier>,
   selectedDateIsToday: boolean,
 ): SelectOption<string>[] => {
   if (selectedDateIsToday) {
@@ -128,24 +188,8 @@ const getFallbackCarrierOptions = (
   }
 
   return carriers
-    .filter((carrier) => {
-      const id = toValue(carrier.carrier).identifier;
-
-      if (carriersWithAnyMoments.has(id)) return false;
-
-      if (!toValue(carrier.hasDelivery)) return false;
-
-      const deliveryDaysWindow = carrier.get(CarrierSetting.DeliveryDaysWindow, DELIVERY_DAYS_WINDOW_DEFAULT);
-
-      return deliveryDaysWindow !== 0;
-    })
-    .map((carrier) => {
-      return createDatelessDeliveryOption(
-        toValue(carrier.carrier).identifier,
-        createTranslatable(`delivery${pascal(DELIVERY_TYPE_DEFAULT)}Title`),
-        packageType,
-      );
-    });
+    .filter((carrier) => isFallbackEligible(carrier, carriersWithRealMoments))
+    .flatMap((carrier) => createCarrierDatelessOptions(carrier, packageType));
 };
 
 export const useDeliveryMomentOptions = (): ComputedRef<SelectOption<string>[]> => {
@@ -163,10 +207,7 @@ export const useDeliveryMomentOptions = (): ComputedRef<SelectOption<string>[]> 
       return getDatelessDeliveryOptions(activeCarriers.value, config.packageType);
     }
 
-    // Carriers with a delivery-days window of 0 never have dates, so show them as a single
-    // dateless "fake" option next to the dated carriers - the same behaviour as a global
-    // window of 0, just applied per carrier.
-    const datelessOptions = getDatelessDeliveryOptions(activeCarriers.value, config.packageType);
+    const datelessOptions = getWindowZeroDatelessOptions(activeCarriers.value, config.packageType);
 
     const momentOptions = getMomentOptions(deliveryMoments.value, config.packageType);
 
@@ -174,14 +215,16 @@ export const useDeliveryMomentOptions = (): ComputedRef<SelectOption<string>[]> 
     const {deliveryDate} = useSelectedValues();
     const selectedDateIsToday = Boolean(deliveryDate.value && isToday(stringToDate(deliveryDate.value)));
 
-    const carriersWithAnyMoments = new Set(
-      allDeliveryOptions.value.filter((opt) => opt.packageType === config.packageType).map((opt) => opt.carrier),
+    const carriersWithRealMoments = new Set(
+      allDeliveryOptions.value
+        .filter((opt) => !opt.isSynthetic && opt.packageType === config.packageType)
+        .map((opt) => opt.carrier),
     );
 
     const fallbackOptions = getFallbackCarrierOptions(
       activeCarriers.value,
       config.packageType,
-      carriersWithAnyMoments,
+      carriersWithRealMoments,
       selectedDateIsToday,
     );
 
