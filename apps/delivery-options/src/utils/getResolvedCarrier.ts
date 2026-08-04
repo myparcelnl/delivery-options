@@ -11,6 +11,7 @@ import {
   type ConfigKey,
   normalizeCarrierName,
   resolveCarrierName,
+  EXTRA_DELIVERY_DAY_TYPES,
   computedAsync,
   waitForRequestData,
   useCarrierFromCache,
@@ -92,8 +93,17 @@ export const getResolvedCarrier = useMemoize(
     /** Mutable set of delivery types currently disabled (e.g. due to API errors). */
     const disabledDeliveryTypes = ref(new Set<SupportedDeliveryTypeName>());
 
-    /** Derive delivery types directly from capabilities for reliable reactivity. */
-    const allDeliveryTypes = computed(() => fromCapability((cap) => new Set(getCapabilityDeliveryTypes(cap))));
+    /**
+     * Derive delivery types directly from capabilities for reliable reactivity.
+     *
+     * The extra delivery days (Monday/Saturday) are added unconditionally: they
+     * are delivery_options query parameters, not carrier capabilities, so the
+     * capabilities response never reports them. `deliveryTypes` below still
+     * filters them on the merchant's allow* settings.
+     */
+    const allDeliveryTypes = computed(() =>
+      fromCapability((cap) => new Set([...getCapabilityDeliveryTypes(cap), ...EXTRA_DELIVERY_DAY_TYPES])),
+    );
 
     /** Delivery types this carrier supports, filtered by config settings. */
     const deliveryTypes = computed(() => {
