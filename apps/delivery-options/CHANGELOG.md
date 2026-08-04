@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel-dev/delivery-options-v7.4.5](https://github.com/myparcelnl/delivery-options/compare/v7.4.4...v7.4.5) (2026-08-04)
+
+### :bug: Bug Fixes
+
+* derive monday and saturday delivery from carrier settings ([#491](https://github.com/myparcelnl/delivery-options/issues/491)) ([ccbdcda](https://github.com/myparcelnl/delivery-options/commit/ccbdcda517c6ea9a0a3469980a6a3e230ca8b631))
+
 ## [@myparcel-dev/delivery-options-v7.4.4](https://github.com/myparcelnl/delivery-options/compare/v7.4.3...v7.4.4) (2026-08-03)
 
 ### :bug: Bug Fixes
