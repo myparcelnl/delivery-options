@@ -17,6 +17,9 @@ export const useSandboxCapabilities = useMemoize(() => {
     return {
       recipient: {
         countryCode: store.address.cc,
+        // Mirrors the widget: forward the flag when it is set, omit it entirely when it is not, so
+        // the carriers listed here match the ones the widget ends up rendering.
+        ...(store.config.isBusiness === undefined ? {} : {isBusiness: store.config.isBusiness}),
       },
       ...(capPackageType ? {packageType: capPackageType} : {}),
     };
