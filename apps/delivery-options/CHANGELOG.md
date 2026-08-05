@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel-dev/delivery-options-v7.5.0](https://github.com/myparcelnl/delivery-options/compare/v7.4.5...v7.5.0) (2026-08-05)
+
+### :sparkles: New Features
+
+* forward business/consumer flag to capabilities so B2B and B2C get the right delivery options ([#471](https://github.com/myparcelnl/delivery-options/issues/471)) ([9520895](https://github.com/myparcelnl/delivery-options/commit/952089501e52da3fb9fc8729342100634fe3a46f))
+
 ## [@myparcel-dev/delivery-options-v7.4.5](https://github.com/myparcelnl/delivery-options/compare/v7.4.4...v7.4.5) (2026-08-04)
 
 ### :bug: Bug Fixes
