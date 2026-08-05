@@ -1339,7 +1339,7 @@ __metadata:
     autoprefixer: "npm:^10.4.16"
     ci-info: "npm:^4.0.0"
     mypa-google-docs-importer: "npm:^1.0.1"
-    pinia: "npm:^2.1.7"
+    pinia: "npm:^4.0.2"
     postcss: "npm:^8.4.31"
     radash: "npm:^12.0.0"
     sass: "npm:^1.69.3"
@@ -1382,7 +1382,7 @@ __metadata:
     "@vitest/ui": "npm:^4.0.17"
     "@vueuse/core": "npm:^10.6.0"
     date-fns: "npm:^3.0.0"
-    pinia: "npm:^2.1.7"
+    pinia: "npm:^4.0.2"
     radash: "npm:^12.0.0"
     typescript: "npm:5.9.3"
     vite: "npm:^7.3.5"
@@ -4581,13 +4581,6 @@ __metadata:
     de-indent: "npm:^1.0.2"
     he: "npm:^1.2.0"
   checksum: 10c0/c76c3fad770b9a7da40b314116cc9da173da20e5fd68785c8ed8dd8a87d02f239545fa296e16552e040ec86b47bfb18283b39447b250c2e76e479bd6ae475bb3
-  languageName: node
-  linkType: hard
-
-"@vue/devtools-api@npm:^6.6.3":
-  version: 6.6.4
-  resolution: "@vue/devtools-api@npm:6.6.4"
-  checksum: 10c0/0a993ae23618166e1bee5a7c14cebd8312752b93c143cbdd48fb2d0f7ade070d0e6baf757cd920d4681fef8f9acf29515162160f38cc7410f9a684d2df21b6de
   languageName: node
   linkType: hard
 
@@ -12055,6 +12048,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"nostics@npm:^1.1.4":
+  version: 1.2.0
+  resolution: "nostics@npm:1.2.0"
+  checksum: 10c0/fae2da4abce570a55837957a95dd93b75e3c36987015dfb6c96158844fedbc3f53421486dde3bce5d26209abc1d4250703d2166f639553204187f7209cc56cae
+  languageName: node
+  linkType: hard
+
 "npm-audit-report@npm:^5.0.0":
   version: 5.0.0
   resolution: "npm-audit-report@npm:5.0.0"
@@ -13307,19 +13307,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pinia@npm:^2.1.7":
-  version: 2.3.1
-  resolution: "pinia@npm:2.3.1"
+"pinia@npm:^4.0.2":
+  version: 4.0.2
+  resolution: "pinia@npm:4.0.2"
   dependencies:
-    "@vue/devtools-api": "npm:^6.6.3"
-    vue-demi: "npm:^0.14.10"
+    nostics: "npm:^1.1.4"
   peerDependencies:
-    typescript: ">=4.4.4"
-    vue: ^2.7.0 || ^3.5.11
+    "@vue/devtools-api": ^8.1.5
+    typescript: ">=5.6.0"
+    vue: ^3.5.11
   peerDependenciesMeta:
+    "@vue/devtools-api":
+      optional: false
     typescript:
       optional: true
-  checksum: 10c0/e005883c26fe782e26803859db8703ead2e7053271d22828175c82d56e925ddab65ca2543a3f3a36686a11e6835f60c031f1eb2ef9159f9da05121495499c5f6
+  checksum: 10c0/210f76c147cadf379437abc0150763add506e0328204f4f42adb14e74967bd60f3036eae5e06b572ee6666047bbfb9158db2f0cf9b9016c1f94c724eba4b30d4
   languageName: node
   linkType: hard
 
