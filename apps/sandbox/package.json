@@ -23,7 +23,7 @@
     "@myparcel-dev/do-shared": "workspace:*",
     "@myparcel-dev/sdk": "^5.0.0",
     "@myparcel-dev/ts-utils": "^1.15.0",
-    "@vuepic/vue-datepicker": "^11.0.2",
+    "@vuepic/vue-datepicker": "^14.0.0",
     "@vueuse/core": "^10.5.0",
     "pinia": "^2.1.7",
     "radash": "^12.0.0",
