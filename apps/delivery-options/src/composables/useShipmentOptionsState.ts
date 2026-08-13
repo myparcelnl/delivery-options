@@ -42,6 +42,7 @@ import {
   mapShipmentOptionToCapability,
   resolveCarrierName,
   toShipmentOptionNames,
+  useLogger,
 } from '@myparcel-dev/do-shared';
 import {type SelectedDeliveryMoment} from '../types';
 import {useCartShipmentOptionsStore} from '../stores';
@@ -92,54 +93,84 @@ export interface UseShipmentOptionsState {
 }
 
 /**
- * Work out the capability options that are forced on or off for the options that are active
- * right now.
- *
- * Active means: the carrier requires it, the cart ships with it, or the consumer checked it.
- * Active options do not force themselves — their effect runs through the capability rules:
- * everything an active option `requires` is forced on (followed through options the widget
- * cannot show, so nothing behind them is lost), and everything an active option `excludes` is
- * forced off. Options the carrier itself marks `isRequired` are the exception: those are forced
- * on directly. Forced on beats forced off, and circular requires are safe.
+ * Work out the capability options that are forced on or off. If two rules disagree, the first rule
+ * has effect. The resolver writes a warning about the other rule.
  *
  * @param rules - Capability options of the current carrier, keyed by capability key.
- * @param activeKeys - Capability keys of the options that are on: from the cart and from the
- *   consumer's selection.
+ * @param activeKeys - Capability keys of the options that the cart holds or the consumer selected.
+ *   The function reads the options that the carrier requires from `rules`.
  */
 const collectForcedCapabilities = (
   rules: Readonly<Record<string, CapabilityOption>>,
   activeKeys: readonly string[],
 ): {forcedOnCapability: Set<string>; forcedOffCapability: Set<string>} => {
   const requiredKeys = Object.keys(rules).filter((key) => rules[key]?.isRequired);
+
+  // The carrier requires these options. These options are selected and locked.
   const forcedOnCapability = new Set<string>(requiredKeys);
+  const forcedOffCapability = new Set<string>();
 
-  const queue = [...requiredKeys, ...activeKeys];
-  const visited = new Set<string>(queue);
+  // The rules come from two groups of options: the group that the carrier requires, and the group
+  // that is active. An option can be in both groups, and thus the set removes the duplicates. An
+  // active option is a source of rules only. It does not force its own value, and the consumer
+  // keeps control of that checkbox.
+  const ruleSources = new Set([...requiredKeys, ...activeKeys]);
 
-  // A for-of over an array also visits what gets pushed while looping, so the queue grows as
-  // more requirements turn up.
+  // The queue holds the options that the loop must still read. The visited set prevents an endless
+  // loop if two options require each other.
+  const queue = [...ruleSources];
+  const visited = new Set<string>(ruleSources);
+
+  // A for-of loop over an array also reads the items that the loop adds. The queue thus becomes
+  // longer while the loop finds more requires rules.
   for (const capabilityKey of queue) {
     for (const required of rules[capabilityKey]?.requires ?? []) {
+      if (forcedOffCapability.has(required)) {
+        logRuleConflict(required, capabilityKey, 'require', 'excluded');
+
+        continue;
+      }
+
+      // The widget cannot show all of these keys. A key that it cannot show is kept, and thus the
+      // rules behind that key also apply.
       forcedOnCapability.add(required);
 
       if (!visited.has(required)) {
+        // Add the option to the end of the queue. The rules of the active options apply first.
+        // The rules of an option from a requires chain apply after them.
         visited.add(required);
         queue.push(required);
       }
     }
-  }
 
-  const forcedOffCapability = new Set<string>();
-
-  for (const capabilityKey of new Set([...forcedOnCapability, ...activeKeys])) {
     for (const excluded of rules[capabilityKey]?.excludes ?? []) {
-      if (!forcedOnCapability.has(excluded)) {
-        forcedOffCapability.add(excluded);
+      if (forcedOnCapability.has(excluded)) {
+        logRuleConflict(excluded, capabilityKey, 'exclude', 'required');
+
+        continue;
       }
+
+      forcedOffCapability.add(excluded);
     }
   }
 
   return {forcedOnCapability, forcedOffCapability};
+};
+
+/**
+ * Write a warning about a rule that the resolver does not apply. The capabilities data has a
+ * conflict. Correct the data at the source.
+ *
+ * @param optionKey - Capability option the rule points at.
+ * @param sourceKey - Capability option that holds the rule.
+ * @param action - `require` or `exclude`.
+ * @param state - `required` or `excluded`.
+ */
+const logRuleConflict = (optionKey: string, sourceKey: string, action: string, state: string): void => {
+  useLogger().warning(
+    `Can't ${action} "${optionKey}", it's already ${state} by another option; capabilities rules contradict each other.`,
+    {option: optionKey, source: sourceKey, action, state},
+  );
 };
 
 /**
