@@ -7,6 +7,7 @@ import {
   type InputDeliveryOptionsConfiguration,
   KEY_ADDRESS,
   KEY_CARRIER_SETTINGS,
+  KEY_CART_SHIPMENT_OPTIONS,
   KEY_CONFIG,
   KEY_STRINGS,
 } from '@myparcel-dev/do-shared';
@@ -80,5 +81,98 @@ describe('validateConfiguration', () => {
     } else {
       expect(resolvedValue).toBe(VALUE_MISSING);
     }
+  });
+
+  describe('cartShipmentOptions', () => {
+    it('copies a valid map and names the options like the widget does', () => {
+      // The plugin sends camelCase names; the widget works with its own option names.
+      const validated = validateConfiguration({
+        ...VALID_CONFIG,
+        [KEY_CART_SHIPMENT_OPTIONS]: {
+          [CarrierName.PostNl]: {ageCheck: true, onlyRecipient: false},
+        },
+      });
+
+      expect(validated[KEY_CART_SHIPMENT_OPTIONS]).toEqual({
+        [CarrierName.PostNl]: {age_check: true, only_recipient: false},
+      });
+    });
+
+    it('drops options it does not know', () => {
+      const validated = validateConfiguration({
+        ...VALID_CONFIG,
+        [KEY_CART_SHIPMENT_OPTIONS]: {
+          [CarrierName.PostNl]: {ageCheck: true, madeUpOption: true},
+        },
+      } as unknown as InputDeliveryOptionsConfiguration);
+
+      expect(validated[KEY_CART_SHIPMENT_OPTIONS]).toEqual({
+        [CarrierName.PostNl]: {age_check: true},
+      });
+    });
+
+    it('leaves the key out when the input does not have it', () => {
+      const validated = validateConfiguration({...VALID_CONFIG});
+
+      expect(validated[KEY_CART_SHIPMENT_OPTIONS]).toBeUndefined();
+    });
+
+    it('turns an empty array into an empty object', () => {
+      // PHP serializes an empty map as an empty array.
+      const validated = validateConfiguration({
+        ...VALID_CONFIG,
+        [KEY_CART_SHIPMENT_OPTIONS]: [],
+      });
+
+      expect(validated[KEY_CART_SHIPMENT_OPTIONS]).toEqual({});
+    });
+
+    it('drops option values that are not booleans', () => {
+      const validated = validateConfiguration({
+        ...VALID_CONFIG,
+        [KEY_CART_SHIPMENT_OPTIONS]: {
+          [CarrierName.PostNl]: {ageCheck: true, insurance: 500, note: 'x'},
+        },
+      } as unknown as InputDeliveryOptionsConfiguration);
+
+      expect(validated[KEY_CART_SHIPMENT_OPTIONS]).toEqual({
+        [CarrierName.PostNl]: {age_check: true},
+      });
+    });
+
+    it('drops a __proto__ carrier key so assigning the map elsewhere cannot replace a prototype', () => {
+      // JSON input can contain a literal "__proto__" key. If it survives sanitization,
+      // Object.assign()-ing the map onto another object replaces that object's prototype.
+      const validated = validateConfiguration({
+        ...VALID_CONFIG,
+        [KEY_CART_SHIPMENT_OPTIONS]: JSON.parse(
+          `{"__proto__": {"ageCheck": true}, "${CarrierName.PostNl}": {"ageCheck": true}}`,
+        ),
+      } as unknown as InputDeliveryOptionsConfiguration);
+
+      const cartShipmentOptions = validated[KEY_CART_SHIPMENT_OPTIONS] ?? {};
+
+      expect(Object.keys(cartShipmentOptions)).toEqual([CarrierName.PostNl]);
+
+      const target = {};
+      Object.assign(target, cartShipmentOptions);
+      expect(Object.getPrototypeOf(target)).toBe(Object.prototype);
+    });
+
+    it('drops carrier entries that are not objects', () => {
+      const validated = validateConfiguration({
+        ...VALID_CONFIG,
+        [KEY_CART_SHIPMENT_OPTIONS]: {
+          [CarrierName.PostNl]: {ageCheck: true},
+          [CarrierName.DhlForYou]: 'yes',
+          [CarrierName.Dpd]: null,
+          [CarrierName.Bpost]: [true],
+        },
+      } as unknown as InputDeliveryOptionsConfiguration);
+
+      expect(validated[KEY_CART_SHIPMENT_OPTIONS]).toEqual({
+        [CarrierName.PostNl]: {age_check: true},
+      });
+    });
   });
 });

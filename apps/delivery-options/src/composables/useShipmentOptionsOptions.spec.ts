@@ -8,12 +8,13 @@ import {
   createTimestamp,
   KEY_ADDRESS,
   KEY_CARRIER_SETTINGS,
+  KEY_CART_SHIPMENT_OPTIONS,
   KEY_CONFIG,
   SIGNATURE_TITLE,
   type SupportedPackageTypeName,
 } from '@myparcel-dev/do-shared';
 import {CarrierName, PackageTypeName, ShipmentOptionName} from '@myparcel-dev/constants';
-import {useConfigStore} from '../stores';
+import {useCartShipmentOptionsStore, useConfigStore} from '../stores';
 import {
   createDeliveryPossibility,
   getMockDeliveryOptionsConfiguration,
@@ -73,6 +74,7 @@ describe('useShipmentOptionsOptions', () => {
     useSelectedValues.clear();
     useResolvedDeliveryOptions.clear();
     useConfigStore().reset();
+    useCartShipmentOptionsStore().reset();
   });
 
   it.each([
@@ -96,6 +98,63 @@ describe('useShipmentOptionsOptions', () => {
       ]);
     },
   );
+
+  it('never renders options the shop configuration does not allow, forced or not', async () => {
+    const date = normalizeDate('2022-01-01T15:00:00');
+
+    mockGetDeliveryOptions.mockReturnValue(
+      Promise.resolve([
+        {
+          carrier: CarrierName.PostNl,
+          date: createTimestamp(date),
+          possibilities: [
+            createDeliveryPossibility(date, {
+              package_type: PackageTypeName.Package,
+              shipment_options: getShipmentOptions(),
+            }),
+          ],
+        },
+      ]),
+    );
+
+    // The cart ships with age check, whose capability requires signature and only
+    // recipient — but the shop's allow* settings decide what the consumer sees. The plugin
+    // still enforces the options at export; the widget just never shows them.
+    mockDeliveryOptionsConfig(
+      getMockDeliveryOptionsConfiguration({
+        [KEY_CONFIG]: {
+          [CarrierSetting.AllowStandardDelivery]: true,
+          [CarrierSetting.AllowSignature]: false,
+          [CarrierSetting.AllowOnlyRecipient]: false,
+          [CarrierSetting.AllowPriorityDelivery]: false,
+          [CarrierSetting.PackageType]: PackageTypeName.Package,
+          [KEY_CARRIER_SETTINGS]: {
+            [CarrierName.PostNl]: {
+              [CarrierSetting.AllowStandardDelivery]: true,
+            },
+          },
+        },
+        [KEY_CART_SHIPMENT_OPTIONS]: {
+          [CarrierName.PostNl]: {ageCheck: true},
+        },
+      }),
+    );
+    useResolvedDeliveryOptions.clear();
+
+    await waitForDeliveryOptions(CarrierName.PostNl);
+
+    const moments = useResolvedDeliveryOptions();
+    const momentsForCarrier = moments.value.filter(({carrier}) => carrier === CarrierName.PostNl);
+    useSelectedValues().deliveryMoment.value = JSON.stringify(momentsForCarrier?.[0]);
+
+    const result = useShipmentOptionsOptions();
+
+    const byValue = Object.fromEntries(toValue(result).map((option) => [option.value, option]));
+
+    expect(byValue[ShipmentOptionName.Signature]).toBeUndefined();
+    expect(byValue[ShipmentOptionName.OnlyRecipient]).toBeUndefined();
+    expect(byValue[ShipmentOptionName.PriorityDelivery]).toBeUndefined();
+  });
 
   it('hides priority delivery outside NL even if API returns it', async () => {
     const date = normalizeDate('2022-01-01T15:00:00');

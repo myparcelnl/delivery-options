@@ -21,51 +21,41 @@ import {type SelectOption} from '@myparcel-dev/do-shared';
 import {FIELD_SHIPMENT_OPTIONS} from '../../../../data';
 import {
   useShipmentOptionsOptions,
-  useShipmentOptionRules,
+  useShipmentOptionsState,
   useFeatures,
   useResolvedDeliveryOptions,
   useSelectedValues,
 } from '../../../../composables';
 import {GroupInputLoader, CheckboxGroupInput, RadioButtonLoader} from '../../../../components';
 
-const {shipmentOptions} = useSelectedValues();
+const {shipmentOptions: pickedOptions} = useSelectedValues();
 
 const deliveryOptions = useResolvedDeliveryOptions();
 const options = useShipmentOptionsOptions();
-const {forcedOn, forcedOff, defaults} = useShipmentOptionRules();
+const {forcedOn, defaults, selection} = useShipmentOptionsState();
 
 const {availableShipmentOptions} = useFeatures();
 
 const loading = computed(() => toValue(deliveryOptions.loading));
 
+// The checkboxes show the resolved selection, while a click stores the consumer's own picks.
+// Forced options are left out of what gets stored, so they are gone as soon as they stop being
+// forced instead of lingering as if the consumer had chosen them.
+const shipmentOptions = computed({
+  get: () => selection.value,
+  set: (picked: string[]) => {
+    pickedOptions.value = picked.filter((option) => !forcedOn.value.has(option));
+  },
+});
+
 // Apply isSelectedByDefault options when no explicit selection has been made yet.
-watch(defaults, (defaultOptions) => {
-  if (shipmentOptions.value.length === 0 && defaultOptions.length > 0) {
-    shipmentOptions.value = [...defaultOptions];
-  }
-}, {immediate: true});
-
-// Enforce requires/excludes/isRequired rules on the selection state.
-watch([forcedOn, forcedOff], ([on, off]) => {
-  const current = new Set(shipmentOptions.value);
-  let changed = false;
-
-  for (const opt of on) {
-    if (!current.has(opt)) {
-      current.add(opt);
-      changed = true;
+watch(
+  defaults,
+  (defaultOptions) => {
+    if (pickedOptions.value.length === 0 && defaultOptions.length > 0) {
+      pickedOptions.value = [...defaultOptions];
     }
-  }
-
-  for (const opt of off) {
-    if (current.has(opt)) {
-      current.delete(opt);
-      changed = true;
-    }
-  }
-
-  if (changed) {
-    shipmentOptions.value = [...current];
-  }
-}, {immediate: true});
+  },
+  {immediate: true},
+);
 </script>
