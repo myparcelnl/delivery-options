@@ -17,6 +17,12 @@ updates:
       include: 'scope'
     versioning-strategy: increase-if-necessary
     open-pull-requests-limit: 20
+    cooldown:
+      exclude:
+        - '@myparcel/*'
+        - '@myparcel-dev/*'
+        - '@myparcel-eslint/*'
+        - '@myparcel-pdk/*'
     groups:
       minor-js-updates:
         applies-to: version-updates
