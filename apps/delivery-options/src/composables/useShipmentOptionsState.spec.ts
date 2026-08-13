@@ -127,6 +127,45 @@ describe('useShipmentOptionsState', () => {
       }
     });
 
+    it('leaves the options a cart option excludes unticked, even when its requires chain asks for them', async () => {
+      // These are the real PostNL rules. Receipt code requires insurance. Insurance requires
+      // signature and only recipient. Receipt code excludes signature and only recipient.
+      const {forcedOn, forcedOff, optionStates, selection} = await setupWithCapabilities(
+        CarrierName.PostNl,
+        [
+          {
+            carrier: 'POSTNL',
+            packageTypes: ['PACKAGE'],
+            deliveryTypes: ['STANDARD_DELIVERY'],
+            options: {
+              insurance: {...DEFAULT_OPTION, requires: ['requiresSignature', 'recipientOnlyDelivery']},
+              requiresSignature: {...DEFAULT_OPTION, excludes: ['requiresReceiptCode']},
+              recipientOnlyDelivery: {...DEFAULT_OPTION, excludes: ['requiresReceiptCode']},
+              requiresReceiptCode: {
+                ...DEFAULT_OPTION,
+                requires: ['insurance'],
+                excludes: ['recipientOnlyDelivery', 'requiresSignature'],
+              },
+            },
+          },
+        ],
+        [],
+        {[CarrierName.PostNl]: {receiptCode: true}},
+      );
+
+      // Insurance is forced on. The widget has no option for insurance, and thus it selects
+      // no checkbox.
+      expect(toValue(forcedOn).size).toBe(0);
+      expect(toValue(forcedOff).has(ShipmentOptionName.Signature)).toBe(true);
+      expect(toValue(forcedOff).has(ShipmentOptionName.OnlyRecipient)).toBe(true);
+
+      // The checkboxes are locked to off, not to on.
+      expect(isDisabled(toValue(optionStates), ShipmentOptionName.Signature)).toBe(true);
+      expect(isDisabled(toValue(optionStates), ShipmentOptionName.OnlyRecipient)).toBe(true);
+      expect(toValue(selection)).not.toContain(ShipmentOptionName.Signature);
+      expect(toValue(selection)).not.toContain(ShipmentOptionName.OnlyRecipient);
+    });
+
     it('does not force anything for a cart option that is off', async () => {
       const {forcedOn, forcedOff} = await setupWithCapabilities(CarrierName.PostNl, undefined, [], {
         [CarrierName.PostNl]: {ageCheck: false},
@@ -349,6 +388,37 @@ describe('useShipmentOptionsState', () => {
 
       expect(toValue(forcedOff).has(ShipmentOptionName.PriorityDelivery)).toBe(true);
     });
+
+    it.each([
+      [{ageCheck: true, receiptCode: true}, true],
+      [{receiptCode: true, ageCheck: true}, false],
+    ])(
+      'applies whichever rule comes first when two active options disagree, cart listing %j',
+      async (cartOptions, expectTicked) => {
+        // Age check requires signature. Receipt code excludes signature. The two kinds of rule
+        // have equal rank, and thus the first option in the cart has effect.
+        const {forcedOn, forcedOff} = await setupWithCapabilities(
+          CarrierName.PostNl,
+          [
+            {
+              carrier: 'POSTNL',
+              packageTypes: ['PACKAGE'],
+              deliveryTypes: ['STANDARD_DELIVERY'],
+              options: {
+                requiresAgeVerification: {...DEFAULT_OPTION, requires: ['requiresSignature']},
+                requiresReceiptCode: {...DEFAULT_OPTION, excludes: ['requiresSignature']},
+                requiresSignature: {...DEFAULT_OPTION},
+              },
+            },
+          ],
+          [],
+          {[CarrierName.PostNl]: cartOptions},
+        );
+
+        expect(toValue(forcedOn).has(ShipmentOptionName.Signature)).toBe(expectTicked);
+        expect(toValue(forcedOff).has(ShipmentOptionName.Signature)).toBe(!expectTicked);
+      },
+    );
 
     it('does not exclude when the excluding option is not active', async () => {
       const {forcedOff} = await setupWithCapabilities(CarrierName.PostNl, [
