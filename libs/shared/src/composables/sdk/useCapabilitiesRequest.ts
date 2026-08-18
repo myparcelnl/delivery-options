@@ -66,10 +66,10 @@ export const useReactiveCapabilitiesRequest = (
     const currentApiKey = toValue(apiKey);
     const url = toValue(proxyCapabilities);
 
-    // Skip fetch when URL isn't set yet (e.g. host hasn't pushed config). The
-    // watch below re-runs once the URL becomes available.
-    if (!url) {
-      // intentionally keep loading state, for the delivery options will only start working after the url is set
+    // Skip fetch until both the URL and a destination country are known.
+    // The watch below re-runs once the missing value becomes available.
+    if (!url || !request.recipient?.countryCode) {
+      // intentionally keep loading state
       return;
     }
 

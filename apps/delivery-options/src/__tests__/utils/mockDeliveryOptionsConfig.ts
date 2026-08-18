@@ -1,7 +1,9 @@
 import {type RecursivePartial} from '@myparcel-dev/ts-utils';
 import {
+  AddressField,
   CarrierSetting,
   ConfigSetting,
+  type DeliveryOptionsAddress,
   type DeliveryOptionsConfig,
   type DeliveryOptionsConfiguration,
   KEY_CARRIER_SETTINGS,
@@ -9,6 +11,7 @@ import {
   KEY_ADDRESS,
 } from '@myparcel-dev/do-shared';
 import {CarrierName} from '@myparcel-dev/constants';
+import {getDefaultAddress} from '../../utils';
 import {useAddressStore, useConfigStore} from '../../stores';
 import {validateConfiguration} from '../../config';
 import {getMockDeliveryOptionsConfiguration} from './getMockDeliveryOptionsConfiguration';
@@ -44,12 +47,19 @@ export const mockDeliveryOptionsConfig = <I extends RecursivePartial<DeliveryOpt
   }
 
   const configUpdate: DeliveryOptionsConfig = {...(validated?.[KEY_CONFIG] ?? {})};
+
   if (!configUpdate[ConfigSetting.ProxyCapabilities]) {
     configUpdate[ConfigSetting.ProxyCapabilities] = TEST_PROXY_CAPABILITIES_URL;
   }
 
+  const addressUpdate: DeliveryOptionsAddress = {...(validated?.[KEY_ADDRESS] ?? {})};
+
+  if (!addressUpdate[AddressField.Country]) {
+    addressUpdate[AddressField.Country] = getDefaultAddress()[AddressField.Country];
+  }
+
   configStore.update(configUpdate, false);
-  addressStore.update(validated?.[KEY_ADDRESS] ?? {});
+  addressStore.update(addressUpdate);
 
   return resolvedInput ?? {};
 };
