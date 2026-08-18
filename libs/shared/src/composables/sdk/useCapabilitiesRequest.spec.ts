@@ -2,6 +2,7 @@ import {ref, nextTick} from 'vue';
 import {describe, it, expect, vi, beforeEach} from 'vitest';
 import {flushPromises} from '@vue/test-utils';
 import {mockCapabilitiesFetch} from '@myparcel-dev/do-shared/testing';
+import {useApiExceptions} from '../useApiExceptions';
 import {type CapabilitiesRequest} from '../../types';
 import {useReactiveCapabilitiesRequest} from './useCapabilitiesRequest';
 
@@ -10,6 +11,8 @@ const PROXY_URL = 'https://proxy.example.com/capabilities';
 describe('useReactiveCapabilitiesRequest', () => {
   beforeEach(() => {
     mockCapabilitiesFetch.mockClear();
+    // The exceptions ref lives at module level, so it survives between tests.
+    useApiExceptions().clear();
   });
 
   it('fetches on creation and returns data', async () => {
@@ -207,5 +210,91 @@ describe('useReactiveCapabilitiesRequest', () => {
 
     expect(mockCapabilitiesFetch).toHaveBeenCalledOnce();
     expect(loading.value).toBe(false);
+  });
+
+  it('skips fetch while the request has no recipient', async () => {
+    // The type says recipient is always there, but hosts push partial data at runtime.
+    const requestRef = ref<CapabilitiesRequest>({} as CapabilitiesRequest);
+
+    const {loading} = useReactiveCapabilitiesRequest(PROXY_URL, requestRef);
+
+    await flushPromises();
+
+    expect(mockCapabilitiesFetch).not.toHaveBeenCalled();
+    expect(loading.value).toBe(true);
+
+    requestRef.value = {recipient: {countryCode: 'NL'}};
+    await nextTick();
+    await flushPromises();
+
+    expect(mockCapabilitiesFetch).toHaveBeenCalledOnce();
+    expect(loading.value).toBe(false);
+  });
+
+  it('reports an exception when the response status is not ok', async () => {
+    mockCapabilitiesFetch.mockResolvedValueOnce({ok: false, status: 503} as Response);
+
+    const requestRef = ref<CapabilitiesRequest>({recipient: {countryCode: 'NL'}});
+
+    const {data} = useReactiveCapabilitiesRequest(PROXY_URL, requestRef);
+    await flushPromises();
+
+    expect(data.value.results).toEqual([]);
+
+    const {exceptions} = useApiExceptions();
+
+    expect(exceptions.value).toHaveLength(1);
+    expect(exceptions.value[0].message).toBe('Capabilities request failed: 503');
+  });
+
+  it('keeps the same data object when the response did not change', async () => {
+    // DE and FR are both unsupported in the mock, so both return an empty result set.
+    const requestRef = ref<CapabilitiesRequest>({recipient: {countryCode: 'DE'}});
+
+    const {data} = useReactiveCapabilitiesRequest(PROXY_URL, requestRef);
+    await flushPromises();
+
+    const dataAfterFirstFetch = data.value;
+
+    requestRef.value = {recipient: {countryCode: 'FR'}};
+    await nextTick();
+    await flushPromises();
+
+    expect(mockCapabilitiesFetch).toHaveBeenCalledTimes(2);
+    expect(data.value).toBe(dataAfterFirstFetch);
+  });
+
+  it('reports a rejection that is not an Error', async () => {
+    mockCapabilitiesFetch.mockRejectedValueOnce('kapot');
+
+    const requestRef = ref<CapabilitiesRequest>({recipient: {countryCode: 'NL'}});
+
+    useReactiveCapabilitiesRequest(PROXY_URL, requestRef);
+    await flushPromises();
+
+    const {exceptions} = useApiExceptions();
+
+    expect(exceptions.value).toHaveLength(1);
+    expect(exceptions.value[0].message).toBe('kapot');
+  });
+
+  it('adds the exception only once when the fetch fails again', async () => {
+    mockCapabilitiesFetch.mockRejectedValueOnce(new Error('first failure'));
+
+    const requestRef = ref<CapabilitiesRequest>({recipient: {countryCode: 'NL'}});
+
+    useReactiveCapabilitiesRequest(PROXY_URL, requestRef);
+    await flushPromises();
+
+    mockCapabilitiesFetch.mockRejectedValueOnce(new Error('second failure'));
+
+    requestRef.value = {recipient: {countryCode: 'BE'}};
+    await nextTick();
+    await flushPromises();
+
+    const {exceptions} = useApiExceptions();
+
+    expect(exceptions.value).toHaveLength(1);
+    expect(exceptions.value[0].message).toBe('first failure');
   });
 });
