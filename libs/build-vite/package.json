@@ -21,7 +21,7 @@
     "@vitejs/plugin-vue": "^6.0.7",
     "@vitest/coverage-v8": "^4.0.17",
     "happy-dom": "^20.0.2",
-    "typescript": "5.9.3",
+    "typescript": "7.0.2",
     "vite": "^7.3.5",
     "vite-plugin-custom-tsconfig": "^1.0.0",
     "vite-plugin-dts": "^4.5.4",
