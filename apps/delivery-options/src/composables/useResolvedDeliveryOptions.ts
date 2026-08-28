@@ -21,6 +21,7 @@ import {
   calculateCutoffTime,
   isFallbackEligible,
   isSameDayAvailable,
+  parseJson,
   stringToDate,
 } from '../utils';
 import {type SelectedDeliveryMoment} from '../types';
@@ -238,6 +239,46 @@ const filterClosedDays = (
 };
 
 /**
+ * The stored selection, or undefined when it is missing or not a valid moment.
+ */
+const parseSelectedDeliveryMoment = (value: string | undefined): SelectedDeliveryMoment | undefined => {
+  try {
+    const parsed = value ? parseJson<SelectedDeliveryMoment | null>(value) : undefined;
+
+    return typeof parsed?.carrier === 'string' ? parsed : undefined;
+  } catch {
+    return undefined;
+  }
+};
+
+/**
+ * Whether the currently selected values survive an empty delivery-dates result.
+ *
+ * A dateless selected moment (date: null) does not depend on delivery dates, so
+ * it is kept while its carrier still offers delivery. The carrier list is empty
+ * while carriers re-resolve, so only a non-empty list counts as proof that the
+ * carrier is gone. In compact view a selected window-0 carrier has no dates by
+ * design, so it survives too.
+ */
+const selectionSurvivesEmptyDates = (carriers: UseResolvedCarrier[]): boolean => {
+  const {carrier, deliveryMoment} = useSelectedValues();
+  const selectedMoment = parseSelectedDeliveryMoment(deliveryMoment.value);
+
+  if (selectedMoment?.date === null) {
+    const activeCarriers = carriers.filter((item) => toValue(item.hasDelivery));
+
+    return (
+      activeCarriers.length === 0 ||
+      activeCarriers.some((item) => toValue(item.carrier).identifier === selectedMoment.carrier)
+    );
+  }
+
+  const selectedCarrier = carriers.find((item) => toValue(item.carrier).identifier === carrier.value);
+
+  return selectedCarrier?.get(CarrierSetting.DeliveryDaysWindow, DELIVERY_DAYS_WINDOW_DEFAULT) === 0;
+};
+
+/**
  * Remove any date records which are completely empty (null or undefined) and
  *  ensures any selected values are cleared if no dates are available.
  *
@@ -254,20 +295,10 @@ const removeEmptyEntries = (
   if (filteredDates.length === 0) {
     const {state: config} = useConfigStore();
 
-    if (DELIVERY_MOMENT_PACKAGE_TYPES.includes(config.packageType)) {
-      const {carrier, clearSelectedValues} = useSelectedValues();
+    if (DELIVERY_MOMENT_PACKAGE_TYPES.includes(config.packageType) && !selectionSurvivesEmptyDates(carriers)) {
+      const {clearSelectedValues} = useSelectedValues();
 
-      // A selected carrier with a delivery-days window of 0 intentionally has no
-      // dates (it renders as a dateless option), so an empty result must not
-      // clear the selection. In compact view that would bounce the user back to
-      // the carrier overview.
-      const selectedCarrier = carriers.find((item) => toValue(item.carrier).identifier === carrier.value);
-      const selectedCarrierIsDateless =
-        selectedCarrier?.get(CarrierSetting.DeliveryDaysWindow, DELIVERY_DAYS_WINDOW_DEFAULT) === 0;
-
-      if (!selectedCarrierIsDateless) {
-        clearSelectedValues();
-      }
+      clearSelectedValues();
     }
 
     return [];
