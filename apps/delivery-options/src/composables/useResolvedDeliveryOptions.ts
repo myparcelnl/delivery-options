@@ -255,21 +255,19 @@ const parseSelectedDeliveryMoment = (value: string | undefined): SelectedDeliver
  * Whether the currently selected values survive an empty delivery-dates result.
  *
  * A dateless selected moment (date: null) does not depend on delivery dates, so
- * it is kept while its carrier still offers delivery. The carrier list is empty
- * while carriers re-resolve, so only a non-empty list counts as proof that the
- * carrier is gone. In compact view a selected window-0 carrier has no dates by
- * design, so it survives too.
+ * it is kept while its carrier still offers delivery. Carriers resolve to an
+ * empty list while capabilities are being re-fetched, so only a non-empty list
+ * counts as proof that the carrier is gone. In compact view a selected window-0
+ * carrier has no dates by design, so it survives too.
  */
 const selectionSurvivesEmptyDates = (carriers: UseResolvedCarrier[]): boolean => {
   const {carrier, deliveryMoment} = useSelectedValues();
   const selectedMoment = parseSelectedDeliveryMoment(deliveryMoment.value);
 
   if (selectedMoment?.date === null) {
-    const activeCarriers = carriers.filter((item) => toValue(item.hasDelivery));
-
     return (
-      activeCarriers.length === 0 ||
-      activeCarriers.some((item) => toValue(item.carrier).identifier === selectedMoment.carrier)
+      carriers.length === 0 ||
+      carriers.some((item) => toValue(item.hasDelivery) && toValue(item.carrier).identifier === selectedMoment.carrier)
     );
   }
 
