@@ -145,16 +145,23 @@ describe('useResolvedDeliveryOptions', () => {
   describe('clearing selected values when no dates are available', () => {
     // The dates API returns nothing for every carrier, so the resolver yields an empty result.
     // waitForDeliveryOptions() can't be used here: it waits for request data that never arrives.
-    const setupEmptyResult = async (packageType: PackageTypeName): Promise<void> => {
+    const setupEmptyResult = async (
+      packageType: PackageTypeName,
+      activeCarrier: CarrierName = CarrierName.PostNl,
+      countryCode = 'NL',
+    ): Promise<void> => {
       mockGetDeliveryOptions.mockResolvedValue([]);
 
       mockDeliveryOptionsConfig(
         getMockDeliveryOptionsConfiguration({
+          [KEY_ADDRESS]: {
+            cc: countryCode,
+          },
           [KEY_CONFIG]: {
             [CarrierSetting.PackageType]: packageType,
             [CarrierSetting.AllowStandardDelivery]: true,
             [KEY_CARRIER_SETTINGS]: {
-              [CarrierName.PostNl]: {
+              [activeCarrier]: {
                 [CarrierSetting.AllowStandardDelivery]: true,
               },
             },
@@ -170,6 +177,20 @@ describe('useResolvedDeliveryOptions', () => {
       await flushPromises();
 
       expect(options.value).toEqual([]);
+    };
+
+    const selectDeliveryMoment = (carrier: CarrierName, date: string | null = null) => {
+      const {deliveryMoment} = useSelectedValues();
+      deliveryMoment.value = JSON.stringify({
+        carrier,
+        date,
+        deliveryType: DeliveryTypeName.Standard,
+        packageType: PackageTypeName.Package,
+        shipmentOptions: [],
+        time: date ? '09:00-17:00' : null,
+      });
+
+      return deliveryMoment;
     };
 
     it('does not clear the selection for package types whose options come from another path (mailbox)', async () => {
@@ -188,6 +209,57 @@ describe('useResolvedDeliveryOptions', () => {
 
       expect(clearSpy).toHaveBeenCalled();
       clearSpy.mockRestore();
+    });
+
+    it('keeps a dateless selection when no dates are available (e.g. after an address change)', async () => {
+      const deliveryMoment = selectDeliveryMoment(CarrierName.DhlForYou);
+      const datelessMoment = deliveryMoment.value;
+      const clearSpy = vi.spyOn(useSelectedValues(), 'clearSelectedValues');
+
+      await setupEmptyResult(PackageTypeName.Package, CarrierName.DhlForYou);
+
+      expect(clearSpy).not.toHaveBeenCalled();
+      expect(deliveryMoment.value).toBe(datelessMoment);
+      clearSpy.mockRestore();
+      deliveryMoment.value = undefined;
+    });
+
+    it('clears a dateless selection when its carrier is no longer active', async () => {
+      const deliveryMoment = selectDeliveryMoment(CarrierName.PostNl);
+      const clearSpy = vi.spyOn(useSelectedValues(), 'clearSelectedValues');
+
+      // After the update only DHL For You is active, so the PostNL selection is stale.
+      await setupEmptyResult(PackageTypeName.Package, CarrierName.DhlForYou);
+
+      expect(clearSpy).toHaveBeenCalled();
+      expect(deliveryMoment.value).toBeUndefined();
+      clearSpy.mockRestore();
+      deliveryMoment.value = undefined;
+    });
+
+    it('clears a dateless selection when no carriers are available', async () => {
+      const deliveryMoment = selectDeliveryMoment(CarrierName.DhlForYou);
+      const clearSpy = vi.spyOn(useSelectedValues(), 'clearSelectedValues');
+
+      // DE has a definitive empty capabilities result in the test setup.
+      await setupEmptyResult(PackageTypeName.Package, CarrierName.DhlForYou, 'DE');
+
+      expect(clearSpy).toHaveBeenCalled();
+      expect(deliveryMoment.value).toBeUndefined();
+      clearSpy.mockRestore();
+      deliveryMoment.value = undefined;
+    });
+
+    it('clears a dated selection when no dates are available anymore', async () => {
+      const deliveryMoment = selectDeliveryMoment(CarrierName.PostNl, '2025-01-28');
+      const clearSpy = vi.spyOn(useSelectedValues(), 'clearSelectedValues');
+
+      await setupEmptyResult(PackageTypeName.Package);
+
+      expect(clearSpy).toHaveBeenCalled();
+      expect(deliveryMoment.value).toBeUndefined();
+      clearSpy.mockRestore();
+      deliveryMoment.value = undefined;
     });
   });
 
