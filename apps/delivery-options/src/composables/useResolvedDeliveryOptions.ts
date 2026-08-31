@@ -239,46 +239,32 @@ const filterClosedDays = (
 };
 
 /**
- * The stored selection, or undefined when it is missing or not a valid moment.
- */
-const parseSelectedDeliveryMoment = (value: string | undefined): SelectedDeliveryMoment | undefined => {
-  try {
-    const parsed = value ? parseJson<SelectedDeliveryMoment | null>(value) : undefined;
-
-    return typeof parsed?.carrier === 'string' ? parsed : undefined;
-  } catch {
-    return undefined;
-  }
-};
-
-/**
  * Whether the currently selected values survive an empty delivery-dates result.
  *
  * A dateless selected moment (date: null) does not depend on delivery dates, so
- * it is kept while its carrier still offers delivery. Carriers resolve to an
- * empty list while capabilities are being re-fetched, so only a non-empty list
- * counts as proof that the carrier is gone. In compact view a selected window-0
- * carrier has no dates by design, so it survives too.
+ * it is kept while its carrier still offers delivery. In compact view a selected
+ * window-0 carrier has no dates by design, so it survives too.
  */
 const selectionSurvivesEmptyDates = (carriers: UseResolvedCarrier[]): boolean => {
   const {carrier, deliveryMoment} = useSelectedValues();
-  const selectedMoment = parseSelectedDeliveryMoment(deliveryMoment.value);
+  const selectedMoment = deliveryMoment.value ? parseJson<SelectedDeliveryMoment>(deliveryMoment.value) : undefined;
 
   if (selectedMoment?.date === null) {
-    return (
-      carriers.length === 0 ||
-      carriers.some((item) => toValue(item.hasDelivery) && toValue(item.carrier).identifier === selectedMoment.carrier)
+    return carriers.some(
+      (item) => toValue(item.hasDelivery) && toValue(item.carrier).identifier === selectedMoment.carrier,
     );
   }
 
-  const selectedCarrier = carriers.find((item) => toValue(item.carrier).identifier === carrier.value);
+  const selectedCarrier = carriers.find(
+    (item) => toValue(item.hasDelivery) && toValue(item.carrier).identifier === carrier.value,
+  );
 
   return selectedCarrier?.get(CarrierSetting.DeliveryDaysWindow, DELIVERY_DAYS_WINDOW_DEFAULT) === 0;
 };
 
 /**
  * Remove any date records which are completely empty (null or undefined) and
- *  ensures any selected values are cleared if no dates are available.
+ * clear selected values when no dates or valid dateless selection are available.
  *
  * @param datesPerCarrier
  * @param carriers
@@ -403,12 +389,21 @@ const createSameDayFallbackMoments = (
     }));
 };
 
+let resolverGeneration = 0;
+
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const callback = (): UseResolvedDeliveryOptions => {
+  const generation = resolverGeneration;
   const carriers = useActiveCarriers();
   const capabilities = useSharedCapabilities();
 
-  return computedAsync<SelectedDeliveryMoment[]>(async () => {
+  return computedAsync<SelectedDeliveryMoment[]>(async (onCancel) => {
+    let cancelled = false;
+
+    onCancel(() => {
+      cancelled = true;
+    });
+
     /*
      * Guard: wait for capabilities to finish loading before fetching delivery options.
      *
@@ -438,7 +433,17 @@ const callback = (): UseResolvedDeliveryOptions => {
       });
     }
 
+    if (cancelled || generation !== resolverGeneration) {
+      return [];
+    }
+
     const datesPerCarrier = await getDeliveryOptionsFromApi(carriers);
+
+    // An outdated resolver run must not clear a selection while capabilities
+    // or carriers are being re-resolved.
+    if (cancelled || generation !== resolverGeneration || capabilities.loading.value) {
+      return [];
+    }
 
     // Filter out any nulls (failed requests)
     const filteredDates = removeEmptyEntries(datesPerCarrier, toValue(carriers));
@@ -450,4 +455,12 @@ const callback = (): UseResolvedDeliveryOptions => {
   }, []);
 };
 
-export const useResolvedDeliveryOptions = useMemoize(callback);
+const memoizedUseResolvedDeliveryOptions = useMemoize(callback);
+const clearMemoizedResolvedDeliveryOptions = memoizedUseResolvedDeliveryOptions.clear;
+
+memoizedUseResolvedDeliveryOptions.clear = () => {
+  resolverGeneration += 1;
+  clearMemoizedResolvedDeliveryOptions();
+};
+
+export const useResolvedDeliveryOptions = memoizedUseResolvedDeliveryOptions;

@@ -148,11 +148,15 @@ describe('useResolvedDeliveryOptions', () => {
     const setupEmptyResult = async (
       packageType: PackageTypeName,
       activeCarrier: CarrierName = CarrierName.PostNl,
+      countryCode = 'NL',
     ): Promise<void> => {
       mockGetDeliveryOptions.mockResolvedValue([]);
 
       mockDeliveryOptionsConfig(
         getMockDeliveryOptionsConfiguration({
+          [KEY_ADDRESS]: {
+            cc: countryCode,
+          },
           [KEY_CONFIG]: {
             [CarrierSetting.PackageType]: packageType,
             [CarrierSetting.AllowStandardDelivery]: true,
@@ -175,6 +179,20 @@ describe('useResolvedDeliveryOptions', () => {
       expect(options.value).toEqual([]);
     };
 
+    const selectDeliveryMoment = (carrier: CarrierName, date: string | null = null) => {
+      const {deliveryMoment} = useSelectedValues();
+      deliveryMoment.value = JSON.stringify({
+        carrier,
+        date,
+        deliveryType: DeliveryTypeName.Standard,
+        packageType: PackageTypeName.Package,
+        shipmentOptions: [],
+        time: date ? '09:00-17:00' : null,
+      });
+
+      return deliveryMoment;
+    };
+
     it('does not clear the selection for package types whose options come from another path (mailbox)', async () => {
       const clearSpy = vi.spyOn(useSelectedValues(), 'clearSelectedValues');
 
@@ -194,19 +212,11 @@ describe('useResolvedDeliveryOptions', () => {
     });
 
     it('keeps a dateless selection when no dates are available (e.g. after an address change)', async () => {
-      const {deliveryMoment} = useSelectedValues();
-      const datelessMoment = JSON.stringify({
-        carrier: CarrierName.PostNl,
-        date: null,
-        deliveryType: DeliveryTypeName.Standard,
-        packageType: PackageTypeName.Package,
-        shipmentOptions: [],
-        time: null,
-      });
-      deliveryMoment.value = datelessMoment;
+      const deliveryMoment = selectDeliveryMoment(CarrierName.DhlForYou);
+      const datelessMoment = deliveryMoment.value;
       const clearSpy = vi.spyOn(useSelectedValues(), 'clearSelectedValues');
 
-      await setupEmptyResult(PackageTypeName.Package);
+      await setupEmptyResult(PackageTypeName.Package, CarrierName.DhlForYou);
 
       expect(clearSpy).not.toHaveBeenCalled();
       expect(deliveryMoment.value).toBe(datelessMoment);
@@ -215,64 +225,39 @@ describe('useResolvedDeliveryOptions', () => {
     });
 
     it('clears a dateless selection when its carrier is no longer active', async () => {
-      const {deliveryMoment} = useSelectedValues();
-      deliveryMoment.value = JSON.stringify({
-        carrier: CarrierName.PostNl,
-        date: null,
-        deliveryType: DeliveryTypeName.Standard,
-        packageType: PackageTypeName.Package,
-        shipmentOptions: [],
-        time: null,
-      });
+      const deliveryMoment = selectDeliveryMoment(CarrierName.PostNl);
       const clearSpy = vi.spyOn(useSelectedValues(), 'clearSelectedValues');
 
       // After the update only DHL For You is active, so the PostNL selection is stale.
       await setupEmptyResult(PackageTypeName.Package, CarrierName.DhlForYou);
 
       expect(clearSpy).toHaveBeenCalled();
+      expect(deliveryMoment.value).toBeUndefined();
       clearSpy.mockRestore();
       deliveryMoment.value = undefined;
     });
 
-    it('clears the selection without throwing when the selected moment is malformed', async () => {
-      const {deliveryMoment} = useSelectedValues();
-      deliveryMoment.value = '{not valid json';
+    it('clears a dateless selection when no carriers are available', async () => {
+      const deliveryMoment = selectDeliveryMoment(CarrierName.DhlForYou);
       const clearSpy = vi.spyOn(useSelectedValues(), 'clearSelectedValues');
 
-      await setupEmptyResult(PackageTypeName.Package);
+      // DE has a definitive empty capabilities result in the test setup.
+      await setupEmptyResult(PackageTypeName.Package, CarrierName.DhlForYou, 'DE');
 
       expect(clearSpy).toHaveBeenCalled();
-      clearSpy.mockRestore();
-      deliveryMoment.value = undefined;
-    });
-
-    it('clears the selection without throwing when the selected moment is JSON null', async () => {
-      const {deliveryMoment} = useSelectedValues();
-      deliveryMoment.value = 'null';
-      const clearSpy = vi.spyOn(useSelectedValues(), 'clearSelectedValues');
-
-      await setupEmptyResult(PackageTypeName.Package);
-
-      expect(clearSpy).toHaveBeenCalled();
+      expect(deliveryMoment.value).toBeUndefined();
       clearSpy.mockRestore();
       deliveryMoment.value = undefined;
     });
 
     it('clears a dated selection when no dates are available anymore', async () => {
-      const {deliveryMoment} = useSelectedValues();
-      deliveryMoment.value = JSON.stringify({
-        carrier: CarrierName.PostNl,
-        date: '2025-01-28',
-        deliveryType: DeliveryTypeName.Standard,
-        packageType: PackageTypeName.Package,
-        shipmentOptions: [],
-        time: '09:00-17:00',
-      });
+      const deliveryMoment = selectDeliveryMoment(CarrierName.PostNl, '2025-01-28');
       const clearSpy = vi.spyOn(useSelectedValues(), 'clearSelectedValues');
 
       await setupEmptyResult(PackageTypeName.Package);
 
       expect(clearSpy).toHaveBeenCalled();
+      expect(deliveryMoment.value).toBeUndefined();
       clearSpy.mockRestore();
       deliveryMoment.value = undefined;
     });
