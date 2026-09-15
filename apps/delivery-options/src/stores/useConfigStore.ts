@@ -7,6 +7,7 @@ import {
   type DeliveryOptionsConfig,
   type ResolvedDeliveryOptionsConfig,
 } from '@myparcel-dev/do-shared';
+import {clearState} from './clearState';
 
 const initialState = getDefaultDeliveryOptionsConfig();
 
@@ -24,10 +25,7 @@ function update(configuration: DeliveryOptionsConfig, withDefaults = true): void
 
 // Reset to the initial state
 function reset(): void {
-  for (const key of Object.keys(state)) {
-    // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
-    delete (state as Record<string, unknown>)[key];
-  }
+  clearState(state);
 
   Object.assign(state, initialState);
 

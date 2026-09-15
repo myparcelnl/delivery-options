@@ -477,6 +477,28 @@ describe('useShipmentOptionsState', () => {
       expect(toValue(defaults)).toContain(ShipmentOptionName.Signature);
       expect(toValue(defaults)).not.toContain(ShipmentOptionName.OnlyRecipient);
     });
+
+    it('does not re-emit while the consumer changes their selection', async () => {
+      // The selector seeds the defaults whenever they change and nothing is picked yet. If the
+      // defaults re-emit on every click, unchecking the last option puts them all back.
+      const {defaults} = await setupWithCapabilities(CarrierName.PostNl, undefined, [], {
+        [CarrierName.PostNl]: {signature: true, onlyRecipient: true},
+      });
+
+      expect(toValue(defaults)).toEqual([ShipmentOptionName.Signature, ShipmentOptionName.OnlyRecipient]);
+
+      const onDefaultsChange = vi.fn();
+
+      watch(defaults, onDefaultsChange);
+
+      useSelectedValues().shipmentOptions.value = [ShipmentOptionName.Signature];
+      await nextTick();
+
+      useSelectedValues().shipmentOptions.value = [];
+      await nextTick();
+
+      expect(onDefaultsChange).not.toHaveBeenCalled();
+    });
   });
 
   describe('edge cases', () => {
@@ -511,29 +533,6 @@ describe('useShipmentOptionsState', () => {
 
       expect(forced.has(ShipmentOptionName.Signature)).toBe(true);
       expect(forced.size).toBe(1);
-    });
-  });
-  describe('defaults', () => {
-    it('does not re-emit while the consumer changes their selection', async () => {
-      // The selector seeds the defaults whenever they change and nothing is picked yet. If the
-      // defaults re-emit on every click, unchecking the last option puts them all back.
-      const {defaults} = await setupWithCapabilities(CarrierName.PostNl, undefined, [], {
-        [CarrierName.PostNl]: {signature: true, onlyRecipient: true},
-      });
-
-      expect(toValue(defaults)).toEqual([ShipmentOptionName.Signature, ShipmentOptionName.OnlyRecipient]);
-
-      const onDefaultsChange = vi.fn();
-
-      watch(defaults, onDefaultsChange);
-
-      useSelectedValues().shipmentOptions.value = [ShipmentOptionName.Signature];
-      await nextTick();
-
-      useSelectedValues().shipmentOptions.value = [];
-      await nextTick();
-
-      expect(onDefaultsChange).not.toHaveBeenCalled();
     });
   });
 

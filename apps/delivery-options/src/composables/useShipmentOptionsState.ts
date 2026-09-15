@@ -35,7 +35,7 @@
  * Only at the very end are the results translated to the widget's option names
  * (e.g. 'signature'); anything without a widget name is left out of the output.
  */
-import {computed, type ComputedRef} from 'vue';
+import {computed, toValue, type ComputedRef} from 'vue';
 import {
   type CapabilityOption,
   type SupportedShipmentOptionName,
@@ -180,7 +180,7 @@ const logRuleConflict = (optionKey: string, sourceKey: string, action: string, s
  *   options, all widget option names in display order, the delivery moment's option list,
  *   and the resolved forced-on/forced-off sets (in widget option names).
  */
-export const resolveOptionStates = (input: {
+const resolveOptionStates = (input: {
   /** Widget option names the shop configuration allows showing (the allow* flags). */
   allowedOptions: ReadonlySet<string>;
   /** All widget option names, in display order. */
@@ -231,7 +231,7 @@ export const resolveOptionStates = (input: {
  * @param cartOptions - Cart options for this carrier.
  * @param selectedOptions - Widget option names the consumer has checked.
  */
-export const resolveForcedOptions = (
+const resolveForcedOptions = (
   rules: CapabilityRules,
   cartOptions: CartOptions,
   selectedOptions: readonly string[],
@@ -255,7 +255,7 @@ export const resolveForcedOptions = (
  * @param cartOptions - Cart options for this carrier.
  * @param allowedOptions - Widget option names the shop configuration allows showing.
  */
-export const resolveDefaultOptions = (
+const resolveDefaultOptions = (
   rules: CapabilityRules,
   cartOptions: CartOptions,
   allowedOptions: ReadonlySet<string>,
@@ -286,7 +286,7 @@ export const resolveDefaultOptions = (
  *   carrier's capabilities have arrived — until they have, the picks are left alone, because
  *   filtering on what is not known yet would briefly empty the output.
  */
-export const resolveSelection = (input: {
+const resolveSelection = (input: {
   selectedOptions: readonly string[];
   forcedOn: ReadonlySet<string>;
   forcedOff: ReadonlySet<string>;
@@ -317,46 +317,46 @@ export function useShipmentOptionsState(): UseShipmentOptionsState {
   const {availableShipmentOptions} = useFeatures();
 
   const carrier = computed(() => {
-    const carrierId = deliveryMoment.value?.carrier;
+    const carrierId = toValue(deliveryMoment)?.carrier;
 
     return carrierId ? useResolvedCarrier(carrierId) : undefined;
   });
 
-  const capabilityOptions = computed(() => carrier.value?.capability.value?.options);
-  const rules = computed<CapabilityRules>(() => capabilityOptions.value ?? {});
-  const allowedOptions = computed(() => carrier.value?.shipmentOptions.value ?? new Set<string>());
+  const capabilityOptions = computed(() => toValue(toValue(carrier)?.capability)?.options);
+  const rules = computed<CapabilityRules>(() => toValue(capabilityOptions) ?? {});
+  const allowedOptions = computed(() => toValue(toValue(carrier)?.shipmentOptions) ?? new Set<string>());
 
   // The cart options map is keyed by bare carrier name; identifiers with a contract id
   // ('postnl:123') resolve to that name.
   const cartOptions = computed(() => {
-    const carrierId = deliveryMoment.value?.carrier;
+    const carrierId = toValue(deliveryMoment)?.carrier;
 
     return carrierId ? cartShipmentOptions[resolveCarrierName(carrierId)] : undefined;
   });
 
-  const forced = computed(() => resolveForcedOptions(rules.value, cartOptions.value, selectedOptions.value));
-  const forcedOn = computed(() => forced.value.forcedOn);
-  const forcedOff = computed(() => forced.value.forcedOff);
+  const forced = computed(() => resolveForcedOptions(toValue(rules), toValue(cartOptions), toValue(selectedOptions)));
+  const forcedOn = computed(() => toValue(forced).forcedOn);
+  const forcedOff = computed(() => toValue(forced).forcedOff);
 
-  const defaults = computed(() => resolveDefaultOptions(rules.value, cartOptions.value, allowedOptions.value));
+  const defaults = computed(() => resolveDefaultOptions(toValue(rules), toValue(cartOptions), toValue(allowedOptions)));
 
   const optionStates = computed(() =>
     resolveOptionStates({
-      allowedOptions: allowedOptions.value,
-      supportedOptions: availableShipmentOptions.value,
-      momentOptions: deliveryMoment.value?.shipmentOptions,
-      forcedOn: forcedOn.value,
-      forcedOff: forcedOff.value,
+      allowedOptions: toValue(allowedOptions),
+      supportedOptions: toValue(availableShipmentOptions),
+      momentOptions: toValue(deliveryMoment)?.shipmentOptions,
+      forcedOn: toValue(forcedOn),
+      forcedOff: toValue(forcedOff),
     }),
   );
 
   const selection = computed(() =>
     resolveSelection({
-      selectedOptions: selectedOptions.value,
-      forcedOn: forcedOn.value,
-      forcedOff: forcedOff.value,
-      optionStates: optionStates.value,
-      capabilitiesKnown: capabilityOptions.value !== undefined,
+      selectedOptions: toValue(selectedOptions),
+      forcedOn: toValue(forcedOn),
+      forcedOff: toValue(forcedOff),
+      optionStates: toValue(optionStates),
+      capabilitiesKnown: toValue(capabilityOptions) !== undefined,
     }),
   );
 
