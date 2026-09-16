@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel-dev/delivery-options-v7.5.2](https://github.com/myparcelnl/delivery-options/compare/v7.5.1...v7.5.2) (2026-09-16)
+
+### :bug: Bug Fixes
+
+* keep dateless delivery moment selection when no delivery dates are available ([#528](https://github.com/myparcelnl/delivery-options/issues/528)) ([bfd46e5](https://github.com/myparcelnl/delivery-options/commit/bfd46e5e4a37752a7322b893ee2957f341eb8878))
+
 ## [@myparcel-dev/delivery-options-v7.5.1](https://github.com/myparcelnl/delivery-options/compare/v7.5.0...v7.5.1) (2026-08-28)
 
 ### :bug: Bug Fixes
