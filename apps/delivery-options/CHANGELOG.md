@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel-dev/delivery-options-v7.5.1](https://github.com/myparcelnl/delivery-options/compare/v7.5.0...v7.5.1) (2026-08-28)
+
+### :bug: Bug Fixes
+
+* withhold capabilities call when country unknown ([#521](https://github.com/myparcelnl/delivery-options/issues/521)) ([fcc40e8](https://github.com/myparcelnl/delivery-options/commit/fcc40e83d81f3c3511dde543fde44487212f788a))
+
 ## [@myparcel-dev/delivery-options-v7.5.0](https://github.com/myparcelnl/delivery-options/compare/v7.4.5...v7.5.0) (2026-08-05)
 
 ### :sparkles: New Features
