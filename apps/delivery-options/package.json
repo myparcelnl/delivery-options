@@ -81,7 +81,7 @@
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/exec": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
-    "@semantic-release/github": "^10.0.0",
+    "@semantic-release/github": "^12.0.9",
     "@testing-library/vue": "^8.0.1",
     "@types/is-ci": "^3.0.0",
     "@types/leaflet": "^1.9.4",
