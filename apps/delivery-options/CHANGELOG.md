@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel-dev/delivery-options-v7.5.3](https://github.com/myparcelnl/delivery-options/compare/v7.5.2...v7.5.3) (2026-09-18)
+
+### :bug: Bug Fixes
+
+* **security:** resolve undici and octokit vulnerabilities ([#548](https://github.com/myparcelnl/delivery-options/issues/548)) ([29984ef](https://github.com/myparcelnl/delivery-options/commit/29984ef94a3618d51a08b2a90adf0c816f304e4e))
+
 ## [@myparcel-dev/delivery-options-v7.5.2](https://github.com/myparcelnl/delivery-options/compare/v7.5.1...v7.5.2) (2026-09-16)
 
 ### :bug: Bug Fixes
