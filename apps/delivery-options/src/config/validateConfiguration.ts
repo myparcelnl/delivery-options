@@ -21,6 +21,7 @@ import {
   validateIsString,
   validateIsTime,
   validateIsValue,
+  validatePhysicalProperties,
   validateMatch,
   defineConfig,
   KEY_ADDRESS,
@@ -55,6 +56,22 @@ const addressOptions: ConfigOption[] = [
 ];
 
 const additionalOptions: ConfigOption[] = [
+  {
+    key: ConfigSetting.PhysicalProperties,
+    perCarrier: false,
+    validators: [validatePhysicalProperties()],
+  },
+  {
+    key: 'contractId',
+    perCarrier: true,
+    validators: [
+      {
+        validate: (value: unknown): value is number | null =>
+          value === null || (Number.isSafeInteger(value) && Number(value) > 0),
+        error: 'Expected a positive contract id or null',
+      },
+    ],
+  },
   {
     key: ConfigSetting.Platform,
     perCarrier: false,
