@@ -8,6 +8,8 @@
 
     <SandboxPackageTypeBox />
 
+    <SandboxWeightBox />
+
     <SandboxCarrierConfigBox />
 
     <SandboxFeaturesBox />
@@ -16,6 +18,7 @@
 
 <script lang="ts" setup>
 import {useLanguage} from '../composables';
+import SandboxWeightBox from './SandboxWeightBox.vue';
 import SandboxRecipientTypeBox from './SandboxRecipientTypeBox.vue';
 import SandboxPackageTypeBox from './SandboxPackageTypeBox.vue';
 import SandboxFeaturesBox from './SandboxFeaturesBox.vue';

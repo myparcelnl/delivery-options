@@ -56,6 +56,8 @@ export interface CarrierSettings extends Partial<Record<CarrierSettingsKey, unkn
   allowSignature?: boolean;
   allowStandardDelivery?: boolean | FilterableOption;
   allowPriorityDelivery?: boolean;
+  /** Contract selected by the integrating platform. */
+  contractId?: number | null;
   cutoffTime?: TimestampString;
   cutoffTimeSameDay?: TimestampString;
   deliveryDaysWindow?: number;
@@ -87,6 +89,11 @@ export type InputCarrierSettingsObject = Partial<Record<CarrierIdentifier, Input
 
 export type CarrierSettingsObject = Partial<Record<CarrierIdentifier, CarrierSettings>>;
 
+/** Complete shipment weight supplied by the integrating platform, including packaging. */
+export interface DeliveryOptionsPhysicalProperties {
+  weight: {value: number; unit: 'g'};
+}
+
 export interface DeliveryOptionsConfig extends Partial<Record<ConfigSetting, unknown>>, CarrierSettings {
   allowPickupLocationsViewSelection: boolean;
   apiBaseUrl: string;
@@ -99,6 +106,8 @@ export interface DeliveryOptionsConfig extends Partial<Record<ConfigSetting, unk
    * widget then omits it from the request, so older platforms keep working unchanged.
    */
   isBusiness?: boolean;
+  /** Omit or set null when the complete shipment weight is unknown. */
+  physicalProperties?: DeliveryOptionsPhysicalProperties | null;
   carrierSettings: CarrierSettingsObject;
   closedDays: Date[];
   /**

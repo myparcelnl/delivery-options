@@ -4,6 +4,7 @@ import {
   type CapabilitiesRequest,
   useReactiveCapabilities,
   mapPackageTypeToCapability,
+  validatePhysicalProperties,
 } from '@myparcel-dev/do-shared';
 import {useAddressStore, useConfigStore} from '../stores';
 
@@ -12,7 +13,7 @@ let scope: EffectScope | null = null;
 
 /**
  * Singleton reactive capabilities instance that re-fetches
- * when address or packageType changes.
+ * when the address, package type or known shipment weight changes.
  */
 export const useSharedCapabilities = (): UseCapabilities => {
   if (!instance) {
@@ -25,7 +26,7 @@ export const useSharedCapabilities = (): UseCapabilities => {
 
       /**
        * Request includes only session-scoped inputs: recipient address and
-       * packageType (fixed by the integrating platform from the cart).
+       * packageType and known weight (supplied by the integrating platform from the cart).
        * User-selectable fields (deliveryType, options, carrier) are intentionally
        * omitted — the backend returns the full option graph with only the shipment
        * options listed that are available, and the widget filters client-side to
@@ -46,6 +47,12 @@ export const useSharedCapabilities = (): UseCapabilities => {
 
         if (capPackageType) {
           request.packageType = capPackageType;
+        }
+
+        const {physicalProperties} = config;
+
+        if (physicalProperties && validatePhysicalProperties().validate(physicalProperties)) {
+          request.physicalProperties = {weight: {...physicalProperties.weight}};
         }
 
         return request;
