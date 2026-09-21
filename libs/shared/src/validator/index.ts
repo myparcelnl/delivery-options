@@ -11,3 +11,4 @@ export * from './validateIsString';
 export * from './validateIsTime';
 export * from './validateIsValue';
 export * from './validateMatch';
+export * from './validatePhysicalProperties';
