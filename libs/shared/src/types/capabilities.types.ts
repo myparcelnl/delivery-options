@@ -8,6 +8,7 @@ export interface CapabilityOption {
 
 export interface CarrierCapability {
   carrier: string;
+  contract?: {id: number; type?: string};
   packageTypes: string[];
   deliveryTypes: string[];
   options: Record<string, CapabilityOption>;

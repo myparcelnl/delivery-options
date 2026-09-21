@@ -1,4 +1,4 @@
-import {ref, nextTick} from 'vue';
+import {ref, nextTick, effectScope} from 'vue';
 import {describe, it, expect, vi, beforeEach} from 'vitest';
 import {flushPromises} from '@vue/test-utils';
 import {mockCapabilitiesFetch} from '@myparcel-dev/do-shared/testing';
@@ -296,5 +296,138 @@ describe('useReactiveCapabilitiesRequest', () => {
 
     expect(exceptions.value).toHaveLength(1);
     expect(exceptions.value[0].message).toBe('first failure');
+  });
+
+  it.each([400, 401, 422, 503])('does not retry without weight after HTTP %s', async (status) => {
+    mockCapabilitiesFetch.mockResolvedValueOnce({ok: false, status} as Response);
+    const {data, loading} = useReactiveCapabilitiesRequest(
+      PROXY_URL,
+      ref({recipient: {countryCode: 'NL'}, physicalProperties: {weight: {value: 30000, unit: 'g'}}}),
+    );
+    await flushPromises();
+    expect(mockCapabilitiesFetch).toHaveBeenCalledOnce();
+    expect(data.value.results).toEqual([]);
+    expect(loading.value).toBe(false);
+    expect(useApiExceptions().exceptions.value).toHaveLength(1);
+  });
+
+  it('uses normal error handling for a weighted network failure', async () => {
+    mockCapabilitiesFetch.mockRejectedValueOnce(new TypeError('Failed to fetch'));
+    const {data} = useReactiveCapabilitiesRequest(
+      PROXY_URL,
+      ref({recipient: {countryCode: 'NL'}, physicalProperties: {weight: {value: 30000, unit: 'g'}}}),
+    );
+    await flushPromises();
+    expect(mockCapabilitiesFetch).toHaveBeenCalledOnce();
+    expect(data.value.results).toEqual([]);
+    expect(useApiExceptions().exceptions.value).toHaveLength(1);
+  });
+
+  it('keeps a valid empty weighted response without retry or error', async () => {
+    mockCapabilitiesFetch.mockResolvedValueOnce({ok: true, json: () => Promise.resolve({results: []})} as Response);
+    const {data, isWeightedResponse} = useReactiveCapabilitiesRequest(
+      PROXY_URL,
+      ref({recipient: {countryCode: 'NL'}, physicalProperties: {weight: {value: 40000, unit: 'g'}}}),
+    );
+    await flushPromises();
+    expect(mockCapabilitiesFetch).toHaveBeenCalledOnce();
+    expect(data.value.results).toEqual([]);
+    expect(isWeightedResponse.value).toBe(true);
+    expect(useApiExceptions().exceptions.value).toEqual([]);
+  });
+
+  it('ignores a stale response that completes after the latest weight response', async () => {
+    let resolveOld: (value: Response) => void = () => undefined;
+    mockCapabilitiesFetch.mockImplementationOnce(
+      () =>
+        new Promise((resolve) => {
+          resolveOld = resolve;
+        }),
+    );
+    const request = ref<CapabilitiesRequest>({
+      recipient: {countryCode: 'NL'},
+      physicalProperties: {weight: {value: 30000, unit: 'g'}},
+    });
+    const {data, loading} = useReactiveCapabilitiesRequest(PROXY_URL, request);
+    request.value = {recipient: {countryCode: 'NL'}, physicalProperties: {weight: {value: 15000, unit: 'g'}}};
+    await flushPromises();
+    const currentData = data.value;
+    resolveOld({ok: true, json: () => Promise.resolve({results: []})} as Response);
+    await flushPromises();
+    expect(data.value).toBe(currentData);
+    expect(data.value.results.length).toBeGreaterThan(0);
+    expect(loading.value).toBe(false);
+  });
+
+  it('keeps loading for the latest request when an older request completes', async () => {
+    let resolveOld: (value: Response) => void = () => undefined;
+    let resolveCurrent: (value: Response) => void = () => undefined;
+    mockCapabilitiesFetch
+      .mockImplementationOnce(
+        () =>
+          new Promise((resolve) => {
+            resolveOld = resolve;
+          }),
+      )
+      .mockImplementationOnce(
+        () =>
+          new Promise((resolve) => {
+            resolveCurrent = resolve;
+          }),
+      );
+    const request = ref<CapabilitiesRequest>({recipient: {countryCode: 'NL'}});
+    const {loading} = useReactiveCapabilitiesRequest(PROXY_URL, request);
+    request.value = {recipient: {countryCode: 'BE'}};
+    resolveOld({ok: true, json: () => Promise.resolve({results: []})} as Response);
+    await flushPromises();
+    expect(loading.value).toBe(true);
+    resolveCurrent({ok: true, json: () => Promise.resolve({results: []})} as Response);
+    await flushPromises();
+    expect(loading.value).toBe(false);
+  });
+
+  it('does not report errors from an obsolete weighted request', async () => {
+    let rejectOld: (error: Error) => void = () => undefined;
+    mockCapabilitiesFetch.mockImplementationOnce(
+      () =>
+        new Promise((resolve, reject) => {
+          rejectOld = reject;
+        }),
+    );
+    const request = ref<CapabilitiesRequest>({
+      recipient: {countryCode: 'NL'},
+      physicalProperties: {weight: {value: 30000, unit: 'g'}},
+    });
+    const {data, isWeightedResponse} = useReactiveCapabilitiesRequest(PROXY_URL, request);
+    request.value = {recipient: {countryCode: 'NL'}};
+    await flushPromises();
+    rejectOld(new TypeError('Failed to fetch'));
+    await flushPromises();
+    expect(mockCapabilitiesFetch).toHaveBeenCalledTimes(2);
+    expect(data.value.results.length).toBeGreaterThan(0);
+    expect(isWeightedResponse.value).toBe(false);
+    expect(useApiExceptions().exceptions.value).toEqual([]);
+  });
+
+  it.each(['dispose', 'clear country'])('ignores an in-flight response after %s', async (action) => {
+    let resolveRequest: (value: Response) => void = () => undefined;
+    mockCapabilitiesFetch.mockImplementationOnce(
+      () =>
+        new Promise((resolve) => {
+          resolveRequest = resolve;
+        }),
+    );
+    const scope = effectScope();
+    const params = ref<CapabilitiesRequest>({recipient: {countryCode: 'NL'}});
+    const request = scope.run(() => useReactiveCapabilitiesRequest(PROXY_URL, params));
+
+    if (action === 'dispose') scope.stop();
+    else params.value = {recipient: {countryCode: ''}};
+
+    resolveRequest({ok: true, json: () => Promise.resolve({results: [{carrier: 'DPD'}]})} as Response);
+    await flushPromises();
+    expect(mockCapabilitiesFetch.mock.calls[0][1]?.signal?.aborted).toBe(true);
+    expect(request?.data.value.results).toEqual([]);
+    scope.stop();
   });
 });

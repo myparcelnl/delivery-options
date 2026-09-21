@@ -56,7 +56,7 @@
 </template>
 
 <script lang="ts" setup>
-import {computed, toValue} from 'vue';
+import {computed, toValue, watch} from 'vue';
 import {
   COMPACT_BACK_TO_OVERVIEW,
   DELIVERY_TITLE,
@@ -124,6 +124,24 @@ const options = computed(() => {
 
   return optionList;
 });
+
+// Wait for current capabilities. Keep the existing pickup flow when another
+// carrier still offers pickup; PickupLocations selects an available location.
+watch(
+  [capabilitiesLoading, options, homeOrPickup],
+  ([loading, availableOptions, selectedType]) => {
+    if (
+      loading ||
+      selectedType !== HOME_OR_PICKUP_PICKUP ||
+      availableOptions.some((option) => option.value === HOME_OR_PICKUP_PICKUP)
+    )
+      return;
+
+    clearSelectedValues();
+    deliveryDate.value = undefined;
+  },
+  {immediate: true},
+);
 
 const noOptionsAvailable = computed(() => {
   return !capabilitiesLoading.value && options.value.length === 0;

@@ -45,4 +45,15 @@ describe('useSandboxCapabilities', () => {
   it('sends isBusiness for a consumer recipient', () => {
     expect(getRequest(false).recipient.isBusiness).toBe(false);
   });
+
+  it('updates and clears the weight in the sandbox capabilities request', () => {
+    getRequest();
+    const store = useSandboxStore();
+    const [, request] = vi.mocked(useReactiveCapabilities).mock.calls[0] as [unknown, ComputedRef<CapabilitiesRequest>];
+    const legacy = request.value;
+    store.config.physicalProperties = {weight: {value: 30000, unit: 'g'}};
+    expect(request.value).toEqual({...legacy, physicalProperties: {weight: {value: 30000, unit: 'g'}}});
+    store.config.physicalProperties = null;
+    expect(request.value).toEqual(legacy);
+  });
 });

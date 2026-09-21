@@ -1,4 +1,14 @@
-import {ref, computed, watch, toValue, type MaybeRefOrGetter, type Ref, type ComputedRef} from 'vue';
+import {
+  ref,
+  computed,
+  watch,
+  toValue,
+  getCurrentScope,
+  onScopeDispose,
+  type MaybeRefOrGetter,
+  type Ref,
+  type ComputedRef,
+} from 'vue';
 import {useLogger} from '../useLogger';
 import {EMPTY_RESPONSE} from '../useCapabilities';
 import {useApiExceptions} from '../useApiExceptions';
@@ -35,9 +45,25 @@ const fetchCapabilities = async (
   return response.json();
 };
 
+const reportCapabilitiesError = (error: unknown): void => {
+  useLogger().error('Capabilities request failed:', error);
+  const {exceptions} = useApiExceptions();
+
+  if (!exceptions.value.some((parsedError) => parsedError.code === 1)) {
+    exceptions.value.push({
+      code: 1,
+      label: NO_DELIVERY_OPTIONS_AVAILABLE,
+      message: error instanceof Error ? error.message : String(error),
+    });
+  }
+};
+
+const isAbortError = (error: unknown): boolean => error instanceof DOMException && error.name === 'AbortError';
+
 export interface ReactiveCapabilitiesRequest {
   data: Ref<CapabilitiesResponse>;
   loading: Ref<boolean>;
+  isWeightedResponse: ComputedRef<boolean>;
 }
 
 /**
@@ -56,7 +82,16 @@ export const useReactiveCapabilitiesRequest = (
   requestRef: Ref<CapabilitiesRequest> | ComputedRef<CapabilitiesRequest>,
   apiKey?: MaybeRefOrGetter<string | undefined>,
 ): ReactiveCapabilitiesRequest => {
-  const data = ref<CapabilitiesResponse>(EMPTY_RESPONSE);
+  // Keep the response and its request scope together. Synchronous watchers must
+  // never apply weighted contract rules to the previous, unweighted response.
+  const response = ref({data: EMPTY_RESPONSE, weighted: false});
+  const data = computed({
+    get: () => response.value.data,
+    set: (value: CapabilitiesResponse) => {
+      response.value = {...response.value, data: value};
+    },
+  });
+  const isWeightedResponse = computed(() => response.value.weighted);
   const loading = ref(true);
   let lastResponseJson = '';
   let abortController: AbortController | null = null;
@@ -66,6 +101,12 @@ export const useReactiveCapabilitiesRequest = (
     const currentApiKey = toValue(apiKey);
     const url = toValue(proxyCapabilities);
 
+    abortController?.abort();
+    const controller = new AbortController();
+
+    abortController = controller;
+    loading.value = true;
+
     // Skip fetch until both the URL and a destination country are known.
     // The watch below re-runs once the missing value becomes available.
     if (!url || !request.recipient?.countryCode) {
@@ -73,42 +114,32 @@ export const useReactiveCapabilitiesRequest = (
       return;
     }
 
-    if (abortController) {
-      abortController.abort();
-    }
-
-    abortController = new AbortController();
-    loading.value = true;
-
     try {
-      const result = await fetchCapabilities(url, request, currentApiKey, abortController.signal);
+      const result = await fetchCapabilities(url, request, currentApiKey, controller.signal);
+
+      // Abort can occur after fetch resolves, while its response body is still being read.
+      if (controller.signal.aborted) return;
+
+      const weighted = Boolean(request.physicalProperties?.weight);
       const resultJson = JSON.stringify(result);
 
       // Only update when the response actually changed, to avoid triggering downstream watchers
-      if (resultJson !== lastResponseJson) {
+      if (resultJson !== lastResponseJson || weighted !== response.value.weighted) {
         lastResponseJson = resultJson;
-        data.value = result;
+        response.value = {data: result, weighted};
       }
     } catch (error) {
-      if (error instanceof DOMException && error.name === 'AbortError') {
+      if (controller.signal.aborted || isAbortError(error)) {
         return;
       }
 
-      useLogger().error('Capabilities request failed:', error);
-      data.value = EMPTY_RESPONSE;
+      response.value = {data: EMPTY_RESPONSE, weighted: false};
       lastResponseJson = '';
-
-      const {exceptions} = useApiExceptions();
-
-      if (!exceptions.value.some((parsedError) => parsedError.code === 1)) {
-        exceptions.value.push({
-          code: 1,
-          label: NO_DELIVERY_OPTIONS_AVAILABLE,
-          message: error instanceof Error ? error.message : String(error),
-        });
-      }
+      reportCapabilitiesError(error);
     } finally {
-      loading.value = false;
+      if (!controller.signal.aborted) {
+        loading.value = false;
+      }
     }
   };
 
@@ -128,5 +159,9 @@ export const useReactiveCapabilitiesRequest = (
     {flush: 'sync'},
   );
 
-  return {data, loading};
+  if (getCurrentScope()) {
+    onScopeDispose(() => abortController?.abort());
+  }
+
+  return {data, loading, isWeightedResponse};
 };

@@ -31,6 +31,7 @@ export const getDefaultDeliveryOptionsConfig = (): ResolvedDeliveryOptionsConfig
     [ConfigSetting.Currency]: 'EUR',
     [ConfigSetting.ApiBaseUrl]: 'https://api.myparcel.nl',
     [ConfigSetting.ProxyCapabilities]: '',
+    [ConfigSetting.PhysicalProperties]: null,
 
     [ConfigSetting.ShowPrices]: true,
     [ConfigSetting.ShowPriceSurcharge]: false,

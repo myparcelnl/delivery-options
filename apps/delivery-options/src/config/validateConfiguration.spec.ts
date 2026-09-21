@@ -68,6 +68,21 @@ describe('validateConfiguration', () => {
     {key: `${KEY_CONFIG}.${ConfigSetting.PopUpMap}`, value: true, valid: true},
     {key: `${KEY_CONFIG}.${ConfigSetting.PopUpMap}`, value: false, valid: true},
     {key: `${KEY_CONFIG}.${ConfigSetting.PopUpMap}`, value: 'invalid', valid: false},
+    ...[1, 20000, 30000].map((value) => ({
+      key: `${KEY_CONFIG}.${ConfigSetting.PhysicalProperties}`,
+      value: {weight: {value, unit: 'g'}},
+      valid: true,
+    })),
+    ...[0, -1, 1.5, '30000', Infinity, NaN, Number.MAX_SAFE_INTEGER + 1].map((value) => ({
+      key: `${KEY_CONFIG}.${ConfigSetting.PhysicalProperties}`,
+      value: {weight: {value, unit: 'g'}},
+      valid: false,
+    })),
+    ...[{}, [], '30000', {weight: null}, {weight: {value: 30, unit: 'kg'}}].map((value) => ({
+      key: `${KEY_CONFIG}.${ConfigSetting.PhysicalProperties}`,
+      value,
+      valid: false,
+    })),
   ] satisfies TestInput[])('validates $key with value $value to $valid', (data) => {
     const newConfig = set({...VALID_CONFIG}, data.key, data.value);
 
@@ -80,5 +95,26 @@ describe('validateConfiguration', () => {
     } else {
       expect(resolvedValue).toBe(VALUE_MISSING);
     }
+  });
+
+  it('preserves an explicit null and logs invalid weight input', () => {
+    expect(
+      validateConfiguration({...VALID_CONFIG, config: {physicalProperties: null}}).config.physicalProperties,
+    ).toBeNull();
+    const input = {...VALID_CONFIG, config: {physicalProperties: {weight: {value: 0, unit: 'g'}}}};
+    expect(validateConfiguration(input as InputDeliveryOptionsConfiguration).config).not.toHaveProperty(
+      'physicalProperties',
+    );
+    expect(console.error).toHaveBeenCalled();
+  });
+
+  it('forwards only supported weight properties', () => {
+    const input = {
+      ...VALID_CONFIG,
+      config: {physicalProperties: {weight: {value: 30000, unit: 'g'}, height: {value: 10, unit: 'cm'}}},
+    };
+    expect(validateConfiguration(input as InputDeliveryOptionsConfiguration).config.physicalProperties).toEqual({
+      weight: {value: 30000, unit: 'g'},
+    });
   });
 });
