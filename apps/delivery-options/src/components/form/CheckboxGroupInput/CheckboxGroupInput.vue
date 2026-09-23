@@ -41,8 +41,13 @@ const model = defineModel<string[]>();
 
 // Emit a value update whenever the "selected" state of the checkboxes changes.
 watch(
-  // Watch for changes only in the selected state of the checkboxes
-  () => props.options.map((option) => option.selected),
+  // Watch the values of the selected options, e.g. "signature,only_recipient". A string compares by value, an
+  // array by reference: a new array on every options update would run the callback again and loop.
+  () =>
+    props.options
+      .filter((option) => option.selected)
+      .map((option) => option.value)
+      .join(),
   // Update the model value whenever the selected state changes
   () => {
     model.value = props.options.filter((option) => option.selected).map((option) => option.value);
