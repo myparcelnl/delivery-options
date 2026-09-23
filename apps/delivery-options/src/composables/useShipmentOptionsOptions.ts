@@ -1,11 +1,11 @@
 import {computed, type ComputedRef, toValue} from 'vue';
 import {SHIPMENT_OPTION_MAP, toCamelCase, type SelectOption} from '@myparcel-dev/do-shared';
 import {getConfigPriceKey, getResolvedValue} from '../utils';
+import {useShipmentOptionRules} from './useShipmentOptionRules';
 import {useSelectedDeliveryMoment} from './useSelectedDeliveryMoment';
 import {useResolvedDeliveryOptions} from './useResolvedDeliveryOptions';
 import {useResolvedCarrier} from './useResolvedCarrier';
 import {useFeatures} from './useFeatures';
-import {useShipmentOptionRules} from './useShipmentOptionRules';
 
 const TRANSLATION_MAP: Record<string, string> = Object.freeze(
   Object.fromEntries(Object.values(SHIPMENT_OPTION_MAP).map((sdk) => [sdk, `${toCamelCase(sdk)}Title`])),
