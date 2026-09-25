@@ -3,3 +3,4 @@ export * from './mocks';
 export * from './types';
 export * from './useMockSdk';
 export * from './utils';
+export * from './weights';
