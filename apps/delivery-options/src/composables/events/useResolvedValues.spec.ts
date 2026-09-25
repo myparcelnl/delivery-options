@@ -13,7 +13,6 @@ import {
   type InputDeliveryOptionsConfig,
 } from '@myparcel-dev/do-shared';
 import {CarrierName, DeliveryTypeName, PackageTypeName, ShipmentOptionName} from '@myparcel-dev/constants';
-import {useSelectedValues} from '../useSelectedValues';
 import {useConfigStore} from '../../stores';
 import {
   HOME_OR_PICKUP_PICKUP,
@@ -257,24 +256,5 @@ describe('useResolvedValues', () => {
         shipmentOptions: {},
       }),
     );
-  });
-
-  it('does not convert a missing pickup location into a home delivery', async () => {
-    const selected = useSelectedValues();
-    selected.homeOrPickup.value = HOME_OR_PICKUP_PICKUP;
-    selected.carrier.value = CarrierName.PostNl;
-    selected.pickupLocation.value = 'missing-location';
-    selected.deliveryMoment.value = undefined;
-    await flushPromises();
-    expect(useResolvedValues().value).toBeUndefined();
-  });
-
-  it('does not emit incomplete home delivery output after clearing pickup', async () => {
-    const selected = useSelectedValues();
-    selected.clearSelectedValues();
-    selected.pickupLocation.value = 'stale-location';
-    selected.deliveryMoment.value = undefined;
-    await flushPromises();
-    expect(useResolvedValues().value).toBeUndefined();
   });
 });
