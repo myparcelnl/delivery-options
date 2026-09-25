@@ -1,6 +1,7 @@
 import {beforeEach, describe, expect, it, vi} from 'vitest';
 import {createPinia, setActivePinia} from 'pinia';
 import {fireEvent, render} from '@testing-library/vue';
+import {WEIGHT_TOO_HEAVY, WEIGHT_UNDERWEIGHT} from '@myparcel-dev/do-shared/testing';
 import {useSandboxStore} from '../stores';
 import SandboxWeightBox from './SandboxWeightBox.vue';
 
@@ -21,16 +22,16 @@ describe('SandboxWeightBox', () => {
     const view = render(SandboxWeightBox);
     const field = view.getByLabelText('Shipment weight (g)');
     expect(field.value).toBe('');
-    await fireEvent.change(field, {target: {value: '30000'}});
-    expect(store.config.physicalProperties).toEqual({weight: 30000});
-    await fireEvent.change(field, {target: {value: '15000'}});
-    expect(store.config.physicalProperties).toEqual({weight: 15000});
+    await fireEvent.change(field, {target: {value: String(WEIGHT_TOO_HEAVY)}});
+    expect(store.config.physicalProperties).toEqual({weight: WEIGHT_TOO_HEAVY});
+    await fireEvent.change(field, {target: {value: String(WEIGHT_UNDERWEIGHT)}});
+    expect(store.config.physicalProperties).toEqual({weight: WEIGHT_UNDERWEIGHT});
     await fireEvent.change(field, {target: {value: ''}});
     expect(store.config.physicalProperties).toBeNull();
   });
 
   it.each(['0', '-1', '1.5'])('does not send invalid input %s', async (value) => {
-    useSandboxStore().config.physicalProperties = {weight: 30000};
+    useSandboxStore().config.physicalProperties = {weight: WEIGHT_TOO_HEAVY};
     const view = render(SandboxWeightBox);
     await fireEvent.change(view.getByLabelText('Shipment weight (g)'), {target: {value}});
     expect(useSandboxStore().config.physicalProperties).toBeNull();

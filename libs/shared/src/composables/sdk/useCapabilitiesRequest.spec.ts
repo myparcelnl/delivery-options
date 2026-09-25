@@ -1,7 +1,7 @@
 import {ref, nextTick, effectScope} from 'vue';
 import {describe, it, expect, vi, beforeEach} from 'vitest';
 import {flushPromises} from '@vue/test-utils';
-import {mockCapabilitiesFetch} from '@myparcel-dev/do-shared/testing';
+import {mockCapabilitiesFetch, WEIGHT_TOO_HEAVY, WEIGHT_UNDERWEIGHT} from '@myparcel-dev/do-shared/testing';
 import {useApiExceptions} from '../useApiExceptions';
 import {type CapabilitiesRequest} from '../../types';
 import {useReactiveCapabilitiesRequest} from './useCapabilitiesRequest';
@@ -302,7 +302,7 @@ describe('useReactiveCapabilitiesRequest', () => {
     mockCapabilitiesFetch.mockResolvedValueOnce({ok: false, status} as Response);
     const {data, loading} = useReactiveCapabilitiesRequest(
       PROXY_URL,
-      ref({recipient: {countryCode: 'NL'}, physicalProperties: {weight: {value: 30000, unit: 'g'}}}),
+      ref({recipient: {countryCode: 'NL'}, physicalProperties: {weight: {value: WEIGHT_TOO_HEAVY, unit: 'g'}}}),
     );
     await flushPromises();
     expect(mockCapabilitiesFetch).toHaveBeenCalledOnce();
@@ -315,7 +315,7 @@ describe('useReactiveCapabilitiesRequest', () => {
     mockCapabilitiesFetch.mockRejectedValueOnce(new TypeError('Failed to fetch'));
     const {data} = useReactiveCapabilitiesRequest(
       PROXY_URL,
-      ref({recipient: {countryCode: 'NL'}, physicalProperties: {weight: {value: 30000, unit: 'g'}}}),
+      ref({recipient: {countryCode: 'NL'}, physicalProperties: {weight: {value: WEIGHT_TOO_HEAVY, unit: 'g'}}}),
     );
     await flushPromises();
     expect(mockCapabilitiesFetch).toHaveBeenCalledOnce();
@@ -327,7 +327,7 @@ describe('useReactiveCapabilitiesRequest', () => {
     mockCapabilitiesFetch.mockResolvedValueOnce({ok: true, json: () => Promise.resolve({results: []})} as Response);
     const {data} = useReactiveCapabilitiesRequest(
       PROXY_URL,
-      ref({recipient: {countryCode: 'NL'}, physicalProperties: {weight: {value: 40000, unit: 'g'}}}),
+      ref({recipient: {countryCode: 'NL'}, physicalProperties: {weight: {value: WEIGHT_TOO_HEAVY, unit: 'g'}}}),
     );
     await flushPromises();
     expect(mockCapabilitiesFetch).toHaveBeenCalledOnce();
@@ -345,10 +345,13 @@ describe('useReactiveCapabilitiesRequest', () => {
     );
     const request = ref<CapabilitiesRequest>({
       recipient: {countryCode: 'NL'},
-      physicalProperties: {weight: {value: 30000, unit: 'g'}},
+      physicalProperties: {weight: {value: WEIGHT_TOO_HEAVY, unit: 'g'}},
     });
     const {data, loading} = useReactiveCapabilitiesRequest(PROXY_URL, request);
-    request.value = {recipient: {countryCode: 'NL'}, physicalProperties: {weight: {value: 15000, unit: 'g'}}};
+    request.value = {
+      recipient: {countryCode: 'NL'},
+      physicalProperties: {weight: {value: WEIGHT_UNDERWEIGHT, unit: 'g'}},
+    };
     await flushPromises();
     const currentData = data.value;
     resolveOld({ok: true, json: () => Promise.resolve({results: []})} as Response);
@@ -395,7 +398,7 @@ describe('useReactiveCapabilitiesRequest', () => {
     );
     const request = ref<CapabilitiesRequest>({
       recipient: {countryCode: 'NL'},
-      physicalProperties: {weight: {value: 30000, unit: 'g'}},
+      physicalProperties: {weight: {value: WEIGHT_TOO_HEAVY, unit: 'g'}},
     });
     const {data} = useReactiveCapabilitiesRequest(PROXY_URL, request);
     request.value = {recipient: {countryCode: 'NL'}};
