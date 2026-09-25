@@ -54,6 +54,7 @@ export enum ConfigSetting {
   ExcludeParcelLockers = 'excludeParcelLockers',
   PopUpMap = 'popUpMap',
   IsBusiness = 'isBusiness',
+  PhysicalProperties = 'physicalProperties',
 }
 
 export enum PickupLocationsView {

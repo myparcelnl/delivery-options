@@ -1,5 +1,6 @@
 import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest';
 import {get, set} from 'radash';
+import {WEIGHT_MAX, WEIGHT_MIN, WEIGHT_TOO_HEAVY} from '@myparcel-dev/do-shared/testing';
 import {
   AddressField,
   CarrierSetting,
@@ -68,6 +69,23 @@ describe('validateConfiguration', () => {
     {key: `${KEY_CONFIG}.${ConfigSetting.PopUpMap}`, value: true, valid: true},
     {key: `${KEY_CONFIG}.${ConfigSetting.PopUpMap}`, value: false, valid: true},
     {key: `${KEY_CONFIG}.${ConfigSetting.PopUpMap}`, value: 'invalid', valid: false},
+    ...[WEIGHT_MIN, WEIGHT_MAX, WEIGHT_TOO_HEAVY].map((weight) => ({
+      key: `${KEY_CONFIG}.${ConfigSetting.PhysicalProperties}`,
+      value: {weight},
+      valid: true,
+    })),
+    ...[0, -1, 1.5, String(WEIGHT_TOO_HEAVY), Infinity, NaN, Number.MAX_SAFE_INTEGER + 1].map((weight) => ({
+      key: `${KEY_CONFIG}.${ConfigSetting.PhysicalProperties}`,
+      value: {weight},
+      valid: false,
+    })),
+    ...[{}, [], String(WEIGHT_TOO_HEAVY), {weight: null}, {weight: {value: WEIGHT_TOO_HEAVY, unit: 'g'}}].map(
+      (value) => ({
+        key: `${KEY_CONFIG}.${ConfigSetting.PhysicalProperties}`,
+        value,
+        valid: false,
+      }),
+    ),
   ] satisfies TestInput[])('validates $key with value $value to $valid', (data) => {
     const newConfig = set({...VALID_CONFIG}, data.key, data.value);
 
@@ -80,5 +98,26 @@ describe('validateConfiguration', () => {
     } else {
       expect(resolvedValue).toBe(VALUE_MISSING);
     }
+  });
+
+  it('preserves an explicit null and logs invalid weight input', () => {
+    expect(
+      validateConfiguration({...VALID_CONFIG, config: {physicalProperties: null}}).config.physicalProperties,
+    ).toBeNull();
+    const input = {...VALID_CONFIG, config: {physicalProperties: {weight: 0}}};
+    expect(validateConfiguration(input as InputDeliveryOptionsConfiguration).config).not.toHaveProperty(
+      'physicalProperties',
+    );
+    expect(console.error).toHaveBeenCalled();
+  });
+
+  it('forwards only supported weight properties', () => {
+    const input = {
+      ...VALID_CONFIG,
+      config: {physicalProperties: {weight: WEIGHT_TOO_HEAVY, height: 10}},
+    };
+    expect(validateConfiguration(input as InputDeliveryOptionsConfiguration).config.physicalProperties).toEqual({
+      weight: WEIGHT_TOO_HEAVY,
+    });
   });
 });

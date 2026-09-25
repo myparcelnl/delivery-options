@@ -14,7 +14,10 @@ export const useSandboxCapabilities = useMemoize(() => {
   const request = computed(() => {
     const capPackageType = store.config.packageType ? mapPackageTypeToCapability(store.config.packageType) : undefined;
 
+    const {physicalProperties} = store.config;
+
     return {
+      ...(physicalProperties ? {physicalProperties: {weight: {value: physicalProperties.weight, unit: 'g'}}} : {}),
       recipient: {
         countryCode: store.address.cc,
         // Mirrors the widget: forward the flag when it is set, omit it entirely when it is not, so
