@@ -15,12 +15,11 @@ import {
 } from '@myparcel-dev/do-shared';
 import {NETHERLANDS} from '@myparcel-dev/constants/countries';
 import {DeliveryTypeName, ShipmentOptionName} from '@myparcel-dev/constants';
-import {useSharedCapabilities} from '../useSharedCapabilities';
 import {useSelectedValues} from '../useSelectedValues';
 import {useSelectedPickupLocation} from '../useSelectedPickupLocation';
 import {useResolvedDeliveryOptions} from '../useResolvedDeliveryOptions';
 import {getResolvedCarrier, getResolvedValue, parseJson} from '../../utils';
-import {type SelectedDeliveryMomentDelivery, type ResolvedPickupLocation} from '../../types';
+import {type SelectedDeliveryMomentDelivery} from '../../types';
 import {useAddressStore, useConfigStore} from '../../stores';
 import {FIELD_DELIVERY_MOMENT, FIELD_SHIPMENT_OPTIONS, HOME_OR_PICKUP_PICKUP} from '../../data';
 
@@ -106,28 +105,8 @@ const createResolvedShipmentOptions = (
   }, {} as DeliveryOutput['shipmentOptions']);
 };
 
-const createPickupOutput = (selectedLocation: ResolvedPickupLocation | undefined): PickupOutput | undefined => {
-  if (!isDef(selectedLocation) || !toValue(getResolvedCarrier(selectedLocation.carrier).hasPickup)) {
-    return undefined;
-  }
-
-  const {carrier, openingHours, ...location} = selectedLocation;
-  const {state: config} = useConfigStore();
-
-  return {
-    carrier,
-    date: undefined,
-    deliveryType: DeliveryTypeName.Pickup,
-    isPickup: true,
-    packageType: config.packageType,
-    pickupLocation: location,
-    shipmentOptions: {},
-  };
-};
-
 export const useResolvedValues = (): ComputedRef<PickupOutput | DeliveryOutput | undefined> => {
   const selectedValues = useSelectedValues();
-  const capabilities = useSharedCapabilities();
   const deliveryOptions = useResolvedDeliveryOptions();
   const pickupLocation = useSelectedPickupLocation();
   const {state: address} = useAddressStore();
@@ -135,20 +114,27 @@ export const useResolvedValues = (): ComputedRef<PickupOutput | DeliveryOutput |
   return computed(() => {
     if (
       deliveryOptions.loading.value ||
-      capabilities.loading.value ||
       (!selectedValues.pickupLocation.value && !selectedValues.deliveryMoment.value)
     ) {
       return undefined;
     }
 
-    if (selectedValues.homeOrPickup.value === HOME_OR_PICKUP_PICKUP) {
-      return createPickupOutput(pickupLocation.location.value);
+    if (selectedValues.homeOrPickup.value === HOME_OR_PICKUP_PICKUP && isDef(pickupLocation.location.value)) {
+      const {carrier, openingHours, ...location} = pickupLocation.location.value;
+      const {state: config} = useConfigStore();
+
+      return {
+        carrier,
+        date: undefined,
+        deliveryType: DeliveryTypeName.Pickup,
+        isPickup: true,
+        packageType: config.packageType,
+        pickupLocation: location,
+        shipmentOptions: {},
+      } satisfies PickupOutput;
     }
 
     const parsedMoment = parseJson<SelectedDeliveryMomentDelivery>(selectedValues[FIELD_DELIVERY_MOMENT].value);
-
-    if (!parsedMoment.carrier || !parsedMoment.packageType) return undefined;
-
     const shipmentOptions = selectedValues[FIELD_SHIPMENT_OPTIONS].value ?? [];
 
     const {deliveryType, sameDayAsShipmentOption} = resolveOutputDeliveryType(parsedMoment);
