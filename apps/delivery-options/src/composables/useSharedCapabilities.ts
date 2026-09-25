@@ -52,7 +52,7 @@ export const useSharedCapabilities = (): UseCapabilities => {
         const {physicalProperties} = config;
 
         if (physicalProperties && validatePhysicalProperties().validate(physicalProperties)) {
-          request.physicalProperties = {weight: {...physicalProperties.weight}};
+          request.physicalProperties = {weight: {value: physicalProperties.weight, unit: 'g'}};
         }
 
         return request;

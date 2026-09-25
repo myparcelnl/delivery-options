@@ -18,10 +18,10 @@ import {Box} from './Box';
 
 const store = useSandboxStore();
 const weight = computed({
-  get: () => store.config.physicalProperties?.weight.value,
+  get: () => store.config.physicalProperties?.weight,
   set: (value: number | undefined) => {
     store.config.physicalProperties =
-      Number.isSafeInteger(Number(value)) && Number(value) > 0 ? {weight: {value: Number(value), unit: 'g'}} : null;
+      Number.isSafeInteger(Number(value)) && Number(value) > 0 ? {weight: Number(value)} : null;
   },
 });
 </script>

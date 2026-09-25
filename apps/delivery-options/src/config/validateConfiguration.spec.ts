@@ -68,17 +68,17 @@ describe('validateConfiguration', () => {
     {key: `${KEY_CONFIG}.${ConfigSetting.PopUpMap}`, value: true, valid: true},
     {key: `${KEY_CONFIG}.${ConfigSetting.PopUpMap}`, value: false, valid: true},
     {key: `${KEY_CONFIG}.${ConfigSetting.PopUpMap}`, value: 'invalid', valid: false},
-    ...[1, 20000, 30000].map((value) => ({
+    ...[1, 20000, 30000].map((weight) => ({
       key: `${KEY_CONFIG}.${ConfigSetting.PhysicalProperties}`,
-      value: {weight: {value, unit: 'g'}},
+      value: {weight},
       valid: true,
     })),
-    ...[0, -1, 1.5, '30000', Infinity, NaN, Number.MAX_SAFE_INTEGER + 1].map((value) => ({
+    ...[0, -1, 1.5, '30000', Infinity, NaN, Number.MAX_SAFE_INTEGER + 1].map((weight) => ({
       key: `${KEY_CONFIG}.${ConfigSetting.PhysicalProperties}`,
-      value: {weight: {value, unit: 'g'}},
+      value: {weight},
       valid: false,
     })),
-    ...[{}, [], '30000', {weight: null}, {weight: {value: 30, unit: 'kg'}}].map((value) => ({
+    ...[{}, [], '30000', {weight: null}, {weight: {value: 30000, unit: 'g'}}].map((value) => ({
       key: `${KEY_CONFIG}.${ConfigSetting.PhysicalProperties}`,
       value,
       valid: false,
@@ -101,7 +101,7 @@ describe('validateConfiguration', () => {
     expect(
       validateConfiguration({...VALID_CONFIG, config: {physicalProperties: null}}).config.physicalProperties,
     ).toBeNull();
-    const input = {...VALID_CONFIG, config: {physicalProperties: {weight: {value: 0, unit: 'g'}}}};
+    const input = {...VALID_CONFIG, config: {physicalProperties: {weight: 0}}};
     expect(validateConfiguration(input as InputDeliveryOptionsConfiguration).config).not.toHaveProperty(
       'physicalProperties',
     );
@@ -111,10 +111,10 @@ describe('validateConfiguration', () => {
   it('forwards only supported weight properties', () => {
     const input = {
       ...VALID_CONFIG,
-      config: {physicalProperties: {weight: {value: 30000, unit: 'g'}, height: {value: 10, unit: 'cm'}}},
+      config: {physicalProperties: {weight: 30000, height: 10}},
     };
     expect(validateConfiguration(input as InputDeliveryOptionsConfiguration).config.physicalProperties).toEqual({
-      weight: {value: 30000, unit: 'g'},
+      weight: 30000,
     });
   });
 });
