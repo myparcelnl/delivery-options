@@ -56,7 +56,7 @@
 </template>
 
 <script lang="ts" setup>
-import {computed, toValue} from 'vue';
+import {computed, toValue, watch} from 'vue';
 import {
   COMPACT_BACK_TO_OVERVIEW,
   DELIVERY_TITLE,
@@ -124,6 +124,31 @@ const options = computed(() => {
 
   return optionList;
 });
+
+/**
+ * Clear the pickup selection when no carrier offers pickup any more, for example
+ * because a heavier cart weight removed pickup from the capabilities response.
+ * Without this, the old pickup location stays selected and the widget can emit it.
+ *
+ * Nothing changes while the capabilities are loading, when home delivery is
+ * selected, or when at least one carrier still offers pickup. In that last case,
+ * PickupLocations selects a location of a carrier that still offers pickup.
+ */
+watch(
+  [capabilitiesLoading, options, homeOrPickup],
+  ([loading, availableOptions, selectedType]) => {
+    if (
+      loading ||
+      selectedType !== HOME_OR_PICKUP_PICKUP ||
+      availableOptions.some((option) => option.value === HOME_OR_PICKUP_PICKUP)
+    )
+      return;
+
+    clearSelectedValues();
+    deliveryDate.value = undefined;
+  },
+  {immediate: true},
+);
 
 const noOptionsAvailable = computed(() => {
   return !capabilitiesLoading.value && options.value.length === 0;
