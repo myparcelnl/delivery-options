@@ -112,7 +112,7 @@ describe('useSharedCapabilities', () => {
         ...config,
         config: {
           ...config.config,
-          ...(value === undefined ? {} : {physicalProperties: value === null ? null : {weight: {value, unit: 'g'}}}),
+          ...(value === undefined ? {} : {physicalProperties: value === null ? null : {weight: value}}),
         },
       });
     updateWeight(undefined);
@@ -152,7 +152,7 @@ describe('useSharedCapabilities', () => {
   it('keeps pickup disabled by the merchant, including for a real one-gram shipment', async () => {
     mockDeliveryOptionsConfig({
       config: {
-        physicalProperties: {weight: {value: 1, unit: 'g'}},
+        physicalProperties: {weight: 1},
         carrierSettings: {dpd: {allowPickupLocations: false, allowStandardDelivery: true}},
       },
     });
@@ -173,10 +173,10 @@ describe('useSharedCapabilities', () => {
         carrierSettings: {dpd: {allowPickupLocations: true}},
       },
     };
-    setConfiguration({...config, config: {...config.config, physicalProperties: {weight: {value: 30000, unit: 'g'}}}});
+    setConfiguration({...config, config: {...config.config, physicalProperties: {weight: 30000}}});
     useSharedCapabilities();
     await flushPromises();
-    setConfiguration({...config, config: {...config.config, physicalProperties: {weight: {value: 0, unit: 'g'}}}});
+    setConfiguration({...config, config: {...config.config, physicalProperties: {weight: 0}}});
     await flushPromises();
     expect(useConfigStore().state.physicalProperties).toBeNull();
     expect(JSON.parse(String(mockCapabilitiesFetch.mock.lastCall?.[1]?.body))).not.toHaveProperty('physicalProperties');

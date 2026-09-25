@@ -51,7 +51,7 @@ describe('useSandboxCapabilities', () => {
     const store = useSandboxStore();
     const [, request] = vi.mocked(useReactiveCapabilities).mock.calls[0] as [unknown, ComputedRef<CapabilitiesRequest>];
     const legacy = request.value;
-    store.config.physicalProperties = {weight: {value: 30000, unit: 'g'}};
+    store.config.physicalProperties = {weight: 30000};
     expect(request.value).toEqual({...legacy, physicalProperties: {weight: {value: 30000, unit: 'g'}}});
     store.config.physicalProperties = null;
     expect(request.value).toEqual(legacy);

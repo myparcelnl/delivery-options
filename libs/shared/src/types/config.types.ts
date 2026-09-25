@@ -89,7 +89,8 @@ export type CarrierSettingsObject = Partial<Record<CarrierIdentifier, CarrierSet
 
 /** Complete shipment weight supplied by the integrating platform, including packaging. */
 export interface DeliveryOptionsPhysicalProperties {
-  weight: {value: number; unit: 'g'};
+  /** Weight in grams. */
+  weight: number;
 }
 
 export interface DeliveryOptionsConfig extends Partial<Record<ConfigSetting, unknown>>, CarrierSettings {

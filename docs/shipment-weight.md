@@ -6,13 +6,13 @@ An integration can provide the complete shipment weight in grams. Delivery Optio
 {
   "config": {
     "physicalProperties": {
-      "weight": {"value": 30000, "unit": "g"}
+      "weight": 30000
     }
   }
 }
 ```
 
-`config.physicalProperties` is optional and defaults to `null`. Its supported value is an object with `weight.value` as a positive safe integer and `weight.unit` as `"g"`. A weight of 1 gram is valid. No other physical properties are forwarded in this version.
+`config.physicalProperties` is optional and defaults to `null`. Its supported value is an object with `weight` as a positive safe integer in grams. A weight of 1 gram is valid. The widget adds the unit when it sends the weight to the capabilities API. No other physical properties are forwarded in this version.
 
 Provide the total weight, including product quantities and packaging, only when it is fully known. An integration that has missing product weights must omit `physicalProperties` or set it to `null`. Do not replace an unknown weight with 1 gram. Invalid values are logged and ignored; the request then has the same body as an integration that does not supply a weight.
 

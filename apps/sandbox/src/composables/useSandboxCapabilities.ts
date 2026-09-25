@@ -18,7 +18,7 @@ export const useSandboxCapabilities = useMemoize(() => {
 
     return {
       ...(physicalProperties && validatePhysicalProperties().validate(physicalProperties)
-        ? {physicalProperties: {weight: {...physicalProperties.weight}}}
+        ? {physicalProperties: {weight: {value: physicalProperties.weight, unit: 'g'}}}
         : {}),
       recipient: {
         countryCode: store.address.cc,
