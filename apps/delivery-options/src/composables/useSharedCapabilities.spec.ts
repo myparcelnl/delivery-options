@@ -1,6 +1,12 @@
 import {describe, it, expect, beforeEach, vi} from 'vitest';
 import {flushPromises} from '@vue/test-utils';
-import {mockCapabilitiesFetch} from '@myparcel-dev/do-shared/testing';
+import {
+  mockCapabilitiesFetch,
+  WEIGHT_MAX,
+  WEIGHT_MIN,
+  WEIGHT_TOO_HEAVY,
+  WEIGHT_UNDERWEIGHT,
+} from '@myparcel-dev/do-shared/testing';
 import {
   AddressField,
   ConfigSetting,
@@ -91,7 +97,7 @@ describe('useSharedCapabilities', () => {
       const request = JSON.parse(String(options?.body)) as CapabilitiesRequest;
       const value = request.physicalProperties?.weight?.value;
       const deliveryTypes =
-        value !== undefined && value > 20000 ? ['STANDARD_DELIVERY'] : ['STANDARD_DELIVERY', 'PICKUP_DELIVERY'];
+        value !== undefined && value > WEIGHT_MAX ? ['STANDARD_DELIVERY'] : ['STANDARD_DELIVERY', 'PICKUP_DELIVERY'];
       return Promise.resolve({
         ok: true,
         json: () =>
@@ -122,10 +128,10 @@ describe('useSharedCapabilities', () => {
     expect(legacyBody).not.toHaveProperty('physicalProperties');
     expect(carrier.hasPickup.value).toBe(true);
 
-    for (const value of [20000, 20001, 30000, 15000]) {
+    for (const value of [WEIGHT_MAX, WEIGHT_TOO_HEAVY, WEIGHT_UNDERWEIGHT]) {
       updateWeight(value);
       await flushPromises();
-      expect(carrier.hasPickup.value).toBe(value <= 20000);
+      expect(carrier.hasPickup.value).toBe(value <= WEIGHT_MAX);
       expect(carrier.hasDelivery.value).toBe(true);
       expect(JSON.parse(String(mockCapabilitiesFetch.mock.lastCall?.[1]?.body))).toEqual({
         ...legacyBody,
@@ -134,13 +140,13 @@ describe('useSharedCapabilities', () => {
       expect(useConfigStore().state.carrierSettings.dpd?.allowPickupLocations).toBe(true);
     }
 
-    updateWeight(15000);
+    updateWeight(WEIGHT_UNDERWEIGHT);
     await flushPromises();
-    expect(mockCapabilitiesFetch).toHaveBeenCalledTimes(5);
+    expect(mockCapabilitiesFetch).toHaveBeenCalledTimes(4);
     updateWeight(null);
     await flushPromises();
     expect(JSON.parse(String(mockCapabilitiesFetch.mock.lastCall?.[1]?.body))).toEqual(legacyBody);
-    updateWeight(30000);
+    updateWeight(WEIGHT_TOO_HEAVY);
     await flushPromises();
     updateWeight(undefined);
     await flushPromises();
@@ -152,7 +158,7 @@ describe('useSharedCapabilities', () => {
   it('keeps pickup disabled by the merchant, including for a real one-gram shipment', async () => {
     mockDeliveryOptionsConfig({
       config: {
-        physicalProperties: {weight: 1},
+        physicalProperties: {weight: WEIGHT_MIN},
         carrierSettings: {dpd: {allowPickupLocations: false, allowStandardDelivery: true}},
       },
     });
@@ -161,7 +167,7 @@ describe('useSharedCapabilities', () => {
     expect(carrier.hasPickup.value).toBe(false);
     expect(carrier.hasDelivery.value).toBe(true);
     expect(JSON.parse(String(mockCapabilitiesFetch.mock.lastCall?.[1]?.body)).physicalProperties).toEqual({
-      weight: {value: 1, unit: 'g'},
+      weight: {value: WEIGHT_MIN, unit: 'g'},
     });
   });
 
@@ -173,7 +179,7 @@ describe('useSharedCapabilities', () => {
         carrierSettings: {dpd: {allowPickupLocations: true}},
       },
     };
-    setConfiguration({...config, config: {...config.config, physicalProperties: {weight: 30000}}});
+    setConfiguration({...config, config: {...config.config, physicalProperties: {weight: WEIGHT_TOO_HEAVY}}});
     useSharedCapabilities();
     await flushPromises();
     setConfiguration({...config, config: {...config.config, physicalProperties: {weight: 0}}});
