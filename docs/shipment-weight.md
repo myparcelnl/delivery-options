@@ -22,8 +22,6 @@ Send the new configuration through the existing configuration update API or even
 
 To clear a previous weight, omit `physicalProperties` from the new configuration or set it to `null`. A configuration update uses the default `null`, so the previous weight is not retained. An address-only update does not replace the configuration.
 
-While an updated capabilities request is loading, the widget does not emit a stale selection. If no pickup option remains available, the pickup location and selection are cleared. If another carrier still offers pickup, the existing pickup flow can select one of its locations. A valid selection is required before output is emitted. Returning to a lighter or unknown weight can make pickup available again; it does not restore the old selection automatically.
-
 Capabilities failures use the existing widget error handling. There is no weight-specific retry without weight. A valid response with no options remains an empty result.
 
 When an integration supplies a selected carrier contract and a weighted response includes contract IDs, the widget uses that contract's capabilities. It does not borrow options from another explicit contract. Legacy requests and older proxies without contract data retain their existing lookup behavior. Verify actual API responses for shops with multiple contracts before release; mocked tests cannot establish the live contract-selection policy.
