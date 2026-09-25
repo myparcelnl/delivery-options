@@ -56,10 +56,8 @@ export const useActiveCarriers = useMemoize((): ComputedRef<UseResolvedCarrier[]
 
     return sortedCarrierSettings
       .filter(([identifier]) => {
-        const capability = capabilities.getCarrierCapability(
-          identifier,
-          config.carrierSettings[identifier]?.contractId,
-        );
+        const normalized = resolveCarrierName(identifier);
+        const capability = capabilities.getCarrierCapability(normalized);
 
         if (!capability) {
           return false;
