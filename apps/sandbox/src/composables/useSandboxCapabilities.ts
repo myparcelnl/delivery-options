@@ -1,6 +1,6 @@
 import {computed, watch} from 'vue';
 import {useMemoize} from '@vueuse/core';
-import {mapPackageTypeToCapability, useReactiveCapabilities, validatePhysicalProperties} from '@myparcel-dev/do-shared';
+import {mapPackageTypeToCapability, useReactiveCapabilities} from '@myparcel-dev/do-shared';
 import {useSandboxStore} from '../stores';
 import {getProxyCapabilitiesUrl} from '../constants';
 
@@ -17,9 +17,7 @@ export const useSandboxCapabilities = useMemoize(() => {
     const {physicalProperties} = store.config;
 
     return {
-      ...(physicalProperties && validatePhysicalProperties().validate(physicalProperties)
-        ? {physicalProperties: {weight: {value: physicalProperties.weight, unit: 'g'}}}
-        : {}),
+      ...(physicalProperties ? {physicalProperties: {weight: {value: physicalProperties.weight, unit: 'g'}}} : {}),
       recipient: {
         countryCode: store.address.cc,
         // Mirrors the widget: forward the flag when it is set, omit it entirely when it is not, so
