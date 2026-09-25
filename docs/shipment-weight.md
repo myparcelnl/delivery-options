@@ -22,6 +22,8 @@ Send the new configuration through the existing configuration update API or even
 
 To clear a previous weight, omit `physicalProperties` from the new configuration or set it to `null`. A configuration update uses the default `null`, so the previous weight is not retained. An address-only update does not replace the configuration.
 
+While an updated capabilities request is loading, the widget does not emit a selection. When no carrier offers pickup any more, the widget clears the selected pickup location. When another carrier still offers pickup, the pickup list selects one of its locations. The widget emits output only for a complete selection. When a lighter or unknown weight makes pickup available again, the old pickup location is not selected again automatically.
+
 Capabilities failures use the existing widget error handling. There is no weight-specific retry without weight. A valid response with no options remains an empty result.
 
 ## Sandbox
