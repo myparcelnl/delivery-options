@@ -63,7 +63,6 @@ const isAbortError = (error: unknown): boolean => error instanceof DOMException 
 export interface ReactiveCapabilitiesRequest {
   data: Ref<CapabilitiesResponse>;
   loading: Ref<boolean>;
-  isWeightedResponse: ComputedRef<boolean>;
 }
 
 /**
@@ -82,16 +81,7 @@ export const useReactiveCapabilitiesRequest = (
   requestRef: Ref<CapabilitiesRequest> | ComputedRef<CapabilitiesRequest>,
   apiKey?: MaybeRefOrGetter<string | undefined>,
 ): ReactiveCapabilitiesRequest => {
-  // Keep the response and its request scope together. Synchronous watchers must
-  // never apply weighted contract rules to the previous, unweighted response.
-  const response = ref({data: EMPTY_RESPONSE, weighted: false});
-  const data = computed({
-    get: () => response.value.data,
-    set: (value: CapabilitiesResponse) => {
-      response.value = {...response.value, data: value};
-    },
-  });
-  const isWeightedResponse = computed(() => response.value.weighted);
+  const data = ref<CapabilitiesResponse>(EMPTY_RESPONSE);
   const loading = ref(true);
   let lastResponseJson = '';
   let abortController: AbortController | null = null;
@@ -120,20 +110,19 @@ export const useReactiveCapabilitiesRequest = (
       // Abort can occur after fetch resolves, while its response body is still being read.
       if (controller.signal.aborted) return;
 
-      const weighted = Boolean(request.physicalProperties?.weight);
       const resultJson = JSON.stringify(result);
 
       // Only update when the response actually changed, to avoid triggering downstream watchers
-      if (resultJson !== lastResponseJson || weighted !== response.value.weighted) {
+      if (resultJson !== lastResponseJson) {
         lastResponseJson = resultJson;
-        response.value = {data: result, weighted};
+        data.value = result;
       }
     } catch (error) {
       if (controller.signal.aborted || isAbortError(error)) {
         return;
       }
 
-      response.value = {data: EMPTY_RESPONSE, weighted: false};
+      data.value = EMPTY_RESPONSE;
       lastResponseJson = '';
       reportCapabilitiesError(error);
     } finally {
@@ -163,5 +152,5 @@ export const useReactiveCapabilitiesRequest = (
     onScopeDispose(() => abortController?.abort());
   }
 
-  return {data, loading, isWeightedResponse};
+  return {data, loading};
 };

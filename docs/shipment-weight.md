@@ -24,8 +24,6 @@ To clear a previous weight, omit `physicalProperties` from the new configuration
 
 Capabilities failures use the existing widget error handling. There is no weight-specific retry without weight. A valid response with no options remains an empty result.
 
-When an integration supplies a selected carrier contract and a weighted response includes contract IDs, the widget uses that contract's capabilities. It does not borrow options from another explicit contract. Legacy requests and older proxies without contract data retain their existing lookup behavior. Verify actual API responses for shops with multiple contracts before release; mocked tests cannot establish the live contract-selection policy.
-
 ## Sandbox
 
 The sandbox contains a **Shipment weight (g)** field. Enter a positive integer to send a weight, and clear the field to test unknown weight. Inspect the capabilities request and the displayed options while changing weights. The sandbox does not enforce carrier-specific limits locally.

@@ -56,8 +56,6 @@ export interface CarrierSettings extends Partial<Record<CarrierSettingsKey, unkn
   allowSignature?: boolean;
   allowStandardDelivery?: boolean | FilterableOption;
   allowPriorityDelivery?: boolean;
-  /** Contract selected by the integrating platform. */
-  contractId?: number | null;
   cutoffTime?: TimestampString;
   cutoffTimeSameDay?: TimestampString;
   deliveryDaysWindow?: number;
