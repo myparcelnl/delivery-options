@@ -5,7 +5,7 @@ import {useReactiveCapabilitiesRequest} from './sdk';
 
 export interface UseCapabilities {
   capabilities: Ref<CapabilitiesResponse>;
-  getCarrierCapability(carrierIdentifier: string, contractId?: number | null): CarrierCapability | undefined;
+  getCarrierCapability(carrierIdentifier: string): CarrierCapability | undefined;
   availableCarrierNames: ComputedRef<string[]>;
   loading: ComputedRef<boolean>;
 }
@@ -24,28 +24,12 @@ export const useReactiveCapabilities = (
   requestRef: Ref<CapabilitiesRequest> | ComputedRef<CapabilitiesRequest>,
   apiKey?: MaybeRefOrGetter<string | undefined>,
 ): UseCapabilities => {
-  const {data, loading, isWeightedResponse} = useReactiveCapabilitiesRequest(proxyCapabilities, requestRef, apiKey);
+  const {data, loading} = useReactiveCapabilitiesRequest(proxyCapabilities, requestRef, apiKey);
 
-  const getCarrierCapability = (
-    carrierIdentifier: string,
-    contractId?: number | null,
-  ): CarrierCapability | undefined => {
-    const [carrierName, legacyContractId] = carrierIdentifier.split(':');
-    const normalized = normalizeCarrierName(carrierName);
-    const matches = data.value.results.filter((cap) => normalizeCarrierName(cap.carrier) === normalized);
-    const selectedContractId = contractId ?? (legacyContractId ? Number(legacyContractId) : undefined);
+  const getCarrierCapability = (carrierIdentifier: string): CarrierCapability | undefined => {
+    const normalized = normalizeCarrierName(carrierIdentifier);
 
-    if (
-      isWeightedResponse.value &&
-      selectedContractId !== undefined &&
-      matches.some((cap) => cap.contract?.id !== undefined)
-    ) {
-      return matches.find((cap) => cap.contract?.id === selectedContractId);
-    }
-
-    // Keep legacy requests and older proxies unchanged. A weighted response must
-    // not borrow options from a different contract when the selected one is absent.
-    return matches[0];
+    return data.value.results.find((cap) => normalizeCarrierName(cap.carrier) === normalized);
   };
 
   const availableCarrierNames = computed(() => {
