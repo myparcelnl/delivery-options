@@ -62,17 +62,6 @@ const additionalOptions: ConfigOption[] = [
     validators: [validatePhysicalProperties()],
   },
   {
-    key: 'contractId',
-    perCarrier: true,
-    validators: [
-      {
-        validate: (value: unknown): value is number | null =>
-          value === null || (Number.isSafeInteger(value) && Number(value) > 0),
-        error: 'Expected a positive contract id or null',
-      },
-    ],
-  },
-  {
     key: ConfigSetting.Platform,
     perCarrier: false,
     validators: [validateIsString()],

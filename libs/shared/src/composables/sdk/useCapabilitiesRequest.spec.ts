@@ -325,14 +325,13 @@ describe('useReactiveCapabilitiesRequest', () => {
 
   it('keeps a valid empty weighted response without retry or error', async () => {
     mockCapabilitiesFetch.mockResolvedValueOnce({ok: true, json: () => Promise.resolve({results: []})} as Response);
-    const {data, isWeightedResponse} = useReactiveCapabilitiesRequest(
+    const {data} = useReactiveCapabilitiesRequest(
       PROXY_URL,
       ref({recipient: {countryCode: 'NL'}, physicalProperties: {weight: {value: 40000, unit: 'g'}}}),
     );
     await flushPromises();
     expect(mockCapabilitiesFetch).toHaveBeenCalledOnce();
     expect(data.value.results).toEqual([]);
-    expect(isWeightedResponse.value).toBe(true);
     expect(useApiExceptions().exceptions.value).toEqual([]);
   });
 
@@ -398,14 +397,13 @@ describe('useReactiveCapabilitiesRequest', () => {
       recipient: {countryCode: 'NL'},
       physicalProperties: {weight: {value: 30000, unit: 'g'}},
     });
-    const {data, isWeightedResponse} = useReactiveCapabilitiesRequest(PROXY_URL, request);
+    const {data} = useReactiveCapabilitiesRequest(PROXY_URL, request);
     request.value = {recipient: {countryCode: 'NL'}};
     await flushPromises();
     rejectOld(new TypeError('Failed to fetch'));
     await flushPromises();
     expect(mockCapabilitiesFetch).toHaveBeenCalledTimes(2);
     expect(data.value.results.length).toBeGreaterThan(0);
-    expect(isWeightedResponse.value).toBe(false);
     expect(useApiExceptions().exceptions.value).toEqual([]);
   });
 

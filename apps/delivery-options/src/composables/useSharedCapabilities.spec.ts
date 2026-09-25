@@ -7,7 +7,6 @@ import {
   KEY_ADDRESS,
   KEY_CONFIG,
   type CapabilitiesRequest,
-  type CarrierCapability,
   type InputDeliveryOptionsConfiguration,
 } from '@myparcel-dev/do-shared';
 import {CarrierName} from '@myparcel-dev/constants';
@@ -16,7 +15,6 @@ import {useAddressStore, useConfigStore} from '../stores';
 import {setConfiguration} from '../config';
 import {mockDeliveryOptionsConfig} from '../__tests__';
 import {resetSharedCapabilities, useSharedCapabilities} from './useSharedCapabilities';
-import {useActiveCarriers} from './useActiveCarriers';
 
 interface CapabilitiesRequestBody {
   recipient: {
@@ -98,7 +96,7 @@ describe('useSharedCapabilities', () => {
         ok: true,
         json: () =>
           Promise.resolve({
-            results: [{carrier: 'DPD', contract: {id: 12}, packageTypes: ['PACKAGE'], deliveryTypes, options: {}}],
+            results: [{carrier: 'DPD', packageTypes: ['PACKAGE'], deliveryTypes, options: {}}],
           }),
       } as Response);
     });
@@ -106,7 +104,7 @@ describe('useSharedCapabilities', () => {
       address: {cc: countryCode},
       config: {
         proxyCapabilities: 'https://example.test/capabilities',
-        carrierSettings: {dpd: {contractId: 12, allowPickupLocations: true, allowStandardDelivery: true}},
+        carrierSettings: {dpd: {allowPickupLocations: true, allowStandardDelivery: true}},
       },
     };
     const updateWeight = (value: number | null | undefined) =>
@@ -165,36 +163,6 @@ describe('useSharedCapabilities', () => {
     expect(JSON.parse(String(mockCapabilitiesFetch.mock.lastCall?.[1]?.body)).physicalProperties).toEqual({
       weight: {value: 1, unit: 'g'},
     });
-  });
-
-  it('does not borrow another contract when the selected contract is reordered or absent', async () => {
-    const capability = (id: number, pickup: boolean): CarrierCapability => ({
-      carrier: 'DPD',
-      contract: {id},
-      packageTypes: ['PACKAGE'],
-      deliveryTypes: pickup ? ['STANDARD_DELIVERY', 'PICKUP_DELIVERY'] : ['STANDARD_DELIVERY'],
-      options: {},
-    });
-    const respond = (results: CarrierCapability[]) =>
-      mockCapabilitiesFetch.mockResolvedValueOnce({ok: true, json: () => Promise.resolve({results})} as Response);
-    respond([capability(99, true), capability(12, false)]);
-    mockDeliveryOptionsConfig({
-      config: {
-        physicalProperties: {weight: {value: 30000, unit: 'g'}},
-        carrierSettings: {dpd: {contractId: 12, allowPickupLocations: true, allowStandardDelivery: true}},
-      },
-    });
-    const carrier = getResolvedCarrier(CarrierName.Dpd);
-    const active = useActiveCarriers();
-    await flushPromises();
-    expect(carrier.hasPickup.value).toBe(false);
-    expect(carrier.capability.value?.contract?.id).toBe(12);
-    expect(active.value).toHaveLength(1);
-    respond([capability(99, true)]);
-    mockDeliveryOptionsConfig({config: {physicalProperties: {weight: {value: 30001, unit: 'g'}}}});
-    await flushPromises();
-    expect(carrier.capability.value).toBeUndefined();
-    expect(active.value).toHaveLength(0);
   });
 
   it('clears a previous weight when an invalid weight is supplied in the next configuration', async () => {

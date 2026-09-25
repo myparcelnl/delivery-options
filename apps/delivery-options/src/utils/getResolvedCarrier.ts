@@ -9,6 +9,7 @@ import {
   type SupportedShipmentOptionName,
   type SupportedPackageTypeName,
   type ConfigKey,
+  normalizeCarrierName,
   resolveCarrierName,
   EXTRA_DELIVERY_DAY_TYPES,
   computedAsync,
@@ -19,7 +20,6 @@ import {
   getPackageTypePriceKey,
   useLogger,
 } from '@myparcel-dev/do-shared';
-import {useConfigStore} from '../stores';
 import {type UseResolvedCarrier, useSharedCapabilities} from '../composables';
 import {hasPickupForCarrier} from './hasPickupForCarrier';
 import {hasDeliveryForCarrier} from './hasDeliveryForCarrier';
@@ -77,12 +77,10 @@ export const getResolvedCarrier = useMemoize(
 
     /** Use the singleton reactive capabilities instance. */
     const capabilities = useSharedCapabilities();
-    const {state: config} = useConfigStore();
+    const normalizedName = normalizeCarrierName(carrierName);
 
     /** Looks up this carrier's entry in the shared capabilities response. */
-    const capability = computed(() =>
-      capabilities.getCarrierCapability(carrierIdentifier, config.carrierSettings[carrierIdentifier]?.contractId),
-    );
+    const capability = computed(() => capabilities.getCarrierCapability(normalizedName));
 
     const fromCapability = <T>(transform: (cap: CarrierCapability) => Set<T>): Set<T> => {
       const cap = capability.value;
