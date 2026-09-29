@@ -91,6 +91,7 @@ export const useReactiveCapabilitiesRequest = (
     const currentApiKey = toValue(apiKey);
     const url = toValue(proxyCapabilities);
 
+    // Cancel the previous request first, so its response cannot replace the result of this one.
     abortController?.abort();
     const controller = new AbortController();
 
@@ -100,7 +101,7 @@ export const useReactiveCapabilitiesRequest = (
     // Skip fetch until both the URL and a destination country are known.
     // The watch below re-runs once the missing value becomes available.
     if (!url || !request.recipient?.countryCode) {
-      // intentionally keep loading state
+      // Stay in the loading state until the URL and the country are known.
       return;
     }
 
