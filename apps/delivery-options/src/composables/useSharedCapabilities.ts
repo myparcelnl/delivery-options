@@ -4,6 +4,7 @@ import {
   type CapabilitiesRequest,
   useReactiveCapabilities,
   mapPackageTypeToCapability,
+  WEIGHT_UNIT_GRAMS,
 } from '@myparcel-dev/do-shared';
 import {useAddressStore, useConfigStore} from '../stores';
 
@@ -51,7 +52,7 @@ export const useSharedCapabilities = (): UseCapabilities => {
         const {physicalProperties} = config;
 
         if (physicalProperties) {
-          request.physicalProperties = {weight: {value: physicalProperties.weight, unit: 'g'}};
+          request.physicalProperties = {weight: {value: physicalProperties.weight, unit: WEIGHT_UNIT_GRAMS}};
         }
 
         return request;
