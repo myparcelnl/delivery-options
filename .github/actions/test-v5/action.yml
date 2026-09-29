@@ -10,7 +10,7 @@ runs:
   using: composite
   steps:
     - name: 'Cache coverage'
-      uses: actions/cache@v4
+      uses: actions/cache@v6
       id: cache-coverage
       with:
         path: ./coverage
@@ -31,6 +31,6 @@ runs:
       env:
         NODE_ICU_DATA: node_modules/full-icu
 
-    - uses: codecov/codecov-action@v5
+    - uses: codecov/codecov-action@v7
       with:
         token: ${{ inputs.codecov-token }}
