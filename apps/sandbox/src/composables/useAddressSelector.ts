@@ -25,7 +25,7 @@ const sampleAddresses = Object.freeze([
   {
     [AddressField.Country]: BELGIUM,
     [AddressField.City]: 'Antwerpen',
-    [AddressField.PostalCode]: '1000',
+    [AddressField.PostalCode]: '2000',
     [AddressField.Street]: 'Adriaan Brouwerstraat 16',
   },
   {
