@@ -19,8 +19,7 @@
       "{projectRoot}/private/**/*",
       "{projectRoot}/public/**/*",
       "{projectRoot}/src/**/*",
-      "!{projectRoot}/release.config.cjs",
-      "!{projectRoot}/histoire.*"
+      "!{projectRoot}/release.config.cjs"
     ],
     "lint": [
       "test",

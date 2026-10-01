@@ -32,7 +32,6 @@ exports[`exports > exports from index.ts 1`] = `
   "HOME_OR_PICKUP_HOME",
   "HOME_OR_PICKUP_PICKUP",
   "IconButton",
-  "Icons",
   "InfoLabel",
   "KEY_ADDRESS",
   "KEY_CARRIER_SETTINGS",
