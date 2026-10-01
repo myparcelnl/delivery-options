@@ -1311,6 +1311,7 @@ __metadata:
     "@myparcel-dev/delivery-options": "workspace:*"
     "@myparcel-dev/do-build-vite": "workspace:*"
     "@myparcel-dev/do-shared": "workspace:*"
+    "@myparcel-dev/google-docs-importer": "npm:^1.0.2"
     "@myparcel-dev/sdk": "npm:^5.0.0"
     "@myparcel-dev/ts-utils": "npm:^1.15.0"
     "@testing-library/vue": "npm:^8.0.1"
@@ -1319,7 +1320,6 @@ __metadata:
     "@vueuse/core": "npm:^10.5.0"
     autoprefixer: "npm:^10.4.16"
     ci-info: "npm:^4.0.0"
-    mypa-google-docs-importer: "npm:^1.0.1"
     pinia: "npm:^2.1.7"
     postcss: "npm:^8.4.31"
     radash: "npm:^12.0.0"
@@ -1530,6 +1530,20 @@ __metadata:
   peerDependencies:
     eslint: 7 - 8
   checksum: 10c0/37b54b1502073bf464adad47dd83740c19edb71b2b56674a1233c4fe9ced60ff164d31bdacf226a81227af8db7f0983600b5aca0347b0e0f43dd000751187f50
+  languageName: node
+  linkType: hard
+
+"@myparcel-dev/google-docs-importer@npm:^1.0.2":
+  version: 1.0.2
+  resolution: "@myparcel-dev/google-docs-importer@npm:1.0.2"
+  dependencies:
+    csv-parse: "npm:^7.0.2"
+    debug: "npm:^4.3.4"
+    dotenv: "npm:^16.0.1"
+    yargs: "npm:^17.5.1"
+  bin:
+    google-docs-importer: dist/bin.js
+  checksum: 10c0/09bd91fa80665e296b9ff258ba7ecfda37ba52adb61407d9d3cfefb8ebf985cf785844ddbfad5b7e87541a3d8c2b859eab24af02507ef7f0852ade46106a7fa0
   languageName: node
   linkType: hard
 
@@ -5580,10 +5594,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"csv-parse@npm:^5.3.0":
-  version: 5.6.0
-  resolution: "csv-parse@npm:5.6.0"
-  checksum: 10c0/52f5e6c45359902e0c8e57fc2eeed41366dc6b6d283b495b538dd50c8e8510413d6f924096ea056319cbbb8ed26e111c3a3485d7985c021bcf5abaa9e92425c7
+"csv-parse@npm:^7.0.2":
+  version: 7.0.3
+  resolution: "csv-parse@npm:7.0.3"
+  checksum: 10c0/90d444df5bb14a5531fb87163be5236951a43092934c9ea10e1308cceefdd692c8c0b49f93c616a92a1c9695f371a376268bf45325bb88f60a1328274748cc25
   languageName: node
   linkType: hard
 
@@ -9886,20 +9900,6 @@ __metadata:
   version: 3.0.0
   resolution: "mute-stream@npm:3.0.0"
   checksum: 10c0/12cdb36a101694c7a6b296632e6d93a30b74401873cf7507c88861441a090c71c77a58f213acadad03bc0c8fa186639dec99d68a14497773a8744320c136e701
-  languageName: node
-  linkType: hard
-
-"mypa-google-docs-importer@npm:^1.0.1":
-  version: 1.0.1
-  resolution: "mypa-google-docs-importer@npm:1.0.1"
-  dependencies:
-    csv-parse: "npm:^5.3.0"
-    debug: "npm:^4.3.4"
-    dotenv: "npm:^16.0.1"
-    yargs: "npm:^17.5.1"
-  bin:
-    mypa-google-docs-importer: dist/bin.js
-  checksum: 10c0/99c4121c326d6072dbef62a73d3c22e33e4b10d9d3200997a9a76bb6383ba679192d913f34d6a1160d02fbbdcd84fdd42f2c20ad5c2b18b850e49c15fe58980f
   languageName: node
   linkType: hard
 
