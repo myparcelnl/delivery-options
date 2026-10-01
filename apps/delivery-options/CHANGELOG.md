@@ -3,6 +3,8 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel-dev/delivery-options-v7.5.5](https://github.com/myparcelnl/delivery-options/compare/v7.5.4...v7.5.5) (2026-10-01)
+
 ## [@myparcel-dev/delivery-options-v7.5.4](https://github.com/myparcelnl/delivery-options/compare/v7.5.3...v7.5.4) (2026-09-29)
 
 ### :bug: Bug Fixes
