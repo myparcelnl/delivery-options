@@ -63,3 +63,6 @@ export const DEFAULT_TIMEZONE = 'Europe/Amsterdam';
 export const DELIVERY_TIMEFRAME_TYPE_START = 'start';
 
 export const DELIVERY_TIMEFRAME_TYPE_END = 'end';
+
+/** The configuration takes the weight in grams. The capabilities API needs the unit next to the value. */
+export const WEIGHT_UNIT_GRAMS = 'g';
