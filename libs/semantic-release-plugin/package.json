@@ -16,7 +16,7 @@
     "execa": "^10.0.0"
   },
   "devDependencies": {
-    "@types/node": "^20.11.16",
+    "@types/node": "^26.6.3",
     "read-pkg": "^9.0.1",
     "tsup": "^8.0.0",
     "typescript": "5.9.3"
