@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel-dev/delivery-options-v7.5.6](https://github.com/myparcelnl/delivery-options/compare/v7.5.5...v7.5.6) (2026-10-08)
+
+### :bug: Bug Fixes
+
+* **checkout:** clear pickup when no carrier offers it ([#558](https://github.com/myparcelnl/delivery-options/issues/558)) ([9dcdf3e](https://github.com/myparcelnl/delivery-options/commit/9dcdf3ec072ae714d1008184cffba639308e592b)), closes [#553](https://github.com/myparcelnl/delivery-options/issues/553) [myparcelnl/prestashop#671](https://github.com/myparcelnl/prestashop/issues/671)
+* **checkout:** send weight with capabilities ([#553](https://github.com/myparcelnl/delivery-options/issues/553)) ([d8e883c](https://github.com/myparcelnl/delivery-options/commit/d8e883cf076cdb3feb9cc162e25f7bfb9d92117b)), closes [#558](https://github.com/myparcelnl/delivery-options/issues/558) [myparcelnl/prestashop#671](https://github.com/myparcelnl/prestashop/issues/671) [myparcelnl/js-pdk#454](https://github.com/myparcelnl/js-pdk/issues/454) [myparcelnl/pdk#532](https://github.com/myparcelnl/pdk/issues/532) [myparcelnl/prestashop#678](https://github.com/myparcelnl/prestashop/issues/678) [myparcelnl/woocommerce#1906](https://github.com/myparcelnl/woocommerce/issues/1906)
+
 ## [@myparcel-dev/delivery-options-v7.5.5](https://github.com/myparcelnl/delivery-options/compare/v7.5.4...v7.5.5) (2026-10-01)
 
 ## [@myparcel-dev/delivery-options-v7.5.4](https://github.com/myparcelnl/delivery-options/compare/v7.5.3...v7.5.4) (2026-09-29)
