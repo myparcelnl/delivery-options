@@ -13,6 +13,8 @@ This is the MyParcel delivery options module for use in any e-commerce platform'
 
 Read the [documentation]. For a quick start and to see the Delivery Options in action, see the [sandbox].
 
+See [optional shipment weight](docs/shipment-weight.md) for the configuration field and cart update behavior.
+
 ## Contributing
 
 Please read our [contribution guidelines](CONTRIBUTING.md)

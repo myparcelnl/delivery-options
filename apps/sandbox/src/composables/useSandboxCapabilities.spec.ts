@@ -1,6 +1,7 @@
 import {ref, type ComputedRef} from 'vue';
 import {beforeEach, describe, expect, it, vi} from 'vitest';
 import {createPinia, setActivePinia} from 'pinia';
+import {WEIGHT_TOO_HEAVY} from '@myparcel-dev/do-shared/testing';
 import {type CapabilitiesRequest, useReactiveCapabilities} from '@myparcel-dev/do-shared';
 import {useSandboxStore} from '../stores';
 import {useSandboxCapabilities} from './useSandboxCapabilities';
@@ -44,5 +45,16 @@ describe('useSandboxCapabilities', () => {
 
   it('sends isBusiness for a consumer recipient', () => {
     expect(getRequest(false).recipient.isBusiness).toBe(false);
+  });
+
+  it('updates and clears the weight in the sandbox capabilities request', () => {
+    getRequest();
+    const store = useSandboxStore();
+    const [, request] = vi.mocked(useReactiveCapabilities).mock.calls[0] as [unknown, ComputedRef<CapabilitiesRequest>];
+    const legacy = request.value;
+    store.config.physicalProperties = {weight: WEIGHT_TOO_HEAVY};
+    expect(request.value).toEqual({...legacy, physicalProperties: {weight: {value: WEIGHT_TOO_HEAVY, unit: 'g'}}});
+    store.config.physicalProperties = null;
+    expect(request.value).toEqual(legacy);
   });
 });

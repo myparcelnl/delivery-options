@@ -21,6 +21,7 @@ import {
   validateIsString,
   validateIsTime,
   validateIsValue,
+  validatePhysicalProperties,
   validateMatch,
   defineConfig,
   KEY_ADDRESS,
@@ -55,6 +56,11 @@ const addressOptions: ConfigOption[] = [
 ];
 
 const additionalOptions: ConfigOption[] = [
+  {
+    key: ConfigSetting.PhysicalProperties,
+    perCarrier: false,
+    validators: [validatePhysicalProperties()],
+  },
   {
     key: ConfigSetting.Platform,
     perCarrier: false,
