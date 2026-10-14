@@ -4,6 +4,10 @@ contact_links:
     url: https://myparcelnl.github.io/delivery-options/
     about: The sandbox contains all available options and allows you to build or test configurations.
 
+  - name: MyParcel Developer Portal
+    url: https://developer.myparcel.nl/
+    about: Check out our Developer Portal for information and guides on our API and integrations.
+
   - name: Contact customer support
-    url: https://www.myparcel.nl/services/contact/
+    url: https://www.myparcel.com/nl-NL/contact/
     about: For issues regarding your account and shipments.
