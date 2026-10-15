@@ -48,7 +48,7 @@
     "@testing-library/vue": "^8.0.1",
     "@vitest/coverage-v8": "^4.0.17",
     "@vitest/ui": "^4.0.17",
-    "typescript": "5.9.3",
+    "typescript": "7.0.2",
     "vite": "^7.3.5",
     "vitest": "^4.0.17"
   },
