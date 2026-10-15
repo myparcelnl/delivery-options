@@ -9,7 +9,7 @@ export default createViteConfig((env) => {
   const isProd = env.mode === 'production';
 
   return {
-    plugins: [dts({entryRoot: 'src'})],
+    plugins: [dts({entryRoot: 'src', tsconfigPath: 'tsconfig.base.json'})],
 
     build: {
       sourcemap: !isCI && isProd,
