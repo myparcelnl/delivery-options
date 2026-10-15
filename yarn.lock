@@ -912,7 +912,6 @@ __metadata:
     tailwindcss: "npm:^3.0.0"
     typescript: "npm:5.9.3"
     vite: "npm:^7.3.5"
-    vite-plugin-custom-tsconfig: "npm:^1.0.0"
     vitest: "npm:^4.0.17"
     vue: "npm:^3.5.26"
     vue-tsc: "npm:^3.2.2"
@@ -929,7 +928,6 @@ __metadata:
     happy-dom: "npm:^20.0.2"
     typescript: "npm:5.9.3"
     vite: "npm:^7.3.5"
-    vite-plugin-custom-tsconfig: "npm:^1.0.0"
     vite-plugin-dts: "npm:^4.5.4"
     vite-tsconfig-paths: "npm:^6.1.1"
     vitest: "npm:^4.0.17"
@@ -962,7 +960,6 @@ __metadata:
     tailwindcss: "npm:^3.3.3"
     typescript: "npm:5.9.3"
     vite: "npm:^7.3.5"
-    vite-plugin-custom-tsconfig: "npm:^1.0.0"
     vite-plugin-inspect: "npm:^0.8.0"
     vite-tsconfig-paths: "npm:^6.1.1"
     vitest: "npm:^4.0.17"
@@ -12732,13 +12729,6 @@ __metadata:
   version: 7.0.2
   resolution: "validate-npm-package-name@npm:7.0.2"
   checksum: 10c0/adf32e943148e13e8df13d06b855493908e6ae7a847610e8543c6291cbf42f40e653249a5b2275e2e615e3224c574ade5a9064a9e2d1ab629386284ea99e8f39
-  languageName: node
-  linkType: hard
-
-"vite-plugin-custom-tsconfig@npm:^1.0.0":
-  version: 1.0.4
-  resolution: "vite-plugin-custom-tsconfig@npm:1.0.4"
-  checksum: 10c0/ff6076bb29108d81d23038aa01de6c3b44aa749dd05a5f3a3457373609ce7cdef283c0036c74c29daf519e5a56a8fabe5e297c7c806d9dec1e906b8b398eeace
   languageName: node
   linkType: hard
 

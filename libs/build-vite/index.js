@@ -1,5 +1,4 @@
 import tsconfigPaths from 'vite-tsconfig-paths';
-import customTsConfig from 'vite-plugin-custom-tsconfig';
 import {mergeConfig} from 'vite';
 import vue from '@vitejs/plugin-vue';
 
@@ -10,7 +9,7 @@ const createCommonViteConfig = (env) => {
     // Resolve the monorepo aliases from tsconfig.base.json `paths` (single source of truth).
     // `loose: true` also resolves them in *.spec.ts files, which tsconfig.base.json excludes —
     // otherwise those imports fall back to the built dist and load a second Vue copy in tests.
-    plugins: [vue(), customTsConfig({tsConfigPath: 'tsconfig.base.json'}), tsconfigPaths({loose: true})],
+    plugins: [vue(), tsconfigPaths({loose: true})],
 
     build: {
       minify: isProd,

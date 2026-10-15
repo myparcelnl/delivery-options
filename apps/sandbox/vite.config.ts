@@ -1,6 +1,5 @@
 import {defineConfig} from 'vitest/config';
 import tsconfigPaths from 'vite-tsconfig-paths';
-import customTsConfig from 'vite-plugin-custom-tsconfig';
 import {isCI} from 'ci-info';
 import vue from '@vitejs/plugin-vue';
 import {version} from './package.json';
@@ -14,11 +13,7 @@ export default defineConfig(({mode}) => {
 
   return {
     // tsconfigPaths + loose: see libs/build-vite/index.js for the rationale.
-    plugins: [
-      vue(),
-      customTsConfig({tsConfigPath: 'tsconfig.base.json'}),
-      tsconfigPaths({loose: true}),
-    ],
+    plugins: [vue(), tsconfigPaths({loose: true})],
 
     base: isProd && isCI && !process.env.NETLIFY ? '/delivery-options/' : '/',
 

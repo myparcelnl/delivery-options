@@ -21,6 +21,7 @@ export default createViteConfig((env) => {
       skipCssPlugin(),
       dts({
         entryRoot: 'src',
+        tsconfigPath: 'tsconfig.base.json',
         rollupTypes: true,
         afterBuild: () => {
           // To please publint, we need to also have a .d.cts file
