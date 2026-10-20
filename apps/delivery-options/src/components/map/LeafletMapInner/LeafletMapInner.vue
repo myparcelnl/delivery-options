@@ -51,9 +51,15 @@ onMounted(() => {
 });
 
 // Leaflet does not detect size changes, e.g. a hidden tab or modal that opens, or a checkout layout change.
+// Re-fit only when the container had no size yet; a re-fit on every resize would reset the consumer's pan and zoom.
 useResizeObserver(container, () => {
+  const hadSize = Boolean(map.value?.getSize().x);
+
   map.value?.invalidateSize();
-  fitBounds();
+
+  if (!hadSize) {
+    fitBounds();
+  }
 });
 
 onUnmounted(() => {
