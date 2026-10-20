@@ -11,6 +11,6 @@ runs:
         yarn translations:import
 
     - name: 'Build'
-      uses: myparcelnl/actions/nx-run-many@v4
+      uses: myparcelnl/actions/nx-run-many@v5
       with:
         target: 'build'
