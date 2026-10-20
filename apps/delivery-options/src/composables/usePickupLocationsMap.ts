@@ -157,11 +157,10 @@ export const usePickupLocationsMap = (): UsePickupLocationsMap => {
 
     // eslint-disable-next-line new-cap
     const group = new L.featureGroup(markers.value);
-    const zoomLevel = map.value?.getZoom() ?? toValue(zoom);
     const bounds = group.getBounds();
 
     if (bounds.isValid()) {
-      map.value?.fitBounds(bounds, {maxZoom: zoomLevel});
+      map.value?.fitBounds(bounds, {maxZoom: toValue(zoom)});
     }
   }, 100);
 

@@ -10,8 +10,8 @@
 
 <script lang="ts" setup>
 /* eslint-disable new-cap */
-import {ref, nextTick, onMounted, toValue, onUnmounted, onActivated} from 'vue';
-import {asyncComputed, useStyleTag, useScriptTag} from '@vueuse/core';
+import {ref, onMounted, toValue, onUnmounted, onActivated} from 'vue';
+import {asyncComputed, useStyleTag, useScriptTag, useResizeObserver} from '@vueuse/core';
 import {usePickupLocationsMap} from '../../../composables';
 import LeafletMapLoadMoreButton from './LeafletMapLoadMoreButton.vue';
 
@@ -34,9 +34,9 @@ if (window.L === undefined) {
   console.debug('Leaflet JS already loaded');
 }
 
-const {initializeMap, activeMarker, center, map, loaded} = usePickupLocationsMap();
+const {initializeMap, fitBounds, activeMarker, center, map, loaded} = usePickupLocationsMap();
 
-onMounted(async () => {
+onMounted(() => {
   try {
     styleTag.load();
   } catch (error) {
@@ -48,12 +48,12 @@ onMounted(async () => {
   if (teardownMap) {
     unmountHooks.push(teardownMap);
   }
+});
 
-  // Required when the map is mounted inside a previously-hidden container
-  // (e.g. a modal). Harmless when mounted inline since the container size
-  // doesn't change.
-  await nextTick();
+// Leaflet does not detect size changes, e.g. a hidden tab or modal that opens, or a checkout layout change.
+useResizeObserver(container, () => {
   map.value?.invalidateSize();
+  fitBounds();
 });
 
 onUnmounted(() => {
