@@ -5,7 +5,7 @@ import {createPinia, setActivePinia} from 'pinia';
 import * as Leaflet from 'leaflet';
 import {useScriptTag, useStyleTag} from '@vueuse/core';
 import {flushPromises} from '@vue/test-utils';
-import {render} from '@testing-library/vue';
+import {cleanup, render} from '@testing-library/vue';
 import {usePickupLocationsMap} from '../../../composables';
 import {mockDeliveryOptionsConfig} from '../../../__tests__';
 import LeafletMapInner from './LeafletMapInner.vue';
@@ -84,6 +84,11 @@ describe('LeafletMapInner.vue', () => {
   });
 
   afterEach(() => {
+    // Unmounting removes the map layers, which schedules a debounced fitBounds on the shared map ref of the next test.
+    vi.useFakeTimers();
+    cleanup();
+    vi.clearAllTimers();
+
     resizeObservers.clear();
     usePickupLocationsMap().markers.value = [];
     vi.useRealTimers();
