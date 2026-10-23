@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel-dev/delivery-options-v7.5.8](https://github.com/myparcelnl/delivery-options/compare/v7.5.7...v7.5.8) (2026-10-23)
+
+### :bug: Bug Fixes
+
+* **pickup:** fit map to its container when it becomes visible or resizes ([#601](https://github.com/myparcelnl/delivery-options/issues/601)) ([9d04e98](https://github.com/myparcelnl/delivery-options/commit/9d04e98ada154ae9d52ca4cacc51c72cb545e3e1))
+
 ## [@myparcel-dev/delivery-options-v7.5.7](https://github.com/myparcelnl/delivery-options/compare/v7.5.6...v7.5.7) (2026-10-15)
 
 ## [@myparcel-dev/delivery-options-v7.5.6](https://github.com/myparcelnl/delivery-options/compare/v7.5.5...v7.5.6) (2026-10-08)
