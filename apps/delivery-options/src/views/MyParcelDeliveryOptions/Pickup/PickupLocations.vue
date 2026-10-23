@@ -53,16 +53,10 @@
 </template>
 
 <script lang="ts" setup>
-import {computed, nextTick, ref, watch, onUnmounted} from 'vue';
+import {computed, ref, watch, onUnmounted} from 'vue';
 import {PickupLocationsView, POP_UP_MAP_OPEN} from '@myparcel-dev/do-shared';
 import {useConfigStore} from '../../../stores';
-import {
-  useLanguage,
-  usePickupLocationsMap,
-  useResolvedPickupLocations,
-  useSelectedValues,
-  useActiveCarriers,
-} from '../../../composables';
+import {useLanguage, useResolvedPickupLocations, useSelectedValues, useActiveCarriers} from '../../../composables';
 import {DoButton} from '../../../components';
 import PickupLocationMapModal from './PickupLocationMapModal/PickupLocationMapModal.vue';
 import PickupLocationMapWrapper from './PickupLocationMap/PickupLocationMapWrapper.vue';
@@ -86,13 +80,6 @@ const modalMapTarget = ref<HTMLElement>();
 const isInModal = computed(
   () => config.popUpMap === true && mode.value === PickupLocationsView.Map && mapModalOpen.value,
 );
-
-const {map} = usePickupLocationsMap();
-
-watch(isInModal, async () => {
-  await nextTick();
-  map.value?.invalidateSize();
-});
 
 function selectView(view: PickupLocationsView): void {
   mode.value = view;
