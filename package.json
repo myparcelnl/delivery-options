@@ -80,7 +80,7 @@
   },
   "packageManager": "yarn@4.17.1",
   "volta": {
-    "node": "24.14.0",
+    "node": "24.15.0",
     "yarn": "4.17.1"
   }
 }
