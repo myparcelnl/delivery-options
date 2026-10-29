@@ -1015,7 +1015,7 @@ __metadata:
     "@myparcel-dev/do-semantic-release-plugin": "workspace:*"
     "@myparcel-dev/sdk": "npm:^5.0.0"
     "@myparcel-dev/ts-utils": "npm:^1.15.0"
-    "@pinia/testing": "npm:^0.1.3"
+    "@pinia/testing": "npm:^2.0.2"
     "@testing-library/vue": "npm:^8.0.1"
     "@vitest/coverage-v8": "npm:^4.0.17"
     "@vitest/ui": "npm:^4.0.17"
@@ -2023,14 +2023,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@pinia/testing@npm:^0.1.3":
-  version: 0.1.7
-  resolution: "@pinia/testing@npm:0.1.7"
+"@pinia/testing@npm:^2.0.2":
+  version: 2.0.2
+  resolution: "@pinia/testing@npm:2.0.2"
   dependencies:
-    vue-demi: "npm:^0.14.10"
+    nostics: "npm:^1.2.0"
   peerDependencies:
-    pinia: ">=2.2.6"
-  checksum: 10c0/427dee43d4fab22071a3cb5146b3bff7179bdede4c729ac9121affe818d148f81a57665d74924ee3df55395b860ec1a64c95de61b81971dcf3a63f95941f2f18
+    pinia: ">=4.1.0"
+  checksum: 10c0/53d679f645b41b6ff3adb352fbd2e1324a0d5a28bb77c304780b3182731e29f2edead2fbf850700610d1ffdc50cb90919d0ec7145538057ad3c6d56d272ef56b
   languageName: node
   linkType: hard
 
@@ -9086,6 +9086,13 @@ __metadata:
   version: 9.0.1
   resolution: "normalize-url@npm:9.0.1"
   checksum: 10c0/fedcc5247819386494599f487dac2166944999eecfa0efeb3e9a6041aa77ff1656cc1495cbcd9cee202fea3dea51c1e9fc8b7f0fd332e0480b5863f12b60dc33
+  languageName: node
+  linkType: hard
+
+"nostics@npm:^1.2.0":
+  version: 1.3.0
+  resolution: "nostics@npm:1.3.0"
+  checksum: 10c0/d0bede1e8b27e363844119496b4547b89159fa8ef8135ee03b28bfe98e2542f799b3c2625afa8a18f8e98983441fac27cb619c3d471c0e767fdc4ad623fcc8ab
   languageName: node
   linkType: hard
 
