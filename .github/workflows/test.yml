@@ -10,11 +10,12 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - uses: myparcelnl/actions/yarn-install@v5
+      - uses: pnpm/setup@v3
         with:
-          node-version: 24
+          cache: true
+          require-lockfile: true
 
-      - uses: myparcelnl/actions/nx-run-many@v5
+      - uses: myparcelnl/actions/nx-run-many@v6
         with:
           target: 'test:coverage'
 

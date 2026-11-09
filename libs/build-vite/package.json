@@ -13,10 +13,6 @@
   "main": "./index.js",
   "module": "./index.js",
   "types": "./index.d.ts",
-  "scripts": {
-    "lint": "run ws:lint \"$(pwd)\"",
-    "lint:fix": "run ws:lint:fix \"$(pwd)\""
-  },
   "dependencies": {
     "@vitejs/plugin-vue": "^6.0.7",
     "@vitest/coverage-v8": "^4.0.17",
@@ -35,7 +31,10 @@
   "engines": {
     "node": ">=16"
   },
-  "volta": {
-    "extends": "../../package.json"
+  "nx": {
+    "targets": {
+      "lint": {},
+      "lint:fix": {}
+    }
   }
 }

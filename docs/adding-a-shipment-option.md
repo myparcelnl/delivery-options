@@ -70,7 +70,7 @@ Add a Dutch fallback string. The key must match `{camelCase(sdkName)}Title`:
 [yourSdkNameTitle]: 'Dutch translation here',
 ```
 
-Translations are normally loaded externally (`yarn translations:import`), so this is only a fallback.
+Translations are normally loaded externally (`pnpm translations:import`), so this is only a fallback.
 
 ### Sandbox configuration (3 files)
 

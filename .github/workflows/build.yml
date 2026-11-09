@@ -12,8 +12,9 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - uses: myparcelnl/actions/yarn-install@v5
+      - uses: pnpm/setup@v3
         with:
-          node-version: 24
+          cache: true
+          require-lockfile: true
 
       - uses: ./.github/actions/build
