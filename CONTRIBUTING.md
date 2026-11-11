@@ -4,31 +4,32 @@ First read the [Developer Guide for contributing to MyParcel repositories]. Then
 
 ## Pre-requisites
 
-To run this project, you need Node 24 and Yarn. If you use Volta, it will automatically install/use the pinned Yarn version from `package.json`.
-
-We recommend using [Volta](https://volta.sh) for Node management. It'll automatically make sure the right version of Node is used within our projects.
+- Node.js 24, version 24.21 or later
+- pnpm 12, version 12.11 or later
+- No Volta on your machine. Its `yarn` does not go through corepack, so the `packageManager` field in `package.json`
+  does not stop it.
 
 ## Development
 
 ### Setup
 
-Install dependencies using Yarn:
+Install dependencies:
 
 ```bash
-yarn
+pnpm install
 ```
 
 Download the translations:
 
 ```bash
-yarn translations:import
+pnpm translations:import
 ```
 
 The project is now ready to use.
 
 ### Running the project
 
-Run `yarn serve` to start the sandbox and development server for the delivery options.
+Run `pnpm serve` to start the sandbox and development server for the delivery options.
 
 It outputs two URLs (may vary depending on your environment):
 
@@ -37,7 +38,10 @@ It outputs two URLs (may vary depending on your environment):
 
 ### Running tests
 
-Use `yarn test` to run the tests.
+Use `pnpm test` to run the tests.
+
+The commands that every package shares (`clean`, `lint`, `lint:fix`, `test`, `test:coverage`, `test:run` and `test:update`) are nx targets in `targetDefaults` in `nx.json`. Run one in a single package with `pnpm nx <target> <package name>`, for example `pnpm nx test:run @myparcel-dev/do-shared`.
+Inside a package folder, use `pnpm nx <target>`: `pnpm <target>` does not find these targets.
 
 ### Linting
 

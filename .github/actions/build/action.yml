@@ -8,9 +8,9 @@ runs:
       shell: bash
       # language=bash
       run: |
-        yarn translations:import
+        pnpm translations:import
 
     - name: 'Build'
-      uses: myparcelnl/actions/nx-run-many@v4
+      uses: myparcelnl/actions/nx-run-many@v6
       with:
         target: 'build'

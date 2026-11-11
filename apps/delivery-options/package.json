@@ -37,31 +37,24 @@
     "./dist"
   ],
   "scripts": {
-    "build": "run build:default && run build:default:lib && run build:myparcel && run build:myparcel-lib",
+    "build": "pnpm run build:default && pnpm run build:default:lib && pnpm run build:myparcel && pnpm run build:myparcel-lib",
     "build:default": "vite build",
-    "build:default:dev": "run build:default -- --mode development",
+    "build:default:dev": "pnpm run build:default --mode development",
     "build:default:lib": "BUILD_MODE=lib vite build",
-    "build:default:lib:dev": "run build:default -- --mode development",
-    "build:dev": "run build:default:dev && run build:myparcel:dev && run build:myparcel-lib:dev",
+    "build:default:lib:dev": "pnpm run build:default --mode development",
+    "build:dev": "pnpm run build:default:dev && pnpm run build:myparcel:dev && pnpm run build:myparcel-lib:dev",
     "build:myparcel": "vite build -c vite-myparcel.config.ts",
-    "build:myparcel:dev": "BUILD_CSS=1 run build:myparcel -- --mode development",
+    "build:myparcel:dev": "BUILD_CSS=1 pnpm run build:myparcel --mode development",
     "build:myparcel-lib": "vite build -c vite-myparcel-lib.config.ts",
-    "build:myparcel-lib:dev": "BUILD_CSS=1 run build:myparcel-lib -- --mode development",
-    "clean": "run ws:clean \"$(pwd)\"",
-    "lint": "run ws:lint \"$(pwd)\"",
-    "lint:fix": "run ws:lint:fix \"$(pwd)\"",
+    "build:myparcel-lib:dev": "BUILD_CSS=1 pnpm run build:myparcel-lib --mode development",
     "serve": "vite",
-    "test": "run ws:test \"$(pwd)\"",
-    "test:coverage": "run ws:test:coverage \"$(pwd)\"",
-    "test:run": "run ws:test:run \"$(pwd)\"",
-    "test:update": "run ws:test:update \"$(pwd)\"",
     "typecheck": "vue-tsc --project tsconfig.base.json --noEmit",
     "watch:myparcel": "BUILD_CSS=1 vite build -c vite-myparcel.config.ts --watch --mode development",
     "watch:myparcel-lib": "BUILD_CSS=1 vite build -c vite-myparcel-lib.config.ts --watch --mode development"
   },
   "dependencies": {
     "@myparcel-dev/constants": "^2.10.0",
-    "@myparcel-dev/do-shared": "workspace:*",
+    "@myparcel-dev/do-shared": "workspace:^",
     "@myparcel-dev/sdk": "^5.0.0",
     "@myparcel-dev/ts-utils": "^1.15.0",
     "@vueuse/core": "^10.0.0",
@@ -71,8 +64,8 @@
   },
   "devDependencies": {
     "@codecov/vite-plugin": "^2.0.1",
-    "@myparcel-dev/do-build-vite": "workspace:*",
-    "@myparcel-dev/do-semantic-release-plugin": "workspace:*",
+    "@myparcel-dev/do-build-vite": "workspace:^",
+    "@myparcel-dev/do-semantic-release-plugin": "workspace:^",
     "@myparcel-dev/semantic-release-config": "^7.0.0",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/exec": "^7.1.0",
@@ -85,7 +78,9 @@
     "@vue/test-utils": "^2.4.0",
     "ci-info": "^4.0.0",
     "cssnano": "^8.0.2",
+    "date-fns": "^3.0.0",
     "happy-dom": "^20.0.2",
+    "pinia": "^2.1.7",
     "postcss": "^8.0.0",
     "postcss-replace": "2.0.1",
     "semantic-release": "^25.0.9",
@@ -94,13 +89,22 @@
     "tailwindcss": "^3.0.0",
     "typescript": "5.9.3",
     "vite": "^7.3.5",
+    "vite-plugin-dts": "^4.5.4",
     "vitest": "^4.0.17",
     "vue-tsc": "^3.2.2"
   },
-  "volta": {
-    "extends": "../../package.json"
-  },
   "publishConfig": {
     "access": "public"
+  },
+  "nx": {
+    "targets": {
+      "clean": {},
+      "lint": {},
+      "lint:fix": {},
+      "test": {},
+      "test:coverage": {},
+      "test:run": {},
+      "test:update": {}
+    }
   }
 }

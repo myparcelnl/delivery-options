@@ -7,7 +7,7 @@
   "namedInputs": {
     "sharedGlobals": [
       "{workspaceRoot}/package.json",
-      "{workspaceRoot}/yarn.lock",
+      "{workspaceRoot}/pnpm-lock.yaml",
       "{workspaceRoot}/tsconfig.*.json",
       "{projectRoot}/*.cjs",
       "{projectRoot}/*.html",
@@ -56,23 +56,62 @@
       ]
     },
     "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "{workspaceRoot}",
+        "command": "eslint --cache --cache-location {projectRoot}/.eslintcache {projectRoot}"
+      },
       "inputs": ["lint"],
       "outputs": ["{projectRoot}/.eslintcache"]
     },
     "lint:fix": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "{workspaceRoot}",
+        "command": "eslint --cache --cache-location {projectRoot}/.eslintcache --fix {projectRoot}"
+      },
       "inputs": ["lint"],
       "outputs": ["{projectRoot}/.eslintcache", "{projectRoot}/src/**/*"]
     },
     "test:coverage": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "{projectRoot}",
+        "command": "vitest run --coverage"
+      },
       "inputs": ["test"],
       "outputs": ["{projectRoot}/coverage"]
     },
     "test:run": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "{projectRoot}",
+        "command": "vitest run"
+      },
       "inputs": ["test"]
     },
     "test:update": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "{projectRoot}",
+        "command": "vitest run -u"
+      },
       "inputs": ["test"],
       "outputs": ["{projectRoot}/src/__tests__/__snapshots__"]
+    },
+    "clean": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "{projectRoot}",
+        "command": "rimraf dist coverage .eslintcache tsconfig.build.tsbuildinfo"
+      }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "{projectRoot}",
+        "command": "vitest"
+      }
     }
   },
   "tasksRunnerOptions": {

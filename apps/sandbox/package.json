@@ -5,14 +5,9 @@
   "type": "module",
   "scripts": {
     "build": "vite build",
-    "clean": "run ws:clean \"$(pwd)\"",
     "preview": "vite preview",
     "serve": "vite",
-    "test": "run ws:test \"$(pwd)\"",
-    "test:coverage": "run ws:test:coverage \"$(pwd)\"",
-    "test:run": "run ws:test:run \"$(pwd)\"",
-    "test:update": "run ws:test:update \"$(pwd)\"",
-    "translations:import": "run translations:import:delivery-options && run translations:import:sandbox",
+    "translations:import": "pnpm run translations:import:delivery-options && pnpm run translations:import:sandbox",
     "translations:import:delivery-options": "google-docs-importer -vv -d 1FjcT_eNLkbUXFpcm4nskdkBSsFWG7wAX9FDxrJwpOuc --prefix d_o_ -s 0 -o public/translations/delivery-options",
     "translations:import:sandbox": "google-docs-importer -vv -d 1FjcT_eNLkbUXFpcm4nskdkBSsFWG7wAX9FDxrJwpOuc -s 1038466479 -o public/translations",
     "typecheck": "vue-tsc --project tsconfig.base.json --noEmit"
@@ -37,6 +32,7 @@
     "@vitejs/plugin-vue": "^6.0.7",
     "autoprefixer": "^10.4.16",
     "ci-info": "^4.0.0",
+    "date-fns": "^3.0.0",
     "postcss": "^8.4.31",
     "sass": "^1.69.3",
     "typescript": "5.9.3",
@@ -46,7 +42,13 @@
     "vitest": "^4.0.17",
     "vue-tsc": "^3.2.2"
   },
-  "volta": {
-    "extends": "../../package.json"
+  "nx": {
+    "targets": {
+      "clean": {},
+      "test": {},
+      "test:coverage": {},
+      "test:run": {},
+      "test:update": {}
+    }
   }
 }

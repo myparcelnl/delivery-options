@@ -12,5 +12,6 @@ export const publishNpmPackage = async (context: ContextWithNextRelease): Promis
 
   logger.log(`Publishing package ${pkg?.name}@${nextRelease.version} (${tag}) to NPM registry`);
 
-  await executeWithErrorHandling('npm', ['publish', '--tag', tag], {cwd, env, stdio: 'inherit'});
+  // pnpm only publishes from main by default, and this also releases from the beta and alpha branches.
+  await executeWithErrorHandling('pnpm', ['publish', '--tag', tag, '--no-git-checks'], {cwd, env, stdio: 'inherit'});
 };
