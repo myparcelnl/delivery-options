@@ -47,6 +47,9 @@ jobs:
     needs:
       - test
       - build
+    permissions:
+      id-token: write # npm trusted publishing (OIDC) exchanges this token for a short-lived npm token
+      contents: read
     steps:
       - uses: myparcelnl/actions/setup-git-credentials@v6
         id: credentials
