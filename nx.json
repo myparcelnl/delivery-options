@@ -40,6 +40,7 @@
   },
   "targetDefaults": {
     "build": {
+      "cache": true,
       "dependsOn": ["^build"],
       "inputs": ["production", "^production"],
       "outputs": [
@@ -48,6 +49,7 @@
       ]
     },
     "build:dev": {
+      "cache": true,
       "inputs": ["production", "^production"],
       "dependsOn": ["^build:dev"],
       "outputs": [
@@ -56,6 +58,7 @@
       ]
     },
     "lint": {
+      "cache": true,
       "executor": "nx:run-commands",
       "options": {
         "cwd": "{workspaceRoot}",
@@ -65,6 +68,7 @@
       "outputs": ["{projectRoot}/.eslintcache"]
     },
     "lint:fix": {
+      "cache": true,
       "executor": "nx:run-commands",
       "options": {
         "cwd": "{workspaceRoot}",
@@ -74,6 +78,7 @@
       "outputs": ["{projectRoot}/.eslintcache", "{projectRoot}/src/**/*"]
     },
     "test:coverage": {
+      "cache": true,
       "executor": "nx:run-commands",
       "options": {
         "cwd": "{projectRoot}",
@@ -83,6 +88,7 @@
       "outputs": ["{projectRoot}/coverage"]
     },
     "test:run": {
+      "cache": true,
       "executor": "nx:run-commands",
       "options": {
         "cwd": "{projectRoot}",
@@ -114,22 +120,7 @@
       }
     }
   },
-  "tasksRunnerOptions": {
-    "default": {
-      "runner": "nx/tasks-runners/default",
-      "options": {
-        "cacheableOperations": [
-          "build",
-          "build:dev",
-          "lint",
-          "lint:fix",
-          "test:run",
-          "test:coverage"
-        ],
-        "parallel": 10
-      }
-    }
-  },
+  "parallel": 10,
   "workspaceLayout": {
     "appsDir": "apps",
     "libsDir": "libs"
