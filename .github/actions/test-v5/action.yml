@@ -19,7 +19,7 @@ runs:
           ${{ runner.os }}-coverage-${{ hashFiles('**/yarn.lock') }}
           ${{ runner.os }}-coverage-
 
-    - uses: myparcelnl/actions/yarn-install@v4
+    - uses: myparcelnl/actions/yarn-install@v5
       if: steps.cache-coverage.outputs.cache-hit != 'true'
       with:
         node-version: 18
