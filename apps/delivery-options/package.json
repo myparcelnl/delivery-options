@@ -80,7 +80,7 @@
     "cssnano": "^8.0.2",
     "date-fns": "^3.0.0",
     "happy-dom": "^21.0.4",
-    "pinia": "^2.1.7",
+    "pinia": "^4.1.0",
     "postcss": "^8.0.0",
     "postcss-replace": "2.0.1",
     "semantic-release": "^25.0.9",
