@@ -167,7 +167,6 @@ settings:
   linkWorkspacePackages: false
 
 overrides:
-  '@myparcel-dev/constants': ^2.10.0
   conventional-changelog-conventionalcommits: '>= 8.0.0'
   eslint-plugin-prettier: ^4.2.1
   typescript: ^5.4.0
@@ -247,7 +246,7 @@ importers:
     dependencies:
       '@myparcel-dev/constants':
         specifier: ^2.10.0
-        version: 2.10.3
+        version: 2.10.8
       '@myparcel-dev/do-shared':
         specifier: workspace:^
         version: link:../../libs/shared
@@ -362,7 +361,7 @@ importers:
     dependencies:
       '@myparcel-dev/constants':
         specifier: ^2.10.0
-        version: 2.10.3
+        version: 2.10.8
       '@myparcel-dev/delivery-options':
         specifier: workspace:*
         version: link:../delivery-options
@@ -506,7 +505,7 @@ importers:
     dependencies:
       '@myparcel-dev/constants':
         specifier: ^2.10.0
-        version: 2.10.3
+        version: 2.10.8
       '@myparcel-dev/sdk':
         specifier: ^5.0.0
         version: 5.1.3
@@ -1037,8 +1036,8 @@ packages:
   '@microsoft/tsdoc@0.17.1':
     resolution: {integrity: sha512-VHyYyyoH63jFoO3shpw9Zfijk5v/9p/VrClW35z0/q6ooK7sSmxpzOkS4iZPxs3vO4XtBW4H38HRAKkAMIK7DA==}
 
-  '@myparcel-dev/constants@2.10.3':
-    resolution: {integrity: sha512-fte/83t9Pcw89AhzCx7gm/aCcpXkXL5SVSX5HxpPzoHLKCpupSt+F0QU678yW+ljRuN+9wAokY7hPNH4kHM5IA==}
+  '@myparcel-dev/constants@2.10.8':
+    resolution: {integrity: sha512-J6khHDKHfav9jaI6X/mLCbTD4oRfiwlAs7CpVj/9nYWCeUp/lTVOc54v5UgsGHduSU+jCK3nuJSsktBipkb+ag==}
 
   '@myparcel-dev/eslint-config-es6@1.4.0':
     resolution: {integrity: sha512-qVM8QG8lYpmLFpi7lMjcL2Peki1FvxD83EOWv/7lDVyINqXnO8+g75mdMkVrHMmQBRh2j1xGPPHL+8GwUGm4zg==}
@@ -5852,7 +5851,7 @@ snapshots:
 
   '@microsoft/tsdoc@0.17.1': {}
 
-  '@myparcel-dev/constants@2.10.3':
+  '@myparcel-dev/constants@2.10.8':
     dependencies:
       '@myparcel-dev/ts-utils': 1.15.3
 
@@ -5975,7 +5974,7 @@ snapshots:
 
   '@myparcel-dev/sdk@5.1.3':
     dependencies:
-      '@myparcel-dev/constants': 2.10.3
+      '@myparcel-dev/constants': 2.10.8
       '@myparcel-dev/ts-utils': 1.15.3
 
   '@myparcel-dev/semantic-release-config@7.0.2(supports-color@8.1.1)(typescript@5.9.3)':
