@@ -44,7 +44,7 @@
     "@vue/test-utils": "^2.4.0",
     "ci-info": "^4.0.0",
     "typescript": "5.9.3",
-    "vite": "^7.3.5",
+    "vite": "^8.3.8",
     "vite-plugin-dts": "^4.5.4",
     "vitest": "^4.0.17"
   },
