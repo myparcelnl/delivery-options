@@ -1,141 +1,49 @@
-name: 'Release new version 🚀'
+name: 'Verify npm trusted publishing'
 
+# One-time test for INT-2233. Same filename as the real release workflow, because npm
+# matches the trusted publisher on the workflow filename, not on the branch.
 on:
   workflow_dispatch:
-    inputs:
-      force:
-        description: 'Skip checking for new commits and run all jobs'
-        type: 'boolean'
-
-  schedule:
-    # every day at 18:00 UTC
-    - cron: '0 18 * * *'
 
 concurrency:
-  group: '${{ github.workflow }}-${{ github.ref }}'
-  cancel-in-progress: true
-
-env:
-  CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+  group: int-2233-oidc-pilot
+  cancel-in-progress: false
 
 jobs:
-  prepare:
-    runs-on: ubuntu-22.04
-    outputs:
-      has-refs: ${{ steps.has-refs.outputs.has-refs }}
-    steps:
-      - uses: actions/checkout@v7
-        with:
-          fetch-depth: 0
-
-      - uses: myparcelnl/actions/has-refs-between@v6
-        id: has-refs
-
-  build:
-    needs: prepare
-    if: inputs.force == 'true' || needs.prepare.outputs.has-refs == 'true'
-    uses: ./.github/workflows/build.yml
-    secrets: inherit
-
   test:
-    needs: build
+    if: github.ref == 'refs/heads/ci/INT-2233-oidc-pilot'
     uses: ./.github/workflows/test.yml
     secrets: inherit
 
   release:
+    needs: test
     runs-on: ubuntu-22.04
-    needs:
-      - test
-      - build
     permissions:
-      id-token: write # npm trusted publishing (OIDC) exchanges this token for a short-lived npm token
       contents: read
+      id-token: write
     steps:
-      - uses: myparcelnl/actions/setup-git-credentials@v6
-        id: credentials
-        with:
-          app-id: ${{ secrets.MYPARCEL_APP_ID }}
-          private-key: ${{ secrets.MYPARCEL_APP_PRIVATE_KEY }}
-
       - uses: actions/checkout@v7
         with:
-          token: ${{ steps.credentials.outputs.token }}
           fetch-depth: 0
+          persist-credentials: false
 
       - uses: pnpm/setup@v3
         with:
           cache: true
           require-lockfile: true
 
+      # Same command as the prepare step of libs/semantic-release-plugin.
+      - name: 'Prepare the beta version'
+        run: pnpm -r --include-workspace-root pkg set version=7.5.10-beta-oidc.0
+
       - uses: ./.github/actions/build
 
-      - uses: actions/upload-pages-artifact@v5
-        with:
-          path: apps/sandbox/dist
+      # No CDN purge: jsDelivr resolves @7 to the newest stable version and skips prereleases.
+      # No token in ~/.npmrc: the publish succeeds only through OIDC.
+      - name: 'Publish do-shared'
+        working-directory: libs/shared
+        run: pnpm publish --no-git-checks --tag beta-oidc
 
-      - name: 'Set npm token'
-        shell: bash
-        run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: 'Release'
-        uses: myparcelnl/actions/semantic-release@v6
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        with:
-          working-directory: apps/delivery-options
-          token: ${{ steps.credentials.outputs.token }}
-
-      - name: 'Determine CDN URLs to Purge'
-        id: purge_urls
-        run: |
-          baseUrl="https://cdn.jsdelivr.net/npm/@myparcel-dev/delivery-options@7"
-          urls=""
-          cd apps/delivery-options
-          for f in `find dist -name "*.js" -o -name "*.css" -type f`; do
-            urls+="${baseUrl}/${f},"
-          done
-          echo "urls=${urls%,*}" >> $GITHUB_OUTPUT
-
-      - name: 'Purge CDN Caches'
-        uses: egad13/purge-jsdelivr-cache@v1
-        with:
-          url: ${{ steps.purge_urls.outputs.urls }}
-
-  deploy:
-    needs: release
-    runs-on: ubuntu-22.04
-    permissions:
-      pages: write
-      id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - uses: myparcelnl/actions/setup-git-credentials@v6
-        id: credentials
-        with:
-          app-id: ${{ secrets.MYPARCEL_APP_ID }}
-          private-key: ${{ secrets.MYPARCEL_APP_PRIVATE_KEY }}
-
-      - uses: actions/deploy-pages@v5
-        id: deployment
-        with:
-          token: ${{ steps.credentials.outputs.token }}
-
-  rebase-prs:
-    needs: release
-    uses: ./.github/workflows/rebase-prs.yml
-    secrets: inherit
-
-  notify-on-failure:
-    needs:
-      - test
-      - build
-      - release
-      - deploy
-      - rebase-prs
-    if: always() && contains(needs.*.result, 'failure')
-    uses: myparcelnl/actions/.github/workflows/notify-on-failure.yml@v6
-    secrets: inherit
+      - name: 'Publish delivery-options'
+        working-directory: apps/delivery-options
+        run: pnpm publish --no-git-checks --tag beta-oidc
