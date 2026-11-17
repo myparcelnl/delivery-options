@@ -16,7 +16,7 @@
     "@myparcel-dev/constants": "^2.10.0",
     "@myparcel-dev/delivery-options": "workspace:*",
     "@myparcel-dev/do-shared": "workspace:*",
-    "@myparcel-dev/sdk": "^5.0.0",
+    "@myparcel-dev/sdk": "^5.1.4",
     "@myparcel-dev/ts-utils": "^1.15.0",
     "@vuepic/vue-datepicker": "^11.0.2",
     "@vueuse/core": "^10.5.0",

@@ -251,7 +251,7 @@ importers:
         specifier: workspace:^
         version: link:../../libs/shared
       '@myparcel-dev/sdk':
-        specifier: ^5.0.0
+        specifier: ^5.1.4
         version: 5.1.9
       '@myparcel-dev/ts-utils':
         specifier: ^1.15.0
@@ -369,7 +369,7 @@ importers:
         specifier: workspace:*
         version: link:../../libs/shared
       '@myparcel-dev/sdk':
-        specifier: ^5.0.0
+        specifier: ^5.1.4
         version: 5.1.9
       '@myparcel-dev/ts-utils':
         specifier: ^1.15.0
@@ -507,7 +507,7 @@ importers:
         specifier: ^2.10.0
         version: 2.10.8
       '@myparcel-dev/sdk':
-        specifier: ^5.0.0
+        specifier: ^5.1.4
         version: 5.1.9
       '@myparcel-dev/ts-utils':
         specifier: ^1.15.0
