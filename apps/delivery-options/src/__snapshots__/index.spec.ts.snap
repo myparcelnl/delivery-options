@@ -102,6 +102,7 @@ exports[`exports > exports from index.ts 1`] = `
   "useDeliveryOptionsOutgoingEvents",
   "useFeatures",
   "useFormatDistance",
+  "useFormatPrice",
   "useLanguage",
   "useMostEcoFriendly",
   "useOptionsGroupedByCarrier",

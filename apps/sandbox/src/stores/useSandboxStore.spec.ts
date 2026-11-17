@@ -1,8 +1,9 @@
+import {ref} from 'vue';
 import {beforeEach, describe, expect, it, vi} from 'vitest';
 import {createPinia, setActivePinia} from 'pinia';
-import {ref} from 'vue';
 import {
   CarrierSetting,
+  ConfigSetting,
   KEY_ADDRESS,
   KEY_CARRIER_SETTINGS,
   KEY_CONFIG,
@@ -73,6 +74,22 @@ describe('useSandboxStore', () => {
 
     expect(resolvedCarrierSettings.postnl[CarrierSetting.DeliveryDaysWindow]).toBeUndefined();
     expect(resolvedCarrierSettings.postnl[CarrierSetting.AllowStandardDelivery]).toBe(true);
+  });
+
+  it.each([
+    [undefined, 'en'],
+    ['da-DK', 'da-DK'],
+    ['pt-PT-ao90', 'pt-PT-ao90'],
+  ])('sends locale %s from the locale field as %s', (locale, expected) => {
+    const store = useSandboxStore();
+
+    store.config = {[ConfigSetting.Locale]: locale};
+
+    expect(store.resolvedConfiguration[KEY_CONFIG][ConfigSetting.Locale]).toBe(expected);
+  });
+
+  it('starts with an empty locale field', () => {
+    expect(useSandboxStore().config[ConfigSetting.Locale]).toBeUndefined();
   });
 
   it('updates state from updateConfiguration input', () => {

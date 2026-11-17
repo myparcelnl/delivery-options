@@ -9,6 +9,8 @@ export const DELIVERY_TYPE_DEFAULT = DeliveryTypeName.Standard satisfies Support
 
 export const PLATFORM_DEFAULT = PlatformName.MyParcel;
 
+export const CURRENCY_DEFAULT = 'EUR';
+
 /*
  * Drop-off delay
  */

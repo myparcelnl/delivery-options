@@ -2,6 +2,7 @@
 import {assign} from 'radash';
 import {
   CarrierSetting,
+  ConfigSetting,
   DROP_OFF_CUTOFF_TIME,
   DROP_OFF_SAME_DAY_CUTOFF_TIME,
   DROP_OFF_WEEKDAY,
@@ -13,6 +14,8 @@ export const getDefaultSandboxConfig = (): InputDeliveryOptionsConfig => {
   const defaults = getDefaultDeliveryOptionsConfig();
 
   return assign<InputDeliveryOptionsConfig>(defaults, {
+    // Leave the locale empty, so the sandbox sends the language chosen in the language switcher.
+    [ConfigSetting.Locale]: undefined,
     [CarrierSetting.DropOffDelay]: 0,
     [CarrierSetting.DeliveryDaysWindow]: 7,
     [CarrierSetting.DropOffDays]: [

@@ -42,6 +42,16 @@
     <FieldWrapper :field="{key: ConfigSetting.PopUpMap}">
       <FormToggleInput v-model="popUpMap" />
     </FieldWrapper>
+    <FieldWrapper :field="{key: ConfigSetting.Currency}">
+      <FormTextInput
+        :id="ConfigSetting.Currency"
+        v-model="currency" />
+    </FieldWrapper>
+    <FieldWrapper :field="{key: ConfigSetting.Locale}">
+      <FormTextInput
+        :id="ConfigSetting.Locale"
+        v-model="locale" />
+    </FieldWrapper>
   </Box>
 </template>
 
@@ -58,6 +68,7 @@ import {
 import {useSandboxStore} from '../stores';
 import {useLanguage} from '../composables';
 import FormToggleInput from './form/input/FormToggleInput.vue';
+import FormTextInput from './form/input/FormTextInput.vue';
 import FormRadioGroupInput from './form/input/FormRadioGroupInput.vue';
 import FormNumberInput from './form/input/FormNumberInput.vue';
 import FormMultiDateSelect from './form/input/FormMultiDateSelect.vue';
@@ -134,6 +145,21 @@ const popUpMap = computed({
   get: () => sandboxStore.config.popUpMap,
   set: (value) => {
     sandboxStore.config.popUpMap = value;
+  },
+});
+
+const currency = computed({
+  get: () => sandboxStore.config.currency,
+  set: (value) => {
+    sandboxStore.config.currency = value;
+  },
+});
+
+const locale = computed({
+  get: () => sandboxStore.config.locale,
+  set: (value) => {
+    // An empty field removes the locale, so the sandbox sends the language chosen in the language switcher again.
+    sandboxStore.config.locale = value === '' ? undefined : value;
   },
 });
 

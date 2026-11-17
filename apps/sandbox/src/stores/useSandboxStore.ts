@@ -94,7 +94,8 @@ export const useSandboxStore = defineStore('sandbox', {
         [KEY_CONFIG]: {
           ...this.config,
           [KEY_CARRIER_SETTINGS]: cleanedCarrierSettings,
-          [ConfigSetting.Locale]: language.value.code,
+          // Without a locale from the locale field, the language switcher drives the widget.
+          [ConfigSetting.Locale]: this.config.locale ?? language.value.code,
           [ConfigSetting.ProxyCapabilities]: getProxyCapabilitiesUrl(this.config.apiBaseUrl),
         } satisfies InputDeliveryOptionsConfig,
         [KEY_ADDRESS]: this.address,

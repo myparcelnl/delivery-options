@@ -16,6 +16,8 @@ import {
   validateHasMinKeys,
   validateIsBoolean,
   validateIsCountryCode,
+  validateIsCurrencyCode,
+  validateIsLocale,
   validateIsNumeric,
   validateIsObject,
   validateIsString,
@@ -69,12 +71,12 @@ const additionalOptions: ConfigOption[] = [
   {
     key: ConfigSetting.Locale,
     perCarrier: false,
-    validators: [validateIsString()],
+    validators: [validateIsLocale()],
   },
   {
     key: ConfigSetting.Currency,
     perCarrier: false,
-    validators: [validateIsString()],
+    validators: [validateIsCurrencyCode()],
   },
   {
     key: ConfigSetting.ApiBaseUrl,

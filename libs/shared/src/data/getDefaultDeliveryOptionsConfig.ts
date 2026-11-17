@@ -1,6 +1,7 @@
 import {useNavigatorLanguage} from '@vueuse/core';
 import {type ResolvedDeliveryOptionsConfig} from '../types';
 import {
+  CURRENCY_DEFAULT,
   DELIVERY_DAYS_WINDOW_DEFAULT,
   DROP_OFF_DELAY_DEFAULT,
   PACKAGE_TYPE_DEFAULT,
@@ -28,7 +29,7 @@ export const getDefaultDeliveryOptionsConfig = (): ResolvedDeliveryOptionsConfig
 
     [ConfigSetting.Platform]: PLATFORM_DEFAULT,
     [ConfigSetting.Locale]: lang.language.value,
-    [ConfigSetting.Currency]: 'EUR',
+    [ConfigSetting.Currency]: CURRENCY_DEFAULT,
     [ConfigSetting.ApiBaseUrl]: 'https://api.myparcel.nl',
     [ConfigSetting.ProxyCapabilities]: '',
     [ConfigSetting.PhysicalProperties]: null,

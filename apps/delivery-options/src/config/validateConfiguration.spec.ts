@@ -69,6 +69,12 @@ describe('validateConfiguration', () => {
     {key: `${KEY_CONFIG}.${ConfigSetting.PopUpMap}`, value: true, valid: true},
     {key: `${KEY_CONFIG}.${ConfigSetting.PopUpMap}`, value: false, valid: true},
     {key: `${KEY_CONFIG}.${ConfigSetting.PopUpMap}`, value: 'invalid', valid: false},
+    {key: `${KEY_CONFIG}.${ConfigSetting.Currency}`, value: 'DKK', valid: true},
+    {key: `${KEY_CONFIG}.${ConfigSetting.Currency}`, value: 'dkk', resolvedValue: 'DKK', valid: true},
+    {key: `${KEY_CONFIG}.${ConfigSetting.Currency}`, value: 'ABC', valid: false},
+    {key: `${KEY_CONFIG}.${ConfigSetting.Currency}`, value: '', valid: false},
+    {key: `${KEY_CONFIG}.${ConfigSetting.Locale}`, value: 'da-DK', valid: true},
+    {key: `${KEY_CONFIG}.${ConfigSetting.Locale}`, value: 'pt-PT-ao90', valid: false},
     ...[WEIGHT_MIN, WEIGHT_MAX, WEIGHT_TOO_HEAVY].map((weight) => ({
       key: `${KEY_CONFIG}.${ConfigSetting.PhysicalProperties}`,
       value: {weight},
@@ -94,7 +100,7 @@ describe('validateConfiguration', () => {
     const resolvedValue = get(validated, data.key, VALUE_MISSING);
 
     if (data.valid) {
-      expect(resolvedValue).toEqual(data.value);
+      expect(resolvedValue).toEqual(data.resolvedValue ?? data.value);
     } else {
       expect(resolvedValue).toBe(VALUE_MISSING);
     }

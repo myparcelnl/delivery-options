@@ -110,7 +110,7 @@ export interface DeliveryOptionsConfig extends Partial<Record<ConfigSetting, unk
   carrierSettings: CarrierSettingsObject;
   closedDays: Date[];
   /**
-   * Currency. Defaults to format of the browser.
+   * Currency code (ISO 4217). Defaults to EUR.
    */
   currency: string | undefined;
   /**
