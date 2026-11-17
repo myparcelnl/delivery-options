@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [@myparcel-dev/delivery-options-v7.5.10](https://github.com/myparcelnl/delivery-options/compare/v7.5.9...v7.5.10) (2026-11-17)
+
+### :bug: Bug Fixes
+
+* **pickup:** fix missing bpost pickup locations in Belgium ([#627](https://github.com/myparcelnl/delivery-options/issues/627)) ([b8c5a82](https://github.com/myparcelnl/delivery-options/commit/b8c5a825f242b159599e2086f45c919c05d0f0ff)), closes [#625](https://github.com/myparcelnl/delivery-options/issues/625) [#625](https://github.com/myparcelnl/delivery-options/issues/625) [myparcelnl/prestashop#788](https://github.com/myparcelnl/prestashop/issues/788)
+
 ## [@myparcel-dev/delivery-options-v7.5.9](https://github.com/myparcelnl/delivery-options/compare/v7.5.8...v7.5.9) (2026-11-11)
 
 ## [@myparcel-dev/delivery-options-v7.5.8](https://github.com/myparcelnl/delivery-options/compare/v7.5.7...v7.5.8) (2026-10-23)
