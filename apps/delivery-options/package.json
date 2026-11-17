@@ -55,7 +55,7 @@
   "dependencies": {
     "@myparcel-dev/constants": "^2.10.0",
     "@myparcel-dev/do-shared": "workspace:^",
-    "@myparcel-dev/sdk": "^5.0.0",
+    "@myparcel-dev/sdk": "^5.1.4",
     "@myparcel-dev/ts-utils": "^1.15.0",
     "@vueuse/core": "^10.0.0",
     "leaflet": "^1.9.4",
