@@ -15,6 +15,9 @@ export interface Context {
   logger: {
     log: DebugLogger;
   };
+  options?: {
+    dryRun?: boolean;
+  };
   stderr: NodeJS.WriteStream;
   stdout: NodeJS.WriteStream;
 }

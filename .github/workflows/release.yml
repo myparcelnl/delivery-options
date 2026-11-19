@@ -73,16 +73,8 @@ jobs:
         with:
           path: apps/sandbox/dist
 
-      - name: 'Set npm token'
-        shell: bash
-        run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-
       - name: 'Release'
         uses: myparcelnl/actions/semantic-release@v6
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         with:
           working-directory: apps/delivery-options
           token: ${{ steps.credentials.outputs.token }}
