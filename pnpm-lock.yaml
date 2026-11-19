@@ -195,7 +195,7 @@ importers:
         version: 1.4.2(eslint@8.57.1(supports-color@7.2.0))(prettier@2.8.8)(supports-color@7.2.0)(typescript@5.9.3)
       '@myparcel-dev/prettier-config':
         specifier: ^2.0.0
-        version: 2.0.5
+        version: 2.0.7
       '@types/is-ci':
         specifier: ^3.0.0
         version: 3.0.4
@@ -252,10 +252,10 @@ importers:
         version: link:../../libs/shared
       '@myparcel-dev/sdk':
         specifier: ^5.1.4
-        version: 5.1.9
+        version: 5.1.10
       '@myparcel-dev/ts-utils':
         specifier: ^1.15.0
-        version: 1.15.7
+        version: 1.15.8
       '@vueuse/core':
         specifier: ^10.0.0
         version: 10.11.1(vue@3.5.45(typescript@5.9.3))
@@ -370,10 +370,10 @@ importers:
         version: link:../../libs/shared
       '@myparcel-dev/sdk':
         specifier: ^5.1.4
-        version: 5.1.9
+        version: 5.1.10
       '@myparcel-dev/ts-utils':
         specifier: ^1.15.0
-        version: 1.15.7
+        version: 1.15.8
       '@vuepic/vue-datepicker':
         specifier: ^11.0.2
         version: 11.0.3(vue@3.5.45(typescript@5.9.3))
@@ -398,7 +398,7 @@ importers:
         version: link:../../libs/build-vite
       '@myparcel-dev/google-docs-importer':
         specifier: ^1.0.2
-        version: 1.0.2(supports-color@7.2.0)
+        version: 1.0.3(supports-color@7.2.0)
       '@testing-library/vue':
         specifier: ^8.0.1
         version: 8.1.0(@vue/compiler-dom@3.5.45)(@vue/compiler-sfc@3.5.45)(@vue/server-renderer@3.5.45)(vue@3.5.45(typescript@5.9.3))
@@ -474,7 +474,7 @@ importers:
     devDependencies:
       '@myparcel-dev/ts-utils':
         specifier: ^1.15.0
-        version: 1.15.7
+        version: 1.15.8
 
   libs/semantic-release-plugin:
     dependencies:
@@ -508,10 +508,10 @@ importers:
         version: 2.10.8
       '@myparcel-dev/sdk':
         specifier: ^5.1.4
-        version: 5.1.9
+        version: 5.1.10
       '@myparcel-dev/ts-utils':
         specifier: ^1.15.0
-        version: 1.15.7
+        version: 1.15.8
       '@vueuse/core':
         specifier: ^10.6.0
         version: 10.11.1(vue@3.5.45(typescript@5.9.3))
@@ -1110,22 +1110,25 @@ packages:
     peerDependencies:
       eslint: 7 - 8
 
-  '@myparcel-dev/google-docs-importer@1.0.2':
-    resolution: {integrity: sha512-CoefZWWlj/P7agTqBhFP5Q+kDbiN6Z4bE4gXVXNwR/IZLyRjp3AldaCo2xozLY5i+EOlUY+2GsqecrPFf9/b0w==}
-    engines: {node: '>= 18'}
+  '@myparcel-dev/google-docs-importer@1.0.3':
+    resolution: {integrity: sha512-7OMrBsXXA6peKZgJqJVQj0zS4tuiR42/UEd8Ktgysv/zpBfRNC+6avEzC+rxuWkUqhrCzd+Qa/JAFWp6bXxEUw==}
+    engines: {node: '>=24.21'}
     hasBin: true
 
-  '@myparcel-dev/prettier-config@2.0.5':
-    resolution: {integrity: sha512-8ipEX+kAIkmnQWjjAF2BkkztPTzUyRccvrG9bCf58y5p+wFW/uqRMzPYJQH8yay6QeVuAyconT7qrEV021lZjQ==}
+  '@myparcel-dev/prettier-config@2.0.7':
+    resolution: {integrity: sha512-TOelcmxQ896kTnRtoNZ6PkKSctsB+FlzRjVeIx3ktEd9YAf5rb9Wt4Uay+Kkgy7VWL3WFyCrMDHKxisMXIcPWQ==}
+    engines: {node: '>=24.21'}
 
-  '@myparcel-dev/sdk@5.1.9':
-    resolution: {integrity: sha512-r/x6P1huewuBQufyUJo1OavNXTR+lxKUBfNODc0NGCkxvHm37lKMjvpcJ17iAhyDGUIXNzcbSQoEqRgjBXjT8A==}
+  '@myparcel-dev/sdk@5.1.10':
+    resolution: {integrity: sha512-TTTy5qzadeQ57RP9c4LHdr0i+8Xj8k+tb1ePqWZcp1+iwD+SpLKKwgwoTuU5NrOQPMI3uKxbozZJFEjP8nnRMw==}
+    engines: {node: '>=24.21'}
 
   '@myparcel-dev/semantic-release-config@7.0.2':
     resolution: {integrity: sha512-AEOiNWlBaEJlh7JABG8B3saT8Y8bAy5aguejddtMiuHt4IMJtb1nx5S0wOcTMxdHgj6dP/5gD1DVIzqGiNi4Mw==}
 
-  '@myparcel-dev/ts-utils@1.15.7':
-    resolution: {integrity: sha512-rdBuy4JWXDsnMoEvf22srzmOiBeSfZfpURLzzGmjbM6eDpChTxGQhMKfFIg2w3n5fmzdcV716fNen/In+0hgjA==}
+  '@myparcel-dev/ts-utils@1.15.8':
+    resolution: {integrity: sha512-Hv+kbH8W7RSOE7aS150j6Ma7KVCNm/IS+QXk9Rsbz6vllSUMfBJpDY6l124ltvqCeUER+9oo+5UhgsajtkHNMA==}
+    engines: {node: '>=24.21'}
 
   '@napi-rs/wasm-runtime@0.2.4':
     resolution: {integrity: sha512-9zESzOO5aDByvhIAsOy9TbpZ0Ur2AJbUI7UT73kcUTS2mxAMHOBaa1st/jAymNoCtvrit99kkzT1FZuXVcgfIQ==}
@@ -5892,7 +5895,7 @@ snapshots:
 
   '@myparcel-dev/constants@2.10.8':
     dependencies:
-      '@myparcel-dev/ts-utils': 1.15.7
+      '@myparcel-dev/ts-utils': 1.15.8
 
   '@myparcel-dev/eslint-config-es6@1.4.1(eslint@8.57.1(supports-color@7.2.0))':
     dependencies:
@@ -5999,7 +6002,7 @@ snapshots:
     dependencies:
       eslint: 8.57.1(supports-color@7.2.0)
 
-  '@myparcel-dev/google-docs-importer@1.0.2(supports-color@7.2.0)':
+  '@myparcel-dev/google-docs-importer@1.0.3(supports-color@7.2.0)':
     dependencies:
       csv-parse: 7.0.3
       debug: 4.4.3(supports-color@7.2.0)
@@ -6008,12 +6011,12 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@myparcel-dev/prettier-config@2.0.5': {}
+  '@myparcel-dev/prettier-config@2.0.7': {}
 
-  '@myparcel-dev/sdk@5.1.9':
+  '@myparcel-dev/sdk@5.1.10':
     dependencies:
       '@myparcel-dev/constants': 2.10.8
-      '@myparcel-dev/ts-utils': 1.15.7
+      '@myparcel-dev/ts-utils': 1.15.8
 
   '@myparcel-dev/semantic-release-config@7.0.2(supports-color@8.1.1)(typescript@5.9.3)':
     dependencies:
@@ -6032,7 +6035,7 @@ snapshots:
       - supports-color
       - typescript
 
-  '@myparcel-dev/ts-utils@1.15.7': {}
+  '@myparcel-dev/ts-utils@1.15.8': {}
 
   '@napi-rs/wasm-runtime@0.2.4':
     dependencies:
