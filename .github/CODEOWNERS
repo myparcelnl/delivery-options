@@ -23,8 +23,3 @@
 *.jpg   @myparcelnl/integration @myparcelnl/frontend
 *.png   @myparcelnl/integration @myparcelnl/frontend
 *.svg   @myparcelnl/integration @myparcelnl/frontend
-
-# --- Exceptions ---
-# Include IT support for readme changes
-readme.md  @myparcelnl/integration @myparcelnl/frontend @myparcelnl/it-support
-README.md  @myparcelnl/integration @myparcelnl/frontend @myparcelnl/it-support
