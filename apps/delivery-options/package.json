@@ -83,7 +83,7 @@
     "pinia": "^2.1.7",
     "postcss": "^8.0.0",
     "postcss-replace": "2.0.1",
-    "semantic-release": "^25.0.9",
+    "semantic-release": "^26.0.1",
     "semantic-release-monorepo": "^8.0.1",
     "semver": "^7.6.0",
     "tailwindcss": "^3.0.0",
